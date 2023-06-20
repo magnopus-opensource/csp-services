@@ -1,0 +1,797 @@
+
+
+#pragma once
+
+#include "Services/DtoBase/DtoBase.h"
+
+#include <optional>
+
+
+namespace csp::services::generated::aggregationservice
+{
+
+class AltitudeMode;
+class GroupRoleDto;
+class Icon;
+class IconStyle;
+class Kml;
+class LineString;
+class LookAt;
+class Model;
+class ModelLink;
+class ModelLocation;
+class ModelOrientation;
+class ModelScale;
+class Placemark;
+class Point;
+class PositionKml;
+class ServiceRequest;
+class ServiceResponse;
+class StringDataPage;
+class Style;
+
+
+
+    /// <summary>
+        /// An enum describing the different altitudes a line can inhabit
+        /// </summary>
+    class AltitudeMode : public csp::services::EnumBase
+        {
+        public:
+            AltitudeMode();
+            virtual ~AltitudeMode();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            enum class eAltitudeMode
+            {
+                RELATIVETOGROUND,
+                ABSOLUTE,
+                RELATIVETOSEAFLOOR,
+                CLAMPTOGROUND,
+                CLAMPTOSEAFLOOR
+                
+            };
+
+            eAltitudeMode GetValue() const;
+            void SetValue(eAltitudeMode const Value);
+
+        protected:
+            eAltitudeMode Value = {};
+        };
+
+    /// <summary>
+        /// DTO containing group role info
+        /// </summary>
+    class GroupRoleDto : public csp::services::DtoBase
+        {
+        public:
+            GroupRoleDto();
+            virtual ~GroupRoleDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Id of the user to which the role applies.
+                    /// </summary>
+                utility::string_t GetUserId() const;
+                void SetUserId(const utility::string_t& Value);bool HasUserId() const;
+            
+                /// <summary>
+                    /// Id of the group to which the user has the role
+                    /// </summary>
+                utility::string_t GetGroupId() const;
+                void SetGroupId(const utility::string_t& Value);bool HasGroupId() const;
+            
+                /// <summary>
+                    /// Roles which the user has
+                    /// </summary>
+                const std::vector<utility::string_t>& GetGroupRoles() const;
+                void SetGroupRoles(const std::vector<utility::string_t>& Value);bool HasGroupRoles() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_UserId;
+            std::optional<utility::string_t> m_GroupId;
+            std::optional<std::vector<utility::string_t>> m_GroupRoles;
+            };
+
+    /// <summary>
+        /// Xml definition for an Icon - the pin on a map
+        /// </summary>
+    class Icon : public csp::services::DtoBase
+        {
+        public:
+            Icon();
+            virtual ~Icon();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The url for the pin style for google earth
+                    /// </summary>
+                utility::string_t GetHref() const;
+                void SetHref(const utility::string_t& Value);bool HasHref() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Href;
+            };
+
+    /// <summary>
+        /// The icon style for the kml document
+        /// </summary>
+    class IconStyle : public csp::services::DtoBase
+        {
+        public:
+            IconStyle();
+            virtual ~IconStyle();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The name of the icon style
+                    /// </summary>
+                utility::string_t GetId() const;
+                void SetId(const utility::string_t& Value);bool HasId() const;
+            
+                /// <summary>
+                    /// The hexBinary color definition for the icon
+                    /// the first two letters are the opacity, from 00 (transparent) to ff (fully opaque)
+                    /// https://developers.google.com/kml/documentation/kmlreference#colorstyle
+                    /// </summary>
+                utility::string_t GetColor() const;
+                void SetColor(const utility::string_t& Value);bool HasColor() const;
+            
+                /// <summary>
+                    /// Normal or Random Color Mode
+                    /// </summary>
+                utility::string_t GetColorMode() const;
+                void SetColorMode(const utility::string_t& Value);bool HasColorMode() const;
+            
+                /// <summary>
+                    /// The scale of the icon. 1.0f is normal, you can define
+                    /// highlighted styles that are larger.
+                    /// </summary>
+                float GetScale() const;
+                void SetScale(float Value);bool HasScale() const;
+            
+                std::shared_ptr<Icon> GetIcon() const;
+                void SetIcon(const std::shared_ptr<Icon>& Value);bool HasIcon() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Id;
+            std::optional<utility::string_t> m_Color;
+            std::optional<utility::string_t> m_ColorMode;
+            std::optional<float> m_Scale;
+            std::optional<std::shared_ptr<Icon>> m_Icon;
+            };
+
+    /// <summary>
+        /// Structure defining user position as Kml
+        /// </summary>
+    class Kml : public csp::services::DtoBase
+        {
+        public:
+            Kml();
+            virtual ~Kml();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                std::shared_ptr<PositionKml> GetDocument() const;
+                void SetDocument(const std::shared_ptr<PositionKml>& Value);bool HasDocument() const;
+            
+
+        protected:
+            std::optional<std::shared_ptr<PositionKml>> m_Document;
+            };
+
+    /// <summary>
+        /// The line string to draw in the placemark
+        /// </summary>
+    class LineString : public csp::services::DtoBase
+        {
+        public:
+            LineString();
+            virtual ~LineString();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Extrude the line to the ground
+                    /// </summary>
+                bool GetExtrude() const;
+                void SetExtrude(const bool& Value);bool HasExtrude() const;
+            
+                /// <summary>
+                    /// Tessellate breaks the line up into smaller chunks
+                    /// </summary>
+                bool GetTessellate() const;
+                void SetTessellate(const bool& Value);bool HasTessellate() const;
+            
+                std::shared_ptr<AltitudeMode> GetAltitudeMode() const;
+                void SetAltitudeMode(const std::shared_ptr<AltitudeMode>& Value);bool HasAltitudeMode() const;
+            
+                /// <summary>
+                    /// The coordinates for this linestring
+                    /// </summary>
+                utility::string_t GetCoordinates() const;
+                void SetCoordinates(const utility::string_t& Value);bool HasCoordinates() const;
+            
+
+        protected:
+            std::optional<bool> m_Extrude;
+            std::optional<bool> m_Tessellate;
+            std::optional<std::shared_ptr<AltitudeMode>> m_AltitudeMode;
+            std::optional<utility::string_t> m_Coordinates;
+            };
+
+    /// <summary>
+        /// The origin view for the scene
+        /// </summary>
+    class LookAt : public csp::services::DtoBase
+        {
+        public:
+            LookAt();
+            virtual ~LookAt();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The Longitude
+                    /// </summary>
+                double GetLongitude() const;
+                void SetLongitude(double Value);bool HasLongitude() const;
+            
+                /// <summary>
+                    /// The Latitude
+                    /// </summary>
+                double GetLatitude() const;
+                void SetLatitude(double Value);bool HasLatitude() const;
+            
+                /// <summary>
+                    /// The Altitude
+                    /// </summary>
+                int32_t GetAltitude() const;
+                void SetAltitude(int32_t Value);bool HasAltitude() const;
+            
+                /// <summary>
+                    /// The Range
+                    /// </summary>
+                double GetRange() const;
+                void SetRange(double Value);bool HasRange() const;
+            
+                /// <summary>
+                    /// The Tilt
+                    /// </summary>
+                double GetTilt() const;
+                void SetTilt(double Value);bool HasTilt() const;
+            
+                /// <summary>
+                    /// The Heading
+                    /// </summary>
+                double GetHeading() const;
+                void SetHeading(double Value);bool HasHeading() const;
+            
+
+        protected:
+            std::optional<double> m_Longitude;
+            std::optional<double> m_Latitude;
+            std::optional<int32_t> m_Altitude;
+            std::optional<double> m_Range;
+            std::optional<double> m_Tilt;
+            std::optional<double> m_Heading;
+            };
+
+    /// <summary>
+        /// The 3d model we are using as an icon
+        /// </summary>
+    class Model : public csp::services::DtoBase
+        {
+        public:
+            Model();
+            virtual ~Model();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// the value of the Id attribute
+                    /// </summary>
+                utility::string_t GetId() const;
+                void SetId(const utility::string_t& Value);bool HasId() const;
+            
+                std::shared_ptr<AltitudeMode> GetAltitudeMode() const;
+                void SetAltitudeMode(const std::shared_ptr<AltitudeMode>& Value);bool HasAltitudeMode() const;
+            
+                std::shared_ptr<ModelLocation> GetLocation() const;
+                void SetLocation(const std::shared_ptr<ModelLocation>& Value);bool HasLocation() const;
+            
+                std::shared_ptr<ModelOrientation> GetOrientation() const;
+                void SetOrientation(const std::shared_ptr<ModelOrientation>& Value);bool HasOrientation() const;
+            
+                std::shared_ptr<ModelScale> GetScale() const;
+                void SetScale(const std::shared_ptr<ModelScale>& Value);bool HasScale() const;
+            
+                std::shared_ptr<ModelLink> GetLink() const;
+                void SetLink(const std::shared_ptr<ModelLink>& Value);bool HasLink() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Id;
+            std::optional<std::shared_ptr<AltitudeMode>> m_AltitudeMode;
+            std::optional<std::shared_ptr<ModelLocation>> m_Location;
+            std::optional<std::shared_ptr<ModelOrientation>> m_Orientation;
+            std::optional<std::shared_ptr<ModelScale>> m_Scale;
+            std::optional<std::shared_ptr<ModelLink>> m_Link;
+            };
+
+    /// <summary>
+        /// The link to the 3d object
+        /// </summary>
+    class ModelLink : public csp::services::DtoBase
+        {
+        public:
+            ModelLink();
+            virtual ~ModelLink();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The location of the 3d object
+                    /// </summary>
+                utility::string_t GetHref() const;
+                void SetHref(const utility::string_t& Value);bool HasHref() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Href;
+            };
+
+    /// <summary>
+        /// The location of the 3d object
+        /// </summary>
+    class ModelLocation : public csp::services::DtoBase
+        {
+        public:
+            ModelLocation();
+            virtual ~ModelLocation();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The Longitude of the 3d object
+                    /// </summary>
+                double GetLongitude() const;
+                void SetLongitude(double Value);bool HasLongitude() const;
+            
+                /// <summary>
+                    /// The Latitude of the 3d object
+                    /// </summary>
+                double GetLatitude() const;
+                void SetLatitude(double Value);bool HasLatitude() const;
+            
+                /// <summary>
+                    /// The Altitude of the 3d object
+                    /// </summary>
+                int32_t GetAltitude() const;
+                void SetAltitude(int32_t Value);bool HasAltitude() const;
+            
+
+        protected:
+            std::optional<double> m_Longitude;
+            std::optional<double> m_Latitude;
+            std::optional<int32_t> m_Altitude;
+            };
+
+    /// <summary>
+        /// The orientation of the object
+        /// </summary>
+    class ModelOrientation : public csp::services::DtoBase
+        {
+        public:
+            ModelOrientation();
+            virtual ~ModelOrientation();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The heading for the orientation of the object
+                    /// </summary>
+                float GetHeading() const;
+                void SetHeading(float Value);bool HasHeading() const;
+            
+                /// <summary>
+                    /// The tilt of the object
+                    /// </summary>
+                float GetTilt() const;
+                void SetTilt(float Value);bool HasTilt() const;
+            
+                /// <summary>
+                    /// The roll of the object
+                    /// </summary>
+                int32_t GetRoll() const;
+                void SetRoll(int32_t Value);bool HasRoll() const;
+            
+
+        protected:
+            std::optional<float> m_Heading;
+            std::optional<float> m_Tilt;
+            std::optional<int32_t> m_Roll;
+            };
+
+    /// <summary>
+        /// The scale given to the 3d object
+        /// </summary>
+    class ModelScale : public csp::services::DtoBase
+        {
+        public:
+            ModelScale();
+            virtual ~ModelScale();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The X scale
+                    /// </summary>
+                int32_t GetX() const;
+                void SetX(int32_t Value);bool HasX() const;
+            
+                /// <summary>
+                    /// The Y scale
+                    /// </summary>
+                int32_t GetY() const;
+                void SetY(int32_t Value);bool HasY() const;
+            
+                /// <summary>
+                    /// The Z scale
+                    /// </summary>
+                int32_t GetZ() const;
+                void SetZ(int32_t Value);bool HasZ() const;
+            
+
+        protected:
+            std::optional<int32_t> m_X;
+            std::optional<int32_t> m_Y;
+            std::optional<int32_t> m_Z;
+            };
+
+    /// <summary>
+        /// Definition for a Placemark Inside a Kml Document
+        /// </summary>
+    class Placemark : public csp::services::DtoBase
+        {
+        public:
+            Placemark();
+            virtual ~Placemark();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// the value of the Id attribute
+                    /// </summary>
+                utility::string_t GetId() const;
+                void SetId(const utility::string_t& Value);bool HasId() const;
+            
+                /// <summary>
+                    /// The name of the placemark
+                    /// </summary>
+                utility::string_t GetName() const;
+                void SetName(const utility::string_t& Value);bool HasName() const;
+            
+                /// <summary>
+                    /// The style associated with this placemark, defined by the
+                    /// Style on the root level of the document. If the root style name is
+                    /// "MyStyle", this would reference it with a string "#MyStyle"
+                    /// </summary>
+                utility::string_t GetStyleUrl() const;
+                void SetStyleUrl(const utility::string_t& Value);bool HasStyleUrl() const;
+            
+                /// <summary>
+                    /// The description of the placemark. This will show up on google earth
+                    /// as a description to the user
+                    /// </summary>
+                utility::string_t GetDescription() const;
+                void SetDescription(const utility::string_t& Value);bool HasDescription() const;
+            
+                std::shared_ptr<LineString> GetLineString() const;
+                void SetLineString(const std::shared_ptr<LineString>& Value);bool HasLineString() const;
+            
+                std::shared_ptr<Point> GetPoint() const;
+                void SetPoint(const std::shared_ptr<Point>& Value);bool HasPoint() const;
+            
+                std::shared_ptr<Model> GetModel() const;
+                void SetModel(const std::shared_ptr<Model>& Value);bool HasModel() const;
+            
+                std::shared_ptr<LookAt> GetLookAt() const;
+                void SetLookAt(const std::shared_ptr<LookAt>& Value);bool HasLookAt() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Id;
+            std::optional<utility::string_t> m_Name;
+            std::optional<utility::string_t> m_StyleUrl;
+            std::optional<utility::string_t> m_Description;
+            std::optional<std::shared_ptr<LineString>> m_LineString;
+            std::optional<std::shared_ptr<Point>> m_Point;
+            std::optional<std::shared_ptr<Model>> m_Model;
+            std::optional<std::shared_ptr<LookAt>> m_LookAt;
+            };
+
+    /// <summary>
+        /// The individual point to draw in the placemark
+        /// </summary>
+    class Point : public csp::services::DtoBase
+        {
+        public:
+            Point();
+            virtual ~Point();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Tessellate breaks the line up into smaller chunks
+                    /// </summary>
+                bool GetTessellate() const;
+                void SetTessellate(const bool& Value);bool HasTessellate() const;
+            
+                std::shared_ptr<AltitudeMode> GetAltitudeMode() const;
+                void SetAltitudeMode(const std::shared_ptr<AltitudeMode>& Value);bool HasAltitudeMode() const;
+            
+                /// <summary>
+                    /// The coordinates for this linestring
+                    /// </summary>
+                utility::string_t GetCoordinates() const;
+                void SetCoordinates(const utility::string_t& Value);bool HasCoordinates() const;
+            
+
+        protected:
+            std::optional<bool> m_Tessellate;
+            std::optional<std::shared_ptr<AltitudeMode>> m_AltitudeMode;
+            std::optional<utility::string_t> m_Coordinates;
+            };
+
+    /// <summary>
+        /// Structure defining user position as Kml
+        /// </summary>
+    class PositionKml : public csp::services::DtoBase
+        {
+        public:
+            PositionKml();
+            virtual ~PositionKml();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The name of the kml structure
+                    /// </summary>
+                utility::string_t GetName() const;
+                void SetName(const utility::string_t& Value);bool HasName() const;
+            
+                /// <summary>
+                    /// The style definition of the kml elements. These are used to define each point or set of points
+                    /// and how they are shown on a map (color, pin style, size, etc)
+                    /// </summary>
+                const std::vector<std::shared_ptr<Style>>& GetStyle() const;
+                void SetStyle(const std::vector<std::shared_ptr<Style>>& Value);bool HasStyle() const;
+            
+                /// <summary>
+                    /// The visibility of the structure, should usually be true
+                    /// </summary>
+                bool GetVisibility() const;
+                void SetVisibility(const bool& Value);bool HasVisibility() const;
+            
+                /// <summary>
+                    /// Camera operator - i believe
+                    /// </summary>
+                bool GetOpen() const;
+                void SetOpen(const bool& Value);bool HasOpen() const;
+            
+                /// <summary>
+                    /// The placemark, defines a point or a line on a map
+                    /// </summary>
+                const std::vector<std::shared_ptr<Placemark>>& GetPlacemark() const;
+                void SetPlacemark(const std::vector<std::shared_ptr<Placemark>>& Value);bool HasPlacemark() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Name;
+            std::optional<std::vector<std::shared_ptr<Style>>> m_Style;
+            std::optional<bool> m_Visibility;
+            std::optional<bool> m_Open;
+            std::optional<std::vector<std::shared_ptr<Placemark>>> m_Placemark;
+            };
+
+    /// <summary>
+        /// Generic descriptor for a request to a service
+        /// </summary>
+    class ServiceRequest : public csp::services::DtoBase
+        {
+        public:
+            ServiceRequest();
+            virtual ~ServiceRequest();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// A key that identifies the API
+                    /// </summary>
+                utility::string_t GetServiceName() const;
+                void SetServiceName(const utility::string_t& Value);bool HasServiceName() const;
+            
+                /// <summary>
+                    /// A key that identifies the Operation on the API
+                    /// </summary>
+                utility::string_t GetOperationName() const;
+                void SetOperationName(const utility::string_t& Value);bool HasOperationName() const;
+            
+                /// <summary>
+                    /// A flag indicating this request is actually a request
+                    /// for information about the operation identified by
+                    /// Magnopus.Service.ExternalServiceProxy.Dtos.ServiceRequest.OperationName
+                    /// </summary>
+                bool GetHelp() const;
+                void SetHelp(const bool& Value);bool HasHelp() const;
+            
+                /// <summary>
+                    /// A key/value store of input values that will be provided
+                    /// to the API
+                    /// </summary>
+                const std::map<utility::string_t, utility::string_t>& GetParameters() const;
+                void SetParameters(const std::map<utility::string_t, utility::string_t>& Value);bool HasParameters() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_ServiceName;
+            std::optional<utility::string_t> m_OperationName;
+            std::optional<bool> m_Help;
+            std::optional<std::map<utility::string_t, utility::string_t>> m_Parameters;
+            };
+
+    /// <summary>
+        /// Abstract representation of an API response
+        /// </summary>
+    class ServiceResponse : public csp::services::DtoBase
+        {
+        public:
+            ServiceResponse();
+            virtual ~ServiceResponse();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Whether the call can be considered a success
+                    /// </summary>
+                bool GetSuccess() const;
+                void SetSuccess(const bool& Value);bool HasSuccess() const;
+            
+                /// <summary>
+                    /// The numeric status of the call
+                    /// </summary>
+                int32_t GetStatusCode() const;
+                void SetStatusCode(int32_t Value);bool HasStatusCode() const;
+            
+                /// <summary>
+                    /// Some optional justification for the numeric status
+                    /// </summary>
+                utility::string_t GetStatusReason() const;
+                void SetStatusReason(const utility::string_t& Value);bool HasStatusReason() const;
+            
+                /// <summary>
+                    /// An optional error specific code
+                    /// </summary>
+                utility::string_t GetErrorCode() const;
+                void SetErrorCode(const utility::string_t& Value);bool HasErrorCode() const;
+            
+                /// <summary>
+                    /// The raw operation result
+                    /// </summary>
+                std::shared_ptr<rapidjson::Document> GetOperationResult() const;
+                void SetOperationResult(const std::shared_ptr<rapidjson::Document>& Value);bool HasOperationResult() const;
+            
+
+        protected:
+            std::optional<bool> m_Success;
+            std::optional<int32_t> m_StatusCode;
+            std::optional<utility::string_t> m_StatusReason;
+            std::optional<utility::string_t> m_ErrorCode;
+            std::optional<std::shared_ptr<rapidjson::Document>> m_OperationResult;
+            };
+
+    class StringDataPage : public csp::services::DtoBase
+        {
+        public:
+            StringDataPage();
+            virtual ~StringDataPage();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                const std::vector<utility::string_t>& GetItems() const;
+                void SetItems(const std::vector<utility::string_t>& Value);bool HasItems() const;
+            
+                int32_t GetSkip() const;
+                void SetSkip(int32_t Value);bool HasSkip() const;
+            
+                int32_t GetLimit() const;
+                void SetLimit(int32_t Value);bool HasLimit() const;
+            
+                int32_t GetItemCount() const;
+                void SetItemCount(int32_t Value);bool HasItemCount() const;
+            
+                int64_t GetItemTotalCount() const;
+                void SetItemTotalCount(int64_t Value);bool HasItemTotalCount() const;
+            
+
+        protected:
+            std::optional<std::vector<utility::string_t>> m_Items;
+            std::optional<int32_t> m_Skip;
+            std::optional<int32_t> m_Limit;
+            std::optional<int32_t> m_ItemCount;
+            std::optional<int64_t> m_ItemTotalCount;
+            };
+
+    /// <summary>
+        /// The style(s) associated with the document
+        /// </summary>
+    class Style : public csp::services::DtoBase
+        {
+        public:
+            Style();
+            virtual ~Style();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The name of the style, to be referenced in the placemark
+                    /// </summary>
+                utility::string_t GetId() const;
+                void SetId(const utility::string_t& Value);bool HasId() const;
+            
+                std::shared_ptr<IconStyle> GetIconStyle() const;
+                void SetIconStyle(const std::shared_ptr<IconStyle>& Value);bool HasIconStyle() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Id;
+            std::optional<std::shared_ptr<IconStyle>> m_IconStyle;
+            };
+
+
+}   // namespace csp::services::aggregationservice

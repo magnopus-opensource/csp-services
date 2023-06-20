@@ -1,0 +1,60 @@
+{% set type_map = {
+    'int32': 'int32_t',
+    'int64': 'int64_t',
+    'boolean': 'bool',
+    'string': 'utility::string_t'
+} %}
+
+{%- macro print_type(property) -%}
+    {%- if '$ref' in property -%}
+        std::shared_ptr<{{ property['$ref'].split('/')[-1] }}>
+    {%- elif not 'type' in property -%}
+        std::shared_ptr<rapidjson::Document>
+    {%- elif property.type == 'integer' or property.type == 'number' -%}
+        {%- if property.format in type_map -%}
+            {{ type_map[property.format] }}
+        {%- else -%}
+            {{ property.format }}
+        {%- endif -%}
+    {%- elif property.type == 'array' -%}
+        std::vector<
+            {%- set array = property['items'] -%}
+
+            {%- if '$ref' in array -%}
+                std::shared_ptr<{{ array['$ref'].split('/')[-1] }}>
+            {%- elif array.type in type_map -%}
+                {{ type_map[array.type] }}
+            {%- else -%}
+                /* UNSUPPORTED ARRAY TYPE {{ type_name }} */
+            {%- endif -%}
+        >
+    {%- elif property.type == 'object' -%}
+        std::map<utility::string_t, {{ print_type(property.additionalProperties) }}>
+    {%- elif property.type in type_map -%}
+        {{ type_map[property.type] }}
+    {%- else -%}
+        /* UNSUPPORTED PROPERTY TYPE {{ property.type }} */
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro print_method_parameters(method, include_default_values = true) -%}
+    {%- for parameter in method.parameters -%}
+        {%- if 'required' in parameter and parameter.required -%}
+            const {{ print_type(parameter.schema) }}& {{ parameter.name | identifier }},
+        {%- else -%}
+            const std::optional<{{ print_type(parameter.schema) }}>&
+                {{ parameter.name | identifier }},
+        {%- endif -%}
+    {%- endfor -%}
+    {%- if 'requestBody' in method -%}
+        {%- if 'multipart/form-data' in method.requestBody.content -%}
+            {%- for property_name in method.requestBody.content['multipart/form-data'].schema.properties -%}
+                const std::shared_ptr<csp::web::HttpPayload>& {{ property_name | pascalcase }},
+            {%- endfor -%}
+        {%- else -%}
+            const {{ print_type(method.requestBody.content['application/json'].schema) }}& RequestBody,
+        {%- endif -%}
+    {%- endif -%}
+    csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken{{ '= csp::common::CancellationToken::Dummy()' if include_default_values }}
+{%- endmacro -%}

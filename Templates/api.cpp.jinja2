@@ -1,0 +1,73 @@
+{% from 'helpers.jinja2' import print_type, print_method_parameters %}
+
+#include "Web/HttpPayload.h"
+#include "Web/HttpAuth.h"
+#include "CSP/CSPFoundation.h"
+
+#include "Api.h"
+
+
+namespace csp::services::generated::{{ service_name | lower }} {
+
+{% for tag, routes in tags.items() %}
+    {{ tag }}Api::{{ tag }}Api(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().{{ service_name }}URI)
+    {
+
+    }
+
+    {{ tag }}Api::~{{ tag }}Api()
+    {
+
+    }
+
+    {% for route_path, route in routes.items() %}
+        {% for method_name, method in route.items() %}
+            void {{ tag }}Api::{{ route_path | camelcase }}{{ method_name | capitalize }}(
+                {{ print_method_parameters(method, false) }}
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "{{ route_path }}",
+                    {
+                        {%- for parameter in method.parameters | selectattr('in', 'equalto', 'path') -%}
+                            {{ parameter.name | identifier }}{{ ',' if not loop.last }}
+                        {%- endfor -%}
+                    }
+                );
+
+                {% for parameter in method.parameters | selectattr('in', 'equalto', 'query') -%}
+                    {% if 'required' in parameter and parameter.required %}
+                        Uri.AddQueryParams("{{ parameter.name }}", {{ parameter.name | identifier }});
+                    {% else %}
+                        if ({{ parameter.name | identifier }}.has_value())
+                        {
+                            Uri.AddQueryParams("{{ parameter.name }}", {{ parameter.name | identifier }}.value());
+                        }
+                    {% endif %}
+                {% endfor -%}
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+
+                {%- if 'requestBody' in method %}
+                    {%- if 'multipart/form-data' in method.requestBody.content -%}
+                        {%- for property_name in method.requestBody.content['multipart/form-data'].schema.properties -%}
+                            Payload.AddFormParam("{{ property_name }}", {{ property_name | pascalcase }});
+                        {%- endfor -%}
+                    {%- else -%}
+                        Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                    {%- endif -%}
+                {%- endif %}
+
+                {%- if { 'Bearer': [] } in method.security %}
+                    Payload.SetBearerToken();
+                {%- endif %}
+
+                WebClient->SendRequest(csp::web::ERequestVerb::{{ method_name | upper }}, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        {% endfor %}
+    {% endfor %}
+{% endfor %}
+
+} // namespace csp::services::generated::{{serviceNameLower}}

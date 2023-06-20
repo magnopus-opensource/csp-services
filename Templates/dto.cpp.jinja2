@@ -1,0 +1,138 @@
+{% from 'helpers.jinja2' import print_type %}
+
+#include "Web/Json.h"
+#include "Web/Json_HttpPayload.h"
+#include "Debug/Logging.h"
+
+#include "Dto.h"
+
+#include <optional>
+
+
+using namespace csp::web;
+
+
+namespace csp::services::generated::{{ service_name | lower }}
+{
+
+{% for schema_name, schema in schemas.items() %}
+    {{ schema_name }}::{{ schema_name }}() { }
+    {{ schema_name }}::~{{ schema_name }}() { }
+
+    {% if schema is enum_schema -%}
+        utility::string_t {{ schema_name }}::ToJson() const
+        {
+            switch (Value)
+            {
+                {% for enum_value in schema.enum -%}
+                case e{{ schema_name }}::{{ enum_value | upper }}:
+                    return "{{ enum_value }}";
+                {% endfor %}
+                default:
+                    throw std::runtime_error("Unknown enum value!");
+            }
+        }
+
+        void {{ schema_name }}::FromJson(const utility::string_t& Val)
+        {
+            {% for enum_value in schema.enum -%}
+                {{ 'else' if not loop.first }} if (Val == "{{ enum_value }}")
+                {
+                    Value = e{{ schema_name }}::{{ enum_value | upper}};
+                }
+            {% endfor %}
+        }
+
+        {{ schema_name }}::e{{ schema_name }} {{ schema_name }}::GetValue() const
+        {
+            return Value;
+        }
+
+        void {{ schema_name }}::SetValue({{ schema_name }}::e{{ schema_name }} const InValue)
+        {
+            Value = InValue;
+        }
+    {%- else -%}
+        utility::string_t {{ schema_name }}::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            {% for property_name, property in schema.properties.items() %}
+                if (m_{{ property_name | pascalcase }}.has_value())
+                {
+                    rapidjson::Value {{ property_name | pascalcase }}Value(
+                        TypeToJsonValue(m_{{ property_name | pascalcase }}, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "{{ property_name }}",
+                        {{ property_name | pascalcase }}Value,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            {% endfor %}
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void {{ schema_name }}::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            {% for property_name, property in schema.properties.items() %}
+                if (JsonDoc.HasMember("{{ property_name }}"))
+                {
+                    const rapidjson::Value& {{ property_name | pascalcase }}Value = JsonDoc["{{ property_name }}"];
+
+                    if ({{ property_name | pascalcase }}Value != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType({{ property_name | pascalcase }}Value, m_{{ property_name | pascalcase }});
+                    }
+                    {%- if 'nullable' not in schema or not schema.nullable %}
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member {{ property_name }} is null!");
+                    }
+                    {% endif %}
+                }
+            {% endfor %}
+        }
+
+        {% for property_name, property in schema.properties.items() %}
+            {% if property.type == 'array' or property.type == 'object' -%}
+                const {{ print_type(property) }}&
+                    {{ schema_name }}::Get{{ property_name | pascalcase }}() const
+            {% else -%}
+                {{ print_type(property) }} {{ schema_name }}::Get{{ property_name | pascalcase }}() const
+            {% endif -%}
+                {
+                    return m_{{ property_name | pascalcase }}.value();
+                }
+
+            bool {{ schema_name }}::Has{{ property_name | pascalcase }}() const
+            {
+                return m_{{ property_name | pascalcase }}.has_value();
+            }
+
+            {% if property.type == 'integer' or property.type == 'number' -%}
+                void {{ schema_name }}::Set{{ property_name | pascalcase }}({{ print_type(property) }} Value)
+            {% else -%}
+                void {{ schema_name }}::Set{{ property_name | pascalcase }}(
+                    const {{ print_type(property) }}& Value
+                )
+            {% endif -%}
+                {
+                    m_{{ property_name | pascalcase }} = Value;
+                }
+                
+        {% endfor %}
+    {%- endif %}
+{% endfor %}
+
+} // namespace csp::services::{{ service_name | lower }}

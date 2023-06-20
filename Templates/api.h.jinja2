@@ -1,0 +1,46 @@
+{% from 'helpers.jinja2' import print_type, print_method_parameters %}
+
+#pragma once
+
+#include "CSP/Common/CancellationToken.h"
+#include "Services/ApiBase/ApiBase.h"
+#include "Web/HttpPayload.h"
+#include "Dto.h"
+
+#include <optional>
+
+
+namespace csp::services::generated::{{ service_name | lower }}
+{
+
+{% for tag, routes in tags.items() %}
+    class {{ tag }}Api final : public csp::services::ApiBase
+    {
+    public:
+        {{ tag }}Api(csp::web::WebClient* InWebClient);
+        virtual ~{{ tag }}Api();
+
+        {% for route_path, route in routes.items() %}
+            {% for method_name, method in route.items() %}
+                {% if 'summary' in method %}
+                    /// <summary>
+                    {% for line in method.summary.split('\r\n') -%}
+                        /// {{ line }}
+                    {% endfor -%}
+                    /// </summary>
+                {% endif -%}
+                /// <remarks>
+                /// {{ method_name | upper }} {{ route_path }}
+                {% for line in method.description.split('\r\n') -%}
+                    /// {{ line }}
+                {% endfor -%}
+                /// </remarks>
+                void {{ route_path | camelcase }}{{ method_name | capitalize }}(
+                    {{ print_method_parameters(method) }}
+                ) const;
+            {% endfor %}
+        {% endfor %}
+    };
+    {% endfor %}
+
+} // namespace csp::services::{{ service_name | lower }}

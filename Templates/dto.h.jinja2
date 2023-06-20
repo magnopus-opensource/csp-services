@@ -1,0 +1,89 @@
+{% from 'helpers.jinja2' import print_type %}
+
+#pragma once
+
+#include "Services/DtoBase/DtoBase.h"
+
+#include <optional>
+
+
+namespace csp::services::generated::{{ service_name | lower }}
+{
+
+{% for schema_name, schema in schemas.items() -%}
+    class {{ schema_name }};
+{% endfor %}
+
+{% for schema_name, schema in schemas.items() %}
+    {% if 'description' in schema -%}
+        /// <summary>
+        {% for line in schema.description.split('\r\n') -%}
+            /// {{ line }}
+        {% endfor -%}
+        /// </summary>
+    {% endif -%}
+    {% if schema is enum_schema -%}
+        class {{ schema_name }} : public csp::services::EnumBase
+        {
+        public:
+            {{ schema_name }}();
+            virtual ~{{ schema_name }}();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            enum class e{{ schema_name }}
+            {
+                {% for e in schema.enum -%}
+                    {{ e | upper }}{{ ',' if not loop.last }}
+                {% endfor %}
+            };
+
+            e{{ schema_name }} GetValue() const;
+            void SetValue(e{{ schema_name }} const Value);
+
+        protected:
+            e{{ schema_name }} Value = {};
+        };
+    {%- else -%}
+        class {{ schema_name }} : public csp::services::DtoBase
+        {
+        public:
+            {{ schema_name }}();
+            virtual ~{{ schema_name }}();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            {% for property_name, property in schema.properties.items() %}
+                {% if 'description' in property -%}
+                    /// <summary>
+                    {% for line in property.description.split('\r\n') -%}
+                        /// {{ line }}
+                    {% endfor -%}
+                    /// </summary>
+                {% endif -%}
+                {% if property.type == 'array' or property.type == 'object' -%}
+                    const {{ print_type(property) }}& Get{{ property_name | pascalcase }}() const;
+                {% else -%}
+                    {{ print_type(property) }} Get{{ property_name | pascalcase }}() const;
+                {% endif -%}
+
+                {%- if property.type == 'integer' or property.type == 'number' -%}
+                    void Set{{ property_name | pascalcase }}({{ print_type(property) }} Value);
+                {%- else -%}
+                    void Set{{ property_name | pascalcase }}(const {{ print_type(property) }}& Value);
+                {%- endif -%}
+
+                bool Has{{ property_name | pascalcase }}() const;
+            {% endfor %}
+
+        protected:
+            {% for property_name, property in schema.properties.items() -%}
+                std::optional<{{ print_type(property) }}> m_{{ property_name | pascalcase }};
+            {% endfor -%}
+        };
+    {%- endif %}
+{% endfor %}
+
+}   // namespace csp::services::{{ service_name | lower }}
