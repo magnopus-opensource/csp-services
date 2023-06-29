@@ -40,6 +40,7 @@ class ProfileLiteDto;
 class RefreshRequest;
 class SettingsDto;
 class SocialProviderInfo;
+class TokenResetPasswordRequest;
 class UpgradeGuestRequest;
 class UpgradeGuestSocialRequest;
 class UserRolesDto;
@@ -104,7 +105,7 @@ class UserRolesDto;
                 void SetUserId(const utility::string_t& Value);bool HasUserId() const;
             
                 /// <summary>
-                    /// The authentication token
+                    /// The token for accessing the API
                     /// </summary>
                 utility::string_t GetAccessToken() const;
                 void SetAccessToken(const utility::string_t& Value);bool HasAccessToken() const;
@@ -1699,6 +1700,37 @@ class UserRolesDto;
             std::optional<utility::string_t> m_ClientId;
             std::optional<std::vector<utility::string_t>> m_Scopes;
             std::optional<utility::string_t> m_AuthorizeEndpoint;
+            };
+
+    /// <summary>
+        /// Contains data required to securely change a User's password
+        /// </summary>
+    class TokenResetPasswordRequest : public csp::services::DtoBase
+        {
+        public:
+            TokenResetPasswordRequest();
+            virtual ~TokenResetPasswordRequest();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Token received through Email
+                    /// </summary>
+                utility::string_t GetToken() const;
+                void SetToken(const utility::string_t& Value);bool HasToken() const;
+            
+                /// <summary>
+                    /// User's desired password
+                    /// </summary>
+                utility::string_t GetNewPassword() const;
+                void SetNewPassword(const utility::string_t& Value);bool HasNewPassword() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Token;
+            std::optional<utility::string_t> m_NewPassword;
             };
 
     /// <summary>

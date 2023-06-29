@@ -8509,6 +8509,124 @@ namespace csp::services::generated::userservice
                 
         
 
+    TokenResetPasswordRequest::TokenResetPasswordRequest() { }
+    TokenResetPasswordRequest::~TokenResetPasswordRequest() { }
+
+    utility::string_t TokenResetPasswordRequest::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_Token.has_value())
+                {
+                    rapidjson::Value TokenValue(
+                        TypeToJsonValue(m_Token, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "token",
+                        TokenValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_NewPassword.has_value())
+                {
+                    rapidjson::Value NewPasswordValue(
+                        TypeToJsonValue(m_NewPassword, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "newPassword",
+                        NewPasswordValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void TokenResetPasswordRequest::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("token"))
+                {
+                    const rapidjson::Value& TokenValue = JsonDoc["token"];
+
+                    if (TokenValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(TokenValue, m_Token);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("newPassword"))
+                {
+                    const rapidjson::Value& NewPasswordValue = JsonDoc["newPassword"];
+
+                    if (NewPasswordValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(NewPasswordValue, m_NewPassword);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member newPassword is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t TokenResetPasswordRequest::GetToken() const
+            {
+                    return m_Token.value();
+                }
+
+            bool TokenResetPasswordRequest::HasToken() const
+            {
+                return m_Token.has_value();
+            }
+
+            void TokenResetPasswordRequest::SetToken(
+                    const utility::string_t& Value
+                )
+            {
+                    m_Token = Value;
+                }
+                
+        
+            utility::string_t TokenResetPasswordRequest::GetNewPassword() const
+            {
+                    return m_NewPassword.value();
+                }
+
+            bool TokenResetPasswordRequest::HasNewPassword() const
+            {
+                return m_NewPassword.has_value();
+            }
+
+            void TokenResetPasswordRequest::SetNewPassword(
+                    const utility::string_t& Value
+                )
+            {
+                    m_NewPassword = Value;
+                }
+                
+        
+
     UpgradeGuestRequest::UpgradeGuestRequest() { }
     UpgradeGuestRequest::~UpgradeGuestRequest() { }
 

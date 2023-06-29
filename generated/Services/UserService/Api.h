@@ -184,7 +184,7 @@ namespace csp::services::generated::userservice
             
                 
                     /// <summary>
-                    /// Provides ability to refresh the authentication token
+                    /// Provides ability to refresh the authentication tokens (access token and refresh token)
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/users/refresh
@@ -214,7 +214,7 @@ namespace csp::services::generated::userservice
             
                 
                     /// <summary>
-                    /// Provides ability to exchange one time key for MGS JWT
+                    /// Provides ability to exchange one time key for authentication tokens (access token and refresh token)
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/users/keyexchange
@@ -1086,6 +1086,21 @@ namespace csp::services::generated::userservice
             
                 
                     /// <summary>
+                    /// Use email-provided token to change password
+                    /// </summary>
+                /// <remarks>
+                /// POST /api/v1/users/{userId}/token-change-password
+                /// Authorization: Anonymous
+                /// </remarks>
+                void apiV1UsersUserIdTokenChangePasswordPost(
+                    const utility::string_t& userId,const std::shared_ptr<TokenResetPasswordRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
                     /// Send email to user with a link to reset user password
                     /// </summary>
                 /// <remarks>
@@ -1111,7 +1126,8 @@ namespace csp::services::generated::userservice
                 /// </remarks>
                 void apiV1UsersForgotPasswordPost(
                     const std::optional<utility::string_t>&
-                redirect,const std::shared_ptr<ForgotPasswordRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                redirect,const std::optional<bool>&
+                useTokenChangePasswordUrl,const std::shared_ptr<ForgotPasswordRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             
