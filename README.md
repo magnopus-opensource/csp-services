@@ -9,7 +9,7 @@ This repository contains the set of automatically generated C++ source files tha
 
 For those seeking to build their own services compatible with CSP, these source files can be considered a spec from which other RESTful services can be built.
 
-## 👷‍♂️ Contributions
+## 👷‍♀️ Contributions 
 
 PRs are welcome! If have any ideas you would like to contribute please see our contribution page.
 
