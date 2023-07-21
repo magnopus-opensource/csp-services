@@ -3237,6 +3237,1908 @@ namespace csp::services::generated::aggregationservice
                 
         
 
+    ShopifyProductDto::ShopifyProductDto() { }
+    ShopifyProductDto::~ShopifyProductDto() { }
+
+    utility::string_t ShopifyProductDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_CreatedAt.has_value())
+                {
+                    rapidjson::Value CreatedAtValue(
+                        TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "createdAt",
+                        CreatedAtValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Id.has_value())
+                {
+                    rapidjson::Value IdValue(
+                        TypeToJsonValue(m_Id, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "id",
+                        IdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Title.has_value())
+                {
+                    rapidjson::Value TitleValue(
+                        TypeToJsonValue(m_Title, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "title",
+                        TitleValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Description.has_value())
+                {
+                    rapidjson::Value DescriptionValue(
+                        TypeToJsonValue(m_Description, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "description",
+                        DescriptionValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Tags.has_value())
+                {
+                    rapidjson::Value TagsValue(
+                        TypeToJsonValue(m_Tags, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "tags",
+                        TagsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Variants.has_value())
+                {
+                    rapidjson::Value VariantsValue(
+                        TypeToJsonValue(m_Variants, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "variants",
+                        VariantsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Media.has_value())
+                {
+                    rapidjson::Value MediaValue(
+                        TypeToJsonValue(m_Media, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "media",
+                        MediaValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void ShopifyProductDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("createdAt"))
+                {
+                    const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+                    if (CreatedAtValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(CreatedAtValue, m_CreatedAt);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("id"))
+                {
+                    const rapidjson::Value& IdValue = JsonDoc["id"];
+
+                    if (IdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(IdValue, m_Id);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("title"))
+                {
+                    const rapidjson::Value& TitleValue = JsonDoc["title"];
+
+                    if (TitleValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(TitleValue, m_Title);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member title is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("description"))
+                {
+                    const rapidjson::Value& DescriptionValue = JsonDoc["description"];
+
+                    if (DescriptionValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(DescriptionValue, m_Description);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("tags"))
+                {
+                    const rapidjson::Value& TagsValue = JsonDoc["tags"];
+
+                    if (TagsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(TagsValue, m_Tags);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("variants"))
+                {
+                    const rapidjson::Value& VariantsValue = JsonDoc["variants"];
+
+                    if (VariantsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(VariantsValue, m_Variants);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member variants is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("media"))
+                {
+                    const rapidjson::Value& MediaValue = JsonDoc["media"];
+
+                    if (MediaValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(MediaValue, m_Media);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member media is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t ShopifyProductDto::GetCreatedAt() const
+            {
+                    return m_CreatedAt.value();
+                }
+
+            bool ShopifyProductDto::HasCreatedAt() const
+            {
+                return m_CreatedAt.has_value();
+            }
+
+            void ShopifyProductDto::SetCreatedAt(
+                    const utility::string_t& Value
+                )
+            {
+                    m_CreatedAt = Value;
+                }
+                
+        
+            utility::string_t ShopifyProductDto::GetId() const
+            {
+                    return m_Id.value();
+                }
+
+            bool ShopifyProductDto::HasId() const
+            {
+                return m_Id.has_value();
+            }
+
+            void ShopifyProductDto::SetId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_Id = Value;
+                }
+                
+        
+            utility::string_t ShopifyProductDto::GetTitle() const
+            {
+                    return m_Title.value();
+                }
+
+            bool ShopifyProductDto::HasTitle() const
+            {
+                return m_Title.has_value();
+            }
+
+            void ShopifyProductDto::SetTitle(
+                    const utility::string_t& Value
+                )
+            {
+                    m_Title = Value;
+                }
+                
+        
+            utility::string_t ShopifyProductDto::GetDescription() const
+            {
+                    return m_Description.value();
+                }
+
+            bool ShopifyProductDto::HasDescription() const
+            {
+                return m_Description.has_value();
+            }
+
+            void ShopifyProductDto::SetDescription(
+                    const utility::string_t& Value
+                )
+            {
+                    m_Description = Value;
+                }
+                
+        
+            const std::vector<utility::string_t>&
+                    ShopifyProductDto::GetTags() const
+            {
+                    return m_Tags.value();
+                }
+
+            bool ShopifyProductDto::HasTags() const
+            {
+                return m_Tags.has_value();
+            }
+
+            void ShopifyProductDto::SetTags(
+                    const std::vector<utility::string_t>& Value
+                )
+            {
+                    m_Tags = Value;
+                }
+                
+        
+            const std::vector<std::shared_ptr<ShopifyProductVariants>>&
+                    ShopifyProductDto::GetVariants() const
+            {
+                    return m_Variants.value();
+                }
+
+            bool ShopifyProductDto::HasVariants() const
+            {
+                return m_Variants.has_value();
+            }
+
+            void ShopifyProductDto::SetVariants(
+                    const std::vector<std::shared_ptr<ShopifyProductVariants>>& Value
+                )
+            {
+                    m_Variants = Value;
+                }
+                
+        
+            const std::vector<std::shared_ptr<ShopifyProductMedia>>&
+                    ShopifyProductDto::GetMedia() const
+            {
+                    return m_Media.value();
+                }
+
+            bool ShopifyProductDto::HasMedia() const
+            {
+                return m_Media.has_value();
+            }
+
+            void ShopifyProductDto::SetMedia(
+                    const std::vector<std::shared_ptr<ShopifyProductMedia>>& Value
+                )
+            {
+                    m_Media = Value;
+                }
+                
+        
+
+    ShopifyProductMedia::ShopifyProductMedia() { }
+    ShopifyProductMedia::~ShopifyProductMedia() { }
+
+    utility::string_t ShopifyProductMedia::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_MediaContentType.has_value())
+                {
+                    rapidjson::Value MediaContentTypeValue(
+                        TypeToJsonValue(m_MediaContentType, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "mediaContentType",
+                        MediaContentTypeValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Alt.has_value())
+                {
+                    rapidjson::Value AltValue(
+                        TypeToJsonValue(m_Alt, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "alt",
+                        AltValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Url.has_value())
+                {
+                    rapidjson::Value UrlValue(
+                        TypeToJsonValue(m_Url, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "url",
+                        UrlValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void ShopifyProductMedia::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("mediaContentType"))
+                {
+                    const rapidjson::Value& MediaContentTypeValue = JsonDoc["mediaContentType"];
+
+                    if (MediaContentTypeValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(MediaContentTypeValue, m_MediaContentType);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member mediaContentType is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("alt"))
+                {
+                    const rapidjson::Value& AltValue = JsonDoc["alt"];
+
+                    if (AltValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(AltValue, m_Alt);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member alt is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("url"))
+                {
+                    const rapidjson::Value& UrlValue = JsonDoc["url"];
+
+                    if (UrlValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(UrlValue, m_Url);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member url is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t ShopifyProductMedia::GetMediaContentType() const
+            {
+                    return m_MediaContentType.value();
+                }
+
+            bool ShopifyProductMedia::HasMediaContentType() const
+            {
+                return m_MediaContentType.has_value();
+            }
+
+            void ShopifyProductMedia::SetMediaContentType(
+                    const utility::string_t& Value
+                )
+            {
+                    m_MediaContentType = Value;
+                }
+                
+        
+            utility::string_t ShopifyProductMedia::GetAlt() const
+            {
+                    return m_Alt.value();
+                }
+
+            bool ShopifyProductMedia::HasAlt() const
+            {
+                return m_Alt.has_value();
+            }
+
+            void ShopifyProductMedia::SetAlt(
+                    const utility::string_t& Value
+                )
+            {
+                    m_Alt = Value;
+                }
+                
+        
+            utility::string_t ShopifyProductMedia::GetUrl() const
+            {
+                    return m_Url.value();
+                }
+
+            bool ShopifyProductMedia::HasUrl() const
+            {
+                return m_Url.has_value();
+            }
+
+            void ShopifyProductMedia::SetUrl(
+                    const utility::string_t& Value
+                )
+            {
+                    m_Url = Value;
+                }
+                
+        
+
+    ShopifyProductVariants::ShopifyProductVariants() { }
+    ShopifyProductVariants::~ShopifyProductVariants() { }
+
+    utility::string_t ShopifyProductVariants::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_Id.has_value())
+                {
+                    rapidjson::Value IdValue(
+                        TypeToJsonValue(m_Id, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "id",
+                        IdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Title.has_value())
+                {
+                    rapidjson::Value TitleValue(
+                        TypeToJsonValue(m_Title, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "title",
+                        TitleValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void ShopifyProductVariants::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("id"))
+                {
+                    const rapidjson::Value& IdValue = JsonDoc["id"];
+
+                    if (IdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(IdValue, m_Id);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("title"))
+                {
+                    const rapidjson::Value& TitleValue = JsonDoc["title"];
+
+                    if (TitleValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(TitleValue, m_Title);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member title is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t ShopifyProductVariants::GetId() const
+            {
+                    return m_Id.value();
+                }
+
+            bool ShopifyProductVariants::HasId() const
+            {
+                return m_Id.has_value();
+            }
+
+            void ShopifyProductVariants::SetId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_Id = Value;
+                }
+                
+        
+            utility::string_t ShopifyProductVariants::GetTitle() const
+            {
+                    return m_Title.value();
+                }
+
+            bool ShopifyProductVariants::HasTitle() const
+            {
+                return m_Title.has_value();
+            }
+
+            void ShopifyProductVariants::SetTitle(
+                    const utility::string_t& Value
+                )
+            {
+                    m_Title = Value;
+                }
+                
+        
+
+    ShopifyStorefontDto::ShopifyStorefontDto() { }
+    ShopifyStorefontDto::~ShopifyStorefontDto() { }
+
+    utility::string_t ShopifyStorefontDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_Id.has_value())
+                {
+                    rapidjson::Value IdValue(
+                        TypeToJsonValue(m_Id, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "id",
+                        IdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_StoreName.has_value())
+                {
+                    rapidjson::Value StoreNameValue(
+                        TypeToJsonValue(m_StoreName, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "storeName",
+                        StoreNameValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_SpaceOwnerId.has_value())
+                {
+                    rapidjson::Value SpaceOwnerIdValue(
+                        TypeToJsonValue(m_SpaceOwnerId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "spaceOwnerId",
+                        SpaceOwnerIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_SpaceId.has_value())
+                {
+                    rapidjson::Value SpaceIdValue(
+                        TypeToJsonValue(m_SpaceId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "spaceId",
+                        SpaceIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_IsEcommerceActive.has_value())
+                {
+                    rapidjson::Value IsEcommerceActiveValue(
+                        TypeToJsonValue(m_IsEcommerceActive, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "isEcommerceActive",
+                        IsEcommerceActiveValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_PrivateAccessToken.has_value())
+                {
+                    rapidjson::Value PrivateAccessTokenValue(
+                        TypeToJsonValue(m_PrivateAccessToken, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "privateAccessToken",
+                        PrivateAccessTokenValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void ShopifyStorefontDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("id"))
+                {
+                    const rapidjson::Value& IdValue = JsonDoc["id"];
+
+                    if (IdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(IdValue, m_Id);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("storeName"))
+                {
+                    const rapidjson::Value& StoreNameValue = JsonDoc["storeName"];
+
+                    if (StoreNameValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(StoreNameValue, m_StoreName);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member storeName is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("spaceOwnerId"))
+                {
+                    const rapidjson::Value& SpaceOwnerIdValue = JsonDoc["spaceOwnerId"];
+
+                    if (SpaceOwnerIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(SpaceOwnerIdValue, m_SpaceOwnerId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceOwnerId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("spaceId"))
+                {
+                    const rapidjson::Value& SpaceIdValue = JsonDoc["spaceId"];
+
+                    if (SpaceIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(SpaceIdValue, m_SpaceId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("isEcommerceActive"))
+                {
+                    const rapidjson::Value& IsEcommerceActiveValue = JsonDoc["isEcommerceActive"];
+
+                    if (IsEcommerceActiveValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(IsEcommerceActiveValue, m_IsEcommerceActive);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isEcommerceActive is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("privateAccessToken"))
+                {
+                    const rapidjson::Value& PrivateAccessTokenValue = JsonDoc["privateAccessToken"];
+
+                    if (PrivateAccessTokenValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(PrivateAccessTokenValue, m_PrivateAccessToken);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member privateAccessToken is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t ShopifyStorefontDto::GetId() const
+            {
+                    return m_Id.value();
+                }
+
+            bool ShopifyStorefontDto::HasId() const
+            {
+                return m_Id.has_value();
+            }
+
+            void ShopifyStorefontDto::SetId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_Id = Value;
+                }
+                
+        
+            utility::string_t ShopifyStorefontDto::GetStoreName() const
+            {
+                    return m_StoreName.value();
+                }
+
+            bool ShopifyStorefontDto::HasStoreName() const
+            {
+                return m_StoreName.has_value();
+            }
+
+            void ShopifyStorefontDto::SetStoreName(
+                    const utility::string_t& Value
+                )
+            {
+                    m_StoreName = Value;
+                }
+                
+        
+            utility::string_t ShopifyStorefontDto::GetSpaceOwnerId() const
+            {
+                    return m_SpaceOwnerId.value();
+                }
+
+            bool ShopifyStorefontDto::HasSpaceOwnerId() const
+            {
+                return m_SpaceOwnerId.has_value();
+            }
+
+            void ShopifyStorefontDto::SetSpaceOwnerId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_SpaceOwnerId = Value;
+                }
+                
+        
+            utility::string_t ShopifyStorefontDto::GetSpaceId() const
+            {
+                    return m_SpaceId.value();
+                }
+
+            bool ShopifyStorefontDto::HasSpaceId() const
+            {
+                return m_SpaceId.has_value();
+            }
+
+            void ShopifyStorefontDto::SetSpaceId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_SpaceId = Value;
+                }
+                
+        
+            bool ShopifyStorefontDto::GetIsEcommerceActive() const
+            {
+                    return m_IsEcommerceActive.value();
+                }
+
+            bool ShopifyStorefontDto::HasIsEcommerceActive() const
+            {
+                return m_IsEcommerceActive.has_value();
+            }
+
+            void ShopifyStorefontDto::SetIsEcommerceActive(
+                    const bool& Value
+                )
+            {
+                    m_IsEcommerceActive = Value;
+                }
+                
+        
+            utility::string_t ShopifyStorefontDto::GetPrivateAccessToken() const
+            {
+                    return m_PrivateAccessToken.value();
+                }
+
+            bool ShopifyStorefontDto::HasPrivateAccessToken() const
+            {
+                return m_PrivateAccessToken.has_value();
+            }
+
+            void ShopifyStorefontDto::SetPrivateAccessToken(
+                    const utility::string_t& Value
+                )
+            {
+                    m_PrivateAccessToken = Value;
+                }
+                
+        
+
+    SpaceEventDto::SpaceEventDto() { }
+    SpaceEventDto::~SpaceEventDto() { }
+
+    utility::string_t SpaceEventDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_Id.has_value())
+                {
+                    rapidjson::Value IdValue(
+                        TypeToJsonValue(m_Id, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "id",
+                        IdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_SpaceId.has_value())
+                {
+                    rapidjson::Value SpaceIdValue(
+                        TypeToJsonValue(m_SpaceId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "spaceId",
+                        SpaceIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_SpaceOwnerId.has_value())
+                {
+                    rapidjson::Value SpaceOwnerIdValue(
+                        TypeToJsonValue(m_SpaceOwnerId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "spaceOwnerId",
+                        SpaceOwnerIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_VendorEventId.has_value())
+                {
+                    rapidjson::Value VendorEventIdValue(
+                        TypeToJsonValue(m_VendorEventId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "vendorEventId",
+                        VendorEventIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_VendorName.has_value())
+                {
+                    rapidjson::Value VendorNameValue(
+                        TypeToJsonValue(m_VendorName, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "vendorName",
+                        VendorNameValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_VendorEventUri.has_value())
+                {
+                    rapidjson::Value VendorEventUriValue(
+                        TypeToJsonValue(m_VendorEventUri, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "vendorEventUri",
+                        VendorEventUriValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_IsTicketingActive.has_value())
+                {
+                    rapidjson::Value IsTicketingActiveValue(
+                        TypeToJsonValue(m_IsTicketingActive, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "isTicketingActive",
+                        IsTicketingActiveValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void SpaceEventDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("id"))
+                {
+                    const rapidjson::Value& IdValue = JsonDoc["id"];
+
+                    if (IdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(IdValue, m_Id);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("spaceId"))
+                {
+                    const rapidjson::Value& SpaceIdValue = JsonDoc["spaceId"];
+
+                    if (SpaceIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(SpaceIdValue, m_SpaceId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("spaceOwnerId"))
+                {
+                    const rapidjson::Value& SpaceOwnerIdValue = JsonDoc["spaceOwnerId"];
+
+                    if (SpaceOwnerIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(SpaceOwnerIdValue, m_SpaceOwnerId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceOwnerId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("vendorEventId"))
+                {
+                    const rapidjson::Value& VendorEventIdValue = JsonDoc["vendorEventId"];
+
+                    if (VendorEventIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(VendorEventIdValue, m_VendorEventId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorEventId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("vendorName"))
+                {
+                    const rapidjson::Value& VendorNameValue = JsonDoc["vendorName"];
+
+                    if (VendorNameValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(VendorNameValue, m_VendorName);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorName is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("vendorEventUri"))
+                {
+                    const rapidjson::Value& VendorEventUriValue = JsonDoc["vendorEventUri"];
+
+                    if (VendorEventUriValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(VendorEventUriValue, m_VendorEventUri);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorEventUri is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("isTicketingActive"))
+                {
+                    const rapidjson::Value& IsTicketingActiveValue = JsonDoc["isTicketingActive"];
+
+                    if (IsTicketingActiveValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(IsTicketingActiveValue, m_IsTicketingActive);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isTicketingActive is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t SpaceEventDto::GetId() const
+            {
+                    return m_Id.value();
+                }
+
+            bool SpaceEventDto::HasId() const
+            {
+                return m_Id.has_value();
+            }
+
+            void SpaceEventDto::SetId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_Id = Value;
+                }
+                
+        
+            utility::string_t SpaceEventDto::GetSpaceId() const
+            {
+                    return m_SpaceId.value();
+                }
+
+            bool SpaceEventDto::HasSpaceId() const
+            {
+                return m_SpaceId.has_value();
+            }
+
+            void SpaceEventDto::SetSpaceId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_SpaceId = Value;
+                }
+                
+        
+            utility::string_t SpaceEventDto::GetSpaceOwnerId() const
+            {
+                    return m_SpaceOwnerId.value();
+                }
+
+            bool SpaceEventDto::HasSpaceOwnerId() const
+            {
+                return m_SpaceOwnerId.has_value();
+            }
+
+            void SpaceEventDto::SetSpaceOwnerId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_SpaceOwnerId = Value;
+                }
+                
+        
+            utility::string_t SpaceEventDto::GetVendorEventId() const
+            {
+                    return m_VendorEventId.value();
+                }
+
+            bool SpaceEventDto::HasVendorEventId() const
+            {
+                return m_VendorEventId.has_value();
+            }
+
+            void SpaceEventDto::SetVendorEventId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_VendorEventId = Value;
+                }
+                
+        
+            utility::string_t SpaceEventDto::GetVendorName() const
+            {
+                    return m_VendorName.value();
+                }
+
+            bool SpaceEventDto::HasVendorName() const
+            {
+                return m_VendorName.has_value();
+            }
+
+            void SpaceEventDto::SetVendorName(
+                    const utility::string_t& Value
+                )
+            {
+                    m_VendorName = Value;
+                }
+                
+        
+            utility::string_t SpaceEventDto::GetVendorEventUri() const
+            {
+                    return m_VendorEventUri.value();
+                }
+
+            bool SpaceEventDto::HasVendorEventUri() const
+            {
+                return m_VendorEventUri.has_value();
+            }
+
+            void SpaceEventDto::SetVendorEventUri(
+                    const utility::string_t& Value
+                )
+            {
+                    m_VendorEventUri = Value;
+                }
+                
+        
+            bool SpaceEventDto::GetIsTicketingActive() const
+            {
+                    return m_IsTicketingActive.value();
+                }
+
+            bool SpaceEventDto::HasIsTicketingActive() const
+            {
+                return m_IsTicketingActive.has_value();
+            }
+
+            void SpaceEventDto::SetIsTicketingActive(
+                    const bool& Value
+                )
+            {
+                    m_IsTicketingActive = Value;
+                }
+                
+        
+
+    SpaceEventDtoDataPage::SpaceEventDtoDataPage() { }
+    SpaceEventDtoDataPage::~SpaceEventDtoDataPage() { }
+
+    utility::string_t SpaceEventDtoDataPage::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_Items.has_value())
+                {
+                    rapidjson::Value ItemsValue(
+                        TypeToJsonValue(m_Items, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "items",
+                        ItemsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Skip.has_value())
+                {
+                    rapidjson::Value SkipValue(
+                        TypeToJsonValue(m_Skip, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "skip",
+                        SkipValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Limit.has_value())
+                {
+                    rapidjson::Value LimitValue(
+                        TypeToJsonValue(m_Limit, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "limit",
+                        LimitValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_ItemCount.has_value())
+                {
+                    rapidjson::Value ItemCountValue(
+                        TypeToJsonValue(m_ItemCount, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "itemCount",
+                        ItemCountValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_ItemTotalCount.has_value())
+                {
+                    rapidjson::Value ItemTotalCountValue(
+                        TypeToJsonValue(m_ItemTotalCount, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "itemTotalCount",
+                        ItemTotalCountValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void SpaceEventDtoDataPage::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("items"))
+                {
+                    const rapidjson::Value& ItemsValue = JsonDoc["items"];
+
+                    if (ItemsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ItemsValue, m_Items);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("skip"))
+                {
+                    const rapidjson::Value& SkipValue = JsonDoc["skip"];
+
+                    if (SkipValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(SkipValue, m_Skip);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("limit"))
+                {
+                    const rapidjson::Value& LimitValue = JsonDoc["limit"];
+
+                    if (LimitValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(LimitValue, m_Limit);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("itemCount"))
+                {
+                    const rapidjson::Value& ItemCountValue = JsonDoc["itemCount"];
+
+                    if (ItemCountValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ItemCountValue, m_ItemCount);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("itemTotalCount"))
+                {
+                    const rapidjson::Value& ItemTotalCountValue = JsonDoc["itemTotalCount"];
+
+                    if (ItemTotalCountValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            const std::vector<std::shared_ptr<SpaceEventDto>>&
+                    SpaceEventDtoDataPage::GetItems() const
+            {
+                    return m_Items.value();
+                }
+
+            bool SpaceEventDtoDataPage::HasItems() const
+            {
+                return m_Items.has_value();
+            }
+
+            void SpaceEventDtoDataPage::SetItems(
+                    const std::vector<std::shared_ptr<SpaceEventDto>>& Value
+                )
+            {
+                    m_Items = Value;
+                }
+                
+        
+            int32_t SpaceEventDtoDataPage::GetSkip() const
+            {
+                    return m_Skip.value();
+                }
+
+            bool SpaceEventDtoDataPage::HasSkip() const
+            {
+                return m_Skip.has_value();
+            }
+
+            void SpaceEventDtoDataPage::SetSkip(int32_t Value)
+            {
+                    m_Skip = Value;
+                }
+                
+        
+            int32_t SpaceEventDtoDataPage::GetLimit() const
+            {
+                    return m_Limit.value();
+                }
+
+            bool SpaceEventDtoDataPage::HasLimit() const
+            {
+                return m_Limit.has_value();
+            }
+
+            void SpaceEventDtoDataPage::SetLimit(int32_t Value)
+            {
+                    m_Limit = Value;
+                }
+                
+        
+            int32_t SpaceEventDtoDataPage::GetItemCount() const
+            {
+                    return m_ItemCount.value();
+                }
+
+            bool SpaceEventDtoDataPage::HasItemCount() const
+            {
+                return m_ItemCount.has_value();
+            }
+
+            void SpaceEventDtoDataPage::SetItemCount(int32_t Value)
+            {
+                    m_ItemCount = Value;
+                }
+                
+        
+            int64_t SpaceEventDtoDataPage::GetItemTotalCount() const
+            {
+                    return m_ItemTotalCount.value();
+                }
+
+            bool SpaceEventDtoDataPage::HasItemTotalCount() const
+            {
+                return m_ItemTotalCount.has_value();
+            }
+
+            void SpaceEventDtoDataPage::SetItemTotalCount(int64_t Value)
+            {
+                    m_ItemTotalCount = Value;
+                }
+                
+        
+
+    SpaceTicketDto::SpaceTicketDto() { }
+    SpaceTicketDto::~SpaceTicketDto() { }
+
+    utility::string_t SpaceTicketDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_Id.has_value())
+                {
+                    rapidjson::Value IdValue(
+                        TypeToJsonValue(m_Id, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "id",
+                        IdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_VendorEventId.has_value())
+                {
+                    rapidjson::Value VendorEventIdValue(
+                        TypeToJsonValue(m_VendorEventId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "vendorEventId",
+                        VendorEventIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_VendorName.has_value())
+                {
+                    rapidjson::Value VendorNameValue(
+                        TypeToJsonValue(m_VendorName, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "vendorName",
+                        VendorNameValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_VendorTicketId.has_value())
+                {
+                    rapidjson::Value VendorTicketIdValue(
+                        TypeToJsonValue(m_VendorTicketId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "vendorTicketId",
+                        VendorTicketIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_SpaceId.has_value())
+                {
+                    rapidjson::Value SpaceIdValue(
+                        TypeToJsonValue(m_SpaceId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "spaceId",
+                        SpaceIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_TicketStatus.has_value())
+                {
+                    rapidjson::Value TicketStatusValue(
+                        TypeToJsonValue(m_TicketStatus, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "ticketStatus",
+                        TicketStatusValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_UserId.has_value())
+                {
+                    rapidjson::Value UserIdValue(
+                        TypeToJsonValue(m_UserId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "userId",
+                        UserIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_EmailLower.has_value())
+                {
+                    rapidjson::Value EmailLowerValue(
+                        TypeToJsonValue(m_EmailLower, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "emailLower",
+                        EmailLowerValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void SpaceTicketDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("id"))
+                {
+                    const rapidjson::Value& IdValue = JsonDoc["id"];
+
+                    if (IdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(IdValue, m_Id);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("vendorEventId"))
+                {
+                    const rapidjson::Value& VendorEventIdValue = JsonDoc["vendorEventId"];
+
+                    if (VendorEventIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(VendorEventIdValue, m_VendorEventId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorEventId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("vendorName"))
+                {
+                    const rapidjson::Value& VendorNameValue = JsonDoc["vendorName"];
+
+                    if (VendorNameValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(VendorNameValue, m_VendorName);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorName is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("vendorTicketId"))
+                {
+                    const rapidjson::Value& VendorTicketIdValue = JsonDoc["vendorTicketId"];
+
+                    if (VendorTicketIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(VendorTicketIdValue, m_VendorTicketId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorTicketId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("spaceId"))
+                {
+                    const rapidjson::Value& SpaceIdValue = JsonDoc["spaceId"];
+
+                    if (SpaceIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(SpaceIdValue, m_SpaceId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("ticketStatus"))
+                {
+                    const rapidjson::Value& TicketStatusValue = JsonDoc["ticketStatus"];
+
+                    if (TicketStatusValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(TicketStatusValue, m_TicketStatus);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member ticketStatus is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("userId"))
+                {
+                    const rapidjson::Value& UserIdValue = JsonDoc["userId"];
+
+                    if (UserIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(UserIdValue, m_UserId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("emailLower"))
+                {
+                    const rapidjson::Value& EmailLowerValue = JsonDoc["emailLower"];
+
+                    if (EmailLowerValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(EmailLowerValue, m_EmailLower);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member emailLower is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t SpaceTicketDto::GetId() const
+            {
+                    return m_Id.value();
+                }
+
+            bool SpaceTicketDto::HasId() const
+            {
+                return m_Id.has_value();
+            }
+
+            void SpaceTicketDto::SetId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_Id = Value;
+                }
+                
+        
+            utility::string_t SpaceTicketDto::GetVendorEventId() const
+            {
+                    return m_VendorEventId.value();
+                }
+
+            bool SpaceTicketDto::HasVendorEventId() const
+            {
+                return m_VendorEventId.has_value();
+            }
+
+            void SpaceTicketDto::SetVendorEventId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_VendorEventId = Value;
+                }
+                
+        
+            utility::string_t SpaceTicketDto::GetVendorName() const
+            {
+                    return m_VendorName.value();
+                }
+
+            bool SpaceTicketDto::HasVendorName() const
+            {
+                return m_VendorName.has_value();
+            }
+
+            void SpaceTicketDto::SetVendorName(
+                    const utility::string_t& Value
+                )
+            {
+                    m_VendorName = Value;
+                }
+                
+        
+            utility::string_t SpaceTicketDto::GetVendorTicketId() const
+            {
+                    return m_VendorTicketId.value();
+                }
+
+            bool SpaceTicketDto::HasVendorTicketId() const
+            {
+                return m_VendorTicketId.has_value();
+            }
+
+            void SpaceTicketDto::SetVendorTicketId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_VendorTicketId = Value;
+                }
+                
+        
+            utility::string_t SpaceTicketDto::GetSpaceId() const
+            {
+                    return m_SpaceId.value();
+                }
+
+            bool SpaceTicketDto::HasSpaceId() const
+            {
+                return m_SpaceId.has_value();
+            }
+
+            void SpaceTicketDto::SetSpaceId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_SpaceId = Value;
+                }
+                
+        
+            std::shared_ptr<TicketStatus> SpaceTicketDto::GetTicketStatus() const
+            {
+                    return m_TicketStatus.value();
+                }
+
+            bool SpaceTicketDto::HasTicketStatus() const
+            {
+                return m_TicketStatus.has_value();
+            }
+
+            void SpaceTicketDto::SetTicketStatus(
+                    const std::shared_ptr<TicketStatus>& Value
+                )
+            {
+                    m_TicketStatus = Value;
+                }
+                
+        
+            utility::string_t SpaceTicketDto::GetUserId() const
+            {
+                    return m_UserId.value();
+                }
+
+            bool SpaceTicketDto::HasUserId() const
+            {
+                return m_UserId.has_value();
+            }
+
+            void SpaceTicketDto::SetUserId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_UserId = Value;
+                }
+                
+        
+            utility::string_t SpaceTicketDto::GetEmailLower() const
+            {
+                    return m_EmailLower.value();
+                }
+
+            bool SpaceTicketDto::HasEmailLower() const
+            {
+                return m_EmailLower.has_value();
+            }
+
+            void SpaceTicketDto::SetEmailLower(
+                    const utility::string_t& Value
+                )
+            {
+                    m_EmailLower = Value;
+                }
+                
+        
+
     StringDataPage::StringDataPage() { }
     StringDataPage::~StringDataPage() { }
 
@@ -3597,6 +5499,254 @@ namespace csp::services::generated::aggregationservice
                 )
             {
                     m_IconStyle = Value;
+                }
+                
+        
+
+    TicketStatus::TicketStatus() { }
+    TicketStatus::~TicketStatus() { }
+
+    utility::string_t TicketStatus::ToJson() const
+        {
+            switch (Value)
+            {
+                case eTicketStatus::PURCHASED:
+                    return "Purchased";
+                case eTicketStatus::REDEEMED:
+                    return "Redeemed";
+                
+                default:
+                    throw std::runtime_error("Unknown enum value!");
+            }
+        }
+
+        void TicketStatus::FromJson(const utility::string_t& Val)
+        {
+             if (Val == "Purchased")
+                {
+                    Value = eTicketStatus::PURCHASED;
+                }
+            else if (Val == "Redeemed")
+                {
+                    Value = eTicketStatus::REDEEMED;
+                }
+            
+        }
+
+        TicketStatus::eTicketStatus TicketStatus::GetValue() const
+        {
+            return Value;
+        }
+
+        void TicketStatus::SetValue(TicketStatus::eTicketStatus const InValue)
+        {
+            Value = InValue;
+        }
+
+    VendorProviderInfo::VendorProviderInfo() { }
+    VendorProviderInfo::~VendorProviderInfo() { }
+
+    utility::string_t VendorProviderInfo::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_VendorName.has_value())
+                {
+                    rapidjson::Value VendorNameValue(
+                        TypeToJsonValue(m_VendorName, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "vendorName",
+                        VendorNameValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_ClientId.has_value())
+                {
+                    rapidjson::Value ClientIdValue(
+                        TypeToJsonValue(m_ClientId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "clientId",
+                        ClientIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_AuthorizeEndpoint.has_value())
+                {
+                    rapidjson::Value AuthorizeEndpointValue(
+                        TypeToJsonValue(m_AuthorizeEndpoint, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "authorizeEndpoint",
+                        AuthorizeEndpointValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_OAuthRedirectUrl.has_value())
+                {
+                    rapidjson::Value OAuthRedirectUrlValue(
+                        TypeToJsonValue(m_OAuthRedirectUrl, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "oAuthRedirectUrl",
+                        OAuthRedirectUrlValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void VendorProviderInfo::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("vendorName"))
+                {
+                    const rapidjson::Value& VendorNameValue = JsonDoc["vendorName"];
+
+                    if (VendorNameValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(VendorNameValue, m_VendorName);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorName is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("clientId"))
+                {
+                    const rapidjson::Value& ClientIdValue = JsonDoc["clientId"];
+
+                    if (ClientIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ClientIdValue, m_ClientId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member clientId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("authorizeEndpoint"))
+                {
+                    const rapidjson::Value& AuthorizeEndpointValue = JsonDoc["authorizeEndpoint"];
+
+                    if (AuthorizeEndpointValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(AuthorizeEndpointValue, m_AuthorizeEndpoint);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member authorizeEndpoint is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("oAuthRedirectUrl"))
+                {
+                    const rapidjson::Value& OAuthRedirectUrlValue = JsonDoc["oAuthRedirectUrl"];
+
+                    if (OAuthRedirectUrlValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OAuthRedirectUrlValue, m_OAuthRedirectUrl);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member oAuthRedirectUrl is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t VendorProviderInfo::GetVendorName() const
+            {
+                    return m_VendorName.value();
+                }
+
+            bool VendorProviderInfo::HasVendorName() const
+            {
+                return m_VendorName.has_value();
+            }
+
+            void VendorProviderInfo::SetVendorName(
+                    const utility::string_t& Value
+                )
+            {
+                    m_VendorName = Value;
+                }
+                
+        
+            utility::string_t VendorProviderInfo::GetClientId() const
+            {
+                    return m_ClientId.value();
+                }
+
+            bool VendorProviderInfo::HasClientId() const
+            {
+                return m_ClientId.has_value();
+            }
+
+            void VendorProviderInfo::SetClientId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_ClientId = Value;
+                }
+                
+        
+            utility::string_t VendorProviderInfo::GetAuthorizeEndpoint() const
+            {
+                    return m_AuthorizeEndpoint.value();
+                }
+
+            bool VendorProviderInfo::HasAuthorizeEndpoint() const
+            {
+                return m_AuthorizeEndpoint.has_value();
+            }
+
+            void VendorProviderInfo::SetAuthorizeEndpoint(
+                    const utility::string_t& Value
+                )
+            {
+                    m_AuthorizeEndpoint = Value;
+                }
+                
+        
+            utility::string_t VendorProviderInfo::GetOAuthRedirectUrl() const
+            {
+                    return m_OAuthRedirectUrl.value();
+                }
+
+            bool VendorProviderInfo::HasOAuthRedirectUrl() const
+            {
+                return m_OAuthRedirectUrl.has_value();
+            }
+
+            void VendorProviderInfo::SetOAuthRedirectUrl(
+                    const utility::string_t& Value
+                )
+            {
+                    m_OAuthRedirectUrl = Value;
                 }
                 
         

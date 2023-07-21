@@ -286,6 +286,65 @@ namespace csp::services::generated::aggregationservice {
         
     
 
+    ShopifyApi::ShopifyApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
+    {
+
+    }
+
+    ShopifyApi::~ShopifyApi()
+    {
+
+    }
+
+    
+        
+            void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyProductsGet(
+                const utility::string_t& spaceId,const std::optional<utility::string_t>&
+                productId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/spaces/{spaceId}/vendors/shopify/products",
+                    {spaceId}
+                );
+
+                
+                        if (productId.has_value())
+                        {
+                            Uri.AddQueryParams("productId", productId.value());
+                        }
+                    
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyPut(
+                const utility::string_t& spaceId,const std::shared_ptr<ShopifyStorefontDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/spaces/{spaceId}/vendors/shopify",
+                    {spaceId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+
     SpaceApi::SpaceApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
     {
 
@@ -329,6 +388,234 @@ namespace csp::services::generated::aggregationservice {
                     {spaceId}
                 );
 
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+
+    TicketedSpaceApi::TicketedSpaceApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
+    {
+
+    }
+
+    TicketedSpaceApi::~TicketedSpaceApi()
+    {
+
+    }
+
+    
+        
+            void TicketedSpaceApi::apiV1SpacesSpaceIdEventsPost(
+                const utility::string_t& spaceId,const std::shared_ptr<SpaceEventDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/spaces/{spaceId}/events",
+                    {spaceId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void TicketedSpaceApi::apiV1SpacesSpaceIdEventsEventIdPut(
+                const utility::string_t& spaceId,const utility::string_t& eventId,const std::shared_ptr<SpaceEventDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/spaces/{spaceId}/events/{eventId}",
+                    {spaceId,eventId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void TicketedSpaceApi::apiV1SpacesEventsGet(
+                const std::optional<std::vector<utility::string_t>>&
+                VendorEventIds,const std::optional<utility::string_t>&
+                VendorName,const std::optional<std::vector<utility::string_t>>&
+                SpaceIds,const std::optional<int32_t>&
+                Skip,const std::optional<int32_t>&
+                Limit,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/spaces/events",
+                    {}
+                );
+
+                
+                        if (VendorEventIds.has_value())
+                        {
+                            Uri.AddQueryParams("VendorEventIds", VendorEventIds.value());
+                        }
+                    
+                
+                        if (VendorName.has_value())
+                        {
+                            Uri.AddQueryParams("VendorName", VendorName.value());
+                        }
+                    
+                
+                        if (SpaceIds.has_value())
+                        {
+                            Uri.AddQueryParams("SpaceIds", SpaceIds.value());
+                        }
+                    
+                
+                        if (Skip.has_value())
+                        {
+                            Uri.AddQueryParams("Skip", Skip.value());
+                        }
+                    
+                
+                        if (Limit.has_value())
+                        {
+                            Uri.AddQueryParams("Limit", Limit.value());
+                        }
+                    
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void TicketedSpaceApi::apiV1SpacesSpaceIdEventsEventIdTicketsTicketIdPut(
+                const utility::string_t& spaceId,const utility::string_t& eventId,const utility::string_t& ticketId,const std::optional<utility::string_t>&
+                onBehalfOfUserId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/spaces/{spaceId}/events/{eventId}/tickets/{ticketId}",
+                    {spaceId,eventId,ticketId}
+                );
+
+                
+                        if (onBehalfOfUserId.has_value())
+                        {
+                            Uri.AddQueryParams("onBehalfOfUserId", onBehalfOfUserId.value());
+                        }
+                    
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void TicketedSpaceApi::apiV1SpacesTicketedGet(
+                const std::optional<std::vector<utility::string_t>>&
+                spaceIds,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/spaces/ticketed",
+                    {}
+                );
+
+                
+                        if (spaceIds.has_value())
+                        {
+                            Uri.AddQueryParams("spaceIds", spaceIds.value());
+                        }
+                    
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void TicketedSpaceApi::apiV1VendorsVendorNameOauthGet(
+                const utility::string_t& vendorName,const std::optional<utility::string_t>&
+                code,const std::optional<utility::string_t>&
+                userId,const std::optional<utility::string_t>&
+                tenant,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/vendors/{vendorName}/oauth",
+                    {vendorName}
+                );
+
+                
+                        if (code.has_value())
+                        {
+                            Uri.AddQueryParams("code", code.value());
+                        }
+                    
+                
+                        if (userId.has_value())
+                        {
+                            Uri.AddQueryParams("userId", userId.value());
+                        }
+                    
+                
+                        if (tenant.has_value())
+                        {
+                            Uri.AddQueryParams("tenant", tenant.value());
+                        }
+                    
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+
+                WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void TicketedSpaceApi::apiV1VendorsVendorNameUsersUserIdProviderInfoGet(
+                const utility::string_t& vendorName,const utility::string_t& userId,const std::optional<utility::string_t>&
+                tenant,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/vendors/{vendorName}/users/{userId}/provider-info",
+                    {vendorName,userId}
+                );
+
+                
+                        if (tenant.has_value())
+                        {
+                            Uri.AddQueryParams("tenant", tenant.value());
+                        }
+                    
                 csp::web::HttpPayload Payload;
                 Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
                     Payload.SetBearerToken();

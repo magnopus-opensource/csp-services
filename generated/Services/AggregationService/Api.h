@@ -185,6 +185,46 @@ namespace csp::services::generated::aggregationservice
         
     };
     
+    class ShopifyApi final : public csp::services::ApiBase
+    {
+    public:
+        ShopifyApi(csp::web::WebClient* InWebClient);
+        virtual ~ShopifyApi();
+
+        
+            
+                
+                    /// <summary>
+                    /// Find one product and return it and all its variants
+                    /// </summary>
+                /// <remarks>
+                /// GET /api/v1/spaces/{spaceId}/vendors/shopify/products
+                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1SpacesSpaceIdVendorsShopifyProductsGet(
+                    const utility::string_t& spaceId,const std::optional<utility::string_t>&
+                productId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Creates an record that contains the Shopify integration info
+                    /// </summary>
+                /// <remarks>
+                /// PUT /api/v1/spaces/{spaceId}/vendors/shopify
+                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1SpacesSpaceIdVendorsShopifyPut(
+                    const utility::string_t& spaceId,const std::shared_ptr<ShopifyStorefontDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+    };
+    
     class SpaceApi final : public csp::services::ApiBase
     {
     public:
@@ -221,6 +261,133 @@ namespace csp::services::generated::aggregationservice
                 /// </remarks>
                 void apiV1SpacesSpaceIdMultiplayerObjectsKmlGet(
                     const utility::string_t& spaceId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+    };
+    
+    class TicketedSpaceApi final : public csp::services::ApiBase
+    {
+    public:
+        TicketedSpaceApi(csp::web::WebClient* InWebClient);
+        virtual ~TicketedSpaceApi();
+
+        
+            
+                
+                    /// <summary>
+                    /// Creates an event associated with a space
+                    /// </summary>
+                /// <remarks>
+                /// POST /api/v1/spaces/{spaceId}/events
+                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1SpacesSpaceIdEventsPost(
+                    const utility::string_t& spaceId,const std::shared_ptr<SpaceEventDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Updates an event associated with a space
+                    /// </summary>
+                /// <remarks>
+                /// PUT /api/v1/spaces/{spaceId}/events/{eventId}
+                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1SpacesSpaceIdEventsEventIdPut(
+                    const utility::string_t& spaceId,const utility::string_t& eventId,const std::shared_ptr<SpaceEventDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Search space events that matches the search criteria
+                    /// or an empty list if none found
+                    /// </summary>
+                /// <remarks>
+                /// GET /api/v1/spaces/events
+                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1SpacesEventsGet(
+                    const std::optional<std::vector<utility::string_t>>&
+                VendorEventIds,const std::optional<utility::string_t>&
+                VendorName,const std::optional<std::vector<utility::string_t>>&
+                SpaceIds,const std::optional<int32_t>&
+                Skip,const std::optional<int32_t>&
+                Limit,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Applies the ticket purchased from 3rd party event ticket vendor to enter a space event
+                    /// </summary>
+                /// <remarks>
+                /// PUT /api/v1/spaces/{spaceId}/events/{eventId}/tickets/{ticketId}
+                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1SpacesSpaceIdEventsEventIdTicketsTicketIdPut(
+                    const utility::string_t& spaceId,const utility::string_t& eventId,const utility::string_t& ticketId,const std::optional<utility::string_t>&
+                onBehalfOfUserId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Returns which spaces have active ticketing and which do not
+                    /// </summary>
+                /// <remarks>
+                /// GET /api/v1/spaces/ticketed
+                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1SpacesTicketedGet(
+                    const std::optional<std::vector<utility::string_t>>&
+                spaceIds,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// OAuth endpoint for exchanging vendor provider auth code for an API bearer token.
+                    /// returns a redirect to a client-provided server-approved redirect URL
+                    /// </summary>
+                /// <remarks>
+                /// GET /api/v1/vendors/{vendorName}/oauth
+                /// Authorization: Anonymous
+                /// </remarks>
+                void apiV1VendorsVendorNameOauthGet(
+                    const utility::string_t& vendorName,const std::optional<utility::string_t>&
+                code,const std::optional<utility::string_t>&
+                userId,const std::optional<utility::string_t>&
+                tenant,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Returns info related to initiating oauth flow with a specific vendor
+                    /// </summary>
+                /// <remarks>
+                /// GET /api/v1/vendors/{vendorName}/users/{userId}/provider-info
+                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1VendorsVendorNameUsersUserIdProviderInfoGet(
+                    const utility::string_t& vendorName,const utility::string_t& userId,const std::optional<utility::string_t>&
+                tenant,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             

@@ -27,8 +27,17 @@ class Point;
 class PositionKml;
 class ServiceRequest;
 class ServiceResponse;
+class ShopifyProductDto;
+class ShopifyProductMedia;
+class ShopifyProductVariants;
+class ShopifyStorefontDto;
+class SpaceEventDto;
+class SpaceEventDtoDataPage;
+class SpaceTicketDto;
 class StringDataPage;
 class Style;
+class TicketStatus;
+class VendorProviderInfo;
 
 
 
@@ -731,6 +740,372 @@ class Style;
             std::optional<std::shared_ptr<rapidjson::Document>> m_OperationResult;
             };
 
+    /// <summary>
+        /// Object containing properties for space details.
+        /// </summary>
+    class ShopifyProductDto : public csp::services::DtoBase
+        {
+        public:
+            ShopifyProductDto();
+            virtual ~ShopifyProductDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The date the product was created
+                    /// </summary>
+                utility::string_t GetCreatedAt() const;
+                void SetCreatedAt(const utility::string_t& Value);bool HasCreatedAt() const;
+            
+                /// <summary>
+                    /// The id of the product
+                    /// </summary>
+                utility::string_t GetId() const;
+                void SetId(const utility::string_t& Value);bool HasId() const;
+            
+                /// <summary>
+                    /// The title of the product
+                    /// </summary>
+                utility::string_t GetTitle() const;
+                void SetTitle(const utility::string_t& Value);bool HasTitle() const;
+            
+                /// <summary>
+                    /// The product description
+                    /// </summary>
+                utility::string_t GetDescription() const;
+                void SetDescription(const utility::string_t& Value);bool HasDescription() const;
+            
+                /// <summary>
+                    /// A list of available product tags
+                    /// </summary>
+                const std::vector<utility::string_t>& GetTags() const;
+                void SetTags(const std::vector<utility::string_t>& Value);bool HasTags() const;
+            
+                /// <summary>
+                    /// A list of available variants
+                    /// </summary>
+                const std::vector<std::shared_ptr<ShopifyProductVariants>>& GetVariants() const;
+                void SetVariants(const std::vector<std::shared_ptr<ShopifyProductVariants>>& Value);bool HasVariants() const;
+            
+                /// <summary>
+                    /// A list of available media
+                    /// </summary>
+                const std::vector<std::shared_ptr<ShopifyProductMedia>>& GetMedia() const;
+                void SetMedia(const std::vector<std::shared_ptr<ShopifyProductMedia>>& Value);bool HasMedia() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_CreatedAt;
+            std::optional<utility::string_t> m_Id;
+            std::optional<utility::string_t> m_Title;
+            std::optional<utility::string_t> m_Description;
+            std::optional<std::vector<utility::string_t>> m_Tags;
+            std::optional<std::vector<std::shared_ptr<ShopifyProductVariants>>> m_Variants;
+            std::optional<std::vector<std::shared_ptr<ShopifyProductMedia>>> m_Media;
+            };
+
+    /// <summary>
+        /// A media item of the product
+        /// </summary>
+    class ShopifyProductMedia : public csp::services::DtoBase
+        {
+        public:
+            ShopifyProductMedia();
+            virtual ~ShopifyProductMedia();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Media's content type
+                    /// </summary>
+                utility::string_t GetMediaContentType() const;
+                void SetMediaContentType(const utility::string_t& Value);bool HasMediaContentType() const;
+            
+                /// <summary>
+                    /// Media's 'alt' description
+                    /// </summary>
+                utility::string_t GetAlt() const;
+                void SetAlt(const utility::string_t& Value);bool HasAlt() const;
+            
+                /// <summary>
+                    /// Url of media
+                    /// </summary>
+                utility::string_t GetUrl() const;
+                void SetUrl(const utility::string_t& Value);bool HasUrl() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_MediaContentType;
+            std::optional<utility::string_t> m_Alt;
+            std::optional<utility::string_t> m_Url;
+            };
+
+    /// <summary>
+        /// A variant of the original product
+        /// </summary>
+    class ShopifyProductVariants : public csp::services::DtoBase
+        {
+        public:
+            ShopifyProductVariants();
+            virtual ~ShopifyProductVariants();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The id of the product variant
+                    /// </summary>
+                utility::string_t GetId() const;
+                void SetId(const utility::string_t& Value);bool HasId() const;
+            
+                /// <summary>
+                    /// The title of the product variant
+                    /// </summary>
+                utility::string_t GetTitle() const;
+                void SetTitle(const utility::string_t& Value);bool HasTitle() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Id;
+            std::optional<utility::string_t> m_Title;
+            };
+
+    /// <summary>
+        /// Contains information necessary to integrate with a particular storefront
+        /// on the Storefront API as well as associates that info to a Space.
+        /// </summary>
+    class ShopifyStorefontDto : public csp::services::DtoBase
+        {
+        public:
+            ShopifyStorefontDto();
+            virtual ~ShopifyStorefontDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Id of the Record
+                    /// </summary>
+                utility::string_t GetId() const;
+                void SetId(const utility::string_t& Value);bool HasId() const;
+            
+                /// <summary>
+                    /// Name of the store, not including the URL portion,
+                    /// for instance 'magtesty' in 'magtesty.myshopify.com'
+                    /// </summary>
+                utility::string_t GetStoreName() const;
+                void SetStoreName(const utility::string_t& Value);bool HasStoreName() const;
+            
+                /// <summary>
+                    /// Unique identifier of the Olympus User who setup the store
+                    /// </summary>
+                utility::string_t GetSpaceOwnerId() const;
+                void SetSpaceOwnerId(const utility::string_t& Value);bool HasSpaceOwnerId() const;
+            
+                /// <summary>
+                    /// Unique identifier of the Olympus User who setup the store
+                    /// </summary>
+                utility::string_t GetSpaceId() const;
+                void SetSpaceId(const utility::string_t& Value);bool HasSpaceId() const;
+            
+                /// <summary>
+                    /// Whether or not the store integration is meant to be active
+                    /// </summary>
+                bool GetIsEcommerceActive() const;
+                void SetIsEcommerceActive(const bool& Value);bool HasIsEcommerceActive() const;
+            
+                /// <summary>
+                    /// The private access token for the storefront - stored as an encrypted value
+                    /// </summary>
+                utility::string_t GetPrivateAccessToken() const;
+                void SetPrivateAccessToken(const utility::string_t& Value);bool HasPrivateAccessToken() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Id;
+            std::optional<utility::string_t> m_StoreName;
+            std::optional<utility::string_t> m_SpaceOwnerId;
+            std::optional<utility::string_t> m_SpaceId;
+            std::optional<bool> m_IsEcommerceActive;
+            std::optional<utility::string_t> m_PrivateAccessToken;
+            };
+
+    /// <summary>
+        /// Object containing properties for space event details.
+        /// </summary>
+    class SpaceEventDto : public csp::services::DtoBase
+        {
+        public:
+            SpaceEventDto();
+            virtual ~SpaceEventDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Unique identifier
+                    /// </summary>
+                utility::string_t GetId() const;
+                void SetId(const utility::string_t& Value);bool HasId() const;
+            
+                /// <summary>
+                    /// Unique identifier of space
+                    /// </summary>
+                utility::string_t GetSpaceId() const;
+                void SetSpaceId(const utility::string_t& Value);bool HasSpaceId() const;
+            
+                /// <summary>
+                    /// Unique identifier of space owner
+                    /// </summary>
+                utility::string_t GetSpaceOwnerId() const;
+                void SetSpaceOwnerId(const utility::string_t& Value);bool HasSpaceOwnerId() const;
+            
+                /// <summary>
+                    /// Unique identifier of event created with event ticket vendor
+                    /// </summary>
+                utility::string_t GetVendorEventId() const;
+                void SetVendorEventId(const utility::string_t& Value);bool HasVendorEventId() const;
+            
+                /// <summary>
+                    /// The name of event ticket vendor
+                    /// </summary>
+                utility::string_t GetVendorName() const;
+                void SetVendorName(const utility::string_t& Value);bool HasVendorName() const;
+            
+                /// <summary>
+                    /// The link to the event with the event ticket vendor
+                    /// </summary>
+                utility::string_t GetVendorEventUri() const;
+                void SetVendorEventUri(const utility::string_t& Value);bool HasVendorEventUri() const;
+            
+                /// <summary>
+                    /// Flag to indicate if space is currently ticketed
+                    /// </summary>
+                bool GetIsTicketingActive() const;
+                void SetIsTicketingActive(const bool& Value);bool HasIsTicketingActive() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Id;
+            std::optional<utility::string_t> m_SpaceId;
+            std::optional<utility::string_t> m_SpaceOwnerId;
+            std::optional<utility::string_t> m_VendorEventId;
+            std::optional<utility::string_t> m_VendorName;
+            std::optional<utility::string_t> m_VendorEventUri;
+            std::optional<bool> m_IsTicketingActive;
+            };
+
+    class SpaceEventDtoDataPage : public csp::services::DtoBase
+        {
+        public:
+            SpaceEventDtoDataPage();
+            virtual ~SpaceEventDtoDataPage();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                const std::vector<std::shared_ptr<SpaceEventDto>>& GetItems() const;
+                void SetItems(const std::vector<std::shared_ptr<SpaceEventDto>>& Value);bool HasItems() const;
+            
+                int32_t GetSkip() const;
+                void SetSkip(int32_t Value);bool HasSkip() const;
+            
+                int32_t GetLimit() const;
+                void SetLimit(int32_t Value);bool HasLimit() const;
+            
+                int32_t GetItemCount() const;
+                void SetItemCount(int32_t Value);bool HasItemCount() const;
+            
+                int64_t GetItemTotalCount() const;
+                void SetItemTotalCount(int64_t Value);bool HasItemTotalCount() const;
+            
+
+        protected:
+            std::optional<std::vector<std::shared_ptr<SpaceEventDto>>> m_Items;
+            std::optional<int32_t> m_Skip;
+            std::optional<int32_t> m_Limit;
+            std::optional<int32_t> m_ItemCount;
+            std::optional<int64_t> m_ItemTotalCount;
+            };
+
+    /// <summary>
+        /// Object containing properties for event ticket order details.
+        /// </summary>
+    class SpaceTicketDto : public csp::services::DtoBase
+        {
+        public:
+            SpaceTicketDto();
+            virtual ~SpaceTicketDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Unique identifier
+                    /// </summary>
+                utility::string_t GetId() const;
+                void SetId(const utility::string_t& Value);bool HasId() const;
+            
+                /// <summary>
+                    /// Unique identifier of event created with event ticket vendor
+                    /// </summary>
+                utility::string_t GetVendorEventId() const;
+                void SetVendorEventId(const utility::string_t& Value);bool HasVendorEventId() const;
+            
+                /// <summary>
+                    /// The name of event ticket vendor
+                    /// </summary>
+                utility::string_t GetVendorName() const;
+                void SetVendorName(const utility::string_t& Value);bool HasVendorName() const;
+            
+                /// <summary>
+                    /// Order number of the ticket
+                    /// </summary>
+                utility::string_t GetVendorTicketId() const;
+                void SetVendorTicketId(const utility::string_t& Value);bool HasVendorTicketId() const;
+            
+                /// <summary>
+                    /// Unique identifier of space
+                    /// </summary>
+                utility::string_t GetSpaceId() const;
+                void SetSpaceId(const utility::string_t& Value);bool HasSpaceId() const;
+            
+                std::shared_ptr<TicketStatus> GetTicketStatus() const;
+                void SetTicketStatus(const std::shared_ptr<TicketStatus>& Value);bool HasTicketStatus() const;
+            
+                /// <summary>
+                    /// Unique identifier of the user associated with the ticket
+                    /// </summary>
+                utility::string_t GetUserId() const;
+                void SetUserId(const utility::string_t& Value);bool HasUserId() const;
+            
+                /// <summary>
+                    /// Email address of the attendee in event ticket vendor
+                    /// </summary>
+                utility::string_t GetEmailLower() const;
+                void SetEmailLower(const utility::string_t& Value);bool HasEmailLower() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Id;
+            std::optional<utility::string_t> m_VendorEventId;
+            std::optional<utility::string_t> m_VendorName;
+            std::optional<utility::string_t> m_VendorTicketId;
+            std::optional<utility::string_t> m_SpaceId;
+            std::optional<std::shared_ptr<TicketStatus>> m_TicketStatus;
+            std::optional<utility::string_t> m_UserId;
+            std::optional<utility::string_t> m_EmailLower;
+            };
+
     class StringDataPage : public csp::services::DtoBase
         {
         public:
@@ -791,6 +1166,77 @@ class Style;
         protected:
             std::optional<utility::string_t> m_Id;
             std::optional<std::shared_ptr<IconStyle>> m_IconStyle;
+            };
+
+    /// <summary>
+        /// Possible ticket status
+        /// </summary>
+    class TicketStatus : public csp::services::EnumBase
+        {
+        public:
+            TicketStatus();
+            virtual ~TicketStatus();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            enum class eTicketStatus
+            {
+                PURCHASED,
+                REDEEMED
+                
+            };
+
+            eTicketStatus GetValue() const;
+            void SetValue(eTicketStatus const Value);
+
+        protected:
+            eTicketStatus Value = {};
+        };
+
+    /// <summary>
+        /// Contains info related to the vendor as a provider
+        /// </summary>
+    class VendorProviderInfo : public csp::services::DtoBase
+        {
+        public:
+            VendorProviderInfo();
+            virtual ~VendorProviderInfo();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The name of the vendor provider
+                    /// </summary>
+                utility::string_t GetVendorName() const;
+                void SetVendorName(const utility::string_t& Value);bool HasVendorName() const;
+            
+                /// <summary>
+                    /// Application client ID with the vendor provider
+                    /// </summary>
+                utility::string_t GetClientId() const;
+                void SetClientId(const utility::string_t& Value);bool HasClientId() const;
+            
+                /// <summary>
+                    /// The base URL for the Eventbrite API
+                    /// </summary>
+                utility::string_t GetAuthorizeEndpoint() const;
+                void SetAuthorizeEndpoint(const utility::string_t& Value);bool HasAuthorizeEndpoint() const;
+            
+                /// <summary>
+                    /// The CHS hosted redirect URL for the Eventbrite oauth flow
+                    /// </summary>
+                utility::string_t GetOAuthRedirectUrl() const;
+                void SetOAuthRedirectUrl(const utility::string_t& Value);bool HasOAuthRedirectUrl() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_VendorName;
+            std::optional<utility::string_t> m_ClientId;
+            std::optional<utility::string_t> m_AuthorizeEndpoint;
+            std::optional<utility::string_t> m_OAuthRedirectUrl;
             };
 
 

@@ -3046,6 +3046,18 @@ namespace csp::services::generated::userservice
                     );
                 }
             
+                if (m_SendSpaceLink.has_value())
+                {
+                    rapidjson::Value SendSpaceLinkValue(
+                        TypeToJsonValue(m_SendSpaceLink, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "sendSpaceLink",
+                        SendSpaceLinkValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
 
             return JsonDocToString(JsonDoc);
         }
@@ -3193,6 +3205,21 @@ namespace csp::services::generated::userservice
                     else
                     {
                         FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("sendSpaceLink"))
+                {
+                    const rapidjson::Value& SendSpaceLinkValue = JsonDoc["sendSpaceLink"];
+
+                    if (SendSpaceLinkValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(SendSpaceLinkValue, m_SendSpaceLink);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member sendSpaceLink is null!");
                     }
                     
                 }
@@ -3359,6 +3386,24 @@ namespace csp::services::generated::userservice
                 )
             {
                     m_UpdatedAt = Value;
+                }
+                
+        
+            bool GroupInviteDto::GetSendSpaceLink() const
+            {
+                    return m_SendSpaceLink.value();
+                }
+
+            bool GroupInviteDto::HasSendSpaceLink() const
+            {
+                return m_SendSpaceLink.has_value();
+            }
+
+            void GroupInviteDto::SetSendSpaceLink(
+                    const bool& Value
+                )
+            {
+                    m_SendSpaceLink = Value;
                 }
                 
         

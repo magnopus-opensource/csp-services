@@ -45,6 +45,7 @@ namespace csp::services::generated::prototypeservice {
                 Ids,const std::optional<std::vector<utility::string_t>>&
                 SupportedPlatforms,const std::optional<std::vector<utility::string_t>>&
                 AssetTypes,const std::optional<std::vector<utility::string_t>>&
+                Styles,const std::optional<std::vector<utility::string_t>>&
                 Names,const std::optional<utility::string_t>&
                 CreatedAfter,const std::optional<std::vector<utility::string_t>>&
                 PrototypeIds,const std::optional<std::vector<utility::string_t>>&
@@ -74,6 +75,12 @@ namespace csp::services::generated::prototypeservice {
                         if (AssetTypes.has_value())
                         {
                             Uri.AddQueryParams("AssetTypes", AssetTypes.value());
+                        }
+                    
+                
+                        if (Styles.has_value())
+                        {
+                            Uri.AddQueryParams("Styles", Styles.value());
                         }
                     
                 
@@ -190,6 +197,7 @@ namespace csp::services::generated::prototypeservice {
                 Ids,const std::optional<std::vector<utility::string_t>>&
                 SupportedPlatforms,const std::optional<std::vector<utility::string_t>>&
                 AssetTypes,const std::optional<std::vector<utility::string_t>>&
+                Styles,const std::optional<std::vector<utility::string_t>>&
                 Names,const std::optional<utility::string_t>&
                 CreatedAfter,const std::optional<std::vector<utility::string_t>>&
                 PrototypeIds,const std::optional<std::vector<utility::string_t>>&
@@ -219,6 +227,12 @@ namespace csp::services::generated::prototypeservice {
                         if (AssetTypes.has_value())
                         {
                             Uri.AddQueryParams("AssetTypes", AssetTypes.value());
+                        }
+                    
+                
+                        if (Styles.has_value())
+                        {
+                            Uri.AddQueryParams("Styles", Styles.value());
                         }
                     
                 

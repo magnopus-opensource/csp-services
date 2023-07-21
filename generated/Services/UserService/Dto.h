@@ -694,6 +694,12 @@ class UserRolesDto;
                 utility::string_t GetUpdatedAt() const;
                 void SetUpdatedAt(const utility::string_t& Value);bool HasUpdatedAt() const;
             
+                /// <summary>
+                    /// Whether to simply send a deeplink to the Space
+                    /// </summary>
+                bool GetSendSpaceLink() const;
+                void SetSendSpaceLink(const bool& Value);bool HasSendSpaceLink() const;
+            
 
         protected:
             std::optional<utility::string_t> m_Id;
@@ -705,6 +711,7 @@ class UserRolesDto;
             std::optional<utility::string_t> m_CreatedAt;
             std::optional<utility::string_t> m_UpdatedBy;
             std::optional<utility::string_t> m_UpdatedAt;
+            std::optional<bool> m_SendSpaceLink;
             };
 
     /// <summary>
