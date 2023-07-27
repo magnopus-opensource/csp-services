@@ -331,12 +331,13 @@ namespace csp::services::generated::aggregationservice
                     /// Applies the ticket purchased from 3rd party event ticket vendor to enter a space event
                     /// </summary>
                 /// <remarks>
-                /// PUT /api/v1/spaces/{spaceId}/events/{eventId}/tickets/{ticketId}
+                /// PUT /api/v1/spaces/{spaceId}/vendors/{vendorName}/events/{vendorEventId}/tickets/{ticketId}
                 /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
-                void apiV1SpacesSpaceIdEventsEventIdTicketsTicketIdPut(
-                    const utility::string_t& spaceId,const utility::string_t& eventId,const utility::string_t& ticketId,const std::optional<utility::string_t>&
-                onBehalfOfUserId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                void apiV1SpacesSpaceIdVendorsVendorNameEventsVendorEventIdTicketsTicketIdPut(
+                    const utility::string_t& spaceId,const utility::string_t& vendorName,const utility::string_t& vendorEventId,const std::optional<utility::string_t>&
+                vendorTicketId,const std::optional<utility::string_t>&
+                onBehalfOfUserId,const utility::string_t& ticketId,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             

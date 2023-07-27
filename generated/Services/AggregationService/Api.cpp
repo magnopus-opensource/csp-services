@@ -504,18 +504,25 @@ namespace csp::services::generated::aggregationservice {
         
     
         
-            void TicketedSpaceApi::apiV1SpacesSpaceIdEventsEventIdTicketsTicketIdPut(
-                const utility::string_t& spaceId,const utility::string_t& eventId,const utility::string_t& ticketId,const std::optional<utility::string_t>&
-                onBehalfOfUserId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+            void TicketedSpaceApi::apiV1SpacesSpaceIdVendorsVendorNameEventsVendorEventIdTicketsTicketIdPut(
+                const utility::string_t& spaceId,const utility::string_t& vendorName,const utility::string_t& vendorEventId,const std::optional<utility::string_t>&
+                vendorTicketId,const std::optional<utility::string_t>&
+                onBehalfOfUserId,const utility::string_t& ticketId,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken
             ) const
             {
                 csp::web::Uri Uri;
                 Uri.SetWithParams(
-                    *RootUri + "/api/v1/spaces/{spaceId}/events/{eventId}/tickets/{ticketId}",
-                    {spaceId,eventId,ticketId}
+                    *RootUri + "/api/v1/spaces/{spaceId}/vendors/{vendorName}/events/{vendorEventId}/tickets/{ticketId}",
+                    {spaceId,vendorName,vendorEventId,ticketId}
                 );
 
+                
+                        if (vendorTicketId.has_value())
+                        {
+                            Uri.AddQueryParams("vendorTicketId", vendorTicketId.value());
+                        }
+                    
                 
                         if (onBehalfOfUserId.has_value())
                         {
