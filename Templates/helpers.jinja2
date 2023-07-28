@@ -6,7 +6,9 @@
 } %}
 
 {%- macro print_type(property) -%}
-    {%- if '$ref' in property -%}
+    {%- if property is boolean -%}
+        bool
+    {%- elif '$ref' in property -%}
         std::shared_ptr<{{ property['$ref'].split('/')[-1] }}>
     {%- elif not 'type' in property -%}
         std::shared_ptr<rapidjson::Document>
