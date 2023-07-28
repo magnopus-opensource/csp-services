@@ -6,9 +6,11 @@
 } %}
 
 {%- macro print_type(property) -%}
-    {%- if property['$ref'] is defined -%}
+    {%- if property is boolean -%}
+        bool
+    {%- elif '$ref' in property -%}
         std::shared_ptr<{{ property['$ref'].split('/')[-1] }}>
-    {%- elif not property['type'] is defined -%}
+    {%- elif not 'type' in property -%}
         std::shared_ptr<rapidjson::Document>
     {%- elif property.type == 'integer' or property.type == 'number' -%}
         {%- if property.format in type_map -%}
