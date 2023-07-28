@@ -3237,6 +3237,656 @@ namespace csp::services::generated::aggregationservice
                 
         
 
+    ShopifyCartDto::ShopifyCartDto() { }
+    ShopifyCartDto::~ShopifyCartDto() { }
+
+    utility::string_t ShopifyCartDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_SpaceId.has_value())
+                {
+                    rapidjson::Value SpaceIdValue(
+                        TypeToJsonValue(m_SpaceId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "spaceId",
+                        SpaceIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_ShopifyCartId.has_value())
+                {
+                    rapidjson::Value ShopifyCartIdValue(
+                        TypeToJsonValue(m_ShopifyCartId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "shopifyCartId",
+                        ShopifyCartIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Lines.has_value())
+                {
+                    rapidjson::Value LinesValue(
+                        TypeToJsonValue(m_Lines, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "lines",
+                        LinesValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_TotalQuantity.has_value())
+                {
+                    rapidjson::Value TotalQuantityValue(
+                        TypeToJsonValue(m_TotalQuantity, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "totalQuantity",
+                        TotalQuantityValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void ShopifyCartDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("spaceId"))
+                {
+                    const rapidjson::Value& SpaceIdValue = JsonDoc["spaceId"];
+
+                    if (SpaceIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(SpaceIdValue, m_SpaceId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("shopifyCartId"))
+                {
+                    const rapidjson::Value& ShopifyCartIdValue = JsonDoc["shopifyCartId"];
+
+                    if (ShopifyCartIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ShopifyCartIdValue, m_ShopifyCartId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member shopifyCartId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("lines"))
+                {
+                    const rapidjson::Value& LinesValue = JsonDoc["lines"];
+
+                    if (LinesValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(LinesValue, m_Lines);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member lines is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("totalQuantity"))
+                {
+                    const rapidjson::Value& TotalQuantityValue = JsonDoc["totalQuantity"];
+
+                    if (TotalQuantityValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(TotalQuantityValue, m_TotalQuantity);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member totalQuantity is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t ShopifyCartDto::GetSpaceId() const
+            {
+                    return m_SpaceId.value();
+                }
+
+            bool ShopifyCartDto::HasSpaceId() const
+            {
+                return m_SpaceId.has_value();
+            }
+
+            void ShopifyCartDto::SetSpaceId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_SpaceId = Value;
+                }
+                
+        
+            utility::string_t ShopifyCartDto::GetShopifyCartId() const
+            {
+                    return m_ShopifyCartId.value();
+                }
+
+            bool ShopifyCartDto::HasShopifyCartId() const
+            {
+                return m_ShopifyCartId.has_value();
+            }
+
+            void ShopifyCartDto::SetShopifyCartId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_ShopifyCartId = Value;
+                }
+                
+        
+            const std::vector<std::shared_ptr<ShopifyCartLineDto>>&
+                    ShopifyCartDto::GetLines() const
+            {
+                    return m_Lines.value();
+                }
+
+            bool ShopifyCartDto::HasLines() const
+            {
+                return m_Lines.has_value();
+            }
+
+            void ShopifyCartDto::SetLines(
+                    const std::vector<std::shared_ptr<ShopifyCartLineDto>>& Value
+                )
+            {
+                    m_Lines = Value;
+                }
+                
+        
+            int32_t ShopifyCartDto::GetTotalQuantity() const
+            {
+                    return m_TotalQuantity.value();
+                }
+
+            bool ShopifyCartDto::HasTotalQuantity() const
+            {
+                return m_TotalQuantity.has_value();
+            }
+
+            void ShopifyCartDto::SetTotalQuantity(int32_t Value)
+            {
+                    m_TotalQuantity = Value;
+                }
+                
+        
+
+    ShopifyCartLineDto::ShopifyCartLineDto() { }
+    ShopifyCartLineDto::~ShopifyCartLineDto() { }
+
+    utility::string_t ShopifyCartLineDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_ShopifyCartLineId.has_value())
+                {
+                    rapidjson::Value ShopifyCartLineIdValue(
+                        TypeToJsonValue(m_ShopifyCartLineId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "shopifyCartLineId",
+                        ShopifyCartLineIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_ProductId.has_value())
+                {
+                    rapidjson::Value ProductIdValue(
+                        TypeToJsonValue(m_ProductId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "productId",
+                        ProductIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Quantity.has_value())
+                {
+                    rapidjson::Value QuantityValue(
+                        TypeToJsonValue(m_Quantity, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "quantity",
+                        QuantityValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void ShopifyCartLineDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("shopifyCartLineId"))
+                {
+                    const rapidjson::Value& ShopifyCartLineIdValue = JsonDoc["shopifyCartLineId"];
+
+                    if (ShopifyCartLineIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ShopifyCartLineIdValue, m_ShopifyCartLineId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member shopifyCartLineId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("productId"))
+                {
+                    const rapidjson::Value& ProductIdValue = JsonDoc["productId"];
+
+                    if (ProductIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ProductIdValue, m_ProductId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member productId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("quantity"))
+                {
+                    const rapidjson::Value& QuantityValue = JsonDoc["quantity"];
+
+                    if (QuantityValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(QuantityValue, m_Quantity);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member quantity is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t ShopifyCartLineDto::GetShopifyCartLineId() const
+            {
+                    return m_ShopifyCartLineId.value();
+                }
+
+            bool ShopifyCartLineDto::HasShopifyCartLineId() const
+            {
+                return m_ShopifyCartLineId.has_value();
+            }
+
+            void ShopifyCartLineDto::SetShopifyCartLineId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_ShopifyCartLineId = Value;
+                }
+                
+        
+            utility::string_t ShopifyCartLineDto::GetProductId() const
+            {
+                    return m_ProductId.value();
+                }
+
+            bool ShopifyCartLineDto::HasProductId() const
+            {
+                return m_ProductId.has_value();
+            }
+
+            void ShopifyCartLineDto::SetProductId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_ProductId = Value;
+                }
+                
+        
+            int32_t ShopifyCartLineDto::GetQuantity() const
+            {
+                    return m_Quantity.value();
+                }
+
+            bool ShopifyCartLineDto::HasQuantity() const
+            {
+                return m_Quantity.has_value();
+            }
+
+            void ShopifyCartLineDto::SetQuantity(int32_t Value)
+            {
+                    m_Quantity = Value;
+                }
+                
+        
+
+    ShopifyCartUpdateDto::ShopifyCartUpdateDto() { }
+    ShopifyCartUpdateDto::~ShopifyCartUpdateDto() { }
+
+    utility::string_t ShopifyCartUpdateDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_SpaceId.has_value())
+                {
+                    rapidjson::Value SpaceIdValue(
+                        TypeToJsonValue(m_SpaceId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "spaceId",
+                        SpaceIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_ShopifyCartId.has_value())
+                {
+                    rapidjson::Value ShopifyCartIdValue(
+                        TypeToJsonValue(m_ShopifyCartId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "shopifyCartId",
+                        ShopifyCartIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_CartChanges.has_value())
+                {
+                    rapidjson::Value CartChangesValue(
+                        TypeToJsonValue(m_CartChanges, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "cartChanges",
+                        CartChangesValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void ShopifyCartUpdateDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("spaceId"))
+                {
+                    const rapidjson::Value& SpaceIdValue = JsonDoc["spaceId"];
+
+                    if (SpaceIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(SpaceIdValue, m_SpaceId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("shopifyCartId"))
+                {
+                    const rapidjson::Value& ShopifyCartIdValue = JsonDoc["shopifyCartId"];
+
+                    if (ShopifyCartIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ShopifyCartIdValue, m_ShopifyCartId);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member shopifyCartId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("cartChanges"))
+                {
+                    const rapidjson::Value& CartChangesValue = JsonDoc["cartChanges"];
+
+                    if (CartChangesValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(CartChangesValue, m_CartChanges);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member cartChanges is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t ShopifyCartUpdateDto::GetSpaceId() const
+            {
+                    return m_SpaceId.value();
+                }
+
+            bool ShopifyCartUpdateDto::HasSpaceId() const
+            {
+                return m_SpaceId.has_value();
+            }
+
+            void ShopifyCartUpdateDto::SetSpaceId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_SpaceId = Value;
+                }
+                
+        
+            utility::string_t ShopifyCartUpdateDto::GetShopifyCartId() const
+            {
+                    return m_ShopifyCartId.value();
+                }
+
+            bool ShopifyCartUpdateDto::HasShopifyCartId() const
+            {
+                return m_ShopifyCartId.has_value();
+            }
+
+            void ShopifyCartUpdateDto::SetShopifyCartId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_ShopifyCartId = Value;
+                }
+                
+        
+            const std::map<utility::string_t, bool>&
+                    ShopifyCartUpdateDto::GetCartChanges() const
+            {
+                    return m_CartChanges.value();
+                }
+
+            bool ShopifyCartUpdateDto::HasCartChanges() const
+            {
+                return m_CartChanges.has_value();
+            }
+
+            void ShopifyCartUpdateDto::SetCartChanges(
+                    const std::map<utility::string_t, bool>& Value
+                )
+            {
+                    m_CartChanges = Value;
+                }
+                
+        
+
+    ShopifyCheckoutDto::ShopifyCheckoutDto() { }
+    ShopifyCheckoutDto::~ShopifyCheckoutDto() { }
+
+    utility::string_t ShopifyCheckoutDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_StoreUrl.has_value())
+                {
+                    rapidjson::Value StoreUrlValue(
+                        TypeToJsonValue(m_StoreUrl, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "storeUrl",
+                        StoreUrlValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_CheckoutUrl.has_value())
+                {
+                    rapidjson::Value CheckoutUrlValue(
+                        TypeToJsonValue(m_CheckoutUrl, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "checkoutUrl",
+                        CheckoutUrlValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void ShopifyCheckoutDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("storeUrl"))
+                {
+                    const rapidjson::Value& StoreUrlValue = JsonDoc["storeUrl"];
+
+                    if (StoreUrlValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(StoreUrlValue, m_StoreUrl);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member storeUrl is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("checkoutUrl"))
+                {
+                    const rapidjson::Value& CheckoutUrlValue = JsonDoc["checkoutUrl"];
+
+                    if (CheckoutUrlValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(CheckoutUrlValue, m_CheckoutUrl);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member checkoutUrl is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t ShopifyCheckoutDto::GetStoreUrl() const
+            {
+                    return m_StoreUrl.value();
+                }
+
+            bool ShopifyCheckoutDto::HasStoreUrl() const
+            {
+                return m_StoreUrl.has_value();
+            }
+
+            void ShopifyCheckoutDto::SetStoreUrl(
+                    const utility::string_t& Value
+                )
+            {
+                    m_StoreUrl = Value;
+                }
+                
+        
+            utility::string_t ShopifyCheckoutDto::GetCheckoutUrl() const
+            {
+                    return m_CheckoutUrl.value();
+                }
+
+            bool ShopifyCheckoutDto::HasCheckoutUrl() const
+            {
+                return m_CheckoutUrl.has_value();
+            }
+
+            void ShopifyCheckoutDto::SetCheckoutUrl(
+                    const utility::string_t& Value
+                )
+            {
+                    m_CheckoutUrl = Value;
+                }
+                
+        
+
     ShopifyProductDto::ShopifyProductDto() { }
     ShopifyProductDto::~ShopifyProductDto() { }
 
@@ -3864,10 +4514,10 @@ namespace csp::services::generated::aggregationservice
                 
         
 
-    ShopifyStorefontDto::ShopifyStorefontDto() { }
-    ShopifyStorefontDto::~ShopifyStorefontDto() { }
+    ShopifyStorefrontDto::ShopifyStorefrontDto() { }
+    ShopifyStorefrontDto::~ShopifyStorefrontDto() { }
 
-    utility::string_t ShopifyStorefontDto::ToJson() const
+    utility::string_t ShopifyStorefrontDto::ToJson() const
         {
             rapidjson::Document JsonDoc(rapidjson::kObjectType);
 
@@ -3948,7 +4598,7 @@ namespace csp::services::generated::aggregationservice
             return JsonDocToString(JsonDoc);
         }
 
-        void ShopifyStorefontDto::FromJson(const utility::string_t& Val)
+        void ShopifyStorefrontDto::FromJson(const utility::string_t& Val)
         {
             rapidjson::Document JsonDoc;
 
@@ -4053,17 +4703,17 @@ namespace csp::services::generated::aggregationservice
         }
 
         
-            utility::string_t ShopifyStorefontDto::GetId() const
+            utility::string_t ShopifyStorefrontDto::GetId() const
             {
                     return m_Id.value();
                 }
 
-            bool ShopifyStorefontDto::HasId() const
+            bool ShopifyStorefrontDto::HasId() const
             {
                 return m_Id.has_value();
             }
 
-            void ShopifyStorefontDto::SetId(
+            void ShopifyStorefrontDto::SetId(
                     const utility::string_t& Value
                 )
             {
@@ -4071,17 +4721,17 @@ namespace csp::services::generated::aggregationservice
                 }
                 
         
-            utility::string_t ShopifyStorefontDto::GetStoreName() const
+            utility::string_t ShopifyStorefrontDto::GetStoreName() const
             {
                     return m_StoreName.value();
                 }
 
-            bool ShopifyStorefontDto::HasStoreName() const
+            bool ShopifyStorefrontDto::HasStoreName() const
             {
                 return m_StoreName.has_value();
             }
 
-            void ShopifyStorefontDto::SetStoreName(
+            void ShopifyStorefrontDto::SetStoreName(
                     const utility::string_t& Value
                 )
             {
@@ -4089,17 +4739,17 @@ namespace csp::services::generated::aggregationservice
                 }
                 
         
-            utility::string_t ShopifyStorefontDto::GetSpaceOwnerId() const
+            utility::string_t ShopifyStorefrontDto::GetSpaceOwnerId() const
             {
                     return m_SpaceOwnerId.value();
                 }
 
-            bool ShopifyStorefontDto::HasSpaceOwnerId() const
+            bool ShopifyStorefrontDto::HasSpaceOwnerId() const
             {
                 return m_SpaceOwnerId.has_value();
             }
 
-            void ShopifyStorefontDto::SetSpaceOwnerId(
+            void ShopifyStorefrontDto::SetSpaceOwnerId(
                     const utility::string_t& Value
                 )
             {
@@ -4107,17 +4757,17 @@ namespace csp::services::generated::aggregationservice
                 }
                 
         
-            utility::string_t ShopifyStorefontDto::GetSpaceId() const
+            utility::string_t ShopifyStorefrontDto::GetSpaceId() const
             {
                     return m_SpaceId.value();
                 }
 
-            bool ShopifyStorefontDto::HasSpaceId() const
+            bool ShopifyStorefrontDto::HasSpaceId() const
             {
                 return m_SpaceId.has_value();
             }
 
-            void ShopifyStorefontDto::SetSpaceId(
+            void ShopifyStorefrontDto::SetSpaceId(
                     const utility::string_t& Value
                 )
             {
@@ -4125,17 +4775,17 @@ namespace csp::services::generated::aggregationservice
                 }
                 
         
-            bool ShopifyStorefontDto::GetIsEcommerceActive() const
+            bool ShopifyStorefrontDto::GetIsEcommerceActive() const
             {
                     return m_IsEcommerceActive.value();
                 }
 
-            bool ShopifyStorefontDto::HasIsEcommerceActive() const
+            bool ShopifyStorefrontDto::HasIsEcommerceActive() const
             {
                 return m_IsEcommerceActive.has_value();
             }
 
-            void ShopifyStorefontDto::SetIsEcommerceActive(
+            void ShopifyStorefrontDto::SetIsEcommerceActive(
                     const bool& Value
                 )
             {
@@ -4143,17 +4793,17 @@ namespace csp::services::generated::aggregationservice
                 }
                 
         
-            utility::string_t ShopifyStorefontDto::GetPrivateAccessToken() const
+            utility::string_t ShopifyStorefrontDto::GetPrivateAccessToken() const
             {
                     return m_PrivateAccessToken.value();
                 }
 
-            bool ShopifyStorefontDto::HasPrivateAccessToken() const
+            bool ShopifyStorefrontDto::HasPrivateAccessToken() const
             {
                 return m_PrivateAccessToken.has_value();
             }
 
-            void ShopifyStorefontDto::SetPrivateAccessToken(
+            void ShopifyStorefrontDto::SetPrivateAccessToken(
                     const utility::string_t& Value
                 )
             {

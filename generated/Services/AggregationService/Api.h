@@ -218,7 +218,65 @@ namespace csp::services::generated::aggregationservice
                 /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesSpaceIdVendorsShopifyPut(
-                    const utility::string_t& spaceId,const std::shared_ptr<ShopifyStorefontDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                    const utility::string_t& spaceId,const std::shared_ptr<ShopifyStorefrontDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Creates a Cart at Shopify for the store associated to the provided SpaceId
+                    /// </summary>
+                /// <remarks>
+                /// POST /api/v1/spaces/{spaceId}/vendors/shopify/carts
+                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1SpacesSpaceIdVendorsShopifyCartsPost(
+                    const utility::string_t& spaceId,const std::shared_ptr<ShopifyCartDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Uses the CartId to reach out to Shopify and get Cart Data.
+                    /// </summary>
+                /// <remarks>
+                /// GET /api/v1/spaces/{spaceId}/vendors/shopify/carts/{cartId}
+                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1SpacesSpaceIdVendorsShopifyCartsCartIdGet(
+                    const utility::string_t& spaceId,const utility::string_t& cartId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+                
+                    /// <summary>
+                    /// Updates the Cart
+                    /// </summary>
+                /// <remarks>
+                /// PUT /api/v1/spaces/{spaceId}/vendors/shopify/carts/{cartId}
+                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1SpacesSpaceIdVendorsShopifyCartsCartIdPut(
+                    const utility::string_t& spaceId,const utility::string_t& cartId,const std::shared_ptr<ShopifyCartUpdateDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Get shopify cart checkout info
+                    /// </summary>
+                /// <remarks>
+                /// GET /api/v1/spaces/{spaceId}/vendors/shopify/carts/{cartId}/checkout-info
+                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1SpacesSpaceIdVendorsShopifyCartsCartIdCheckoutInfoGet(
+                    const utility::string_t& spaceId,const utility::string_t& cartId,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             
@@ -331,13 +389,12 @@ namespace csp::services::generated::aggregationservice
                     /// Applies the ticket purchased from 3rd party event ticket vendor to enter a space event
                     /// </summary>
                 /// <remarks>
-                /// PUT /api/v1/spaces/{spaceId}/vendors/{vendorName}/events/{vendorEventId}/tickets/{ticketId}
+                /// PUT /api/v1/spaces/{spaceId}/vendors/{vendorName}/events/{vendorEventId}/tickets/{vendorTicketId}
                 /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
-                void apiV1SpacesSpaceIdVendorsVendorNameEventsVendorEventIdTicketsTicketIdPut(
-                    const utility::string_t& spaceId,const utility::string_t& vendorName,const utility::string_t& vendorEventId,const std::optional<utility::string_t>&
-                vendorTicketId,const std::optional<utility::string_t>&
-                onBehalfOfUserId,const utility::string_t& ticketId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                void apiV1SpacesSpaceIdVendorsVendorNameEventsVendorEventIdTicketsVendorTicketIdPut(
+                    const utility::string_t& spaceId,const utility::string_t& vendorName,const utility::string_t& vendorEventId,const utility::string_t& vendorTicketId,const std::optional<utility::string_t>&
+                onBehalfOfUserId,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             

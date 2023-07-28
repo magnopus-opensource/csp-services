@@ -27,10 +27,14 @@ class Point;
 class PositionKml;
 class ServiceRequest;
 class ServiceResponse;
+class ShopifyCartDto;
+class ShopifyCartLineDto;
+class ShopifyCartUpdateDto;
+class ShopifyCheckoutDto;
 class ShopifyProductDto;
 class ShopifyProductMedia;
 class ShopifyProductVariants;
-class ShopifyStorefontDto;
+class ShopifyStorefrontDto;
 class SpaceEventDto;
 class SpaceEventDtoDataPage;
 class SpaceTicketDto;
@@ -741,6 +745,158 @@ class VendorProviderInfo;
             };
 
     /// <summary>
+        /// Contains information contained within a Shopify Cart
+        /// </summary>
+    class ShopifyCartDto : public csp::services::DtoBase
+        {
+        public:
+            ShopifyCartDto();
+            virtual ~ShopifyCartDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Id of the Space this cart is associated to
+                    /// </summary>
+                utility::string_t GetSpaceId() const;
+                void SetSpaceId(const utility::string_t& Value);bool HasSpaceId() const;
+            
+                /// <summary>
+                    /// Id of the Cart at Shopify
+                    /// </summary>
+                utility::string_t GetShopifyCartId() const;
+                void SetShopifyCartId(const utility::string_t& Value);bool HasShopifyCartId() const;
+            
+                /// <summary>
+                    /// Lines representing items in the Shopify Cart
+                    /// </summary>
+                const std::vector<std::shared_ptr<ShopifyCartLineDto>>& GetLines() const;
+                void SetLines(const std::vector<std::shared_ptr<ShopifyCartLineDto>>& Value);bool HasLines() const;
+            
+                /// <summary>
+                    /// Total quantity of all lines
+                    /// </summary>
+                int32_t GetTotalQuantity() const;
+                void SetTotalQuantity(int32_t Value);bool HasTotalQuantity() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_SpaceId;
+            std::optional<utility::string_t> m_ShopifyCartId;
+            std::optional<std::vector<std::shared_ptr<ShopifyCartLineDto>>> m_Lines;
+            std::optional<int32_t> m_TotalQuantity;
+            };
+
+    /// <summary>
+        /// Represents a line item in a Shopify Cart
+        /// </summary>
+    class ShopifyCartLineDto : public csp::services::DtoBase
+        {
+        public:
+            ShopifyCartLineDto();
+            virtual ~ShopifyCartLineDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Id of the Cart Line in the Shopify Cart
+                    /// </summary>
+                utility::string_t GetShopifyCartLineId() const;
+                void SetShopifyCartLineId(const utility::string_t& Value);bool HasShopifyCartLineId() const;
+            
+                /// <summary>
+                    /// Id of the Product or Variant in Shopify
+                    /// </summary>
+                utility::string_t GetProductId() const;
+                void SetProductId(const utility::string_t& Value);bool HasProductId() const;
+            
+                /// <summary>
+                    /// Quantity of the item
+                    /// </summary>
+                int32_t GetQuantity() const;
+                void SetQuantity(int32_t Value);bool HasQuantity() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_ShopifyCartLineId;
+            std::optional<utility::string_t> m_ProductId;
+            std::optional<int32_t> m_Quantity;
+            };
+
+    /// <summary>
+        /// Contains information contained within a Shopify Cart
+        /// </summary>
+    class ShopifyCartUpdateDto : public csp::services::DtoBase
+        {
+        public:
+            ShopifyCartUpdateDto();
+            virtual ~ShopifyCartUpdateDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Id of the Space this cart is associated to
+                    /// </summary>
+                utility::string_t GetSpaceId() const;
+                void SetSpaceId(const utility::string_t& Value);bool HasSpaceId() const;
+            
+                /// <summary>
+                    /// Id of the Cart at Shopify
+                    /// </summary>
+                utility::string_t GetShopifyCartId() const;
+                void SetShopifyCartId(const utility::string_t& Value);bool HasShopifyCartId() const;
+            
+                /// <summary>
+                    /// Updates to make to the cart
+                    /// </summary>
+                const std::map<utility::string_t, bool>& GetCartChanges() const;
+                void SetCartChanges(const std::map<utility::string_t, bool>& Value);bool HasCartChanges() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_SpaceId;
+            std::optional<utility::string_t> m_ShopifyCartId;
+            std::optional<std::map<utility::string_t, bool>> m_CartChanges;
+            };
+
+    /// <summary>
+        /// Contains information necessary to Navigate to a storefront on Shopify
+        /// </summary>
+    class ShopifyCheckoutDto : public csp::services::DtoBase
+        {
+        public:
+            ShopifyCheckoutDto();
+            virtual ~ShopifyCheckoutDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The url for the store
+                    /// </summary>
+                utility::string_t GetStoreUrl() const;
+                void SetStoreUrl(const utility::string_t& Value);bool HasStoreUrl() const;
+            
+                /// <summary>
+                    /// The url for the store
+                    /// </summary>
+                utility::string_t GetCheckoutUrl() const;
+                void SetCheckoutUrl(const utility::string_t& Value);bool HasCheckoutUrl() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_StoreUrl;
+            std::optional<utility::string_t> m_CheckoutUrl;
+            };
+
+    /// <summary>
         /// Object containing properties for space details.
         /// </summary>
     class ShopifyProductDto : public csp::services::DtoBase
@@ -879,11 +1035,11 @@ class VendorProviderInfo;
         /// Contains information necessary to integrate with a particular storefront
         /// on the Storefront API as well as associates that info to a Space.
         /// </summary>
-    class ShopifyStorefontDto : public csp::services::DtoBase
+    class ShopifyStorefrontDto : public csp::services::DtoBase
         {
         public:
-            ShopifyStorefontDto();
-            virtual ~ShopifyStorefontDto();
+            ShopifyStorefrontDto();
+            virtual ~ShopifyStorefrontDto();
 
             utility::string_t ToJson() const override;
             void FromJson(const utility::string_t& Json) override;

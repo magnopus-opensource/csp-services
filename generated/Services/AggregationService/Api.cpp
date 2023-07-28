@@ -326,7 +326,7 @@ namespace csp::services::generated::aggregationservice {
     
         
             void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyPut(
-                const utility::string_t& spaceId,const std::shared_ptr<ShopifyStorefontDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                const utility::string_t& spaceId,const std::shared_ptr<ShopifyStorefrontDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken
             ) const
             {
@@ -341,6 +341,84 @@ namespace csp::services::generated::aggregationservice {
                     Payload.SetBearerToken();
 
                 WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyCartsPost(
+                const utility::string_t& spaceId,const std::shared_ptr<ShopifyCartDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/spaces/{spaceId}/vendors/shopify/carts",
+                    {spaceId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyCartsCartIdGet(
+                const utility::string_t& spaceId,const utility::string_t& cartId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/spaces/{spaceId}/vendors/shopify/carts/{cartId}",
+                    {spaceId,cartId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+            void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyCartsCartIdPut(
+                const utility::string_t& spaceId,const utility::string_t& cartId,const std::shared_ptr<ShopifyCartUpdateDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/spaces/{spaceId}/vendors/shopify/carts/{cartId}",
+                    {spaceId,cartId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyCartsCartIdCheckoutInfoGet(
+                const utility::string_t& spaceId,const utility::string_t& cartId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/spaces/{spaceId}/vendors/shopify/carts/{cartId}/checkout-info",
+                    {spaceId,cartId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
             }
         
     
@@ -504,25 +582,18 @@ namespace csp::services::generated::aggregationservice {
         
     
         
-            void TicketedSpaceApi::apiV1SpacesSpaceIdVendorsVendorNameEventsVendorEventIdTicketsTicketIdPut(
-                const utility::string_t& spaceId,const utility::string_t& vendorName,const utility::string_t& vendorEventId,const std::optional<utility::string_t>&
-                vendorTicketId,const std::optional<utility::string_t>&
-                onBehalfOfUserId,const utility::string_t& ticketId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+            void TicketedSpaceApi::apiV1SpacesSpaceIdVendorsVendorNameEventsVendorEventIdTicketsVendorTicketIdPut(
+                const utility::string_t& spaceId,const utility::string_t& vendorName,const utility::string_t& vendorEventId,const utility::string_t& vendorTicketId,const std::optional<utility::string_t>&
+                onBehalfOfUserId,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken
             ) const
             {
                 csp::web::Uri Uri;
                 Uri.SetWithParams(
-                    *RootUri + "/api/v1/spaces/{spaceId}/vendors/{vendorName}/events/{vendorEventId}/tickets/{ticketId}",
-                    {spaceId,vendorName,vendorEventId,ticketId}
+                    *RootUri + "/api/v1/spaces/{spaceId}/vendors/{vendorName}/events/{vendorEventId}/tickets/{vendorTicketId}",
+                    {spaceId,vendorName,vendorEventId,vendorTicketId}
                 );
 
-                
-                        if (vendorTicketId.has_value())
-                        {
-                            Uri.AddQueryParams("vendorTicketId", vendorTicketId.value());
-                        }
-                    
                 
                         if (onBehalfOfUserId.has_value())
                         {
