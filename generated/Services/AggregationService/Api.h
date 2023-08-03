@@ -198,12 +198,11 @@ namespace csp::services::generated::aggregationservice
                     /// Find one product and return it and all its variants
                     /// </summary>
                 /// <remarks>
-                /// GET /api/v1/spaces/{spaceId}/vendors/shopify/products
+                /// GET /api/v1/spaces/{spaceId}/vendors/shopify/products/{productId}
                 /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
-                void apiV1SpacesSpaceIdVendorsShopifyProductsGet(
-                    const utility::string_t& spaceId,const std::optional<utility::string_t>&
-                productId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                void apiV1SpacesSpaceIdVendorsShopifyProductsProductIdGet(
+                    const utility::string_t& spaceId,const utility::string_t& productId,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             
@@ -226,6 +225,21 @@ namespace csp::services::generated::aggregationservice
             
                 
                     /// <summary>
+                    /// Tests the provided info against Shopify to verify it's validity
+                    /// </summary>
+                /// <remarks>
+                /// PUT /api/v1/vendors/shopify/validate
+                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1VendorsShopifyValidatePut(
+                    const std::shared_ptr<ShopifyStorefrontValidationRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
                     /// Creates a Cart at Shopify for the store associated to the provided SpaceId
                     /// </summary>
                 /// <remarks>
@@ -233,7 +247,7 @@ namespace csp::services::generated::aggregationservice
                 /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesSpaceIdVendorsShopifyCartsPost(
-                    const utility::string_t& spaceId,const std::shared_ptr<ShopifyCartDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                    const utility::string_t& spaceId,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             

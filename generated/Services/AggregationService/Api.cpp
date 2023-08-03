@@ -298,24 +298,17 @@ namespace csp::services::generated::aggregationservice {
 
     
         
-            void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyProductsGet(
-                const utility::string_t& spaceId,const std::optional<utility::string_t>&
-                productId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+            void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyProductsProductIdGet(
+                const utility::string_t& spaceId,const utility::string_t& productId,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken
             ) const
             {
                 csp::web::Uri Uri;
                 Uri.SetWithParams(
-                    *RootUri + "/api/v1/spaces/{spaceId}/vendors/shopify/products",
-                    {spaceId}
+                    *RootUri + "/api/v1/spaces/{spaceId}/vendors/shopify/products/{productId}",
+                    {spaceId,productId}
                 );
 
-                
-                        if (productId.has_value())
-                        {
-                            Uri.AddQueryParams("productId", productId.value());
-                        }
-                    
                 csp::web::HttpPayload Payload;
                 Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
                     Payload.SetBearerToken();
@@ -345,8 +338,28 @@ namespace csp::services::generated::aggregationservice {
         
     
         
+            void ShopifyApi::apiV1VendorsShopifyValidatePut(
+                const std::shared_ptr<ShopifyStorefrontValidationRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/vendors/shopify/validate",
+                    {}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
             void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyCartsPost(
-                const utility::string_t& spaceId,const std::shared_ptr<ShopifyCartDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                const utility::string_t& spaceId,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken
             ) const
             {
@@ -357,7 +370,7 @@ namespace csp::services::generated::aggregationservice {
                 );
 
                 csp::web::HttpPayload Payload;
-                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
                     Payload.SetBearerToken();
 
                 WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);

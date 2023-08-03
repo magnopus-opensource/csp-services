@@ -31,10 +31,13 @@ class ShopifyCartDto;
 class ShopifyCartLineDto;
 class ShopifyCartUpdateDto;
 class ShopifyCheckoutDto;
+class ShopifyMoney;
 class ShopifyProductDto;
 class ShopifyProductMedia;
 class ShopifyProductVariants;
 class ShopifyStorefrontDto;
+class ShopifyStorefrontValidationRequest;
+class ShopifyVariantOption;
 class SpaceEventDto;
 class SpaceEventDtoDataPage;
 class SpaceTicketDto;
@@ -809,10 +812,10 @@ class VendorProviderInfo;
                 void SetShopifyCartLineId(const utility::string_t& Value);bool HasShopifyCartLineId() const;
             
                 /// <summary>
-                    /// Id of the Product or Variant in Shopify
+                    /// Id of the Product Variant in Shopify
                     /// </summary>
-                utility::string_t GetProductId() const;
-                void SetProductId(const utility::string_t& Value);bool HasProductId() const;
+                utility::string_t GetProductVariantId() const;
+                void SetProductVariantId(const utility::string_t& Value);bool HasProductVariantId() const;
             
                 /// <summary>
                     /// Quantity of the item
@@ -823,7 +826,7 @@ class VendorProviderInfo;
 
         protected:
             std::optional<utility::string_t> m_ShopifyCartLineId;
-            std::optional<utility::string_t> m_ProductId;
+            std::optional<utility::string_t> m_ProductVariantId;
             std::optional<int32_t> m_Quantity;
             };
 
@@ -853,16 +856,30 @@ class VendorProviderInfo;
                 void SetShopifyCartId(const utility::string_t& Value);bool HasShopifyCartId() const;
             
                 /// <summary>
-                    /// Updates to make to the cart
+                    /// Add line updates to make to the cart
                     /// </summary>
-                const std::map<utility::string_t, bool>& GetCartChanges() const;
-                void SetCartChanges(const std::map<utility::string_t, bool>& Value);bool HasCartChanges() const;
+                const std::vector<std::shared_ptr<ShopifyCartLineDto>>& GetAddLineCartChanges() const;
+                void SetAddLineCartChanges(const std::vector<std::shared_ptr<ShopifyCartLineDto>>& Value);bool HasAddLineCartChanges() const;
+            
+                /// <summary>
+                    /// Remove line updates to make to the cart
+                    /// </summary>
+                const std::vector<std::shared_ptr<ShopifyCartLineDto>>& GetRemoveLineCartChanges() const;
+                void SetRemoveLineCartChanges(const std::vector<std::shared_ptr<ShopifyCartLineDto>>& Value);bool HasRemoveLineCartChanges() const;
+            
+                /// <summary>
+                    /// Update line quantity updates to make to the cart
+                    /// </summary>
+                const std::vector<std::shared_ptr<ShopifyCartLineDto>>& GetUpdateLineQtyCartChanges() const;
+                void SetUpdateLineQtyCartChanges(const std::vector<std::shared_ptr<ShopifyCartLineDto>>& Value);bool HasUpdateLineQtyCartChanges() const;
             
 
         protected:
             std::optional<utility::string_t> m_SpaceId;
             std::optional<utility::string_t> m_ShopifyCartId;
-            std::optional<std::map<utility::string_t, bool>> m_CartChanges;
+            std::optional<std::vector<std::shared_ptr<ShopifyCartLineDto>>> m_AddLineCartChanges;
+            std::optional<std::vector<std::shared_ptr<ShopifyCartLineDto>>> m_RemoveLineCartChanges;
+            std::optional<std::vector<std::shared_ptr<ShopifyCartLineDto>>> m_UpdateLineQtyCartChanges;
             };
 
     /// <summary>
@@ -894,6 +911,37 @@ class VendorProviderInfo;
         protected:
             std::optional<utility::string_t> m_StoreUrl;
             std::optional<utility::string_t> m_CheckoutUrl;
+            };
+
+    /// <summary>
+        /// Represents a price in Shopify with currency code
+        /// </summary>
+    class ShopifyMoney : public csp::services::DtoBase
+        {
+        public:
+            ShopifyMoney();
+            virtual ~ShopifyMoney();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The name of the option, Such as Size
+                    /// </summary>
+                double GetAmount() const;
+                void SetAmount(double Value);bool HasAmount() const;
+            
+                /// <summary>
+                    /// The value of the option for this variant, such as Small
+                    /// </summary>
+                utility::string_t GetCurrencyCode() const;
+                void SetCurrencyCode(const utility::string_t& Value);bool HasCurrencyCode() const;
+            
+
+        protected:
+            std::optional<double> m_Amount;
+            std::optional<utility::string_t> m_CurrencyCode;
             };
 
     /// <summary>
@@ -993,11 +1041,25 @@ class VendorProviderInfo;
                 utility::string_t GetUrl() const;
                 void SetUrl(const utility::string_t& Value);bool HasUrl() const;
             
+                /// <summary>
+                    /// The width of the media, if available
+                    /// </summary>
+                int32_t GetWidth() const;
+                void SetWidth(int32_t Value);bool HasWidth() const;
+            
+                /// <summary>
+                    /// The height of the media, if available
+                    /// </summary>
+                int32_t GetHeight() const;
+                void SetHeight(int32_t Value);bool HasHeight() const;
+            
 
         protected:
             std::optional<utility::string_t> m_MediaContentType;
             std::optional<utility::string_t> m_Alt;
             std::optional<utility::string_t> m_Url;
+            std::optional<int32_t> m_Width;
+            std::optional<int32_t> m_Height;
             };
 
     /// <summary>
@@ -1025,10 +1087,32 @@ class VendorProviderInfo;
                 utility::string_t GetTitle() const;
                 void SetTitle(const utility::string_t& Value);bool HasTitle() const;
             
+                /// <summary>
+                    /// If the product variant is actually available
+                    /// </summary>
+                bool GetAvailableForSale() const;
+                void SetAvailableForSale(const bool& Value);bool HasAvailableForSale() const;
+            
+                std::shared_ptr<ShopifyProductMedia> GetImage() const;
+                void SetImage(const std::shared_ptr<ShopifyProductMedia>& Value);bool HasImage() const;
+            
+                /// <summary>
+                    /// Selected options, such as size, for the product, if any.
+                    /// </summary>
+                const std::vector<std::shared_ptr<ShopifyVariantOption>>& GetSelectedOptions() const;
+                void SetSelectedOptions(const std::vector<std::shared_ptr<ShopifyVariantOption>>& Value);bool HasSelectedOptions() const;
+            
+                std::shared_ptr<ShopifyMoney> GetUnitPrice() const;
+                void SetUnitPrice(const std::shared_ptr<ShopifyMoney>& Value);bool HasUnitPrice() const;
+            
 
         protected:
             std::optional<utility::string_t> m_Id;
             std::optional<utility::string_t> m_Title;
+            std::optional<bool> m_AvailableForSale;
+            std::optional<std::shared_ptr<ShopifyProductMedia>> m_Image;
+            std::optional<std::vector<std::shared_ptr<ShopifyVariantOption>>> m_SelectedOptions;
+            std::optional<std::shared_ptr<ShopifyMoney>> m_UnitPrice;
             };
 
     /// <summary>
@@ -1090,6 +1174,69 @@ class VendorProviderInfo;
             std::optional<utility::string_t> m_SpaceId;
             std::optional<bool> m_IsEcommerceActive;
             std::optional<utility::string_t> m_PrivateAccessToken;
+            };
+
+    /// <summary>
+        /// Contains information to make a request on behalf of a storefront to validate a storename, token pair
+        /// </summary>
+    class ShopifyStorefrontValidationRequest : public csp::services::DtoBase
+        {
+        public:
+            ShopifyStorefrontValidationRequest();
+            virtual ~ShopifyStorefrontValidationRequest();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Name of the store, not including the URL portion,
+                    /// for instance 'magtesty' in 'magtesty.myshopify.com'
+                    /// </summary>
+                utility::string_t GetStoreName() const;
+                void SetStoreName(const utility::string_t& Value);bool HasStoreName() const;
+            
+                /// <summary>
+                    /// The private access token for the storefront - stored as an encrypted value
+                    /// </summary>
+                utility::string_t GetPrivateAccessToken() const;
+                void SetPrivateAccessToken(const utility::string_t& Value);bool HasPrivateAccessToken() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_StoreName;
+            std::optional<utility::string_t> m_PrivateAccessToken;
+            };
+
+    /// <summary>
+        /// An option of a product variant, such as size or color
+        /// </summary>
+    class ShopifyVariantOption : public csp::services::DtoBase
+        {
+        public:
+            ShopifyVariantOption();
+            virtual ~ShopifyVariantOption();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The name of the option, Such as Size
+                    /// </summary>
+                utility::string_t GetOptionName() const;
+                void SetOptionName(const utility::string_t& Value);bool HasOptionName() const;
+            
+                /// <summary>
+                    /// The value of the option for this variant, such as Small
+                    /// </summary>
+                utility::string_t GetOptionValue() const;
+                void SetOptionValue(const utility::string_t& Value);bool HasOptionValue() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_OptionName;
+            std::optional<utility::string_t> m_OptionValue;
             };
 
     /// <summary>

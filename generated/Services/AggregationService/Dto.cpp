@@ -3464,14 +3464,14 @@ namespace csp::services::generated::aggregationservice
                     );
                 }
             
-                if (m_ProductId.has_value())
+                if (m_ProductVariantId.has_value())
                 {
-                    rapidjson::Value ProductIdValue(
-                        TypeToJsonValue(m_ProductId, JsonDoc.GetAllocator())
+                    rapidjson::Value ProductVariantIdValue(
+                        TypeToJsonValue(m_ProductVariantId, JsonDoc.GetAllocator())
                     );
                     JsonDoc.AddMember(
-                        "productId",
-                        ProductIdValue,
+                        "productVariantId",
+                        ProductVariantIdValue,
                         JsonDoc.GetAllocator()
                     );
                 }
@@ -3519,17 +3519,17 @@ namespace csp::services::generated::aggregationservice
                     
                 }
             
-                if (JsonDoc.HasMember("productId"))
+                if (JsonDoc.HasMember("productVariantId"))
                 {
-                    const rapidjson::Value& ProductIdValue = JsonDoc["productId"];
+                    const rapidjson::Value& ProductVariantIdValue = JsonDoc["productVariantId"];
 
-                    if (ProductIdValue != rapidjson::Type::kNullType)
+                    if (ProductVariantIdValue != rapidjson::Type::kNullType)
                     {
-                        JsonValueToType(ProductIdValue, m_ProductId);
+                        JsonValueToType(ProductVariantIdValue, m_ProductVariantId);
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member productId is null!");
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member productVariantId is null!");
                     }
                     
                 }
@@ -3570,21 +3570,21 @@ namespace csp::services::generated::aggregationservice
                 }
                 
         
-            utility::string_t ShopifyCartLineDto::GetProductId() const
+            utility::string_t ShopifyCartLineDto::GetProductVariantId() const
             {
-                    return m_ProductId.value();
+                    return m_ProductVariantId.value();
                 }
 
-            bool ShopifyCartLineDto::HasProductId() const
+            bool ShopifyCartLineDto::HasProductVariantId() const
             {
-                return m_ProductId.has_value();
+                return m_ProductVariantId.has_value();
             }
 
-            void ShopifyCartLineDto::SetProductId(
+            void ShopifyCartLineDto::SetProductVariantId(
                     const utility::string_t& Value
                 )
             {
-                    m_ProductId = Value;
+                    m_ProductVariantId = Value;
                 }
                 
         
@@ -3637,14 +3637,38 @@ namespace csp::services::generated::aggregationservice
                     );
                 }
             
-                if (m_CartChanges.has_value())
+                if (m_AddLineCartChanges.has_value())
                 {
-                    rapidjson::Value CartChangesValue(
-                        TypeToJsonValue(m_CartChanges, JsonDoc.GetAllocator())
+                    rapidjson::Value AddLineCartChangesValue(
+                        TypeToJsonValue(m_AddLineCartChanges, JsonDoc.GetAllocator())
                     );
                     JsonDoc.AddMember(
-                        "cartChanges",
-                        CartChangesValue,
+                        "addLineCartChanges",
+                        AddLineCartChangesValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_RemoveLineCartChanges.has_value())
+                {
+                    rapidjson::Value RemoveLineCartChangesValue(
+                        TypeToJsonValue(m_RemoveLineCartChanges, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "removeLineCartChanges",
+                        RemoveLineCartChangesValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_UpdateLineQtyCartChanges.has_value())
+                {
+                    rapidjson::Value UpdateLineQtyCartChangesValue(
+                        TypeToJsonValue(m_UpdateLineQtyCartChanges, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "updateLineQtyCartChanges",
+                        UpdateLineQtyCartChangesValue,
                         JsonDoc.GetAllocator()
                     );
                 }
@@ -3695,17 +3719,47 @@ namespace csp::services::generated::aggregationservice
                     
                 }
             
-                if (JsonDoc.HasMember("cartChanges"))
+                if (JsonDoc.HasMember("addLineCartChanges"))
                 {
-                    const rapidjson::Value& CartChangesValue = JsonDoc["cartChanges"];
+                    const rapidjson::Value& AddLineCartChangesValue = JsonDoc["addLineCartChanges"];
 
-                    if (CartChangesValue != rapidjson::Type::kNullType)
+                    if (AddLineCartChangesValue != rapidjson::Type::kNullType)
                     {
-                        JsonValueToType(CartChangesValue, m_CartChanges);
+                        JsonValueToType(AddLineCartChangesValue, m_AddLineCartChanges);
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member cartChanges is null!");
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member addLineCartChanges is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("removeLineCartChanges"))
+                {
+                    const rapidjson::Value& RemoveLineCartChangesValue = JsonDoc["removeLineCartChanges"];
+
+                    if (RemoveLineCartChangesValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(RemoveLineCartChangesValue, m_RemoveLineCartChanges);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member removeLineCartChanges is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("updateLineQtyCartChanges"))
+                {
+                    const rapidjson::Value& UpdateLineQtyCartChangesValue = JsonDoc["updateLineQtyCartChanges"];
+
+                    if (UpdateLineQtyCartChangesValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(UpdateLineQtyCartChangesValue, m_UpdateLineQtyCartChanges);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updateLineQtyCartChanges is null!");
                     }
                     
                 }
@@ -3749,22 +3803,60 @@ namespace csp::services::generated::aggregationservice
                 }
                 
         
-            const std::map<utility::string_t, bool>&
-                    ShopifyCartUpdateDto::GetCartChanges() const
+            const std::vector<std::shared_ptr<ShopifyCartLineDto>>&
+                    ShopifyCartUpdateDto::GetAddLineCartChanges() const
             {
-                    return m_CartChanges.value();
+                    return m_AddLineCartChanges.value();
                 }
 
-            bool ShopifyCartUpdateDto::HasCartChanges() const
+            bool ShopifyCartUpdateDto::HasAddLineCartChanges() const
             {
-                return m_CartChanges.has_value();
+                return m_AddLineCartChanges.has_value();
             }
 
-            void ShopifyCartUpdateDto::SetCartChanges(
-                    const std::map<utility::string_t, bool>& Value
+            void ShopifyCartUpdateDto::SetAddLineCartChanges(
+                    const std::vector<std::shared_ptr<ShopifyCartLineDto>>& Value
                 )
             {
-                    m_CartChanges = Value;
+                    m_AddLineCartChanges = Value;
+                }
+                
+        
+            const std::vector<std::shared_ptr<ShopifyCartLineDto>>&
+                    ShopifyCartUpdateDto::GetRemoveLineCartChanges() const
+            {
+                    return m_RemoveLineCartChanges.value();
+                }
+
+            bool ShopifyCartUpdateDto::HasRemoveLineCartChanges() const
+            {
+                return m_RemoveLineCartChanges.has_value();
+            }
+
+            void ShopifyCartUpdateDto::SetRemoveLineCartChanges(
+                    const std::vector<std::shared_ptr<ShopifyCartLineDto>>& Value
+                )
+            {
+                    m_RemoveLineCartChanges = Value;
+                }
+                
+        
+            const std::vector<std::shared_ptr<ShopifyCartLineDto>>&
+                    ShopifyCartUpdateDto::GetUpdateLineQtyCartChanges() const
+            {
+                    return m_UpdateLineQtyCartChanges.value();
+                }
+
+            bool ShopifyCartUpdateDto::HasUpdateLineQtyCartChanges() const
+            {
+                return m_UpdateLineQtyCartChanges.has_value();
+            }
+
+            void ShopifyCartUpdateDto::SetUpdateLineQtyCartChanges(
+                    const std::vector<std::shared_ptr<ShopifyCartLineDto>>& Value
+                )
+            {
+                    m_UpdateLineQtyCartChanges = Value;
                 }
                 
         
@@ -3883,6 +3975,122 @@ namespace csp::services::generated::aggregationservice
                 )
             {
                     m_CheckoutUrl = Value;
+                }
+                
+        
+
+    ShopifyMoney::ShopifyMoney() { }
+    ShopifyMoney::~ShopifyMoney() { }
+
+    utility::string_t ShopifyMoney::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_Amount.has_value())
+                {
+                    rapidjson::Value AmountValue(
+                        TypeToJsonValue(m_Amount, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "amount",
+                        AmountValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_CurrencyCode.has_value())
+                {
+                    rapidjson::Value CurrencyCodeValue(
+                        TypeToJsonValue(m_CurrencyCode, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "currencyCode",
+                        CurrencyCodeValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void ShopifyMoney::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("amount"))
+                {
+                    const rapidjson::Value& AmountValue = JsonDoc["amount"];
+
+                    if (AmountValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(AmountValue, m_Amount);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member amount is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("currencyCode"))
+                {
+                    const rapidjson::Value& CurrencyCodeValue = JsonDoc["currencyCode"];
+
+                    if (CurrencyCodeValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(CurrencyCodeValue, m_CurrencyCode);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member currencyCode is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            double ShopifyMoney::GetAmount() const
+            {
+                    return m_Amount.value();
+                }
+
+            bool ShopifyMoney::HasAmount() const
+            {
+                return m_Amount.has_value();
+            }
+
+            void ShopifyMoney::SetAmount(double Value)
+            {
+                    m_Amount = Value;
+                }
+                
+        
+            utility::string_t ShopifyMoney::GetCurrencyCode() const
+            {
+                    return m_CurrencyCode.value();
+                }
+
+            bool ShopifyMoney::HasCurrencyCode() const
+            {
+                return m_CurrencyCode.has_value();
+            }
+
+            void ShopifyMoney::SetCurrencyCode(
+                    const utility::string_t& Value
+                )
+            {
+                    m_CurrencyCode = Value;
                 }
                 
         
@@ -4277,6 +4485,30 @@ namespace csp::services::generated::aggregationservice
                     );
                 }
             
+                if (m_Width.has_value())
+                {
+                    rapidjson::Value WidthValue(
+                        TypeToJsonValue(m_Width, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "width",
+                        WidthValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Height.has_value())
+                {
+                    rapidjson::Value HeightValue(
+                        TypeToJsonValue(m_Height, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "height",
+                        HeightValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
 
             return JsonDocToString(JsonDoc);
         }
@@ -4338,6 +4570,36 @@ namespace csp::services::generated::aggregationservice
                     
                 }
             
+                if (JsonDoc.HasMember("width"))
+                {
+                    const rapidjson::Value& WidthValue = JsonDoc["width"];
+
+                    if (WidthValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(WidthValue, m_Width);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member width is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("height"))
+                {
+                    const rapidjson::Value& HeightValue = JsonDoc["height"];
+
+                    if (HeightValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(HeightValue, m_Height);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member height is null!");
+                    }
+                    
+                }
+            
         }
 
         
@@ -4395,6 +4657,38 @@ namespace csp::services::generated::aggregationservice
                 }
                 
         
+            int32_t ShopifyProductMedia::GetWidth() const
+            {
+                    return m_Width.value();
+                }
+
+            bool ShopifyProductMedia::HasWidth() const
+            {
+                return m_Width.has_value();
+            }
+
+            void ShopifyProductMedia::SetWidth(int32_t Value)
+            {
+                    m_Width = Value;
+                }
+                
+        
+            int32_t ShopifyProductMedia::GetHeight() const
+            {
+                    return m_Height.value();
+                }
+
+            bool ShopifyProductMedia::HasHeight() const
+            {
+                return m_Height.has_value();
+            }
+
+            void ShopifyProductMedia::SetHeight(int32_t Value)
+            {
+                    m_Height = Value;
+                }
+                
+        
 
     ShopifyProductVariants::ShopifyProductVariants() { }
     ShopifyProductVariants::~ShopifyProductVariants() { }
@@ -4424,6 +4718,54 @@ namespace csp::services::generated::aggregationservice
                     JsonDoc.AddMember(
                         "title",
                         TitleValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_AvailableForSale.has_value())
+                {
+                    rapidjson::Value AvailableForSaleValue(
+                        TypeToJsonValue(m_AvailableForSale, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "availableForSale",
+                        AvailableForSaleValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Image.has_value())
+                {
+                    rapidjson::Value ImageValue(
+                        TypeToJsonValue(m_Image, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "image",
+                        ImageValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_SelectedOptions.has_value())
+                {
+                    rapidjson::Value SelectedOptionsValue(
+                        TypeToJsonValue(m_SelectedOptions, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "selectedOptions",
+                        SelectedOptionsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_UnitPrice.has_value())
+                {
+                    rapidjson::Value UnitPriceValue(
+                        TypeToJsonValue(m_UnitPrice, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "unitPrice",
+                        UnitPriceValue,
                         JsonDoc.GetAllocator()
                     );
                 }
@@ -4474,6 +4816,66 @@ namespace csp::services::generated::aggregationservice
                     
                 }
             
+                if (JsonDoc.HasMember("availableForSale"))
+                {
+                    const rapidjson::Value& AvailableForSaleValue = JsonDoc["availableForSale"];
+
+                    if (AvailableForSaleValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(AvailableForSaleValue, m_AvailableForSale);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member availableForSale is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("image"))
+                {
+                    const rapidjson::Value& ImageValue = JsonDoc["image"];
+
+                    if (ImageValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ImageValue, m_Image);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member image is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("selectedOptions"))
+                {
+                    const rapidjson::Value& SelectedOptionsValue = JsonDoc["selectedOptions"];
+
+                    if (SelectedOptionsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(SelectedOptionsValue, m_SelectedOptions);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member selectedOptions is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("unitPrice"))
+                {
+                    const rapidjson::Value& UnitPriceValue = JsonDoc["unitPrice"];
+
+                    if (UnitPriceValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(UnitPriceValue, m_UnitPrice);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member unitPrice is null!");
+                    }
+                    
+                }
+            
         }
 
         
@@ -4510,6 +4912,79 @@ namespace csp::services::generated::aggregationservice
                 )
             {
                     m_Title = Value;
+                }
+                
+        
+            bool ShopifyProductVariants::GetAvailableForSale() const
+            {
+                    return m_AvailableForSale.value();
+                }
+
+            bool ShopifyProductVariants::HasAvailableForSale() const
+            {
+                return m_AvailableForSale.has_value();
+            }
+
+            void ShopifyProductVariants::SetAvailableForSale(
+                    const bool& Value
+                )
+            {
+                    m_AvailableForSale = Value;
+                }
+                
+        
+            std::shared_ptr<ShopifyProductMedia> ShopifyProductVariants::GetImage() const
+            {
+                    return m_Image.value();
+                }
+
+            bool ShopifyProductVariants::HasImage() const
+            {
+                return m_Image.has_value();
+            }
+
+            void ShopifyProductVariants::SetImage(
+                    const std::shared_ptr<ShopifyProductMedia>& Value
+                )
+            {
+                    m_Image = Value;
+                }
+                
+        
+            const std::vector<std::shared_ptr<ShopifyVariantOption>>&
+                    ShopifyProductVariants::GetSelectedOptions() const
+            {
+                    return m_SelectedOptions.value();
+                }
+
+            bool ShopifyProductVariants::HasSelectedOptions() const
+            {
+                return m_SelectedOptions.has_value();
+            }
+
+            void ShopifyProductVariants::SetSelectedOptions(
+                    const std::vector<std::shared_ptr<ShopifyVariantOption>>& Value
+                )
+            {
+                    m_SelectedOptions = Value;
+                }
+                
+        
+            std::shared_ptr<ShopifyMoney> ShopifyProductVariants::GetUnitPrice() const
+            {
+                    return m_UnitPrice.value();
+                }
+
+            bool ShopifyProductVariants::HasUnitPrice() const
+            {
+                return m_UnitPrice.has_value();
+            }
+
+            void ShopifyProductVariants::SetUnitPrice(
+                    const std::shared_ptr<ShopifyMoney>& Value
+                )
+            {
+                    m_UnitPrice = Value;
                 }
                 
         
@@ -4808,6 +5283,242 @@ namespace csp::services::generated::aggregationservice
                 )
             {
                     m_PrivateAccessToken = Value;
+                }
+                
+        
+
+    ShopifyStorefrontValidationRequest::ShopifyStorefrontValidationRequest() { }
+    ShopifyStorefrontValidationRequest::~ShopifyStorefrontValidationRequest() { }
+
+    utility::string_t ShopifyStorefrontValidationRequest::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_StoreName.has_value())
+                {
+                    rapidjson::Value StoreNameValue(
+                        TypeToJsonValue(m_StoreName, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "storeName",
+                        StoreNameValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_PrivateAccessToken.has_value())
+                {
+                    rapidjson::Value PrivateAccessTokenValue(
+                        TypeToJsonValue(m_PrivateAccessToken, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "privateAccessToken",
+                        PrivateAccessTokenValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void ShopifyStorefrontValidationRequest::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("storeName"))
+                {
+                    const rapidjson::Value& StoreNameValue = JsonDoc["storeName"];
+
+                    if (StoreNameValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(StoreNameValue, m_StoreName);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member storeName is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("privateAccessToken"))
+                {
+                    const rapidjson::Value& PrivateAccessTokenValue = JsonDoc["privateAccessToken"];
+
+                    if (PrivateAccessTokenValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(PrivateAccessTokenValue, m_PrivateAccessToken);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member privateAccessToken is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t ShopifyStorefrontValidationRequest::GetStoreName() const
+            {
+                    return m_StoreName.value();
+                }
+
+            bool ShopifyStorefrontValidationRequest::HasStoreName() const
+            {
+                return m_StoreName.has_value();
+            }
+
+            void ShopifyStorefrontValidationRequest::SetStoreName(
+                    const utility::string_t& Value
+                )
+            {
+                    m_StoreName = Value;
+                }
+                
+        
+            utility::string_t ShopifyStorefrontValidationRequest::GetPrivateAccessToken() const
+            {
+                    return m_PrivateAccessToken.value();
+                }
+
+            bool ShopifyStorefrontValidationRequest::HasPrivateAccessToken() const
+            {
+                return m_PrivateAccessToken.has_value();
+            }
+
+            void ShopifyStorefrontValidationRequest::SetPrivateAccessToken(
+                    const utility::string_t& Value
+                )
+            {
+                    m_PrivateAccessToken = Value;
+                }
+                
+        
+
+    ShopifyVariantOption::ShopifyVariantOption() { }
+    ShopifyVariantOption::~ShopifyVariantOption() { }
+
+    utility::string_t ShopifyVariantOption::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_OptionName.has_value())
+                {
+                    rapidjson::Value OptionNameValue(
+                        TypeToJsonValue(m_OptionName, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "optionName",
+                        OptionNameValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_OptionValue.has_value())
+                {
+                    rapidjson::Value OptionValueValue(
+                        TypeToJsonValue(m_OptionValue, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "optionValue",
+                        OptionValueValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void ShopifyVariantOption::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("optionName"))
+                {
+                    const rapidjson::Value& OptionNameValue = JsonDoc["optionName"];
+
+                    if (OptionNameValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OptionNameValue, m_OptionName);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member optionName is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("optionValue"))
+                {
+                    const rapidjson::Value& OptionValueValue = JsonDoc["optionValue"];
+
+                    if (OptionValueValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OptionValueValue, m_OptionValue);
+                    }
+                    else
+                    {
+                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member optionValue is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t ShopifyVariantOption::GetOptionName() const
+            {
+                    return m_OptionName.value();
+                }
+
+            bool ShopifyVariantOption::HasOptionName() const
+            {
+                return m_OptionName.has_value();
+            }
+
+            void ShopifyVariantOption::SetOptionName(
+                    const utility::string_t& Value
+                )
+            {
+                    m_OptionName = Value;
+                }
+                
+        
+            utility::string_t ShopifyVariantOption::GetOptionValue() const
+            {
+                    return m_OptionValue.value();
+                }
+
+            bool ShopifyVariantOption::HasOptionValue() const
+            {
+                return m_OptionValue.has_value();
+            }
+
+            void ShopifyVariantOption::SetOptionValue(
+                    const utility::string_t& Value
+                )
+            {
+                    m_OptionValue = Value;
                 }
                 
         
