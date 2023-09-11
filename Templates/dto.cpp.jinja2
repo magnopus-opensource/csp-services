@@ -97,7 +97,7 @@ namespace csp::services::generated::{{ service_name | lower }}
                     {%- if 'nullable' not in schema or not schema.nullable %}
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member {{ property_name }} is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member {{ property_name }} is null!");
                     }
                     {% endif %}
                 }
