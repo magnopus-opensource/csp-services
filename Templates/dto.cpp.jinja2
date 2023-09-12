@@ -94,7 +94,7 @@ namespace csp::services::generated::{{ service_name | lower }}
                     {
                         JsonValueToType({{ property_name | pascalcase }}Value, m_{{ property_name | pascalcase }});
                     }
-                    {%- if 'nullable' not in schema or not schema.nullable %}
+                    {%- if 'nullable' not in property or not property.nullable %}
                     else
                     {
                         CSP_LOG_ERROR_MSG("Error: Non-nullable member {{ property_name }} is null!");
