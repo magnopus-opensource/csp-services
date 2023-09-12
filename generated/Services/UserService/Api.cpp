@@ -746,7 +746,8 @@ namespace csp::services::generated::userservice {
         
             void GroupApi::apiV1GroupsGroupIdEmailInvitesPost(
                 const utility::string_t& groupId,const std::optional<bool>&
-                resendInvite,const std::shared_ptr<GroupInviteDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                resendInvite,const std::optional<utility::string_t>&
+                emailLinkUrl,const std::shared_ptr<GroupInviteDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken
             ) const
             {
@@ -760,6 +761,12 @@ namespace csp::services::generated::userservice {
                         if (resendInvite.has_value())
                         {
                             Uri.AddQueryParams("resendInvite", resendInvite.value());
+                        }
+                    
+                
+                        if (emailLinkUrl.has_value())
+                        {
+                            Uri.AddQueryParams("emailLinkUrl", emailLinkUrl.value());
                         }
                     
                 csp::web::HttpPayload Payload;
@@ -791,7 +798,8 @@ namespace csp::services::generated::userservice {
         
             void GroupApi::apiV1GroupsGroupIdEmailInvitesBulkPost(
                 const utility::string_t& groupId,const std::optional<bool>&
-                resendInvite,const std::vector<std::shared_ptr<GroupInviteDto>>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                resendInvite,const std::optional<utility::string_t>&
+                emailLinkUrl,const std::vector<std::shared_ptr<GroupInviteDto>>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken
             ) const
             {
@@ -805,6 +813,12 @@ namespace csp::services::generated::userservice {
                         if (resendInvite.has_value())
                         {
                             Uri.AddQueryParams("resendInvite", resendInvite.value());
+                        }
+                    
+                
+                        if (emailLinkUrl.has_value())
+                        {
+                            Uri.AddQueryParams("emailLinkUrl", emailLinkUrl.value());
                         }
                     
                 csp::web::HttpPayload Payload;

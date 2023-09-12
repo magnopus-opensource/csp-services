@@ -86,7 +86,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member applicationName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member applicationName is null!");
                     }
                     
                 }
@@ -101,7 +101,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member context is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member context is null!");
                     }
                     
                 }
@@ -116,7 +116,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member settings is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member settings is null!");
                     }
                     
                 }
@@ -286,7 +286,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -301,7 +301,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member accessToken is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member accessToken is null!");
                     }
                     
                 }
@@ -316,7 +316,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member accessTokenExpiresAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member accessTokenExpiresAt is null!");
                     }
                     
                 }
@@ -331,7 +331,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member refreshToken is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member refreshToken is null!");
                     }
                     
                 }
@@ -346,7 +346,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member refreshTokenExpiresAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member refreshTokenExpiresAt is null!");
                     }
                     
                 }
@@ -361,7 +361,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
                     }
                     
                 }
@@ -560,7 +560,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -575,7 +575,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -590,7 +590,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member gender is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member gender is null!");
                     }
                     
                 }
@@ -605,7 +605,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member externalUri is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member externalUri is null!");
                     }
                     
                 }
@@ -840,7 +840,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tenant is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tenant is null!");
                     }
                     
                 }
@@ -855,7 +855,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
                     }
                     
                 }
@@ -870,7 +870,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member password is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member password is null!");
                     }
                     
                 }
@@ -885,7 +885,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
                     }
                     
                 }
@@ -900,7 +900,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
                     }
                     
                 }
@@ -915,7 +915,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member guestDeviceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member guestDeviceId is null!");
                     }
                     
                 }
@@ -930,7 +930,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member avatarId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member avatarId is null!");
                     }
                     
                 }
@@ -945,7 +945,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member inviteToken is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member inviteToken is null!");
                     }
                     
                 }
@@ -960,7 +960,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member redirectUrl is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member redirectUrl is null!");
                     }
                     
                 }
@@ -975,7 +975,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member initialSettings is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member initialSettings is null!");
                     }
                     
                 }
@@ -1331,7 +1331,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tenant is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tenant is null!");
                     }
                     
                 }
@@ -1346,7 +1346,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member provider is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member provider is null!");
                     }
                     
                 }
@@ -1361,7 +1361,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
                     }
                     
                 }
@@ -1376,7 +1376,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member password is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member password is null!");
                     }
                     
                 }
@@ -1391,7 +1391,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
                     }
                     
                 }
@@ -1406,7 +1406,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
                     }
                     
                 }
@@ -1421,7 +1421,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member avatarId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member avatarId is null!");
                     }
                     
                 }
@@ -1436,7 +1436,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member inviteToken is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member inviteToken is null!");
                     }
                     
                 }
@@ -1451,7 +1451,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member redirectUrl is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member redirectUrl is null!");
                     }
                     
                 }
@@ -1466,7 +1466,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member oAuthRedirectUri is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member oAuthRedirectUri is null!");
                     }
                     
                 }
@@ -1481,7 +1481,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member initialSettings is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member initialSettings is null!");
                     }
                     
                 }
@@ -1735,7 +1735,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isEquipped is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isEquipped is null!");
                     }
                     
                 }
@@ -1832,7 +1832,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -1847,7 +1847,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member key is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member key is null!");
                     }
                     
                 }
@@ -1862,7 +1862,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
                     }
                     
                 }
@@ -1983,7 +1983,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tenant is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tenant is null!");
                     }
                     
                 }
@@ -1998,7 +1998,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
                     }
                     
                 }
@@ -2339,7 +2339,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -2354,7 +2354,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
                     }
                     
                 }
@@ -2369,7 +2369,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
                     }
                     
                 }
@@ -2384,7 +2384,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupOwnerId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupOwnerId is null!");
                     }
                     
                 }
@@ -2399,7 +2399,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupCode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupCode is null!");
                     }
                     
                 }
@@ -2414,7 +2414,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupType is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupType is null!");
                     }
                     
                 }
@@ -2429,7 +2429,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
                     }
                     
                 }
@@ -2444,7 +2444,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
                     }
                     
                 }
@@ -2459,7 +2459,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member users is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member users is null!");
                     }
                     
                 }
@@ -2474,7 +2474,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member bannedUsers is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member bannedUsers is null!");
                     }
                     
                 }
@@ -2489,7 +2489,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member moderators is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member moderators is null!");
                     }
                     
                 }
@@ -2504,7 +2504,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member discoverable is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member discoverable is null!");
                     }
                     
                 }
@@ -2519,7 +2519,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member autoModerator is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member autoModerator is null!");
                     }
                     
                 }
@@ -2534,7 +2534,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member requiresInvite is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member requiresInvite is null!");
                     }
                     
                 }
@@ -2549,7 +2549,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserOwner is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserOwner is null!");
                     }
                     
                 }
@@ -2564,7 +2564,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserMember is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserMember is null!");
                     }
                     
                 }
@@ -2579,7 +2579,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserModerator is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserModerator is null!");
                     }
                     
                 }
@@ -2594,7 +2594,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserBanned is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserBanned is null!");
                     }
                     
                 }
@@ -3084,7 +3084,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -3099,7 +3099,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
                     }
                     
                 }
@@ -3114,7 +3114,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
                     }
                     
                 }
@@ -3129,7 +3129,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupId is null!");
                     }
                     
                 }
@@ -3144,7 +3144,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member asModerator is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member asModerator is null!");
                     }
                     
                 }
@@ -3159,7 +3159,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member expiresAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member expiresAt is null!");
                     }
                     
                 }
@@ -3174,7 +3174,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
                     }
                     
                 }
@@ -3189,7 +3189,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
                     }
                     
                 }
@@ -3204,7 +3204,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
                     }
                     
                 }
@@ -3219,7 +3219,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member sendSpaceLink is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member sendSpaceLink is null!");
                     }
                     
                 }
@@ -3598,7 +3598,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -3613,7 +3613,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
                     }
                     
                 }
@@ -3628,7 +3628,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
                     }
                     
                 }
@@ -3643,7 +3643,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupType is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupType is null!");
                     }
                     
                 }
@@ -3658,7 +3658,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupOwnerId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupOwnerId is null!");
                     }
                     
                 }
@@ -3673,7 +3673,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
                     }
                     
                 }
@@ -3688,7 +3688,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member discoverable is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member discoverable is null!");
                     }
                     
                 }
@@ -3703,7 +3703,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member autoModerator is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member autoModerator is null!");
                     }
                     
                 }
@@ -3718,7 +3718,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member requiresInvite is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member requiresInvite is null!");
                     }
                     
                 }
@@ -3733,7 +3733,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserOwner is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserOwner is null!");
                     }
                     
                 }
@@ -3748,7 +3748,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserMember is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserMember is null!");
                     }
                     
                 }
@@ -3763,7 +3763,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserModerator is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserModerator is null!");
                     }
                     
                 }
@@ -3778,7 +3778,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserBanned is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isCurrentUserBanned is null!");
                     }
                     
                 }
@@ -4115,7 +4115,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
                     }
                     
                 }
@@ -4130,7 +4130,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
                     }
                     
                 }
@@ -4145,7 +4145,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
                     }
                     
                 }
@@ -4160,7 +4160,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
                     }
                     
                 }
@@ -4175,7 +4175,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
                     }
                     
                 }
@@ -4337,7 +4337,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupId is null!");
                     }
                     
                 }
@@ -4352,7 +4352,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupCode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupCode is null!");
                     }
                     
                 }
@@ -4367,7 +4367,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
                     }
                     
                 }
@@ -4500,7 +4500,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member context is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member context is null!");
                     }
                     
                 }
@@ -4515,7 +4515,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -4530,7 +4530,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member settings is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member settings is null!");
                     }
                     
                 }
@@ -4796,7 +4796,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -4811,7 +4811,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
                     }
                     
                 }
@@ -4826,7 +4826,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -4841,7 +4841,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member exchangeable is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member exchangeable is null!");
                     }
                     
                 }
@@ -4856,7 +4856,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isGift is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isGift is null!");
                     }
                     
                 }
@@ -4871,7 +4871,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
                     }
                     
                 }
@@ -4886,7 +4886,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member state is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member state is null!");
                     }
                     
                 }
@@ -4901,7 +4901,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member equippable is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member equippable is null!");
                     }
                     
                 }
@@ -4916,7 +4916,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member equipped is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member equipped is null!");
                     }
                     
                 }
@@ -4931,7 +4931,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemType is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemType is null!");
                     }
                     
                 }
@@ -4946,7 +4946,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
                     }
                     
                 }
@@ -4961,7 +4961,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
                     }
                     
                 }
@@ -4976,7 +4976,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
                     }
                     
                 }
@@ -4991,7 +4991,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
                     }
                     
                 }
@@ -5348,7 +5348,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
                     }
                     
                 }
@@ -5363,7 +5363,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
                     }
                     
                 }
@@ -5378,7 +5378,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
                     }
                     
                 }
@@ -5393,7 +5393,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
                     }
                     
                 }
@@ -5408,7 +5408,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
                     }
                     
                 }
@@ -5594,7 +5594,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tenant is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tenant is null!");
                     }
                     
                 }
@@ -5609,7 +5609,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
                     }
                     
                 }
@@ -5624,7 +5624,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
                     }
                     
                 }
@@ -5639,7 +5639,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member password is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member password is null!");
                     }
                     
                 }
@@ -5654,7 +5654,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
                     }
                     
                 }
@@ -5847,7 +5847,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tenant is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tenant is null!");
                     }
                     
                 }
@@ -5862,7 +5862,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member provider is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member provider is null!");
                     }
                     
                 }
@@ -5877,7 +5877,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
                     }
                     
                 }
@@ -5892,7 +5892,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
                     }
                     
                 }
@@ -5907,7 +5907,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member oAuthRedirectUri is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member oAuthRedirectUri is null!");
                     }
                     
                 }
@@ -6064,7 +6064,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -6079,7 +6079,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
                     }
                     
                 }
@@ -6194,7 +6194,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -6209,7 +6209,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member percentTowardsNextSeed is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member percentTowardsNextSeed is null!");
                     }
                     
                 }
@@ -6224,7 +6224,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member metagameLevel is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member metagameLevel is null!");
                     }
                     
                 }
@@ -6341,7 +6341,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member percentDeltaAsTotal is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member percentDeltaAsTotal is null!");
                     }
                     
                 }
@@ -6356,7 +6356,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member percentDelta is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member percentDelta is null!");
                     }
                     
                 }
@@ -6457,7 +6457,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member oneTimeKey is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member oneTimeKey is null!");
                     }
                     
                 }
@@ -6472,7 +6472,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member expiresAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member expiresAt is null!");
                     }
                     
                 }
@@ -6575,7 +6575,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -6590,7 +6590,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
                     }
                     
                 }
@@ -6897,7 +6897,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -6912,7 +6912,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
                     }
                     
                 }
@@ -6927,7 +6927,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member guestDeviceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member guestDeviceId is null!");
                     }
                     
                 }
@@ -6942,7 +6942,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member guestFirstLoginIdentified is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member guestFirstLoginIdentified is null!");
                     }
                     
                 }
@@ -6957,7 +6957,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member lastLoginAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member lastLoginAt is null!");
                     }
                     
                 }
@@ -6972,7 +6972,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member lastLoginNonce is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member lastLoginNonce is null!");
                     }
                     
                 }
@@ -6987,7 +6987,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member lastDeviceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member lastDeviceId is null!");
                     }
                     
                 }
@@ -7002,7 +7002,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member lastPlatform is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member lastPlatform is null!");
                     }
                     
                 }
@@ -7017,7 +7017,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member avatarId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member avatarId is null!");
                     }
                     
                 }
@@ -7032,7 +7032,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
                     }
                     
                 }
@@ -7047,7 +7047,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member firstName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member firstName is null!");
                     }
                     
                 }
@@ -7062,7 +7062,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
                     }
                     
                 }
@@ -7077,7 +7077,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isEmailConfirmed is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isEmailConfirmed is null!");
                     }
                     
                 }
@@ -7092,7 +7092,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member roles is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member roles is null!");
                     }
                     
                 }
@@ -7107,7 +7107,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
                     }
                     
                 }
@@ -7122,7 +7122,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
                     }
                     
                 }
@@ -7137,7 +7137,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
                     }
                     
                 }
@@ -7152,7 +7152,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
                     }
                     
                 }
@@ -7167,7 +7167,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member locked is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member locked is null!");
                     }
                     
                 }
@@ -7613,7 +7613,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
                     }
                     
                 }
@@ -7628,7 +7628,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
                     }
                     
                 }
@@ -7643,7 +7643,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
                     }
                     
                 }
@@ -7658,7 +7658,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
                     }
                     
                 }
@@ -7673,7 +7673,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
                     }
                     
                 }
@@ -7859,7 +7859,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -7874,7 +7874,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member avatarId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member avatarId is null!");
                     }
                     
                 }
@@ -7889,7 +7889,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
                     }
                     
                 }
@@ -7904,7 +7904,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
                     }
                     
                 }
@@ -7919,7 +7919,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member platform is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member platform is null!");
                     }
                     
                 }
@@ -8088,7 +8088,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -8103,7 +8103,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member refreshToken is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member refreshToken is null!");
                     }
                     
                 }
@@ -8118,7 +8118,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
                     }
                     
                 }
@@ -8251,7 +8251,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -8266,7 +8266,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member context is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member context is null!");
                     }
                     
                 }
@@ -8281,7 +8281,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member settings is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member settings is null!");
                     }
                     
                 }
@@ -8427,7 +8427,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member providerName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member providerName is null!");
                     }
                     
                 }
@@ -8442,7 +8442,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member clientId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member clientId is null!");
                     }
                     
                 }
@@ -8457,7 +8457,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member scopes is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member scopes is null!");
                     }
                     
                 }
@@ -8472,7 +8472,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member authorizeEndpoint is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member authorizeEndpoint is null!");
                     }
                     
                 }
@@ -8612,7 +8612,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
                     }
                     
                 }
@@ -8627,7 +8627,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member newPassword is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member newPassword is null!");
                     }
                     
                 }
@@ -8814,7 +8814,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
                     }
                     
                 }
@@ -8829,7 +8829,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
                     }
                     
                 }
@@ -8844,7 +8844,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
                     }
                     
                 }
@@ -8859,7 +8859,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member password is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member password is null!");
                     }
                     
                 }
@@ -8874,7 +8874,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member guestDeviceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member guestDeviceId is null!");
                     }
                     
                 }
@@ -8889,7 +8889,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member suppressConfirmationEmail is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member suppressConfirmationEmail is null!");
                     }
                     
                 }
@@ -8904,7 +8904,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member autoConfirm is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member autoConfirm is null!");
                     }
                     
                 }
@@ -8919,7 +8919,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member inviteToken is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member inviteToken is null!");
                     }
                     
                 }
@@ -8934,7 +8934,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member redirectUrl is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member redirectUrl is null!");
                     }
                     
                 }
@@ -9235,7 +9235,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member provider is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member provider is null!");
                     }
                     
                 }
@@ -9250,7 +9250,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
                     }
                     
                 }
@@ -9265,7 +9265,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userName is null!");
                     }
                     
                 }
@@ -9280,7 +9280,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
                     }
                     
                 }
@@ -9295,7 +9295,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member password is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member password is null!");
                     }
                     
                 }
@@ -9310,7 +9310,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member guestDeviceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member guestDeviceId is null!");
                     }
                     
                 }
@@ -9325,7 +9325,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member redirectUrl is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member redirectUrl is null!");
                     }
                     
                 }
@@ -9340,7 +9340,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member oAuthRedirectUri is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member oAuthRedirectUri is null!");
                     }
                     
                 }
@@ -9551,7 +9551,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -9566,7 +9566,7 @@ namespace csp::services::generated::userservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member roles is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member roles is null!");
                     }
                     
                 }

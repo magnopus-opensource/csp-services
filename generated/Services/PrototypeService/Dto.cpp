@@ -242,7 +242,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
                     }
                     
                 }
@@ -257,7 +257,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -272,7 +272,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member fileName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member fileName is null!");
                     }
                     
                 }
@@ -287,7 +287,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
                     }
                     
                 }
@@ -302,7 +302,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member languageCode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member languageCode is null!");
                     }
                     
                 }
@@ -317,7 +317,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member assetType is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member assetType is null!");
                     }
                     
                 }
@@ -332,7 +332,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member supportedPlatforms is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member supportedPlatforms is null!");
                     }
                     
                 }
@@ -347,7 +347,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member style is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member style is null!");
                     }
                     
                 }
@@ -362,7 +362,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member addressableId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member addressableId is null!");
                     }
                     
                 }
@@ -377,7 +377,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member thirdPartyReferenceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thirdPartyReferenceId is null!");
                     }
                     
                 }
@@ -392,7 +392,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member uri is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member uri is null!");
                     }
                     
                 }
@@ -407,7 +407,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member checksum is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member checksum is null!");
                     }
                     
                 }
@@ -422,7 +422,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
                     }
                     
                 }
@@ -437,7 +437,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member mimeType is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member mimeType is null!");
                     }
                     
                 }
@@ -452,7 +452,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member externalUri is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member externalUri is null!");
                     }
                     
                 }
@@ -467,7 +467,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member externalMimeType is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member externalMimeType is null!");
                     }
                     
                 }
@@ -992,7 +992,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -1007,7 +1007,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
                     }
                     
                 }
@@ -1022,7 +1022,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member fileName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member fileName is null!");
                     }
                     
                 }
@@ -1037,7 +1037,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
                     }
                     
                 }
@@ -1052,7 +1052,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member languageCode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member languageCode is null!");
                     }
                     
                 }
@@ -1067,7 +1067,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member assetType is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member assetType is null!");
                     }
                     
                 }
@@ -1082,7 +1082,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member supportedPlatforms is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member supportedPlatforms is null!");
                     }
                     
                 }
@@ -1097,7 +1097,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member style is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member style is null!");
                     }
                     
                 }
@@ -1112,7 +1112,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member addressableId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member addressableId is null!");
                     }
                     
                 }
@@ -1127,7 +1127,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member thirdPartyReferenceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thirdPartyReferenceId is null!");
                     }
                     
                 }
@@ -1142,7 +1142,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member uri is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member uri is null!");
                     }
                     
                 }
@@ -1157,7 +1157,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member checksum is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member checksum is null!");
                     }
                     
                 }
@@ -1172,7 +1172,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
                     }
                     
                 }
@@ -1187,7 +1187,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member mimeType is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member mimeType is null!");
                     }
                     
                 }
@@ -1202,7 +1202,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member externalUri is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member externalUri is null!");
                     }
                     
                 }
@@ -1217,7 +1217,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member externalMimeType is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member externalMimeType is null!");
                     }
                     
                 }
@@ -1754,7 +1754,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -1769,7 +1769,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
                     }
                     
                 }
@@ -1784,7 +1784,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
                     }
                     
                 }
@@ -1799,7 +1799,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member metadata is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member metadata is null!");
                     }
                     
                 }
@@ -1814,7 +1814,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member uiStrings is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member uiStrings is null!");
                     }
                     
                 }
@@ -1829,7 +1829,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member state is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member state is null!");
                     }
                     
                 }
@@ -1844,7 +1844,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member pointOfInterestId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member pointOfInterestId is null!");
                     }
                     
                 }
@@ -1859,7 +1859,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member parentId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member parentId is null!");
                     }
                     
                 }
@@ -1874,7 +1874,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupIds is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupIds is null!");
                     }
                     
                 }
@@ -1889,7 +1889,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
                     }
                     
                 }
@@ -1904,7 +1904,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
                     }
                     
                 }
@@ -1919,7 +1919,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
                     }
                     
                 }
@@ -1934,7 +1934,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
                     }
                     
                 }
@@ -1949,7 +1949,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member highlander is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member highlander is null!");
                     }
                     
                 }
@@ -1964,7 +1964,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
                     }
                     
                 }
@@ -1979,7 +1979,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member systemOwned is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member systemOwned is null!");
                     }
                     
                 }
@@ -1994,7 +1994,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member prototypeOwnerId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeOwnerId is null!");
                     }
                     
                 }
@@ -2372,7 +2372,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member languageCode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member languageCode is null!");
                     }
                     
                 }
@@ -2387,7 +2387,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
                     }
                     
                 }
@@ -2670,7 +2670,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -2685,7 +2685,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
                     }
                     
                 }
@@ -2700,7 +2700,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
                     }
                     
                 }
@@ -2715,7 +2715,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member metadata is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member metadata is null!");
                     }
                     
                 }
@@ -2730,7 +2730,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member uiStrings is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member uiStrings is null!");
                     }
                     
                 }
@@ -2745,7 +2745,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member state is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member state is null!");
                     }
                     
                 }
@@ -2760,7 +2760,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member pointOfInterestId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member pointOfInterestId is null!");
                     }
                     
                 }
@@ -2775,7 +2775,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member parentId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member parentId is null!");
                     }
                     
                 }
@@ -2790,7 +2790,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupIds is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupIds is null!");
                     }
                     
                 }
@@ -2805,7 +2805,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
                     }
                     
                 }
@@ -2820,7 +2820,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
                     }
                     
                 }
@@ -2835,7 +2835,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
                     }
                     
                 }
@@ -2850,7 +2850,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
                     }
                     
                 }
@@ -2865,7 +2865,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member highlander is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member highlander is null!");
                     }
                     
                 }
@@ -2880,7 +2880,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
                     }
                     
                 }
@@ -2895,7 +2895,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member systemOwned is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member systemOwned is null!");
                     }
                     
                 }
@@ -2910,7 +2910,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member prototypeOwnerId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeOwnerId is null!");
                     }
                     
                 }
@@ -3324,7 +3324,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
                     }
                     
                 }
@@ -3339,7 +3339,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
                     }
                     
                 }
@@ -3354,7 +3354,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
                     }
                     
                 }
@@ -3369,7 +3369,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
                     }
                     
                 }
@@ -3384,7 +3384,7 @@ namespace csp::services::generated::prototypeservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
                     }
                     
                 }

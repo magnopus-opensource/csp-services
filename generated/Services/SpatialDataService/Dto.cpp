@@ -276,7 +276,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -291,7 +291,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member mgsId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member mgsId is null!");
                     }
                     
                 }
@@ -306,7 +306,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member thirdPartyAnchorId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thirdPartyAnchorId is null!");
                     }
                     
                 }
@@ -321,7 +321,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member thirdPartyProviderName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thirdPartyProviderName is null!");
                     }
                     
                 }
@@ -336,7 +336,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member referenceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member referenceId is null!");
                     }
                     
                 }
@@ -351,7 +351,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member anchoredPrototypeId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member anchoredPrototypeId is null!");
                     }
                     
                 }
@@ -366,7 +366,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member anchoredMultiplayerObjectId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member anchoredMultiplayerObjectId is null!");
                     }
                     
                 }
@@ -381,7 +381,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spatialKeyValue is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spatialKeyValue is null!");
                     }
                     
                 }
@@ -396,7 +396,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
                     }
                     
                 }
@@ -411,7 +411,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member position is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member position is null!");
                     }
                     
                 }
@@ -426,7 +426,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member rotation is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member rotation is null!");
                     }
                     
                 }
@@ -441,7 +441,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
                     }
                     
                 }
@@ -456,7 +456,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
                     }
                     
                 }
@@ -471,7 +471,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
                     }
                     
                 }
@@ -826,7 +826,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
                     }
                     
                 }
@@ -841,7 +841,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
                     }
                     
                 }
@@ -856,7 +856,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
                     }
                     
                 }
@@ -871,7 +871,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
                     }
                     
                 }
@@ -886,7 +886,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
                     }
                     
                 }
@@ -1048,7 +1048,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
                     }
                     
                 }
@@ -1063,7 +1063,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
                     }
                     
                 }
@@ -1078,7 +1078,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
                     }
                     
                 }
@@ -1241,7 +1241,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -1256,7 +1256,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member anchorId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member anchorId is null!");
                     }
                     
                 }
@@ -1271,7 +1271,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member successfullyResolved is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member successfullyResolved is null!");
                     }
                     
                 }
@@ -1286,7 +1286,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member resolveAttempted is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member resolveAttempted is null!");
                     }
                     
                 }
@@ -1301,7 +1301,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member resolveTime is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member resolveTime is null!");
                     }
                     
                 }
@@ -1316,7 +1316,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
                     }
                     
                 }
@@ -1524,7 +1524,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
                     }
                     
                 }
@@ -1539,7 +1539,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
                     }
                     
                 }
@@ -1554,7 +1554,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
                     }
                     
                 }
@@ -1569,7 +1569,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
                     }
                     
                 }
@@ -1584,7 +1584,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
                     }
                     
                 }
@@ -1758,7 +1758,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
                     }
                     
                 }
@@ -1773,7 +1773,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
                     }
                     
                 }
@@ -1788,7 +1788,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
                     }
                     
                 }
@@ -1803,7 +1803,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member w is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member w is null!");
                     }
                     
                 }
@@ -1958,7 +1958,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member anchorId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member anchorId is null!");
                     }
                     
                 }
@@ -1973,7 +1973,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member averageResolveTime is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member averageResolveTime is null!");
                     }
                     
                 }
@@ -1988,7 +1988,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member averageSuccessfullyResolved is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member averageSuccessfullyResolved is null!");
                     }
                     
                 }
@@ -2003,7 +2003,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member averageResolveAttempted is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member averageResolveAttempted is null!");
                     }
                     
                 }
@@ -2136,7 +2136,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member eventStart is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member eventStart is null!");
                     }
                     
                 }
@@ -2151,7 +2151,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member eventEnd is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member eventEnd is null!");
                     }
                     
                 }
@@ -2242,7 +2242,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
                     }
                     
                 }
@@ -2328,7 +2328,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member longitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member longitude is null!");
                     }
                     
                 }
@@ -2343,7 +2343,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member latitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member latitude is null!");
                     }
                     
                 }
@@ -2430,7 +2430,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
                     }
                     
                 }
@@ -2504,7 +2504,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
                     }
                     
                 }
@@ -2577,7 +2577,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member href is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member href is null!");
                     }
                     
                 }
@@ -2698,7 +2698,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -2713,7 +2713,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member color is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member color is null!");
                     }
                     
                 }
@@ -2728,7 +2728,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member colorMode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member colorMode is null!");
                     }
                     
                 }
@@ -2743,7 +2743,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member scale is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member scale is null!");
                     }
                     
                 }
@@ -2758,7 +2758,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member icon is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member icon is null!");
                     }
                     
                 }
@@ -2901,7 +2901,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member document is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member document is null!");
                     }
                     
                 }
@@ -3010,7 +3010,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member extrude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member extrude is null!");
                     }
                     
                 }
@@ -3025,7 +3025,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tessellate is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tessellate is null!");
                     }
                     
                 }
@@ -3040,7 +3040,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member altitudeMode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member altitudeMode is null!");
                     }
                     
                 }
@@ -3055,7 +3055,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member coordinates is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member coordinates is null!");
                     }
                     
                 }
@@ -3194,7 +3194,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member languageCode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member languageCode is null!");
                     }
                     
                 }
@@ -3209,7 +3209,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
                     }
                     
                 }
@@ -3360,7 +3360,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member longitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member longitude is null!");
                     }
                     
                 }
@@ -3375,7 +3375,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member latitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member latitude is null!");
                     }
                     
                 }
@@ -3390,7 +3390,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member altitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member altitude is null!");
                     }
                     
                 }
@@ -3405,7 +3405,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member range is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member range is null!");
                     }
                     
                 }
@@ -3420,7 +3420,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tilt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tilt is null!");
                     }
                     
                 }
@@ -3435,7 +3435,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member heading is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member heading is null!");
                     }
                     
                 }
@@ -3776,7 +3776,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -3791,7 +3791,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member altitudeMode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member altitudeMode is null!");
                     }
                     
                 }
@@ -3806,7 +3806,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
                     }
                     
                 }
@@ -3821,7 +3821,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member orientation is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member orientation is null!");
                     }
                     
                 }
@@ -3836,7 +3836,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member scale is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member scale is null!");
                     }
                     
                 }
@@ -3851,7 +3851,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member link is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member link is null!");
                     }
                     
                 }
@@ -4014,7 +4014,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member href is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member href is null!");
                     }
                     
                 }
@@ -4111,7 +4111,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member longitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member longitude is null!");
                     }
                     
                 }
@@ -4126,7 +4126,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member latitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member latitude is null!");
                     }
                     
                 }
@@ -4141,7 +4141,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member altitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member altitude is null!");
                     }
                     
                 }
@@ -4268,7 +4268,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member heading is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member heading is null!");
                     }
                     
                 }
@@ -4283,7 +4283,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tilt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tilt is null!");
                     }
                     
                 }
@@ -4298,7 +4298,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member roll is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member roll is null!");
                     }
                     
                 }
@@ -4425,7 +4425,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
                     }
                     
                 }
@@ -4440,7 +4440,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
                     }
                     
                 }
@@ -4455,7 +4455,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
                     }
                     
                 }
@@ -4570,7 +4570,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -4585,7 +4585,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member poiId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member poiId is null!");
                     }
                     
                 }
@@ -4760,7 +4760,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -4775,7 +4775,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
                     }
                     
                 }
@@ -4790,7 +4790,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member styleUrl is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member styleUrl is null!");
                     }
                     
                 }
@@ -4805,7 +4805,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
                     }
                     
                 }
@@ -4820,7 +4820,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member lineString is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member lineString is null!");
                     }
                     
                 }
@@ -4835,7 +4835,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member point is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member point is null!");
                     }
                     
                 }
@@ -4850,7 +4850,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member model is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member model is null!");
                     }
                     
                 }
@@ -4865,7 +4865,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member lookAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member lookAt is null!");
                     }
                     
                 }
@@ -5088,7 +5088,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
                     }
                     
                 }
@@ -5103,7 +5103,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member geofence is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member geofence is null!");
                     }
                     
                 }
@@ -5118,7 +5118,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member scheduledEvents is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member scheduledEvents is null!");
                     }
                     
                 }
@@ -5251,7 +5251,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tessellate is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tessellate is null!");
                     }
                     
                 }
@@ -5266,7 +5266,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member altitudeMode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member altitudeMode is null!");
                     }
                     
                 }
@@ -5281,7 +5281,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member coordinates is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member coordinates is null!");
                     }
                     
                 }
@@ -5750,7 +5750,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -5765,7 +5765,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
                     }
                     
                 }
@@ -5780,7 +5780,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
                     }
                     
                 }
@@ -5795,7 +5795,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
                     }
                     
                 }
@@ -5810,7 +5810,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
                     }
                     
                 }
@@ -5825,7 +5825,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member title is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member title is null!");
                     }
                     
                 }
@@ -5840,7 +5840,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
                     }
                     
                 }
@@ -5855,7 +5855,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member uiStrings is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member uiStrings is null!");
                     }
                     
                 }
@@ -5870,7 +5870,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
                     }
                     
                 }
@@ -5885,7 +5885,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member zoomLevel is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member zoomLevel is null!");
                     }
                     
                 }
@@ -5900,7 +5900,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
                     }
                     
                 }
@@ -5915,7 +5915,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member thumbnailUri is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thumbnailUri is null!");
                     }
                     
                 }
@@ -5930,7 +5930,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member thumbnailMimeType is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thumbnailMimeType is null!");
                     }
                     
                 }
@@ -5945,7 +5945,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
                     }
                     
                 }
@@ -5960,7 +5960,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member owner is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member owner is null!");
                     }
                     
                 }
@@ -5975,7 +5975,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
                     }
                     
                 }
@@ -5990,7 +5990,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member schedule is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member schedule is null!");
                     }
                     
                 }
@@ -6005,7 +6005,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member generatedSchedule is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member generatedSchedule is null!");
                     }
                     
                 }
@@ -6020,7 +6020,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member eventId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member eventId is null!");
                     }
                     
                 }
@@ -6035,7 +6035,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member parentId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member parentId is null!");
                     }
                     
                 }
@@ -6050,7 +6050,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupId is null!");
                     }
                     
                 }
@@ -6065,7 +6065,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member hidden is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member hidden is null!");
                     }
                     
                 }
@@ -6080,7 +6080,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member geofence is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member geofence is null!");
                     }
                     
                 }
@@ -6095,7 +6095,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member private is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member private is null!");
                     }
                     
                 }
@@ -6110,7 +6110,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member cmsId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member cmsId is null!");
                     }
                     
                 }
@@ -6125,7 +6125,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
                     }
                     
                 }
@@ -6140,7 +6140,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member prototypeName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeName is null!");
                     }
                     
                 }
@@ -6155,7 +6155,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member requireAction is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member requireAction is null!");
                     }
                     
                 }
@@ -6170,7 +6170,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isDebug is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isDebug is null!");
                     }
                     
                 }
@@ -6185,7 +6185,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member orientation is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member orientation is null!");
                     }
                     
                 }
@@ -6200,7 +6200,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member prototypeTransform is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeTransform is null!");
                     }
                     
                 }
@@ -6864,7 +6864,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
                     }
                     
                 }
@@ -6879,7 +6879,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
                     }
                     
                 }
@@ -6894,7 +6894,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
                     }
                     
                 }
@@ -6909,7 +6909,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
                     }
                     
                 }
@@ -6924,7 +6924,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
                     }
                     
                 }
@@ -7230,7 +7230,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -7245,7 +7245,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
                     }
                     
                 }
@@ -7260,7 +7260,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member title is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member title is null!");
                     }
                     
                 }
@@ -7275,7 +7275,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
                     }
                     
                 }
@@ -7290,7 +7290,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member uiStrings is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member uiStrings is null!");
                     }
                     
                 }
@@ -7305,7 +7305,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
                     }
                     
                 }
@@ -7320,7 +7320,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
                     }
                     
                 }
@@ -7335,7 +7335,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member thumbnailUri is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thumbnailUri is null!");
                     }
                     
                 }
@@ -7350,7 +7350,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member thumbnailMimeType is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thumbnailMimeType is null!");
                     }
                     
                 }
@@ -7365,7 +7365,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
                     }
                     
                 }
@@ -7380,7 +7380,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member hidden is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member hidden is null!");
                     }
                     
                 }
@@ -7395,7 +7395,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member geofence is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member geofence is null!");
                     }
                     
                 }
@@ -7410,7 +7410,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member prototypeName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeName is null!");
                     }
                     
                 }
@@ -7425,7 +7425,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
                     }
                     
                 }
@@ -7440,7 +7440,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member orientation is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member orientation is null!");
                     }
                     
                 }
@@ -7816,7 +7816,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
                     }
                     
                 }
@@ -7831,7 +7831,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
                     }
                     
                 }
@@ -7846,7 +7846,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
                     }
                     
                 }
@@ -7861,7 +7861,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
                     }
                     
                 }
@@ -7876,7 +7876,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
                     }
                     
                 }
@@ -8098,7 +8098,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -8113,7 +8113,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -8128,7 +8128,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member position is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member position is null!");
                     }
                     
                 }
@@ -8143,7 +8143,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member offsite is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member offsite is null!");
                     }
                     
                 }
@@ -8158,7 +8158,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
                     }
                     
                 }
@@ -8173,7 +8173,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
                     }
                     
                 }
@@ -8188,7 +8188,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member geofenceSearchRadius is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member geofenceSearchRadius is null!");
                     }
                     
                 }
@@ -8203,7 +8203,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spectator is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spectator is null!");
                     }
                     
                 }
@@ -8448,7 +8448,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
                     }
                     
                 }
@@ -8463,7 +8463,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
                     }
                     
                 }
@@ -8478,7 +8478,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
                     }
                     
                 }
@@ -8493,7 +8493,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
                     }
                     
                 }
@@ -8508,7 +8508,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
                     }
                     
                 }
@@ -8694,7 +8694,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
                     }
                     
                 }
@@ -8709,7 +8709,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member style is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member style is null!");
                     }
                     
                 }
@@ -8724,7 +8724,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member visibility is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member visibility is null!");
                     }
                     
                 }
@@ -8739,7 +8739,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member open is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member open is null!");
                     }
                     
                 }
@@ -8754,7 +8754,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member placemark is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member placemark is null!");
                     }
                     
                 }
@@ -8937,7 +8937,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
                     }
                     
                 }
@@ -8952,7 +8952,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
                     }
                     
                 }
@@ -8967,7 +8967,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
                     }
                     
                 }
@@ -8982,7 +8982,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member w is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member w is null!");
                     }
                     
                 }
@@ -9125,7 +9125,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
                     }
                     
                 }
@@ -9140,7 +9140,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
                     }
                     
                 }
@@ -9155,7 +9155,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
                     }
                     
                 }
@@ -9354,7 +9354,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -9369,7 +9369,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
                     }
                     
                 }
@@ -9384,7 +9384,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceTimeType is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceTimeType is null!");
                     }
                     
                 }
@@ -9399,7 +9399,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupId is null!");
                     }
                     
                 }
@@ -9414,7 +9414,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -9429,7 +9429,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
                     }
                     
                 }
@@ -9444,7 +9444,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member offsite is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member offsite is null!");
                     }
                     
                 }
@@ -9459,7 +9459,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member poiId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member poiId is null!");
                     }
                     
                 }
@@ -9474,7 +9474,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
                     }
                     
                 }
@@ -9739,7 +9739,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
                     }
                     
                 }
@@ -9754,7 +9754,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
                     }
                     
                 }
@@ -9769,7 +9769,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
                     }
                     
                 }
@@ -9784,7 +9784,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
                     }
                     
                 }
@@ -9799,7 +9799,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
                     }
                     
                 }
@@ -10025,7 +10025,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
                     }
                     
                 }
@@ -10040,7 +10040,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
                     }
                     
                 }
@@ -10055,7 +10055,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
                     }
                     
                 }
@@ -10070,7 +10070,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
                     }
                     
                 }
@@ -10085,7 +10085,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
                     }
                     
                 }
@@ -10235,7 +10235,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -10250,7 +10250,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member iconStyle is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member iconStyle is null!");
                     }
                     
                 }
@@ -10365,7 +10365,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member scale is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member scale is null!");
                     }
                     
                 }
@@ -10380,7 +10380,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member translation is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member translation is null!");
                     }
                     
                 }
@@ -10395,7 +10395,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member rotation is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member rotation is null!");
                     }
                     
                 }
@@ -10528,7 +10528,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
                     }
                     
                 }
@@ -10543,7 +10543,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
                     }
                     
                 }
@@ -10558,7 +10558,7 @@ namespace csp::services::generated::spatialdataservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
                     }
                     
                 }

@@ -144,7 +144,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -159,7 +159,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupId is null!");
                     }
                     
                 }
@@ -174,7 +174,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member groupRoles is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupRoles is null!");
                     }
                     
                 }
@@ -284,7 +284,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member href is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member href is null!");
                     }
                     
                 }
@@ -405,7 +405,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -420,7 +420,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member color is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member color is null!");
                     }
                     
                 }
@@ -435,7 +435,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member colorMode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member colorMode is null!");
                     }
                     
                 }
@@ -450,7 +450,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member scale is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member scale is null!");
                     }
                     
                 }
@@ -465,7 +465,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member icon is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member icon is null!");
                     }
                     
                 }
@@ -608,7 +608,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member document is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member document is null!");
                     }
                     
                 }
@@ -717,7 +717,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member extrude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member extrude is null!");
                     }
                     
                 }
@@ -732,7 +732,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tessellate is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tessellate is null!");
                     }
                     
                 }
@@ -747,7 +747,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member altitudeMode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member altitudeMode is null!");
                     }
                     
                 }
@@ -762,7 +762,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member coordinates is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member coordinates is null!");
                     }
                     
                 }
@@ -949,7 +949,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member longitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member longitude is null!");
                     }
                     
                 }
@@ -964,7 +964,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member latitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member latitude is null!");
                     }
                     
                 }
@@ -979,7 +979,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member altitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member altitude is null!");
                     }
                     
                 }
@@ -994,7 +994,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member range is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member range is null!");
                     }
                     
                 }
@@ -1009,7 +1009,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tilt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tilt is null!");
                     }
                     
                 }
@@ -1024,7 +1024,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member heading is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member heading is null!");
                     }
                     
                 }
@@ -1235,7 +1235,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -1250,7 +1250,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member altitudeMode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member altitudeMode is null!");
                     }
                     
                 }
@@ -1265,7 +1265,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member location is null!");
                     }
                     
                 }
@@ -1280,7 +1280,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member orientation is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member orientation is null!");
                     }
                     
                 }
@@ -1295,7 +1295,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member scale is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member scale is null!");
                     }
                     
                 }
@@ -1310,7 +1310,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member link is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member link is null!");
                     }
                     
                 }
@@ -1473,7 +1473,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member href is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member href is null!");
                     }
                     
                 }
@@ -1570,7 +1570,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member longitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member longitude is null!");
                     }
                     
                 }
@@ -1585,7 +1585,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member latitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member latitude is null!");
                     }
                     
                 }
@@ -1600,7 +1600,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member altitude is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member altitude is null!");
                     }
                     
                 }
@@ -1727,7 +1727,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member heading is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member heading is null!");
                     }
                     
                 }
@@ -1742,7 +1742,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tilt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tilt is null!");
                     }
                     
                 }
@@ -1757,7 +1757,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member roll is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member roll is null!");
                     }
                     
                 }
@@ -1884,7 +1884,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member x is null!");
                     }
                     
                 }
@@ -1899,7 +1899,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member y is null!");
                     }
                     
                 }
@@ -1914,7 +1914,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member z is null!");
                     }
                     
                 }
@@ -2101,7 +2101,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -2116,7 +2116,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
                     }
                     
                 }
@@ -2131,7 +2131,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member styleUrl is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member styleUrl is null!");
                     }
                     
                 }
@@ -2146,7 +2146,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
                     }
                     
                 }
@@ -2161,7 +2161,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member lineString is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member lineString is null!");
                     }
                     
                 }
@@ -2176,7 +2176,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member point is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member point is null!");
                     }
                     
                 }
@@ -2191,7 +2191,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member model is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member model is null!");
                     }
                     
                 }
@@ -2206,7 +2206,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member lookAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member lookAt is null!");
                     }
                     
                 }
@@ -2429,7 +2429,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tessellate is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tessellate is null!");
                     }
                     
                 }
@@ -2444,7 +2444,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member altitudeMode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member altitudeMode is null!");
                     }
                     
                 }
@@ -2459,7 +2459,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member coordinates is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member coordinates is null!");
                     }
                     
                 }
@@ -2616,7 +2616,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
                     }
                     
                 }
@@ -2631,7 +2631,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member style is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member style is null!");
                     }
                     
                 }
@@ -2646,7 +2646,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member visibility is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member visibility is null!");
                     }
                     
                 }
@@ -2661,7 +2661,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member open is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member open is null!");
                     }
                     
                 }
@@ -2676,7 +2676,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member placemark is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member placemark is null!");
                     }
                     
                 }
@@ -2859,7 +2859,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member serviceName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member serviceName is null!");
                     }
                     
                 }
@@ -2874,7 +2874,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member operationName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member operationName is null!");
                     }
                     
                 }
@@ -2889,7 +2889,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member help is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member help is null!");
                     }
                     
                 }
@@ -2904,7 +2904,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member parameters is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member parameters is null!");
                     }
                     
                 }
@@ -3080,7 +3080,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member success is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member success is null!");
                     }
                     
                 }
@@ -3095,7 +3095,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member statusCode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member statusCode is null!");
                     }
                     
                 }
@@ -3110,7 +3110,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member statusReason is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member statusReason is null!");
                     }
                     
                 }
@@ -3125,7 +3125,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member errorCode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member errorCode is null!");
                     }
                     
                 }
@@ -3140,7 +3140,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member operationResult is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member operationResult is null!");
                     }
                     
                 }
@@ -3319,7 +3319,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
                     }
                     
                 }
@@ -3334,7 +3334,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member shopifyCartId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member shopifyCartId is null!");
                     }
                     
                 }
@@ -3349,7 +3349,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member lines is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member lines is null!");
                     }
                     
                 }
@@ -3364,7 +3364,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member totalQuantity is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member totalQuantity is null!");
                     }
                     
                 }
@@ -3514,7 +3514,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member shopifyCartLineId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member shopifyCartLineId is null!");
                     }
                     
                 }
@@ -3529,7 +3529,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member productVariantId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member productVariantId is null!");
                     }
                     
                 }
@@ -3544,7 +3544,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member quantity is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member quantity is null!");
                     }
                     
                 }
@@ -3699,7 +3699,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
                     }
                     
                 }
@@ -3714,7 +3714,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member shopifyCartId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member shopifyCartId is null!");
                     }
                     
                 }
@@ -3729,7 +3729,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member addLineCartChanges is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member addLineCartChanges is null!");
                     }
                     
                 }
@@ -3744,7 +3744,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member removeLineCartChanges is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member removeLineCartChanges is null!");
                     }
                     
                 }
@@ -3759,7 +3759,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member updateLineQtyCartChanges is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updateLineQtyCartChanges is null!");
                     }
                     
                 }
@@ -3919,7 +3919,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member storeUrl is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member storeUrl is null!");
                     }
                     
                 }
@@ -3934,7 +3934,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member checkoutUrl is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member checkoutUrl is null!");
                     }
                     
                 }
@@ -4037,7 +4037,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member amount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member amount is null!");
                     }
                     
                 }
@@ -4052,7 +4052,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member currencyCode is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member currencyCode is null!");
                     }
                     
                 }
@@ -4213,7 +4213,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
                     }
                     
                 }
@@ -4228,7 +4228,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -4243,7 +4243,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member title is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member title is null!");
                     }
                     
                 }
@@ -4258,7 +4258,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
                     }
                     
                 }
@@ -4273,7 +4273,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
                     }
                     
                 }
@@ -4288,7 +4288,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member variants is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member variants is null!");
                     }
                     
                 }
@@ -4303,7 +4303,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member media is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member media is null!");
                     }
                     
                 }
@@ -4535,7 +4535,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member mediaContentType is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member mediaContentType is null!");
                     }
                     
                 }
@@ -4550,7 +4550,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member alt is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member alt is null!");
                     }
                     
                 }
@@ -4565,7 +4565,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member url is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member url is null!");
                     }
                     
                 }
@@ -4580,7 +4580,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member width is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member width is null!");
                     }
                     
                 }
@@ -4595,7 +4595,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member height is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member height is null!");
                     }
                     
                 }
@@ -4796,7 +4796,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -4811,7 +4811,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member title is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member title is null!");
                     }
                     
                 }
@@ -4826,7 +4826,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member availableForSale is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member availableForSale is null!");
                     }
                     
                 }
@@ -4841,7 +4841,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member image is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member image is null!");
                     }
                     
                 }
@@ -4856,7 +4856,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member selectedOptions is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member selectedOptions is null!");
                     }
                     
                 }
@@ -4871,7 +4871,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member unitPrice is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member unitPrice is null!");
                     }
                     
                 }
@@ -5095,7 +5095,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -5110,7 +5110,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member storeName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member storeName is null!");
                     }
                     
                 }
@@ -5125,7 +5125,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceOwnerId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceOwnerId is null!");
                     }
                     
                 }
@@ -5140,7 +5140,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
                     }
                     
                 }
@@ -5155,7 +5155,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isEcommerceActive is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isEcommerceActive is null!");
                     }
                     
                 }
@@ -5170,7 +5170,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member privateAccessToken is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member privateAccessToken is null!");
                     }
                     
                 }
@@ -5345,7 +5345,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member storeName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member storeName is null!");
                     }
                     
                 }
@@ -5360,7 +5360,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member privateAccessToken is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member privateAccessToken is null!");
                     }
                     
                 }
@@ -5463,7 +5463,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member optionName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member optionName is null!");
                     }
                     
                 }
@@ -5478,7 +5478,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member optionValue is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member optionValue is null!");
                     }
                     
                 }
@@ -5641,7 +5641,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -5656,7 +5656,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
                     }
                     
                 }
@@ -5671,7 +5671,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceOwnerId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceOwnerId is null!");
                     }
                     
                 }
@@ -5686,7 +5686,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorEventId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorEventId is null!");
                     }
                     
                 }
@@ -5701,7 +5701,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorName is null!");
                     }
                     
                 }
@@ -5716,7 +5716,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorEventUri is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorEventUri is null!");
                     }
                     
                 }
@@ -5731,7 +5731,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member isTicketingActive is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isTicketingActive is null!");
                     }
                     
                 }
@@ -5960,7 +5960,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
                     }
                     
                 }
@@ -5975,7 +5975,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
                     }
                     
                 }
@@ -5990,7 +5990,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
                     }
                     
                 }
@@ -6005,7 +6005,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
                     }
                     
                 }
@@ -6020,7 +6020,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
                     }
                     
                 }
@@ -6242,7 +6242,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -6257,7 +6257,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorEventId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorEventId is null!");
                     }
                     
                 }
@@ -6272,7 +6272,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorName is null!");
                     }
                     
                 }
@@ -6287,7 +6287,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorTicketId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorTicketId is null!");
                     }
                     
                 }
@@ -6302,7 +6302,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
                     }
                     
                 }
@@ -6317,7 +6317,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member ticketStatus is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member ticketStatus is null!");
                     }
                     
                 }
@@ -6332,7 +6332,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
                     }
                     
                 }
@@ -6347,7 +6347,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member emailLower is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member emailLower is null!");
                     }
                     
                 }
@@ -6594,7 +6594,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
                     }
                     
                 }
@@ -6609,7 +6609,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
                     }
                     
                 }
@@ -6624,7 +6624,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
                     }
                     
                 }
@@ -6639,7 +6639,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
                     }
                     
                 }
@@ -6654,7 +6654,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
                     }
                     
                 }
@@ -6804,7 +6804,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
                     }
                     
                 }
@@ -6819,7 +6819,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member iconStyle is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member iconStyle is null!");
                     }
                     
                 }
@@ -6986,7 +6986,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member vendorName is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorName is null!");
                     }
                     
                 }
@@ -7001,7 +7001,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member clientId is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member clientId is null!");
                     }
                     
                 }
@@ -7016,7 +7016,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member authorizeEndpoint is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member authorizeEndpoint is null!");
                     }
                     
                 }
@@ -7031,7 +7031,7 @@ namespace csp::services::generated::aggregationservice
                     }
                     else
                     {
-                        FOUNDATION_LOG_ERROR_MSG("Error: Non-nullable member oAuthRedirectUrl is null!");
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member oAuthRedirectUrl is null!");
                     }
                     
                 }
