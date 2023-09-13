@@ -274,11 +274,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("mgsId"))
@@ -289,11 +284,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(MgsIdValue, m_MgsId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member mgsId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("thirdPartyAnchorId"))
@@ -304,11 +294,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ThirdPartyAnchorIdValue, m_ThirdPartyAnchorId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thirdPartyAnchorId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("thirdPartyProviderName"))
@@ -319,11 +304,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ThirdPartyProviderNameValue, m_ThirdPartyProviderName);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thirdPartyProviderName is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("referenceId"))
@@ -334,11 +314,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ReferenceIdValue, m_ReferenceId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member referenceId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("anchoredPrototypeId"))
@@ -349,11 +324,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(AnchoredPrototypeIdValue, m_AnchoredPrototypeId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member anchoredPrototypeId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("anchoredMultiplayerObjectId"))
@@ -364,11 +334,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(AnchoredMultiplayerObjectIdValue, m_AnchoredMultiplayerObjectId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member anchoredMultiplayerObjectId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("spatialKeyValue"))
@@ -439,11 +404,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(TagsValue, m_Tags);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("createdAt"))
@@ -469,11 +429,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(CreatedByValue, m_CreatedBy);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
-                    }
-                    
                 }
             
         }
@@ -824,11 +779,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ItemsValue, m_Items);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("skip"))
@@ -854,11 +804,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(LimitValue, m_Limit);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("itemCount"))
@@ -1239,11 +1184,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("anchorId"))
@@ -1269,11 +1209,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(SuccessfullyResolvedValue, m_SuccessfullyResolved);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member successfullyResolved is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("resolveAttempted"))
@@ -1299,11 +1234,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ResolveTimeValue, m_ResolveTime);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member resolveTime is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("tags"))
@@ -1314,11 +1244,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(TagsValue, m_Tags);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
-                    }
-                    
                 }
             
         }
@@ -1522,11 +1447,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ItemsValue, m_Items);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("skip"))
@@ -1552,11 +1472,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(LimitValue, m_Limit);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("itemCount"))
@@ -1956,11 +1871,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(AnchorIdValue, m_AnchorId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member anchorId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("averageResolveTime"))
@@ -1971,11 +1881,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(AverageResolveTimeValue, m_AverageResolveTime);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member averageResolveTime is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("averageSuccessfullyResolved"))
@@ -1986,11 +1891,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(AverageSuccessfullyResolvedValue, m_AverageSuccessfullyResolved);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member averageSuccessfullyResolved is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("averageResolveAttempted"))
@@ -2001,11 +1901,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(AverageResolveAttemptedValue, m_AverageResolveAttempted);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member averageResolveAttempted is null!");
-                    }
-                    
                 }
             
         }
@@ -2240,11 +2135,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ValueValue, m_Value);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
-                    }
-                    
                 }
             
         }
@@ -2428,11 +2318,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ValueValue, m_Value);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
-                    }
-                    
                 }
             
         }
@@ -2575,11 +2460,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(HrefValue, m_Href);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member href is null!");
-                    }
-                    
                 }
             
         }
@@ -2696,11 +2576,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("color"))
@@ -2711,11 +2586,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ColorValue, m_Color);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member color is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("colorMode"))
@@ -2726,11 +2596,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ColorModeValue, m_ColorMode);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member colorMode is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("scale"))
@@ -3053,11 +2918,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(CoordinatesValue, m_Coordinates);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member coordinates is null!");
-                    }
-                    
                 }
             
         }
@@ -3192,11 +3052,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(LanguageCodeValue, m_LanguageCode);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member languageCode is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("value"))
@@ -3207,11 +3062,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ValueValue, m_Value);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
-                    }
-                    
                 }
             
         }
@@ -3774,11 +3624,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("altitudeMode"))
@@ -4012,11 +3857,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(HrefValue, m_Href);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member href is null!");
-                    }
-                    
                 }
             
         }
@@ -4568,11 +4408,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(UserIdValue, m_UserId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("poiId"))
@@ -4583,11 +4418,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(PoiIdValue, m_PoiId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member poiId is null!");
-                    }
-                    
                 }
             
         }
@@ -4758,11 +4588,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("name"))
@@ -4773,11 +4598,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(NameValue, m_Name);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("styleUrl"))
@@ -4788,11 +4608,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(StyleUrlValue, m_StyleUrl);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member styleUrl is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("description"))
@@ -4803,11 +4618,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(DescriptionValue, m_Description);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("lineString"))
@@ -5279,11 +5089,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(CoordinatesValue, m_Coordinates);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member coordinates is null!");
-                    }
-                    
                 }
             
         }
@@ -5748,11 +5553,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("createdBy"))
@@ -5763,11 +5563,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(CreatedByValue, m_CreatedBy);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("updatedBy"))
@@ -5778,11 +5573,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(UpdatedByValue, m_UpdatedBy);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("createdAt"))
@@ -5793,11 +5583,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(CreatedAtValue, m_CreatedAt);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("updatedAt"))
@@ -5808,11 +5593,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(UpdatedAtValue, m_UpdatedAt);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("title"))
@@ -5838,11 +5618,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(DescriptionValue, m_Description);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("uiStrings"))
@@ -5853,11 +5628,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(UiStringsValue, m_UiStrings);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member uiStrings is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("type"))
@@ -5883,11 +5653,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ZoomLevelValue, m_ZoomLevel);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member zoomLevel is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("tags"))
@@ -5913,11 +5678,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ThumbnailUriValue, m_ThumbnailUri);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thumbnailUri is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("thumbnailMimeType"))
@@ -5928,11 +5688,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ThumbnailMimeTypeValue, m_ThumbnailMimeType);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thumbnailMimeType is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("name"))
@@ -5958,11 +5713,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(OwnerValue, m_Owner);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member owner is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("location"))
@@ -5988,11 +5738,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ScheduleValue, m_Schedule);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member schedule is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("generatedSchedule"))
@@ -6003,11 +5748,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(GeneratedScheduleValue, m_GeneratedSchedule);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member generatedSchedule is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("eventId"))
@@ -6018,11 +5758,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(EventIdValue, m_EventId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member eventId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("parentId"))
@@ -6033,11 +5768,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ParentIdValue, m_ParentId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member parentId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("groupId"))
@@ -6048,11 +5778,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(GroupIdValue, m_GroupId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("hidden"))
@@ -6063,11 +5788,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(HiddenValue, m_Hidden);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member hidden is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("geofence"))
@@ -6078,11 +5798,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(GeofenceValue, m_Geofence);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member geofence is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("private"))
@@ -6093,11 +5808,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(PrivateValue, m_Private);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member private is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("cmsId"))
@@ -6108,11 +5818,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(CmsIdValue, m_CmsId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member cmsId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("prototypeId"))
@@ -6123,11 +5828,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(PrototypeIdValue, m_PrototypeId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("prototypeName"))
@@ -6138,11 +5838,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(PrototypeNameValue, m_PrototypeName);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeName is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("requireAction"))
@@ -6153,11 +5848,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(RequireActionValue, m_RequireAction);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member requireAction is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("isDebug"))
@@ -6168,11 +5858,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(IsDebugValue, m_IsDebug);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member isDebug is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("orientation"))
@@ -6183,11 +5868,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(OrientationValue, m_Orientation);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member orientation is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("prototypeTransform"))
@@ -6862,11 +6542,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ItemsValue, m_Items);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("skip"))
@@ -6892,11 +6567,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(LimitValue, m_Limit);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("itemCount"))
@@ -7228,11 +6898,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("name"))
@@ -7258,11 +6923,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(TitleValue, m_Title);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member title is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("description"))
@@ -7273,11 +6933,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(DescriptionValue, m_Description);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("uiStrings"))
@@ -7288,11 +6943,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(UiStringsValue, m_UiStrings);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member uiStrings is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("type"))
@@ -7333,11 +6983,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ThumbnailUriValue, m_ThumbnailUri);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thumbnailUri is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("thumbnailMimeType"))
@@ -7348,11 +6993,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ThumbnailMimeTypeValue, m_ThumbnailMimeType);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thumbnailMimeType is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("location"))
@@ -7378,11 +7018,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(HiddenValue, m_Hidden);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member hidden is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("geofence"))
@@ -7393,11 +7028,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(GeofenceValue, m_Geofence);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member geofence is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("prototypeName"))
@@ -7408,11 +7038,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(PrototypeNameValue, m_PrototypeName);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeName is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("prototypeId"))
@@ -7423,11 +7048,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(PrototypeIdValue, m_PrototypeId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("orientation"))
@@ -7438,11 +7058,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(OrientationValue, m_Orientation);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member orientation is null!");
-                    }
-                    
                 }
             
         }
@@ -7814,11 +7429,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ItemsValue, m_Items);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("skip"))
@@ -7844,11 +7454,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(LimitValue, m_Limit);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("itemCount"))
@@ -8096,11 +7701,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("userId"))
@@ -8111,11 +7711,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(UserIdValue, m_UserId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("position"))
@@ -8141,11 +7736,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(OffsiteValue, m_Offsite);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member offsite is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("deviceId"))
@@ -8171,11 +7761,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(CreatedAtValue, m_CreatedAt);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("geofenceSearchRadius"))
@@ -8201,11 +7786,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(SpectatorValue, m_Spectator);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spectator is null!");
-                    }
-                    
                 }
             
         }
@@ -8446,11 +8026,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ItemsValue, m_Items);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("skip"))
@@ -8476,11 +8051,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(LimitValue, m_Limit);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("itemCount"))
@@ -8692,11 +8262,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(NameValue, m_Name);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("style"))
@@ -8707,11 +8272,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(StyleValue, m_Style);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member style is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("visibility"))
@@ -8752,11 +8312,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(PlacemarkValue, m_Placemark);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member placemark is null!");
-                    }
-                    
                 }
             
         }
@@ -9352,11 +8907,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("createdAt"))
@@ -9367,11 +8917,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(CreatedAtValue, m_CreatedAt);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("spaceTimeType"))
@@ -9397,11 +8942,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(GroupIdValue, m_GroupId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("userId"))
@@ -9412,11 +8952,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(UserIdValue, m_UserId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("location"))
@@ -9442,11 +8977,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(OffsiteValue, m_Offsite);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member offsite is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("poiId"))
@@ -9457,11 +8987,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(PoiIdValue, m_PoiId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member poiId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("prototypeId"))
@@ -9472,11 +8997,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(PrototypeIdValue, m_PrototypeId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
-                    }
-                    
                 }
             
         }
@@ -9737,11 +9257,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ItemsValue, m_Items);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("skip"))
@@ -9767,11 +9282,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(LimitValue, m_Limit);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("itemCount"))
@@ -10023,11 +9533,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(ItemsValue, m_Items);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("skip"))
@@ -10053,11 +9558,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(LimitValue, m_Limit);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("itemCount"))
@@ -10233,11 +9733,6 @@ namespace csp::services::generated::spatialdataservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("iconStyle"))

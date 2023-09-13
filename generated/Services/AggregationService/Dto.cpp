@@ -282,11 +282,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(HrefValue, m_Href);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member href is null!");
-                    }
-                    
                 }
             
         }
@@ -403,11 +398,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("color"))
@@ -418,11 +408,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(ColorValue, m_Color);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member color is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("colorMode"))
@@ -433,11 +418,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(ColorModeValue, m_ColorMode);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member colorMode is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("scale"))
@@ -760,11 +740,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(CoordinatesValue, m_Coordinates);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member coordinates is null!");
-                    }
-                    
                 }
             
         }
@@ -1233,11 +1208,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("altitudeMode"))
@@ -1471,11 +1441,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(HrefValue, m_Href);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member href is null!");
-                    }
-                    
                 }
             
         }
@@ -2099,11 +2064,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("name"))
@@ -2114,11 +2074,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(NameValue, m_Name);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("styleUrl"))
@@ -2129,11 +2084,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(StyleUrlValue, m_StyleUrl);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member styleUrl is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("description"))
@@ -2144,11 +2094,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(DescriptionValue, m_Description);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("lineString"))
@@ -2457,11 +2402,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(CoordinatesValue, m_Coordinates);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member coordinates is null!");
-                    }
-                    
                 }
             
         }
@@ -2614,11 +2554,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(NameValue, m_Name);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("style"))
@@ -2629,11 +2564,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(StyleValue, m_Style);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member style is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("visibility"))
@@ -2674,11 +2604,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(PlacemarkValue, m_Placemark);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member placemark is null!");
-                    }
-                    
                 }
             
         }
@@ -2872,11 +2797,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(OperationNameValue, m_OperationName);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member operationName is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("help"))
@@ -2902,11 +2822,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(ParametersValue, m_Parameters);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member parameters is null!");
-                    }
-                    
                 }
             
         }
@@ -3093,11 +3008,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(StatusCodeValue, m_StatusCode);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member statusCode is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("statusReason"))
@@ -3108,11 +3018,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(StatusReasonValue, m_StatusReason);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member statusReason is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("errorCode"))
@@ -3123,11 +3028,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(ErrorCodeValue, m_ErrorCode);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member errorCode is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("operationResult"))
@@ -3138,11 +3038,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(OperationResultValue, m_OperationResult);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member operationResult is null!");
-                    }
-                    
                 }
             
         }
@@ -3317,11 +3212,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(SpaceIdValue, m_SpaceId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("shopifyCartId"))
@@ -3332,11 +3222,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(ShopifyCartIdValue, m_ShopifyCartId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member shopifyCartId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("lines"))
@@ -3347,11 +3232,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(LinesValue, m_Lines);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member lines is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("totalQuantity"))
@@ -3512,11 +3392,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(ShopifyCartLineIdValue, m_ShopifyCartLineId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member shopifyCartLineId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("productVariantId"))
@@ -3527,11 +3402,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(ProductVariantIdValue, m_ProductVariantId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member productVariantId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("quantity"))
@@ -3542,11 +3412,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(QuantityValue, m_Quantity);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member quantity is null!");
-                    }
-                    
                 }
             
         }
@@ -3697,11 +3562,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(SpaceIdValue, m_SpaceId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("shopifyCartId"))
@@ -3712,11 +3572,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(ShopifyCartIdValue, m_ShopifyCartId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member shopifyCartId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("addLineCartChanges"))
@@ -3727,11 +3582,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(AddLineCartChangesValue, m_AddLineCartChanges);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member addLineCartChanges is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("removeLineCartChanges"))
@@ -3742,11 +3592,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(RemoveLineCartChangesValue, m_RemoveLineCartChanges);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member removeLineCartChanges is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("updateLineQtyCartChanges"))
@@ -3757,11 +3602,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(UpdateLineQtyCartChangesValue, m_UpdateLineQtyCartChanges);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updateLineQtyCartChanges is null!");
-                    }
-                    
                 }
             
         }
@@ -3917,11 +3757,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(StoreUrlValue, m_StoreUrl);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member storeUrl is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("checkoutUrl"))
@@ -3932,11 +3767,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(CheckoutUrlValue, m_CheckoutUrl);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member checkoutUrl is null!");
-                    }
-                    
                 }
             
         }
@@ -4035,11 +3865,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(AmountValue, m_Amount);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member amount is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("currencyCode"))
@@ -4050,11 +3875,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(CurrencyCodeValue, m_CurrencyCode);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member currencyCode is null!");
-                    }
-                    
                 }
             
         }
@@ -4211,11 +4031,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(CreatedAtValue, m_CreatedAt);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("id"))
@@ -4226,11 +4041,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("title"))
@@ -4241,11 +4051,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(TitleValue, m_Title);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member title is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("description"))
@@ -4256,11 +4061,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(DescriptionValue, m_Description);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member description is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("tags"))
@@ -4271,11 +4071,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(TagsValue, m_Tags);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("variants"))
@@ -4286,11 +4081,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(VariantsValue, m_Variants);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member variants is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("media"))
@@ -4301,11 +4091,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(MediaValue, m_Media);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member media is null!");
-                    }
-                    
                 }
             
         }
@@ -4533,11 +4318,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(MediaContentTypeValue, m_MediaContentType);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member mediaContentType is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("alt"))
@@ -4548,11 +4328,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(AltValue, m_Alt);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member alt is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("url"))
@@ -4563,11 +4338,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(UrlValue, m_Url);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member url is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("width"))
@@ -4578,11 +4348,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(WidthValue, m_Width);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member width is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("height"))
@@ -4593,11 +4358,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(HeightValue, m_Height);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member height is null!");
-                    }
-                    
                 }
             
         }
@@ -4794,11 +4554,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("title"))
@@ -4809,11 +4564,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(TitleValue, m_Title);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member title is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("availableForSale"))
@@ -4824,11 +4574,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(AvailableForSaleValue, m_AvailableForSale);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member availableForSale is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("image"))
@@ -4854,11 +4599,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(SelectedOptionsValue, m_SelectedOptions);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member selectedOptions is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("unitPrice"))
@@ -5093,11 +4833,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("storeName"))
@@ -5108,11 +4843,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(StoreNameValue, m_StoreName);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member storeName is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("spaceOwnerId"))
@@ -5123,11 +4853,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(SpaceOwnerIdValue, m_SpaceOwnerId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceOwnerId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("spaceId"))
@@ -5138,11 +4863,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(SpaceIdValue, m_SpaceId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("isEcommerceActive"))
@@ -5168,11 +4888,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(PrivateAccessTokenValue, m_PrivateAccessToken);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member privateAccessToken is null!");
-                    }
-                    
                 }
             
         }
@@ -5461,11 +5176,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(OptionNameValue, m_OptionName);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member optionName is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("optionValue"))
@@ -5476,11 +5186,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(OptionValueValue, m_OptionValue);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member optionValue is null!");
-                    }
-                    
                 }
             
         }
@@ -5639,11 +5344,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("spaceId"))
@@ -5654,11 +5354,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(SpaceIdValue, m_SpaceId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("spaceOwnerId"))
@@ -5669,11 +5364,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(SpaceOwnerIdValue, m_SpaceOwnerId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceOwnerId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("vendorEventId"))
@@ -5684,11 +5374,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(VendorEventIdValue, m_VendorEventId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorEventId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("vendorName"))
@@ -5699,11 +5384,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(VendorNameValue, m_VendorName);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorName is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("vendorEventUri"))
@@ -5714,11 +5394,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(VendorEventUriValue, m_VendorEventUri);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorEventUri is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("isTicketingActive"))
@@ -5958,11 +5633,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(ItemsValue, m_Items);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("skip"))
@@ -5988,11 +5658,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(LimitValue, m_Limit);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("itemCount"))
@@ -6240,11 +5905,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("vendorEventId"))
@@ -6255,11 +5915,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(VendorEventIdValue, m_VendorEventId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorEventId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("vendorName"))
@@ -6270,11 +5925,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(VendorNameValue, m_VendorName);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorName is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("vendorTicketId"))
@@ -6285,11 +5935,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(VendorTicketIdValue, m_VendorTicketId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorTicketId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("spaceId"))
@@ -6300,11 +5945,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(SpaceIdValue, m_SpaceId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member spaceId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("ticketStatus"))
@@ -6330,11 +5970,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(UserIdValue, m_UserId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("emailLower"))
@@ -6345,11 +5980,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(EmailLowerValue, m_EmailLower);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member emailLower is null!");
-                    }
-                    
                 }
             
         }
@@ -6592,11 +6222,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(ItemsValue, m_Items);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("skip"))
@@ -6622,11 +6247,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(LimitValue, m_Limit);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("itemCount"))
@@ -6802,11 +6422,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("iconStyle"))
@@ -6984,11 +6599,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(VendorNameValue, m_VendorName);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member vendorName is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("clientId"))
@@ -6999,11 +6609,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(ClientIdValue, m_ClientId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member clientId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("authorizeEndpoint"))
@@ -7014,11 +6619,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(AuthorizeEndpointValue, m_AuthorizeEndpoint);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member authorizeEndpoint is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("oAuthRedirectUrl"))
@@ -7029,11 +6629,6 @@ namespace csp::services::generated::aggregationservice
                     {
                         JsonValueToType(OAuthRedirectUrlValue, m_OAuthRedirectUrl);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member oAuthRedirectUrl is null!");
-                    }
-                    
                 }
             
         }

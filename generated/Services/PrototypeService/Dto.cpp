@@ -240,11 +240,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(PrototypeIdValue, m_PrototypeId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("id"))
@@ -255,11 +250,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("fileName"))
@@ -270,11 +260,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(FileNameValue, m_FileName);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member fileName is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("name"))
@@ -285,11 +270,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(NameValue, m_Name);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("languageCode"))
@@ -360,11 +340,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(AddressableIdValue, m_AddressableId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member addressableId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("thirdPartyReferenceId"))
@@ -375,11 +350,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(ThirdPartyReferenceIdValue, m_ThirdPartyReferenceId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thirdPartyReferenceId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("uri"))
@@ -390,11 +360,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(UriValue, m_Uri);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member uri is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("checksum"))
@@ -405,11 +370,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(ChecksumValue, m_Checksum);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member checksum is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("version"))
@@ -420,11 +380,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(VersionValue, m_Version);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("mimeType"))
@@ -435,11 +390,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(MimeTypeValue, m_MimeType);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member mimeType is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("externalUri"))
@@ -450,11 +400,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(ExternalUriValue, m_ExternalUri);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member externalUri is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("externalMimeType"))
@@ -465,11 +410,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(ExternalMimeTypeValue, m_ExternalMimeType);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member externalMimeType is null!");
-                    }
-                    
                 }
             
         }
@@ -990,11 +930,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("prototypeId"))
@@ -1005,11 +940,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(PrototypeIdValue, m_PrototypeId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("fileName"))
@@ -1020,11 +950,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(FileNameValue, m_FileName);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member fileName is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("name"))
@@ -1035,11 +960,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(NameValue, m_Name);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("languageCode"))
@@ -1110,11 +1030,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(AddressableIdValue, m_AddressableId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member addressableId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("thirdPartyReferenceId"))
@@ -1125,11 +1040,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(ThirdPartyReferenceIdValue, m_ThirdPartyReferenceId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thirdPartyReferenceId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("uri"))
@@ -1140,11 +1050,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(UriValue, m_Uri);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member uri is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("checksum"))
@@ -1155,11 +1060,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(ChecksumValue, m_Checksum);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member checksum is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("version"))
@@ -1170,11 +1070,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(VersionValue, m_Version);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("mimeType"))
@@ -1185,11 +1080,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(MimeTypeValue, m_MimeType);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member mimeType is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("externalUri"))
@@ -1200,11 +1090,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(ExternalUriValue, m_ExternalUri);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member externalUri is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("externalMimeType"))
@@ -1215,11 +1100,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(ExternalMimeTypeValue, m_ExternalMimeType);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member externalMimeType is null!");
-                    }
-                    
                 }
             
         }
@@ -1752,11 +1632,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("name"))
@@ -1782,11 +1657,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(TagsValue, m_Tags);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("metadata"))
@@ -1797,11 +1667,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(MetadataValue, m_Metadata);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member metadata is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("uiStrings"))
@@ -1812,11 +1677,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(UiStringsValue, m_UiStrings);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member uiStrings is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("state"))
@@ -1827,11 +1687,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(StateValue, m_State);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member state is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("pointOfInterestId"))
@@ -1842,11 +1697,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(PointOfInterestIdValue, m_PointOfInterestId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member pointOfInterestId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("parentId"))
@@ -1857,11 +1707,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(ParentIdValue, m_ParentId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member parentId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("groupIds"))
@@ -1872,11 +1717,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(GroupIdsValue, m_GroupIds);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupIds is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("createdBy"))
@@ -1887,11 +1727,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(CreatedByValue, m_CreatedBy);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("createdAt"))
@@ -1902,11 +1737,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(CreatedAtValue, m_CreatedAt);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("updatedBy"))
@@ -1917,11 +1747,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(UpdatedByValue, m_UpdatedBy);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("updatedAt"))
@@ -1932,11 +1757,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(UpdatedAtValue, m_UpdatedAt);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("highlander"))
@@ -1947,11 +1767,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(HighlanderValue, m_Highlander);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member highlander is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("type"))
@@ -1962,11 +1777,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(TypeValue, m_Type);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("systemOwned"))
@@ -1977,11 +1787,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(SystemOwnedValue, m_SystemOwned);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member systemOwned is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("prototypeOwnerId"))
@@ -1992,11 +1797,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(PrototypeOwnerIdValue, m_PrototypeOwnerId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeOwnerId is null!");
-                    }
-                    
                 }
             
         }
@@ -2370,11 +2170,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(LanguageCodeValue, m_LanguageCode);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member languageCode is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("value"))
@@ -2385,11 +2180,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(ValueValue, m_Value);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
-                    }
-                    
                 }
             
         }
@@ -2668,11 +2458,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(IdValue, m_Id);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member id is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("name"))
@@ -2698,11 +2483,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(TagsValue, m_Tags);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("metadata"))
@@ -2713,11 +2493,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(MetadataValue, m_Metadata);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member metadata is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("uiStrings"))
@@ -2728,11 +2503,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(UiStringsValue, m_UiStrings);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member uiStrings is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("state"))
@@ -2743,11 +2513,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(StateValue, m_State);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member state is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("pointOfInterestId"))
@@ -2758,11 +2523,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(PointOfInterestIdValue, m_PointOfInterestId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member pointOfInterestId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("parentId"))
@@ -2773,11 +2533,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(ParentIdValue, m_ParentId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member parentId is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("groupIds"))
@@ -2788,11 +2543,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(GroupIdsValue, m_GroupIds);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member groupIds is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("createdBy"))
@@ -2803,11 +2553,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(CreatedByValue, m_CreatedBy);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdBy is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("createdAt"))
@@ -2818,11 +2563,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(CreatedAtValue, m_CreatedAt);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("updatedBy"))
@@ -2833,11 +2573,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(UpdatedByValue, m_UpdatedBy);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedBy is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("updatedAt"))
@@ -2848,11 +2583,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(UpdatedAtValue, m_UpdatedAt);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("highlander"))
@@ -2863,11 +2593,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(HighlanderValue, m_Highlander);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member highlander is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("type"))
@@ -2878,11 +2603,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(TypeValue, m_Type);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("systemOwned"))
@@ -2893,11 +2613,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(SystemOwnedValue, m_SystemOwned);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member systemOwned is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("prototypeOwnerId"))
@@ -2908,11 +2623,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(PrototypeOwnerIdValue, m_PrototypeOwnerId);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeOwnerId is null!");
-                    }
-                    
                 }
             
         }
@@ -3322,11 +3032,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(ItemsValue, m_Items);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("skip"))
@@ -3352,11 +3057,6 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(LimitValue, m_Limit);
                     }
-                    else
-                    {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member limit is null!");
-                    }
-                    
                 }
             
                 if (JsonDoc.HasMember("itemCount"))
