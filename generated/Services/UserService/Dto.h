@@ -254,6 +254,12 @@ class UserRolesDto;
                 utility::string_t GetRedirectUrl() const;
                 void SetRedirectUrl(const utility::string_t& Value);bool HasRedirectUrl() const;
             
+                /// <summary>
+                    /// The user has given appropriate age verification
+                    /// </summary>
+                bool GetVerifiedAgeEighteen() const;
+                void SetVerifiedAgeEighteen(const bool& Value);bool HasVerifiedAgeEighteen() const;
+            
                 const std::vector<std::shared_ptr<InitialSettingsDto>>& GetInitialSettings() const;
                 void SetInitialSettings(const std::vector<std::shared_ptr<InitialSettingsDto>>& Value);bool HasInitialSettings() const;
             
@@ -268,6 +274,7 @@ class UserRolesDto;
             std::optional<utility::string_t> m_AvatarId;
             std::optional<utility::string_t> m_InviteToken;
             std::optional<utility::string_t> m_RedirectUrl;
+            std::optional<bool> m_VerifiedAgeEighteen;
             std::optional<std::vector<std::shared_ptr<InitialSettingsDto>>> m_InitialSettings;
             };
 
@@ -341,6 +348,12 @@ class UserRolesDto;
                 void SetRedirectUrl(const utility::string_t& Value);bool HasRedirectUrl() const;
             
                 /// <summary>
+                    /// Flag to indicate if a user has verified they are of age
+                    /// </summary>
+                bool GetVerifiedAgeEighteen() const;
+                void SetVerifiedAgeEighteen(const bool& Value);bool HasVerifiedAgeEighteen() const;
+            
+                /// <summary>
                     /// The URI given in the original OAuth request to get the auth token
                     /// </summary>
                 utility::string_t GetOAuthRedirectUri() const;
@@ -360,6 +373,7 @@ class UserRolesDto;
             std::optional<utility::string_t> m_AvatarId;
             std::optional<utility::string_t> m_InviteToken;
             std::optional<utility::string_t> m_RedirectUrl;
+            std::optional<bool> m_VerifiedAgeEighteen;
             std::optional<utility::string_t> m_OAuthRedirectUri;
             std::optional<std::vector<std::shared_ptr<InitialSettingsDto>>> m_InitialSettings;
             };
@@ -1124,6 +1138,12 @@ class UserRolesDto;
                 utility::string_t GetDeviceId() const;
                 void SetDeviceId(const utility::string_t& Value);bool HasDeviceId() const;
             
+                /// <summary>
+                    /// Required for new guest accounts, or accounts not previously verified
+                    /// </summary>
+                bool GetVerifiedAgeEighteen() const;
+                void SetVerifiedAgeEighteen(const bool& Value);bool HasVerifiedAgeEighteen() const;
+            
 
         protected:
             std::optional<utility::string_t> m_Tenant;
@@ -1131,6 +1151,7 @@ class UserRolesDto;
             std::optional<utility::string_t> m_UserName;
             std::optional<utility::string_t> m_Password;
             std::optional<utility::string_t> m_DeviceId;
+            std::optional<bool> m_VerifiedAgeEighteen;
             };
 
     /// <summary>
@@ -1178,6 +1199,12 @@ class UserRolesDto;
                 utility::string_t GetOAuthRedirectUri() const;
                 void SetOAuthRedirectUri(const utility::string_t& Value);bool HasOAuthRedirectUri() const;
             
+                /// <summary>
+                    /// Defines if this social login user has been age verified
+                    /// </summary>
+                bool GetVerifiedAgeEighteen() const;
+                void SetVerifiedAgeEighteen(const bool& Value);bool HasVerifiedAgeEighteen() const;
+            
 
         protected:
             std::optional<utility::string_t> m_Tenant;
@@ -1185,6 +1212,7 @@ class UserRolesDto;
             std::optional<utility::string_t> m_Token;
             std::optional<utility::string_t> m_DeviceId;
             std::optional<utility::string_t> m_OAuthRedirectUri;
+            std::optional<bool> m_VerifiedAgeEighteen;
             };
 
     /// <summary>
@@ -1450,6 +1478,12 @@ class UserRolesDto;
                 void SetRoles(const std::vector<utility::string_t>& Value);bool HasRoles() const;
             
                 /// <summary>
+                    /// Indicates if an account has been age verified
+                    /// </summary>
+                bool GetVerifiedAgeEighteen() const;
+                void SetVerifiedAgeEighteen(const bool& Value);bool HasVerifiedAgeEighteen() const;
+            
+                /// <summary>
                     /// The user identity which created this instance
                     /// </summary>
                 utility::string_t GetCreatedBy() const;
@@ -1495,6 +1529,7 @@ class UserRolesDto;
             std::optional<utility::string_t> m_DisplayName;
             std::optional<bool> m_IsEmailConfirmed;
             std::optional<std::vector<utility::string_t>> m_Roles;
+            std::optional<bool> m_VerifiedAgeEighteen;
             std::optional<utility::string_t> m_CreatedBy;
             std::optional<utility::string_t> m_CreatedAt;
             std::optional<utility::string_t> m_UpdatedBy;

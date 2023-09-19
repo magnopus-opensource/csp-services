@@ -747,6 +747,18 @@ namespace csp::services::generated::userservice
                     );
                 }
             
+                if (m_VerifiedAgeEighteen.has_value())
+                {
+                    rapidjson::Value VerifiedAgeEighteenValue(
+                        TypeToJsonValue(m_VerifiedAgeEighteen, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "verifiedAgeEighteen",
+                        VerifiedAgeEighteenValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
                 if (m_InitialSettings.has_value())
                 {
                     rapidjson::Value InitialSettingsValue(
@@ -862,6 +874,16 @@ namespace csp::services::generated::userservice
                     if (RedirectUrlValue != rapidjson::Type::kNullType)
                     {
                         JsonValueToType(RedirectUrlValue, m_RedirectUrl);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("verifiedAgeEighteen"))
+                {
+                    const rapidjson::Value& VerifiedAgeEighteenValue = JsonDoc["verifiedAgeEighteen"];
+
+                    if (VerifiedAgeEighteenValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen);
                     }
                 }
             
@@ -1040,6 +1062,24 @@ namespace csp::services::generated::userservice
                 }
                 
         
+            bool CreateUserRequest::GetVerifiedAgeEighteen() const
+            {
+                    return m_VerifiedAgeEighteen.value();
+                }
+
+            bool CreateUserRequest::HasVerifiedAgeEighteen() const
+            {
+                return m_VerifiedAgeEighteen.has_value();
+            }
+
+            void CreateUserRequest::SetVerifiedAgeEighteen(
+                    const bool& Value
+                )
+            {
+                    m_VerifiedAgeEighteen = Value;
+                }
+                
+        
             const std::vector<std::shared_ptr<InitialSettingsDto>>&
                     CreateUserRequest::GetInitialSettings() const
             {
@@ -1172,6 +1212,18 @@ namespace csp::services::generated::userservice
                     JsonDoc.AddMember(
                         "redirectUrl",
                         RedirectUrlValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_VerifiedAgeEighteen.has_value())
+                {
+                    rapidjson::Value VerifiedAgeEighteenValue(
+                        TypeToJsonValue(m_VerifiedAgeEighteen, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "verifiedAgeEighteen",
+                        VerifiedAgeEighteenValue,
                         JsonDoc.GetAllocator()
                     );
                 }
@@ -1313,6 +1365,16 @@ namespace csp::services::generated::userservice
                     if (RedirectUrlValue != rapidjson::Type::kNullType)
                     {
                         JsonValueToType(RedirectUrlValue, m_RedirectUrl);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("verifiedAgeEighteen"))
+                {
+                    const rapidjson::Value& VerifiedAgeEighteenValue = JsonDoc["verifiedAgeEighteen"];
+
+                    if (VerifiedAgeEighteenValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen);
                     }
                 }
             
@@ -1498,6 +1560,24 @@ namespace csp::services::generated::userservice
                 )
             {
                     m_RedirectUrl = Value;
+                }
+                
+        
+            bool CreateUserSocialRequest::GetVerifiedAgeEighteen() const
+            {
+                    return m_VerifiedAgeEighteen.value();
+                }
+
+            bool CreateUserSocialRequest::HasVerifiedAgeEighteen() const
+            {
+                return m_VerifiedAgeEighteen.has_value();
+            }
+
+            void CreateUserSocialRequest::SetVerifiedAgeEighteen(
+                    const bool& Value
+                )
+            {
+                    m_VerifiedAgeEighteen = Value;
                 }
                 
         
@@ -5158,6 +5238,18 @@ namespace csp::services::generated::userservice
                     );
                 }
             
+                if (m_VerifiedAgeEighteen.has_value())
+                {
+                    rapidjson::Value VerifiedAgeEighteenValue(
+                        TypeToJsonValue(m_VerifiedAgeEighteen, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "verifiedAgeEighteen",
+                        VerifiedAgeEighteenValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
 
             return JsonDocToString(JsonDoc);
         }
@@ -5227,6 +5319,16 @@ namespace csp::services::generated::userservice
                         CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
                     }
                     
+                }
+            
+                if (JsonDoc.HasMember("verifiedAgeEighteen"))
+                {
+                    const rapidjson::Value& VerifiedAgeEighteenValue = JsonDoc["verifiedAgeEighteen"];
+
+                    if (VerifiedAgeEighteenValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen);
+                    }
                 }
             
         }
@@ -5322,6 +5424,24 @@ namespace csp::services::generated::userservice
                 }
                 
         
+            bool LoginRequest::GetVerifiedAgeEighteen() const
+            {
+                    return m_VerifiedAgeEighteen.value();
+                }
+
+            bool LoginRequest::HasVerifiedAgeEighteen() const
+            {
+                return m_VerifiedAgeEighteen.has_value();
+            }
+
+            void LoginRequest::SetVerifiedAgeEighteen(
+                    const bool& Value
+                )
+            {
+                    m_VerifiedAgeEighteen = Value;
+                }
+                
+        
 
     LoginSocialRequest::LoginSocialRequest() { }
     LoginSocialRequest::~LoginSocialRequest() { }
@@ -5387,6 +5507,18 @@ namespace csp::services::generated::userservice
                     JsonDoc.AddMember(
                         "oAuthRedirectUri",
                         OAuthRedirectUriValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_VerifiedAgeEighteen.has_value())
+                {
+                    rapidjson::Value VerifiedAgeEighteenValue(
+                        TypeToJsonValue(m_VerifiedAgeEighteen, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "verifiedAgeEighteen",
+                        VerifiedAgeEighteenValue,
                         JsonDoc.GetAllocator()
                     );
                 }
@@ -5469,6 +5601,16 @@ namespace csp::services::generated::userservice
                     if (OAuthRedirectUriValue != rapidjson::Type::kNullType)
                     {
                         JsonValueToType(OAuthRedirectUriValue, m_OAuthRedirectUri);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("verifiedAgeEighteen"))
+                {
+                    const rapidjson::Value& VerifiedAgeEighteenValue = JsonDoc["verifiedAgeEighteen"];
+
+                    if (VerifiedAgeEighteenValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen);
                     }
                 }
             
@@ -5562,6 +5704,24 @@ namespace csp::services::generated::userservice
                 )
             {
                     m_OAuthRedirectUri = Value;
+                }
+                
+        
+            bool LoginSocialRequest::GetVerifiedAgeEighteen() const
+            {
+                    return m_VerifiedAgeEighteen.value();
+                }
+
+            bool LoginSocialRequest::HasVerifiedAgeEighteen() const
+            {
+                return m_VerifiedAgeEighteen.has_value();
+            }
+
+            void LoginSocialRequest::SetVerifiedAgeEighteen(
+                    const bool& Value
+                )
+            {
+                    m_VerifiedAgeEighteen = Value;
                 }
                 
         
@@ -6346,6 +6506,18 @@ namespace csp::services::generated::userservice
                     );
                 }
             
+                if (m_VerifiedAgeEighteen.has_value())
+                {
+                    rapidjson::Value VerifiedAgeEighteenValue(
+                        TypeToJsonValue(m_VerifiedAgeEighteen, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "verifiedAgeEighteen",
+                        VerifiedAgeEighteenValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
                 if (m_CreatedBy.has_value())
                 {
                     rapidjson::Value CreatedByValue(
@@ -6564,6 +6736,16 @@ namespace csp::services::generated::userservice
                     if (RolesValue != rapidjson::Type::kNullType)
                     {
                         JsonValueToType(RolesValue, m_Roles);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("verifiedAgeEighteen"))
+                {
+                    const rapidjson::Value& VerifiedAgeEighteenValue = JsonDoc["verifiedAgeEighteen"];
+
+                    if (VerifiedAgeEighteenValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen);
                     }
                 }
             
@@ -6875,6 +7057,24 @@ namespace csp::services::generated::userservice
                 )
             {
                     m_Roles = Value;
+                }
+                
+        
+            bool ProfileDto::GetVerifiedAgeEighteen() const
+            {
+                    return m_VerifiedAgeEighteen.value();
+                }
+
+            bool ProfileDto::HasVerifiedAgeEighteen() const
+            {
+                return m_VerifiedAgeEighteen.has_value();
+            }
+
+            void ProfileDto::SetVerifiedAgeEighteen(
+                    const bool& Value
+                )
+            {
+                    m_VerifiedAgeEighteen = Value;
                 }
                 
         
