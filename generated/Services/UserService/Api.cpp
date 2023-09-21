@@ -2352,6 +2352,56 @@ namespace csp::services::generated::userservice {
         
     
 
+    TenantApi::TenantApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserServiceURI)
+    {
+
+    }
+
+    TenantApi::~TenantApi()
+    {
+
+    }
+
+    
+        
+            void TenantApi::apiV1TenantsNamesTenantNamePut(
+                const utility::string_t& tenantName,const std::shared_ptr<TenantDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/tenants/names/{tenantName}",
+                    {tenantName}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+            void TenantApi::apiV1TenantsNamesTenantNameGet(
+                const utility::string_t& tenantName,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/tenants/names/{tenantName}",
+                    {tenantName}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+
     UserRolesApi::UserRolesApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserServiceURI)
     {
 

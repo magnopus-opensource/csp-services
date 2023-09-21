@@ -28,7 +28,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/prototypes/{prototypeId}/asset-details
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesPrototypeIdAssetDetailsPost(
                     const utility::string_t& prototypeId,const std::shared_ptr<AssetDetailDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -41,7 +41,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/prototypes/{prototypeId}/asset-details
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesPrototypeIdAssetDetailsGet(
                     const utility::string_t& prototypeId,const std::optional<std::vector<utility::string_t>>&
@@ -64,7 +64,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/prototypes/{prototypeId}/asset-details/bulk
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesPrototypeIdAssetDetailsBulkPut(
                     const utility::string_t& prototypeId,const std::vector<std::shared_ptr<BulkUpsertAssetDetailDto>>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -79,7 +79,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdGet(
                     const utility::string_t& prototypeId,const utility::string_t& assetDetailId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -93,7 +93,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdPut(
                     const utility::string_t& prototypeId,const utility::string_t& assetDetailId,const std::shared_ptr<AssetDetailDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -107,7 +107,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdDelete(
                     const utility::string_t& prototypeId,const utility::string_t& assetDetailId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -122,7 +122,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/prototypes/asset-details
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesAssetDetailsGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -145,7 +145,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/blob
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdBlobPost(
                     const utility::string_t& prototypeId,const utility::string_t& assetDetailId,const std::optional<bool>&
@@ -161,7 +161,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdPut(
                     const utility::string_t& prototypeId,const utility::string_t& assetDetailId,const utility::string_t& addressableId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -174,7 +174,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdDelete(
                     const utility::string_t& prototypeId,const utility::string_t& assetDetailId,const utility::string_t& addressableId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -189,7 +189,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{thirdPartyReferenceId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableThirdPartyReferenceIdPut(
                     const utility::string_t& prototypeId,const utility::string_t& assetDetailId,const utility::string_t& thirdPartyReferenceId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -202,7 +202,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{thirdPartyReferenceId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableThirdPartyReferenceIdDelete(
                     const utility::string_t& prototypeId,const utility::string_t& assetDetailId,const utility::string_t& thirdPartyReferenceId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -222,7 +222,7 @@ namespace csp::services::generated::prototypeservice
             
                 /// <remarks>
                 /// GET /appsettings
-                /// Authorization: admin
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void appsettingsGet(
                     csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -233,7 +233,7 @@ namespace csp::services::generated::prototypeservice
             
                 /// <remarks>
                 /// POST /appsettings/reload
-                /// Authorization: admin
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void appsettingsReloadPost(
                     csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -244,7 +244,7 @@ namespace csp::services::generated::prototypeservice
             
                 /// <remarks>
                 /// GET /featureflags
-                /// Authorization: admin
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void featureflagsGet(
                     csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -308,7 +308,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/prototypes
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesPost(
                     const std::shared_ptr<PrototypeDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -322,7 +322,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/prototypes
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -355,7 +355,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/prototypes
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesDelete(
                     const std::optional<std::vector<utility::string_t>>&
@@ -371,7 +371,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/prototypes/bulk
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesBulkPut(
                     const std::vector<std::shared_ptr<BulkUpsertPrototypeDto>>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -387,7 +387,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/prototypes/count
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesCountGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -417,7 +417,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/prototypes/{id}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesIdGet(
                     const utility::string_t& id,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -431,7 +431,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/prototypes/{id}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesIdPut(
                     const utility::string_t& id,const std::shared_ptr<PrototypeDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -445,7 +445,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/prototypes/{id}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesIdDelete(
                     const utility::string_t& id,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -460,7 +460,7 @@ namespace csp::services::generated::prototypeservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/prototypes/name/{name}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PrototypesNameNameGet(
                     const utility::string_t& name,csp::services::ApiResponseHandlerBase* ResponseHandler,

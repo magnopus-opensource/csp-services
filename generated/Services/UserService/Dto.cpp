@@ -8139,6 +8139,114 @@ namespace csp::services::generated::userservice
                 
         
 
+    TenantDto::TenantDto() { }
+    TenantDto::~TenantDto() { }
+
+    utility::string_t TenantDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_TenantName.has_value())
+                {
+                    rapidjson::Value TenantNameValue(
+                        TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "tenantName",
+                        TenantNameValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Locked.has_value())
+                {
+                    rapidjson::Value LockedValue(
+                        TypeToJsonValue(m_Locked, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "locked",
+                        LockedValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void TenantDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("tenantName"))
+                {
+                    const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+
+                    if (TenantNameValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(TenantNameValue, m_TenantName);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("locked"))
+                {
+                    const rapidjson::Value& LockedValue = JsonDoc["locked"];
+
+                    if (LockedValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(LockedValue, m_Locked);
+                    }
+                }
+            
+        }
+
+        
+            utility::string_t TenantDto::GetTenantName() const
+            {
+                    return m_TenantName.value();
+                }
+
+            bool TenantDto::HasTenantName() const
+            {
+                return m_TenantName.has_value();
+            }
+
+            void TenantDto::SetTenantName(
+                    const utility::string_t& Value
+                )
+            {
+                    m_TenantName = Value;
+                }
+                
+        
+            bool TenantDto::GetLocked() const
+            {
+                    return m_Locked.value();
+                }
+
+            bool TenantDto::HasLocked() const
+            {
+                return m_Locked.has_value();
+            }
+
+            void TenantDto::SetLocked(
+                    const bool& Value
+                )
+            {
+                    m_Locked = Value;
+                }
+                
+        
+
     TokenResetPasswordRequest::TokenResetPasswordRequest() { }
     TokenResetPasswordRequest::~TokenResetPasswordRequest() { }
 

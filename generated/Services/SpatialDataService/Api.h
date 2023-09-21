@@ -28,7 +28,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/anchors/{id}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1AnchorsIdGet(
                     const utility::string_t& id,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -42,7 +42,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/anchors/{id}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1AnchorsIdPut(
                     const utility::string_t& id,const std::shared_ptr<AnchorDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -55,7 +55,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/anchors/{id}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1AnchorsIdDelete(
                     const utility::string_t& id,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -70,7 +70,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/anchors
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1AnchorsPost(
                     const std::shared_ptr<AnchorDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -83,7 +83,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/anchors
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1AnchorsDelete(
                     const std::optional<std::vector<utility::string_t>>&
@@ -97,7 +97,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/anchors
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1AnchorsGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -125,7 +125,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/anchor-resolutions
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1AnchorResolutionsPost(
                     const std::shared_ptr<AnchorResolutionDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -138,7 +138,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/anchor-resolutions
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1AnchorResolutionsGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -159,7 +159,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/anchor-resolutions/stats
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1AnchorResolutionsStatsGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -183,7 +183,7 @@ namespace csp::services::generated::spatialdataservice
             
                 /// <remarks>
                 /// GET /appsettings
-                /// Authorization: admin
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void appsettingsGet(
                     csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -194,7 +194,7 @@ namespace csp::services::generated::spatialdataservice
             
                 /// <remarks>
                 /// POST /appsettings/reload
-                /// Authorization: admin
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void appsettingsReloadPost(
                     csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -205,7 +205,7 @@ namespace csp::services::generated::spatialdataservice
             
                 /// <remarks>
                 /// GET /featureflags
-                /// Authorization: admin
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void featureflagsGet(
                     csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -249,7 +249,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/poi
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdPoiGet(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -264,7 +264,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/users/{userId}/poi/{poiId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdPoiPoiIdPut(
                     const utility::string_t& userId,const utility::string_t& poiId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -277,7 +277,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/users/{userId}/poi/{poiId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdPoiPoiIdDelete(
                     const utility::string_t& userId,const utility::string_t& poiId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -321,7 +321,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/poi/{id}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PoiIdGet(
                     const utility::string_t& id,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -335,7 +335,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/poi/{id}
-                /// Authorization: admin,support,internal-service,creator,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,creator,limited-creator
                 /// </remarks>
                 void apiV1PoiIdPut(
                     const utility::string_t& id,const std::shared_ptr<PointOfInterestDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -349,7 +349,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/poi/{id}
-                /// Authorization: admin,support,internal-service,creator,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,creator,limited-creator
                 /// </remarks>
                 void apiV1PoiIdDelete(
                     const utility::string_t& id,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -365,7 +365,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/poi-lite
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PoiLiteGet(
                     const std::optional<utility::string_t>&
@@ -406,7 +406,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/poi-id
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PoiIdGet(
                     const std::optional<utility::string_t>&
@@ -447,7 +447,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/poi
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PoiGet(
                     const std::optional<utility::string_t>&
@@ -485,7 +485,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/poi
-                /// Authorization: admin,support,internal-service,creator,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,creator,limited-creator
                 /// </remarks>
                 void apiV1PoiPost(
                     const std::shared_ptr<PointOfInterestDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -499,7 +499,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/poi
-                /// Authorization: admin,support,internal-service,creator,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,creator,limited-creator
                 /// </remarks>
                 void apiV1PoiDelete(
                     const std::optional<std::vector<utility::string_t>>&
@@ -516,7 +516,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/poi/{id}/partial-update
-                /// Authorization: admin,support,internal-service,creator,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,creator,limited-creator
                 /// </remarks>
                 void apiV1PoiIdPartialUpdatePut(
                     const utility::string_t& id,const std::shared_ptr<PoiPartialUpdate>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -531,7 +531,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/poi/tags
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1PoiTagsGet(
                     const std::optional<utility::string_t>&
@@ -556,7 +556,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/positions
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdPositionsGet(
                     const utility::string_t& userId,const std::optional<std::vector<utility::string_t>>&
@@ -580,7 +580,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/users/{userId}/positions
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdPositionsPost(
                     const utility::string_t& userId,const std::shared_ptr<PositionDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -595,7 +595,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/positions/latest
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersPositionsLatestGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -621,7 +621,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/positions/latest
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdPositionsLatestGet(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -636,7 +636,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/positions/{positionId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdPositionsPositionIdGet(
                     const utility::string_t& userId,const utility::string_t& positionId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -649,7 +649,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/users/{userId}/positions/{positionId}
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1UsersUserIdPositionsPositionIdDelete(
                     const utility::string_t& userId,const utility::string_t& positionId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -664,7 +664,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/groups/{groupId}/positions/latest
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdPositionsLatestGet(
                     const utility::string_t& groupId,const std::optional<std::vector<utility::string_t>>&
@@ -680,7 +680,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/groups/positions/latest
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsPositionsLatestGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -697,7 +697,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/positions
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersPositionsGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -732,7 +732,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/users/{userId}/positions/spoof
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdPositionsSpoofPost(
                     const utility::string_t& userId,const std::optional<utility::string_t>&
@@ -746,7 +746,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/positions/spoof
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdPositionsSpoofGet(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -759,7 +759,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/users/{userId}/positions/spoof
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdPositionsSpoofDelete(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -798,7 +798,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/spacetime/{id}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdSpacetimeIdGet(
                     const utility::string_t& userId,const utility::string_t& id,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -812,7 +812,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/users/{userId}/spacetime/{id}
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1UsersUserIdSpacetimeIdDelete(
                     const utility::string_t& userId,const utility::string_t& id,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -826,7 +826,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/users/{userId}/spacetime/{id}
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1UsersUserIdSpacetimeIdPut(
                     const utility::string_t& userId,const utility::string_t& id,const std::shared_ptr<SpaceTimeDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -841,7 +841,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/users/{userId}/spacetime
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdSpacetimePost(
                     const utility::string_t& userId,const std::shared_ptr<SpaceTimeDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -857,7 +857,7 @@ namespace csp::services::generated::spatialdataservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/spacetime
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacetimeGet(
                     const std::optional<std::vector<utility::string_t>>&

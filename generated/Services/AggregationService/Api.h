@@ -28,7 +28,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/cache-keys
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1CacheKeysGet(
                     const std::optional<utility::string_t>&
@@ -44,7 +44,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/cache-keys
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1CacheKeysDelete(
                     const std::optional<utility::string_t>&
@@ -65,7 +65,7 @@ namespace csp::services::generated::aggregationservice
             
                 /// <remarks>
                 /// GET /appsettings
-                /// Authorization: admin
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void appsettingsGet(
                     csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -76,7 +76,7 @@ namespace csp::services::generated::aggregationservice
             
                 /// <remarks>
                 /// POST /appsettings/reload
-                /// Authorization: admin
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void appsettingsReloadPost(
                     csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -87,7 +87,7 @@ namespace csp::services::generated::aggregationservice
             
                 /// <remarks>
                 /// GET /featureflags
-                /// Authorization: admin
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void featureflagsGet(
                     csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -111,7 +111,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// POST /service-proxy
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void serviceProxyPost(
                     const std::shared_ptr<ServiceRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -135,7 +135,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/users/{userId}/groups/{groupId}/roles
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdGroupsGroupIdRolesPut(
                     const utility::string_t& userId,const utility::string_t& groupId,const std::shared_ptr<GroupRoleDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -199,7 +199,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/spaces/{spaceId}/vendors/shopify/products/{productId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesSpaceIdVendorsShopifyProductsProductIdGet(
                     const utility::string_t& spaceId,const utility::string_t& productId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -214,7 +214,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/spaces/{spaceId}/vendors/shopify
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesSpaceIdVendorsShopifyPut(
                     const utility::string_t& spaceId,const std::shared_ptr<ShopifyStorefrontDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -229,7 +229,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/vendors/shopify/validate
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1VendorsShopifyValidatePut(
                     const std::shared_ptr<ShopifyStorefrontValidationRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -244,7 +244,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/spaces/{spaceId}/vendors/shopify/carts
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesSpaceIdVendorsShopifyCartsPost(
                     const utility::string_t& spaceId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -259,7 +259,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/spaces/{spaceId}/vendors/shopify/carts/{cartId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesSpaceIdVendorsShopifyCartsCartIdGet(
                     const utility::string_t& spaceId,const utility::string_t& cartId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -272,7 +272,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/spaces/{spaceId}/vendors/shopify/carts/{cartId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesSpaceIdVendorsShopifyCartsCartIdPut(
                     const utility::string_t& spaceId,const utility::string_t& cartId,const std::shared_ptr<ShopifyCartUpdateDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -287,7 +287,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/spaces/{spaceId}/vendors/shopify/carts/{cartId}/checkout-info
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesSpaceIdVendorsShopifyCartsCartIdCheckoutInfoGet(
                     const utility::string_t& spaceId,const utility::string_t& cartId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -313,7 +313,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/spaces/{spaceId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesSpaceIdDelete(
                     const utility::string_t& spaceId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -329,7 +329,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/spaces/{spaceId}/multiplayer-objects/kml
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesSpaceIdMultiplayerObjectsKmlGet(
                     const utility::string_t& spaceId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -353,7 +353,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/spaces/{spaceId}/events
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesSpaceIdEventsPost(
                     const utility::string_t& spaceId,const std::shared_ptr<SpaceEventDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -368,7 +368,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/spaces/{spaceId}/events/{eventId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesSpaceIdEventsEventIdPut(
                     const utility::string_t& spaceId,const utility::string_t& eventId,const std::shared_ptr<SpaceEventDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -384,7 +384,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/spaces/events
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesEventsGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -404,7 +404,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/spaces/{spaceId}/vendors/{vendorName}/events/{vendorEventId}/tickets/{vendorTicketId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesSpaceIdVendorsVendorNameEventsVendorEventIdTicketsVendorTicketIdPut(
                     const utility::string_t& spaceId,const utility::string_t& vendorName,const utility::string_t& vendorEventId,const utility::string_t& vendorTicketId,const std::optional<utility::string_t>&
@@ -420,7 +420,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/spaces/ticketed
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1SpacesTicketedGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -455,7 +455,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/vendors/{vendorName}/users/{userId}/provider-info
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1VendorsVendorNameUsersUserIdProviderInfoGet(
                     const utility::string_t& vendorName,const utility::string_t& userId,const std::optional<utility::string_t>&

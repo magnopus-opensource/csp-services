@@ -29,7 +29,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/applications/{applicationName}/settings/{context}
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1ApplicationsApplicationNameSettingsContextPut(
                     const utility::string_t& applicationName,const utility::string_t& context,const std::shared_ptr<ApplicationSettingsDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -43,7 +43,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/applications/{applicationName}/settings/{context}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1ApplicationsApplicationNameSettingsContextGet(
                     const utility::string_t& applicationName,const utility::string_t& context,const std::optional<std::vector<utility::string_t>>&
@@ -57,7 +57,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/applications/{applicationName}/settings/{context}
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1ApplicationsApplicationNameSettingsContextDelete(
                     const utility::string_t& applicationName,const utility::string_t& context,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -72,7 +72,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/applications/{applicationName}/settings
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1ApplicationsApplicationNameSettingsGet(
                     const utility::string_t& applicationName,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -85,7 +85,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/applications/{applicationName}/settings
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1ApplicationsApplicationNameSettingsDelete(
                     const utility::string_t& applicationName,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -100,7 +100,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/applications/{applicationName}/settings/{context}/{keyname}
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1ApplicationsApplicationNameSettingsContextKeynameDelete(
                     const utility::string_t& applicationName,const utility::string_t& context,const utility::string_t& keyname,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -173,7 +173,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/users/logout
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersLogoutPost(
                     const std::shared_ptr<LogoutRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -203,7 +203,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/users/onetimekey
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersOnetimekeyPost(
                     const std::shared_ptr<OneTimeKeyRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -242,7 +242,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/users/{userId}/avatars
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdAvatarsPost(
                     const utility::string_t& userId,const std::shared_ptr<AvatarManifestDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -257,7 +257,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/avatars/{avatarId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdAvatarsAvatarIdGet(
                     const utility::string_t& userId,const utility::string_t& avatarId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -271,7 +271,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/users/{userId}/avatars/{avatarId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdAvatarsAvatarIdPut(
                     const utility::string_t& userId,const utility::string_t& avatarId,const std::shared_ptr<AvatarManifestDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -285,7 +285,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/users/{userId}/avatars/{avatarId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdAvatarsAvatarIdDelete(
                     const utility::string_t& userId,const utility::string_t& avatarId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -300,7 +300,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/avatars/{avatarId}/exists
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdAvatarsAvatarIdExistsGet(
                     const utility::string_t& userId,const utility::string_t& avatarId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -320,7 +320,7 @@ namespace csp::services::generated::userservice
             
                 /// <remarks>
                 /// GET /appsettings
-                /// Authorization: admin
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void appsettingsGet(
                     csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -331,7 +331,7 @@ namespace csp::services::generated::userservice
             
                 /// <remarks>
                 /// POST /appsettings/reload
-                /// Authorization: admin
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void appsettingsReloadPost(
                     csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -342,7 +342,7 @@ namespace csp::services::generated::userservice
             
                 /// <remarks>
                 /// GET /featureflags
-                /// Authorization: admin
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void featureflagsGet(
                     csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -366,7 +366,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/groups
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsPost(
                     const std::shared_ptr<GroupDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -379,7 +379,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/groups
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -395,7 +395,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/group-codes/{groupCode}/users/{userId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupCodesGroupCodeUsersUserIdPut(
                     const utility::string_t& groupCode,const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -410,7 +410,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/groups/{groupId}/group-code-reset
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdGroupCodeResetPost(
                     const utility::string_t& groupId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -425,7 +425,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/groups/{groupId}/banned-users/{userId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdBannedUsersUserIdPut(
                     const utility::string_t& groupId,const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -438,7 +438,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/groups/{groupId}/banned-users/{userId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdBannedUsersUserIdDelete(
                     const utility::string_t& groupId,const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -454,7 +454,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/groups/{groupId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdDelete(
                     const utility::string_t& groupId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -467,7 +467,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/groups/{groupId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdGet(
                     const utility::string_t& groupId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -482,7 +482,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/groups
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdGroupsGet(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -497,7 +497,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/groups/{groupId}/users/{userId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdUsersUserIdDelete(
                     const utility::string_t& groupId,const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -512,7 +512,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/groups-summaries
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsSummariesGet(
                     const std::optional<utility::string_t>&
@@ -528,7 +528,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/groups/{groupId}/email-invite
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdEmailInvitePost(
                     const utility::string_t& groupId,const std::optional<bool>&
@@ -544,7 +544,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/groups/{groupId}/email-invites
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdEmailInvitesPost(
                     const utility::string_t& groupId,const std::optional<bool>&
@@ -559,7 +559,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/groups/{groupId}/email-invites
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdEmailInvitesGet(
                     const utility::string_t& groupId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -574,7 +574,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/groups/{groupId}/email-invites/bulk
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdEmailInvitesBulkPost(
                     const utility::string_t& groupId,const std::optional<bool>&
@@ -591,7 +591,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/groups/{groupId}/lite
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdLitePut(
                     const utility::string_t& groupId,const std::shared_ptr<GroupLiteDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -604,7 +604,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/groups/{groupId}/lite
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdLiteGet(
                     const utility::string_t& groupId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -619,7 +619,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/groups/{groupId}/owner/{newGroupOwnerId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdOwnerNewGroupOwnerIdPut(
                     const utility::string_t& groupId,const utility::string_t& newGroupOwnerId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -634,7 +634,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/groups/{groupId}/email-invites/{emailInviteId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdEmailInvitesEmailInviteIdDelete(
                     const utility::string_t& groupId,const utility::string_t& emailInviteId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -649,7 +649,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/groups/{groupId}/moderators/{userId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdModeratorsUserIdPut(
                     const utility::string_t& groupId,const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -662,7 +662,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/groups/{groupId}/moderators/{userId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdModeratorsUserIdDelete(
                     const utility::string_t& groupId,const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -678,7 +678,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/groups/lite
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsLiteGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -705,7 +705,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/groups/users/{userId}/email-invites
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsUsersUserIdEmailInvitesGet(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -720,7 +720,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/groups/{groupId}/users/{userId}/email-invites/{emailInviteId}/accept
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1GroupsGroupIdUsersUserIdEmailInvitesEmailInviteIdAcceptPost(
                     const utility::string_t& groupId,const utility::string_t& userId,const utility::string_t& emailInviteId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -745,7 +745,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/inventory-items
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdInventoryItemsGet(
                     const utility::string_t& userId,const std::optional<std::vector<utility::string_t>>&
@@ -771,7 +771,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/users/{userId}/inventory-items
-                /// Authorization: external-service,admin,support,internal-service,tester
+                /// Authorization: external-service,magnopus-admin,admin,support,internal-service,tester
                 /// </remarks>
                 void apiV1UsersUserIdInventoryItemsPost(
                     const utility::string_t& userId,const std::optional<bool>&
@@ -788,7 +788,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/inventory-ids
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdInventoryIdsGet(
                     const utility::string_t& userId,const std::optional<std::vector<utility::string_t>>&
@@ -815,7 +815,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/inventory-items/owners
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1UsersInventoryItemsOwnersGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -841,7 +841,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/inventory-count
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersInventoryCountGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -867,7 +867,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/inventory-items/{id}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdInventoryItemsIdGet(
                     const utility::string_t& userId,const utility::string_t& id,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -882,7 +882,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/users/{userId}/inventory-items/{id}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdInventoryItemsIdDelete(
                     const utility::string_t& userId,const utility::string_t& id,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -896,7 +896,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/users/{userId}/inventory-items/{id}
-                /// Authorization: external-service,admin,support,internal-service
+                /// Authorization: external-service,magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1UsersUserIdInventoryItemsIdPut(
                     const utility::string_t& userId,const utility::string_t& id,const std::shared_ptr<InventoryItemDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -911,7 +911,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/users/{userId}/inventory-items/{id}/equip
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdInventoryItemsIdEquipPut(
                     const utility::string_t& userId,const utility::string_t& id,const std::shared_ptr<EquipItemDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -989,7 +989,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users
-                /// Authorization: admin,support,internal-service,account-manager
+                /// Authorization: magnopus-admin,admin,support,internal-service,account-manager
                 /// </remarks>
                 void apiV1UsersGet(
                     const std::optional<utility::string_t>&
@@ -1064,7 +1064,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/users/{userId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdDelete(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1077,7 +1077,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdGet(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1141,7 +1141,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// POST /api/v1/users/{userId}/confirm-email
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdConfirmEmailPost(
                     const utility::string_t& userId,const std::optional<utility::string_t>&
@@ -1175,7 +1175,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/users/{userId}/metagame
-                /// Authorization: admin,support,internal-service,external-service
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service
                 /// </remarks>
                 void apiV1UsersUserIdMetagamePut(
                     const utility::string_t& userId,const std::shared_ptr<MetagameUpdate>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1188,7 +1188,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/metagame
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdMetagameGet(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1203,7 +1203,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/users/{userId}/first-name/{firstName}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdFirstNameFirstNamePut(
                     const utility::string_t& userId,const utility::string_t& firstName,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1218,7 +1218,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/users/{userId}/display-name
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdDisplayNamePut(
                     const utility::string_t& userId,const utility::string_t& displayName,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1233,7 +1233,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/lite
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdLiteGet(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1248,7 +1248,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/lite
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersLiteGet(
                     const std::optional<std::vector<utility::string_t>>&
@@ -1264,7 +1264,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/users/{userId}/lock-account
-                /// Authorization: account-manager,admin,support,internal-service
+                /// Authorization: account-manager,magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1UsersUserIdLockAccountPut(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1279,7 +1279,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/users/{userId}/unlock-account
-                /// Authorization: account-manager,admin,support,internal-service
+                /// Authorization: account-manager,magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1UsersUserIdUnlockAccountPut(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1304,7 +1304,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/users/{userId}/settings/{context}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdSettingsContextPut(
                     const utility::string_t& userId,const utility::string_t& context,const std::shared_ptr<SettingsDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1318,7 +1318,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/settings/{context}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdSettingsContextGet(
                     const utility::string_t& userId,const utility::string_t& context,const std::optional<std::vector<utility::string_t>>&
@@ -1332,7 +1332,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/users/{userId}/settings/{context}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdSettingsContextDelete(
                     const utility::string_t& userId,const utility::string_t& context,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1348,7 +1348,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/settings/{context}
-                /// Authorization: admin,support,internal-service
+                /// Authorization: magnopus-admin,admin,support,internal-service
                 /// </remarks>
                 void apiV1UsersSettingsContextGet(
                     const utility::string_t& context,const std::optional<std::vector<utility::string_t>>&
@@ -1365,7 +1365,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/settings
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdSettingsGet(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1380,10 +1380,47 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/users/{userId}/settings/{context}/{keyname}
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdSettingsContextKeynameDelete(
                     const utility::string_t& userId,const utility::string_t& context,const utility::string_t& keyname,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+    };
+    
+    class TenantApi final : public csp::services::ApiBase
+    {
+    public:
+        TenantApi(csp::web::WebClient* InWebClient);
+        virtual ~TenantApi();
+
+        
+            
+                
+                    /// <summary>
+                    /// Creates tenant settings or updates existing tenant settings
+                    /// </summary>
+                /// <remarks>
+                /// PUT /api/v1/tenants/names/{tenantName}
+                /// Authorization: magnopus-admin
+                /// </remarks>
+                void apiV1TenantsNamesTenantNamePut(
+                    const utility::string_t& tenantName,const std::shared_ptr<TenantDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+                
+                    /// <summary>
+                    /// Locates the tenant by its unique tenantName
+                    /// </summary>
+                /// <remarks>
+                /// GET /api/v1/tenants/names/{tenantName}
+                /// Authorization: magnopus-admin
+                /// </remarks>
+                void apiV1TenantsNamesTenantNameGet(
+                    const utility::string_t& tenantName,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             
@@ -1404,7 +1441,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/users/{userId}/roles
-                /// Authorization: admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
                 /// </remarks>
                 void apiV1UsersUserIdRolesGet(
                     const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1417,7 +1454,7 @@ namespace csp::services::generated::userservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/users/{userId}/roles
-                /// Authorization: admin,support,internal-service,account-manager
+                /// Authorization: magnopus-admin,admin,support,internal-service,account-manager
                 /// </remarks>
                 void apiV1UsersUserIdRolesPut(
                     const utility::string_t& userId,const std::shared_ptr<UserRolesDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,

@@ -40,6 +40,7 @@ class ProfileLiteDto;
 class RefreshRequest;
 class SettingsDto;
 class SocialProviderInfo;
+class TenantDto;
 class TokenResetPasswordRequest;
 class UpgradeGuestRequest;
 class UpgradeGuestSocialRequest;
@@ -1742,6 +1743,37 @@ class UserRolesDto;
             std::optional<utility::string_t> m_ClientId;
             std::optional<std::vector<utility::string_t>> m_Scopes;
             std::optional<utility::string_t> m_AuthorizeEndpoint;
+            };
+
+    /// <summary>
+        /// Tenant data transfer object
+        /// </summary>
+    class TenantDto : public csp::services::DtoBase
+        {
+        public:
+            TenantDto();
+            virtual ~TenantDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Name of the tenant for these settings
+                    /// </summary>
+                utility::string_t GetTenantName() const;
+                void SetTenantName(const utility::string_t& Value);bool HasTenantName() const;
+            
+                /// <summary>
+                    /// Whether or not the tenant is locked
+                    /// </summary>
+                bool GetLocked() const;
+                void SetLocked(const bool& Value);bool HasLocked() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_TenantName;
+            std::optional<bool> m_Locked;
             };
 
     /// <summary>
