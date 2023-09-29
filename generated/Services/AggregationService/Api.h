@@ -28,7 +28,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/cache-keys
-                /// Authorization: magnopus-admin,admin,support,internal-service
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void apiV1CacheKeysGet(
                     const std::optional<utility::string_t>&
@@ -44,7 +44,7 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/cache-keys
-                /// Authorization: magnopus-admin,admin,support,internal-service
+                /// Authorization: magnopus-admin
                 /// </remarks>
                 void apiV1CacheKeysDelete(
                     const std::optional<utility::string_t>&
