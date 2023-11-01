@@ -747,7 +747,8 @@ namespace csp::services::generated::userservice {
             void GroupApi::apiV1GroupsGroupIdEmailInvitesPost(
                 const utility::string_t& groupId,const std::optional<bool>&
                 resendInvite,const std::optional<utility::string_t>&
-                emailLinkUrl,const std::shared_ptr<GroupInviteDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                emailLinkUrl,const std::optional<utility::string_t>&
+                signupUrl,const std::shared_ptr<GroupInviteDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken
             ) const
             {
@@ -767,6 +768,12 @@ namespace csp::services::generated::userservice {
                         if (emailLinkUrl.has_value())
                         {
                             Uri.AddQueryParams("emailLinkUrl", emailLinkUrl.value());
+                        }
+                    
+                
+                        if (signupUrl.has_value())
+                        {
+                            Uri.AddQueryParams("signupUrl", signupUrl.value());
                         }
                     
                 csp::web::HttpPayload Payload;
@@ -799,7 +806,8 @@ namespace csp::services::generated::userservice {
             void GroupApi::apiV1GroupsGroupIdEmailInvitesBulkPost(
                 const utility::string_t& groupId,const std::optional<bool>&
                 resendInvite,const std::optional<utility::string_t>&
-                emailLinkUrl,const std::vector<std::shared_ptr<GroupInviteDto>>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                emailLinkUrl,const std::optional<utility::string_t>&
+                signupUrl,const std::vector<std::shared_ptr<GroupInviteDto>>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken
             ) const
             {
@@ -819,6 +827,12 @@ namespace csp::services::generated::userservice {
                         if (emailLinkUrl.has_value())
                         {
                             Uri.AddQueryParams("emailLinkUrl", emailLinkUrl.value());
+                        }
+                    
+                
+                        if (signupUrl.has_value())
+                        {
+                            Uri.AddQueryParams("signupUrl", signupUrl.value());
                         }
                     
                 csp::web::HttpPayload Payload;

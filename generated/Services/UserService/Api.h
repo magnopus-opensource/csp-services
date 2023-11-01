@@ -549,7 +549,8 @@ namespace csp::services::generated::userservice
                 void apiV1GroupsGroupIdEmailInvitesPost(
                     const utility::string_t& groupId,const std::optional<bool>&
                 resendInvite,const std::optional<utility::string_t>&
-                emailLinkUrl,const std::shared_ptr<GroupInviteDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                emailLinkUrl,const std::optional<utility::string_t>&
+                signupUrl,const std::shared_ptr<GroupInviteDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             
@@ -579,7 +580,8 @@ namespace csp::services::generated::userservice
                 void apiV1GroupsGroupIdEmailInvitesBulkPost(
                     const utility::string_t& groupId,const std::optional<bool>&
                 resendInvite,const std::optional<utility::string_t>&
-                emailLinkUrl,const std::vector<std::shared_ptr<GroupInviteDto>>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                emailLinkUrl,const std::optional<utility::string_t>&
+                signupUrl,const std::vector<std::shared_ptr<GroupInviteDto>>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             
