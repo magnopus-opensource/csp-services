@@ -52,7 +52,9 @@ namespace csp::services::generated::prototypeservice
                 Names,const std::optional<utility::string_t>&
                 CreatedAfter,const std::optional<std::vector<utility::string_t>>&
                 PrototypeIds,const std::optional<std::vector<utility::string_t>>&
-                PrototypeParentNames,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                PrototypeParentNames,const std::optional<std::vector<utility::string_t>>&
+                Tags,const std::optional<bool>&
+                TagsAll,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             
@@ -102,7 +104,7 @@ namespace csp::services::generated::prototypeservice
             
                 
                     /// <summary>
-                    /// Locates the prototype by its unique identifier  assetDetailId and the prototype  prototypeId it belongs to
+                    /// Locates the assetDetails by its unique identifier  assetDetailId and the prototype  prototypeId it belongs to
                     /// and deletes it from the data store.
                     /// </summary>
                 /// <remarks>
@@ -133,7 +135,9 @@ namespace csp::services::generated::prototypeservice
                 Names,const std::optional<utility::string_t>&
                 CreatedAfter,const std::optional<std::vector<utility::string_t>>&
                 PrototypeIds,const std::optional<std::vector<utility::string_t>>&
-                PrototypeParentNames,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                PrototypeParentNames,const std::optional<std::vector<utility::string_t>>&
+                Tags,const std::optional<bool>&
+                TagsAll,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             
@@ -206,6 +210,61 @@ namespace csp::services::generated::prototypeservice
                 /// </remarks>
                 void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableThirdPartyReferenceIdDelete(
                     const utility::string_t& prototypeId,const utility::string_t& assetDetailId,const utility::string_t& thirdPartyReferenceId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Bulk endpoint to get the parameters for all generated assets of a 3d models.
+                    /// </summary>
+                /// <remarks>
+                /// GET /api/v1/prototypes/asset-details/asset-pipeline-model
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1PrototypesAssetDetailsAssetPipelineModelGet(
+                    const std::optional<std::vector<utility::string_t>>&
+                Ids,const std::optional<std::vector<utility::string_t>>&
+                SupportedPlatforms,const std::optional<std::vector<utility::string_t>>&
+                AssetTypes,const std::optional<std::vector<utility::string_t>>&
+                Styles,const std::optional<std::vector<utility::string_t>>&
+                Names,const std::optional<utility::string_t>&
+                CreatedAfter,const std::optional<std::vector<utility::string_t>>&
+                PrototypeIds,const std::optional<std::vector<utility::string_t>>&
+                PrototypeParentNames,const std::optional<std::vector<utility::string_t>>&
+                Tags,const std::optional<bool>&
+                TagsAll,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Gets the parameters for generated assets of a 3d model.
+                    /// </summary>
+                /// <remarks>
+                /// GET /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/asset-pipeline-model
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelGet(
+                    const utility::string_t& prototypeId,const utility::string_t& assetDetailId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+                
+                    /// <summary>
+                    /// Sets or updates the parameters for generated assets of a 3d model. <br />
+                    /// If the parameters are different than the existing generated assets, a job will start to create/update/delete the assets with parameter differences. <br />
+                    /// Note: This does NOT wait for the generated job to complete, this endpoint returns when the job is just started <br />
+                    /// </summary>
+                /// <remarks>
+                /// PUT /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/asset-pipeline-model
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelPut(
+                    const utility::string_t& prototypeId,const utility::string_t& assetDetailId,const std::shared_ptr<AssetPipelineModelDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             

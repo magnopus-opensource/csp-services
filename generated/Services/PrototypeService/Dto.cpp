@@ -216,6 +216,18 @@ namespace csp::services::generated::prototypeservice
                     );
                 }
             
+                if (m_Tags.has_value())
+                {
+                    rapidjson::Value TagsValue(
+                        TypeToJsonValue(m_Tags, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "tags",
+                        TagsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
 
             return JsonDocToString(JsonDoc);
         }
@@ -409,6 +421,16 @@ namespace csp::services::generated::prototypeservice
                     if (ExternalMimeTypeValue != rapidjson::Type::kNullType)
                     {
                         JsonValueToType(ExternalMimeTypeValue, m_ExternalMimeType);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("tags"))
+                {
+                    const rapidjson::Value& TagsValue = JsonDoc["tags"];
+
+                    if (TagsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(TagsValue, m_Tags);
                     }
                 }
             
@@ -705,6 +727,1077 @@ namespace csp::services::generated::prototypeservice
                 }
                 
         
+            const std::vector<utility::string_t>&
+                    AssetDetailDto::GetTags() const
+            {
+                    return m_Tags.value();
+                }
+
+            bool AssetDetailDto::HasTags() const
+            {
+                return m_Tags.has_value();
+            }
+
+            void AssetDetailDto::SetTags(
+                    const std::vector<utility::string_t>& Value
+                )
+            {
+                    m_Tags = Value;
+                }
+                
+        
+
+    AssetPipelineModelDto::AssetPipelineModelDto() { }
+    AssetPipelineModelDto::~AssetPipelineModelDto() { }
+
+    utility::string_t AssetPipelineModelDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_PrototypeId.has_value())
+                {
+                    rapidjson::Value PrototypeIdValue(
+                        TypeToJsonValue(m_PrototypeId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "prototypeId",
+                        PrototypeIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_AssetDetailId.has_value())
+                {
+                    rapidjson::Value AssetDetailIdValue(
+                        TypeToJsonValue(m_AssetDetailId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "assetDetailId",
+                        AssetDetailIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_ThumbnailsCount.has_value())
+                {
+                    rapidjson::Value ThumbnailsCountValue(
+                        TypeToJsonValue(m_ThumbnailsCount, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "thumbnailsCount",
+                        ThumbnailsCountValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Thumbnails.has_value())
+                {
+                    rapidjson::Value ThumbnailsValue(
+                        TypeToJsonValue(m_Thumbnails, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "thumbnails",
+                        ThumbnailsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_LodLevelsCount.has_value())
+                {
+                    rapidjson::Value LodLevelsCountValue(
+                        TypeToJsonValue(m_LodLevelsCount, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "lodLevelsCount",
+                        LodLevelsCountValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_LodLevels.has_value())
+                {
+                    rapidjson::Value LodLevelsValue(
+                        TypeToJsonValue(m_LodLevels, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "lodLevels",
+                        LodLevelsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void AssetPipelineModelDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("prototypeId"))
+                {
+                    const rapidjson::Value& PrototypeIdValue = JsonDoc["prototypeId"];
+
+                    if (PrototypeIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(PrototypeIdValue, m_PrototypeId);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("assetDetailId"))
+                {
+                    const rapidjson::Value& AssetDetailIdValue = JsonDoc["assetDetailId"];
+
+                    if (AssetDetailIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(AssetDetailIdValue, m_AssetDetailId);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("thumbnailsCount"))
+                {
+                    const rapidjson::Value& ThumbnailsCountValue = JsonDoc["thumbnailsCount"];
+
+                    if (ThumbnailsCountValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ThumbnailsCountValue, m_ThumbnailsCount);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("thumbnails"))
+                {
+                    const rapidjson::Value& ThumbnailsValue = JsonDoc["thumbnails"];
+
+                    if (ThumbnailsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ThumbnailsValue, m_Thumbnails);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("lodLevelsCount"))
+                {
+                    const rapidjson::Value& LodLevelsCountValue = JsonDoc["lodLevelsCount"];
+
+                    if (LodLevelsCountValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(LodLevelsCountValue, m_LodLevelsCount);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("lodLevels"))
+                {
+                    const rapidjson::Value& LodLevelsValue = JsonDoc["lodLevels"];
+
+                    if (LodLevelsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(LodLevelsValue, m_LodLevels);
+                    }
+                }
+            
+        }
+
+        
+            utility::string_t AssetPipelineModelDto::GetPrototypeId() const
+            {
+                    return m_PrototypeId.value();
+                }
+
+            bool AssetPipelineModelDto::HasPrototypeId() const
+            {
+                return m_PrototypeId.has_value();
+            }
+
+            void AssetPipelineModelDto::SetPrototypeId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_PrototypeId = Value;
+                }
+                
+        
+            utility::string_t AssetPipelineModelDto::GetAssetDetailId() const
+            {
+                    return m_AssetDetailId.value();
+                }
+
+            bool AssetPipelineModelDto::HasAssetDetailId() const
+            {
+                return m_AssetDetailId.has_value();
+            }
+
+            void AssetPipelineModelDto::SetAssetDetailId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_AssetDetailId = Value;
+                }
+                
+        
+            int32_t AssetPipelineModelDto::GetThumbnailsCount() const
+            {
+                    return m_ThumbnailsCount.value();
+                }
+
+            bool AssetPipelineModelDto::HasThumbnailsCount() const
+            {
+                return m_ThumbnailsCount.has_value();
+            }
+
+            void AssetPipelineModelDto::SetThumbnailsCount(int32_t Value)
+            {
+                    m_ThumbnailsCount = Value;
+                }
+                
+        
+            const std::vector<std::shared_ptr<AssetPipelineThumbnailDto>>&
+                    AssetPipelineModelDto::GetThumbnails() const
+            {
+                    return m_Thumbnails.value();
+                }
+
+            bool AssetPipelineModelDto::HasThumbnails() const
+            {
+                return m_Thumbnails.has_value();
+            }
+
+            void AssetPipelineModelDto::SetThumbnails(
+                    const std::vector<std::shared_ptr<AssetPipelineThumbnailDto>>& Value
+                )
+            {
+                    m_Thumbnails = Value;
+                }
+                
+        
+            int32_t AssetPipelineModelDto::GetLodLevelsCount() const
+            {
+                    return m_LodLevelsCount.value();
+                }
+
+            bool AssetPipelineModelDto::HasLodLevelsCount() const
+            {
+                return m_LodLevelsCount.has_value();
+            }
+
+            void AssetPipelineModelDto::SetLodLevelsCount(int32_t Value)
+            {
+                    m_LodLevelsCount = Value;
+                }
+                
+        
+            const std::vector<std::shared_ptr<AssetPipelineModelLodLevelDto>>&
+                    AssetPipelineModelDto::GetLodLevels() const
+            {
+                    return m_LodLevels.value();
+                }
+
+            bool AssetPipelineModelDto::HasLodLevels() const
+            {
+                return m_LodLevels.has_value();
+            }
+
+            void AssetPipelineModelDto::SetLodLevels(
+                    const std::vector<std::shared_ptr<AssetPipelineModelLodLevelDto>>& Value
+                )
+            {
+                    m_LodLevels = Value;
+                }
+                
+        
+
+    AssetPipelineModelLodLevelDto::AssetPipelineModelLodLevelDto() { }
+    AssetPipelineModelLodLevelDto::~AssetPipelineModelLodLevelDto() { }
+
+    utility::string_t AssetPipelineModelLodLevelDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_PrototypeId.has_value())
+                {
+                    rapidjson::Value PrototypeIdValue(
+                        TypeToJsonValue(m_PrototypeId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "prototypeId",
+                        PrototypeIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_AssetDetailId.has_value())
+                {
+                    rapidjson::Value AssetDetailIdValue(
+                        TypeToJsonValue(m_AssetDetailId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "assetDetailId",
+                        AssetDetailIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Status.has_value())
+                {
+                    rapidjson::Value StatusValue(
+                        TypeToJsonValue(m_Status, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "status",
+                        StatusValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_LodLevelNumber.has_value())
+                {
+                    rapidjson::Value LodLevelNumberValue(
+                        TypeToJsonValue(m_LodLevelNumber, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "lodLevelNumber",
+                        LodLevelNumberValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_SimplifyRatio.has_value())
+                {
+                    rapidjson::Value SimplifyRatioValue(
+                        TypeToJsonValue(m_SimplifyRatio, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "simplifyRatio",
+                        SimplifyRatioValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_ErrorTolerance.has_value())
+                {
+                    rapidjson::Value ErrorToleranceValue(
+                        TypeToJsonValue(m_ErrorTolerance, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "errorTolerance",
+                        ErrorToleranceValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_MaxTextureSize.has_value())
+                {
+                    rapidjson::Value MaxTextureSizeValue(
+                        TypeToJsonValue(m_MaxTextureSize, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "maxTextureSize",
+                        MaxTextureSizeValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_MaxLightMapSize.has_value())
+                {
+                    rapidjson::Value MaxLightMapSizeValue(
+                        TypeToJsonValue(m_MaxLightMapSize, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "maxLightMapSize",
+                        MaxLightMapSizeValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_CompressNormals.has_value())
+                {
+                    rapidjson::Value CompressNormalsValue(
+                        TypeToJsonValue(m_CompressNormals, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "compressNormals",
+                        CompressNormalsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_CompressOcclusion.has_value())
+                {
+                    rapidjson::Value CompressOcclusionValue(
+                        TypeToJsonValue(m_CompressOcclusion, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "compressOcclusion",
+                        CompressOcclusionValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_HighQualityTextures.has_value())
+                {
+                    rapidjson::Value HighQualityTexturesValue(
+                        TypeToJsonValue(m_HighQualityTextures, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "highQualityTextures",
+                        HighQualityTexturesValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void AssetPipelineModelLodLevelDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("prototypeId"))
+                {
+                    const rapidjson::Value& PrototypeIdValue = JsonDoc["prototypeId"];
+
+                    if (PrototypeIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(PrototypeIdValue, m_PrototypeId);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("assetDetailId"))
+                {
+                    const rapidjson::Value& AssetDetailIdValue = JsonDoc["assetDetailId"];
+
+                    if (AssetDetailIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(AssetDetailIdValue, m_AssetDetailId);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("status"))
+                {
+                    const rapidjson::Value& StatusValue = JsonDoc["status"];
+
+                    if (StatusValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(StatusValue, m_Status);
+                    }
+                    else
+                    {
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member status is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("lodLevelNumber"))
+                {
+                    const rapidjson::Value& LodLevelNumberValue = JsonDoc["lodLevelNumber"];
+
+                    if (LodLevelNumberValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(LodLevelNumberValue, m_LodLevelNumber);
+                    }
+                    else
+                    {
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member lodLevelNumber is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("simplifyRatio"))
+                {
+                    const rapidjson::Value& SimplifyRatioValue = JsonDoc["simplifyRatio"];
+
+                    if (SimplifyRatioValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(SimplifyRatioValue, m_SimplifyRatio);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("errorTolerance"))
+                {
+                    const rapidjson::Value& ErrorToleranceValue = JsonDoc["errorTolerance"];
+
+                    if (ErrorToleranceValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ErrorToleranceValue, m_ErrorTolerance);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("maxTextureSize"))
+                {
+                    const rapidjson::Value& MaxTextureSizeValue = JsonDoc["maxTextureSize"];
+
+                    if (MaxTextureSizeValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(MaxTextureSizeValue, m_MaxTextureSize);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("maxLightMapSize"))
+                {
+                    const rapidjson::Value& MaxLightMapSizeValue = JsonDoc["maxLightMapSize"];
+
+                    if (MaxLightMapSizeValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(MaxLightMapSizeValue, m_MaxLightMapSize);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("compressNormals"))
+                {
+                    const rapidjson::Value& CompressNormalsValue = JsonDoc["compressNormals"];
+
+                    if (CompressNormalsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(CompressNormalsValue, m_CompressNormals);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("compressOcclusion"))
+                {
+                    const rapidjson::Value& CompressOcclusionValue = JsonDoc["compressOcclusion"];
+
+                    if (CompressOcclusionValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(CompressOcclusionValue, m_CompressOcclusion);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("highQualityTextures"))
+                {
+                    const rapidjson::Value& HighQualityTexturesValue = JsonDoc["highQualityTextures"];
+
+                    if (HighQualityTexturesValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(HighQualityTexturesValue, m_HighQualityTextures);
+                    }
+                }
+            
+        }
+
+        
+            utility::string_t AssetPipelineModelLodLevelDto::GetPrototypeId() const
+            {
+                    return m_PrototypeId.value();
+                }
+
+            bool AssetPipelineModelLodLevelDto::HasPrototypeId() const
+            {
+                return m_PrototypeId.has_value();
+            }
+
+            void AssetPipelineModelLodLevelDto::SetPrototypeId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_PrototypeId = Value;
+                }
+                
+        
+            utility::string_t AssetPipelineModelLodLevelDto::GetAssetDetailId() const
+            {
+                    return m_AssetDetailId.value();
+                }
+
+            bool AssetPipelineModelLodLevelDto::HasAssetDetailId() const
+            {
+                return m_AssetDetailId.has_value();
+            }
+
+            void AssetPipelineModelLodLevelDto::SetAssetDetailId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_AssetDetailId = Value;
+                }
+                
+        
+            std::shared_ptr<AssetPipelineStatus> AssetPipelineModelLodLevelDto::GetStatus() const
+            {
+                    return m_Status.value();
+                }
+
+            bool AssetPipelineModelLodLevelDto::HasStatus() const
+            {
+                return m_Status.has_value();
+            }
+
+            void AssetPipelineModelLodLevelDto::SetStatus(
+                    const std::shared_ptr<AssetPipelineStatus>& Value
+                )
+            {
+                    m_Status = Value;
+                }
+                
+        
+            int32_t AssetPipelineModelLodLevelDto::GetLodLevelNumber() const
+            {
+                    return m_LodLevelNumber.value();
+                }
+
+            bool AssetPipelineModelLodLevelDto::HasLodLevelNumber() const
+            {
+                return m_LodLevelNumber.has_value();
+            }
+
+            void AssetPipelineModelLodLevelDto::SetLodLevelNumber(int32_t Value)
+            {
+                    m_LodLevelNumber = Value;
+                }
+                
+        
+            float AssetPipelineModelLodLevelDto::GetSimplifyRatio() const
+            {
+                    return m_SimplifyRatio.value();
+                }
+
+            bool AssetPipelineModelLodLevelDto::HasSimplifyRatio() const
+            {
+                return m_SimplifyRatio.has_value();
+            }
+
+            void AssetPipelineModelLodLevelDto::SetSimplifyRatio(float Value)
+            {
+                    m_SimplifyRatio = Value;
+                }
+                
+        
+            float AssetPipelineModelLodLevelDto::GetErrorTolerance() const
+            {
+                    return m_ErrorTolerance.value();
+                }
+
+            bool AssetPipelineModelLodLevelDto::HasErrorTolerance() const
+            {
+                return m_ErrorTolerance.has_value();
+            }
+
+            void AssetPipelineModelLodLevelDto::SetErrorTolerance(float Value)
+            {
+                    m_ErrorTolerance = Value;
+                }
+                
+        
+            int32_t AssetPipelineModelLodLevelDto::GetMaxTextureSize() const
+            {
+                    return m_MaxTextureSize.value();
+                }
+
+            bool AssetPipelineModelLodLevelDto::HasMaxTextureSize() const
+            {
+                return m_MaxTextureSize.has_value();
+            }
+
+            void AssetPipelineModelLodLevelDto::SetMaxTextureSize(int32_t Value)
+            {
+                    m_MaxTextureSize = Value;
+                }
+                
+        
+            int32_t AssetPipelineModelLodLevelDto::GetMaxLightMapSize() const
+            {
+                    return m_MaxLightMapSize.value();
+                }
+
+            bool AssetPipelineModelLodLevelDto::HasMaxLightMapSize() const
+            {
+                return m_MaxLightMapSize.has_value();
+            }
+
+            void AssetPipelineModelLodLevelDto::SetMaxLightMapSize(int32_t Value)
+            {
+                    m_MaxLightMapSize = Value;
+                }
+                
+        
+            bool AssetPipelineModelLodLevelDto::GetCompressNormals() const
+            {
+                    return m_CompressNormals.value();
+                }
+
+            bool AssetPipelineModelLodLevelDto::HasCompressNormals() const
+            {
+                return m_CompressNormals.has_value();
+            }
+
+            void AssetPipelineModelLodLevelDto::SetCompressNormals(
+                    const bool& Value
+                )
+            {
+                    m_CompressNormals = Value;
+                }
+                
+        
+            bool AssetPipelineModelLodLevelDto::GetCompressOcclusion() const
+            {
+                    return m_CompressOcclusion.value();
+                }
+
+            bool AssetPipelineModelLodLevelDto::HasCompressOcclusion() const
+            {
+                return m_CompressOcclusion.has_value();
+            }
+
+            void AssetPipelineModelLodLevelDto::SetCompressOcclusion(
+                    const bool& Value
+                )
+            {
+                    m_CompressOcclusion = Value;
+                }
+                
+        
+            bool AssetPipelineModelLodLevelDto::GetHighQualityTextures() const
+            {
+                    return m_HighQualityTextures.value();
+                }
+
+            bool AssetPipelineModelLodLevelDto::HasHighQualityTextures() const
+            {
+                return m_HighQualityTextures.has_value();
+            }
+
+            void AssetPipelineModelLodLevelDto::SetHighQualityTextures(
+                    const bool& Value
+                )
+            {
+                    m_HighQualityTextures = Value;
+                }
+                
+        
+
+    AssetPipelineStatus::AssetPipelineStatus() { }
+    AssetPipelineStatus::~AssetPipelineStatus() { }
+
+    utility::string_t AssetPipelineStatus::ToJson() const
+        {
+            switch (Value)
+            {
+                case eAssetPipelineStatus::RUNNING:
+                    return "Running";
+                case eAssetPipelineStatus::FAILED:
+                    return "Failed";
+                case eAssetPipelineStatus::SUCCEEDED:
+                    return "Succeeded";
+                
+                default:
+                    throw std::runtime_error("Unknown enum value!");
+            }
+        }
+
+        void AssetPipelineStatus::FromJson(const utility::string_t& Val)
+        {
+             if (Val == "Running")
+                {
+                    Value = eAssetPipelineStatus::RUNNING;
+                }
+            else if (Val == "Failed")
+                {
+                    Value = eAssetPipelineStatus::FAILED;
+                }
+            else if (Val == "Succeeded")
+                {
+                    Value = eAssetPipelineStatus::SUCCEEDED;
+                }
+            
+        }
+
+        AssetPipelineStatus::eAssetPipelineStatus AssetPipelineStatus::GetValue() const
+        {
+            return Value;
+        }
+
+        void AssetPipelineStatus::SetValue(AssetPipelineStatus::eAssetPipelineStatus const InValue)
+        {
+            Value = InValue;
+        }
+
+    AssetPipelineThumbnailDto::AssetPipelineThumbnailDto() { }
+    AssetPipelineThumbnailDto::~AssetPipelineThumbnailDto() { }
+
+    utility::string_t AssetPipelineThumbnailDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_PrototypeId.has_value())
+                {
+                    rapidjson::Value PrototypeIdValue(
+                        TypeToJsonValue(m_PrototypeId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "prototypeId",
+                        PrototypeIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_AssetDetailId.has_value())
+                {
+                    rapidjson::Value AssetDetailIdValue(
+                        TypeToJsonValue(m_AssetDetailId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "assetDetailId",
+                        AssetDetailIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Status.has_value())
+                {
+                    rapidjson::Value StatusValue(
+                        TypeToJsonValue(m_Status, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "status",
+                        StatusValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_ThumbnailNumber.has_value())
+                {
+                    rapidjson::Value ThumbnailNumberValue(
+                        TypeToJsonValue(m_ThumbnailNumber, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "thumbnailNumber",
+                        ThumbnailNumberValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_ImageSizeX.has_value())
+                {
+                    rapidjson::Value ImageSizeXValue(
+                        TypeToJsonValue(m_ImageSizeX, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "imageSizeX",
+                        ImageSizeXValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_ImageSizeY.has_value())
+                {
+                    rapidjson::Value ImageSizeYValue(
+                        TypeToJsonValue(m_ImageSizeY, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "imageSizeY",
+                        ImageSizeYValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void AssetPipelineThumbnailDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("prototypeId"))
+                {
+                    const rapidjson::Value& PrototypeIdValue = JsonDoc["prototypeId"];
+
+                    if (PrototypeIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(PrototypeIdValue, m_PrototypeId);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("assetDetailId"))
+                {
+                    const rapidjson::Value& AssetDetailIdValue = JsonDoc["assetDetailId"];
+
+                    if (AssetDetailIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(AssetDetailIdValue, m_AssetDetailId);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("status"))
+                {
+                    const rapidjson::Value& StatusValue = JsonDoc["status"];
+
+                    if (StatusValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(StatusValue, m_Status);
+                    }
+                    else
+                    {
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member status is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("thumbnailNumber"))
+                {
+                    const rapidjson::Value& ThumbnailNumberValue = JsonDoc["thumbnailNumber"];
+
+                    if (ThumbnailNumberValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ThumbnailNumberValue, m_ThumbnailNumber);
+                    }
+                    else
+                    {
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member thumbnailNumber is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("imageSizeX"))
+                {
+                    const rapidjson::Value& ImageSizeXValue = JsonDoc["imageSizeX"];
+
+                    if (ImageSizeXValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ImageSizeXValue, m_ImageSizeX);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("imageSizeY"))
+                {
+                    const rapidjson::Value& ImageSizeYValue = JsonDoc["imageSizeY"];
+
+                    if (ImageSizeYValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ImageSizeYValue, m_ImageSizeY);
+                    }
+                }
+            
+        }
+
+        
+            utility::string_t AssetPipelineThumbnailDto::GetPrototypeId() const
+            {
+                    return m_PrototypeId.value();
+                }
+
+            bool AssetPipelineThumbnailDto::HasPrototypeId() const
+            {
+                return m_PrototypeId.has_value();
+            }
+
+            void AssetPipelineThumbnailDto::SetPrototypeId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_PrototypeId = Value;
+                }
+                
+        
+            utility::string_t AssetPipelineThumbnailDto::GetAssetDetailId() const
+            {
+                    return m_AssetDetailId.value();
+                }
+
+            bool AssetPipelineThumbnailDto::HasAssetDetailId() const
+            {
+                return m_AssetDetailId.has_value();
+            }
+
+            void AssetPipelineThumbnailDto::SetAssetDetailId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_AssetDetailId = Value;
+                }
+                
+        
+            std::shared_ptr<AssetPipelineStatus> AssetPipelineThumbnailDto::GetStatus() const
+            {
+                    return m_Status.value();
+                }
+
+            bool AssetPipelineThumbnailDto::HasStatus() const
+            {
+                return m_Status.has_value();
+            }
+
+            void AssetPipelineThumbnailDto::SetStatus(
+                    const std::shared_ptr<AssetPipelineStatus>& Value
+                )
+            {
+                    m_Status = Value;
+                }
+                
+        
+            int32_t AssetPipelineThumbnailDto::GetThumbnailNumber() const
+            {
+                    return m_ThumbnailNumber.value();
+                }
+
+            bool AssetPipelineThumbnailDto::HasThumbnailNumber() const
+            {
+                return m_ThumbnailNumber.has_value();
+            }
+
+            void AssetPipelineThumbnailDto::SetThumbnailNumber(int32_t Value)
+            {
+                    m_ThumbnailNumber = Value;
+                }
+                
+        
+            int32_t AssetPipelineThumbnailDto::GetImageSizeX() const
+            {
+                    return m_ImageSizeX.value();
+                }
+
+            bool AssetPipelineThumbnailDto::HasImageSizeX() const
+            {
+                return m_ImageSizeX.has_value();
+            }
+
+            void AssetPipelineThumbnailDto::SetImageSizeX(int32_t Value)
+            {
+                    m_ImageSizeX = Value;
+                }
+                
+        
+            int32_t AssetPipelineThumbnailDto::GetImageSizeY() const
+            {
+                    return m_ImageSizeY.value();
+                }
+
+            bool AssetPipelineThumbnailDto::HasImageSizeY() const
+            {
+                return m_ImageSizeY.has_value();
+            }
+
+            void AssetPipelineThumbnailDto::SetImageSizeY(int32_t Value)
+            {
+                    m_ImageSizeY = Value;
+                }
+                
+        
 
     BulkUpsertAssetDetailDto::BulkUpsertAssetDetailDto() { }
     BulkUpsertAssetDetailDto::~BulkUpsertAssetDetailDto() { }
@@ -906,6 +1999,18 @@ namespace csp::services::generated::prototypeservice
                     );
                 }
             
+                if (m_Tags.has_value())
+                {
+                    rapidjson::Value TagsValue(
+                        TypeToJsonValue(m_Tags, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "tags",
+                        TagsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
 
             return JsonDocToString(JsonDoc);
         }
@@ -1099,6 +2204,16 @@ namespace csp::services::generated::prototypeservice
                     if (ExternalMimeTypeValue != rapidjson::Type::kNullType)
                     {
                         JsonValueToType(ExternalMimeTypeValue, m_ExternalMimeType);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("tags"))
+                {
+                    const rapidjson::Value& TagsValue = JsonDoc["tags"];
+
+                    if (TagsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(TagsValue, m_Tags);
                     }
                 }
             
@@ -1392,6 +2507,25 @@ namespace csp::services::generated::prototypeservice
                 )
             {
                     m_ExternalMimeType = Value;
+                }
+                
+        
+            const std::vector<utility::string_t>&
+                    BulkUpsertAssetDetailDto::GetTags() const
+            {
+                    return m_Tags.value();
+                }
+
+            bool BulkUpsertAssetDetailDto::HasTags() const
+            {
+                return m_Tags.has_value();
+            }
+
+            void BulkUpsertAssetDetailDto::SetTags(
+                    const std::vector<utility::string_t>& Value
+                )
+            {
+                    m_Tags = Value;
                 }
                 
         

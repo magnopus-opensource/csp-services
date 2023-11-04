@@ -49,7 +49,9 @@ namespace csp::services::generated::prototypeservice {
                 Names,const std::optional<utility::string_t>&
                 CreatedAfter,const std::optional<std::vector<utility::string_t>>&
                 PrototypeIds,const std::optional<std::vector<utility::string_t>>&
-                PrototypeParentNames,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                PrototypeParentNames,const std::optional<std::vector<utility::string_t>>&
+                Tags,const std::optional<bool>&
+                TagsAll,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken
             ) const
             {
@@ -105,6 +107,18 @@ namespace csp::services::generated::prototypeservice {
                         if (PrototypeParentNames.has_value())
                         {
                             Uri.AddQueryParams("PrototypeParentNames", PrototypeParentNames.value());
+                        }
+                    
+                
+                        if (Tags.has_value())
+                        {
+                            Uri.AddQueryParams("Tags", Tags.value());
+                        }
+                    
+                
+                        if (TagsAll.has_value())
+                        {
+                            Uri.AddQueryParams("TagsAll", TagsAll.value());
                         }
                     
                 csp::web::HttpPayload Payload;
@@ -201,7 +215,9 @@ namespace csp::services::generated::prototypeservice {
                 Names,const std::optional<utility::string_t>&
                 CreatedAfter,const std::optional<std::vector<utility::string_t>>&
                 PrototypeIds,const std::optional<std::vector<utility::string_t>>&
-                PrototypeParentNames,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                PrototypeParentNames,const std::optional<std::vector<utility::string_t>>&
+                Tags,const std::optional<bool>&
+                TagsAll,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken
             ) const
             {
@@ -257,6 +273,18 @@ namespace csp::services::generated::prototypeservice {
                         if (PrototypeParentNames.has_value())
                         {
                             Uri.AddQueryParams("PrototypeParentNames", PrototypeParentNames.value());
+                        }
+                    
+                
+                        if (Tags.has_value())
+                        {
+                            Uri.AddQueryParams("Tags", Tags.value());
+                        }
+                    
+                
+                        if (TagsAll.has_value())
+                        {
+                            Uri.AddQueryParams("TagsAll", TagsAll.value());
                         }
                     
                 csp::web::HttpPayload Payload;
@@ -367,6 +395,134 @@ namespace csp::services::generated::prototypeservice {
                     Payload.SetBearerToken();
 
                 WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void AssetDetailApi::apiV1PrototypesAssetDetailsAssetPipelineModelGet(
+                const std::optional<std::vector<utility::string_t>>&
+                Ids,const std::optional<std::vector<utility::string_t>>&
+                SupportedPlatforms,const std::optional<std::vector<utility::string_t>>&
+                AssetTypes,const std::optional<std::vector<utility::string_t>>&
+                Styles,const std::optional<std::vector<utility::string_t>>&
+                Names,const std::optional<utility::string_t>&
+                CreatedAfter,const std::optional<std::vector<utility::string_t>>&
+                PrototypeIds,const std::optional<std::vector<utility::string_t>>&
+                PrototypeParentNames,const std::optional<std::vector<utility::string_t>>&
+                Tags,const std::optional<bool>&
+                TagsAll,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/prototypes/asset-details/asset-pipeline-model",
+                    {}
+                );
+
+                
+                        if (Ids.has_value())
+                        {
+                            Uri.AddQueryParams("Ids", Ids.value());
+                        }
+                    
+                
+                        if (SupportedPlatforms.has_value())
+                        {
+                            Uri.AddQueryParams("SupportedPlatforms", SupportedPlatforms.value());
+                        }
+                    
+                
+                        if (AssetTypes.has_value())
+                        {
+                            Uri.AddQueryParams("AssetTypes", AssetTypes.value());
+                        }
+                    
+                
+                        if (Styles.has_value())
+                        {
+                            Uri.AddQueryParams("Styles", Styles.value());
+                        }
+                    
+                
+                        if (Names.has_value())
+                        {
+                            Uri.AddQueryParams("Names", Names.value());
+                        }
+                    
+                
+                        if (CreatedAfter.has_value())
+                        {
+                            Uri.AddQueryParams("CreatedAfter", CreatedAfter.value());
+                        }
+                    
+                
+                        if (PrototypeIds.has_value())
+                        {
+                            Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
+                        }
+                    
+                
+                        if (PrototypeParentNames.has_value())
+                        {
+                            Uri.AddQueryParams("PrototypeParentNames", PrototypeParentNames.value());
+                        }
+                    
+                
+                        if (Tags.has_value())
+                        {
+                            Uri.AddQueryParams("Tags", Tags.value());
+                        }
+                    
+                
+                        if (TagsAll.has_value())
+                        {
+                            Uri.AddQueryParams("TagsAll", TagsAll.value());
+                        }
+                    
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelGet(
+                const utility::string_t& prototypeId,const utility::string_t& assetDetailId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/asset-pipeline-model",
+                    {prototypeId,assetDetailId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+            void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelPut(
+                const utility::string_t& prototypeId,const utility::string_t& assetDetailId,const std::shared_ptr<AssetPipelineModelDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/asset-pipeline-model",
+                    {prototypeId,assetDetailId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
             }
         
     

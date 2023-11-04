@@ -11,6 +11,10 @@ namespace csp::services::generated::prototypeservice
 {
 
 class AssetDetailDto;
+class AssetPipelineModelDto;
+class AssetPipelineModelLodLevelDto;
+class AssetPipelineStatus;
+class AssetPipelineThumbnailDto;
 class BulkUpsertAssetDetailDto;
 class BulkUpsertPrototypeDto;
 class LocalizedString;
@@ -135,6 +139,13 @@ class SortDirection;
                 utility::string_t GetExternalMimeType() const;
                 void SetExternalMimeType(const utility::string_t& Value);bool HasExternalMimeType() const;
             
+                /// <summary>
+                    /// Tags for this asset-detail
+                    /// or an empty list if none
+                    /// </summary>
+                const std::vector<utility::string_t>& GetTags() const;
+                void SetTags(const std::vector<utility::string_t>& Value);bool HasTags() const;
+            
 
         protected:
             std::optional<utility::string_t> m_PrototypeId;
@@ -153,6 +164,259 @@ class SortDirection;
             std::optional<utility::string_t> m_MimeType;
             std::optional<utility::string_t> m_ExternalUri;
             std::optional<utility::string_t> m_ExternalMimeType;
+            std::optional<std::vector<utility::string_t>> m_Tags;
+            };
+
+    /// <summary>
+        /// Represents the information about the parameters used to process a 3d model to generate associated assets
+        /// </summary>
+    class AssetPipelineModelDto : public csp::services::DtoBase
+        {
+        public:
+            AssetPipelineModelDto();
+            virtual ~AssetPipelineModelDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The ID of the prototype associated with the processed asset-detail
+                    /// </summary>
+                utility::string_t GetPrototypeId() const;
+                void SetPrototypeId(const utility::string_t& Value);bool HasPrototypeId() const;
+            
+                /// <summary>
+                    /// The ID of the asset-detail processed to generate the associated assets
+                    /// </summary>
+                utility::string_t GetAssetDetailId() const;
+                void SetAssetDetailId(const utility::string_t& Value);bool HasAssetDetailId() const;
+            
+                /// <summary>
+                    /// The count of thumbnails generated <br />
+                    /// When used in combination with Magnopus.Service.Prototype.Dtos.AssetPipelineModelDto.Thumbnails, this parameter takes precedence <br />
+                    /// When used without Magnopus.Service.Prototype.Dtos.AssetPipelineModelDto.Thumbnails, the default options for each thumbnail is assumed <br />
+                    /// When set to `null`, no change will be made to the existing thumbnail(s) <br />
+                    /// When set to `0`, all existing thumbnail(s) will be deleted <br />
+                    /// When set to a non-zero value, new thumbnails will be generated if existing thumbnails don't already exist with the same parameters <br />
+                    /// </summary>
+                int32_t GetThumbnailsCount() const;
+                void SetThumbnailsCount(int32_t Value);bool HasThumbnailsCount() const;
+            
+                /// <summary>
+                    /// The options for each thumbnail generated <br />
+                    /// When set to `null`, no change will be made to existing thumbnail(s) <br />
+                    /// When changing this list, the old list and new list will be merged using the Magnopus.Service.Prototype.Dtos.AssetPipelineThumbnailDto.ThumbnailNumber to match each value <br />
+                    /// To overwrite all thumbnails, send a complete list and set Magnopus.Service.Prototype.Dtos.AssetPipelineModelDto.ThumbnailsCount to the length of the new list (to cut off the remaining existing thumbnails) <br />
+                    /// </summary>
+                const std::vector<std::shared_ptr<AssetPipelineThumbnailDto>>& GetThumbnails() const;
+                void SetThumbnails(const std::vector<std::shared_ptr<AssetPipelineThumbnailDto>>& Value);bool HasThumbnails() const;
+            
+                /// <summary>
+                    /// The count of LOD levels generated <br />
+                    /// When used in combination with Magnopus.Service.Prototype.Dtos.AssetPipelineModelDto.LodLevels, this parameter takes precedence <br />
+                    /// When used without Magnopus.Service.Prototype.Dtos.AssetPipelineModelDto.LodLevels, the default options for each LOD level is assumed <br />
+                    /// When set to `null`, no change will be made to the existing LOD level(s) <br />
+                    /// When set to `0`, all existing LOD level(s) will be deleted <br />
+                    /// When set to a non-zero value, new LOD levels will be generated if existing LOD levels don't already exist with the same parameters <br />
+                    /// </summary>
+                int32_t GetLodLevelsCount() const;
+                void SetLodLevelsCount(int32_t Value);bool HasLodLevelsCount() const;
+            
+                /// <summary>
+                    /// The options for each LOD level generated <br />
+                    /// When set to `null`, no change will be made to existing LOD level(s) <br />
+                    /// When changing this list, the old list and new list will be merged using the Magnopus.Service.Prototype.Dtos.AssetPipelineModelLodLevelDto.LodLevelNumber to match each value <br />
+                    /// To overwrite all LOD levels, send a complete list and set Magnopus.Service.Prototype.Dtos.AssetPipelineModelDto.LodLevelsCount to the length of the new list (to cut off the remaining existing LOD levels) <br />
+                    /// </summary>
+                const std::vector<std::shared_ptr<AssetPipelineModelLodLevelDto>>& GetLodLevels() const;
+                void SetLodLevels(const std::vector<std::shared_ptr<AssetPipelineModelLodLevelDto>>& Value);bool HasLodLevels() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_PrototypeId;
+            std::optional<utility::string_t> m_AssetDetailId;
+            std::optional<int32_t> m_ThumbnailsCount;
+            std::optional<std::vector<std::shared_ptr<AssetPipelineThumbnailDto>>> m_Thumbnails;
+            std::optional<int32_t> m_LodLevelsCount;
+            std::optional<std::vector<std::shared_ptr<AssetPipelineModelLodLevelDto>>> m_LodLevels;
+            };
+
+    /// <summary>
+        /// Parameters used to generate an LOD level
+        /// </summary>
+    class AssetPipelineModelLodLevelDto : public csp::services::DtoBase
+        {
+        public:
+            AssetPipelineModelLodLevelDto();
+            virtual ~AssetPipelineModelLodLevelDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The ID of the prototype associated with the processed asset-detail
+                    /// </summary>
+                utility::string_t GetPrototypeId() const;
+                void SetPrototypeId(const utility::string_t& Value);bool HasPrototypeId() const;
+            
+                /// <summary>
+                    /// Asset-detail associated with this LOD level
+                    /// </summary>
+                utility::string_t GetAssetDetailId() const;
+                void SetAssetDetailId(const utility::string_t& Value);bool HasAssetDetailId() const;
+            
+                std::shared_ptr<AssetPipelineStatus> GetStatus() const;
+                void SetStatus(const std::shared_ptr<AssetPipelineStatus>& Value);bool HasStatus() const;
+            
+                /// <summary>
+                    /// The LOD level number
+                    /// </summary>
+                int32_t GetLodLevelNumber() const;
+                void SetLodLevelNumber(int32_t Value);bool HasLodLevelNumber() const;
+            
+                /// <summary>
+                    /// The target ratio to simplify the model's vertices and polygons
+                    /// </summary>
+                float GetSimplifyRatio() const;
+                void SetSimplifyRatio(float Value);bool HasSimplifyRatio() const;
+            
+                /// <summary>
+                    /// The error threshold to stop simplification before reaching the Magnopus.Service.Prototype.Dtos.AssetPipelineModelLodLevelDto.SimplifyRatio<br />
+                    /// SimplifyRatio=0.0, ErrorTolerance=0.01: Aims for maximum simplification, constrained to 1% error.<br />
+                    /// SimplifyRatio=0.5, ErrorTolerance=0.001: Aims for 50% simplification, constrained to 0.1% error.<br />
+                    /// SimplifyRatio=0.5, ErrorTolerance=1: Aims for 50% simplification, unconstrained by error.<br />
+                    /// </summary>
+                float GetErrorTolerance() const;
+                void SetErrorTolerance(float Value);bool HasErrorTolerance() const;
+            
+                /// <summary>
+                    /// Color texture image max size (in the largest dimension)
+                    /// </summary>
+                int32_t GetMaxTextureSize() const;
+                void SetMaxTextureSize(int32_t Value);bool HasMaxTextureSize() const;
+            
+                /// <summary>
+                    /// Light map image max size (in the largest dimension)
+                    /// </summary>
+                int32_t GetMaxLightMapSize() const;
+                void SetMaxLightMapSize(int32_t Value);bool HasMaxLightMapSize() const;
+            
+                /// <summary>
+                    /// Compress the normals texture
+                    /// </summary>
+                bool GetCompressNormals() const;
+                void SetCompressNormals(const bool& Value);bool HasCompressNormals() const;
+            
+                /// <summary>
+                    /// Compress the occlusion texture
+                    /// </summary>
+                bool GetCompressOcclusion() const;
+                void SetCompressOcclusion(const bool& Value);bool HasCompressOcclusion() const;
+            
+                /// <summary>
+                    /// Color textures to produce a higher quality image at the cost of less efficient compression (UASTC)
+                    /// </summary>
+                bool GetHighQualityTextures() const;
+                void SetHighQualityTextures(const bool& Value);bool HasHighQualityTextures() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_PrototypeId;
+            std::optional<utility::string_t> m_AssetDetailId;
+            std::optional<std::shared_ptr<AssetPipelineStatus>> m_Status;
+            std::optional<int32_t> m_LodLevelNumber;
+            std::optional<float> m_SimplifyRatio;
+            std::optional<float> m_ErrorTolerance;
+            std::optional<int32_t> m_MaxTextureSize;
+            std::optional<int32_t> m_MaxLightMapSize;
+            std::optional<bool> m_CompressNormals;
+            std::optional<bool> m_CompressOcclusion;
+            std::optional<bool> m_HighQualityTextures;
+            };
+
+    /// <summary>
+        /// Possible statuses of asset processing pipeline
+        /// </summary>
+    class AssetPipelineStatus : public csp::services::EnumBase
+        {
+        public:
+            AssetPipelineStatus();
+            virtual ~AssetPipelineStatus();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            enum class eAssetPipelineStatus
+            {
+                RUNNING,
+                FAILED,
+                SUCCEEDED
+                
+            };
+
+            eAssetPipelineStatus GetValue() const;
+            void SetValue(eAssetPipelineStatus const Value);
+
+        protected:
+            eAssetPipelineStatus Value = {};
+        };
+
+    /// <summary>
+        /// Options for thumbnail generation
+        /// </summary>
+    class AssetPipelineThumbnailDto : public csp::services::DtoBase
+        {
+        public:
+            AssetPipelineThumbnailDto();
+            virtual ~AssetPipelineThumbnailDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The ID of the prototype associated with the processed asset-detail
+                    /// </summary>
+                utility::string_t GetPrototypeId() const;
+                void SetPrototypeId(const utility::string_t& Value);bool HasPrototypeId() const;
+            
+                /// <summary>
+                    /// Asset-detail associated with this thumbnail
+                    /// </summary>
+                utility::string_t GetAssetDetailId() const;
+                void SetAssetDetailId(const utility::string_t& Value);bool HasAssetDetailId() const;
+            
+                std::shared_ptr<AssetPipelineStatus> GetStatus() const;
+                void SetStatus(const std::shared_ptr<AssetPipelineStatus>& Value);bool HasStatus() const;
+            
+                /// <summary>
+                    /// The thumbnail number
+                    /// </summary>
+                int32_t GetThumbnailNumber() const;
+                void SetThumbnailNumber(int32_t Value);bool HasThumbnailNumber() const;
+            
+                /// <summary>
+                    /// The image size of the generated thumbnail in the X dimension
+                    /// </summary>
+                int32_t GetImageSizeX() const;
+                void SetImageSizeX(int32_t Value);bool HasImageSizeX() const;
+            
+                /// <summary>
+                    /// The image size of the generated thumbnail in the Y dimension
+                    /// </summary>
+                int32_t GetImageSizeY() const;
+                void SetImageSizeY(int32_t Value);bool HasImageSizeY() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_PrototypeId;
+            std::optional<utility::string_t> m_AssetDetailId;
+            std::optional<std::shared_ptr<AssetPipelineStatus>> m_Status;
+            std::optional<int32_t> m_ThumbnailNumber;
+            std::optional<int32_t> m_ImageSizeX;
+            std::optional<int32_t> m_ImageSizeY;
             };
 
     /// <summary>
@@ -270,6 +534,13 @@ class SortDirection;
                 utility::string_t GetExternalMimeType() const;
                 void SetExternalMimeType(const utility::string_t& Value);bool HasExternalMimeType() const;
             
+                /// <summary>
+                    /// Tags for this asset-detail
+                    /// or an empty list if none
+                    /// </summary>
+                const std::vector<utility::string_t>& GetTags() const;
+                void SetTags(const std::vector<utility::string_t>& Value);bool HasTags() const;
+            
 
         protected:
             std::optional<utility::string_t> m_Id;
@@ -288,6 +559,7 @@ class SortDirection;
             std::optional<utility::string_t> m_MimeType;
             std::optional<utility::string_t> m_ExternalUri;
             std::optional<utility::string_t> m_ExternalMimeType;
+            std::optional<std::vector<utility::string_t>> m_Tags;
             };
 
     /// <summary>
