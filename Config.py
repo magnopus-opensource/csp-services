@@ -27,6 +27,10 @@ config: Config = {
         {
             'url': 'https://ogs-odev-internal.magnoboard.com/oly-aggregation/swagger/v2/swagger.json',
             'service': 'AggregationService'
+        },
+        {
+            'url': 'https://ogs-odev-internal.magnoboard.com/mag-tracking/swagger/v2/swagger.json',
+            'service': 'TrackingService'
         }
     ]
 }
