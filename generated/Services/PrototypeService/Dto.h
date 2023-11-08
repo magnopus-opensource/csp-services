@@ -146,6 +146,12 @@ class SortDirection;
                 const std::vector<utility::string_t>& GetTags() const;
                 void SetTags(const std::vector<utility::string_t>& Value);bool HasTags() const;
             
+                /// <summary>
+                    /// Size of the current version of the raw asset in bytes - 0 if external or no file uploaded
+                    /// </summary>
+                int64_t GetSizeInBytes() const;
+                void SetSizeInBytes(int64_t Value);bool HasSizeInBytes() const;
+            
 
         protected:
             std::optional<utility::string_t> m_PrototypeId;
@@ -165,6 +171,7 @@ class SortDirection;
             std::optional<utility::string_t> m_ExternalUri;
             std::optional<utility::string_t> m_ExternalMimeType;
             std::optional<std::vector<utility::string_t>> m_Tags;
+            std::optional<int64_t> m_SizeInBytes;
             };
 
     /// <summary>
@@ -541,6 +548,12 @@ class SortDirection;
                 const std::vector<utility::string_t>& GetTags() const;
                 void SetTags(const std::vector<utility::string_t>& Value);bool HasTags() const;
             
+                /// <summary>
+                    /// Size of the current version of the raw asset in bytes - 0 if external or no file uploaded
+                    /// </summary>
+                int64_t GetSizeInBytes() const;
+                void SetSizeInBytes(int64_t Value);bool HasSizeInBytes() const;
+            
 
         protected:
             std::optional<utility::string_t> m_Id;
@@ -560,6 +573,7 @@ class SortDirection;
             std::optional<utility::string_t> m_ExternalUri;
             std::optional<utility::string_t> m_ExternalMimeType;
             std::optional<std::vector<utility::string_t>> m_Tags;
+            std::optional<int64_t> m_SizeInBytes;
             };
 
     /// <summary>

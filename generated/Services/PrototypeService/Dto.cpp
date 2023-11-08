@@ -228,6 +228,18 @@ namespace csp::services::generated::prototypeservice
                     );
                 }
             
+                if (m_SizeInBytes.has_value())
+                {
+                    rapidjson::Value SizeInBytesValue(
+                        TypeToJsonValue(m_SizeInBytes, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "sizeInBytes",
+                        SizeInBytesValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
 
             return JsonDocToString(JsonDoc);
         }
@@ -432,6 +444,21 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(TagsValue, m_Tags);
                     }
+                }
+            
+                if (JsonDoc.HasMember("sizeInBytes"))
+                {
+                    const rapidjson::Value& SizeInBytesValue = JsonDoc["sizeInBytes"];
+
+                    if (SizeInBytesValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(SizeInBytesValue, m_SizeInBytes);
+                    }
+                    else
+                    {
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member sizeInBytes is null!");
+                    }
+                    
                 }
             
         }
@@ -743,6 +770,22 @@ namespace csp::services::generated::prototypeservice
                 )
             {
                     m_Tags = Value;
+                }
+                
+        
+            int64_t AssetDetailDto::GetSizeInBytes() const
+            {
+                    return m_SizeInBytes.value();
+                }
+
+            bool AssetDetailDto::HasSizeInBytes() const
+            {
+                return m_SizeInBytes.has_value();
+            }
+
+            void AssetDetailDto::SetSizeInBytes(int64_t Value)
+            {
+                    m_SizeInBytes = Value;
                 }
                 
         
@@ -2011,6 +2054,18 @@ namespace csp::services::generated::prototypeservice
                     );
                 }
             
+                if (m_SizeInBytes.has_value())
+                {
+                    rapidjson::Value SizeInBytesValue(
+                        TypeToJsonValue(m_SizeInBytes, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "sizeInBytes",
+                        SizeInBytesValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
 
             return JsonDocToString(JsonDoc);
         }
@@ -2215,6 +2270,21 @@ namespace csp::services::generated::prototypeservice
                     {
                         JsonValueToType(TagsValue, m_Tags);
                     }
+                }
+            
+                if (JsonDoc.HasMember("sizeInBytes"))
+                {
+                    const rapidjson::Value& SizeInBytesValue = JsonDoc["sizeInBytes"];
+
+                    if (SizeInBytesValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(SizeInBytesValue, m_SizeInBytes);
+                    }
+                    else
+                    {
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member sizeInBytes is null!");
+                    }
+                    
                 }
             
         }
@@ -2526,6 +2596,22 @@ namespace csp::services::generated::prototypeservice
                 )
             {
                     m_Tags = Value;
+                }
+                
+        
+            int64_t BulkUpsertAssetDetailDto::GetSizeInBytes() const
+            {
+                    return m_SizeInBytes.value();
+                }
+
+            bool BulkUpsertAssetDetailDto::HasSizeInBytes() const
+            {
+                return m_SizeInBytes.has_value();
+            }
+
+            void BulkUpsertAssetDetailDto::SetSizeInBytes(int64_t Value)
+            {
+                    m_SizeInBytes = Value;
                 }
                 
         

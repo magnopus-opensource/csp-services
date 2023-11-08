@@ -8139,6 +8139,363 @@ namespace csp::services::generated::userservice
                 
         
 
+    StripeCheckoutRequest::StripeCheckoutRequest() { }
+    StripeCheckoutRequest::~StripeCheckoutRequest() { }
+
+    utility::string_t StripeCheckoutRequest::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_LookupKey.has_value())
+                {
+                    rapidjson::Value LookupKeyValue(
+                        TypeToJsonValue(m_LookupKey, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "lookupKey",
+                        LookupKeyValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void StripeCheckoutRequest::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("lookupKey"))
+                {
+                    const rapidjson::Value& LookupKeyValue = JsonDoc["lookupKey"];
+
+                    if (LookupKeyValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(LookupKeyValue, m_LookupKey);
+                    }
+                    else
+                    {
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member lookupKey is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t StripeCheckoutRequest::GetLookupKey() const
+            {
+                    return m_LookupKey.value();
+                }
+
+            bool StripeCheckoutRequest::HasLookupKey() const
+            {
+                return m_LookupKey.has_value();
+            }
+
+            void StripeCheckoutRequest::SetLookupKey(
+                    const utility::string_t& Value
+                )
+            {
+                    m_LookupKey = Value;
+                }
+                
+        
+
+    StripeCheckoutSessionDto::StripeCheckoutSessionDto() { }
+    StripeCheckoutSessionDto::~StripeCheckoutSessionDto() { }
+
+    utility::string_t StripeCheckoutSessionDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_CheckoutUrl.has_value())
+                {
+                    rapidjson::Value CheckoutUrlValue(
+                        TypeToJsonValue(m_CheckoutUrl, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "checkoutUrl",
+                        CheckoutUrlValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void StripeCheckoutSessionDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("checkoutUrl"))
+                {
+                    const rapidjson::Value& CheckoutUrlValue = JsonDoc["checkoutUrl"];
+
+                    if (CheckoutUrlValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(CheckoutUrlValue, m_CheckoutUrl);
+                    }
+                }
+            
+        }
+
+        
+            utility::string_t StripeCheckoutSessionDto::GetCheckoutUrl() const
+            {
+                    return m_CheckoutUrl.value();
+                }
+
+            bool StripeCheckoutSessionDto::HasCheckoutUrl() const
+            {
+                return m_CheckoutUrl.has_value();
+            }
+
+            void StripeCheckoutSessionDto::SetCheckoutUrl(
+                    const utility::string_t& Value
+                )
+            {
+                    m_CheckoutUrl = Value;
+                }
+                
+        
+
+    StripeCustomerDto::StripeCustomerDto() { }
+    StripeCustomerDto::~StripeCustomerDto() { }
+
+    utility::string_t StripeCustomerDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_StripeCustomerId.has_value())
+                {
+                    rapidjson::Value StripeCustomerIdValue(
+                        TypeToJsonValue(m_StripeCustomerId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "stripeCustomerId",
+                        StripeCustomerIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_UserId.has_value())
+                {
+                    rapidjson::Value UserIdValue(
+                        TypeToJsonValue(m_UserId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "userId",
+                        UserIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_CustomerName.has_value())
+                {
+                    rapidjson::Value CustomerNameValue(
+                        TypeToJsonValue(m_CustomerName, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "customerName",
+                        CustomerNameValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void StripeCustomerDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("stripeCustomerId"))
+                {
+                    const rapidjson::Value& StripeCustomerIdValue = JsonDoc["stripeCustomerId"];
+
+                    if (StripeCustomerIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(StripeCustomerIdValue, m_StripeCustomerId);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("userId"))
+                {
+                    const rapidjson::Value& UserIdValue = JsonDoc["userId"];
+
+                    if (UserIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(UserIdValue, m_UserId);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("customerName"))
+                {
+                    const rapidjson::Value& CustomerNameValue = JsonDoc["customerName"];
+
+                    if (CustomerNameValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(CustomerNameValue, m_CustomerName);
+                    }
+                }
+            
+        }
+
+        
+            utility::string_t StripeCustomerDto::GetStripeCustomerId() const
+            {
+                    return m_StripeCustomerId.value();
+                }
+
+            bool StripeCustomerDto::HasStripeCustomerId() const
+            {
+                return m_StripeCustomerId.has_value();
+            }
+
+            void StripeCustomerDto::SetStripeCustomerId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_StripeCustomerId = Value;
+                }
+                
+        
+            utility::string_t StripeCustomerDto::GetUserId() const
+            {
+                    return m_UserId.value();
+                }
+
+            bool StripeCustomerDto::HasUserId() const
+            {
+                return m_UserId.has_value();
+            }
+
+            void StripeCustomerDto::SetUserId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_UserId = Value;
+                }
+                
+        
+            utility::string_t StripeCustomerDto::GetCustomerName() const
+            {
+                    return m_CustomerName.value();
+                }
+
+            bool StripeCustomerDto::HasCustomerName() const
+            {
+                return m_CustomerName.has_value();
+            }
+
+            void StripeCustomerDto::SetCustomerName(
+                    const utility::string_t& Value
+                )
+            {
+                    m_CustomerName = Value;
+                }
+                
+        
+
+    StripeCustomerPortalDto::StripeCustomerPortalDto() { }
+    StripeCustomerPortalDto::~StripeCustomerPortalDto() { }
+
+    utility::string_t StripeCustomerPortalDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_CustomerPortalUrl.has_value())
+                {
+                    rapidjson::Value CustomerPortalUrlValue(
+                        TypeToJsonValue(m_CustomerPortalUrl, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "customerPortalUrl",
+                        CustomerPortalUrlValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void StripeCustomerPortalDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("customerPortalUrl"))
+                {
+                    const rapidjson::Value& CustomerPortalUrlValue = JsonDoc["customerPortalUrl"];
+
+                    if (CustomerPortalUrlValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(CustomerPortalUrlValue, m_CustomerPortalUrl);
+                    }
+                }
+            
+        }
+
+        
+            utility::string_t StripeCustomerPortalDto::GetCustomerPortalUrl() const
+            {
+                    return m_CustomerPortalUrl.value();
+                }
+
+            bool StripeCustomerPortalDto::HasCustomerPortalUrl() const
+            {
+                return m_CustomerPortalUrl.has_value();
+            }
+
+            void StripeCustomerPortalDto::SetCustomerPortalUrl(
+                    const utility::string_t& Value
+                )
+            {
+                    m_CustomerPortalUrl = Value;
+                }
+                
+        
+
     TenantDto::TenantDto() { }
     TenantDto::~TenantDto() { }
 

@@ -1392,6 +1392,76 @@ namespace csp::services::generated::userservice
         
     };
     
+    class StripeApi final : public csp::services::ApiBase
+    {
+    public:
+        StripeApi(csp::web::WebClient* InWebClient);
+        virtual ~StripeApi();
+
+        
+            
+                
+                    /// <summary>
+                    /// Here to handle webhooks
+                    /// </summary>
+                /// <remarks>
+                /// POST /api/v1/vendors/stripe/webhook
+                /// Authorization: Anonymous
+                /// </remarks>
+                void apiV1VendorsStripeWebhookPost(
+                    const std::optional<utility::string_t>&
+                tenant,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Here to handle checkout session creation
+                    /// </summary>
+                /// <remarks>
+                /// POST /api/v1/vendors/stripe/checkout-sessions
+                /// Authorization: Anonymous
+                /// </remarks>
+                void apiV1VendorsStripeCheckoutSessionsPost(
+                    const std::shared_ptr<StripeCheckoutRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Here to handle checkout session creation
+                    /// </summary>
+                /// <remarks>
+                /// GET /api/v1/vendors/stripe/customers/{userId}
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1VendorsStripeCustomersUserIdGet(
+                    const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Here to provide link to customer portal
+                    /// </summary>
+                /// <remarks>
+                /// GET /api/v1/vendors/stripe/customer-portals/{userId}
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1VendorsStripeCustomerPortalsUserIdGet(
+                    const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+    };
+    
     class TenantApi final : public csp::services::ApiBase
     {
     public:

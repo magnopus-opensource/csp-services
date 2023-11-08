@@ -2366,6 +2366,103 @@ namespace csp::services::generated::userservice {
         
     
 
+    StripeApi::StripeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserServiceURI)
+    {
+
+    }
+
+    StripeApi::~StripeApi()
+    {
+
+    }
+
+    
+        
+            void StripeApi::apiV1VendorsStripeWebhookPost(
+                const std::optional<utility::string_t>&
+                tenant,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/vendors/stripe/webhook",
+                    {}
+                );
+
+                
+                        if (tenant.has_value())
+                        {
+                            Uri.AddQueryParams("tenant", tenant.value());
+                        }
+                    
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+
+                WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void StripeApi::apiV1VendorsStripeCheckoutSessionsPost(
+                const std::shared_ptr<StripeCheckoutRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/vendors/stripe/checkout-sessions",
+                    {}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+
+                WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void StripeApi::apiV1VendorsStripeCustomersUserIdGet(
+                const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/vendors/stripe/customers/{userId}",
+                    {userId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void StripeApi::apiV1VendorsStripeCustomerPortalsUserIdGet(
+                const utility::string_t& userId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/vendors/stripe/customer-portals/{userId}",
+                    {userId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+
     TenantApi::TenantApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserServiceURI)
     {
 

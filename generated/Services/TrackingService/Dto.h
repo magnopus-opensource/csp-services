@@ -276,11 +276,18 @@ class QuotaTierAssignmentDto;
                 utility::string_t GetTierName() const;
                 void SetTierName(const utility::string_t& Value);bool HasTierName() const;
             
+                /// <summary>
+                    /// Optional date when the tier assignment expires.
+                    /// </summary>
+                utility::string_t GetExpiresAt() const;
+                void SetExpiresAt(const utility::string_t& Value);bool HasExpiresAt() const;
+            
 
         protected:
             std::optional<utility::string_t> m_AssignedToType;
             std::optional<utility::string_t> m_AssignedToId;
             std::optional<utility::string_t> m_TierName;
+            std::optional<utility::string_t> m_ExpiresAt;
             };
 
 

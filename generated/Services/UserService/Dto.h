@@ -40,6 +40,10 @@ class ProfileLiteDto;
 class RefreshRequest;
 class SettingsDto;
 class SocialProviderInfo;
+class StripeCheckoutRequest;
+class StripeCheckoutSessionDto;
+class StripeCustomerDto;
+class StripeCustomerPortalDto;
 class TenantDto;
 class TokenResetPasswordRequest;
 class UpgradeGuestRequest;
@@ -1743,6 +1747,116 @@ class UserRolesDto;
             std::optional<utility::string_t> m_ClientId;
             std::optional<std::vector<utility::string_t>> m_Scopes;
             std::optional<utility::string_t> m_AuthorizeEndpoint;
+            };
+
+    /// <summary>
+        /// Contains info related to requesting a stripe checkout
+        /// </summary>
+    class StripeCheckoutRequest : public csp::services::DtoBase
+        {
+        public:
+            StripeCheckoutRequest();
+            virtual ~StripeCheckoutRequest();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The lookup of the choosen tier
+                    /// </summary>
+                utility::string_t GetLookupKey() const;
+                void SetLookupKey(const utility::string_t& Value);bool HasLookupKey() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_LookupKey;
+            };
+
+    /// <summary>
+        /// Contains info related to Stripe checkouts
+        /// </summary>
+    class StripeCheckoutSessionDto : public csp::services::DtoBase
+        {
+        public:
+            StripeCheckoutSessionDto();
+            virtual ~StripeCheckoutSessionDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The url of the checkout with Stripe
+                    /// </summary>
+                utility::string_t GetCheckoutUrl() const;
+                void SetCheckoutUrl(const utility::string_t& Value);bool HasCheckoutUrl() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_CheckoutUrl;
+            };
+
+    /// <summary>
+        /// Contains info associated to the Stripe Account
+        /// </summary>
+    class StripeCustomerDto : public csp::services::DtoBase
+        {
+        public:
+            StripeCustomerDto();
+            virtual ~StripeCustomerDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The id of the customer with Stripe
+                    /// </summary>
+                utility::string_t GetStripeCustomerId() const;
+                void SetStripeCustomerId(const utility::string_t& Value);bool HasStripeCustomerId() const;
+            
+                /// <summary>
+                    /// Id of the CHS User
+                    /// </summary>
+                utility::string_t GetUserId() const;
+                void SetUserId(const utility::string_t& Value);bool HasUserId() const;
+            
+                /// <summary>
+                    /// Name of the customer in Stripe
+                    /// </summary>
+                utility::string_t GetCustomerName() const;
+                void SetCustomerName(const utility::string_t& Value);bool HasCustomerName() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_StripeCustomerId;
+            std::optional<utility::string_t> m_UserId;
+            std::optional<utility::string_t> m_CustomerName;
+            };
+
+    /// <summary>
+        /// Contains info related to Stripe customer portal
+        /// </summary>
+    class StripeCustomerPortalDto : public csp::services::DtoBase
+        {
+        public:
+            StripeCustomerPortalDto();
+            virtual ~StripeCustomerPortalDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The url of the customer portal with Stripe
+                    /// </summary>
+                utility::string_t GetCustomerPortalUrl() const;
+                void SetCustomerPortalUrl(const utility::string_t& Value);bool HasCustomerPortalUrl() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_CustomerPortalUrl;
             };
 
     /// <summary>

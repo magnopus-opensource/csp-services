@@ -1078,6 +1078,18 @@ namespace csp::services::generated::trackingservice
                     );
                 }
             
+                if (m_ExpiresAt.has_value())
+                {
+                    rapidjson::Value ExpiresAtValue(
+                        TypeToJsonValue(m_ExpiresAt, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "expiresAt",
+                        ExpiresAtValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
 
             return JsonDocToString(JsonDoc);
         }
@@ -1121,6 +1133,16 @@ namespace csp::services::generated::trackingservice
                     if (TierNameValue != rapidjson::Type::kNullType)
                     {
                         JsonValueToType(TierNameValue, m_TierName);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("expiresAt"))
+                {
+                    const rapidjson::Value& ExpiresAtValue = JsonDoc["expiresAt"];
+
+                    if (ExpiresAtValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ExpiresAtValue, m_ExpiresAt);
                     }
                 }
             
@@ -1178,6 +1200,24 @@ namespace csp::services::generated::trackingservice
                 )
             {
                     m_TierName = Value;
+                }
+                
+        
+            utility::string_t QuotaTierAssignmentDto::GetExpiresAt() const
+            {
+                    return m_ExpiresAt.value();
+                }
+
+            bool QuotaTierAssignmentDto::HasExpiresAt() const
+            {
+                return m_ExpiresAt.has_value();
+            }
+
+            void QuotaTierAssignmentDto::SetExpiresAt(
+                    const utility::string_t& Value
+                )
+            {
+                    m_ExpiresAt = Value;
                 }
                 
         
