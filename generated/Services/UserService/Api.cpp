@@ -1926,7 +1926,8 @@ namespace csp::services::generated::userservice {
             void ProfileApi::apiV1UsersUserIdResetPasswordPost(
                 const utility::string_t& userId,const std::optional<utility::string_t>&
                 tenant,const std::optional<utility::string_t>&
-                redirect,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                redirect,const std::optional<utility::string_t>&
+                emailLinkUrl,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken
             ) const
             {
@@ -1948,6 +1949,12 @@ namespace csp::services::generated::userservice {
                             Uri.AddQueryParams("redirect", redirect.value());
                         }
                     
+                
+                        if (emailLinkUrl.has_value())
+                        {
+                            Uri.AddQueryParams("emailLinkUrl", emailLinkUrl.value());
+                        }
+                    
                 csp::web::HttpPayload Payload;
                 Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
 
@@ -1959,7 +1966,8 @@ namespace csp::services::generated::userservice {
             void ProfileApi::apiV1UsersForgotPasswordPost(
                 const std::optional<utility::string_t>&
                 redirect,const std::optional<bool>&
-                useTokenChangePasswordUrl,const std::shared_ptr<ForgotPasswordRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                useTokenChangePasswordUrl,const std::optional<utility::string_t>&
+                emailLinkUrl,const std::shared_ptr<ForgotPasswordRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken
             ) const
             {
@@ -1979,6 +1987,12 @@ namespace csp::services::generated::userservice {
                         if (useTokenChangePasswordUrl.has_value())
                         {
                             Uri.AddQueryParams("useTokenChangePasswordUrl", useTokenChangePasswordUrl.value());
+                        }
+                    
+                
+                        if (emailLinkUrl.has_value())
+                        {
+                            Uri.AddQueryParams("emailLinkUrl", emailLinkUrl.value());
                         }
                     
                 csp::web::HttpPayload Payload;

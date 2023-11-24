@@ -1114,7 +1114,8 @@ namespace csp::services::generated::userservice
                 void apiV1UsersUserIdResetPasswordPost(
                     const utility::string_t& userId,const std::optional<utility::string_t>&
                 tenant,const std::optional<utility::string_t>&
-                redirect,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                redirect,const std::optional<utility::string_t>&
+                emailLinkUrl,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             
@@ -1131,7 +1132,8 @@ namespace csp::services::generated::userservice
                 void apiV1UsersForgotPasswordPost(
                     const std::optional<utility::string_t>&
                 redirect,const std::optional<bool>&
-                useTokenChangePasswordUrl,const std::shared_ptr<ForgotPasswordRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+                useTokenChangePasswordUrl,const std::optional<utility::string_t>&
+                emailLinkUrl,const std::shared_ptr<ForgotPasswordRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             
