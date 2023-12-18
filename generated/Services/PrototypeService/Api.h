@@ -426,6 +426,37 @@ namespace csp::services::generated::prototypeservice
             
                 
                     /// <summary>
+                    /// Duplicates prototype(s) to a new group by filters
+                    /// </summary>
+                /// <remarks>
+                /// POST /api/v1/prototypes/group-owned/{originalGroupId}/duplicate/{newGroupId}
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPost(
+                    const std::optional<std::vector<utility::string_t>>&
+                Tags,const std::optional<bool>&
+                TagsAll,const std::optional<std::vector<utility::string_t>>&
+                Ids,const std::optional<std::vector<utility::string_t>>&
+                Names,const std::optional<std::vector<utility::string_t>>&
+                PartialNames,const std::optional<std::vector<utility::string_t>>&
+                ExcludedIds,const std::optional<std::vector<utility::string_t>>&
+                PointOfInterestIds,const std::optional<utility::string_t>&
+                ParentId,const std::optional<std::vector<utility::string_t>>&
+                GroupIds,const std::optional<std::vector<utility::string_t>>&
+                Types,const std::optional<bool>&
+                HasGroup,const std::optional<utility::string_t>&
+                CreatedBy,const std::optional<std::vector<utility::string_t>>&
+                PrototypeOwnerIds,const std::optional<std::vector<utility::string_t>>&
+                ReadAccessFilters,const std::optional<std::vector<utility::string_t>>&
+                WriteAccessFilters,const utility::string_t& originalGroupId,const utility::string_t& newGroupId,const std::optional<bool>&
+                asyncCall,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
                     /// Bulk upsert operation for prototypes
                     /// </summary>
                 /// <remarks>

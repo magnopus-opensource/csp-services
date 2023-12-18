@@ -6330,6 +6330,164 @@ namespace csp::services::generated::userservice
                 
         
 
+    OrganizationDto::OrganizationDto() { }
+    OrganizationDto::~OrganizationDto() { }
+
+    utility::string_t OrganizationDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_Id.has_value())
+                {
+                    rapidjson::Value IdValue(
+                        TypeToJsonValue(m_Id, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "id",
+                        IdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_OrganizationOwnerId.has_value())
+                {
+                    rapidjson::Value OrganizationOwnerIdValue(
+                        TypeToJsonValue(m_OrganizationOwnerId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "organizationOwnerId",
+                        OrganizationOwnerIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Name.has_value())
+                {
+                    rapidjson::Value NameValue(
+                        TypeToJsonValue(m_Name, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "name",
+                        NameValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void OrganizationDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("id"))
+                {
+                    const rapidjson::Value& IdValue = JsonDoc["id"];
+
+                    if (IdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(IdValue, m_Id);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("organizationOwnerId"))
+                {
+                    const rapidjson::Value& OrganizationOwnerIdValue = JsonDoc["organizationOwnerId"];
+
+                    if (OrganizationOwnerIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OrganizationOwnerIdValue, m_OrganizationOwnerId);
+                    }
+                    else
+                    {
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member organizationOwnerId is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("name"))
+                {
+                    const rapidjson::Value& NameValue = JsonDoc["name"];
+
+                    if (NameValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(NameValue, m_Name);
+                    }
+                    else
+                    {
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t OrganizationDto::GetId() const
+            {
+                    return m_Id.value();
+                }
+
+            bool OrganizationDto::HasId() const
+            {
+                return m_Id.has_value();
+            }
+
+            void OrganizationDto::SetId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_Id = Value;
+                }
+                
+        
+            utility::string_t OrganizationDto::GetOrganizationOwnerId() const
+            {
+                    return m_OrganizationOwnerId.value();
+                }
+
+            bool OrganizationDto::HasOrganizationOwnerId() const
+            {
+                return m_OrganizationOwnerId.has_value();
+            }
+
+            void OrganizationDto::SetOrganizationOwnerId(
+                    const utility::string_t& Value
+                )
+            {
+                    m_OrganizationOwnerId = Value;
+                }
+                
+        
+            utility::string_t OrganizationDto::GetName() const
+            {
+                    return m_Name.value();
+                }
+
+            bool OrganizationDto::HasName() const
+            {
+                return m_Name.has_value();
+            }
+
+            void OrganizationDto::SetName(
+                    const utility::string_t& Value
+                )
+            {
+                    m_Name = Value;
+                }
+                
+        
+
     ProfileDto::ProfileDto() { }
     ProfileDto::~ProfileDto() { }
 

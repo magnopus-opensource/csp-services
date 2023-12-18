@@ -869,6 +869,138 @@ namespace csp::services::generated::prototypeservice {
         
     
         
+            void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPost(
+                const std::optional<std::vector<utility::string_t>>&
+                Tags,const std::optional<bool>&
+                TagsAll,const std::optional<std::vector<utility::string_t>>&
+                Ids,const std::optional<std::vector<utility::string_t>>&
+                Names,const std::optional<std::vector<utility::string_t>>&
+                PartialNames,const std::optional<std::vector<utility::string_t>>&
+                ExcludedIds,const std::optional<std::vector<utility::string_t>>&
+                PointOfInterestIds,const std::optional<utility::string_t>&
+                ParentId,const std::optional<std::vector<utility::string_t>>&
+                GroupIds,const std::optional<std::vector<utility::string_t>>&
+                Types,const std::optional<bool>&
+                HasGroup,const std::optional<utility::string_t>&
+                CreatedBy,const std::optional<std::vector<utility::string_t>>&
+                PrototypeOwnerIds,const std::optional<std::vector<utility::string_t>>&
+                ReadAccessFilters,const std::optional<std::vector<utility::string_t>>&
+                WriteAccessFilters,const utility::string_t& originalGroupId,const utility::string_t& newGroupId,const std::optional<bool>&
+                asyncCall,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/prototypes/group-owned/{originalGroupId}/duplicate/{newGroupId}",
+                    {originalGroupId,newGroupId}
+                );
+
+                
+                        if (Tags.has_value())
+                        {
+                            Uri.AddQueryParams("Tags", Tags.value());
+                        }
+                    
+                
+                        if (TagsAll.has_value())
+                        {
+                            Uri.AddQueryParams("TagsAll", TagsAll.value());
+                        }
+                    
+                
+                        if (Ids.has_value())
+                        {
+                            Uri.AddQueryParams("Ids", Ids.value());
+                        }
+                    
+                
+                        if (Names.has_value())
+                        {
+                            Uri.AddQueryParams("Names", Names.value());
+                        }
+                    
+                
+                        if (PartialNames.has_value())
+                        {
+                            Uri.AddQueryParams("PartialNames", PartialNames.value());
+                        }
+                    
+                
+                        if (ExcludedIds.has_value())
+                        {
+                            Uri.AddQueryParams("ExcludedIds", ExcludedIds.value());
+                        }
+                    
+                
+                        if (PointOfInterestIds.has_value())
+                        {
+                            Uri.AddQueryParams("PointOfInterestIds", PointOfInterestIds.value());
+                        }
+                    
+                
+                        if (ParentId.has_value())
+                        {
+                            Uri.AddQueryParams("ParentId", ParentId.value());
+                        }
+                    
+                
+                        if (GroupIds.has_value())
+                        {
+                            Uri.AddQueryParams("GroupIds", GroupIds.value());
+                        }
+                    
+                
+                        if (Types.has_value())
+                        {
+                            Uri.AddQueryParams("Types", Types.value());
+                        }
+                    
+                
+                        if (HasGroup.has_value())
+                        {
+                            Uri.AddQueryParams("HasGroup", HasGroup.value());
+                        }
+                    
+                
+                        if (CreatedBy.has_value())
+                        {
+                            Uri.AddQueryParams("CreatedBy", CreatedBy.value());
+                        }
+                    
+                
+                        if (PrototypeOwnerIds.has_value())
+                        {
+                            Uri.AddQueryParams("PrototypeOwnerIds", PrototypeOwnerIds.value());
+                        }
+                    
+                
+                        if (ReadAccessFilters.has_value())
+                        {
+                            Uri.AddQueryParams("ReadAccessFilters", ReadAccessFilters.value());
+                        }
+                    
+                
+                        if (WriteAccessFilters.has_value())
+                        {
+                            Uri.AddQueryParams("WriteAccessFilters", WriteAccessFilters.value());
+                        }
+                    
+                
+                        if (asyncCall.has_value())
+                        {
+                            Uri.AddQueryParams("asyncCall", asyncCall.value());
+                        }
+                    
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
             void PrototypeApi::apiV1PrototypesBulkPut(
                 const std::vector<std::shared_ptr<BulkUpsertPrototypeDto>>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken

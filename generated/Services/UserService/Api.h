@@ -943,6 +943,73 @@ namespace csp::services::generated::userservice
         
     };
     
+    class OrganizationApi final : public csp::services::ApiBase
+    {
+    public:
+        OrganizationApi(csp::web::WebClient* InWebClient);
+        virtual ~OrganizationApi();
+
+        
+            
+                
+                    /// <summary>
+                    /// Creates a new organization
+                    /// </summary>
+                /// <remarks>
+                /// POST /api/v1/organizations
+                /// Authorization: magnopus-admin,admin,support,internal-service
+                /// </remarks>
+                void apiV1OrganizationsPost(
+                    const std::shared_ptr<OrganizationDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Locates the organization by its unique identifier organizationId
+                    /// </summary>
+                /// <remarks>
+                /// GET /api/v1/organizations/{organizationId}
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1OrganizationsOrganizationIdGet(
+                    const utility::string_t& organizationId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+                
+                    /// <summary>
+                    /// Locates the organization by its unique identifier organizationId
+                    /// and updates the writable fields of that organization with the new values from the request body.
+                    /// </summary>
+                /// <remarks>
+                /// PUT /api/v1/organizations/{organizationId}
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1OrganizationsOrganizationIdPut(
+                    const utility::string_t& organizationId,const std::shared_ptr<OrganizationDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+                
+                    /// <summary>
+                    /// Locates the organization by its unique identifier organizationId
+                    /// and deletes it from the data store.
+                    /// </summary>
+                /// <remarks>
+                /// DELETE /api/v1/organizations/{organizationId}
+                /// Authorization: magnopus-admin,admin,support,internal-service
+                /// </remarks>
+                void apiV1OrganizationsOrganizationIdDelete(
+                    const utility::string_t& organizationId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+    };
+    
     class PingApi final : public csp::services::ApiBase
     {
     public:

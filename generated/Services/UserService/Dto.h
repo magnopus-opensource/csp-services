@@ -34,6 +34,7 @@ class MetagameProgressDto;
 class MetagameUpdate;
 class OneTimeKeyDto;
 class OneTimeKeyRequest;
+class OrganizationDto;
 class ProfileDto;
 class ProfileDtoDataPage;
 class ProfileLiteDto;
@@ -1380,6 +1381,44 @@ class UserRolesDto;
         protected:
             std::optional<utility::string_t> m_UserId;
             std::optional<utility::string_t> m_DeviceId;
+            };
+
+    /// <summary>
+        /// Organization data transfer object
+        /// </summary>
+    class OrganizationDto : public csp::services::DtoBase
+        {
+        public:
+            OrganizationDto();
+            virtual ~OrganizationDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Unique identifier
+                    /// </summary>
+                utility::string_t GetId() const;
+                void SetId(const utility::string_t& Value);bool HasId() const;
+            
+                /// <summary>
+                    /// Owner of organization
+                    /// </summary>
+                utility::string_t GetOrganizationOwnerId() const;
+                void SetOrganizationOwnerId(const utility::string_t& Value);bool HasOrganizationOwnerId() const;
+            
+                /// <summary>
+                    /// Name of the organization
+                    /// </summary>
+                utility::string_t GetName() const;
+                void SetName(const utility::string_t& Value);bool HasName() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Id;
+            std::optional<utility::string_t> m_OrganizationOwnerId;
+            std::optional<utility::string_t> m_Name;
             };
 
     /// <summary>

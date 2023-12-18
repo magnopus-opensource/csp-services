@@ -1650,6 +1650,94 @@ namespace csp::services::generated::userservice {
         
     
 
+    OrganizationApi::OrganizationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserServiceURI)
+    {
+
+    }
+
+    OrganizationApi::~OrganizationApi()
+    {
+
+    }
+
+    
+        
+            void OrganizationApi::apiV1OrganizationsPost(
+                const std::shared_ptr<OrganizationDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/organizations",
+                    {}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void OrganizationApi::apiV1OrganizationsOrganizationIdGet(
+                const utility::string_t& organizationId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/organizations/{organizationId}",
+                    {organizationId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+            void OrganizationApi::apiV1OrganizationsOrganizationIdPut(
+                const utility::string_t& organizationId,const std::shared_ptr<OrganizationDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/organizations/{organizationId}",
+                    {organizationId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+            void OrganizationApi::apiV1OrganizationsOrganizationIdDelete(
+                const utility::string_t& organizationId,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/organizations/{organizationId}",
+                    {organizationId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+
     PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserServiceURI)
     {
 
