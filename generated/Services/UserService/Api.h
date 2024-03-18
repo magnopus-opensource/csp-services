@@ -873,6 +873,33 @@ public:
 														   csp::services::ApiResponseHandlerBase* ResponseHandler,
 														   csp::common::CancellationToken& CancellationToken
 														   = csp::common::CancellationToken::Dummy()) const;
+
+	/// <summary>
+	/// Locates the roles of the members in the organization by their unique identifier userIds
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/organizations/{organizationId}/roles
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1OrganizationsOrganizationIdRolesGet(const utility::string_t& organizationId,
+												  const std::optional<std::vector<utility::string_t>>& userIds,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+	/// <summary>
+	/// Locates the roles of user in the organization by its unique identifier organizationId
+	/// and updates the user roles with the new values from the request body.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/organizations/{organizationId}/users/{userId}/roles
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1OrganizationsOrganizationIdUsersUserIdRolesPut(const utility::string_t& organizationId,
+															 const utility::string_t& userId,
+															 const std::vector<utility::string_t>& RequestBody,
+															 csp::services::ApiResponseHandlerBase* ResponseHandler,
+															 csp::common::CancellationToken& CancellationToken
+															 = csp::common::CancellationToken::Dummy()) const;
 };
 
 class PingApi final : public csp::services::ApiBase

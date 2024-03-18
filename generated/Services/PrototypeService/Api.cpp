@@ -41,6 +41,7 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsGet(const utility::st
 															   const std::optional<std::vector<utility::string_t>>& Names,
 															   const std::optional<utility::string_t>& CreatedAfter,
 															   const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+															   const std::optional<std::vector<utility::string_t>>& PrototypeNames,
 															   const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
 															   const std::optional<std::vector<utility::string_t>>& Tags,
 															   const std::optional<bool>& TagsAll,
@@ -83,6 +84,11 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsGet(const utility::st
 	if (PrototypeIds.has_value())
 	{
 		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
+	}
+
+	if (PrototypeNames.has_value())
+	{
+		Uri.AddQueryParams("PrototypeNames", PrototypeNames.value());
 	}
 
 	if (PrototypeParentNames.has_value())
@@ -177,6 +183,7 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsGet(const std::optional<std::vec
 													const std::optional<std::vector<utility::string_t>>& Names,
 													const std::optional<utility::string_t>& CreatedAfter,
 													const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+													const std::optional<std::vector<utility::string_t>>& PrototypeNames,
 													const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
 													const std::optional<std::vector<utility::string_t>>& Tags,
 													const std::optional<bool>& TagsAll,
@@ -219,6 +226,11 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsGet(const std::optional<std::vec
 	if (PrototypeIds.has_value())
 	{
 		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
+	}
+
+	if (PrototypeNames.has_value())
+	{
+		Uri.AddQueryParams("PrototypeNames", PrototypeNames.value());
 	}
 
 	if (PrototypeParentNames.has_value())
@@ -345,6 +357,7 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsAssetPipelineModelGet(const std:
 																	  const std::optional<std::vector<utility::string_t>>& Names,
 																	  const std::optional<utility::string_t>& CreatedAfter,
 																	  const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+																	  const std::optional<std::vector<utility::string_t>>& PrototypeNames,
 																	  const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
 																	  const std::optional<std::vector<utility::string_t>>& Tags,
 																	  const std::optional<bool>& TagsAll,
@@ -387,6 +400,11 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsAssetPipelineModelGet(const std:
 	if (PrototypeIds.has_value())
 	{
 		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
+	}
+
+	if (PrototypeNames.has_value())
+	{
+		Uri.AddQueryParams("PrototypeNames", PrototypeNames.value());
 	}
 
 	if (PrototypeParentNames.has_value())
