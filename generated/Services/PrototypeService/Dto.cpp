@@ -2197,6 +2197,18 @@ utility::string_t BulkUpsertPrototypeDto::ToJson() const
 		JsonDoc.AddMember("prototypeOwnerId", PrototypeOwnerIdValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_ReadAccess.has_value())
+	{
+		rapidjson::Value ReadAccessValue(TypeToJsonValue(m_ReadAccess, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("readAccess", ReadAccessValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_WriteAccess.has_value())
+	{
+		rapidjson::Value WriteAccessValue(TypeToJsonValue(m_WriteAccess, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("writeAccess", WriteAccessValue, JsonDoc.GetAllocator());
+	}
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -2382,6 +2394,26 @@ void BulkUpsertPrototypeDto::FromJson(const utility::string_t& Val)
 		if (PrototypeOwnerIdValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(PrototypeOwnerIdValue, m_PrototypeOwnerId);
+		}
+	}
+
+	if (JsonDoc.HasMember("readAccess"))
+	{
+		const rapidjson::Value& ReadAccessValue = JsonDoc["readAccess"];
+
+		if (ReadAccessValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ReadAccessValue, m_ReadAccess);
+		}
+	}
+
+	if (JsonDoc.HasMember("writeAccess"))
+	{
+		const rapidjson::Value& WriteAccessValue = JsonDoc["writeAccess"];
+
+		if (WriteAccessValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(WriteAccessValue, m_WriteAccess);
 		}
 	}
 }
@@ -2641,6 +2673,36 @@ void BulkUpsertPrototypeDto::SetPrototypeOwnerId(const utility::string_t& Value)
 	m_PrototypeOwnerId = Value;
 }
 
+const std::vector<utility::string_t>& BulkUpsertPrototypeDto::GetReadAccess() const
+{
+	return m_ReadAccess.value();
+}
+
+bool BulkUpsertPrototypeDto::HasReadAccess() const
+{
+	return m_ReadAccess.has_value();
+}
+
+void BulkUpsertPrototypeDto::SetReadAccess(const std::vector<utility::string_t>& Value)
+{
+	m_ReadAccess = Value;
+}
+
+const std::vector<utility::string_t>& BulkUpsertPrototypeDto::GetWriteAccess() const
+{
+	return m_WriteAccess.value();
+}
+
+bool BulkUpsertPrototypeDto::HasWriteAccess() const
+{
+	return m_WriteAccess.has_value();
+}
+
+void BulkUpsertPrototypeDto::SetWriteAccess(const std::vector<utility::string_t>& Value)
+{
+	m_WriteAccess = Value;
+}
+
 LocalizedString::LocalizedString()
 {
 }
@@ -2844,6 +2906,18 @@ utility::string_t PrototypeDto::ToJson() const
 		JsonDoc.AddMember("prototypeOwnerId", PrototypeOwnerIdValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_ReadAccess.has_value())
+	{
+		rapidjson::Value ReadAccessValue(TypeToJsonValue(m_ReadAccess, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("readAccess", ReadAccessValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_WriteAccess.has_value())
+	{
+		rapidjson::Value WriteAccessValue(TypeToJsonValue(m_WriteAccess, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("writeAccess", WriteAccessValue, JsonDoc.GetAllocator());
+	}
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -3029,6 +3103,26 @@ void PrototypeDto::FromJson(const utility::string_t& Val)
 		if (PrototypeOwnerIdValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(PrototypeOwnerIdValue, m_PrototypeOwnerId);
+		}
+	}
+
+	if (JsonDoc.HasMember("readAccess"))
+	{
+		const rapidjson::Value& ReadAccessValue = JsonDoc["readAccess"];
+
+		if (ReadAccessValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ReadAccessValue, m_ReadAccess);
+		}
+	}
+
+	if (JsonDoc.HasMember("writeAccess"))
+	{
+		const rapidjson::Value& WriteAccessValue = JsonDoc["writeAccess"];
+
+		if (WriteAccessValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(WriteAccessValue, m_WriteAccess);
 		}
 	}
 }
@@ -3286,6 +3380,36 @@ bool PrototypeDto::HasPrototypeOwnerId() const
 void PrototypeDto::SetPrototypeOwnerId(const utility::string_t& Value)
 {
 	m_PrototypeOwnerId = Value;
+}
+
+const std::vector<utility::string_t>& PrototypeDto::GetReadAccess() const
+{
+	return m_ReadAccess.value();
+}
+
+bool PrototypeDto::HasReadAccess() const
+{
+	return m_ReadAccess.has_value();
+}
+
+void PrototypeDto::SetReadAccess(const std::vector<utility::string_t>& Value)
+{
+	m_ReadAccess = Value;
+}
+
+const std::vector<utility::string_t>& PrototypeDto::GetWriteAccess() const
+{
+	return m_WriteAccess.value();
+}
+
+bool PrototypeDto::HasWriteAccess() const
+{
+	return m_WriteAccess.has_value();
+}
+
+void PrototypeDto::SetWriteAccess(const std::vector<utility::string_t>& Value)
+{
+	m_WriteAccess = Value;
 }
 
 PrototypeDtoDataPage::PrototypeDtoDataPage()

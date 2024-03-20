@@ -759,6 +759,20 @@ public:
 	void SetPrototypeOwnerId(const utility::string_t& Value);
 	bool HasPrototypeOwnerId() const;
 
+	/// <summary>
+	/// Access restrictions for read, if none, publicly readable
+	/// </summary>
+	const std::vector<utility::string_t>& GetReadAccess() const;
+	void SetReadAccess(const std::vector<utility::string_t>& Value);
+	bool HasReadAccess() const;
+
+	/// <summary>
+	/// Access restrictions for write, if none, publicly writeable
+	/// </summary>
+	const std::vector<utility::string_t>& GetWriteAccess() const;
+	void SetWriteAccess(const std::vector<utility::string_t>& Value);
+	bool HasWriteAccess() const;
+
 protected:
 	std::optional<utility::string_t> m_Id;
 	std::optional<utility::string_t> m_Name;
@@ -777,6 +791,8 @@ protected:
 	std::optional<utility::string_t> m_Type;
 	std::optional<bool> m_SystemOwned;
 	std::optional<utility::string_t> m_PrototypeOwnerId;
+	std::optional<std::vector<utility::string_t>> m_ReadAccess;
+	std::optional<std::vector<utility::string_t>> m_WriteAccess;
 };
 
 class LocalizedString : public csp::services::DtoBase
@@ -934,6 +950,20 @@ public:
 	void SetPrototypeOwnerId(const utility::string_t& Value);
 	bool HasPrototypeOwnerId() const;
 
+	/// <summary>
+	/// Access restrictions for read, if none, publicly readable
+	/// </summary>
+	const std::vector<utility::string_t>& GetReadAccess() const;
+	void SetReadAccess(const std::vector<utility::string_t>& Value);
+	bool HasReadAccess() const;
+
+	/// <summary>
+	/// Access restrictions for write, if none, publicly writeable
+	/// </summary>
+	const std::vector<utility::string_t>& GetWriteAccess() const;
+	void SetWriteAccess(const std::vector<utility::string_t>& Value);
+	bool HasWriteAccess() const;
+
 protected:
 	std::optional<utility::string_t> m_Id;
 	std::optional<utility::string_t> m_Name;
@@ -952,6 +982,8 @@ protected:
 	std::optional<utility::string_t> m_Type;
 	std::optional<bool> m_SystemOwned;
 	std::optional<utility::string_t> m_PrototypeOwnerId;
+	std::optional<std::vector<utility::string_t>> m_ReadAccess;
+	std::optional<std::vector<utility::string_t>> m_WriteAccess;
 };
 
 class PrototypeDtoDataPage : public csp::services::DtoBase
