@@ -8,15 +8,17 @@
 
 #include <optional>
 
+
 using namespace csp::web;
+
 
 namespace csp::services::generated::spatialdataservice
 {
 
+
 AltitudeMode::AltitudeMode()
 {
 }
-
 AltitudeMode::~AltitudeMode()
 {
 }
@@ -78,7 +80,6 @@ void AltitudeMode::SetValue(AltitudeMode::eAltitudeMode const InValue)
 AnchorDto::AnchorDto()
 {
 }
-
 AnchorDto::~AnchorDto()
 {
 }
@@ -86,6 +87,7 @@ AnchorDto::~AnchorDto()
 utility::string_t AnchorDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -171,6 +173,7 @@ utility::string_t AnchorDto::ToJson() const
 		JsonDoc.AddMember("createdBy", CreatedByValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -184,6 +187,7 @@ void AnchorDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -346,6 +350,7 @@ void AnchorDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t AnchorDto::GetId() const
 {
 	return m_Id.value();
@@ -355,12 +360,10 @@ bool AnchorDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
 void AnchorDto::SetId(const utility::string_t& Value)
 {
 	m_Id = Value;
 }
-
 utility::string_t AnchorDto::GetMgsId() const
 {
 	return m_MgsId.value();
@@ -370,12 +373,6 @@ bool AnchorDto::HasMgsId() const
 {
 	return m_MgsId.has_value();
 }
-
-void AnchorDto::SetMgsId(const utility::string_t& Value)
-{
-	m_MgsId = Value;
-}
-
 utility::string_t AnchorDto::GetThirdPartyAnchorId() const
 {
 	return m_ThirdPartyAnchorId.value();
@@ -385,12 +382,10 @@ bool AnchorDto::HasThirdPartyAnchorId() const
 {
 	return m_ThirdPartyAnchorId.has_value();
 }
-
 void AnchorDto::SetThirdPartyAnchorId(const utility::string_t& Value)
 {
 	m_ThirdPartyAnchorId = Value;
 }
-
 utility::string_t AnchorDto::GetThirdPartyProviderName() const
 {
 	return m_ThirdPartyProviderName.value();
@@ -400,12 +395,10 @@ bool AnchorDto::HasThirdPartyProviderName() const
 {
 	return m_ThirdPartyProviderName.has_value();
 }
-
 void AnchorDto::SetThirdPartyProviderName(const utility::string_t& Value)
 {
 	m_ThirdPartyProviderName = Value;
 }
-
 utility::string_t AnchorDto::GetReferenceId() const
 {
 	return m_ReferenceId.value();
@@ -415,12 +408,10 @@ bool AnchorDto::HasReferenceId() const
 {
 	return m_ReferenceId.has_value();
 }
-
 void AnchorDto::SetReferenceId(const utility::string_t& Value)
 {
 	m_ReferenceId = Value;
 }
-
 utility::string_t AnchorDto::GetAnchoredPrototypeId() const
 {
 	return m_AnchoredPrototypeId.value();
@@ -430,12 +421,10 @@ bool AnchorDto::HasAnchoredPrototypeId() const
 {
 	return m_AnchoredPrototypeId.has_value();
 }
-
 void AnchorDto::SetAnchoredPrototypeId(const utility::string_t& Value)
 {
 	m_AnchoredPrototypeId = Value;
 }
-
 int32_t AnchorDto::GetAnchoredMultiplayerObjectId() const
 {
 	return m_AnchoredMultiplayerObjectId.value();
@@ -445,12 +434,10 @@ bool AnchorDto::HasAnchoredMultiplayerObjectId() const
 {
 	return m_AnchoredMultiplayerObjectId.has_value();
 }
-
 void AnchorDto::SetAnchoredMultiplayerObjectId(int32_t Value)
 {
 	m_AnchoredMultiplayerObjectId = Value;
 }
-
 const std::map<utility::string_t, utility::string_t>& AnchorDto::GetSpatialKeyValue() const
 {
 	return m_SpatialKeyValue.value();
@@ -460,12 +447,10 @@ bool AnchorDto::HasSpatialKeyValue() const
 {
 	return m_SpatialKeyValue.has_value();
 }
-
 void AnchorDto::SetSpatialKeyValue(const std::map<utility::string_t, utility::string_t>& Value)
 {
 	m_SpatialKeyValue = Value;
 }
-
 std::shared_ptr<GeoCoord> AnchorDto::GetLocation() const
 {
 	return m_Location.value();
@@ -475,12 +460,10 @@ bool AnchorDto::HasLocation() const
 {
 	return m_Location.has_value();
 }
-
 void AnchorDto::SetLocation(const std::shared_ptr<GeoCoord>& Value)
 {
 	m_Location = Value;
 }
-
 std::shared_ptr<AnchorPosition> AnchorDto::GetPosition() const
 {
 	return m_Position.value();
@@ -490,12 +473,10 @@ bool AnchorDto::HasPosition() const
 {
 	return m_Position.has_value();
 }
-
 void AnchorDto::SetPosition(const std::shared_ptr<AnchorPosition>& Value)
 {
 	m_Position = Value;
 }
-
 std::shared_ptr<AnchorRotation> AnchorDto::GetRotation() const
 {
 	return m_Rotation.value();
@@ -505,12 +486,10 @@ bool AnchorDto::HasRotation() const
 {
 	return m_Rotation.has_value();
 }
-
 void AnchorDto::SetRotation(const std::shared_ptr<AnchorRotation>& Value)
 {
 	m_Rotation = Value;
 }
-
 const std::vector<utility::string_t>& AnchorDto::GetTags() const
 {
 	return m_Tags.value();
@@ -520,12 +499,10 @@ bool AnchorDto::HasTags() const
 {
 	return m_Tags.has_value();
 }
-
 void AnchorDto::SetTags(const std::vector<utility::string_t>& Value)
 {
 	m_Tags = Value;
 }
-
 utility::string_t AnchorDto::GetCreatedAt() const
 {
 	return m_CreatedAt.value();
@@ -535,12 +512,6 @@ bool AnchorDto::HasCreatedAt() const
 {
 	return m_CreatedAt.has_value();
 }
-
-void AnchorDto::SetCreatedAt(const utility::string_t& Value)
-{
-	m_CreatedAt = Value;
-}
-
 utility::string_t AnchorDto::GetCreatedBy() const
 {
 	return m_CreatedBy.value();
@@ -551,15 +522,9 @@ bool AnchorDto::HasCreatedBy() const
 	return m_CreatedBy.has_value();
 }
 
-void AnchorDto::SetCreatedBy(const utility::string_t& Value)
-{
-	m_CreatedBy = Value;
-}
-
 AnchorDtoDataPage::AnchorDtoDataPage()
 {
 }
-
 AnchorDtoDataPage::~AnchorDtoDataPage()
 {
 }
@@ -567,6 +532,7 @@ AnchorDtoDataPage::~AnchorDtoDataPage()
 utility::string_t AnchorDtoDataPage::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Items.has_value())
 	{
@@ -598,6 +564,7 @@ utility::string_t AnchorDtoDataPage::ToJson() const
 		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -611,6 +578,7 @@ void AnchorDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("items"))
 	{
@@ -675,6 +643,7 @@ void AnchorDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<std::shared_ptr<AnchorDto>>& AnchorDtoDataPage::GetItems() const
 {
 	return m_Items.value();
@@ -684,12 +653,10 @@ bool AnchorDtoDataPage::HasItems() const
 {
 	return m_Items.has_value();
 }
-
 void AnchorDtoDataPage::SetItems(const std::vector<std::shared_ptr<AnchorDto>>& Value)
 {
 	m_Items = Value;
 }
-
 int32_t AnchorDtoDataPage::GetSkip() const
 {
 	return m_Skip.value();
@@ -699,12 +666,10 @@ bool AnchorDtoDataPage::HasSkip() const
 {
 	return m_Skip.has_value();
 }
-
 void AnchorDtoDataPage::SetSkip(int32_t Value)
 {
 	m_Skip = Value;
 }
-
 int32_t AnchorDtoDataPage::GetLimit() const
 {
 	return m_Limit.value();
@@ -714,12 +679,10 @@ bool AnchorDtoDataPage::HasLimit() const
 {
 	return m_Limit.has_value();
 }
-
 void AnchorDtoDataPage::SetLimit(int32_t Value)
 {
 	m_Limit = Value;
 }
-
 int32_t AnchorDtoDataPage::GetItemCount() const
 {
 	return m_ItemCount.value();
@@ -729,12 +692,10 @@ bool AnchorDtoDataPage::HasItemCount() const
 {
 	return m_ItemCount.has_value();
 }
-
 void AnchorDtoDataPage::SetItemCount(int32_t Value)
 {
 	m_ItemCount = Value;
 }
-
 int64_t AnchorDtoDataPage::GetItemTotalCount() const
 {
 	return m_ItemTotalCount.value();
@@ -744,7 +705,6 @@ bool AnchorDtoDataPage::HasItemTotalCount() const
 {
 	return m_ItemTotalCount.has_value();
 }
-
 void AnchorDtoDataPage::SetItemTotalCount(int64_t Value)
 {
 	m_ItemTotalCount = Value;
@@ -753,7 +713,6 @@ void AnchorDtoDataPage::SetItemTotalCount(int64_t Value)
 AnchorPosition::AnchorPosition()
 {
 }
-
 AnchorPosition::~AnchorPosition()
 {
 }
@@ -761,6 +720,7 @@ AnchorPosition::~AnchorPosition()
 utility::string_t AnchorPosition::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_X.has_value())
 	{
@@ -780,6 +740,7 @@ utility::string_t AnchorPosition::ToJson() const
 		JsonDoc.AddMember("z", ZValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -793,6 +754,7 @@ void AnchorPosition::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("x"))
 	{
@@ -837,6 +799,7 @@ void AnchorPosition::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 double AnchorPosition::GetX() const
 {
 	return m_X.value();
@@ -846,12 +809,10 @@ bool AnchorPosition::HasX() const
 {
 	return m_X.has_value();
 }
-
 void AnchorPosition::SetX(double Value)
 {
 	m_X = Value;
 }
-
 double AnchorPosition::GetY() const
 {
 	return m_Y.value();
@@ -861,12 +822,10 @@ bool AnchorPosition::HasY() const
 {
 	return m_Y.has_value();
 }
-
 void AnchorPosition::SetY(double Value)
 {
 	m_Y = Value;
 }
-
 double AnchorPosition::GetZ() const
 {
 	return m_Z.value();
@@ -876,7 +835,6 @@ bool AnchorPosition::HasZ() const
 {
 	return m_Z.has_value();
 }
-
 void AnchorPosition::SetZ(double Value)
 {
 	m_Z = Value;
@@ -885,7 +843,6 @@ void AnchorPosition::SetZ(double Value)
 AnchorResolutionDto::AnchorResolutionDto()
 {
 }
-
 AnchorResolutionDto::~AnchorResolutionDto()
 {
 }
@@ -893,6 +850,7 @@ AnchorResolutionDto::~AnchorResolutionDto()
 utility::string_t AnchorResolutionDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -930,6 +888,7 @@ utility::string_t AnchorResolutionDto::ToJson() const
 		JsonDoc.AddMember("tags", TagsValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -943,6 +902,7 @@ void AnchorResolutionDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -1013,6 +973,7 @@ void AnchorResolutionDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t AnchorResolutionDto::GetId() const
 {
 	return m_Id.value();
@@ -1022,12 +983,6 @@ bool AnchorResolutionDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void AnchorResolutionDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t AnchorResolutionDto::GetAnchorId() const
 {
 	return m_AnchorId.value();
@@ -1037,12 +992,10 @@ bool AnchorResolutionDto::HasAnchorId() const
 {
 	return m_AnchorId.has_value();
 }
-
 void AnchorResolutionDto::SetAnchorId(const utility::string_t& Value)
 {
 	m_AnchorId = Value;
 }
-
 bool AnchorResolutionDto::GetSuccessfullyResolved() const
 {
 	return m_SuccessfullyResolved.value();
@@ -1052,12 +1005,10 @@ bool AnchorResolutionDto::HasSuccessfullyResolved() const
 {
 	return m_SuccessfullyResolved.has_value();
 }
-
 void AnchorResolutionDto::SetSuccessfullyResolved(const bool& Value)
 {
 	m_SuccessfullyResolved = Value;
 }
-
 int32_t AnchorResolutionDto::GetResolveAttempted() const
 {
 	return m_ResolveAttempted.value();
@@ -1067,12 +1018,10 @@ bool AnchorResolutionDto::HasResolveAttempted() const
 {
 	return m_ResolveAttempted.has_value();
 }
-
 void AnchorResolutionDto::SetResolveAttempted(int32_t Value)
 {
 	m_ResolveAttempted = Value;
 }
-
 double AnchorResolutionDto::GetResolveTime() const
 {
 	return m_ResolveTime.value();
@@ -1082,12 +1031,10 @@ bool AnchorResolutionDto::HasResolveTime() const
 {
 	return m_ResolveTime.has_value();
 }
-
 void AnchorResolutionDto::SetResolveTime(double Value)
 {
 	m_ResolveTime = Value;
 }
-
 const std::vector<utility::string_t>& AnchorResolutionDto::GetTags() const
 {
 	return m_Tags.value();
@@ -1097,7 +1044,6 @@ bool AnchorResolutionDto::HasTags() const
 {
 	return m_Tags.has_value();
 }
-
 void AnchorResolutionDto::SetTags(const std::vector<utility::string_t>& Value)
 {
 	m_Tags = Value;
@@ -1106,7 +1052,6 @@ void AnchorResolutionDto::SetTags(const std::vector<utility::string_t>& Value)
 AnchorResolutionDtoDataPage::AnchorResolutionDtoDataPage()
 {
 }
-
 AnchorResolutionDtoDataPage::~AnchorResolutionDtoDataPage()
 {
 }
@@ -1114,6 +1059,7 @@ AnchorResolutionDtoDataPage::~AnchorResolutionDtoDataPage()
 utility::string_t AnchorResolutionDtoDataPage::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Items.has_value())
 	{
@@ -1145,6 +1091,7 @@ utility::string_t AnchorResolutionDtoDataPage::ToJson() const
 		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -1158,6 +1105,7 @@ void AnchorResolutionDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("items"))
 	{
@@ -1222,6 +1170,7 @@ void AnchorResolutionDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<std::shared_ptr<AnchorResolutionDto>>& AnchorResolutionDtoDataPage::GetItems() const
 {
 	return m_Items.value();
@@ -1231,12 +1180,10 @@ bool AnchorResolutionDtoDataPage::HasItems() const
 {
 	return m_Items.has_value();
 }
-
 void AnchorResolutionDtoDataPage::SetItems(const std::vector<std::shared_ptr<AnchorResolutionDto>>& Value)
 {
 	m_Items = Value;
 }
-
 int32_t AnchorResolutionDtoDataPage::GetSkip() const
 {
 	return m_Skip.value();
@@ -1246,12 +1193,10 @@ bool AnchorResolutionDtoDataPage::HasSkip() const
 {
 	return m_Skip.has_value();
 }
-
 void AnchorResolutionDtoDataPage::SetSkip(int32_t Value)
 {
 	m_Skip = Value;
 }
-
 int32_t AnchorResolutionDtoDataPage::GetLimit() const
 {
 	return m_Limit.value();
@@ -1261,12 +1206,10 @@ bool AnchorResolutionDtoDataPage::HasLimit() const
 {
 	return m_Limit.has_value();
 }
-
 void AnchorResolutionDtoDataPage::SetLimit(int32_t Value)
 {
 	m_Limit = Value;
 }
-
 int32_t AnchorResolutionDtoDataPage::GetItemCount() const
 {
 	return m_ItemCount.value();
@@ -1276,12 +1219,10 @@ bool AnchorResolutionDtoDataPage::HasItemCount() const
 {
 	return m_ItemCount.has_value();
 }
-
 void AnchorResolutionDtoDataPage::SetItemCount(int32_t Value)
 {
 	m_ItemCount = Value;
 }
-
 int64_t AnchorResolutionDtoDataPage::GetItemTotalCount() const
 {
 	return m_ItemTotalCount.value();
@@ -1291,7 +1232,6 @@ bool AnchorResolutionDtoDataPage::HasItemTotalCount() const
 {
 	return m_ItemTotalCount.has_value();
 }
-
 void AnchorResolutionDtoDataPage::SetItemTotalCount(int64_t Value)
 {
 	m_ItemTotalCount = Value;
@@ -1300,7 +1240,6 @@ void AnchorResolutionDtoDataPage::SetItemTotalCount(int64_t Value)
 AnchorRotation::AnchorRotation()
 {
 }
-
 AnchorRotation::~AnchorRotation()
 {
 }
@@ -1308,6 +1247,7 @@ AnchorRotation::~AnchorRotation()
 utility::string_t AnchorRotation::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_X.has_value())
 	{
@@ -1333,6 +1273,7 @@ utility::string_t AnchorRotation::ToJson() const
 		JsonDoc.AddMember("w", WValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -1346,6 +1287,7 @@ void AnchorRotation::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("x"))
 	{
@@ -1404,6 +1346,7 @@ void AnchorRotation::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 double AnchorRotation::GetX() const
 {
 	return m_X.value();
@@ -1413,12 +1356,10 @@ bool AnchorRotation::HasX() const
 {
 	return m_X.has_value();
 }
-
 void AnchorRotation::SetX(double Value)
 {
 	m_X = Value;
 }
-
 double AnchorRotation::GetY() const
 {
 	return m_Y.value();
@@ -1428,12 +1369,10 @@ bool AnchorRotation::HasY() const
 {
 	return m_Y.has_value();
 }
-
 void AnchorRotation::SetY(double Value)
 {
 	m_Y = Value;
 }
-
 double AnchorRotation::GetZ() const
 {
 	return m_Z.value();
@@ -1443,12 +1382,10 @@ bool AnchorRotation::HasZ() const
 {
 	return m_Z.has_value();
 }
-
 void AnchorRotation::SetZ(double Value)
 {
 	m_Z = Value;
 }
-
 double AnchorRotation::GetW() const
 {
 	return m_W.value();
@@ -1458,7 +1395,6 @@ bool AnchorRotation::HasW() const
 {
 	return m_W.has_value();
 }
-
 void AnchorRotation::SetW(double Value)
 {
 	m_W = Value;
@@ -1467,7 +1403,6 @@ void AnchorRotation::SetW(double Value)
 AnchorStatsDto::AnchorStatsDto()
 {
 }
-
 AnchorStatsDto::~AnchorStatsDto()
 {
 }
@@ -1475,6 +1410,7 @@ AnchorStatsDto::~AnchorStatsDto()
 utility::string_t AnchorStatsDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_AnchorId.has_value())
 	{
@@ -1500,6 +1436,7 @@ utility::string_t AnchorStatsDto::ToJson() const
 		JsonDoc.AddMember("averageResolveAttempted", AverageResolveAttemptedValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -1513,6 +1450,7 @@ void AnchorStatsDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("anchorId"))
 	{
@@ -1555,6 +1493,7 @@ void AnchorStatsDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t AnchorStatsDto::GetAnchorId() const
 {
 	return m_AnchorId.value();
@@ -1564,12 +1503,10 @@ bool AnchorStatsDto::HasAnchorId() const
 {
 	return m_AnchorId.has_value();
 }
-
 void AnchorStatsDto::SetAnchorId(const utility::string_t& Value)
 {
 	m_AnchorId = Value;
 }
-
 double AnchorStatsDto::GetAverageResolveTime() const
 {
 	return m_AverageResolveTime.value();
@@ -1579,12 +1516,6 @@ bool AnchorStatsDto::HasAverageResolveTime() const
 {
 	return m_AverageResolveTime.has_value();
 }
-
-void AnchorStatsDto::SetAverageResolveTime(double Value)
-{
-	m_AverageResolveTime = Value;
-}
-
 double AnchorStatsDto::GetAverageSuccessfullyResolved() const
 {
 	return m_AverageSuccessfullyResolved.value();
@@ -1594,12 +1525,6 @@ bool AnchorStatsDto::HasAverageSuccessfullyResolved() const
 {
 	return m_AverageSuccessfullyResolved.has_value();
 }
-
-void AnchorStatsDto::SetAverageSuccessfullyResolved(double Value)
-{
-	m_AverageSuccessfullyResolved = Value;
-}
-
 double AnchorStatsDto::GetAverageResolveAttempted() const
 {
 	return m_AverageResolveAttempted.value();
@@ -1610,15 +1535,9 @@ bool AnchorStatsDto::HasAverageResolveAttempted() const
 	return m_AverageResolveAttempted.has_value();
 }
 
-void AnchorStatsDto::SetAverageResolveAttempted(double Value)
-{
-	m_AverageResolveAttempted = Value;
-}
-
 CalendarItemDto::CalendarItemDto()
 {
 }
-
 CalendarItemDto::~CalendarItemDto()
 {
 }
@@ -1626,6 +1545,7 @@ CalendarItemDto::~CalendarItemDto()
 utility::string_t CalendarItemDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_EventStart.has_value())
 	{
@@ -1638,6 +1558,7 @@ utility::string_t CalendarItemDto::ToJson() const
 		rapidjson::Value EventEndValue(TypeToJsonValue(m_EventEnd, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("eventEnd", EventEndValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -1652,6 +1573,7 @@ void CalendarItemDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("eventStart"))
 	{
@@ -1682,6 +1604,7 @@ void CalendarItemDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t CalendarItemDto::GetEventStart() const
 {
 	return m_EventStart.value();
@@ -1691,12 +1614,10 @@ bool CalendarItemDto::HasEventStart() const
 {
 	return m_EventStart.has_value();
 }
-
 void CalendarItemDto::SetEventStart(const utility::string_t& Value)
 {
 	m_EventStart = Value;
 }
-
 utility::string_t CalendarItemDto::GetEventEnd() const
 {
 	return m_EventEnd.value();
@@ -1706,7 +1627,6 @@ bool CalendarItemDto::HasEventEnd() const
 {
 	return m_EventEnd.has_value();
 }
-
 void CalendarItemDto::SetEventEnd(const utility::string_t& Value)
 {
 	m_EventEnd = Value;
@@ -1715,7 +1635,6 @@ void CalendarItemDto::SetEventEnd(const utility::string_t& Value)
 CalendarItemDtoArrayPartialUpdate::CalendarItemDtoArrayPartialUpdate()
 {
 }
-
 CalendarItemDtoArrayPartialUpdate::~CalendarItemDtoArrayPartialUpdate()
 {
 }
@@ -1724,11 +1643,13 @@ utility::string_t CalendarItemDtoArrayPartialUpdate::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
 
+
 	if (m_Value.has_value())
 	{
 		rapidjson::Value ValueValue(TypeToJsonValue(m_Value, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("value", ValueValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -1744,6 +1665,7 @@ void CalendarItemDtoArrayPartialUpdate::FromJson(const utility::string_t& Val)
 
 	JsonDoc.Parse(Val.c_str());
 
+
 	if (JsonDoc.HasMember("value"))
 	{
 		const rapidjson::Value& ValueValue = JsonDoc["value"];
@@ -1755,6 +1677,7 @@ void CalendarItemDtoArrayPartialUpdate::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<std::shared_ptr<CalendarItemDto>>& CalendarItemDtoArrayPartialUpdate::GetValue() const
 {
 	return m_Value.value();
@@ -1764,7 +1687,6 @@ bool CalendarItemDtoArrayPartialUpdate::HasValue() const
 {
 	return m_Value.has_value();
 }
-
 void CalendarItemDtoArrayPartialUpdate::SetValue(const std::vector<std::shared_ptr<CalendarItemDto>>& Value)
 {
 	m_Value = Value;
@@ -1773,7 +1695,6 @@ void CalendarItemDtoArrayPartialUpdate::SetValue(const std::vector<std::shared_p
 GeoCoord::GeoCoord()
 {
 }
-
 GeoCoord::~GeoCoord()
 {
 }
@@ -1781,6 +1702,7 @@ GeoCoord::~GeoCoord()
 utility::string_t GeoCoord::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Longitude.has_value())
 	{
@@ -1793,6 +1715,7 @@ utility::string_t GeoCoord::ToJson() const
 		rapidjson::Value LatitudeValue(TypeToJsonValue(m_Latitude, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("latitude", LatitudeValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -1807,6 +1730,7 @@ void GeoCoord::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("longitude"))
 	{
@@ -1837,6 +1761,7 @@ void GeoCoord::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 double GeoCoord::GetLongitude() const
 {
 	return m_Longitude.value();
@@ -1846,12 +1771,10 @@ bool GeoCoord::HasLongitude() const
 {
 	return m_Longitude.has_value();
 }
-
 void GeoCoord::SetLongitude(double Value)
 {
 	m_Longitude = Value;
 }
-
 double GeoCoord::GetLatitude() const
 {
 	return m_Latitude.value();
@@ -1861,7 +1784,6 @@ bool GeoCoord::HasLatitude() const
 {
 	return m_Latitude.has_value();
 }
-
 void GeoCoord::SetLatitude(double Value)
 {
 	m_Latitude = Value;
@@ -1870,7 +1792,6 @@ void GeoCoord::SetLatitude(double Value)
 GeoCoordArrayPartialUpdate::GeoCoordArrayPartialUpdate()
 {
 }
-
 GeoCoordArrayPartialUpdate::~GeoCoordArrayPartialUpdate()
 {
 }
@@ -1879,11 +1800,13 @@ utility::string_t GeoCoordArrayPartialUpdate::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
 
+
 	if (m_Value.has_value())
 	{
 		rapidjson::Value ValueValue(TypeToJsonValue(m_Value, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("value", ValueValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -1899,6 +1822,7 @@ void GeoCoordArrayPartialUpdate::FromJson(const utility::string_t& Val)
 
 	JsonDoc.Parse(Val.c_str());
 
+
 	if (JsonDoc.HasMember("value"))
 	{
 		const rapidjson::Value& ValueValue = JsonDoc["value"];
@@ -1910,6 +1834,7 @@ void GeoCoordArrayPartialUpdate::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<std::shared_ptr<GeoCoord>>& GeoCoordArrayPartialUpdate::GetValue() const
 {
 	return m_Value.value();
@@ -1919,7 +1844,6 @@ bool GeoCoordArrayPartialUpdate::HasValue() const
 {
 	return m_Value.has_value();
 }
-
 void GeoCoordArrayPartialUpdate::SetValue(const std::vector<std::shared_ptr<GeoCoord>>& Value)
 {
 	m_Value = Value;
@@ -1928,7 +1852,6 @@ void GeoCoordArrayPartialUpdate::SetValue(const std::vector<std::shared_ptr<GeoC
 GeoCoordPartialUpdate::GeoCoordPartialUpdate()
 {
 }
-
 GeoCoordPartialUpdate::~GeoCoordPartialUpdate()
 {
 }
@@ -1937,11 +1860,13 @@ utility::string_t GeoCoordPartialUpdate::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
 
+
 	if (m_Value.has_value())
 	{
 		rapidjson::Value ValueValue(TypeToJsonValue(m_Value, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("value", ValueValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -1956,6 +1881,7 @@ void GeoCoordPartialUpdate::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("value"))
 	{
@@ -1972,6 +1898,7 @@ void GeoCoordPartialUpdate::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 std::shared_ptr<GeoCoord> GeoCoordPartialUpdate::GetValue() const
 {
 	return m_Value.value();
@@ -1981,7 +1908,6 @@ bool GeoCoordPartialUpdate::HasValue() const
 {
 	return m_Value.has_value();
 }
-
 void GeoCoordPartialUpdate::SetValue(const std::shared_ptr<GeoCoord>& Value)
 {
 	m_Value = Value;
@@ -1990,7 +1916,6 @@ void GeoCoordPartialUpdate::SetValue(const std::shared_ptr<GeoCoord>& Value)
 Icon::Icon()
 {
 }
-
 Icon::~Icon()
 {
 }
@@ -1999,11 +1924,13 @@ utility::string_t Icon::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
 
+
 	if (m_Href.has_value())
 	{
 		rapidjson::Value HrefValue(TypeToJsonValue(m_Href, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("href", HrefValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -2019,6 +1946,7 @@ void Icon::FromJson(const utility::string_t& Val)
 
 	JsonDoc.Parse(Val.c_str());
 
+
 	if (JsonDoc.HasMember("href"))
 	{
 		const rapidjson::Value& HrefValue = JsonDoc["href"];
@@ -2030,6 +1958,7 @@ void Icon::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t Icon::GetHref() const
 {
 	return m_Href.value();
@@ -2039,7 +1968,6 @@ bool Icon::HasHref() const
 {
 	return m_Href.has_value();
 }
-
 void Icon::SetHref(const utility::string_t& Value)
 {
 	m_Href = Value;
@@ -2048,7 +1976,6 @@ void Icon::SetHref(const utility::string_t& Value)
 IconStyle::IconStyle()
 {
 }
-
 IconStyle::~IconStyle()
 {
 }
@@ -2056,6 +1983,7 @@ IconStyle::~IconStyle()
 utility::string_t IconStyle::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -2087,6 +2015,7 @@ utility::string_t IconStyle::ToJson() const
 		JsonDoc.AddMember("icon", IconValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -2100,6 +2029,7 @@ void IconStyle::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -2160,6 +2090,7 @@ void IconStyle::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t IconStyle::GetId() const
 {
 	return m_Id.value();
@@ -2169,12 +2100,10 @@ bool IconStyle::HasId() const
 {
 	return m_Id.has_value();
 }
-
 void IconStyle::SetId(const utility::string_t& Value)
 {
 	m_Id = Value;
 }
-
 utility::string_t IconStyle::GetColor() const
 {
 	return m_Color.value();
@@ -2184,12 +2113,10 @@ bool IconStyle::HasColor() const
 {
 	return m_Color.has_value();
 }
-
 void IconStyle::SetColor(const utility::string_t& Value)
 {
 	m_Color = Value;
 }
-
 utility::string_t IconStyle::GetColorMode() const
 {
 	return m_ColorMode.value();
@@ -2199,12 +2126,10 @@ bool IconStyle::HasColorMode() const
 {
 	return m_ColorMode.has_value();
 }
-
 void IconStyle::SetColorMode(const utility::string_t& Value)
 {
 	m_ColorMode = Value;
 }
-
 float IconStyle::GetScale() const
 {
 	return m_Scale.value();
@@ -2214,12 +2139,10 @@ bool IconStyle::HasScale() const
 {
 	return m_Scale.has_value();
 }
-
 void IconStyle::SetScale(float Value)
 {
 	m_Scale = Value;
 }
-
 std::shared_ptr<Icon> IconStyle::GetIcon() const
 {
 	return m_Icon.value();
@@ -2229,7 +2152,6 @@ bool IconStyle::HasIcon() const
 {
 	return m_Icon.has_value();
 }
-
 void IconStyle::SetIcon(const std::shared_ptr<Icon>& Value)
 {
 	m_Icon = Value;
@@ -2238,7 +2160,6 @@ void IconStyle::SetIcon(const std::shared_ptr<Icon>& Value)
 Kml::Kml()
 {
 }
-
 Kml::~Kml()
 {
 }
@@ -2247,11 +2168,13 @@ utility::string_t Kml::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
 
+
 	if (m_Document.has_value())
 	{
 		rapidjson::Value DocumentValue(TypeToJsonValue(m_Document, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("document", DocumentValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -2266,6 +2189,7 @@ void Kml::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("document"))
 	{
@@ -2282,6 +2206,7 @@ void Kml::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 std::shared_ptr<PositionKml> Kml::GetDocument() const
 {
 	return m_Document.value();
@@ -2291,7 +2216,6 @@ bool Kml::HasDocument() const
 {
 	return m_Document.has_value();
 }
-
 void Kml::SetDocument(const std::shared_ptr<PositionKml>& Value)
 {
 	m_Document = Value;
@@ -2300,7 +2224,6 @@ void Kml::SetDocument(const std::shared_ptr<PositionKml>& Value)
 LineString::LineString()
 {
 }
-
 LineString::~LineString()
 {
 }
@@ -2308,6 +2231,7 @@ LineString::~LineString()
 utility::string_t LineString::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Extrude.has_value())
 	{
@@ -2333,6 +2257,7 @@ utility::string_t LineString::ToJson() const
 		JsonDoc.AddMember("coordinates", CoordinatesValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -2346,6 +2271,7 @@ void LineString::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("extrude"))
 	{
@@ -2400,6 +2326,7 @@ void LineString::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 bool LineString::GetExtrude() const
 {
 	return m_Extrude.value();
@@ -2409,12 +2336,10 @@ bool LineString::HasExtrude() const
 {
 	return m_Extrude.has_value();
 }
-
 void LineString::SetExtrude(const bool& Value)
 {
 	m_Extrude = Value;
 }
-
 bool LineString::GetTessellate() const
 {
 	return m_Tessellate.value();
@@ -2424,12 +2349,10 @@ bool LineString::HasTessellate() const
 {
 	return m_Tessellate.has_value();
 }
-
 void LineString::SetTessellate(const bool& Value)
 {
 	m_Tessellate = Value;
 }
-
 std::shared_ptr<AltitudeMode> LineString::GetAltitudeMode() const
 {
 	return m_AltitudeMode.value();
@@ -2439,12 +2362,10 @@ bool LineString::HasAltitudeMode() const
 {
 	return m_AltitudeMode.has_value();
 }
-
 void LineString::SetAltitudeMode(const std::shared_ptr<AltitudeMode>& Value)
 {
 	m_AltitudeMode = Value;
 }
-
 utility::string_t LineString::GetCoordinates() const
 {
 	return m_Coordinates.value();
@@ -2454,7 +2375,6 @@ bool LineString::HasCoordinates() const
 {
 	return m_Coordinates.has_value();
 }
-
 void LineString::SetCoordinates(const utility::string_t& Value)
 {
 	m_Coordinates = Value;
@@ -2463,7 +2383,6 @@ void LineString::SetCoordinates(const utility::string_t& Value)
 LocalizedString::LocalizedString()
 {
 }
-
 LocalizedString::~LocalizedString()
 {
 }
@@ -2471,6 +2390,7 @@ LocalizedString::~LocalizedString()
 utility::string_t LocalizedString::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_LanguageCode.has_value())
 	{
@@ -2483,6 +2403,7 @@ utility::string_t LocalizedString::ToJson() const
 		rapidjson::Value ValueValue(TypeToJsonValue(m_Value, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("value", ValueValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -2497,6 +2418,7 @@ void LocalizedString::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("languageCode"))
 	{
@@ -2519,6 +2441,7 @@ void LocalizedString::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t LocalizedString::GetLanguageCode() const
 {
 	return m_LanguageCode.value();
@@ -2528,12 +2451,10 @@ bool LocalizedString::HasLanguageCode() const
 {
 	return m_LanguageCode.has_value();
 }
-
 void LocalizedString::SetLanguageCode(const utility::string_t& Value)
 {
 	m_LanguageCode = Value;
 }
-
 utility::string_t LocalizedString::GetValue() const
 {
 	return m_Value.value();
@@ -2543,7 +2464,6 @@ bool LocalizedString::HasValue() const
 {
 	return m_Value.has_value();
 }
-
 void LocalizedString::SetValue(const utility::string_t& Value)
 {
 	m_Value = Value;
@@ -2552,7 +2472,6 @@ void LocalizedString::SetValue(const utility::string_t& Value)
 LookAt::LookAt()
 {
 }
-
 LookAt::~LookAt()
 {
 }
@@ -2560,6 +2479,7 @@ LookAt::~LookAt()
 utility::string_t LookAt::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Longitude.has_value())
 	{
@@ -2597,6 +2517,7 @@ utility::string_t LookAt::ToJson() const
 		JsonDoc.AddMember("heading", HeadingValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -2610,6 +2531,7 @@ void LookAt::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("longitude"))
 	{
@@ -2696,6 +2618,7 @@ void LookAt::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 double LookAt::GetLongitude() const
 {
 	return m_Longitude.value();
@@ -2705,12 +2628,10 @@ bool LookAt::HasLongitude() const
 {
 	return m_Longitude.has_value();
 }
-
 void LookAt::SetLongitude(double Value)
 {
 	m_Longitude = Value;
 }
-
 double LookAt::GetLatitude() const
 {
 	return m_Latitude.value();
@@ -2720,12 +2641,10 @@ bool LookAt::HasLatitude() const
 {
 	return m_Latitude.has_value();
 }
-
 void LookAt::SetLatitude(double Value)
 {
 	m_Latitude = Value;
 }
-
 int32_t LookAt::GetAltitude() const
 {
 	return m_Altitude.value();
@@ -2735,12 +2654,10 @@ bool LookAt::HasAltitude() const
 {
 	return m_Altitude.has_value();
 }
-
 void LookAt::SetAltitude(int32_t Value)
 {
 	m_Altitude = Value;
 }
-
 double LookAt::GetRange() const
 {
 	return m_Range.value();
@@ -2750,12 +2667,10 @@ bool LookAt::HasRange() const
 {
 	return m_Range.has_value();
 }
-
 void LookAt::SetRange(double Value)
 {
 	m_Range = Value;
 }
-
 double LookAt::GetTilt() const
 {
 	return m_Tilt.value();
@@ -2765,12 +2680,10 @@ bool LookAt::HasTilt() const
 {
 	return m_Tilt.has_value();
 }
-
 void LookAt::SetTilt(double Value)
 {
 	m_Tilt = Value;
 }
-
 double LookAt::GetHeading() const
 {
 	return m_Heading.value();
@@ -2780,7 +2693,6 @@ bool LookAt::HasHeading() const
 {
 	return m_Heading.has_value();
 }
-
 void LookAt::SetHeading(double Value)
 {
 	m_Heading = Value;
@@ -2789,7 +2701,6 @@ void LookAt::SetHeading(double Value)
 MediaType::MediaType()
 {
 }
-
 MediaType::~MediaType()
 {
 }
@@ -2923,7 +2834,6 @@ void MediaType::SetValue(MediaType::eMediaType const InValue)
 Model::Model()
 {
 }
-
 Model::~Model()
 {
 }
@@ -2931,6 +2841,7 @@ Model::~Model()
 utility::string_t Model::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -2968,6 +2879,7 @@ utility::string_t Model::ToJson() const
 		JsonDoc.AddMember("link", LinkValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -2981,6 +2893,7 @@ void Model::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -3063,6 +2976,7 @@ void Model::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t Model::GetId() const
 {
 	return m_Id.value();
@@ -3072,12 +2986,10 @@ bool Model::HasId() const
 {
 	return m_Id.has_value();
 }
-
 void Model::SetId(const utility::string_t& Value)
 {
 	m_Id = Value;
 }
-
 std::shared_ptr<AltitudeMode> Model::GetAltitudeMode() const
 {
 	return m_AltitudeMode.value();
@@ -3087,12 +2999,10 @@ bool Model::HasAltitudeMode() const
 {
 	return m_AltitudeMode.has_value();
 }
-
 void Model::SetAltitudeMode(const std::shared_ptr<AltitudeMode>& Value)
 {
 	m_AltitudeMode = Value;
 }
-
 std::shared_ptr<ModelLocation> Model::GetLocation() const
 {
 	return m_Location.value();
@@ -3102,12 +3012,10 @@ bool Model::HasLocation() const
 {
 	return m_Location.has_value();
 }
-
 void Model::SetLocation(const std::shared_ptr<ModelLocation>& Value)
 {
 	m_Location = Value;
 }
-
 std::shared_ptr<ModelOrientation> Model::GetOrientation() const
 {
 	return m_Orientation.value();
@@ -3117,12 +3025,10 @@ bool Model::HasOrientation() const
 {
 	return m_Orientation.has_value();
 }
-
 void Model::SetOrientation(const std::shared_ptr<ModelOrientation>& Value)
 {
 	m_Orientation = Value;
 }
-
 std::shared_ptr<ModelScale> Model::GetScale() const
 {
 	return m_Scale.value();
@@ -3132,12 +3038,10 @@ bool Model::HasScale() const
 {
 	return m_Scale.has_value();
 }
-
 void Model::SetScale(const std::shared_ptr<ModelScale>& Value)
 {
 	m_Scale = Value;
 }
-
 std::shared_ptr<ModelLink> Model::GetLink() const
 {
 	return m_Link.value();
@@ -3147,7 +3051,6 @@ bool Model::HasLink() const
 {
 	return m_Link.has_value();
 }
-
 void Model::SetLink(const std::shared_ptr<ModelLink>& Value)
 {
 	m_Link = Value;
@@ -3156,7 +3059,6 @@ void Model::SetLink(const std::shared_ptr<ModelLink>& Value)
 ModelLink::ModelLink()
 {
 }
-
 ModelLink::~ModelLink()
 {
 }
@@ -3165,11 +3067,13 @@ utility::string_t ModelLink::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
 
+
 	if (m_Href.has_value())
 	{
 		rapidjson::Value HrefValue(TypeToJsonValue(m_Href, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("href", HrefValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -3185,6 +3089,7 @@ void ModelLink::FromJson(const utility::string_t& Val)
 
 	JsonDoc.Parse(Val.c_str());
 
+
 	if (JsonDoc.HasMember("href"))
 	{
 		const rapidjson::Value& HrefValue = JsonDoc["href"];
@@ -3196,6 +3101,7 @@ void ModelLink::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t ModelLink::GetHref() const
 {
 	return m_Href.value();
@@ -3205,7 +3111,6 @@ bool ModelLink::HasHref() const
 {
 	return m_Href.has_value();
 }
-
 void ModelLink::SetHref(const utility::string_t& Value)
 {
 	m_Href = Value;
@@ -3214,7 +3119,6 @@ void ModelLink::SetHref(const utility::string_t& Value)
 ModelLocation::ModelLocation()
 {
 }
-
 ModelLocation::~ModelLocation()
 {
 }
@@ -3222,6 +3126,7 @@ ModelLocation::~ModelLocation()
 utility::string_t ModelLocation::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Longitude.has_value())
 	{
@@ -3241,6 +3146,7 @@ utility::string_t ModelLocation::ToJson() const
 		JsonDoc.AddMember("altitude", AltitudeValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -3254,6 +3160,7 @@ void ModelLocation::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("longitude"))
 	{
@@ -3298,6 +3205,7 @@ void ModelLocation::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 double ModelLocation::GetLongitude() const
 {
 	return m_Longitude.value();
@@ -3307,12 +3215,10 @@ bool ModelLocation::HasLongitude() const
 {
 	return m_Longitude.has_value();
 }
-
 void ModelLocation::SetLongitude(double Value)
 {
 	m_Longitude = Value;
 }
-
 double ModelLocation::GetLatitude() const
 {
 	return m_Latitude.value();
@@ -3322,12 +3228,10 @@ bool ModelLocation::HasLatitude() const
 {
 	return m_Latitude.has_value();
 }
-
 void ModelLocation::SetLatitude(double Value)
 {
 	m_Latitude = Value;
 }
-
 int32_t ModelLocation::GetAltitude() const
 {
 	return m_Altitude.value();
@@ -3337,7 +3241,6 @@ bool ModelLocation::HasAltitude() const
 {
 	return m_Altitude.has_value();
 }
-
 void ModelLocation::SetAltitude(int32_t Value)
 {
 	m_Altitude = Value;
@@ -3346,7 +3249,6 @@ void ModelLocation::SetAltitude(int32_t Value)
 ModelOrientation::ModelOrientation()
 {
 }
-
 ModelOrientation::~ModelOrientation()
 {
 }
@@ -3354,6 +3256,7 @@ ModelOrientation::~ModelOrientation()
 utility::string_t ModelOrientation::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Heading.has_value())
 	{
@@ -3373,6 +3276,7 @@ utility::string_t ModelOrientation::ToJson() const
 		JsonDoc.AddMember("roll", RollValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -3386,6 +3290,7 @@ void ModelOrientation::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("heading"))
 	{
@@ -3430,6 +3335,7 @@ void ModelOrientation::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 float ModelOrientation::GetHeading() const
 {
 	return m_Heading.value();
@@ -3439,12 +3345,10 @@ bool ModelOrientation::HasHeading() const
 {
 	return m_Heading.has_value();
 }
-
 void ModelOrientation::SetHeading(float Value)
 {
 	m_Heading = Value;
 }
-
 float ModelOrientation::GetTilt() const
 {
 	return m_Tilt.value();
@@ -3454,12 +3358,10 @@ bool ModelOrientation::HasTilt() const
 {
 	return m_Tilt.has_value();
 }
-
 void ModelOrientation::SetTilt(float Value)
 {
 	m_Tilt = Value;
 }
-
 int32_t ModelOrientation::GetRoll() const
 {
 	return m_Roll.value();
@@ -3469,7 +3371,6 @@ bool ModelOrientation::HasRoll() const
 {
 	return m_Roll.has_value();
 }
-
 void ModelOrientation::SetRoll(int32_t Value)
 {
 	m_Roll = Value;
@@ -3478,7 +3379,6 @@ void ModelOrientation::SetRoll(int32_t Value)
 ModelScale::ModelScale()
 {
 }
-
 ModelScale::~ModelScale()
 {
 }
@@ -3486,6 +3386,7 @@ ModelScale::~ModelScale()
 utility::string_t ModelScale::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_X.has_value())
 	{
@@ -3505,6 +3406,7 @@ utility::string_t ModelScale::ToJson() const
 		JsonDoc.AddMember("z", ZValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -3518,6 +3420,7 @@ void ModelScale::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("x"))
 	{
@@ -3562,6 +3465,7 @@ void ModelScale::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 int32_t ModelScale::GetX() const
 {
 	return m_X.value();
@@ -3571,12 +3475,10 @@ bool ModelScale::HasX() const
 {
 	return m_X.has_value();
 }
-
 void ModelScale::SetX(int32_t Value)
 {
 	m_X = Value;
 }
-
 int32_t ModelScale::GetY() const
 {
 	return m_Y.value();
@@ -3586,12 +3488,10 @@ bool ModelScale::HasY() const
 {
 	return m_Y.has_value();
 }
-
 void ModelScale::SetY(int32_t Value)
 {
 	m_Y = Value;
 }
-
 int32_t ModelScale::GetZ() const
 {
 	return m_Z.value();
@@ -3601,7 +3501,6 @@ bool ModelScale::HasZ() const
 {
 	return m_Z.has_value();
 }
-
 void ModelScale::SetZ(int32_t Value)
 {
 	m_Z = Value;
@@ -3610,7 +3509,6 @@ void ModelScale::SetZ(int32_t Value)
 PersonalPointOfInterestDto::PersonalPointOfInterestDto()
 {
 }
-
 PersonalPointOfInterestDto::~PersonalPointOfInterestDto()
 {
 }
@@ -3618,6 +3516,7 @@ PersonalPointOfInterestDto::~PersonalPointOfInterestDto()
 utility::string_t PersonalPointOfInterestDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_UserId.has_value())
 	{
@@ -3630,6 +3529,7 @@ utility::string_t PersonalPointOfInterestDto::ToJson() const
 		rapidjson::Value PoiIdValue(TypeToJsonValue(m_PoiId, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("poiId", PoiIdValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -3644,6 +3544,7 @@ void PersonalPointOfInterestDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("userId"))
 	{
@@ -3666,6 +3567,7 @@ void PersonalPointOfInterestDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t PersonalPointOfInterestDto::GetUserId() const
 {
 	return m_UserId.value();
@@ -3675,12 +3577,6 @@ bool PersonalPointOfInterestDto::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
-void PersonalPointOfInterestDto::SetUserId(const utility::string_t& Value)
-{
-	m_UserId = Value;
-}
-
 utility::string_t PersonalPointOfInterestDto::GetPoiId() const
 {
 	return m_PoiId.value();
@@ -3691,15 +3587,9 @@ bool PersonalPointOfInterestDto::HasPoiId() const
 	return m_PoiId.has_value();
 }
 
-void PersonalPointOfInterestDto::SetPoiId(const utility::string_t& Value)
-{
-	m_PoiId = Value;
-}
-
 Placemark::Placemark()
 {
 }
-
 Placemark::~Placemark()
 {
 }
@@ -3707,6 +3597,7 @@ Placemark::~Placemark()
 utility::string_t Placemark::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -3756,6 +3647,7 @@ utility::string_t Placemark::ToJson() const
 		JsonDoc.AddMember("lookAt", LookAtValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -3769,6 +3661,7 @@ void Placemark::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -3867,6 +3760,7 @@ void Placemark::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t Placemark::GetId() const
 {
 	return m_Id.value();
@@ -3876,12 +3770,10 @@ bool Placemark::HasId() const
 {
 	return m_Id.has_value();
 }
-
 void Placemark::SetId(const utility::string_t& Value)
 {
 	m_Id = Value;
 }
-
 utility::string_t Placemark::GetName() const
 {
 	return m_Name.value();
@@ -3891,12 +3783,10 @@ bool Placemark::HasName() const
 {
 	return m_Name.has_value();
 }
-
 void Placemark::SetName(const utility::string_t& Value)
 {
 	m_Name = Value;
 }
-
 utility::string_t Placemark::GetStyleUrl() const
 {
 	return m_StyleUrl.value();
@@ -3906,12 +3796,10 @@ bool Placemark::HasStyleUrl() const
 {
 	return m_StyleUrl.has_value();
 }
-
 void Placemark::SetStyleUrl(const utility::string_t& Value)
 {
 	m_StyleUrl = Value;
 }
-
 utility::string_t Placemark::GetDescription() const
 {
 	return m_Description.value();
@@ -3921,12 +3809,10 @@ bool Placemark::HasDescription() const
 {
 	return m_Description.has_value();
 }
-
 void Placemark::SetDescription(const utility::string_t& Value)
 {
 	m_Description = Value;
 }
-
 std::shared_ptr<LineString> Placemark::GetLineString() const
 {
 	return m_LineString.value();
@@ -3936,12 +3822,10 @@ bool Placemark::HasLineString() const
 {
 	return m_LineString.has_value();
 }
-
 void Placemark::SetLineString(const std::shared_ptr<LineString>& Value)
 {
 	m_LineString = Value;
 }
-
 std::shared_ptr<Point> Placemark::GetPoint() const
 {
 	return m_Point.value();
@@ -3951,12 +3835,10 @@ bool Placemark::HasPoint() const
 {
 	return m_Point.has_value();
 }
-
 void Placemark::SetPoint(const std::shared_ptr<Point>& Value)
 {
 	m_Point = Value;
 }
-
 std::shared_ptr<Model> Placemark::GetModel() const
 {
 	return m_Model.value();
@@ -3966,12 +3848,10 @@ bool Placemark::HasModel() const
 {
 	return m_Model.has_value();
 }
-
 void Placemark::SetModel(const std::shared_ptr<Model>& Value)
 {
 	m_Model = Value;
 }
-
 std::shared_ptr<LookAt> Placemark::GetLookAt() const
 {
 	return m_LookAt.value();
@@ -3981,7 +3861,6 @@ bool Placemark::HasLookAt() const
 {
 	return m_LookAt.has_value();
 }
-
 void Placemark::SetLookAt(const std::shared_ptr<LookAt>& Value)
 {
 	m_LookAt = Value;
@@ -3990,7 +3869,6 @@ void Placemark::SetLookAt(const std::shared_ptr<LookAt>& Value)
 PoiPartialUpdate::PoiPartialUpdate()
 {
 }
-
 PoiPartialUpdate::~PoiPartialUpdate()
 {
 }
@@ -3998,6 +3876,7 @@ PoiPartialUpdate::~PoiPartialUpdate()
 utility::string_t PoiPartialUpdate::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Location.has_value())
 	{
@@ -4017,6 +3896,7 @@ utility::string_t PoiPartialUpdate::ToJson() const
 		JsonDoc.AddMember("scheduledEvents", ScheduledEventsValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -4030,6 +3910,7 @@ void PoiPartialUpdate::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("location"))
 	{
@@ -4074,6 +3955,7 @@ void PoiPartialUpdate::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 std::shared_ptr<GeoCoordPartialUpdate> PoiPartialUpdate::GetLocation() const
 {
 	return m_Location.value();
@@ -4083,12 +3965,10 @@ bool PoiPartialUpdate::HasLocation() const
 {
 	return m_Location.has_value();
 }
-
 void PoiPartialUpdate::SetLocation(const std::shared_ptr<GeoCoordPartialUpdate>& Value)
 {
 	m_Location = Value;
 }
-
 std::shared_ptr<GeoCoordArrayPartialUpdate> PoiPartialUpdate::GetGeofence() const
 {
 	return m_Geofence.value();
@@ -4098,12 +3978,10 @@ bool PoiPartialUpdate::HasGeofence() const
 {
 	return m_Geofence.has_value();
 }
-
 void PoiPartialUpdate::SetGeofence(const std::shared_ptr<GeoCoordArrayPartialUpdate>& Value)
 {
 	m_Geofence = Value;
 }
-
 std::shared_ptr<CalendarItemDtoArrayPartialUpdate> PoiPartialUpdate::GetScheduledEvents() const
 {
 	return m_ScheduledEvents.value();
@@ -4113,7 +3991,6 @@ bool PoiPartialUpdate::HasScheduledEvents() const
 {
 	return m_ScheduledEvents.has_value();
 }
-
 void PoiPartialUpdate::SetScheduledEvents(const std::shared_ptr<CalendarItemDtoArrayPartialUpdate>& Value)
 {
 	m_ScheduledEvents = Value;
@@ -4122,7 +3999,6 @@ void PoiPartialUpdate::SetScheduledEvents(const std::shared_ptr<CalendarItemDtoA
 Point::Point()
 {
 }
-
 Point::~Point()
 {
 }
@@ -4130,6 +4006,7 @@ Point::~Point()
 utility::string_t Point::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Tessellate.has_value())
 	{
@@ -4149,6 +4026,7 @@ utility::string_t Point::ToJson() const
 		JsonDoc.AddMember("coordinates", CoordinatesValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -4162,6 +4040,7 @@ void Point::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("tessellate"))
 	{
@@ -4202,6 +4081,7 @@ void Point::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 bool Point::GetTessellate() const
 {
 	return m_Tessellate.value();
@@ -4211,12 +4091,10 @@ bool Point::HasTessellate() const
 {
 	return m_Tessellate.has_value();
 }
-
 void Point::SetTessellate(const bool& Value)
 {
 	m_Tessellate = Value;
 }
-
 std::shared_ptr<AltitudeMode> Point::GetAltitudeMode() const
 {
 	return m_AltitudeMode.value();
@@ -4226,12 +4104,10 @@ bool Point::HasAltitudeMode() const
 {
 	return m_AltitudeMode.has_value();
 }
-
 void Point::SetAltitudeMode(const std::shared_ptr<AltitudeMode>& Value)
 {
 	m_AltitudeMode = Value;
 }
-
 utility::string_t Point::GetCoordinates() const
 {
 	return m_Coordinates.value();
@@ -4241,7 +4117,6 @@ bool Point::HasCoordinates() const
 {
 	return m_Coordinates.has_value();
 }
-
 void Point::SetCoordinates(const utility::string_t& Value)
 {
 	m_Coordinates = Value;
@@ -4250,7 +4125,6 @@ void Point::SetCoordinates(const utility::string_t& Value)
 PointOfInterestDto::PointOfInterestDto()
 {
 }
-
 PointOfInterestDto::~PointOfInterestDto()
 {
 }
@@ -4258,6 +4132,7 @@ PointOfInterestDto::~PointOfInterestDto()
 utility::string_t PointOfInterestDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -4445,6 +4320,7 @@ utility::string_t PointOfInterestDto::ToJson() const
 		JsonDoc.AddMember("prototypeTransform", PrototypeTransformValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -4458,6 +4334,7 @@ void PointOfInterestDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -4794,6 +4671,7 @@ void PointOfInterestDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t PointOfInterestDto::GetId() const
 {
 	return m_Id.value();
@@ -4803,12 +4681,6 @@ bool PointOfInterestDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void PointOfInterestDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t PointOfInterestDto::GetCreatedBy() const
 {
 	return m_CreatedBy.value();
@@ -4818,12 +4690,6 @@ bool PointOfInterestDto::HasCreatedBy() const
 {
 	return m_CreatedBy.has_value();
 }
-
-void PointOfInterestDto::SetCreatedBy(const utility::string_t& Value)
-{
-	m_CreatedBy = Value;
-}
-
 utility::string_t PointOfInterestDto::GetUpdatedBy() const
 {
 	return m_UpdatedBy.value();
@@ -4833,12 +4699,6 @@ bool PointOfInterestDto::HasUpdatedBy() const
 {
 	return m_UpdatedBy.has_value();
 }
-
-void PointOfInterestDto::SetUpdatedBy(const utility::string_t& Value)
-{
-	m_UpdatedBy = Value;
-}
-
 utility::string_t PointOfInterestDto::GetCreatedAt() const
 {
 	return m_CreatedAt.value();
@@ -4848,12 +4708,6 @@ bool PointOfInterestDto::HasCreatedAt() const
 {
 	return m_CreatedAt.has_value();
 }
-
-void PointOfInterestDto::SetCreatedAt(const utility::string_t& Value)
-{
-	m_CreatedAt = Value;
-}
-
 utility::string_t PointOfInterestDto::GetUpdatedAt() const
 {
 	return m_UpdatedAt.value();
@@ -4863,12 +4717,6 @@ bool PointOfInterestDto::HasUpdatedAt() const
 {
 	return m_UpdatedAt.has_value();
 }
-
-void PointOfInterestDto::SetUpdatedAt(const utility::string_t& Value)
-{
-	m_UpdatedAt = Value;
-}
-
 const std::vector<std::shared_ptr<LocalizedString>>& PointOfInterestDto::GetTitle() const
 {
 	return m_Title.value();
@@ -4878,12 +4726,10 @@ bool PointOfInterestDto::HasTitle() const
 {
 	return m_Title.has_value();
 }
-
 void PointOfInterestDto::SetTitle(const std::vector<std::shared_ptr<LocalizedString>>& Value)
 {
 	m_Title = Value;
 }
-
 const std::vector<std::shared_ptr<LocalizedString>>& PointOfInterestDto::GetDescription() const
 {
 	return m_Description.value();
@@ -4893,12 +4739,10 @@ bool PointOfInterestDto::HasDescription() const
 {
 	return m_Description.has_value();
 }
-
 void PointOfInterestDto::SetDescription(const std::vector<std::shared_ptr<LocalizedString>>& Value)
 {
 	m_Description = Value;
 }
-
 const std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>& PointOfInterestDto::GetUiStrings() const
 {
 	return m_UiStrings.value();
@@ -4908,12 +4752,10 @@ bool PointOfInterestDto::HasUiStrings() const
 {
 	return m_UiStrings.has_value();
 }
-
 void PointOfInterestDto::SetUiStrings(const std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>& Value)
 {
 	m_UiStrings = Value;
 }
-
 utility::string_t PointOfInterestDto::GetType() const
 {
 	return m_Type.value();
@@ -4923,12 +4765,10 @@ bool PointOfInterestDto::HasType() const
 {
 	return m_Type.has_value();
 }
-
 void PointOfInterestDto::SetType(const utility::string_t& Value)
 {
 	m_Type = Value;
 }
-
 int32_t PointOfInterestDto::GetZoomLevel() const
 {
 	return m_ZoomLevel.value();
@@ -4938,12 +4778,10 @@ bool PointOfInterestDto::HasZoomLevel() const
 {
 	return m_ZoomLevel.has_value();
 }
-
 void PointOfInterestDto::SetZoomLevel(int32_t Value)
 {
 	m_ZoomLevel = Value;
 }
-
 const std::vector<utility::string_t>& PointOfInterestDto::GetTags() const
 {
 	return m_Tags.value();
@@ -4953,12 +4791,10 @@ bool PointOfInterestDto::HasTags() const
 {
 	return m_Tags.has_value();
 }
-
 void PointOfInterestDto::SetTags(const std::vector<utility::string_t>& Value)
 {
 	m_Tags = Value;
 }
-
 utility::string_t PointOfInterestDto::GetThumbnailUri() const
 {
 	return m_ThumbnailUri.value();
@@ -4968,12 +4804,10 @@ bool PointOfInterestDto::HasThumbnailUri() const
 {
 	return m_ThumbnailUri.has_value();
 }
-
 void PointOfInterestDto::SetThumbnailUri(const utility::string_t& Value)
 {
 	m_ThumbnailUri = Value;
 }
-
 utility::string_t PointOfInterestDto::GetThumbnailMimeType() const
 {
 	return m_ThumbnailMimeType.value();
@@ -4983,12 +4817,10 @@ bool PointOfInterestDto::HasThumbnailMimeType() const
 {
 	return m_ThumbnailMimeType.has_value();
 }
-
 void PointOfInterestDto::SetThumbnailMimeType(const utility::string_t& Value)
 {
 	m_ThumbnailMimeType = Value;
 }
-
 utility::string_t PointOfInterestDto::GetName() const
 {
 	return m_Name.value();
@@ -4998,12 +4830,10 @@ bool PointOfInterestDto::HasName() const
 {
 	return m_Name.has_value();
 }
-
 void PointOfInterestDto::SetName(const utility::string_t& Value)
 {
 	m_Name = Value;
 }
-
 utility::string_t PointOfInterestDto::GetOwner() const
 {
 	return m_Owner.value();
@@ -5013,12 +4843,10 @@ bool PointOfInterestDto::HasOwner() const
 {
 	return m_Owner.has_value();
 }
-
 void PointOfInterestDto::SetOwner(const utility::string_t& Value)
 {
 	m_Owner = Value;
 }
-
 std::shared_ptr<GeoCoord> PointOfInterestDto::GetLocation() const
 {
 	return m_Location.value();
@@ -5028,12 +4856,10 @@ bool PointOfInterestDto::HasLocation() const
 {
 	return m_Location.has_value();
 }
-
 void PointOfInterestDto::SetLocation(const std::shared_ptr<GeoCoord>& Value)
 {
 	m_Location = Value;
 }
-
 const std::vector<std::shared_ptr<CalendarItemDto>>& PointOfInterestDto::GetSchedule() const
 {
 	return m_Schedule.value();
@@ -5043,12 +4869,10 @@ bool PointOfInterestDto::HasSchedule() const
 {
 	return m_Schedule.has_value();
 }
-
 void PointOfInterestDto::SetSchedule(const std::vector<std::shared_ptr<CalendarItemDto>>& Value)
 {
 	m_Schedule = Value;
 }
-
 const std::vector<std::shared_ptr<CalendarItemDto>>& PointOfInterestDto::GetGeneratedSchedule() const
 {
 	return m_GeneratedSchedule.value();
@@ -5058,12 +4882,6 @@ bool PointOfInterestDto::HasGeneratedSchedule() const
 {
 	return m_GeneratedSchedule.has_value();
 }
-
-void PointOfInterestDto::SetGeneratedSchedule(const std::vector<std::shared_ptr<CalendarItemDto>>& Value)
-{
-	m_GeneratedSchedule = Value;
-}
-
 utility::string_t PointOfInterestDto::GetEventId() const
 {
 	return m_EventId.value();
@@ -5073,12 +4891,10 @@ bool PointOfInterestDto::HasEventId() const
 {
 	return m_EventId.has_value();
 }
-
 void PointOfInterestDto::SetEventId(const utility::string_t& Value)
 {
 	m_EventId = Value;
 }
-
 utility::string_t PointOfInterestDto::GetParentId() const
 {
 	return m_ParentId.value();
@@ -5088,12 +4904,10 @@ bool PointOfInterestDto::HasParentId() const
 {
 	return m_ParentId.has_value();
 }
-
 void PointOfInterestDto::SetParentId(const utility::string_t& Value)
 {
 	m_ParentId = Value;
 }
-
 utility::string_t PointOfInterestDto::GetGroupId() const
 {
 	return m_GroupId.value();
@@ -5103,12 +4917,10 @@ bool PointOfInterestDto::HasGroupId() const
 {
 	return m_GroupId.has_value();
 }
-
 void PointOfInterestDto::SetGroupId(const utility::string_t& Value)
 {
 	m_GroupId = Value;
 }
-
 bool PointOfInterestDto::GetHidden() const
 {
 	return m_Hidden.value();
@@ -5118,12 +4930,10 @@ bool PointOfInterestDto::HasHidden() const
 {
 	return m_Hidden.has_value();
 }
-
 void PointOfInterestDto::SetHidden(const bool& Value)
 {
 	m_Hidden = Value;
 }
-
 const std::vector<std::shared_ptr<GeoCoord>>& PointOfInterestDto::GetGeofence() const
 {
 	return m_Geofence.value();
@@ -5133,12 +4943,10 @@ bool PointOfInterestDto::HasGeofence() const
 {
 	return m_Geofence.has_value();
 }
-
 void PointOfInterestDto::SetGeofence(const std::vector<std::shared_ptr<GeoCoord>>& Value)
 {
 	m_Geofence = Value;
 }
-
 bool PointOfInterestDto::GetPrivate() const
 {
 	return m_Private.value();
@@ -5148,12 +4956,10 @@ bool PointOfInterestDto::HasPrivate() const
 {
 	return m_Private.has_value();
 }
-
 void PointOfInterestDto::SetPrivate(const bool& Value)
 {
 	m_Private = Value;
 }
-
 utility::string_t PointOfInterestDto::GetCmsId() const
 {
 	return m_CmsId.value();
@@ -5163,12 +4969,10 @@ bool PointOfInterestDto::HasCmsId() const
 {
 	return m_CmsId.has_value();
 }
-
 void PointOfInterestDto::SetCmsId(const utility::string_t& Value)
 {
 	m_CmsId = Value;
 }
-
 utility::string_t PointOfInterestDto::GetPrototypeId() const
 {
 	return m_PrototypeId.value();
@@ -5178,12 +4982,10 @@ bool PointOfInterestDto::HasPrototypeId() const
 {
 	return m_PrototypeId.has_value();
 }
-
 void PointOfInterestDto::SetPrototypeId(const utility::string_t& Value)
 {
 	m_PrototypeId = Value;
 }
-
 utility::string_t PointOfInterestDto::GetPrototypeName() const
 {
 	return m_PrototypeName.value();
@@ -5193,12 +4995,10 @@ bool PointOfInterestDto::HasPrototypeName() const
 {
 	return m_PrototypeName.has_value();
 }
-
 void PointOfInterestDto::SetPrototypeName(const utility::string_t& Value)
 {
 	m_PrototypeName = Value;
 }
-
 bool PointOfInterestDto::GetRequireAction() const
 {
 	return m_RequireAction.value();
@@ -5208,12 +5008,10 @@ bool PointOfInterestDto::HasRequireAction() const
 {
 	return m_RequireAction.has_value();
 }
-
 void PointOfInterestDto::SetRequireAction(const bool& Value)
 {
 	m_RequireAction = Value;
 }
-
 bool PointOfInterestDto::GetIsDebug() const
 {
 	return m_IsDebug.value();
@@ -5223,12 +5021,10 @@ bool PointOfInterestDto::HasIsDebug() const
 {
 	return m_IsDebug.has_value();
 }
-
 void PointOfInterestDto::SetIsDebug(const bool& Value)
 {
 	m_IsDebug = Value;
 }
-
 float PointOfInterestDto::GetOrientation() const
 {
 	return m_Orientation.value();
@@ -5238,12 +5034,10 @@ bool PointOfInterestDto::HasOrientation() const
 {
 	return m_Orientation.has_value();
 }
-
 void PointOfInterestDto::SetOrientation(float Value)
 {
 	m_Orientation = Value;
 }
-
 std::shared_ptr<Transform> PointOfInterestDto::GetPrototypeTransform() const
 {
 	return m_PrototypeTransform.value();
@@ -5253,7 +5047,6 @@ bool PointOfInterestDto::HasPrototypeTransform() const
 {
 	return m_PrototypeTransform.has_value();
 }
-
 void PointOfInterestDto::SetPrototypeTransform(const std::shared_ptr<Transform>& Value)
 {
 	m_PrototypeTransform = Value;
@@ -5262,7 +5055,6 @@ void PointOfInterestDto::SetPrototypeTransform(const std::shared_ptr<Transform>&
 PointOfInterestDtoDataPage::PointOfInterestDtoDataPage()
 {
 }
-
 PointOfInterestDtoDataPage::~PointOfInterestDtoDataPage()
 {
 }
@@ -5270,6 +5062,7 @@ PointOfInterestDtoDataPage::~PointOfInterestDtoDataPage()
 utility::string_t PointOfInterestDtoDataPage::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Items.has_value())
 	{
@@ -5301,6 +5094,7 @@ utility::string_t PointOfInterestDtoDataPage::ToJson() const
 		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -5314,6 +5108,7 @@ void PointOfInterestDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("items"))
 	{
@@ -5378,6 +5173,7 @@ void PointOfInterestDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<std::shared_ptr<PointOfInterestDto>>& PointOfInterestDtoDataPage::GetItems() const
 {
 	return m_Items.value();
@@ -5387,12 +5183,10 @@ bool PointOfInterestDtoDataPage::HasItems() const
 {
 	return m_Items.has_value();
 }
-
 void PointOfInterestDtoDataPage::SetItems(const std::vector<std::shared_ptr<PointOfInterestDto>>& Value)
 {
 	m_Items = Value;
 }
-
 int32_t PointOfInterestDtoDataPage::GetSkip() const
 {
 	return m_Skip.value();
@@ -5402,12 +5196,10 @@ bool PointOfInterestDtoDataPage::HasSkip() const
 {
 	return m_Skip.has_value();
 }
-
 void PointOfInterestDtoDataPage::SetSkip(int32_t Value)
 {
 	m_Skip = Value;
 }
-
 int32_t PointOfInterestDtoDataPage::GetLimit() const
 {
 	return m_Limit.value();
@@ -5417,12 +5209,10 @@ bool PointOfInterestDtoDataPage::HasLimit() const
 {
 	return m_Limit.has_value();
 }
-
 void PointOfInterestDtoDataPage::SetLimit(int32_t Value)
 {
 	m_Limit = Value;
 }
-
 int32_t PointOfInterestDtoDataPage::GetItemCount() const
 {
 	return m_ItemCount.value();
@@ -5432,12 +5222,10 @@ bool PointOfInterestDtoDataPage::HasItemCount() const
 {
 	return m_ItemCount.has_value();
 }
-
 void PointOfInterestDtoDataPage::SetItemCount(int32_t Value)
 {
 	m_ItemCount = Value;
 }
-
 int64_t PointOfInterestDtoDataPage::GetItemTotalCount() const
 {
 	return m_ItemTotalCount.value();
@@ -5447,7 +5235,6 @@ bool PointOfInterestDtoDataPage::HasItemTotalCount() const
 {
 	return m_ItemTotalCount.has_value();
 }
-
 void PointOfInterestDtoDataPage::SetItemTotalCount(int64_t Value)
 {
 	m_ItemTotalCount = Value;
@@ -5456,7 +5243,6 @@ void PointOfInterestDtoDataPage::SetItemTotalCount(int64_t Value)
 PointOfInterestLiteDto::PointOfInterestLiteDto()
 {
 }
-
 PointOfInterestLiteDto::~PointOfInterestLiteDto()
 {
 }
@@ -5464,6 +5250,7 @@ PointOfInterestLiteDto::~PointOfInterestLiteDto()
 utility::string_t PointOfInterestLiteDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -5555,6 +5342,7 @@ utility::string_t PointOfInterestLiteDto::ToJson() const
 		JsonDoc.AddMember("orientation", OrientationValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -5568,6 +5356,7 @@ void PointOfInterestLiteDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -5736,6 +5525,7 @@ void PointOfInterestLiteDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t PointOfInterestLiteDto::GetId() const
 {
 	return m_Id.value();
@@ -5745,12 +5535,6 @@ bool PointOfInterestLiteDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void PointOfInterestLiteDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t PointOfInterestLiteDto::GetName() const
 {
 	return m_Name.value();
@@ -5760,12 +5544,10 @@ bool PointOfInterestLiteDto::HasName() const
 {
 	return m_Name.has_value();
 }
-
 void PointOfInterestLiteDto::SetName(const utility::string_t& Value)
 {
 	m_Name = Value;
 }
-
 const std::vector<std::shared_ptr<LocalizedString>>& PointOfInterestLiteDto::GetTitle() const
 {
 	return m_Title.value();
@@ -5775,12 +5557,10 @@ bool PointOfInterestLiteDto::HasTitle() const
 {
 	return m_Title.has_value();
 }
-
 void PointOfInterestLiteDto::SetTitle(const std::vector<std::shared_ptr<LocalizedString>>& Value)
 {
 	m_Title = Value;
 }
-
 const std::vector<std::shared_ptr<LocalizedString>>& PointOfInterestLiteDto::GetDescription() const
 {
 	return m_Description.value();
@@ -5790,12 +5570,10 @@ bool PointOfInterestLiteDto::HasDescription() const
 {
 	return m_Description.has_value();
 }
-
 void PointOfInterestLiteDto::SetDescription(const std::vector<std::shared_ptr<LocalizedString>>& Value)
 {
 	m_Description = Value;
 }
-
 const std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>& PointOfInterestLiteDto::GetUiStrings() const
 {
 	return m_UiStrings.value();
@@ -5805,12 +5583,10 @@ bool PointOfInterestLiteDto::HasUiStrings() const
 {
 	return m_UiStrings.has_value();
 }
-
 void PointOfInterestLiteDto::SetUiStrings(const std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>& Value)
 {
 	m_UiStrings = Value;
 }
-
 utility::string_t PointOfInterestLiteDto::GetType() const
 {
 	return m_Type.value();
@@ -5820,12 +5596,10 @@ bool PointOfInterestLiteDto::HasType() const
 {
 	return m_Type.has_value();
 }
-
 void PointOfInterestLiteDto::SetType(const utility::string_t& Value)
 {
 	m_Type = Value;
 }
-
 const std::vector<utility::string_t>& PointOfInterestLiteDto::GetTags() const
 {
 	return m_Tags.value();
@@ -5835,12 +5609,10 @@ bool PointOfInterestLiteDto::HasTags() const
 {
 	return m_Tags.has_value();
 }
-
 void PointOfInterestLiteDto::SetTags(const std::vector<utility::string_t>& Value)
 {
 	m_Tags = Value;
 }
-
 utility::string_t PointOfInterestLiteDto::GetThumbnailUri() const
 {
 	return m_ThumbnailUri.value();
@@ -5850,12 +5622,10 @@ bool PointOfInterestLiteDto::HasThumbnailUri() const
 {
 	return m_ThumbnailUri.has_value();
 }
-
 void PointOfInterestLiteDto::SetThumbnailUri(const utility::string_t& Value)
 {
 	m_ThumbnailUri = Value;
 }
-
 utility::string_t PointOfInterestLiteDto::GetThumbnailMimeType() const
 {
 	return m_ThumbnailMimeType.value();
@@ -5865,12 +5635,10 @@ bool PointOfInterestLiteDto::HasThumbnailMimeType() const
 {
 	return m_ThumbnailMimeType.has_value();
 }
-
 void PointOfInterestLiteDto::SetThumbnailMimeType(const utility::string_t& Value)
 {
 	m_ThumbnailMimeType = Value;
 }
-
 std::shared_ptr<GeoCoord> PointOfInterestLiteDto::GetLocation() const
 {
 	return m_Location.value();
@@ -5880,12 +5648,10 @@ bool PointOfInterestLiteDto::HasLocation() const
 {
 	return m_Location.has_value();
 }
-
 void PointOfInterestLiteDto::SetLocation(const std::shared_ptr<GeoCoord>& Value)
 {
 	m_Location = Value;
 }
-
 bool PointOfInterestLiteDto::GetHidden() const
 {
 	return m_Hidden.value();
@@ -5895,12 +5661,10 @@ bool PointOfInterestLiteDto::HasHidden() const
 {
 	return m_Hidden.has_value();
 }
-
 void PointOfInterestLiteDto::SetHidden(const bool& Value)
 {
 	m_Hidden = Value;
 }
-
 const std::vector<std::shared_ptr<GeoCoord>>& PointOfInterestLiteDto::GetGeofence() const
 {
 	return m_Geofence.value();
@@ -5910,12 +5674,10 @@ bool PointOfInterestLiteDto::HasGeofence() const
 {
 	return m_Geofence.has_value();
 }
-
 void PointOfInterestLiteDto::SetGeofence(const std::vector<std::shared_ptr<GeoCoord>>& Value)
 {
 	m_Geofence = Value;
 }
-
 utility::string_t PointOfInterestLiteDto::GetPrototypeName() const
 {
 	return m_PrototypeName.value();
@@ -5925,12 +5687,10 @@ bool PointOfInterestLiteDto::HasPrototypeName() const
 {
 	return m_PrototypeName.has_value();
 }
-
 void PointOfInterestLiteDto::SetPrototypeName(const utility::string_t& Value)
 {
 	m_PrototypeName = Value;
 }
-
 utility::string_t PointOfInterestLiteDto::GetPrototypeId() const
 {
 	return m_PrototypeId.value();
@@ -5940,12 +5700,10 @@ bool PointOfInterestLiteDto::HasPrototypeId() const
 {
 	return m_PrototypeId.has_value();
 }
-
 void PointOfInterestLiteDto::SetPrototypeId(const utility::string_t& Value)
 {
 	m_PrototypeId = Value;
 }
-
 float PointOfInterestLiteDto::GetOrientation() const
 {
 	return m_Orientation.value();
@@ -5955,7 +5713,6 @@ bool PointOfInterestLiteDto::HasOrientation() const
 {
 	return m_Orientation.has_value();
 }
-
 void PointOfInterestLiteDto::SetOrientation(float Value)
 {
 	m_Orientation = Value;
@@ -5964,7 +5721,6 @@ void PointOfInterestLiteDto::SetOrientation(float Value)
 PointOfInterestLiteDtoDataPage::PointOfInterestLiteDtoDataPage()
 {
 }
-
 PointOfInterestLiteDtoDataPage::~PointOfInterestLiteDtoDataPage()
 {
 }
@@ -5972,6 +5728,7 @@ PointOfInterestLiteDtoDataPage::~PointOfInterestLiteDtoDataPage()
 utility::string_t PointOfInterestLiteDtoDataPage::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Items.has_value())
 	{
@@ -6003,6 +5760,7 @@ utility::string_t PointOfInterestLiteDtoDataPage::ToJson() const
 		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -6016,6 +5774,7 @@ void PointOfInterestLiteDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("items"))
 	{
@@ -6080,6 +5839,7 @@ void PointOfInterestLiteDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<std::shared_ptr<PointOfInterestLiteDto>>& PointOfInterestLiteDtoDataPage::GetItems() const
 {
 	return m_Items.value();
@@ -6089,12 +5849,10 @@ bool PointOfInterestLiteDtoDataPage::HasItems() const
 {
 	return m_Items.has_value();
 }
-
 void PointOfInterestLiteDtoDataPage::SetItems(const std::vector<std::shared_ptr<PointOfInterestLiteDto>>& Value)
 {
 	m_Items = Value;
 }
-
 int32_t PointOfInterestLiteDtoDataPage::GetSkip() const
 {
 	return m_Skip.value();
@@ -6104,12 +5862,10 @@ bool PointOfInterestLiteDtoDataPage::HasSkip() const
 {
 	return m_Skip.has_value();
 }
-
 void PointOfInterestLiteDtoDataPage::SetSkip(int32_t Value)
 {
 	m_Skip = Value;
 }
-
 int32_t PointOfInterestLiteDtoDataPage::GetLimit() const
 {
 	return m_Limit.value();
@@ -6119,12 +5875,10 @@ bool PointOfInterestLiteDtoDataPage::HasLimit() const
 {
 	return m_Limit.has_value();
 }
-
 void PointOfInterestLiteDtoDataPage::SetLimit(int32_t Value)
 {
 	m_Limit = Value;
 }
-
 int32_t PointOfInterestLiteDtoDataPage::GetItemCount() const
 {
 	return m_ItemCount.value();
@@ -6134,12 +5888,10 @@ bool PointOfInterestLiteDtoDataPage::HasItemCount() const
 {
 	return m_ItemCount.has_value();
 }
-
 void PointOfInterestLiteDtoDataPage::SetItemCount(int32_t Value)
 {
 	m_ItemCount = Value;
 }
-
 int64_t PointOfInterestLiteDtoDataPage::GetItemTotalCount() const
 {
 	return m_ItemTotalCount.value();
@@ -6149,7 +5901,6 @@ bool PointOfInterestLiteDtoDataPage::HasItemTotalCount() const
 {
 	return m_ItemTotalCount.has_value();
 }
-
 void PointOfInterestLiteDtoDataPage::SetItemTotalCount(int64_t Value)
 {
 	m_ItemTotalCount = Value;
@@ -6158,7 +5909,6 @@ void PointOfInterestLiteDtoDataPage::SetItemTotalCount(int64_t Value)
 PositionDto::PositionDto()
 {
 }
-
 PositionDto::~PositionDto()
 {
 }
@@ -6166,6 +5916,7 @@ PositionDto::~PositionDto()
 utility::string_t PositionDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -6215,6 +5966,7 @@ utility::string_t PositionDto::ToJson() const
 		JsonDoc.AddMember("spectator", SpectatorValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -6228,6 +5980,7 @@ void PositionDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -6322,6 +6075,7 @@ void PositionDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t PositionDto::GetId() const
 {
 	return m_Id.value();
@@ -6331,12 +6085,6 @@ bool PositionDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void PositionDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t PositionDto::GetUserId() const
 {
 	return m_UserId.value();
@@ -6346,12 +6094,6 @@ bool PositionDto::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
-void PositionDto::SetUserId(const utility::string_t& Value)
-{
-	m_UserId = Value;
-}
-
 std::shared_ptr<GeoCoord> PositionDto::GetPosition() const
 {
 	return m_Position.value();
@@ -6361,12 +6103,10 @@ bool PositionDto::HasPosition() const
 {
 	return m_Position.has_value();
 }
-
 void PositionDto::SetPosition(const std::shared_ptr<GeoCoord>& Value)
 {
 	m_Position = Value;
 }
-
 bool PositionDto::GetOffsite() const
 {
 	return m_Offsite.value();
@@ -6376,12 +6116,10 @@ bool PositionDto::HasOffsite() const
 {
 	return m_Offsite.has_value();
 }
-
 void PositionDto::SetOffsite(const bool& Value)
 {
 	m_Offsite = Value;
 }
-
 utility::string_t PositionDto::GetDeviceId() const
 {
 	return m_DeviceId.value();
@@ -6391,12 +6129,10 @@ bool PositionDto::HasDeviceId() const
 {
 	return m_DeviceId.has_value();
 }
-
 void PositionDto::SetDeviceId(const utility::string_t& Value)
 {
 	m_DeviceId = Value;
 }
-
 utility::string_t PositionDto::GetCreatedAt() const
 {
 	return m_CreatedAt.value();
@@ -6406,12 +6142,6 @@ bool PositionDto::HasCreatedAt() const
 {
 	return m_CreatedAt.has_value();
 }
-
-void PositionDto::SetCreatedAt(const utility::string_t& Value)
-{
-	m_CreatedAt = Value;
-}
-
 double PositionDto::GetGeofenceSearchRadius() const
 {
 	return m_GeofenceSearchRadius.value();
@@ -6421,12 +6151,6 @@ bool PositionDto::HasGeofenceSearchRadius() const
 {
 	return m_GeofenceSearchRadius.has_value();
 }
-
-void PositionDto::SetGeofenceSearchRadius(double Value)
-{
-	m_GeofenceSearchRadius = Value;
-}
-
 bool PositionDto::GetSpectator() const
 {
 	return m_Spectator.value();
@@ -6436,7 +6160,6 @@ bool PositionDto::HasSpectator() const
 {
 	return m_Spectator.has_value();
 }
-
 void PositionDto::SetSpectator(const bool& Value)
 {
 	m_Spectator = Value;
@@ -6445,7 +6168,6 @@ void PositionDto::SetSpectator(const bool& Value)
 PositionDtoDataPage::PositionDtoDataPage()
 {
 }
-
 PositionDtoDataPage::~PositionDtoDataPage()
 {
 }
@@ -6453,6 +6175,7 @@ PositionDtoDataPage::~PositionDtoDataPage()
 utility::string_t PositionDtoDataPage::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Items.has_value())
 	{
@@ -6484,6 +6207,7 @@ utility::string_t PositionDtoDataPage::ToJson() const
 		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -6497,6 +6221,7 @@ void PositionDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("items"))
 	{
@@ -6561,6 +6286,7 @@ void PositionDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<std::shared_ptr<PositionDto>>& PositionDtoDataPage::GetItems() const
 {
 	return m_Items.value();
@@ -6570,12 +6296,10 @@ bool PositionDtoDataPage::HasItems() const
 {
 	return m_Items.has_value();
 }
-
 void PositionDtoDataPage::SetItems(const std::vector<std::shared_ptr<PositionDto>>& Value)
 {
 	m_Items = Value;
 }
-
 int32_t PositionDtoDataPage::GetSkip() const
 {
 	return m_Skip.value();
@@ -6585,12 +6309,10 @@ bool PositionDtoDataPage::HasSkip() const
 {
 	return m_Skip.has_value();
 }
-
 void PositionDtoDataPage::SetSkip(int32_t Value)
 {
 	m_Skip = Value;
 }
-
 int32_t PositionDtoDataPage::GetLimit() const
 {
 	return m_Limit.value();
@@ -6600,12 +6322,10 @@ bool PositionDtoDataPage::HasLimit() const
 {
 	return m_Limit.has_value();
 }
-
 void PositionDtoDataPage::SetLimit(int32_t Value)
 {
 	m_Limit = Value;
 }
-
 int32_t PositionDtoDataPage::GetItemCount() const
 {
 	return m_ItemCount.value();
@@ -6615,12 +6335,10 @@ bool PositionDtoDataPage::HasItemCount() const
 {
 	return m_ItemCount.has_value();
 }
-
 void PositionDtoDataPage::SetItemCount(int32_t Value)
 {
 	m_ItemCount = Value;
 }
-
 int64_t PositionDtoDataPage::GetItemTotalCount() const
 {
 	return m_ItemTotalCount.value();
@@ -6630,7 +6348,6 @@ bool PositionDtoDataPage::HasItemTotalCount() const
 {
 	return m_ItemTotalCount.has_value();
 }
-
 void PositionDtoDataPage::SetItemTotalCount(int64_t Value)
 {
 	m_ItemTotalCount = Value;
@@ -6639,7 +6356,6 @@ void PositionDtoDataPage::SetItemTotalCount(int64_t Value)
 PositionKml::PositionKml()
 {
 }
-
 PositionKml::~PositionKml()
 {
 }
@@ -6647,6 +6363,7 @@ PositionKml::~PositionKml()
 utility::string_t PositionKml::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Name.has_value())
 	{
@@ -6678,6 +6395,7 @@ utility::string_t PositionKml::ToJson() const
 		JsonDoc.AddMember("placemark", PlacemarkValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -6691,6 +6409,7 @@ void PositionKml::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("name"))
 	{
@@ -6751,6 +6470,7 @@ void PositionKml::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t PositionKml::GetName() const
 {
 	return m_Name.value();
@@ -6760,12 +6480,10 @@ bool PositionKml::HasName() const
 {
 	return m_Name.has_value();
 }
-
 void PositionKml::SetName(const utility::string_t& Value)
 {
 	m_Name = Value;
 }
-
 const std::vector<std::shared_ptr<Style>>& PositionKml::GetStyle() const
 {
 	return m_Style.value();
@@ -6775,12 +6493,10 @@ bool PositionKml::HasStyle() const
 {
 	return m_Style.has_value();
 }
-
 void PositionKml::SetStyle(const std::vector<std::shared_ptr<Style>>& Value)
 {
 	m_Style = Value;
 }
-
 bool PositionKml::GetVisibility() const
 {
 	return m_Visibility.value();
@@ -6790,12 +6506,10 @@ bool PositionKml::HasVisibility() const
 {
 	return m_Visibility.has_value();
 }
-
 void PositionKml::SetVisibility(const bool& Value)
 {
 	m_Visibility = Value;
 }
-
 bool PositionKml::GetOpen() const
 {
 	return m_Open.value();
@@ -6805,12 +6519,10 @@ bool PositionKml::HasOpen() const
 {
 	return m_Open.has_value();
 }
-
 void PositionKml::SetOpen(const bool& Value)
 {
 	m_Open = Value;
 }
-
 const std::vector<std::shared_ptr<Placemark>>& PositionKml::GetPlacemark() const
 {
 	return m_Placemark.value();
@@ -6820,7 +6532,6 @@ bool PositionKml::HasPlacemark() const
 {
 	return m_Placemark.has_value();
 }
-
 void PositionKml::SetPlacemark(const std::vector<std::shared_ptr<Placemark>>& Value)
 {
 	m_Placemark = Value;
@@ -6829,7 +6540,6 @@ void PositionKml::SetPlacemark(const std::vector<std::shared_ptr<Placemark>>& Va
 Rotation::Rotation()
 {
 }
-
 Rotation::~Rotation()
 {
 }
@@ -6837,6 +6547,7 @@ Rotation::~Rotation()
 utility::string_t Rotation::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_X.has_value())
 	{
@@ -6862,6 +6573,7 @@ utility::string_t Rotation::ToJson() const
 		JsonDoc.AddMember("w", WValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -6875,6 +6587,7 @@ void Rotation::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("x"))
 	{
@@ -6933,6 +6646,7 @@ void Rotation::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 float Rotation::GetX() const
 {
 	return m_X.value();
@@ -6942,12 +6656,10 @@ bool Rotation::HasX() const
 {
 	return m_X.has_value();
 }
-
 void Rotation::SetX(float Value)
 {
 	m_X = Value;
 }
-
 float Rotation::GetY() const
 {
 	return m_Y.value();
@@ -6957,12 +6669,10 @@ bool Rotation::HasY() const
 {
 	return m_Y.has_value();
 }
-
 void Rotation::SetY(float Value)
 {
 	m_Y = Value;
 }
-
 float Rotation::GetZ() const
 {
 	return m_Z.value();
@@ -6972,12 +6682,10 @@ bool Rotation::HasZ() const
 {
 	return m_Z.has_value();
 }
-
 void Rotation::SetZ(float Value)
 {
 	m_Z = Value;
 }
-
 float Rotation::GetW() const
 {
 	return m_W.value();
@@ -6987,7 +6695,6 @@ bool Rotation::HasW() const
 {
 	return m_W.has_value();
 }
-
 void Rotation::SetW(float Value)
 {
 	m_W = Value;
@@ -6996,7 +6703,6 @@ void Rotation::SetW(float Value)
 Scale::Scale()
 {
 }
-
 Scale::~Scale()
 {
 }
@@ -7004,6 +6710,7 @@ Scale::~Scale()
 utility::string_t Scale::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_X.has_value())
 	{
@@ -7023,6 +6730,7 @@ utility::string_t Scale::ToJson() const
 		JsonDoc.AddMember("z", ZValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -7036,6 +6744,7 @@ void Scale::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("x"))
 	{
@@ -7080,6 +6789,7 @@ void Scale::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 float Scale::GetX() const
 {
 	return m_X.value();
@@ -7089,12 +6799,10 @@ bool Scale::HasX() const
 {
 	return m_X.has_value();
 }
-
 void Scale::SetX(float Value)
 {
 	m_X = Value;
 }
-
 float Scale::GetY() const
 {
 	return m_Y.value();
@@ -7104,12 +6812,10 @@ bool Scale::HasY() const
 {
 	return m_Y.has_value();
 }
-
 void Scale::SetY(float Value)
 {
 	m_Y = Value;
 }
-
 float Scale::GetZ() const
 {
 	return m_Z.value();
@@ -7119,7 +6825,6 @@ bool Scale::HasZ() const
 {
 	return m_Z.has_value();
 }
-
 void Scale::SetZ(float Value)
 {
 	m_Z = Value;
@@ -7128,7 +6833,6 @@ void Scale::SetZ(float Value)
 SpaceTimeDto::SpaceTimeDto()
 {
 }
-
 SpaceTimeDto::~SpaceTimeDto()
 {
 }
@@ -7136,6 +6840,7 @@ SpaceTimeDto::~SpaceTimeDto()
 utility::string_t SpaceTimeDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -7191,6 +6896,7 @@ utility::string_t SpaceTimeDto::ToJson() const
 		JsonDoc.AddMember("prototypeId", PrototypeIdValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -7204,6 +6910,7 @@ void SpaceTimeDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -7304,6 +7011,7 @@ void SpaceTimeDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t SpaceTimeDto::GetId() const
 {
 	return m_Id.value();
@@ -7313,12 +7021,6 @@ bool SpaceTimeDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void SpaceTimeDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t SpaceTimeDto::GetCreatedAt() const
 {
 	return m_CreatedAt.value();
@@ -7328,12 +7030,6 @@ bool SpaceTimeDto::HasCreatedAt() const
 {
 	return m_CreatedAt.has_value();
 }
-
-void SpaceTimeDto::SetCreatedAt(const utility::string_t& Value)
-{
-	m_CreatedAt = Value;
-}
-
 std::shared_ptr<SpaceTimeType> SpaceTimeDto::GetSpaceTimeType() const
 {
 	return m_SpaceTimeType.value();
@@ -7343,12 +7039,10 @@ bool SpaceTimeDto::HasSpaceTimeType() const
 {
 	return m_SpaceTimeType.has_value();
 }
-
 void SpaceTimeDto::SetSpaceTimeType(const std::shared_ptr<SpaceTimeType>& Value)
 {
 	m_SpaceTimeType = Value;
 }
-
 utility::string_t SpaceTimeDto::GetGroupId() const
 {
 	return m_GroupId.value();
@@ -7358,12 +7052,10 @@ bool SpaceTimeDto::HasGroupId() const
 {
 	return m_GroupId.has_value();
 }
-
 void SpaceTimeDto::SetGroupId(const utility::string_t& Value)
 {
 	m_GroupId = Value;
 }
-
 utility::string_t SpaceTimeDto::GetUserId() const
 {
 	return m_UserId.value();
@@ -7373,12 +7065,6 @@ bool SpaceTimeDto::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
-void SpaceTimeDto::SetUserId(const utility::string_t& Value)
-{
-	m_UserId = Value;
-}
-
 std::shared_ptr<GeoCoord> SpaceTimeDto::GetLocation() const
 {
 	return m_Location.value();
@@ -7388,12 +7074,10 @@ bool SpaceTimeDto::HasLocation() const
 {
 	return m_Location.has_value();
 }
-
 void SpaceTimeDto::SetLocation(const std::shared_ptr<GeoCoord>& Value)
 {
 	m_Location = Value;
 }
-
 bool SpaceTimeDto::GetOffsite() const
 {
 	return m_Offsite.value();
@@ -7403,12 +7087,10 @@ bool SpaceTimeDto::HasOffsite() const
 {
 	return m_Offsite.has_value();
 }
-
 void SpaceTimeDto::SetOffsite(const bool& Value)
 {
 	m_Offsite = Value;
 }
-
 utility::string_t SpaceTimeDto::GetPoiId() const
 {
 	return m_PoiId.value();
@@ -7418,12 +7100,10 @@ bool SpaceTimeDto::HasPoiId() const
 {
 	return m_PoiId.has_value();
 }
-
 void SpaceTimeDto::SetPoiId(const utility::string_t& Value)
 {
 	m_PoiId = Value;
 }
-
 utility::string_t SpaceTimeDto::GetPrototypeId() const
 {
 	return m_PrototypeId.value();
@@ -7433,7 +7113,6 @@ bool SpaceTimeDto::HasPrototypeId() const
 {
 	return m_PrototypeId.has_value();
 }
-
 void SpaceTimeDto::SetPrototypeId(const utility::string_t& Value)
 {
 	m_PrototypeId = Value;
@@ -7442,7 +7121,6 @@ void SpaceTimeDto::SetPrototypeId(const utility::string_t& Value)
 SpaceTimeDtoDataPage::SpaceTimeDtoDataPage()
 {
 }
-
 SpaceTimeDtoDataPage::~SpaceTimeDtoDataPage()
 {
 }
@@ -7450,6 +7128,7 @@ SpaceTimeDtoDataPage::~SpaceTimeDtoDataPage()
 utility::string_t SpaceTimeDtoDataPage::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Items.has_value())
 	{
@@ -7481,6 +7160,7 @@ utility::string_t SpaceTimeDtoDataPage::ToJson() const
 		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -7494,6 +7174,7 @@ void SpaceTimeDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("items"))
 	{
@@ -7558,6 +7239,7 @@ void SpaceTimeDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<std::shared_ptr<SpaceTimeDto>>& SpaceTimeDtoDataPage::GetItems() const
 {
 	return m_Items.value();
@@ -7567,12 +7249,10 @@ bool SpaceTimeDtoDataPage::HasItems() const
 {
 	return m_Items.has_value();
 }
-
 void SpaceTimeDtoDataPage::SetItems(const std::vector<std::shared_ptr<SpaceTimeDto>>& Value)
 {
 	m_Items = Value;
 }
-
 int32_t SpaceTimeDtoDataPage::GetSkip() const
 {
 	return m_Skip.value();
@@ -7582,12 +7262,10 @@ bool SpaceTimeDtoDataPage::HasSkip() const
 {
 	return m_Skip.has_value();
 }
-
 void SpaceTimeDtoDataPage::SetSkip(int32_t Value)
 {
 	m_Skip = Value;
 }
-
 int32_t SpaceTimeDtoDataPage::GetLimit() const
 {
 	return m_Limit.value();
@@ -7597,12 +7275,10 @@ bool SpaceTimeDtoDataPage::HasLimit() const
 {
 	return m_Limit.has_value();
 }
-
 void SpaceTimeDtoDataPage::SetLimit(int32_t Value)
 {
 	m_Limit = Value;
 }
-
 int32_t SpaceTimeDtoDataPage::GetItemCount() const
 {
 	return m_ItemCount.value();
@@ -7612,12 +7288,10 @@ bool SpaceTimeDtoDataPage::HasItemCount() const
 {
 	return m_ItemCount.has_value();
 }
-
 void SpaceTimeDtoDataPage::SetItemCount(int32_t Value)
 {
 	m_ItemCount = Value;
 }
-
 int64_t SpaceTimeDtoDataPage::GetItemTotalCount() const
 {
 	return m_ItemTotalCount.value();
@@ -7627,7 +7301,6 @@ bool SpaceTimeDtoDataPage::HasItemTotalCount() const
 {
 	return m_ItemTotalCount.has_value();
 }
-
 void SpaceTimeDtoDataPage::SetItemTotalCount(int64_t Value)
 {
 	m_ItemTotalCount = Value;
@@ -7636,7 +7309,6 @@ void SpaceTimeDtoDataPage::SetItemTotalCount(int64_t Value)
 SpaceTimeType::SpaceTimeType()
 {
 }
-
 SpaceTimeType::~SpaceTimeType()
 {
 }
@@ -7680,7 +7352,6 @@ void SpaceTimeType::SetValue(SpaceTimeType::eSpaceTimeType const InValue)
 StringDataPage::StringDataPage()
 {
 }
-
 StringDataPage::~StringDataPage()
 {
 }
@@ -7688,6 +7359,7 @@ StringDataPage::~StringDataPage()
 utility::string_t StringDataPage::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Items.has_value())
 	{
@@ -7719,6 +7391,7 @@ utility::string_t StringDataPage::ToJson() const
 		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -7732,6 +7405,7 @@ void StringDataPage::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("items"))
 	{
@@ -7796,6 +7470,7 @@ void StringDataPage::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<utility::string_t>& StringDataPage::GetItems() const
 {
 	return m_Items.value();
@@ -7805,12 +7480,10 @@ bool StringDataPage::HasItems() const
 {
 	return m_Items.has_value();
 }
-
 void StringDataPage::SetItems(const std::vector<utility::string_t>& Value)
 {
 	m_Items = Value;
 }
-
 int32_t StringDataPage::GetSkip() const
 {
 	return m_Skip.value();
@@ -7820,12 +7493,10 @@ bool StringDataPage::HasSkip() const
 {
 	return m_Skip.has_value();
 }
-
 void StringDataPage::SetSkip(int32_t Value)
 {
 	m_Skip = Value;
 }
-
 int32_t StringDataPage::GetLimit() const
 {
 	return m_Limit.value();
@@ -7835,12 +7506,10 @@ bool StringDataPage::HasLimit() const
 {
 	return m_Limit.has_value();
 }
-
 void StringDataPage::SetLimit(int32_t Value)
 {
 	m_Limit = Value;
 }
-
 int32_t StringDataPage::GetItemCount() const
 {
 	return m_ItemCount.value();
@@ -7850,12 +7519,10 @@ bool StringDataPage::HasItemCount() const
 {
 	return m_ItemCount.has_value();
 }
-
 void StringDataPage::SetItemCount(int32_t Value)
 {
 	m_ItemCount = Value;
 }
-
 int64_t StringDataPage::GetItemTotalCount() const
 {
 	return m_ItemTotalCount.value();
@@ -7865,7 +7532,6 @@ bool StringDataPage::HasItemTotalCount() const
 {
 	return m_ItemTotalCount.has_value();
 }
-
 void StringDataPage::SetItemTotalCount(int64_t Value)
 {
 	m_ItemTotalCount = Value;
@@ -7874,7 +7540,6 @@ void StringDataPage::SetItemTotalCount(int64_t Value)
 Style::Style()
 {
 }
-
 Style::~Style()
 {
 }
@@ -7882,6 +7547,7 @@ Style::~Style()
 utility::string_t Style::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -7894,6 +7560,7 @@ utility::string_t Style::ToJson() const
 		rapidjson::Value IconStyleValue(TypeToJsonValue(m_IconStyle, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("iconStyle", IconStyleValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -7908,6 +7575,7 @@ void Style::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -7934,6 +7602,7 @@ void Style::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t Style::GetId() const
 {
 	return m_Id.value();
@@ -7943,12 +7612,10 @@ bool Style::HasId() const
 {
 	return m_Id.has_value();
 }
-
 void Style::SetId(const utility::string_t& Value)
 {
 	m_Id = Value;
 }
-
 std::shared_ptr<IconStyle> Style::GetIconStyle() const
 {
 	return m_IconStyle.value();
@@ -7958,7 +7625,6 @@ bool Style::HasIconStyle() const
 {
 	return m_IconStyle.has_value();
 }
-
 void Style::SetIconStyle(const std::shared_ptr<IconStyle>& Value)
 {
 	m_IconStyle = Value;
@@ -7967,7 +7633,6 @@ void Style::SetIconStyle(const std::shared_ptr<IconStyle>& Value)
 Transform::Transform()
 {
 }
-
 Transform::~Transform()
 {
 }
@@ -7975,6 +7640,7 @@ Transform::~Transform()
 utility::string_t Transform::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Scale.has_value())
 	{
@@ -7994,6 +7660,7 @@ utility::string_t Transform::ToJson() const
 		JsonDoc.AddMember("rotation", RotationValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -8007,6 +7674,7 @@ void Transform::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("scale"))
 	{
@@ -8051,6 +7719,7 @@ void Transform::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 std::shared_ptr<Scale> Transform::GetScale() const
 {
 	return m_Scale.value();
@@ -8060,12 +7729,10 @@ bool Transform::HasScale() const
 {
 	return m_Scale.has_value();
 }
-
 void Transform::SetScale(const std::shared_ptr<Scale>& Value)
 {
 	m_Scale = Value;
 }
-
 std::shared_ptr<Translation> Transform::GetTranslation() const
 {
 	return m_Translation.value();
@@ -8075,12 +7742,10 @@ bool Transform::HasTranslation() const
 {
 	return m_Translation.has_value();
 }
-
 void Transform::SetTranslation(const std::shared_ptr<Translation>& Value)
 {
 	m_Translation = Value;
 }
-
 std::shared_ptr<Rotation> Transform::GetRotation() const
 {
 	return m_Rotation.value();
@@ -8090,7 +7755,6 @@ bool Transform::HasRotation() const
 {
 	return m_Rotation.has_value();
 }
-
 void Transform::SetRotation(const std::shared_ptr<Rotation>& Value)
 {
 	m_Rotation = Value;
@@ -8099,7 +7763,6 @@ void Transform::SetRotation(const std::shared_ptr<Rotation>& Value)
 Translation::Translation()
 {
 }
-
 Translation::~Translation()
 {
 }
@@ -8107,6 +7770,7 @@ Translation::~Translation()
 utility::string_t Translation::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_X.has_value())
 	{
@@ -8126,6 +7790,7 @@ utility::string_t Translation::ToJson() const
 		JsonDoc.AddMember("z", ZValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -8139,6 +7804,7 @@ void Translation::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("x"))
 	{
@@ -8183,6 +7849,7 @@ void Translation::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 float Translation::GetX() const
 {
 	return m_X.value();
@@ -8192,12 +7859,10 @@ bool Translation::HasX() const
 {
 	return m_X.has_value();
 }
-
 void Translation::SetX(float Value)
 {
 	m_X = Value;
 }
-
 float Translation::GetY() const
 {
 	return m_Y.value();
@@ -8207,12 +7872,10 @@ bool Translation::HasY() const
 {
 	return m_Y.has_value();
 }
-
 void Translation::SetY(float Value)
 {
 	m_Y = Value;
 }
-
 float Translation::GetZ() const
 {
 	return m_Z.value();
@@ -8222,10 +7885,10 @@ bool Translation::HasZ() const
 {
 	return m_Z.has_value();
 }
-
 void Translation::SetZ(float Value)
 {
 	m_Z = Value;
 }
+
 
 } // namespace csp::services::generated::spatialdataservice

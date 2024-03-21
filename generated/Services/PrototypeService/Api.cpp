@@ -6,8 +6,10 @@
 #include "Web/HttpAuth.h"
 #include "Web/HttpPayload.h"
 
+
 namespace csp::services::generated::prototypeservice
 {
+
 
 AssetDetailApi::AssetDetailApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeServiceURI)
 {
@@ -16,6 +18,8 @@ AssetDetailApi::AssetDetailApi(csp::web::WebClient* InWebClient) : ApiBase(InWeb
 AssetDetailApi::~AssetDetailApi()
 {
 }
+
+
 
 void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsPost(const utility::string_t& prototypeId,
 																const std::shared_ptr<AssetDetailDto>& RequestBody,
@@ -51,55 +55,66 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsGet(const utility::st
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details", {prototypeId});
 
+
 	if (Ids.has_value())
 	{
 		Uri.AddQueryParams("Ids", Ids.value());
 	}
+
 
 	if (SupportedPlatforms.has_value())
 	{
 		Uri.AddQueryParams("SupportedPlatforms", SupportedPlatforms.value());
 	}
 
+
 	if (AssetTypes.has_value())
 	{
 		Uri.AddQueryParams("AssetTypes", AssetTypes.value());
 	}
+
 
 	if (Styles.has_value())
 	{
 		Uri.AddQueryParams("Styles", Styles.value());
 	}
 
+
 	if (Names.has_value())
 	{
 		Uri.AddQueryParams("Names", Names.value());
 	}
+
 
 	if (CreatedAfter.has_value())
 	{
 		Uri.AddQueryParams("CreatedAfter", CreatedAfter.value());
 	}
 
+
 	if (PrototypeIds.has_value())
 	{
 		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
 	}
+
 
 	if (PrototypeNames.has_value())
 	{
 		Uri.AddQueryParams("PrototypeNames", PrototypeNames.value());
 	}
 
+
 	if (PrototypeParentNames.has_value())
 	{
 		Uri.AddQueryParams("PrototypeParentNames", PrototypeParentNames.value());
 	}
 
+
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
 	}
+
 
 	if (TagsAll.has_value())
 	{
@@ -112,6 +127,8 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsGet(const utility::st
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsBulkPut(const utility::string_t& prototypeId,
 																   const std::vector<std::shared_ptr<BulkUpsertAssetDetailDto>>& RequestBody,
@@ -128,6 +145,8 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsBulkPut(const utility
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdGet(const utility::string_t& prototypeId,
 																			const utility::string_t& assetDetailId,
@@ -176,6 +195,8 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdDelete(c
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void AssetDetailApi::apiV1PrototypesAssetDetailsGet(const std::optional<std::vector<utility::string_t>>& Ids,
 													const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
 													const std::optional<std::vector<utility::string_t>>& AssetTypes,
@@ -193,55 +214,66 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsGet(const std::optional<std::vec
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/asset-details", {});
 
+
 	if (Ids.has_value())
 	{
 		Uri.AddQueryParams("Ids", Ids.value());
 	}
+
 
 	if (SupportedPlatforms.has_value())
 	{
 		Uri.AddQueryParams("SupportedPlatforms", SupportedPlatforms.value());
 	}
 
+
 	if (AssetTypes.has_value())
 	{
 		Uri.AddQueryParams("AssetTypes", AssetTypes.value());
 	}
+
 
 	if (Styles.has_value())
 	{
 		Uri.AddQueryParams("Styles", Styles.value());
 	}
 
+
 	if (Names.has_value())
 	{
 		Uri.AddQueryParams("Names", Names.value());
 	}
+
 
 	if (CreatedAfter.has_value())
 	{
 		Uri.AddQueryParams("CreatedAfter", CreatedAfter.value());
 	}
 
+
 	if (PrototypeIds.has_value())
 	{
 		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
 	}
+
 
 	if (PrototypeNames.has_value())
 	{
 		Uri.AddQueryParams("PrototypeNames", PrototypeNames.value());
 	}
 
+
 	if (PrototypeParentNames.has_value())
 	{
 		Uri.AddQueryParams("PrototypeParentNames", PrototypeParentNames.value());
 	}
 
+
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
 	}
+
 
 	if (TagsAll.has_value())
 	{
@@ -255,6 +287,8 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsGet(const std::optional<std::vec
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdBlobPost(const utility::string_t& prototypeId,
 																				 const utility::string_t& assetDetailId,
 																				 const std::optional<bool>& skipAssetPipeline,
@@ -264,6 +298,7 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdBlobPost
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/blob", {prototypeId, assetDetailId});
+
 
 	if (skipAssetPipeline.has_value())
 	{
@@ -277,6 +312,8 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdBlobPost
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdPut(
 	const utility::string_t& prototypeId,
@@ -314,6 +351,8 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressa
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableThirdPartyReferenceIdPut(
 	const utility::string_t& prototypeId,
 	const utility::string_t& assetDetailId,
@@ -350,6 +389,8 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressa
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void AssetDetailApi::apiV1PrototypesAssetDetailsAssetPipelineModelGet(const std::optional<std::vector<utility::string_t>>& Ids,
 																	  const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
 																	  const std::optional<std::vector<utility::string_t>>& AssetTypes,
@@ -367,55 +408,66 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsAssetPipelineModelGet(const std:
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/asset-details/asset-pipeline-model", {});
 
+
 	if (Ids.has_value())
 	{
 		Uri.AddQueryParams("Ids", Ids.value());
 	}
+
 
 	if (SupportedPlatforms.has_value())
 	{
 		Uri.AddQueryParams("SupportedPlatforms", SupportedPlatforms.value());
 	}
 
+
 	if (AssetTypes.has_value())
 	{
 		Uri.AddQueryParams("AssetTypes", AssetTypes.value());
 	}
+
 
 	if (Styles.has_value())
 	{
 		Uri.AddQueryParams("Styles", Styles.value());
 	}
 
+
 	if (Names.has_value())
 	{
 		Uri.AddQueryParams("Names", Names.value());
 	}
+
 
 	if (CreatedAfter.has_value())
 	{
 		Uri.AddQueryParams("CreatedAfter", CreatedAfter.value());
 	}
 
+
 	if (PrototypeIds.has_value())
 	{
 		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
 	}
+
 
 	if (PrototypeNames.has_value())
 	{
 		Uri.AddQueryParams("PrototypeNames", PrototypeNames.value());
 	}
 
+
 	if (PrototypeParentNames.has_value())
 	{
 		Uri.AddQueryParams("PrototypeParentNames", PrototypeParentNames.value());
 	}
 
+
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
 	}
+
 
 	if (TagsAll.has_value())
 	{
@@ -428,6 +480,8 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsAssetPipelineModelGet(const std:
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelGet(const utility::string_t& prototypeId,
 																							  const utility::string_t& assetDetailId,
@@ -462,6 +516,8 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAssetPip
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeServiceURI)
 {
 }
@@ -469,6 +525,8 @@ ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(I
 ConfigurationApi::~ConfigurationApi()
 {
 }
+
+
 
 void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
@@ -481,6 +539,8 @@ void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* Res
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken) const
@@ -495,6 +555,8 @@ void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBa
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken) const
 {
@@ -508,6 +570,8 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeServiceURI)
 {
 }
@@ -515,6 +579,8 @@ NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CS
 NtpApi::~NtpApi()
 {
 }
+
+
 
 void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
@@ -527,6 +593,8 @@ void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeServiceURI)
 {
 }
@@ -534,6 +602,8 @@ PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::
 PingApi::~PingApi()
 {
 }
+
+
 
 void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
@@ -546,6 +616,8 @@ void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, cs
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 PrototypeApi::PrototypeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeServiceURI)
 {
 }
@@ -553,6 +625,8 @@ PrototypeApi::PrototypeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClie
 PrototypeApi::~PrototypeApi()
 {
 }
+
+
 
 void PrototypeApi::apiV1PrototypesPost(const std::shared_ptr<PrototypeDto>& RequestBody,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -594,95 +668,114 @@ void PrototypeApi::apiV1PrototypesGet(const std::optional<std::vector<utility::s
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/prototypes", {});
 
+
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
 	}
+
 
 	if (TagsAll.has_value())
 	{
 		Uri.AddQueryParams("TagsAll", TagsAll.value());
 	}
 
+
 	if (Ids.has_value())
 	{
 		Uri.AddQueryParams("Ids", Ids.value());
 	}
+
 
 	if (Names.has_value())
 	{
 		Uri.AddQueryParams("Names", Names.value());
 	}
 
+
 	if (PartialNames.has_value())
 	{
 		Uri.AddQueryParams("PartialNames", PartialNames.value());
 	}
+
 
 	if (ExcludedIds.has_value())
 	{
 		Uri.AddQueryParams("ExcludedIds", ExcludedIds.value());
 	}
 
+
 	if (PointOfInterestIds.has_value())
 	{
 		Uri.AddQueryParams("PointOfInterestIds", PointOfInterestIds.value());
 	}
+
 
 	if (ParentId.has_value())
 	{
 		Uri.AddQueryParams("ParentId", ParentId.value());
 	}
 
+
 	if (GroupIds.has_value())
 	{
 		Uri.AddQueryParams("GroupIds", GroupIds.value());
 	}
+
 
 	if (Types.has_value())
 	{
 		Uri.AddQueryParams("Types", Types.value());
 	}
 
+
 	if (HasGroup.has_value())
 	{
 		Uri.AddQueryParams("HasGroup", HasGroup.value());
 	}
+
 
 	if (CreatedBy.has_value())
 	{
 		Uri.AddQueryParams("CreatedBy", CreatedBy.value());
 	}
 
+
 	if (PrototypeOwnerIds.has_value())
 	{
 		Uri.AddQueryParams("PrototypeOwnerIds", PrototypeOwnerIds.value());
 	}
+
 
 	if (ReadAccessFilters.has_value())
 	{
 		Uri.AddQueryParams("ReadAccessFilters", ReadAccessFilters.value());
 	}
 
+
 	if (WriteAccessFilters.has_value())
 	{
 		Uri.AddQueryParams("WriteAccessFilters", WriteAccessFilters.value());
 	}
+
 
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
 
+
 	if (Limit.has_value())
 	{
 		Uri.AddQueryParams("Limit", Limit.value());
 	}
 
+
 	if (SortBy.has_value())
 	{
 		Uri.AddQueryParams("SortBy", SortBy.value());
 	}
+
 
 	if (SortDirection.has_value())
 	{
@@ -703,6 +796,7 @@ void PrototypeApi::apiV1PrototypesDelete(const std::optional<std::vector<utility
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/prototypes", {});
 
+
 	if (ids.has_value())
 	{
 		Uri.AddQueryParams("ids", ids.value());
@@ -714,6 +808,8 @@ void PrototypeApi::apiV1PrototypesDelete(const std::optional<std::vector<utility
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPost(
 	const std::optional<std::vector<utility::string_t>>& Tags,
@@ -741,85 +837,102 @@ void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPo
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/group-owned/{originalGroupId}/duplicate/{newGroupId}", {originalGroupId, newGroupId});
 
+
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
 	}
+
 
 	if (TagsAll.has_value())
 	{
 		Uri.AddQueryParams("TagsAll", TagsAll.value());
 	}
 
+
 	if (Ids.has_value())
 	{
 		Uri.AddQueryParams("Ids", Ids.value());
 	}
+
 
 	if (Names.has_value())
 	{
 		Uri.AddQueryParams("Names", Names.value());
 	}
 
+
 	if (PartialNames.has_value())
 	{
 		Uri.AddQueryParams("PartialNames", PartialNames.value());
 	}
+
 
 	if (ExcludedIds.has_value())
 	{
 		Uri.AddQueryParams("ExcludedIds", ExcludedIds.value());
 	}
 
+
 	if (PointOfInterestIds.has_value())
 	{
 		Uri.AddQueryParams("PointOfInterestIds", PointOfInterestIds.value());
 	}
+
 
 	if (ParentId.has_value())
 	{
 		Uri.AddQueryParams("ParentId", ParentId.value());
 	}
 
+
 	if (GroupIds.has_value())
 	{
 		Uri.AddQueryParams("GroupIds", GroupIds.value());
 	}
+
 
 	if (Types.has_value())
 	{
 		Uri.AddQueryParams("Types", Types.value());
 	}
 
+
 	if (HasGroup.has_value())
 	{
 		Uri.AddQueryParams("HasGroup", HasGroup.value());
 	}
+
 
 	if (CreatedBy.has_value())
 	{
 		Uri.AddQueryParams("CreatedBy", CreatedBy.value());
 	}
 
+
 	if (PrototypeOwnerIds.has_value())
 	{
 		Uri.AddQueryParams("PrototypeOwnerIds", PrototypeOwnerIds.value());
 	}
+
 
 	if (ReadAccessFilters.has_value())
 	{
 		Uri.AddQueryParams("ReadAccessFilters", ReadAccessFilters.value());
 	}
 
+
 	if (WriteAccessFilters.has_value())
 	{
 		Uri.AddQueryParams("WriteAccessFilters", WriteAccessFilters.value());
 	}
 
+
 	if (shallowCopy.has_value())
 	{
 		Uri.AddQueryParams("shallowCopy", shallowCopy.value());
 	}
+
 
 	if (asyncCall.has_value())
 	{
@@ -832,6 +945,8 @@ void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPo
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void PrototypeApi::apiV1PrototypesBulkPut(const std::vector<std::shared_ptr<BulkUpsertPrototypeDto>>& RequestBody,
 										  csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -847,6 +962,8 @@ void PrototypeApi::apiV1PrototypesBulkPut(const std::vector<std::shared_ptr<Bulk
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void PrototypeApi::apiV1PrototypesCountGet(const std::optional<std::vector<utility::string_t>>& Tags,
 										   const std::optional<bool>& TagsAll,
@@ -869,75 +986,90 @@ void PrototypeApi::apiV1PrototypesCountGet(const std::optional<std::vector<utili
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/count", {});
 
+
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
 	}
+
 
 	if (TagsAll.has_value())
 	{
 		Uri.AddQueryParams("TagsAll", TagsAll.value());
 	}
 
+
 	if (Ids.has_value())
 	{
 		Uri.AddQueryParams("Ids", Ids.value());
 	}
+
 
 	if (Names.has_value())
 	{
 		Uri.AddQueryParams("Names", Names.value());
 	}
 
+
 	if (PartialNames.has_value())
 	{
 		Uri.AddQueryParams("PartialNames", PartialNames.value());
 	}
+
 
 	if (ExcludedIds.has_value())
 	{
 		Uri.AddQueryParams("ExcludedIds", ExcludedIds.value());
 	}
 
+
 	if (PointOfInterestIds.has_value())
 	{
 		Uri.AddQueryParams("PointOfInterestIds", PointOfInterestIds.value());
 	}
+
 
 	if (ParentId.has_value())
 	{
 		Uri.AddQueryParams("ParentId", ParentId.value());
 	}
 
+
 	if (GroupIds.has_value())
 	{
 		Uri.AddQueryParams("GroupIds", GroupIds.value());
 	}
+
 
 	if (Types.has_value())
 	{
 		Uri.AddQueryParams("Types", Types.value());
 	}
 
+
 	if (HasGroup.has_value())
 	{
 		Uri.AddQueryParams("HasGroup", HasGroup.value());
 	}
+
 
 	if (CreatedBy.has_value())
 	{
 		Uri.AddQueryParams("CreatedBy", CreatedBy.value());
 	}
 
+
 	if (PrototypeOwnerIds.has_value())
 	{
 		Uri.AddQueryParams("PrototypeOwnerIds", PrototypeOwnerIds.value());
 	}
 
+
 	if (ReadAccessFilters.has_value())
 	{
 		Uri.AddQueryParams("ReadAccessFilters", ReadAccessFilters.value());
 	}
+
 
 	if (WriteAccessFilters.has_value())
 	{
@@ -950,6 +1082,8 @@ void PrototypeApi::apiV1PrototypesCountGet(const std::optional<std::vector<utili
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void PrototypeApi::apiV1PrototypesIdGet(const utility::string_t& id,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -995,6 +1129,8 @@ void PrototypeApi::apiV1PrototypesIdDelete(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void PrototypeApi::apiV1PrototypesNameNameGet(const utility::string_t& name,
 											  csp::services::ApiResponseHandlerBase* ResponseHandler,
 											  csp::common::CancellationToken& CancellationToken) const
@@ -1008,6 +1144,8 @@ void PrototypeApi::apiV1PrototypesNameNameGet(const utility::string_t& name,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void PrototypeApi::apiV1PrototypesPrototypeIdStatePut(const utility::string_t& prototypeId,
 													  const std::map<utility::string_t, utility::string_t>& RequestBody,
@@ -1033,6 +1171,7 @@ void PrototypeApi::apiV1PrototypesPrototypeIdStateGet(const utility::string_t& p
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/state", {prototypeId});
 
+
 	if (keys.has_value())
 	{
 		Uri.AddQueryParams("keys", keys.value());
@@ -1044,5 +1183,7 @@ void PrototypeApi::apiV1PrototypesPrototypeIdStateGet(const utility::string_t& p
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 } // namespace csp::services::generated::prototypeservice

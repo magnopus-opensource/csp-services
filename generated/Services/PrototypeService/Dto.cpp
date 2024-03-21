@@ -8,15 +8,17 @@
 
 #include <optional>
 
+
 using namespace csp::web;
+
 
 namespace csp::services::generated::prototypeservice
 {
 
+
 AssetDetailDto::AssetDetailDto()
 {
 }
-
 AssetDetailDto::~AssetDetailDto()
 {
 }
@@ -24,6 +26,7 @@ AssetDetailDto::~AssetDetailDto()
 utility::string_t AssetDetailDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_PrototypeId.has_value())
 	{
@@ -133,6 +136,7 @@ utility::string_t AssetDetailDto::ToJson() const
 		JsonDoc.AddMember("sizeInBytes", SizeInBytesValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -146,6 +150,7 @@ void AssetDetailDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("prototypeId"))
 	{
@@ -348,6 +353,7 @@ void AssetDetailDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t AssetDetailDto::GetPrototypeId() const
 {
 	return m_PrototypeId.value();
@@ -357,12 +363,6 @@ bool AssetDetailDto::HasPrototypeId() const
 {
 	return m_PrototypeId.has_value();
 }
-
-void AssetDetailDto::SetPrototypeId(const utility::string_t& Value)
-{
-	m_PrototypeId = Value;
-}
-
 utility::string_t AssetDetailDto::GetId() const
 {
 	return m_Id.value();
@@ -372,12 +372,6 @@ bool AssetDetailDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void AssetDetailDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t AssetDetailDto::GetFileName() const
 {
 	return m_FileName.value();
@@ -387,12 +381,6 @@ bool AssetDetailDto::HasFileName() const
 {
 	return m_FileName.has_value();
 }
-
-void AssetDetailDto::SetFileName(const utility::string_t& Value)
-{
-	m_FileName = Value;
-}
-
 utility::string_t AssetDetailDto::GetName() const
 {
 	return m_Name.value();
@@ -402,12 +390,10 @@ bool AssetDetailDto::HasName() const
 {
 	return m_Name.has_value();
 }
-
 void AssetDetailDto::SetName(const utility::string_t& Value)
 {
 	m_Name = Value;
 }
-
 utility::string_t AssetDetailDto::GetLanguageCode() const
 {
 	return m_LanguageCode.value();
@@ -417,12 +403,10 @@ bool AssetDetailDto::HasLanguageCode() const
 {
 	return m_LanguageCode.has_value();
 }
-
 void AssetDetailDto::SetLanguageCode(const utility::string_t& Value)
 {
 	m_LanguageCode = Value;
 }
-
 utility::string_t AssetDetailDto::GetAssetType() const
 {
 	return m_AssetType.value();
@@ -432,12 +416,10 @@ bool AssetDetailDto::HasAssetType() const
 {
 	return m_AssetType.has_value();
 }
-
 void AssetDetailDto::SetAssetType(const utility::string_t& Value)
 {
 	m_AssetType = Value;
 }
-
 const std::vector<utility::string_t>& AssetDetailDto::GetSupportedPlatforms() const
 {
 	return m_SupportedPlatforms.value();
@@ -447,12 +429,10 @@ bool AssetDetailDto::HasSupportedPlatforms() const
 {
 	return m_SupportedPlatforms.has_value();
 }
-
 void AssetDetailDto::SetSupportedPlatforms(const std::vector<utility::string_t>& Value)
 {
 	m_SupportedPlatforms = Value;
 }
-
 const std::vector<utility::string_t>& AssetDetailDto::GetStyle() const
 {
 	return m_Style.value();
@@ -462,12 +442,10 @@ bool AssetDetailDto::HasStyle() const
 {
 	return m_Style.has_value();
 }
-
 void AssetDetailDto::SetStyle(const std::vector<utility::string_t>& Value)
 {
 	m_Style = Value;
 }
-
 utility::string_t AssetDetailDto::GetAddressableId() const
 {
 	return m_AddressableId.value();
@@ -477,12 +455,10 @@ bool AssetDetailDto::HasAddressableId() const
 {
 	return m_AddressableId.has_value();
 }
-
 void AssetDetailDto::SetAddressableId(const utility::string_t& Value)
 {
 	m_AddressableId = Value;
 }
-
 utility::string_t AssetDetailDto::GetThirdPartyReferenceId() const
 {
 	return m_ThirdPartyReferenceId.value();
@@ -492,12 +468,10 @@ bool AssetDetailDto::HasThirdPartyReferenceId() const
 {
 	return m_ThirdPartyReferenceId.has_value();
 }
-
 void AssetDetailDto::SetThirdPartyReferenceId(const utility::string_t& Value)
 {
 	m_ThirdPartyReferenceId = Value;
 }
-
 utility::string_t AssetDetailDto::GetUri() const
 {
 	return m_Uri.value();
@@ -507,12 +481,6 @@ bool AssetDetailDto::HasUri() const
 {
 	return m_Uri.has_value();
 }
-
-void AssetDetailDto::SetUri(const utility::string_t& Value)
-{
-	m_Uri = Value;
-}
-
 utility::string_t AssetDetailDto::GetChecksum() const
 {
 	return m_Checksum.value();
@@ -522,12 +490,6 @@ bool AssetDetailDto::HasChecksum() const
 {
 	return m_Checksum.has_value();
 }
-
-void AssetDetailDto::SetChecksum(const utility::string_t& Value)
-{
-	m_Checksum = Value;
-}
-
 utility::string_t AssetDetailDto::GetVersion() const
 {
 	return m_Version.value();
@@ -537,12 +499,6 @@ bool AssetDetailDto::HasVersion() const
 {
 	return m_Version.has_value();
 }
-
-void AssetDetailDto::SetVersion(const utility::string_t& Value)
-{
-	m_Version = Value;
-}
-
 utility::string_t AssetDetailDto::GetMimeType() const
 {
 	return m_MimeType.value();
@@ -552,12 +508,6 @@ bool AssetDetailDto::HasMimeType() const
 {
 	return m_MimeType.has_value();
 }
-
-void AssetDetailDto::SetMimeType(const utility::string_t& Value)
-{
-	m_MimeType = Value;
-}
-
 utility::string_t AssetDetailDto::GetExternalUri() const
 {
 	return m_ExternalUri.value();
@@ -567,12 +517,10 @@ bool AssetDetailDto::HasExternalUri() const
 {
 	return m_ExternalUri.has_value();
 }
-
 void AssetDetailDto::SetExternalUri(const utility::string_t& Value)
 {
 	m_ExternalUri = Value;
 }
-
 utility::string_t AssetDetailDto::GetExternalMimeType() const
 {
 	return m_ExternalMimeType.value();
@@ -582,12 +530,10 @@ bool AssetDetailDto::HasExternalMimeType() const
 {
 	return m_ExternalMimeType.has_value();
 }
-
 void AssetDetailDto::SetExternalMimeType(const utility::string_t& Value)
 {
 	m_ExternalMimeType = Value;
 }
-
 const std::vector<utility::string_t>& AssetDetailDto::GetTags() const
 {
 	return m_Tags.value();
@@ -597,12 +543,10 @@ bool AssetDetailDto::HasTags() const
 {
 	return m_Tags.has_value();
 }
-
 void AssetDetailDto::SetTags(const std::vector<utility::string_t>& Value)
 {
 	m_Tags = Value;
 }
-
 int64_t AssetDetailDto::GetSizeInBytes() const
 {
 	return m_SizeInBytes.value();
@@ -613,15 +557,9 @@ bool AssetDetailDto::HasSizeInBytes() const
 	return m_SizeInBytes.has_value();
 }
 
-void AssetDetailDto::SetSizeInBytes(int64_t Value)
-{
-	m_SizeInBytes = Value;
-}
-
 AssetPipelineModelDto::AssetPipelineModelDto()
 {
 }
-
 AssetPipelineModelDto::~AssetPipelineModelDto()
 {
 }
@@ -629,6 +567,7 @@ AssetPipelineModelDto::~AssetPipelineModelDto()
 utility::string_t AssetPipelineModelDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_PrototypeId.has_value())
 	{
@@ -666,6 +605,7 @@ utility::string_t AssetPipelineModelDto::ToJson() const
 		JsonDoc.AddMember("lodLevels", LodLevelsValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -679,6 +619,7 @@ void AssetPipelineModelDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("prototypeId"))
 	{
@@ -741,6 +682,7 @@ void AssetPipelineModelDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t AssetPipelineModelDto::GetPrototypeId() const
 {
 	return m_PrototypeId.value();
@@ -750,12 +692,6 @@ bool AssetPipelineModelDto::HasPrototypeId() const
 {
 	return m_PrototypeId.has_value();
 }
-
-void AssetPipelineModelDto::SetPrototypeId(const utility::string_t& Value)
-{
-	m_PrototypeId = Value;
-}
-
 utility::string_t AssetPipelineModelDto::GetAssetDetailId() const
 {
 	return m_AssetDetailId.value();
@@ -765,12 +701,6 @@ bool AssetPipelineModelDto::HasAssetDetailId() const
 {
 	return m_AssetDetailId.has_value();
 }
-
-void AssetPipelineModelDto::SetAssetDetailId(const utility::string_t& Value)
-{
-	m_AssetDetailId = Value;
-}
-
 int32_t AssetPipelineModelDto::GetThumbnailsCount() const
 {
 	return m_ThumbnailsCount.value();
@@ -780,12 +710,10 @@ bool AssetPipelineModelDto::HasThumbnailsCount() const
 {
 	return m_ThumbnailsCount.has_value();
 }
-
 void AssetPipelineModelDto::SetThumbnailsCount(int32_t Value)
 {
 	m_ThumbnailsCount = Value;
 }
-
 const std::vector<std::shared_ptr<AssetPipelineThumbnailDto>>& AssetPipelineModelDto::GetThumbnails() const
 {
 	return m_Thumbnails.value();
@@ -795,12 +723,10 @@ bool AssetPipelineModelDto::HasThumbnails() const
 {
 	return m_Thumbnails.has_value();
 }
-
 void AssetPipelineModelDto::SetThumbnails(const std::vector<std::shared_ptr<AssetPipelineThumbnailDto>>& Value)
 {
 	m_Thumbnails = Value;
 }
-
 int32_t AssetPipelineModelDto::GetLodLevelsCount() const
 {
 	return m_LodLevelsCount.value();
@@ -810,12 +736,10 @@ bool AssetPipelineModelDto::HasLodLevelsCount() const
 {
 	return m_LodLevelsCount.has_value();
 }
-
 void AssetPipelineModelDto::SetLodLevelsCount(int32_t Value)
 {
 	m_LodLevelsCount = Value;
 }
-
 const std::vector<std::shared_ptr<AssetPipelineModelLodLevelDto>>& AssetPipelineModelDto::GetLodLevels() const
 {
 	return m_LodLevels.value();
@@ -825,7 +749,6 @@ bool AssetPipelineModelDto::HasLodLevels() const
 {
 	return m_LodLevels.has_value();
 }
-
 void AssetPipelineModelDto::SetLodLevels(const std::vector<std::shared_ptr<AssetPipelineModelLodLevelDto>>& Value)
 {
 	m_LodLevels = Value;
@@ -834,7 +757,6 @@ void AssetPipelineModelDto::SetLodLevels(const std::vector<std::shared_ptr<Asset
 AssetPipelineModelLodLevelDto::AssetPipelineModelLodLevelDto()
 {
 }
-
 AssetPipelineModelLodLevelDto::~AssetPipelineModelLodLevelDto()
 {
 }
@@ -842,6 +764,7 @@ AssetPipelineModelLodLevelDto::~AssetPipelineModelLodLevelDto()
 utility::string_t AssetPipelineModelLodLevelDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_PrototypeId.has_value())
 	{
@@ -909,6 +832,7 @@ utility::string_t AssetPipelineModelLodLevelDto::ToJson() const
 		JsonDoc.AddMember("highQualityTextures", HighQualityTexturesValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -922,6 +846,7 @@ void AssetPipelineModelLodLevelDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("prototypeId"))
 	{
@@ -1042,6 +967,7 @@ void AssetPipelineModelLodLevelDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t AssetPipelineModelLodLevelDto::GetPrototypeId() const
 {
 	return m_PrototypeId.value();
@@ -1051,12 +977,6 @@ bool AssetPipelineModelLodLevelDto::HasPrototypeId() const
 {
 	return m_PrototypeId.has_value();
 }
-
-void AssetPipelineModelLodLevelDto::SetPrototypeId(const utility::string_t& Value)
-{
-	m_PrototypeId = Value;
-}
-
 utility::string_t AssetPipelineModelLodLevelDto::GetAssetDetailId() const
 {
 	return m_AssetDetailId.value();
@@ -1066,12 +986,6 @@ bool AssetPipelineModelLodLevelDto::HasAssetDetailId() const
 {
 	return m_AssetDetailId.has_value();
 }
-
-void AssetPipelineModelLodLevelDto::SetAssetDetailId(const utility::string_t& Value)
-{
-	m_AssetDetailId = Value;
-}
-
 std::shared_ptr<AssetPipelineStatus> AssetPipelineModelLodLevelDto::GetStatus() const
 {
 	return m_Status.value();
@@ -1081,12 +995,10 @@ bool AssetPipelineModelLodLevelDto::HasStatus() const
 {
 	return m_Status.has_value();
 }
-
 void AssetPipelineModelLodLevelDto::SetStatus(const std::shared_ptr<AssetPipelineStatus>& Value)
 {
 	m_Status = Value;
 }
-
 int32_t AssetPipelineModelLodLevelDto::GetLodLevelNumber() const
 {
 	return m_LodLevelNumber.value();
@@ -1096,12 +1008,10 @@ bool AssetPipelineModelLodLevelDto::HasLodLevelNumber() const
 {
 	return m_LodLevelNumber.has_value();
 }
-
 void AssetPipelineModelLodLevelDto::SetLodLevelNumber(int32_t Value)
 {
 	m_LodLevelNumber = Value;
 }
-
 float AssetPipelineModelLodLevelDto::GetSimplifyRatio() const
 {
 	return m_SimplifyRatio.value();
@@ -1111,12 +1021,10 @@ bool AssetPipelineModelLodLevelDto::HasSimplifyRatio() const
 {
 	return m_SimplifyRatio.has_value();
 }
-
 void AssetPipelineModelLodLevelDto::SetSimplifyRatio(float Value)
 {
 	m_SimplifyRatio = Value;
 }
-
 float AssetPipelineModelLodLevelDto::GetErrorTolerance() const
 {
 	return m_ErrorTolerance.value();
@@ -1126,12 +1034,10 @@ bool AssetPipelineModelLodLevelDto::HasErrorTolerance() const
 {
 	return m_ErrorTolerance.has_value();
 }
-
 void AssetPipelineModelLodLevelDto::SetErrorTolerance(float Value)
 {
 	m_ErrorTolerance = Value;
 }
-
 int32_t AssetPipelineModelLodLevelDto::GetMaxTextureSize() const
 {
 	return m_MaxTextureSize.value();
@@ -1141,12 +1047,10 @@ bool AssetPipelineModelLodLevelDto::HasMaxTextureSize() const
 {
 	return m_MaxTextureSize.has_value();
 }
-
 void AssetPipelineModelLodLevelDto::SetMaxTextureSize(int32_t Value)
 {
 	m_MaxTextureSize = Value;
 }
-
 int32_t AssetPipelineModelLodLevelDto::GetMaxLightMapSize() const
 {
 	return m_MaxLightMapSize.value();
@@ -1156,12 +1060,10 @@ bool AssetPipelineModelLodLevelDto::HasMaxLightMapSize() const
 {
 	return m_MaxLightMapSize.has_value();
 }
-
 void AssetPipelineModelLodLevelDto::SetMaxLightMapSize(int32_t Value)
 {
 	m_MaxLightMapSize = Value;
 }
-
 bool AssetPipelineModelLodLevelDto::GetCompressNormals() const
 {
 	return m_CompressNormals.value();
@@ -1171,12 +1073,10 @@ bool AssetPipelineModelLodLevelDto::HasCompressNormals() const
 {
 	return m_CompressNormals.has_value();
 }
-
 void AssetPipelineModelLodLevelDto::SetCompressNormals(const bool& Value)
 {
 	m_CompressNormals = Value;
 }
-
 bool AssetPipelineModelLodLevelDto::GetCompressOcclusion() const
 {
 	return m_CompressOcclusion.value();
@@ -1186,12 +1086,10 @@ bool AssetPipelineModelLodLevelDto::HasCompressOcclusion() const
 {
 	return m_CompressOcclusion.has_value();
 }
-
 void AssetPipelineModelLodLevelDto::SetCompressOcclusion(const bool& Value)
 {
 	m_CompressOcclusion = Value;
 }
-
 bool AssetPipelineModelLodLevelDto::GetHighQualityTextures() const
 {
 	return m_HighQualityTextures.value();
@@ -1201,7 +1099,6 @@ bool AssetPipelineModelLodLevelDto::HasHighQualityTextures() const
 {
 	return m_HighQualityTextures.has_value();
 }
-
 void AssetPipelineModelLodLevelDto::SetHighQualityTextures(const bool& Value)
 {
 	m_HighQualityTextures = Value;
@@ -1210,7 +1107,6 @@ void AssetPipelineModelLodLevelDto::SetHighQualityTextures(const bool& Value)
 AssetPipelineStatus::AssetPipelineStatus()
 {
 }
-
 AssetPipelineStatus::~AssetPipelineStatus()
 {
 }
@@ -1260,7 +1156,6 @@ void AssetPipelineStatus::SetValue(AssetPipelineStatus::eAssetPipelineStatus con
 AssetPipelineThumbnailDto::AssetPipelineThumbnailDto()
 {
 }
-
 AssetPipelineThumbnailDto::~AssetPipelineThumbnailDto()
 {
 }
@@ -1268,6 +1163,7 @@ AssetPipelineThumbnailDto::~AssetPipelineThumbnailDto()
 utility::string_t AssetPipelineThumbnailDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_PrototypeId.has_value())
 	{
@@ -1305,6 +1201,7 @@ utility::string_t AssetPipelineThumbnailDto::ToJson() const
 		JsonDoc.AddMember("imageSizeY", ImageSizeYValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -1318,6 +1215,7 @@ void AssetPipelineThumbnailDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("prototypeId"))
 	{
@@ -1388,6 +1286,7 @@ void AssetPipelineThumbnailDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t AssetPipelineThumbnailDto::GetPrototypeId() const
 {
 	return m_PrototypeId.value();
@@ -1397,12 +1296,6 @@ bool AssetPipelineThumbnailDto::HasPrototypeId() const
 {
 	return m_PrototypeId.has_value();
 }
-
-void AssetPipelineThumbnailDto::SetPrototypeId(const utility::string_t& Value)
-{
-	m_PrototypeId = Value;
-}
-
 utility::string_t AssetPipelineThumbnailDto::GetAssetDetailId() const
 {
 	return m_AssetDetailId.value();
@@ -1412,12 +1305,6 @@ bool AssetPipelineThumbnailDto::HasAssetDetailId() const
 {
 	return m_AssetDetailId.has_value();
 }
-
-void AssetPipelineThumbnailDto::SetAssetDetailId(const utility::string_t& Value)
-{
-	m_AssetDetailId = Value;
-}
-
 std::shared_ptr<AssetPipelineStatus> AssetPipelineThumbnailDto::GetStatus() const
 {
 	return m_Status.value();
@@ -1427,12 +1314,10 @@ bool AssetPipelineThumbnailDto::HasStatus() const
 {
 	return m_Status.has_value();
 }
-
 void AssetPipelineThumbnailDto::SetStatus(const std::shared_ptr<AssetPipelineStatus>& Value)
 {
 	m_Status = Value;
 }
-
 int32_t AssetPipelineThumbnailDto::GetThumbnailNumber() const
 {
 	return m_ThumbnailNumber.value();
@@ -1442,12 +1327,10 @@ bool AssetPipelineThumbnailDto::HasThumbnailNumber() const
 {
 	return m_ThumbnailNumber.has_value();
 }
-
 void AssetPipelineThumbnailDto::SetThumbnailNumber(int32_t Value)
 {
 	m_ThumbnailNumber = Value;
 }
-
 int32_t AssetPipelineThumbnailDto::GetImageSizeX() const
 {
 	return m_ImageSizeX.value();
@@ -1457,12 +1340,10 @@ bool AssetPipelineThumbnailDto::HasImageSizeX() const
 {
 	return m_ImageSizeX.has_value();
 }
-
 void AssetPipelineThumbnailDto::SetImageSizeX(int32_t Value)
 {
 	m_ImageSizeX = Value;
 }
-
 int32_t AssetPipelineThumbnailDto::GetImageSizeY() const
 {
 	return m_ImageSizeY.value();
@@ -1472,7 +1353,6 @@ bool AssetPipelineThumbnailDto::HasImageSizeY() const
 {
 	return m_ImageSizeY.has_value();
 }
-
 void AssetPipelineThumbnailDto::SetImageSizeY(int32_t Value)
 {
 	m_ImageSizeY = Value;
@@ -1481,7 +1361,6 @@ void AssetPipelineThumbnailDto::SetImageSizeY(int32_t Value)
 BulkUpsertAssetDetailDto::BulkUpsertAssetDetailDto()
 {
 }
-
 BulkUpsertAssetDetailDto::~BulkUpsertAssetDetailDto()
 {
 }
@@ -1489,6 +1368,7 @@ BulkUpsertAssetDetailDto::~BulkUpsertAssetDetailDto()
 utility::string_t BulkUpsertAssetDetailDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -1598,6 +1478,7 @@ utility::string_t BulkUpsertAssetDetailDto::ToJson() const
 		JsonDoc.AddMember("sizeInBytes", SizeInBytesValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -1611,6 +1492,7 @@ void BulkUpsertAssetDetailDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -1813,6 +1695,7 @@ void BulkUpsertAssetDetailDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t BulkUpsertAssetDetailDto::GetId() const
 {
 	return m_Id.value();
@@ -1822,12 +1705,10 @@ bool BulkUpsertAssetDetailDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
 void BulkUpsertAssetDetailDto::SetId(const utility::string_t& Value)
 {
 	m_Id = Value;
 }
-
 utility::string_t BulkUpsertAssetDetailDto::GetPrototypeId() const
 {
 	return m_PrototypeId.value();
@@ -1837,12 +1718,6 @@ bool BulkUpsertAssetDetailDto::HasPrototypeId() const
 {
 	return m_PrototypeId.has_value();
 }
-
-void BulkUpsertAssetDetailDto::SetPrototypeId(const utility::string_t& Value)
-{
-	m_PrototypeId = Value;
-}
-
 utility::string_t BulkUpsertAssetDetailDto::GetFileName() const
 {
 	return m_FileName.value();
@@ -1852,12 +1727,6 @@ bool BulkUpsertAssetDetailDto::HasFileName() const
 {
 	return m_FileName.has_value();
 }
-
-void BulkUpsertAssetDetailDto::SetFileName(const utility::string_t& Value)
-{
-	m_FileName = Value;
-}
-
 utility::string_t BulkUpsertAssetDetailDto::GetName() const
 {
 	return m_Name.value();
@@ -1867,12 +1736,10 @@ bool BulkUpsertAssetDetailDto::HasName() const
 {
 	return m_Name.has_value();
 }
-
 void BulkUpsertAssetDetailDto::SetName(const utility::string_t& Value)
 {
 	m_Name = Value;
 }
-
 utility::string_t BulkUpsertAssetDetailDto::GetLanguageCode() const
 {
 	return m_LanguageCode.value();
@@ -1882,12 +1749,10 @@ bool BulkUpsertAssetDetailDto::HasLanguageCode() const
 {
 	return m_LanguageCode.has_value();
 }
-
 void BulkUpsertAssetDetailDto::SetLanguageCode(const utility::string_t& Value)
 {
 	m_LanguageCode = Value;
 }
-
 utility::string_t BulkUpsertAssetDetailDto::GetAssetType() const
 {
 	return m_AssetType.value();
@@ -1897,12 +1762,10 @@ bool BulkUpsertAssetDetailDto::HasAssetType() const
 {
 	return m_AssetType.has_value();
 }
-
 void BulkUpsertAssetDetailDto::SetAssetType(const utility::string_t& Value)
 {
 	m_AssetType = Value;
 }
-
 const std::vector<utility::string_t>& BulkUpsertAssetDetailDto::GetSupportedPlatforms() const
 {
 	return m_SupportedPlatforms.value();
@@ -1912,12 +1775,10 @@ bool BulkUpsertAssetDetailDto::HasSupportedPlatforms() const
 {
 	return m_SupportedPlatforms.has_value();
 }
-
 void BulkUpsertAssetDetailDto::SetSupportedPlatforms(const std::vector<utility::string_t>& Value)
 {
 	m_SupportedPlatforms = Value;
 }
-
 const std::vector<utility::string_t>& BulkUpsertAssetDetailDto::GetStyle() const
 {
 	return m_Style.value();
@@ -1927,12 +1788,10 @@ bool BulkUpsertAssetDetailDto::HasStyle() const
 {
 	return m_Style.has_value();
 }
-
 void BulkUpsertAssetDetailDto::SetStyle(const std::vector<utility::string_t>& Value)
 {
 	m_Style = Value;
 }
-
 utility::string_t BulkUpsertAssetDetailDto::GetAddressableId() const
 {
 	return m_AddressableId.value();
@@ -1942,12 +1801,10 @@ bool BulkUpsertAssetDetailDto::HasAddressableId() const
 {
 	return m_AddressableId.has_value();
 }
-
 void BulkUpsertAssetDetailDto::SetAddressableId(const utility::string_t& Value)
 {
 	m_AddressableId = Value;
 }
-
 utility::string_t BulkUpsertAssetDetailDto::GetThirdPartyReferenceId() const
 {
 	return m_ThirdPartyReferenceId.value();
@@ -1957,12 +1814,10 @@ bool BulkUpsertAssetDetailDto::HasThirdPartyReferenceId() const
 {
 	return m_ThirdPartyReferenceId.has_value();
 }
-
 void BulkUpsertAssetDetailDto::SetThirdPartyReferenceId(const utility::string_t& Value)
 {
 	m_ThirdPartyReferenceId = Value;
 }
-
 utility::string_t BulkUpsertAssetDetailDto::GetUri() const
 {
 	return m_Uri.value();
@@ -1972,12 +1827,6 @@ bool BulkUpsertAssetDetailDto::HasUri() const
 {
 	return m_Uri.has_value();
 }
-
-void BulkUpsertAssetDetailDto::SetUri(const utility::string_t& Value)
-{
-	m_Uri = Value;
-}
-
 utility::string_t BulkUpsertAssetDetailDto::GetChecksum() const
 {
 	return m_Checksum.value();
@@ -1987,12 +1836,6 @@ bool BulkUpsertAssetDetailDto::HasChecksum() const
 {
 	return m_Checksum.has_value();
 }
-
-void BulkUpsertAssetDetailDto::SetChecksum(const utility::string_t& Value)
-{
-	m_Checksum = Value;
-}
-
 utility::string_t BulkUpsertAssetDetailDto::GetVersion() const
 {
 	return m_Version.value();
@@ -2002,12 +1845,6 @@ bool BulkUpsertAssetDetailDto::HasVersion() const
 {
 	return m_Version.has_value();
 }
-
-void BulkUpsertAssetDetailDto::SetVersion(const utility::string_t& Value)
-{
-	m_Version = Value;
-}
-
 utility::string_t BulkUpsertAssetDetailDto::GetMimeType() const
 {
 	return m_MimeType.value();
@@ -2017,12 +1854,6 @@ bool BulkUpsertAssetDetailDto::HasMimeType() const
 {
 	return m_MimeType.has_value();
 }
-
-void BulkUpsertAssetDetailDto::SetMimeType(const utility::string_t& Value)
-{
-	m_MimeType = Value;
-}
-
 utility::string_t BulkUpsertAssetDetailDto::GetExternalUri() const
 {
 	return m_ExternalUri.value();
@@ -2032,12 +1863,10 @@ bool BulkUpsertAssetDetailDto::HasExternalUri() const
 {
 	return m_ExternalUri.has_value();
 }
-
 void BulkUpsertAssetDetailDto::SetExternalUri(const utility::string_t& Value)
 {
 	m_ExternalUri = Value;
 }
-
 utility::string_t BulkUpsertAssetDetailDto::GetExternalMimeType() const
 {
 	return m_ExternalMimeType.value();
@@ -2047,12 +1876,10 @@ bool BulkUpsertAssetDetailDto::HasExternalMimeType() const
 {
 	return m_ExternalMimeType.has_value();
 }
-
 void BulkUpsertAssetDetailDto::SetExternalMimeType(const utility::string_t& Value)
 {
 	m_ExternalMimeType = Value;
 }
-
 const std::vector<utility::string_t>& BulkUpsertAssetDetailDto::GetTags() const
 {
 	return m_Tags.value();
@@ -2062,12 +1889,10 @@ bool BulkUpsertAssetDetailDto::HasTags() const
 {
 	return m_Tags.has_value();
 }
-
 void BulkUpsertAssetDetailDto::SetTags(const std::vector<utility::string_t>& Value)
 {
 	m_Tags = Value;
 }
-
 int64_t BulkUpsertAssetDetailDto::GetSizeInBytes() const
 {
 	return m_SizeInBytes.value();
@@ -2078,15 +1903,9 @@ bool BulkUpsertAssetDetailDto::HasSizeInBytes() const
 	return m_SizeInBytes.has_value();
 }
 
-void BulkUpsertAssetDetailDto::SetSizeInBytes(int64_t Value)
-{
-	m_SizeInBytes = Value;
-}
-
 BulkUpsertPrototypeDto::BulkUpsertPrototypeDto()
 {
 }
-
 BulkUpsertPrototypeDto::~BulkUpsertPrototypeDto()
 {
 }
@@ -2094,6 +1913,7 @@ BulkUpsertPrototypeDto::~BulkUpsertPrototypeDto()
 utility::string_t BulkUpsertPrototypeDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -2209,6 +2029,7 @@ utility::string_t BulkUpsertPrototypeDto::ToJson() const
 		JsonDoc.AddMember("writeAccess", WriteAccessValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -2222,6 +2043,7 @@ void BulkUpsertPrototypeDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -2418,6 +2240,7 @@ void BulkUpsertPrototypeDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t BulkUpsertPrototypeDto::GetId() const
 {
 	return m_Id.value();
@@ -2427,12 +2250,10 @@ bool BulkUpsertPrototypeDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetId(const utility::string_t& Value)
 {
 	m_Id = Value;
 }
-
 utility::string_t BulkUpsertPrototypeDto::GetName() const
 {
 	return m_Name.value();
@@ -2442,12 +2263,10 @@ bool BulkUpsertPrototypeDto::HasName() const
 {
 	return m_Name.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetName(const utility::string_t& Value)
 {
 	m_Name = Value;
 }
-
 const std::vector<utility::string_t>& BulkUpsertPrototypeDto::GetTags() const
 {
 	return m_Tags.value();
@@ -2457,12 +2276,10 @@ bool BulkUpsertPrototypeDto::HasTags() const
 {
 	return m_Tags.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetTags(const std::vector<utility::string_t>& Value)
 {
 	m_Tags = Value;
 }
-
 const std::map<utility::string_t, utility::string_t>& BulkUpsertPrototypeDto::GetMetadata() const
 {
 	return m_Metadata.value();
@@ -2472,12 +2289,10 @@ bool BulkUpsertPrototypeDto::HasMetadata() const
 {
 	return m_Metadata.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetMetadata(const std::map<utility::string_t, utility::string_t>& Value)
 {
 	m_Metadata = Value;
 }
-
 const std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>& BulkUpsertPrototypeDto::GetUiStrings() const
 {
 	return m_UiStrings.value();
@@ -2487,12 +2302,10 @@ bool BulkUpsertPrototypeDto::HasUiStrings() const
 {
 	return m_UiStrings.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetUiStrings(const std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>& Value)
 {
 	m_UiStrings = Value;
 }
-
 const std::map<utility::string_t, utility::string_t>& BulkUpsertPrototypeDto::GetState() const
 {
 	return m_State.value();
@@ -2502,12 +2315,10 @@ bool BulkUpsertPrototypeDto::HasState() const
 {
 	return m_State.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetState(const std::map<utility::string_t, utility::string_t>& Value)
 {
 	m_State = Value;
 }
-
 utility::string_t BulkUpsertPrototypeDto::GetPointOfInterestId() const
 {
 	return m_PointOfInterestId.value();
@@ -2517,12 +2328,10 @@ bool BulkUpsertPrototypeDto::HasPointOfInterestId() const
 {
 	return m_PointOfInterestId.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetPointOfInterestId(const utility::string_t& Value)
 {
 	m_PointOfInterestId = Value;
 }
-
 utility::string_t BulkUpsertPrototypeDto::GetParentId() const
 {
 	return m_ParentId.value();
@@ -2532,12 +2341,10 @@ bool BulkUpsertPrototypeDto::HasParentId() const
 {
 	return m_ParentId.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetParentId(const utility::string_t& Value)
 {
 	m_ParentId = Value;
 }
-
 const std::vector<utility::string_t>& BulkUpsertPrototypeDto::GetGroupIds() const
 {
 	return m_GroupIds.value();
@@ -2547,12 +2354,10 @@ bool BulkUpsertPrototypeDto::HasGroupIds() const
 {
 	return m_GroupIds.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetGroupIds(const std::vector<utility::string_t>& Value)
 {
 	m_GroupIds = Value;
 }
-
 utility::string_t BulkUpsertPrototypeDto::GetCreatedBy() const
 {
 	return m_CreatedBy.value();
@@ -2562,12 +2367,6 @@ bool BulkUpsertPrototypeDto::HasCreatedBy() const
 {
 	return m_CreatedBy.has_value();
 }
-
-void BulkUpsertPrototypeDto::SetCreatedBy(const utility::string_t& Value)
-{
-	m_CreatedBy = Value;
-}
-
 utility::string_t BulkUpsertPrototypeDto::GetCreatedAt() const
 {
 	return m_CreatedAt.value();
@@ -2577,12 +2376,6 @@ bool BulkUpsertPrototypeDto::HasCreatedAt() const
 {
 	return m_CreatedAt.has_value();
 }
-
-void BulkUpsertPrototypeDto::SetCreatedAt(const utility::string_t& Value)
-{
-	m_CreatedAt = Value;
-}
-
 utility::string_t BulkUpsertPrototypeDto::GetUpdatedBy() const
 {
 	return m_UpdatedBy.value();
@@ -2592,12 +2385,6 @@ bool BulkUpsertPrototypeDto::HasUpdatedBy() const
 {
 	return m_UpdatedBy.has_value();
 }
-
-void BulkUpsertPrototypeDto::SetUpdatedBy(const utility::string_t& Value)
-{
-	m_UpdatedBy = Value;
-}
-
 utility::string_t BulkUpsertPrototypeDto::GetUpdatedAt() const
 {
 	return m_UpdatedAt.value();
@@ -2607,12 +2394,6 @@ bool BulkUpsertPrototypeDto::HasUpdatedAt() const
 {
 	return m_UpdatedAt.has_value();
 }
-
-void BulkUpsertPrototypeDto::SetUpdatedAt(const utility::string_t& Value)
-{
-	m_UpdatedAt = Value;
-}
-
 bool BulkUpsertPrototypeDto::GetHighlander() const
 {
 	return m_Highlander.value();
@@ -2622,12 +2403,10 @@ bool BulkUpsertPrototypeDto::HasHighlander() const
 {
 	return m_Highlander.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetHighlander(const bool& Value)
 {
 	m_Highlander = Value;
 }
-
 utility::string_t BulkUpsertPrototypeDto::GetType() const
 {
 	return m_Type.value();
@@ -2637,12 +2416,10 @@ bool BulkUpsertPrototypeDto::HasType() const
 {
 	return m_Type.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetType(const utility::string_t& Value)
 {
 	m_Type = Value;
 }
-
 bool BulkUpsertPrototypeDto::GetSystemOwned() const
 {
 	return m_SystemOwned.value();
@@ -2652,12 +2429,10 @@ bool BulkUpsertPrototypeDto::HasSystemOwned() const
 {
 	return m_SystemOwned.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetSystemOwned(const bool& Value)
 {
 	m_SystemOwned = Value;
 }
-
 utility::string_t BulkUpsertPrototypeDto::GetPrototypeOwnerId() const
 {
 	return m_PrototypeOwnerId.value();
@@ -2667,12 +2442,10 @@ bool BulkUpsertPrototypeDto::HasPrototypeOwnerId() const
 {
 	return m_PrototypeOwnerId.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetPrototypeOwnerId(const utility::string_t& Value)
 {
 	m_PrototypeOwnerId = Value;
 }
-
 const std::vector<utility::string_t>& BulkUpsertPrototypeDto::GetReadAccess() const
 {
 	return m_ReadAccess.value();
@@ -2682,12 +2455,10 @@ bool BulkUpsertPrototypeDto::HasReadAccess() const
 {
 	return m_ReadAccess.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetReadAccess(const std::vector<utility::string_t>& Value)
 {
 	m_ReadAccess = Value;
 }
-
 const std::vector<utility::string_t>& BulkUpsertPrototypeDto::GetWriteAccess() const
 {
 	return m_WriteAccess.value();
@@ -2697,7 +2468,6 @@ bool BulkUpsertPrototypeDto::HasWriteAccess() const
 {
 	return m_WriteAccess.has_value();
 }
-
 void BulkUpsertPrototypeDto::SetWriteAccess(const std::vector<utility::string_t>& Value)
 {
 	m_WriteAccess = Value;
@@ -2706,7 +2476,6 @@ void BulkUpsertPrototypeDto::SetWriteAccess(const std::vector<utility::string_t>
 LocalizedString::LocalizedString()
 {
 }
-
 LocalizedString::~LocalizedString()
 {
 }
@@ -2714,6 +2483,7 @@ LocalizedString::~LocalizedString()
 utility::string_t LocalizedString::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_LanguageCode.has_value())
 	{
@@ -2726,6 +2496,7 @@ utility::string_t LocalizedString::ToJson() const
 		rapidjson::Value ValueValue(TypeToJsonValue(m_Value, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("value", ValueValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -2740,6 +2511,7 @@ void LocalizedString::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("languageCode"))
 	{
@@ -2762,6 +2534,7 @@ void LocalizedString::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t LocalizedString::GetLanguageCode() const
 {
 	return m_LanguageCode.value();
@@ -2771,12 +2544,10 @@ bool LocalizedString::HasLanguageCode() const
 {
 	return m_LanguageCode.has_value();
 }
-
 void LocalizedString::SetLanguageCode(const utility::string_t& Value)
 {
 	m_LanguageCode = Value;
 }
-
 utility::string_t LocalizedString::GetValue() const
 {
 	return m_Value.value();
@@ -2786,7 +2557,6 @@ bool LocalizedString::HasValue() const
 {
 	return m_Value.has_value();
 }
-
 void LocalizedString::SetValue(const utility::string_t& Value)
 {
 	m_Value = Value;
@@ -2795,7 +2565,6 @@ void LocalizedString::SetValue(const utility::string_t& Value)
 PrototypeDto::PrototypeDto()
 {
 }
-
 PrototypeDto::~PrototypeDto()
 {
 }
@@ -2803,6 +2572,7 @@ PrototypeDto::~PrototypeDto()
 utility::string_t PrototypeDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -2918,6 +2688,7 @@ utility::string_t PrototypeDto::ToJson() const
 		JsonDoc.AddMember("writeAccess", WriteAccessValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -2931,6 +2702,7 @@ void PrototypeDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -3127,6 +2899,7 @@ void PrototypeDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t PrototypeDto::GetId() const
 {
 	return m_Id.value();
@@ -3136,12 +2909,6 @@ bool PrototypeDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void PrototypeDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t PrototypeDto::GetName() const
 {
 	return m_Name.value();
@@ -3151,12 +2918,10 @@ bool PrototypeDto::HasName() const
 {
 	return m_Name.has_value();
 }
-
 void PrototypeDto::SetName(const utility::string_t& Value)
 {
 	m_Name = Value;
 }
-
 const std::vector<utility::string_t>& PrototypeDto::GetTags() const
 {
 	return m_Tags.value();
@@ -3166,12 +2931,10 @@ bool PrototypeDto::HasTags() const
 {
 	return m_Tags.has_value();
 }
-
 void PrototypeDto::SetTags(const std::vector<utility::string_t>& Value)
 {
 	m_Tags = Value;
 }
-
 const std::map<utility::string_t, utility::string_t>& PrototypeDto::GetMetadata() const
 {
 	return m_Metadata.value();
@@ -3181,12 +2944,10 @@ bool PrototypeDto::HasMetadata() const
 {
 	return m_Metadata.has_value();
 }
-
 void PrototypeDto::SetMetadata(const std::map<utility::string_t, utility::string_t>& Value)
 {
 	m_Metadata = Value;
 }
-
 const std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>& PrototypeDto::GetUiStrings() const
 {
 	return m_UiStrings.value();
@@ -3196,12 +2957,10 @@ bool PrototypeDto::HasUiStrings() const
 {
 	return m_UiStrings.has_value();
 }
-
 void PrototypeDto::SetUiStrings(const std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>& Value)
 {
 	m_UiStrings = Value;
 }
-
 const std::map<utility::string_t, utility::string_t>& PrototypeDto::GetState() const
 {
 	return m_State.value();
@@ -3211,12 +2970,10 @@ bool PrototypeDto::HasState() const
 {
 	return m_State.has_value();
 }
-
 void PrototypeDto::SetState(const std::map<utility::string_t, utility::string_t>& Value)
 {
 	m_State = Value;
 }
-
 utility::string_t PrototypeDto::GetPointOfInterestId() const
 {
 	return m_PointOfInterestId.value();
@@ -3226,12 +2983,10 @@ bool PrototypeDto::HasPointOfInterestId() const
 {
 	return m_PointOfInterestId.has_value();
 }
-
 void PrototypeDto::SetPointOfInterestId(const utility::string_t& Value)
 {
 	m_PointOfInterestId = Value;
 }
-
 utility::string_t PrototypeDto::GetParentId() const
 {
 	return m_ParentId.value();
@@ -3241,12 +2996,10 @@ bool PrototypeDto::HasParentId() const
 {
 	return m_ParentId.has_value();
 }
-
 void PrototypeDto::SetParentId(const utility::string_t& Value)
 {
 	m_ParentId = Value;
 }
-
 const std::vector<utility::string_t>& PrototypeDto::GetGroupIds() const
 {
 	return m_GroupIds.value();
@@ -3256,12 +3009,10 @@ bool PrototypeDto::HasGroupIds() const
 {
 	return m_GroupIds.has_value();
 }
-
 void PrototypeDto::SetGroupIds(const std::vector<utility::string_t>& Value)
 {
 	m_GroupIds = Value;
 }
-
 utility::string_t PrototypeDto::GetCreatedBy() const
 {
 	return m_CreatedBy.value();
@@ -3271,12 +3022,6 @@ bool PrototypeDto::HasCreatedBy() const
 {
 	return m_CreatedBy.has_value();
 }
-
-void PrototypeDto::SetCreatedBy(const utility::string_t& Value)
-{
-	m_CreatedBy = Value;
-}
-
 utility::string_t PrototypeDto::GetCreatedAt() const
 {
 	return m_CreatedAt.value();
@@ -3286,12 +3031,6 @@ bool PrototypeDto::HasCreatedAt() const
 {
 	return m_CreatedAt.has_value();
 }
-
-void PrototypeDto::SetCreatedAt(const utility::string_t& Value)
-{
-	m_CreatedAt = Value;
-}
-
 utility::string_t PrototypeDto::GetUpdatedBy() const
 {
 	return m_UpdatedBy.value();
@@ -3301,12 +3040,6 @@ bool PrototypeDto::HasUpdatedBy() const
 {
 	return m_UpdatedBy.has_value();
 }
-
-void PrototypeDto::SetUpdatedBy(const utility::string_t& Value)
-{
-	m_UpdatedBy = Value;
-}
-
 utility::string_t PrototypeDto::GetUpdatedAt() const
 {
 	return m_UpdatedAt.value();
@@ -3316,12 +3049,6 @@ bool PrototypeDto::HasUpdatedAt() const
 {
 	return m_UpdatedAt.has_value();
 }
-
-void PrototypeDto::SetUpdatedAt(const utility::string_t& Value)
-{
-	m_UpdatedAt = Value;
-}
-
 bool PrototypeDto::GetHighlander() const
 {
 	return m_Highlander.value();
@@ -3331,12 +3058,10 @@ bool PrototypeDto::HasHighlander() const
 {
 	return m_Highlander.has_value();
 }
-
 void PrototypeDto::SetHighlander(const bool& Value)
 {
 	m_Highlander = Value;
 }
-
 utility::string_t PrototypeDto::GetType() const
 {
 	return m_Type.value();
@@ -3346,12 +3071,10 @@ bool PrototypeDto::HasType() const
 {
 	return m_Type.has_value();
 }
-
 void PrototypeDto::SetType(const utility::string_t& Value)
 {
 	m_Type = Value;
 }
-
 bool PrototypeDto::GetSystemOwned() const
 {
 	return m_SystemOwned.value();
@@ -3361,12 +3084,10 @@ bool PrototypeDto::HasSystemOwned() const
 {
 	return m_SystemOwned.has_value();
 }
-
 void PrototypeDto::SetSystemOwned(const bool& Value)
 {
 	m_SystemOwned = Value;
 }
-
 utility::string_t PrototypeDto::GetPrototypeOwnerId() const
 {
 	return m_PrototypeOwnerId.value();
@@ -3376,12 +3097,10 @@ bool PrototypeDto::HasPrototypeOwnerId() const
 {
 	return m_PrototypeOwnerId.has_value();
 }
-
 void PrototypeDto::SetPrototypeOwnerId(const utility::string_t& Value)
 {
 	m_PrototypeOwnerId = Value;
 }
-
 const std::vector<utility::string_t>& PrototypeDto::GetReadAccess() const
 {
 	return m_ReadAccess.value();
@@ -3391,12 +3110,10 @@ bool PrototypeDto::HasReadAccess() const
 {
 	return m_ReadAccess.has_value();
 }
-
 void PrototypeDto::SetReadAccess(const std::vector<utility::string_t>& Value)
 {
 	m_ReadAccess = Value;
 }
-
 const std::vector<utility::string_t>& PrototypeDto::GetWriteAccess() const
 {
 	return m_WriteAccess.value();
@@ -3406,7 +3123,6 @@ bool PrototypeDto::HasWriteAccess() const
 {
 	return m_WriteAccess.has_value();
 }
-
 void PrototypeDto::SetWriteAccess(const std::vector<utility::string_t>& Value)
 {
 	m_WriteAccess = Value;
@@ -3415,7 +3131,6 @@ void PrototypeDto::SetWriteAccess(const std::vector<utility::string_t>& Value)
 PrototypeDtoDataPage::PrototypeDtoDataPage()
 {
 }
-
 PrototypeDtoDataPage::~PrototypeDtoDataPage()
 {
 }
@@ -3423,6 +3138,7 @@ PrototypeDtoDataPage::~PrototypeDtoDataPage()
 utility::string_t PrototypeDtoDataPage::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Items.has_value())
 	{
@@ -3454,6 +3170,7 @@ utility::string_t PrototypeDtoDataPage::ToJson() const
 		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -3467,6 +3184,7 @@ void PrototypeDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("items"))
 	{
@@ -3531,6 +3249,7 @@ void PrototypeDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<std::shared_ptr<PrototypeDto>>& PrototypeDtoDataPage::GetItems() const
 {
 	return m_Items.value();
@@ -3540,12 +3259,10 @@ bool PrototypeDtoDataPage::HasItems() const
 {
 	return m_Items.has_value();
 }
-
 void PrototypeDtoDataPage::SetItems(const std::vector<std::shared_ptr<PrototypeDto>>& Value)
 {
 	m_Items = Value;
 }
-
 int32_t PrototypeDtoDataPage::GetSkip() const
 {
 	return m_Skip.value();
@@ -3555,12 +3272,10 @@ bool PrototypeDtoDataPage::HasSkip() const
 {
 	return m_Skip.has_value();
 }
-
 void PrototypeDtoDataPage::SetSkip(int32_t Value)
 {
 	m_Skip = Value;
 }
-
 int32_t PrototypeDtoDataPage::GetLimit() const
 {
 	return m_Limit.value();
@@ -3570,12 +3285,10 @@ bool PrototypeDtoDataPage::HasLimit() const
 {
 	return m_Limit.has_value();
 }
-
 void PrototypeDtoDataPage::SetLimit(int32_t Value)
 {
 	m_Limit = Value;
 }
-
 int32_t PrototypeDtoDataPage::GetItemCount() const
 {
 	return m_ItemCount.value();
@@ -3585,12 +3298,10 @@ bool PrototypeDtoDataPage::HasItemCount() const
 {
 	return m_ItemCount.has_value();
 }
-
 void PrototypeDtoDataPage::SetItemCount(int32_t Value)
 {
 	m_ItemCount = Value;
 }
-
 int64_t PrototypeDtoDataPage::GetItemTotalCount() const
 {
 	return m_ItemTotalCount.value();
@@ -3600,7 +3311,6 @@ bool PrototypeDtoDataPage::HasItemTotalCount() const
 {
 	return m_ItemTotalCount.has_value();
 }
-
 void PrototypeDtoDataPage::SetItemTotalCount(int64_t Value)
 {
 	m_ItemTotalCount = Value;
@@ -3609,7 +3319,6 @@ void PrototypeDtoDataPage::SetItemTotalCount(int64_t Value)
 SortDirection::SortDirection()
 {
 }
-
 SortDirection::~SortDirection()
 {
 }
@@ -3649,5 +3358,6 @@ void SortDirection::SetValue(SortDirection::eSortDirection const InValue)
 {
 	Value = InValue;
 }
+
 
 } // namespace csp::services::generated::prototypeservice

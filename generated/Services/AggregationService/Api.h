@@ -9,14 +9,18 @@
 
 #include <optional>
 
+
 namespace csp::services::generated::aggregationservice
 {
+
 
 class CacheApi final : public csp::services::ApiBase
 {
 public:
 	CacheApi(csp::web::WebClient* InWebClient);
 	virtual ~CacheApi();
+
+
 
 	/// <summary>
 	/// Gets the distributed cache keys that match the pattern (use * for wildcard)
@@ -30,6 +34,7 @@ public:
 						   const std::optional<int32_t>& Limit,
 						   csp::services::ApiResponseHandlerBase* ResponseHandler,
 						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Deletes the distributed cache keys that match the pattern (use * for wildcard)
@@ -49,6 +54,8 @@ public:
 	ConfigurationApi(csp::web::WebClient* InWebClient);
 	virtual ~ConfigurationApi();
 
+
+
 	/// <remarks>
 	/// GET /appsettings
 	/// Authorization: magnopus-admin
@@ -56,12 +63,16 @@ public:
 	void appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <remarks>
 	/// POST /appsettings/reload
 	/// Authorization: magnopus-admin
 	/// </remarks>
 	void appsettingsReloadPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
 							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <remarks>
 	/// GET /featureflags
@@ -76,6 +87,8 @@ class ExternalServiceProxyApi final : public csp::services::ApiBase
 public:
 	ExternalServiceProxyApi(csp::web::WebClient* InWebClient);
 	virtual ~ExternalServiceProxyApi();
+
+
 
 	/// <summary>
 	/// Used to make a call to an external API
@@ -94,6 +107,8 @@ class GroupRolesApi final : public csp::services::ApiBase
 public:
 	GroupRolesApi(csp::web::WebClient* InWebClient);
 	virtual ~GroupRolesApi();
+
+
 
 	/// <summary>
 	/// Set a user's group role in a group they're already a member of.
@@ -115,6 +130,8 @@ public:
 	NtpApi(csp::web::WebClient* InWebClient);
 	virtual ~NtpApi();
 
+
+
 	/// <remarks>
 	/// GET /datetime
 	/// Authorization: Anonymous
@@ -128,6 +145,8 @@ class PingApi final : public csp::services::ApiBase
 public:
 	PingApi(csp::web::WebClient* InWebClient);
 	virtual ~PingApi();
+
+
 
 	/// <remarks>
 	/// GET /ping
@@ -143,6 +162,8 @@ public:
 	ShopifyApi(csp::web::WebClient* InWebClient);
 	virtual ~ShopifyApi();
 
+
+
 	/// <summary>
 	/// Find one product and return it and all its variants
 	/// </summary>
@@ -155,6 +176,8 @@ public:
 															  csp::services::ApiResponseHandlerBase* ResponseHandler,
 															  csp::common::CancellationToken& CancellationToken
 															  = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Find one or more products by variant ids and include the variant data too
@@ -169,6 +192,8 @@ public:
 															 csp::common::CancellationToken& CancellationToken
 															 = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Creates an record that contains the Shopify integration info
 	/// </summary>
@@ -181,6 +206,8 @@ public:
 											 csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Tests the provided info against Shopify to verify it's validity
 	/// </summary>
@@ -191,6 +218,8 @@ public:
 	void apiV1VendorsShopifyValidatePut(const std::shared_ptr<ShopifyStorefrontValidationRequest>& RequestBody,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Returns all storefronts for the provided user
@@ -207,6 +236,8 @@ public:
 													  csp::common::CancellationToken& CancellationToken
 													  = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Creates a Cart at Shopify for the store associated to the provided SpaceId
 	/// </summary>
@@ -217,6 +248,8 @@ public:
 	void apiV1SpacesSpaceIdVendorsShopifyCartsPost(const utility::string_t& spaceId,
 												   csp::services::ApiResponseHandlerBase* ResponseHandler,
 												   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Uses the CartId to reach out to Shopify and get Cart Data.
@@ -231,6 +264,7 @@ public:
 														csp::common::CancellationToken& CancellationToken
 														= csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Updates the Cart
 	/// </summary>
@@ -244,6 +278,8 @@ public:
 														csp::services::ApiResponseHandlerBase* ResponseHandler,
 														csp::common::CancellationToken& CancellationToken
 														= csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Get shopify cart checkout info
@@ -265,6 +301,8 @@ public:
 	SpaceApi(csp::web::WebClient* InWebClient);
 	virtual ~SpaceApi();
 
+
+
 	/// <summary>
 	/// Locates the Space by its unique groupId represented here as spaceId and the associated objects that belong to it
 	/// and deletes it from the data store.
@@ -277,6 +315,8 @@ public:
 	void apiV1SpacesSpaceIdDelete(const utility::string_t& spaceId,
 								  csp::services::ApiResponseHandlerBase* ResponseHandler,
 								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Locates the Spaces by their unique groupIds represented here as spaceIds and the associated objects that belong to it
@@ -292,6 +332,8 @@ public:
 						   csp::services::ApiResponseHandlerBase* ResponseHandler,
 						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Locates the Space by its unique groupId represented here as spaceId and the associated objects that belong to it
 	/// and returns those objects as KML style XML for google earth
@@ -304,6 +346,8 @@ public:
 													csp::services::ApiResponseHandlerBase* ResponseHandler,
 													csp::common::CancellationToken& CancellationToken
 													= csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Creates a duplicate of a space and assigns it to a specific group
@@ -325,6 +369,8 @@ public:
 	TicketedSpaceApi(csp::web::WebClient* InWebClient);
 	virtual ~TicketedSpaceApi();
 
+
+
 	/// <summary>
 	/// Creates an event associated with a space
 	/// </summary>
@@ -336,6 +382,8 @@ public:
 									  const std::shared_ptr<SpaceEventDto>& RequestBody,
 									  csp::services::ApiResponseHandlerBase* ResponseHandler,
 									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Updates an event associated with a space
@@ -349,6 +397,8 @@ public:
 											const std::shared_ptr<SpaceEventDto>& RequestBody,
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Search space events that matches the search criteria
@@ -368,6 +418,8 @@ public:
 							  csp::services::ApiResponseHandlerBase* ResponseHandler,
 							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Applies the ticket purchased from 3rd party event ticket vendor to enter a space event
 	/// </summary>
@@ -384,6 +436,8 @@ public:
 																						csp::common::CancellationToken& CancellationToken
 																						= csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Returns which spaces have active ticketing and which do not
 	/// </summary>
@@ -394,6 +448,8 @@ public:
 	void apiV1SpacesTicketedGet(const std::optional<std::vector<utility::string_t>>& spaceIds,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
 								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// OAuth endpoint for exchanging vendor provider auth code for an API bearer token.
@@ -411,6 +467,8 @@ public:
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Returns info related to initiating oauth flow with a specific vendor
 	/// </summary>
@@ -425,5 +483,6 @@ public:
 														  csp::common::CancellationToken& CancellationToken
 														  = csp::common::CancellationToken::Dummy()) const;
 };
+
 
 } // namespace csp::services::generated::aggregationservice

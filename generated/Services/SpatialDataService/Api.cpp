@@ -6,8 +6,10 @@
 #include "Web/HttpAuth.h"
 #include "Web/HttpPayload.h"
 
+
 namespace csp::services::generated::spatialdataservice
 {
+
 
 AnchorsApi::AnchorsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
 {
@@ -16,6 +18,8 @@ AnchorsApi::AnchorsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, 
 AnchorsApi::~AnchorsApi()
 {
 }
+
+
 
 void AnchorsApi::apiV1AnchorsIdGet(const utility::string_t& id,
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -61,6 +65,8 @@ void AnchorsApi::apiV1AnchorsIdDelete(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void AnchorsApi::apiV1AnchorsPost(const std::shared_ptr<AnchorDto>& RequestBody,
 								  csp::services::ApiResponseHandlerBase* ResponseHandler,
 								  csp::common::CancellationToken& CancellationToken) const
@@ -82,6 +88,7 @@ void AnchorsApi::apiV1AnchorsDelete(const std::optional<std::vector<utility::str
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/anchors", {});
+
 
 	if (ids.has_value())
 	{
@@ -114,65 +121,78 @@ void AnchorsApi::apiV1AnchorsGet(const std::optional<std::vector<utility::string
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/anchors", {});
 
+
 	if (Keys.has_value())
 	{
 		Uri.AddQueryParams("Keys", Keys.value());
 	}
+
 
 	if (Values.has_value())
 	{
 		Uri.AddQueryParams("Values", Values.value());
 	}
 
+
 	if (Coordinate_Longitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
 	}
+
 
 	if (Coordinate_Latitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
 	}
 
+
 	if (Coordinate_Radius.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
 	}
+
 
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
 	}
 
+
 	if (TagsAll.has_value())
 	{
 		Uri.AddQueryParams("TagsAll", TagsAll.value());
 	}
+
 
 	if (ThirdPartyProviderNames.has_value())
 	{
 		Uri.AddQueryParams("ThirdPartyProviderNames", ThirdPartyProviderNames.value());
 	}
 
+
 	if (ThirdPartyAnchorIds.has_value())
 	{
 		Uri.AddQueryParams("ThirdPartyAnchorIds", ThirdPartyAnchorIds.value());
 	}
+
 
 	if (ReferenceIds.has_value())
 	{
 		Uri.AddQueryParams("ReferenceIds", ReferenceIds.value());
 	}
 
+
 	if (AnchoredObjectIds.has_value())
 	{
 		Uri.AddQueryParams("AnchoredObjectIds", AnchoredObjectIds.value());
 	}
 
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
+
 
 	if (Limit.has_value())
 	{
@@ -185,6 +205,8 @@ void AnchorsApi::apiV1AnchorsGet(const std::optional<std::vector<utility::string
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void AnchorsApi::apiV1AnchorResolutionsPost(const std::shared_ptr<AnchorResolutionDto>& RequestBody,
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -213,30 +235,36 @@ void AnchorsApi::apiV1AnchorResolutionsGet(const std::optional<std::vector<utili
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/anchor-resolutions", {});
 
+
 	if (AnchorIds.has_value())
 	{
 		Uri.AddQueryParams("AnchorIds", AnchorIds.value());
 	}
+
 
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
 	}
 
+
 	if (TagsAll.has_value())
 	{
 		Uri.AddQueryParams("TagsAll", TagsAll.value());
 	}
+
 
 	if (SuccessfullyResolved.has_value())
 	{
 		Uri.AddQueryParams("SuccessfullyResolved", SuccessfullyResolved.value());
 	}
 
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
+
 
 	if (Limit.has_value())
 	{
@@ -250,6 +278,8 @@ void AnchorsApi::apiV1AnchorResolutionsGet(const std::optional<std::vector<utili
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void AnchorsApi::apiV1AnchorResolutionsStatsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
 												const std::optional<std::vector<utility::string_t>>& Tags,
 												const std::optional<bool>& TagsAll,
@@ -260,20 +290,24 @@ void AnchorsApi::apiV1AnchorResolutionsStatsGet(const std::optional<std::vector<
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/anchor-resolutions/stats", {});
 
+
 	if (AnchorIds.has_value())
 	{
 		Uri.AddQueryParams("AnchorIds", AnchorIds.value());
 	}
+
 
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
 	}
 
+
 	if (TagsAll.has_value())
 	{
 		Uri.AddQueryParams("TagsAll", TagsAll.value());
 	}
+
 
 	if (SuccessfullyResolved.has_value())
 	{
@@ -287,6 +321,8 @@ void AnchorsApi::apiV1AnchorResolutionsStatsGet(const std::optional<std::vector<
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
 {
 }
@@ -294,6 +330,8 @@ ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(I
 ConfigurationApi::~ConfigurationApi()
 {
 }
+
+
 
 void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
@@ -306,6 +344,8 @@ void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* Res
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken) const
@@ -320,6 +360,8 @@ void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBa
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken) const
 {
@@ -333,6 +375,8 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
 {
 }
@@ -340,6 +384,8 @@ NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CS
 NtpApi::~NtpApi()
 {
 }
+
+
 
 void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
@@ -352,6 +398,8 @@ void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 PersonalPointOfInterestApi::PersonalPointOfInterestApi(csp::web::WebClient* InWebClient)
 	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
 {
@@ -360,6 +408,8 @@ PersonalPointOfInterestApi::PersonalPointOfInterestApi(csp::web::WebClient* InWe
 PersonalPointOfInterestApi::~PersonalPointOfInterestApi()
 {
 }
+
+
 
 void PersonalPointOfInterestApi::apiV1UsersUserIdPoiGet(const utility::string_t& userId,
 														csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -374,6 +424,8 @@ void PersonalPointOfInterestApi::apiV1UsersUserIdPoiGet(const utility::string_t&
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void PersonalPointOfInterestApi::apiV1UsersUserIdPoiPoiIdPut(const utility::string_t& userId,
 															 const utility::string_t& poiId,
@@ -405,6 +457,8 @@ void PersonalPointOfInterestApi::apiV1UsersUserIdPoiPoiIdDelete(const utility::s
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
 {
 }
@@ -412,6 +466,8 @@ PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::
 PingApi::~PingApi()
 {
 }
+
+
 
 void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
@@ -424,6 +480,8 @@ void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, cs
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 PointOfInterestApi::PointOfInterestApi(csp::web::WebClient* InWebClient)
 	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
 {
@@ -432,6 +490,8 @@ PointOfInterestApi::PointOfInterestApi(csp::web::WebClient* InWebClient)
 PointOfInterestApi::~PointOfInterestApi()
 {
 }
+
+
 
 void PointOfInterestApi::apiV1PoiIdGet(const utility::string_t& id,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -477,6 +537,8 @@ void PointOfInterestApi::apiV1PoiIdDelete(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void PointOfInterestApi::apiV1PoiLiteGet(const std::optional<utility::string_t>& ppoiUserId,
 										 const std::optional<std::vector<utility::string_t>>& Ids,
 										 const std::optional<utility::string_t>& Type,
@@ -508,125 +570,150 @@ void PointOfInterestApi::apiV1PoiLiteGet(const std::optional<utility::string_t>&
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/poi-lite", {});
 
+
 	if (ppoiUserId.has_value())
 	{
 		Uri.AddQueryParams("ppoiUserId", ppoiUserId.value());
 	}
+
 
 	if (Ids.has_value())
 	{
 		Uri.AddQueryParams("Ids", Ids.value());
 	}
 
+
 	if (Type.has_value())
 	{
 		Uri.AddQueryParams("Type", Type.value());
 	}
+
 
 	if (Types.has_value())
 	{
 		Uri.AddQueryParams("Types", Types.value());
 	}
 
+
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
 	}
+
 
 	if (TagsAll.has_value())
 	{
 		Uri.AddQueryParams("TagsAll", TagsAll.value());
 	}
 
+
 	if (Coordinate_Longitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
 	}
+
 
 	if (Coordinate_Latitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
 	}
 
+
 	if (Coordinate_Radius.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
 	}
+
 
 	if (Geofence.has_value())
 	{
 		Uri.AddQueryParams("Geofence", Geofence.value());
 	}
 
+
 	if (Name.has_value())
 	{
 		Uri.AddQueryParams("Name", Name.value());
 	}
+
 
 	if (Names.has_value())
 	{
 		Uri.AddQueryParams("Names", Names.value());
 	}
 
+
 	if (Title.has_value())
 	{
 		Uri.AddQueryParams("Title", Title.value());
 	}
+
 
 	if (ZoomLevel.has_value())
 	{
 		Uri.AddQueryParams("ZoomLevel", ZoomLevel.value());
 	}
 
+
 	if (EventStartTime.has_value())
 	{
 		Uri.AddQueryParams("EventStartTime", EventStartTime.value());
 	}
+
 
 	if (EventEndTime.has_value())
 	{
 		Uri.AddQueryParams("EventEndTime", EventEndTime.value());
 	}
 
+
 	if (CmsIds.has_value())
 	{
 		Uri.AddQueryParams("CmsIds", CmsIds.value());
 	}
+
 
 	if (IncludeHidden.has_value())
 	{
 		Uri.AddQueryParams("IncludeHidden", IncludeHidden.value());
 	}
 
+
 	if (MediaTypes.has_value())
 	{
 		Uri.AddQueryParams("MediaTypes", MediaTypes.value());
 	}
+
 
 	if (HasSchedule.has_value())
 	{
 		Uri.AddQueryParams("HasSchedule", HasSchedule.value());
 	}
 
+
 	if (PrototypeNames.has_value())
 	{
 		Uri.AddQueryParams("PrototypeNames", PrototypeNames.value());
 	}
+
 
 	if (PrototypeIds.has_value())
 	{
 		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
 	}
 
+
 	if (GroupIds.has_value())
 	{
 		Uri.AddQueryParams("GroupIds", GroupIds.value());
 	}
 
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
+
 
 	if (Limit.has_value())
 	{
@@ -639,6 +726,8 @@ void PointOfInterestApi::apiV1PoiLiteGet(const std::optional<utility::string_t>&
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void PointOfInterestApi::apiV1PoiIdGet(const std::optional<utility::string_t>& ppoiUserId,
 									   const std::optional<std::vector<utility::string_t>>& Ids,
@@ -671,125 +760,150 @@ void PointOfInterestApi::apiV1PoiIdGet(const std::optional<utility::string_t>& p
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/poi-id", {});
 
+
 	if (ppoiUserId.has_value())
 	{
 		Uri.AddQueryParams("ppoiUserId", ppoiUserId.value());
 	}
+
 
 	if (Ids.has_value())
 	{
 		Uri.AddQueryParams("Ids", Ids.value());
 	}
 
+
 	if (Type.has_value())
 	{
 		Uri.AddQueryParams("Type", Type.value());
 	}
+
 
 	if (Types.has_value())
 	{
 		Uri.AddQueryParams("Types", Types.value());
 	}
 
+
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
 	}
+
 
 	if (TagsAll.has_value())
 	{
 		Uri.AddQueryParams("TagsAll", TagsAll.value());
 	}
 
+
 	if (Coordinate_Longitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
 	}
+
 
 	if (Coordinate_Latitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
 	}
 
+
 	if (Coordinate_Radius.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
 	}
+
 
 	if (Geofence.has_value())
 	{
 		Uri.AddQueryParams("Geofence", Geofence.value());
 	}
 
+
 	if (Name.has_value())
 	{
 		Uri.AddQueryParams("Name", Name.value());
 	}
+
 
 	if (Names.has_value())
 	{
 		Uri.AddQueryParams("Names", Names.value());
 	}
 
+
 	if (Title.has_value())
 	{
 		Uri.AddQueryParams("Title", Title.value());
 	}
+
 
 	if (ZoomLevel.has_value())
 	{
 		Uri.AddQueryParams("ZoomLevel", ZoomLevel.value());
 	}
 
+
 	if (EventStartTime.has_value())
 	{
 		Uri.AddQueryParams("EventStartTime", EventStartTime.value());
 	}
+
 
 	if (EventEndTime.has_value())
 	{
 		Uri.AddQueryParams("EventEndTime", EventEndTime.value());
 	}
 
+
 	if (CmsIds.has_value())
 	{
 		Uri.AddQueryParams("CmsIds", CmsIds.value());
 	}
+
 
 	if (IncludeHidden.has_value())
 	{
 		Uri.AddQueryParams("IncludeHidden", IncludeHidden.value());
 	}
 
+
 	if (MediaTypes.has_value())
 	{
 		Uri.AddQueryParams("MediaTypes", MediaTypes.value());
 	}
+
 
 	if (HasSchedule.has_value())
 	{
 		Uri.AddQueryParams("HasSchedule", HasSchedule.value());
 	}
 
+
 	if (PrototypeNames.has_value())
 	{
 		Uri.AddQueryParams("PrototypeNames", PrototypeNames.value());
 	}
+
 
 	if (PrototypeIds.has_value())
 	{
 		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
 	}
 
+
 	if (GroupIds.has_value())
 	{
 		Uri.AddQueryParams("GroupIds", GroupIds.value());
 	}
 
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
+
 
 	if (Limit.has_value())
 	{
@@ -802,6 +916,8 @@ void PointOfInterestApi::apiV1PoiIdGet(const std::optional<utility::string_t>& p
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void PointOfInterestApi::apiV1PoiGet(const std::optional<utility::string_t>& ppoiUserId,
 									 const std::optional<std::vector<utility::string_t>>& Ids,
@@ -834,125 +950,150 @@ void PointOfInterestApi::apiV1PoiGet(const std::optional<utility::string_t>& ppo
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/poi", {});
 
+
 	if (ppoiUserId.has_value())
 	{
 		Uri.AddQueryParams("ppoiUserId", ppoiUserId.value());
 	}
+
 
 	if (Ids.has_value())
 	{
 		Uri.AddQueryParams("Ids", Ids.value());
 	}
 
+
 	if (Type.has_value())
 	{
 		Uri.AddQueryParams("Type", Type.value());
 	}
+
 
 	if (Types.has_value())
 	{
 		Uri.AddQueryParams("Types", Types.value());
 	}
 
+
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
 	}
+
 
 	if (TagsAll.has_value())
 	{
 		Uri.AddQueryParams("TagsAll", TagsAll.value());
 	}
 
+
 	if (Coordinate_Longitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
 	}
+
 
 	if (Coordinate_Latitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
 	}
 
+
 	if (Coordinate_Radius.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
 	}
+
 
 	if (Geofence.has_value())
 	{
 		Uri.AddQueryParams("Geofence", Geofence.value());
 	}
 
+
 	if (Name.has_value())
 	{
 		Uri.AddQueryParams("Name", Name.value());
 	}
+
 
 	if (Names.has_value())
 	{
 		Uri.AddQueryParams("Names", Names.value());
 	}
 
+
 	if (Title.has_value())
 	{
 		Uri.AddQueryParams("Title", Title.value());
 	}
+
 
 	if (ZoomLevel.has_value())
 	{
 		Uri.AddQueryParams("ZoomLevel", ZoomLevel.value());
 	}
 
+
 	if (EventStartTime.has_value())
 	{
 		Uri.AddQueryParams("EventStartTime", EventStartTime.value());
 	}
+
 
 	if (EventEndTime.has_value())
 	{
 		Uri.AddQueryParams("EventEndTime", EventEndTime.value());
 	}
 
+
 	if (CmsIds.has_value())
 	{
 		Uri.AddQueryParams("CmsIds", CmsIds.value());
 	}
+
 
 	if (IncludeHidden.has_value())
 	{
 		Uri.AddQueryParams("IncludeHidden", IncludeHidden.value());
 	}
 
+
 	if (MediaTypes.has_value())
 	{
 		Uri.AddQueryParams("MediaTypes", MediaTypes.value());
 	}
+
 
 	if (HasSchedule.has_value())
 	{
 		Uri.AddQueryParams("HasSchedule", HasSchedule.value());
 	}
 
+
 	if (PrototypeNames.has_value())
 	{
 		Uri.AddQueryParams("PrototypeNames", PrototypeNames.value());
 	}
+
 
 	if (PrototypeIds.has_value())
 	{
 		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
 	}
 
+
 	if (GroupIds.has_value())
 	{
 		Uri.AddQueryParams("GroupIds", GroupIds.value());
 	}
 
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
+
 
 	if (Limit.has_value())
 	{
@@ -988,6 +1129,7 @@ void PointOfInterestApi::apiV1PoiDelete(const std::optional<std::vector<utility:
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/poi", {});
 
+
 	if (ids.has_value())
 	{
 		Uri.AddQueryParams("ids", ids.value());
@@ -999,6 +1141,8 @@ void PointOfInterestApi::apiV1PoiDelete(const std::optional<std::vector<utility:
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void PointOfInterestApi::apiV1PoiIdPartialUpdatePut(const utility::string_t& id,
 													const std::shared_ptr<PoiPartialUpdate>& RequestBody,
@@ -1016,12 +1160,15 @@ void PointOfInterestApi::apiV1PoiIdPartialUpdatePut(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void PointOfInterestApi::apiV1PoiTagsGet(const std::optional<utility::string_t>& tagNameWith,
 										 csp::services::ApiResponseHandlerBase* ResponseHandler,
 										 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/poi/tags", {});
+
 
 	if (tagNameWith.has_value())
 	{
@@ -1035,6 +1182,8 @@ void PointOfInterestApi::apiV1PoiTagsGet(const std::optional<utility::string_t>&
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 PositionApi::PositionApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
 {
 }
@@ -1042,6 +1191,8 @@ PositionApi::PositionApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient
 PositionApi::~PositionApi()
 {
 }
+
+
 
 void PositionApi::apiV1UsersUserIdPositionsGet(const utility::string_t& userId,
 											   const std::optional<std::vector<utility::string_t>>& UserIds,
@@ -1061,55 +1212,66 @@ void PositionApi::apiV1UsersUserIdPositionsGet(const utility::string_t& userId,
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/positions", {userId});
 
+
 	if (UserIds.has_value())
 	{
 		Uri.AddQueryParams("UserIds", UserIds.value());
 	}
+
 
 	if (DeviceIds.has_value())
 	{
 		Uri.AddQueryParams("DeviceIds", DeviceIds.value());
 	}
 
+
 	if (PositionIds.has_value())
 	{
 		Uri.AddQueryParams("PositionIds", PositionIds.value());
 	}
+
 
 	if (StartTimestamp.has_value())
 	{
 		Uri.AddQueryParams("StartTimestamp", StartTimestamp.value());
 	}
 
+
 	if (EndTimestamp.has_value())
 	{
 		Uri.AddQueryParams("EndTimestamp", EndTimestamp.value());
 	}
+
 
 	if (Coordinate_Longitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
 	}
 
+
 	if (Coordinate_Latitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
 	}
+
 
 	if (Coordinate_Radius.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
 	}
 
+
 	if (FindUsersOutsideGeoSphere.has_value())
 	{
 		Uri.AddQueryParams("FindUsersOutsideGeoSphere", FindUsersOutsideGeoSphere.value());
 	}
 
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
+
 
 	if (Limit.has_value())
 	{
@@ -1139,6 +1301,8 @@ void PositionApi::apiV1UsersUserIdPositionsPost(const utility::string_t& userId,
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void PositionApi::apiV1UsersPositionsLatestGet(const std::optional<std::vector<utility::string_t>>& UserIds,
 											   const std::optional<std::vector<utility::string_t>>& DeviceIds,
 											   const std::optional<std::vector<utility::string_t>>& PositionIds,
@@ -1156,55 +1320,66 @@ void PositionApi::apiV1UsersPositionsLatestGet(const std::optional<std::vector<u
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/users/positions/latest", {});
 
+
 	if (UserIds.has_value())
 	{
 		Uri.AddQueryParams("UserIds", UserIds.value());
 	}
+
 
 	if (DeviceIds.has_value())
 	{
 		Uri.AddQueryParams("DeviceIds", DeviceIds.value());
 	}
 
+
 	if (PositionIds.has_value())
 	{
 		Uri.AddQueryParams("PositionIds", PositionIds.value());
 	}
+
 
 	if (StartTimestamp.has_value())
 	{
 		Uri.AddQueryParams("StartTimestamp", StartTimestamp.value());
 	}
 
+
 	if (EndTimestamp.has_value())
 	{
 		Uri.AddQueryParams("EndTimestamp", EndTimestamp.value());
 	}
+
 
 	if (Coordinate_Longitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
 	}
 
+
 	if (Coordinate_Latitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
 	}
+
 
 	if (Coordinate_Radius.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
 	}
 
+
 	if (FindUsersOutsideGeoSphere.has_value())
 	{
 		Uri.AddQueryParams("FindUsersOutsideGeoSphere", FindUsersOutsideGeoSphere.value());
 	}
 
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
+
 
 	if (Limit.has_value())
 	{
@@ -1217,6 +1392,8 @@ void PositionApi::apiV1UsersPositionsLatestGet(const std::optional<std::vector<u
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void PositionApi::apiV1UsersUserIdPositionsLatestGet(const utility::string_t& userId,
 													 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1231,6 +1408,8 @@ void PositionApi::apiV1UsersUserIdPositionsLatestGet(const utility::string_t& us
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void PositionApi::apiV1UsersUserIdPositionsPositionIdGet(const utility::string_t& userId,
 														 const utility::string_t& positionId,
@@ -1262,6 +1441,8 @@ void PositionApi::apiV1UsersUserIdPositionsPositionIdDelete(const utility::strin
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void PositionApi::apiV1GroupsGroupIdPositionsLatestGet(const utility::string_t& groupId,
 													   const std::optional<std::vector<utility::string_t>>& UserIds,
 													   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1269,6 +1450,7 @@ void PositionApi::apiV1GroupsGroupIdPositionsLatestGet(const utility::string_t& 
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/groups/{groupId}/positions/latest", {groupId});
+
 
 	if (UserIds.has_value())
 	{
@@ -1281,6 +1463,8 @@ void PositionApi::apiV1GroupsGroupIdPositionsLatestGet(const utility::string_t& 
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void PositionApi::apiV1GroupsPositionsLatestGet(const std::optional<std::vector<utility::string_t>>& groupIds,
 												const std::optional<std::vector<utility::string_t>>& UserIds,
@@ -1290,10 +1474,12 @@ void PositionApi::apiV1GroupsPositionsLatestGet(const std::optional<std::vector<
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/groups/positions/latest", {});
 
+
 	if (groupIds.has_value())
 	{
 		Uri.AddQueryParams("groupIds", groupIds.value());
 	}
+
 
 	if (UserIds.has_value())
 	{
@@ -1306,6 +1492,8 @@ void PositionApi::apiV1GroupsPositionsLatestGet(const std::optional<std::vector<
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void PositionApi::apiV1UsersPositionsGet(const std::optional<std::vector<utility::string_t>>& userIds,
 										 const std::optional<std::vector<utility::string_t>>& UserIds,
@@ -1324,55 +1512,66 @@ void PositionApi::apiV1UsersPositionsGet(const std::optional<std::vector<utility
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/users/positions", {});
 
+
 	if (userIds.has_value())
 	{
 		Uri.AddQueryParams("userIds", userIds.value());
 	}
+
 
 	if (UserIds.has_value())
 	{
 		Uri.AddQueryParams("UserIds", UserIds.value());
 	}
 
+
 	if (DeviceIds.has_value())
 	{
 		Uri.AddQueryParams("DeviceIds", DeviceIds.value());
 	}
+
 
 	if (PositionIds.has_value())
 	{
 		Uri.AddQueryParams("PositionIds", PositionIds.value());
 	}
 
+
 	if (StartTimestamp.has_value())
 	{
 		Uri.AddQueryParams("StartTimestamp", StartTimestamp.value());
 	}
+
 
 	if (EndTimestamp.has_value())
 	{
 		Uri.AddQueryParams("EndTimestamp", EndTimestamp.value());
 	}
 
+
 	if (Coordinate_Longitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
 	}
+
 
 	if (Coordinate_Latitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
 	}
 
+
 	if (Coordinate_Radius.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
 	}
 
+
 	if (FindUsersOutsideGeoSphere.has_value())
 	{
 		Uri.AddQueryParams("FindUsersOutsideGeoSphere", FindUsersOutsideGeoSphere.value());
 	}
+
 
 	if (onlyLatestPosition.has_value())
 	{
@@ -1386,6 +1585,8 @@ void PositionApi::apiV1UsersPositionsGet(const std::optional<std::vector<utility
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 PositionSpoofingApi::PositionSpoofingApi(csp::web::WebClient* InWebClient)
 	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
 {
@@ -1395,6 +1596,8 @@ PositionSpoofingApi::~PositionSpoofingApi()
 {
 }
 
+
+
 void PositionSpoofingApi::apiV1UsersUserIdPositionsSpoofPost(const utility::string_t& userId,
 															 const std::optional<utility::string_t>& duration,
 															 const std::shared_ptr<PositionDto>& RequestBody,
@@ -1403,6 +1606,7 @@ void PositionSpoofingApi::apiV1UsersUserIdPositionsSpoofPost(const utility::stri
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/positions/spoof", {userId});
+
 
 	if (duration.has_value())
 	{
@@ -1445,6 +1649,8 @@ void PositionSpoofingApi::apiV1UsersUserIdPositionsSpoofDelete(const utility::st
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void PositionSpoofingApi::apiV1PositionsSpoofUsersGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 													  csp::common::CancellationToken& CancellationToken) const
 {
@@ -1458,6 +1664,8 @@ void PositionSpoofingApi::apiV1PositionsSpoofUsersGet(csp::services::ApiResponse
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 SpaceTimeApi::SpaceTimeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
 {
 }
@@ -1465,6 +1673,8 @@ SpaceTimeApi::SpaceTimeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClie
 SpaceTimeApi::~SpaceTimeApi()
 {
 }
+
+
 
 void SpaceTimeApi::apiV1UsersUserIdSpacetimeIdGet(const utility::string_t& userId,
 												  const utility::string_t& id,
@@ -1513,6 +1723,8 @@ void SpaceTimeApi::apiV1UsersUserIdSpacetimeIdPut(const utility::string_t& userI
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void SpaceTimeApi::apiV1UsersUserIdSpacetimePost(const utility::string_t& userId,
 												 const std::shared_ptr<SpaceTimeDto>& RequestBody,
 												 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1528,6 +1740,8 @@ void SpaceTimeApi::apiV1UsersUserIdSpacetimePost(const utility::string_t& userId
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void SpaceTimeApi::apiV1SpacetimeGet(const std::optional<std::vector<utility::string_t>>& UserIds,
 									 const std::optional<utility::string_t>& StartTimestamp,
@@ -1546,55 +1760,66 @@ void SpaceTimeApi::apiV1SpacetimeGet(const std::optional<std::vector<utility::st
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/spacetime", {});
 
+
 	if (UserIds.has_value())
 	{
 		Uri.AddQueryParams("UserIds", UserIds.value());
 	}
+
 
 	if (StartTimestamp.has_value())
 	{
 		Uri.AddQueryParams("StartTimestamp", StartTimestamp.value());
 	}
 
+
 	if (EndTimestamp.has_value())
 	{
 		Uri.AddQueryParams("EndTimestamp", EndTimestamp.value());
 	}
+
 
 	if (GroupIds.has_value())
 	{
 		Uri.AddQueryParams("GroupIds", GroupIds.value());
 	}
 
+
 	if (Coordinate_Longitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
 	}
+
 
 	if (Coordinate_Latitude.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
 	}
 
+
 	if (Coordinate_Radius.has_value())
 	{
 		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
 	}
+
 
 	if (PoiIds.has_value())
 	{
 		Uri.AddQueryParams("PoiIds", PoiIds.value());
 	}
 
+
 	if (PrototypeIds.has_value())
 	{
 		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
 	}
 
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
+
 
 	if (Limit.has_value())
 	{
@@ -1607,5 +1832,7 @@ void SpaceTimeApi::apiV1SpacetimeGet(const std::optional<std::vector<utility::st
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 } // namespace csp::services::generated::spatialdataservice

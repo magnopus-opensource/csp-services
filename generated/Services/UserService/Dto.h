@@ -6,6 +6,7 @@
 
 #include <optional>
 
+
 namespace csp::services::generated::userservice
 {
 
@@ -49,6 +50,8 @@ class UpgradeGuestRequest;
 class UpgradeGuestSocialRequest;
 class UserRolesDto;
 
+
+
 /// <summary>
 /// Application Settings data transfer object
 /// </summary>
@@ -61,18 +64,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Name of the application for which these settings apply
 	/// </summary>
 	utility::string_t GetApplicationName() const;
-	void SetApplicationName(const utility::string_t& Value);
 	bool HasApplicationName() const;
 
 	/// <summary>
 	/// Context of the application settings
 	/// </summary>
 	utility::string_t GetContext() const;
-	void SetContext(const utility::string_t& Value);
 	bool HasContext() const;
 
 	/// <summary>
@@ -81,6 +83,7 @@ public:
 	const std::map<utility::string_t, utility::string_t>& GetSettings() const;
 	void SetSettings(const std::map<utility::string_t, utility::string_t>& Value);
 	bool HasSettings() const;
+
 
 protected:
 	std::optional<utility::string_t> m_ApplicationName;
@@ -99,6 +102,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The unique identifier for the user
@@ -142,6 +146,7 @@ public:
 	void SetDeviceId(const utility::string_t& Value);
 	bool HasDeviceId() const;
 
+
 protected:
 	std::optional<utility::string_t> m_UserId;
 	std::optional<utility::string_t> m_AccessToken;
@@ -163,18 +168,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Id of the Avatar.
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// Id of the user to which the Avatar belongs.
 	/// </summary>
 	utility::string_t GetUserId() const;
-	void SetUserId(const utility::string_t& Value);
 	bool HasUserId() const;
 
 	std::shared_ptr<Gender> GetGender() const;
@@ -187,6 +191,7 @@ public:
 	utility::string_t GetExternalUri() const;
 	void SetExternalUri(const utility::string_t& Value);
 	bool HasExternalUri() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -206,6 +211,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The name of the tenant to associate the new user to
@@ -282,6 +288,7 @@ public:
 	void SetInitialSettings(const std::vector<std::shared_ptr<InitialSettingsDto>>& Value);
 	bool HasInitialSettings() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Tenant;
 	std::optional<utility::string_t> m_Email;
@@ -307,6 +314,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The name of the tenant to associate the new user to
@@ -391,6 +399,7 @@ public:
 	void SetInitialSettings(const std::vector<std::shared_ptr<InitialSettingsDto>>& Value);
 	bool HasInitialSettings() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Tenant;
 	std::optional<utility::string_t> m_Provider;
@@ -418,12 +427,14 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Equip or UnEquip an item
 	/// </summary>
 	bool GetIsEquipped() const;
 	void SetIsEquipped(const bool& Value);
 	bool HasIsEquipped() const;
+
 
 protected:
 	std::optional<bool> m_IsEquipped;
@@ -441,6 +452,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The name of the tenant to associate the new user to
 	/// </summary>
@@ -454,6 +466,7 @@ public:
 	utility::string_t GetEmail() const;
 	void SetEmail(const utility::string_t& Value);
 	bool HasEmail() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Tenant;
@@ -499,25 +512,23 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifier
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// Creator of group
 	/// </summary>
 	utility::string_t GetCreatedBy() const;
-	void SetCreatedBy(const utility::string_t& Value);
 	bool HasCreatedBy() const;
 
 	/// <summary>
 	/// The date and time group was first created
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
 
 	/// <summary>
@@ -531,7 +542,6 @@ public:
 	/// Unique identifier of group
 	/// </summary>
 	utility::string_t GetGroupCode() const;
-	void SetGroupCode(const utility::string_t& Value);
 	bool HasGroupCode() const;
 
 	/// <summary>
@@ -601,36 +611,32 @@ public:
 	/// Whether the group has been archived or not
 	/// </summary>
 	bool GetArchived() const;
-	void SetArchived(const bool& Value);
 	bool HasArchived() const;
 
 	/// <summary>
 	/// `true` when the current calling user is the owner of the group; otherwise `false`
 	/// </summary>
 	bool GetIsCurrentUserOwner() const;
-	void SetIsCurrentUserOwner(const bool& Value);
 	bool HasIsCurrentUserOwner() const;
 
 	/// <summary>
 	/// `true` when the current calling user is a member of the Magnopus.Service.User.Dtos.GroupDto.Users list; otherwise `false`
 	/// </summary>
 	bool GetIsCurrentUserMember() const;
-	void SetIsCurrentUserMember(const bool& Value);
 	bool HasIsCurrentUserMember() const;
 
 	/// <summary>
 	/// `true` when the current calling user is a member of the Magnopus.Service.User.Dtos.GroupDto.Moderators list; otherwise `false`
 	/// </summary>
 	bool GetIsCurrentUserModerator() const;
-	void SetIsCurrentUserModerator(const bool& Value);
 	bool HasIsCurrentUserModerator() const;
 
 	/// <summary>
 	/// `true` when the current calling user is a member of the Magnopus.Service.User.Dtos.GroupDto.BannedUsers list; otherwise `false`
 	/// </summary>
 	bool GetIsCurrentUserBanned() const;
-	void SetIsCurrentUserBanned(const bool& Value);
 	bool HasIsCurrentUserBanned() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -666,18 +672,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifier
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// Sender of group invite
 	/// </summary>
 	utility::string_t GetCreatedBy() const;
-	void SetCreatedBy(const utility::string_t& Value);
 	bool HasCreatedBy() const;
 
 	/// <summary>
@@ -691,14 +696,12 @@ public:
 	/// Group unique identifier
 	/// </summary>
 	utility::string_t GetGroupId() const;
-	void SetGroupId(const utility::string_t& Value);
 	bool HasGroupId() const;
 
 	/// <summary>
 	/// Name of the group
 	/// </summary>
 	utility::string_t GetName() const;
-	void SetName(const utility::string_t& Value);
 	bool HasName() const;
 
 	/// <summary>
@@ -712,28 +715,24 @@ public:
 	/// The expiry date and time of invite
 	/// </summary>
 	utility::string_t GetExpiresAt() const;
-	void SetExpiresAt(const utility::string_t& Value);
 	bool HasExpiresAt() const;
 
 	/// <summary>
 	/// The date and time group invite was first created
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
 
 	/// <summary>
 	/// The user identity which last updated this instance
 	/// </summary>
 	utility::string_t GetUpdatedBy() const;
-	void SetUpdatedBy(const utility::string_t& Value);
 	bool HasUpdatedBy() const;
 
 	/// <summary>
 	/// The date and time this entity was last updated
 	/// </summary>
 	utility::string_t GetUpdatedAt() const;
-	void SetUpdatedAt(const utility::string_t& Value);
 	bool HasUpdatedAt() const;
 
 	/// <summary>
@@ -742,6 +741,7 @@ public:
 	bool GetSendSpaceLink() const;
 	void SetSendSpaceLink(const bool& Value);
 	bool HasSendSpaceLink() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -769,11 +769,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The unique identifier for the group to update
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
@@ -801,14 +801,12 @@ public:
 	/// Owner of group
 	/// </summary>
 	utility::string_t GetGroupOwnerId() const;
-	void SetGroupOwnerId(const utility::string_t& Value);
 	bool HasGroupOwnerId() const;
 
 	/// <summary>
 	/// The date and time group was first created
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
 
 	/// <summary>
@@ -843,29 +841,26 @@ public:
 	/// `true` when the current calling user is the owner of the group; otherwise `false`
 	/// </summary>
 	bool GetIsCurrentUserOwner() const;
-	void SetIsCurrentUserOwner(const bool& Value);
 	bool HasIsCurrentUserOwner() const;
 
 	/// <summary>
 	/// `true` when the current calling user is a member of the Magnopus.Service.User.Dtos.GroupDto.Users list; otherwise `false`
 	/// </summary>
 	bool GetIsCurrentUserMember() const;
-	void SetIsCurrentUserMember(const bool& Value);
 	bool HasIsCurrentUserMember() const;
 
 	/// <summary>
 	/// `true` when the current calling user is a member of the Magnopus.Service.User.Dtos.GroupDto.Moderators list; otherwise `false`
 	/// </summary>
 	bool GetIsCurrentUserModerator() const;
-	void SetIsCurrentUserModerator(const bool& Value);
 	bool HasIsCurrentUserModerator() const;
 
 	/// <summary>
 	/// `true` when the current calling user is a member of the Magnopus.Service.User.Dtos.GroupDto.BannedUsers list; otherwise `false`
 	/// </summary>
 	bool GetIsCurrentUserBanned() const;
-	void SetIsCurrentUserBanned(const bool& Value);
 	bool HasIsCurrentUserBanned() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -893,6 +888,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<std::shared_ptr<GroupLiteDto>>& GetItems() const;
 	void SetItems(const std::vector<std::shared_ptr<GroupLiteDto>>& Value);
 	bool HasItems() const;
@@ -913,6 +909,7 @@ public:
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
 
+
 protected:
 	std::optional<std::vector<std::shared_ptr<GroupLiteDto>>> m_Items;
 	std::optional<int32_t> m_Skip;
@@ -932,6 +929,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// Unique identifier
@@ -954,6 +952,7 @@ public:
 	void SetName(const utility::string_t& Value);
 	bool HasName() const;
 
+
 protected:
 	std::optional<utility::string_t> m_GroupId;
 	std::optional<utility::string_t> m_GroupCode;
@@ -972,6 +971,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Context of the initial settings
 	/// </summary>
@@ -983,7 +983,6 @@ public:
 	/// Id of the User for whom these settings apply
 	/// </summary>
 	utility::string_t GetUserId() const;
-	void SetUserId(const utility::string_t& Value);
 	bool HasUserId() const;
 
 	/// <summary>
@@ -992,6 +991,7 @@ public:
 	const std::map<utility::string_t, utility::string_t>& GetSettings() const;
 	void SetSettings(const std::map<utility::string_t, utility::string_t>& Value);
 	bool HasSettings() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Context;
@@ -1011,11 +1011,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifier for instance of an item
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
@@ -1029,7 +1029,6 @@ public:
 	/// Unique identifier of user
 	/// </summary>
 	utility::string_t GetUserId() const;
-	void SetUserId(const utility::string_t& Value);
 	bool HasUserId() const;
 
 	/// <summary>
@@ -1085,29 +1084,26 @@ public:
 	/// The date an time when this instance was created
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
 
 	/// <summary>
 	/// The user identity which created this instance
 	/// </summary>
 	utility::string_t GetCreatedBy() const;
-	void SetCreatedBy(const utility::string_t& Value);
 	bool HasCreatedBy() const;
 
 	/// <summary>
 	/// The user identity which last updated this instance
 	/// </summary>
 	utility::string_t GetUpdatedBy() const;
-	void SetUpdatedBy(const utility::string_t& Value);
 	bool HasUpdatedBy() const;
 
 	/// <summary>
 	/// The date and time this entity was last updated
 	/// </summary>
 	utility::string_t GetUpdatedAt() const;
-	void SetUpdatedAt(const utility::string_t& Value);
 	bool HasUpdatedAt() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -1135,6 +1131,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<std::shared_ptr<InventoryItemDto>>& GetItems() const;
 	void SetItems(const std::vector<std::shared_ptr<InventoryItemDto>>& Value);
 	bool HasItems() const;
@@ -1155,6 +1152,7 @@ public:
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
 
+
 protected:
 	std::optional<std::vector<std::shared_ptr<InventoryItemDto>>> m_Items;
 	std::optional<int32_t> m_Skip;
@@ -1174,6 +1172,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The name of the tenant to login to
@@ -1217,6 +1216,7 @@ public:
 	void SetVerifiedAgeEighteen(const bool& Value);
 	bool HasVerifiedAgeEighteen() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Tenant;
 	std::optional<utility::string_t> m_Email;
@@ -1237,6 +1237,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The name of the tenant to login to
@@ -1282,6 +1283,7 @@ public:
 	void SetVerifiedAgeEighteen(const bool& Value);
 	bool HasVerifiedAgeEighteen() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Tenant;
 	std::optional<utility::string_t> m_Provider;
@@ -1303,6 +1305,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The unique identifier for the user
 	/// </summary>
@@ -1316,6 +1319,7 @@ public:
 	utility::string_t GetDeviceId() const;
 	void SetDeviceId(const utility::string_t& Value);
 	bool HasDeviceId() const;
+
 
 protected:
 	std::optional<utility::string_t> m_UserId;
@@ -1333,6 +1337,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// UserId of user to which this progress belongs.
@@ -1356,6 +1361,7 @@ public:
 	void SetMetagameLevel(int32_t Value);
 	bool HasMetagameLevel() const;
 
+
 protected:
 	std::optional<utility::string_t> m_UserId;
 	std::optional<float> m_PercentTowardsNextSeed;
@@ -1374,6 +1380,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// If true, will interpret Magnopus.Service.User.Structures.MetagameUpdate.PercentDelta as the total percentage, rather than a delta.
 	/// </summary>
@@ -1387,6 +1394,7 @@ public:
 	double GetPercentDelta() const;
 	void SetPercentDelta(double Value);
 	bool HasPercentDelta() const;
+
 
 protected:
 	std::optional<bool> m_PercentDeltaAsTotal;
@@ -1405,11 +1413,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifier
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
@@ -1430,8 +1438,8 @@ public:
 	/// Members of organization
 	/// </summary>
 	const std::vector<std::shared_ptr<OrganizationMember>>& GetMembers() const;
-	void SetMembers(const std::vector<std::shared_ptr<OrganizationMember>>& Value);
 	bool HasMembers() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -1452,18 +1460,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifier
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// Sender of organization invite
 	/// </summary>
 	utility::string_t GetCreatedBy() const;
-	void SetCreatedBy(const utility::string_t& Value);
 	bool HasCreatedBy() const;
 
 	/// <summary>
@@ -1477,7 +1484,6 @@ public:
 	/// Organization unique identifier
 	/// </summary>
 	utility::string_t GetOrganizationId() const;
-	void SetOrganizationId(const utility::string_t& Value);
 	bool HasOrganizationId() const;
 
 	/// <summary>
@@ -1491,15 +1497,14 @@ public:
 	/// The expiry date and time of invite
 	/// </summary>
 	utility::string_t GetExpiresAt() const;
-	void SetExpiresAt(const utility::string_t& Value);
 	bool HasExpiresAt() const;
 
 	/// <summary>
 	/// The date and time organization invite was first created
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -1523,6 +1528,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifer of the user
 	/// </summary>
@@ -1536,6 +1542,7 @@ public:
 	const std::vector<utility::string_t>& GetRoles() const;
 	void SetRoles(const std::vector<utility::string_t>& Value);
 	bool HasRoles() const;
+
 
 protected:
 	std::optional<utility::string_t> m_UserId;
@@ -1554,18 +1561,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The unique identifier for this instance
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// The Email.
 	/// </summary>
 	utility::string_t GetEmail() const;
-	void SetEmail(const utility::string_t& Value);
 	bool HasEmail() const;
 
 	/// <summary>
@@ -1573,7 +1579,6 @@ public:
 	/// Acts as the unique identifier for guest profiles on the platform
 	/// </summary>
 	utility::string_t GetGuestDeviceId() const;
-	void SetGuestDeviceId(const utility::string_t& Value);
 	bool HasGuestDeviceId() const;
 
 	/// <summary>
@@ -1581,14 +1586,12 @@ public:
 	/// (Internal use only)
 	/// </summary>
 	bool GetGuestFirstLoginIdentified() const;
-	void SetGuestFirstLoginIdentified(const bool& Value);
 	bool HasGuestFirstLoginIdentified() const;
 
 	/// <summary>
 	/// The date and time of the last login
 	/// </summary>
 	utility::string_t GetLastLoginAt() const;
-	void SetLastLoginAt(const utility::string_t& Value);
 	bool HasLastLoginAt() const;
 
 	/// <summary>
@@ -1596,42 +1599,36 @@ public:
 	/// first login vs already logged in
 	/// </summary>
 	utility::string_t GetLastLoginNonce() const;
-	void SetLastLoginNonce(const utility::string_t& Value);
 	bool HasLastLoginNonce() const;
 
 	/// <summary>
 	/// The last deviceId the given user authenticated with/on
 	/// </summary>
 	utility::string_t GetLastDeviceId() const;
-	void SetLastDeviceId(const utility::string_t& Value);
 	bool HasLastDeviceId() const;
 
 	/// <summary>
 	/// An identifier for the platform the most recent login occurred from.
 	/// </summary>
 	utility::string_t GetLastPlatform() const;
-	void SetLastPlatform(const utility::string_t& Value);
 	bool HasLastPlatform() const;
 
 	/// <summary>
 	/// The ID of the currently active Avatar for the user.
 	/// </summary>
 	utility::string_t GetAvatarId() const;
-	void SetAvatarId(const utility::string_t& Value);
 	bool HasAvatarId() const;
 
 	/// <summary>
 	/// The publicly visible Username of the user.
 	/// </summary>
 	utility::string_t GetUserName() const;
-	void SetUserName(const utility::string_t& Value);
 	bool HasUserName() const;
 
 	/// <summary>
 	/// The publicly visible first name of the user.
 	/// </summary>
 	utility::string_t GetFirstName() const;
-	void SetFirstName(const utility::string_t& Value);
 	bool HasFirstName() const;
 
 	/// <summary>
@@ -1645,14 +1642,12 @@ public:
 	/// Confirmation status of email address
 	/// </summary>
 	bool GetIsEmailConfirmed() const;
-	void SetIsEmailConfirmed(const bool& Value);
 	bool HasIsEmailConfirmed() const;
 
 	/// <summary>
 	/// List of authorization roles assigned to the user.
 	/// </summary>
 	const std::vector<utility::string_t>& GetRoles() const;
-	void SetRoles(const std::vector<utility::string_t>& Value);
 	bool HasRoles() const;
 
 	/// <summary>
@@ -1666,36 +1661,32 @@ public:
 	/// The user identity which created this instance
 	/// </summary>
 	utility::string_t GetCreatedBy() const;
-	void SetCreatedBy(const utility::string_t& Value);
 	bool HasCreatedBy() const;
 
 	/// <summary>
 	/// The date and time this entity was first created
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
 
 	/// <summary>
 	/// The user identity which last updated this instance
 	/// </summary>
 	utility::string_t GetUpdatedBy() const;
-	void SetUpdatedBy(const utility::string_t& Value);
 	bool HasUpdatedBy() const;
 
 	/// <summary>
 	/// The date and time this entity was last updated
 	/// </summary>
 	utility::string_t GetUpdatedAt() const;
-	void SetUpdatedAt(const utility::string_t& Value);
 	bool HasUpdatedAt() const;
 
 	/// <summary>
 	/// User account lock status
 	/// </summary>
 	bool GetLocked() const;
-	void SetLocked(const bool& Value);
 	bool HasLocked() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -1729,6 +1720,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<std::shared_ptr<ProfileDto>>& GetItems() const;
 	void SetItems(const std::vector<std::shared_ptr<ProfileDto>>& Value);
 	bool HasItems() const;
@@ -1748,6 +1740,7 @@ public:
 	int64_t GetItemTotalCount() const;
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
+
 
 protected:
 	std::optional<std::vector<std::shared_ptr<ProfileDto>>> m_Items;
@@ -1769,40 +1762,38 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The unique identifier for this instance
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// The ID of the currently active Avatar for the user.
 	/// </summary>
 	utility::string_t GetAvatarId() const;
-	void SetAvatarId(const utility::string_t& Value);
 	bool HasAvatarId() const;
 
 	/// <summary>
 	/// The publicly visible Username of the user.
 	/// </summary>
+	[[deprecated("'userName' has been deprecated!")]]
 	utility::string_t GetUserName() const;
-	void SetUserName(const utility::string_t& Value);
 	bool HasUserName() const;
 
 	/// <summary>
 	/// The optional display name of the user
 	/// </summary>
 	utility::string_t GetDisplayName() const;
-	void SetDisplayName(const utility::string_t& Value);
 	bool HasDisplayName() const;
 
 	/// <summary>
 	/// The Platform the user is on.
 	/// </summary>
 	utility::string_t GetPlatform() const;
-	void SetPlatform(const utility::string_t& Value);
 	bool HasPlatform() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -1823,6 +1814,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The unique identifier for the user
@@ -1845,6 +1837,7 @@ public:
 	void SetDeviceId(const utility::string_t& Value);
 	bool HasDeviceId() const;
 
+
 protected:
 	std::optional<utility::string_t> m_UserId;
 	std::optional<utility::string_t> m_RefreshToken;
@@ -1863,18 +1856,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Id of the User for whom these settings apply
 	/// </summary>
 	utility::string_t GetUserId() const;
-	void SetUserId(const utility::string_t& Value);
 	bool HasUserId() const;
 
 	/// <summary>
 	/// Context of the user settings
 	/// </summary>
 	utility::string_t GetContext() const;
-	void SetContext(const utility::string_t& Value);
 	bool HasContext() const;
 
 	/// <summary>
@@ -1883,6 +1875,7 @@ public:
 	const std::map<utility::string_t, utility::string_t>& GetSettings() const;
 	void SetSettings(const std::map<utility::string_t, utility::string_t>& Value);
 	bool HasSettings() const;
+
 
 protected:
 	std::optional<utility::string_t> m_UserId;
@@ -1901,6 +1894,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The name of the provider
@@ -1930,6 +1924,7 @@ public:
 	void SetAuthorizeEndpoint(const utility::string_t& Value);
 	bool HasAuthorizeEndpoint() const;
 
+
 protected:
 	std::optional<utility::string_t> m_ProviderName;
 	std::optional<utility::string_t> m_ClientId;
@@ -1949,12 +1944,14 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The lookup of the choosen tier
 	/// </summary>
 	utility::string_t GetLookupKey() const;
 	void SetLookupKey(const utility::string_t& Value);
 	bool HasLookupKey() const;
+
 
 protected:
 	std::optional<utility::string_t> m_LookupKey;
@@ -1972,12 +1969,13 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The url of the checkout with Stripe
 	/// </summary>
 	utility::string_t GetCheckoutUrl() const;
-	void SetCheckoutUrl(const utility::string_t& Value);
 	bool HasCheckoutUrl() const;
+
 
 protected:
 	std::optional<utility::string_t> m_CheckoutUrl;
@@ -1995,26 +1993,25 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The id of the customer with Stripe
 	/// </summary>
 	utility::string_t GetStripeCustomerId() const;
-	void SetStripeCustomerId(const utility::string_t& Value);
 	bool HasStripeCustomerId() const;
 
 	/// <summary>
 	/// Id of the CHS User
 	/// </summary>
 	utility::string_t GetUserId() const;
-	void SetUserId(const utility::string_t& Value);
 	bool HasUserId() const;
 
 	/// <summary>
 	/// Name of the customer in Stripe
 	/// </summary>
 	utility::string_t GetCustomerName() const;
-	void SetCustomerName(const utility::string_t& Value);
 	bool HasCustomerName() const;
+
 
 protected:
 	std::optional<utility::string_t> m_StripeCustomerId;
@@ -2034,12 +2031,13 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The url of the customer portal with Stripe
 	/// </summary>
 	utility::string_t GetCustomerPortalUrl() const;
-	void SetCustomerPortalUrl(const utility::string_t& Value);
 	bool HasCustomerPortalUrl() const;
+
 
 protected:
 	std::optional<utility::string_t> m_CustomerPortalUrl;
@@ -2057,11 +2055,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Name of the tenant for these settings
 	/// </summary>
 	utility::string_t GetTenantName() const;
-	void SetTenantName(const utility::string_t& Value);
 	bool HasTenantName() const;
 
 	/// <summary>
@@ -2070,6 +2068,7 @@ public:
 	bool GetLocked() const;
 	void SetLocked(const bool& Value);
 	bool HasLocked() const;
+
 
 protected:
 	std::optional<utility::string_t> m_TenantName;
@@ -2088,6 +2087,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Token received through Email
 	/// </summary>
@@ -2101,6 +2101,7 @@ public:
 	utility::string_t GetNewPassword() const;
 	void SetNewPassword(const utility::string_t& Value);
 	bool HasNewPassword() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Token;
@@ -2118,6 +2119,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The email address of the user.
@@ -2183,6 +2185,7 @@ public:
 	void SetRedirectUrl(const utility::string_t& Value);
 	bool HasRedirectUrl() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Email;
 	std::optional<utility::string_t> m_UserName;
@@ -2206,6 +2209,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The name of the social authentication provider
@@ -2266,6 +2270,7 @@ public:
 	void SetOAuthRedirectUri(const utility::string_t& Value);
 	bool HasOAuthRedirectUri() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Provider;
 	std::optional<utility::string_t> m_Token;
@@ -2289,11 +2294,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The user's unique identifier
 	/// </summary>
 	utility::string_t GetUserId() const;
-	void SetUserId(const utility::string_t& Value);
 	bool HasUserId() const;
 
 	/// <summary>
@@ -2303,9 +2308,11 @@ public:
 	void SetRoles(const std::vector<utility::string_t>& Value);
 	bool HasRoles() const;
 
+
 protected:
 	std::optional<utility::string_t> m_UserId;
 	std::optional<std::vector<utility::string_t>> m_Roles;
 };
+
 
 } // namespace csp::services::generated::userservice

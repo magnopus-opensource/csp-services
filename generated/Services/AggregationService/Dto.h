@@ -6,6 +6,7 @@
 
 #include <optional>
 
+
 namespace csp::services::generated::aggregationservice
 {
 
@@ -46,6 +47,8 @@ class StringDataPage;
 class Style;
 class TicketStatus;
 class VendorProviderInfo;
+
+
 
 /// <summary>
 /// An enum describing the different altitudes a line can inhabit
@@ -88,11 +91,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The tenant name that the space belongs to
 	/// </summary>
 	utility::string_t GetTenantName() const;
-	void SetTenantName(const utility::string_t& Value);
 	bool HasTenantName() const;
 
 	/// <summary>
@@ -113,7 +116,6 @@ public:
 	/// THe user that is requesting the space duplication
 	/// </summary>
 	utility::string_t GetRequestUserId() const;
-	void SetRequestUserId(const utility::string_t& Value);
 	bool HasRequestUserId() const;
 
 	/// <summary>
@@ -144,6 +146,7 @@ public:
 	void SetShallowCopy(const bool& Value);
 	bool HasShallowCopy() const;
 
+
 protected:
 	std::optional<utility::string_t> m_TenantName;
 	std::optional<utility::string_t> m_SpaceId;
@@ -167,6 +170,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Id of the user to which the role applies.
 	/// </summary>
@@ -188,6 +192,7 @@ public:
 	void SetGroupRoles(const std::vector<utility::string_t>& Value);
 	bool HasGroupRoles() const;
 
+
 protected:
 	std::optional<utility::string_t> m_UserId;
 	std::optional<utility::string_t> m_GroupId;
@@ -206,12 +211,14 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The url for the pin style for google earth
 	/// </summary>
 	utility::string_t GetHref() const;
 	void SetHref(const utility::string_t& Value);
 	bool HasHref() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Href;
@@ -228,6 +235,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The name of the icon style
@@ -264,6 +272,7 @@ public:
 	void SetIcon(const std::shared_ptr<Icon>& Value);
 	bool HasIcon() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Id;
 	std::optional<utility::string_t> m_Color;
@@ -284,9 +293,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	std::shared_ptr<PositionKml> GetDocument() const;
 	void SetDocument(const std::shared_ptr<PositionKml>& Value);
 	bool HasDocument() const;
+
 
 protected:
 	std::optional<std::shared_ptr<PositionKml>> m_Document;
@@ -303,6 +314,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// Extrude the line to the ground
@@ -329,6 +341,7 @@ public:
 	void SetCoordinates(const utility::string_t& Value);
 	bool HasCoordinates() const;
 
+
 protected:
 	std::optional<bool> m_Extrude;
 	std::optional<bool> m_Tessellate;
@@ -347,6 +360,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The Longitude
@@ -390,6 +404,7 @@ public:
 	void SetHeading(double Value);
 	bool HasHeading() const;
 
+
 protected:
 	std::optional<double> m_Longitude;
 	std::optional<double> m_Latitude;
@@ -410,6 +425,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// the value of the Id attribute
@@ -438,6 +454,7 @@ public:
 	void SetLink(const std::shared_ptr<ModelLink>& Value);
 	bool HasLink() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Id;
 	std::optional<std::shared_ptr<AltitudeMode>> m_AltitudeMode;
@@ -459,12 +476,14 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The location of the 3d object
 	/// </summary>
 	utility::string_t GetHref() const;
 	void SetHref(const utility::string_t& Value);
 	bool HasHref() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Href;
@@ -481,6 +500,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The Longitude of the 3d object
@@ -503,6 +523,7 @@ public:
 	void SetAltitude(int32_t Value);
 	bool HasAltitude() const;
 
+
 protected:
 	std::optional<double> m_Longitude;
 	std::optional<double> m_Latitude;
@@ -520,6 +541,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The heading for the orientation of the object
@@ -542,6 +564,7 @@ public:
 	void SetRoll(int32_t Value);
 	bool HasRoll() const;
 
+
 protected:
 	std::optional<float> m_Heading;
 	std::optional<float> m_Tilt;
@@ -559,6 +582,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The X scale
@@ -581,6 +605,7 @@ public:
 	void SetZ(int32_t Value);
 	bool HasZ() const;
 
+
 protected:
 	std::optional<int32_t> m_X;
 	std::optional<int32_t> m_Y;
@@ -598,6 +623,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// the value of the Id attribute
@@ -646,6 +672,7 @@ public:
 	void SetLookAt(const std::shared_ptr<LookAt>& Value);
 	bool HasLookAt() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Id;
 	std::optional<utility::string_t> m_Name;
@@ -669,6 +696,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Tessellate breaks the line up into smaller chunks
 	/// </summary>
@@ -687,6 +715,7 @@ public:
 	void SetCoordinates(const utility::string_t& Value);
 	bool HasCoordinates() const;
 
+
 protected:
 	std::optional<bool> m_Tessellate;
 	std::optional<std::shared_ptr<AltitudeMode>> m_AltitudeMode;
@@ -704,6 +733,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The name of the kml structure
@@ -741,6 +771,7 @@ public:
 	void SetPlacemark(const std::vector<std::shared_ptr<Placemark>>& Value);
 	bool HasPlacemark() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Name;
 	std::optional<std::vector<std::shared_ptr<Style>>> m_Style;
@@ -760,6 +791,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// A key that identifies the API
@@ -792,6 +824,7 @@ public:
 	void SetParameters(const std::map<utility::string_t, utility::string_t>& Value);
 	bool HasParameters() const;
 
+
 protected:
 	std::optional<utility::string_t> m_ServiceName;
 	std::optional<utility::string_t> m_OperationName;
@@ -810,6 +843,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// Whether the call can be considered a success
@@ -846,6 +880,7 @@ public:
 	void SetOperationResult(const std::shared_ptr<rapidjson::Document>& Value);
 	bool HasOperationResult() const;
 
+
 protected:
 	std::optional<bool> m_Success;
 	std::optional<int32_t> m_StatusCode;
@@ -866,18 +901,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Id of the Space this cart is associated to
 	/// </summary>
 	utility::string_t GetSpaceId() const;
-	void SetSpaceId(const utility::string_t& Value);
 	bool HasSpaceId() const;
 
 	/// <summary>
 	/// Id of the Cart at Shopify
 	/// </summary>
 	utility::string_t GetShopifyCartId() const;
-	void SetShopifyCartId(const utility::string_t& Value);
 	bool HasShopifyCartId() const;
 
 	/// <summary>
@@ -891,8 +925,8 @@ public:
 	/// Total quantity of all lines
 	/// </summary>
 	int32_t GetTotalQuantity() const;
-	void SetTotalQuantity(int32_t Value);
 	bool HasTotalQuantity() const;
+
 
 protected:
 	std::optional<utility::string_t> m_SpaceId;
@@ -912,6 +946,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// Id of the Cart Line in the Shopify Cart
@@ -934,6 +969,7 @@ public:
 	void SetQuantity(int32_t Value);
 	bool HasQuantity() const;
 
+
 protected:
 	std::optional<utility::string_t> m_ShopifyCartLineId;
 	std::optional<utility::string_t> m_ProductVariantId;
@@ -952,18 +988,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Id of the Space this cart is associated to
 	/// </summary>
 	utility::string_t GetSpaceId() const;
-	void SetSpaceId(const utility::string_t& Value);
 	bool HasSpaceId() const;
 
 	/// <summary>
 	/// Id of the Cart at Shopify
 	/// </summary>
 	utility::string_t GetShopifyCartId() const;
-	void SetShopifyCartId(const utility::string_t& Value);
 	bool HasShopifyCartId() const;
 
 	/// <summary>
@@ -987,6 +1022,7 @@ public:
 	void SetUpdateLineQtyCartChanges(const std::vector<std::shared_ptr<ShopifyCartLineDto>>& Value);
 	bool HasUpdateLineQtyCartChanges() const;
 
+
 protected:
 	std::optional<utility::string_t> m_SpaceId;
 	std::optional<utility::string_t> m_ShopifyCartId;
@@ -1007,19 +1043,19 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The url for the store
 	/// </summary>
 	utility::string_t GetStoreUrl() const;
-	void SetStoreUrl(const utility::string_t& Value);
 	bool HasStoreUrl() const;
 
 	/// <summary>
 	/// The url for the store
 	/// </summary>
 	utility::string_t GetCheckoutUrl() const;
-	void SetCheckoutUrl(const utility::string_t& Value);
 	bool HasCheckoutUrl() const;
+
 
 protected:
 	std::optional<utility::string_t> m_StoreUrl;
@@ -1038,19 +1074,19 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The name of the option, Such as Size
 	/// </summary>
 	double GetAmount() const;
-	void SetAmount(double Value);
 	bool HasAmount() const;
 
 	/// <summary>
 	/// The value of the option for this variant, such as Small
 	/// </summary>
 	utility::string_t GetCurrencyCode() const;
-	void SetCurrencyCode(const utility::string_t& Value);
 	bool HasCurrencyCode() const;
+
 
 protected:
 	std::optional<double> m_Amount;
@@ -1069,54 +1105,49 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The date the product was created
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
 
 	/// <summary>
 	/// The id of the product
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// The title of the product
 	/// </summary>
 	utility::string_t GetTitle() const;
-	void SetTitle(const utility::string_t& Value);
 	bool HasTitle() const;
 
 	/// <summary>
 	/// The product description
 	/// </summary>
 	utility::string_t GetDescription() const;
-	void SetDescription(const utility::string_t& Value);
 	bool HasDescription() const;
 
 	/// <summary>
 	/// A list of available product tags
 	/// </summary>
 	const std::vector<utility::string_t>& GetTags() const;
-	void SetTags(const std::vector<utility::string_t>& Value);
 	bool HasTags() const;
 
 	/// <summary>
 	/// A list of available variants
 	/// </summary>
 	const std::vector<std::shared_ptr<ShopifyProductVariants>>& GetVariants() const;
-	void SetVariants(const std::vector<std::shared_ptr<ShopifyProductVariants>>& Value);
 	bool HasVariants() const;
 
 	/// <summary>
 	/// A list of available media
 	/// </summary>
 	const std::vector<std::shared_ptr<ShopifyProductMedia>>& GetMedia() const;
-	void SetMedia(const std::vector<std::shared_ptr<ShopifyProductMedia>>& Value);
 	bool HasMedia() const;
+
 
 protected:
 	std::optional<utility::string_t> m_CreatedAt;
@@ -1140,40 +1171,37 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Media's content type
 	/// </summary>
 	utility::string_t GetMediaContentType() const;
-	void SetMediaContentType(const utility::string_t& Value);
 	bool HasMediaContentType() const;
 
 	/// <summary>
 	/// Media's 'alt' description
 	/// </summary>
 	utility::string_t GetAlt() const;
-	void SetAlt(const utility::string_t& Value);
 	bool HasAlt() const;
 
 	/// <summary>
 	/// Url of media
 	/// </summary>
 	utility::string_t GetUrl() const;
-	void SetUrl(const utility::string_t& Value);
 	bool HasUrl() const;
 
 	/// <summary>
 	/// The width of the media, if available
 	/// </summary>
 	int32_t GetWidth() const;
-	void SetWidth(int32_t Value);
 	bool HasWidth() const;
 
 	/// <summary>
 	/// The height of the media, if available
 	/// </summary>
 	int32_t GetHeight() const;
-	void SetHeight(int32_t Value);
 	bool HasHeight() const;
+
 
 protected:
 	std::optional<utility::string_t> m_MediaContentType;
@@ -1195,25 +1223,23 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The id of the product variant
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// The title of the product variant
 	/// </summary>
 	utility::string_t GetTitle() const;
-	void SetTitle(const utility::string_t& Value);
 	bool HasTitle() const;
 
 	/// <summary>
 	/// If the product variant is actually available
 	/// </summary>
 	bool GetAvailableForSale() const;
-	void SetAvailableForSale(const bool& Value);
 	bool HasAvailableForSale() const;
 
 	std::shared_ptr<ShopifyProductMedia> GetImage() const;
@@ -1224,12 +1250,12 @@ public:
 	/// Selected options, such as size, for the product, if any.
 	/// </summary>
 	const std::vector<std::shared_ptr<ShopifyVariantOption>>& GetSelectedOptions() const;
-	void SetSelectedOptions(const std::vector<std::shared_ptr<ShopifyVariantOption>>& Value);
 	bool HasSelectedOptions() const;
 
 	std::shared_ptr<ShopifyMoney> GetUnitPrice() const;
 	void SetUnitPrice(const std::shared_ptr<ShopifyMoney>& Value);
 	bool HasUnitPrice() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -1253,11 +1279,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Id of the Record
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
@@ -1272,14 +1298,12 @@ public:
 	/// Unique identifier of the Olympus User who setup the store
 	/// </summary>
 	utility::string_t GetSpaceOwnerId() const;
-	void SetSpaceOwnerId(const utility::string_t& Value);
 	bool HasSpaceOwnerId() const;
 
 	/// <summary>
 	/// Unique identifier of the Olympus User who setup the store
 	/// </summary>
 	utility::string_t GetSpaceId() const;
-	void SetSpaceId(const utility::string_t& Value);
 	bool HasSpaceId() const;
 
 	/// <summary>
@@ -1295,6 +1319,7 @@ public:
 	utility::string_t GetPrivateAccessToken() const;
 	void SetPrivateAccessToken(const utility::string_t& Value);
 	bool HasPrivateAccessToken() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -1313,6 +1338,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	const std::vector<std::shared_ptr<ShopifyStorefrontDto>>& GetItems() const;
 	void SetItems(const std::vector<std::shared_ptr<ShopifyStorefrontDto>>& Value);
@@ -1334,6 +1360,7 @@ public:
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
 
+
 protected:
 	std::optional<std::vector<std::shared_ptr<ShopifyStorefrontDto>>> m_Items;
 	std::optional<int32_t> m_Skip;
@@ -1354,6 +1381,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Name of the store, not including the URL portion,
 	/// for instance 'magtesty' in 'magtesty.myshopify.com'
@@ -1368,6 +1396,7 @@ public:
 	utility::string_t GetPrivateAccessToken() const;
 	void SetPrivateAccessToken(const utility::string_t& Value);
 	bool HasPrivateAccessToken() const;
+
 
 protected:
 	std::optional<utility::string_t> m_StoreName;
@@ -1386,19 +1415,19 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The name of the option, Such as Size
 	/// </summary>
 	utility::string_t GetOptionName() const;
-	void SetOptionName(const utility::string_t& Value);
 	bool HasOptionName() const;
 
 	/// <summary>
 	/// The value of the option for this variant, such as Small
 	/// </summary>
 	utility::string_t GetOptionValue() const;
-	void SetOptionValue(const utility::string_t& Value);
 	bool HasOptionValue() const;
+
 
 protected:
 	std::optional<utility::string_t> m_OptionName;
@@ -1417,25 +1446,23 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifier
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// Unique identifier of space
 	/// </summary>
 	utility::string_t GetSpaceId() const;
-	void SetSpaceId(const utility::string_t& Value);
 	bool HasSpaceId() const;
 
 	/// <summary>
 	/// Unique identifier of space owner
 	/// </summary>
 	utility::string_t GetSpaceOwnerId() const;
-	void SetSpaceOwnerId(const utility::string_t& Value);
 	bool HasSpaceOwnerId() const;
 
 	/// <summary>
@@ -1466,6 +1493,7 @@ public:
 	void SetIsTicketingActive(const bool& Value);
 	bool HasIsTicketingActive() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Id;
 	std::optional<utility::string_t> m_SpaceId;
@@ -1484,6 +1512,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	const std::vector<std::shared_ptr<SpaceEventDto>>& GetItems() const;
 	void SetItems(const std::vector<std::shared_ptr<SpaceEventDto>>& Value);
@@ -1505,6 +1534,7 @@ public:
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
 
+
 protected:
 	std::optional<std::vector<std::shared_ptr<SpaceEventDto>>> m_Items;
 	std::optional<int32_t> m_Skip;
@@ -1525,39 +1555,35 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifier
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// Unique identifier of event created with event ticket vendor
 	/// </summary>
 	utility::string_t GetVendorEventId() const;
-	void SetVendorEventId(const utility::string_t& Value);
 	bool HasVendorEventId() const;
 
 	/// <summary>
 	/// The name of event ticket vendor
 	/// </summary>
 	utility::string_t GetVendorName() const;
-	void SetVendorName(const utility::string_t& Value);
 	bool HasVendorName() const;
 
 	/// <summary>
 	/// Order number of the ticket
 	/// </summary>
 	utility::string_t GetVendorTicketId() const;
-	void SetVendorTicketId(const utility::string_t& Value);
 	bool HasVendorTicketId() const;
 
 	/// <summary>
 	/// Unique identifier of space
 	/// </summary>
 	utility::string_t GetSpaceId() const;
-	void SetSpaceId(const utility::string_t& Value);
 	bool HasSpaceId() const;
 
 	std::shared_ptr<TicketStatus> GetTicketStatus() const;
@@ -1568,15 +1594,14 @@ public:
 	/// Unique identifier of the user associated with the ticket
 	/// </summary>
 	utility::string_t GetUserId() const;
-	void SetUserId(const utility::string_t& Value);
 	bool HasUserId() const;
 
 	/// <summary>
 	/// Email address of the attendee in event ticket vendor
 	/// </summary>
 	utility::string_t GetEmailLower() const;
-	void SetEmailLower(const utility::string_t& Value);
 	bool HasEmailLower() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -1598,6 +1623,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<utility::string_t>& GetItems() const;
 	void SetItems(const std::vector<utility::string_t>& Value);
 	bool HasItems() const;
@@ -1617,6 +1643,7 @@ public:
 	int64_t GetItemTotalCount() const;
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
+
 
 protected:
 	std::optional<std::vector<utility::string_t>> m_Items;
@@ -1638,6 +1665,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The name of the style, to be referenced in the placemark
 	/// </summary>
@@ -1648,6 +1676,7 @@ public:
 	std::shared_ptr<IconStyle> GetIconStyle() const;
 	void SetIconStyle(const std::shared_ptr<IconStyle>& Value);
 	bool HasIconStyle() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -1692,6 +1721,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The name of the vendor provider
 	/// </summary>
@@ -1710,15 +1740,14 @@ public:
 	/// The base URL for the Eventbrite API
 	/// </summary>
 	utility::string_t GetAuthorizeEndpoint() const;
-	void SetAuthorizeEndpoint(const utility::string_t& Value);
 	bool HasAuthorizeEndpoint() const;
 
 	/// <summary>
 	/// The CHS hosted redirect URL for the Eventbrite oauth flow
 	/// </summary>
 	utility::string_t GetOAuthRedirectUrl() const;
-	void SetOAuthRedirectUrl(const utility::string_t& Value);
 	bool HasOAuthRedirectUrl() const;
+
 
 protected:
 	std::optional<utility::string_t> m_VendorName;
@@ -1726,5 +1755,6 @@ protected:
 	std::optional<utility::string_t> m_AuthorizeEndpoint;
 	std::optional<utility::string_t> m_OAuthRedirectUrl;
 };
+
 
 } // namespace csp::services::generated::aggregationservice

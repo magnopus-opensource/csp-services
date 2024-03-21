@@ -6,8 +6,10 @@
 #include "Web/HttpAuth.h"
 #include "Web/HttpPayload.h"
 
+
 namespace csp::services::generated::trackingservice
 {
+
 
 ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingServiceURI)
 {
@@ -16,6 +18,8 @@ ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(I
 ConfigurationApi::~ConfigurationApi()
 {
 }
+
+
 
 void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
@@ -28,6 +32,8 @@ void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* Res
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken) const
@@ -42,6 +48,8 @@ void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBa
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken) const
 {
@@ -55,6 +63,8 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingServiceURI)
 {
 }
@@ -62,6 +72,8 @@ NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CS
 NtpApi::~NtpApi()
 {
 }
+
+
 
 void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
@@ -74,6 +86,8 @@ void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingServiceURI)
 {
 }
@@ -81,6 +95,8 @@ PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::
 PingApi::~PingApi()
 {
 }
+
+
 
 void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
@@ -93,6 +109,8 @@ void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, cs
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 QuotaActivityApi::QuotaActivityApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingServiceURI)
 {
 }
@@ -100,6 +118,8 @@ QuotaActivityApi::QuotaActivityApi(csp::web::WebClient* InWebClient) : ApiBase(I
 QuotaActivityApi::~QuotaActivityApi()
 {
 }
+
+
 
 void QuotaActivityApi::apiV1UsersUserIdQuotaProgressGet(const utility::string_t& userId,
 														const std::optional<std::vector<utility::string_t>>& features,
@@ -109,6 +129,7 @@ void QuotaActivityApi::apiV1UsersUserIdQuotaProgressGet(const utility::string_t&
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/quota-progress", {userId});
 
+
 	if (features.has_value())
 	{
 		Uri.AddQueryParams("features", features.value());
@@ -120,6 +141,8 @@ void QuotaActivityApi::apiV1UsersUserIdQuotaProgressGet(const utility::string_t&
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void QuotaActivityApi::apiV1GroupsGroupIdQuotaProgressGet(const utility::string_t& groupId,
 														  const std::optional<std::vector<utility::string_t>>& features,
@@ -129,6 +152,7 @@ void QuotaActivityApi::apiV1GroupsGroupIdQuotaProgressGet(const utility::string_
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/groups/{groupId}/quota-progress", {groupId});
 
+
 	if (features.has_value())
 	{
 		Uri.AddQueryParams("features", features.value());
@@ -140,6 +164,8 @@ void QuotaActivityApi::apiV1GroupsGroupIdQuotaProgressGet(const utility::string_
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void QuotaActivityApi::apiV1UserUserIdQuotaActivityGet(const utility::string_t& userId,
 													   const std::optional<std::vector<utility::string_t>>& Features,
@@ -153,25 +179,30 @@ void QuotaActivityApi::apiV1UserUserIdQuotaActivityGet(const utility::string_t& 
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/user/{userId}/quota-activity", {userId});
 
+
 	if (Features.has_value())
 	{
 		Uri.AddQueryParams("Features", Features.value());
 	}
+
 
 	if (StartDateTime.has_value())
 	{
 		Uri.AddQueryParams("StartDateTime", StartDateTime.value());
 	}
 
+
 	if (EndDateTime.has_value())
 	{
 		Uri.AddQueryParams("EndDateTime", EndDateTime.value());
 	}
 
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
+
 
 	if (Limit.has_value())
 	{
@@ -184,6 +215,8 @@ void QuotaActivityApi::apiV1UserUserIdQuotaActivityGet(const utility::string_t& 
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void QuotaActivityApi::apiV1GroupGroupIdQuotaActivityGet(const utility::string_t& groupId,
 														 const std::optional<std::vector<utility::string_t>>& Features,
@@ -197,25 +230,30 @@ void QuotaActivityApi::apiV1GroupGroupIdQuotaActivityGet(const utility::string_t
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/group/{groupId}/quota-activity", {groupId});
 
+
 	if (Features.has_value())
 	{
 		Uri.AddQueryParams("Features", Features.value());
 	}
+
 
 	if (StartDateTime.has_value())
 	{
 		Uri.AddQueryParams("StartDateTime", StartDateTime.value());
 	}
 
+
 	if (EndDateTime.has_value())
 	{
 		Uri.AddQueryParams("EndDateTime", EndDateTime.value());
 	}
 
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
+
 
 	if (Limit.has_value())
 	{
@@ -229,6 +267,8 @@ void QuotaActivityApi::apiV1GroupGroupIdQuotaActivityGet(const utility::string_t
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 QuotaManagementApi::QuotaManagementApi(csp::web::WebClient* InWebClient)
 	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingServiceURI)
 {
@@ -237,6 +277,8 @@ QuotaManagementApi::QuotaManagementApi(csp::web::WebClient* InWebClient)
 QuotaManagementApi::~QuotaManagementApi()
 {
 }
+
+
 
 void QuotaManagementApi::apiV1TiersTierNameQuotasGet(const utility::string_t& tierName,
 													 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -251,6 +293,8 @@ void QuotaManagementApi::apiV1TiersTierNameQuotasGet(const utility::string_t& ti
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void QuotaManagementApi::apiV1TiersTierNameFeaturesFeatureNameQuotaGet(const utility::string_t& tierName,
 																	   const utility::string_t& featureName,
@@ -299,6 +343,8 @@ void QuotaManagementApi::apiV1TiersTierNameFeaturesFeatureNameQuotaDelete(const 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 QuotaTierAssignmentApi::QuotaTierAssignmentApi(csp::web::WebClient* InWebClient)
 	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingServiceURI)
 {
@@ -307,6 +353,8 @@ QuotaTierAssignmentApi::QuotaTierAssignmentApi(csp::web::WebClient* InWebClient)
 QuotaTierAssignmentApi::~QuotaTierAssignmentApi()
 {
 }
+
+
 
 void QuotaTierAssignmentApi::apiV1UsersUserIdTierAssignmentGet(const utility::string_t& userId,
 															   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -352,6 +400,8 @@ void QuotaTierAssignmentApi::apiV1UsersUserIdTierAssignmentDelete(const utility:
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void QuotaTierAssignmentApi::apiV1TenantsTenantNameTierAssignmentGet(const utility::string_t& tenantName,
 																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
 																	 csp::common::CancellationToken& CancellationToken) const
@@ -396,12 +446,15 @@ void QuotaTierAssignmentApi::apiV1TenantsTenantNameTierAssignmentDelete(const ut
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void QuotaTierAssignmentApi::apiV1GroupsTierAssignmentsGet(const std::optional<std::vector<utility::string_t>>& groupIds,
 														   csp::services::ApiResponseHandlerBase* ResponseHandler,
 														   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/groups/tier-assignments", {});
+
 
 	if (groupIds.has_value())
 	{
@@ -414,5 +467,7 @@ void QuotaTierAssignmentApi::apiV1GroupsTierAssignmentsGet(const std::optional<s
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 } // namespace csp::services::generated::trackingservice

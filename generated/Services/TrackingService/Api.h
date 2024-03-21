@@ -9,14 +9,18 @@
 
 #include <optional>
 
+
 namespace csp::services::generated::trackingservice
 {
+
 
 class ConfigurationApi final : public csp::services::ApiBase
 {
 public:
 	ConfigurationApi(csp::web::WebClient* InWebClient);
 	virtual ~ConfigurationApi();
+
+
 
 	/// <remarks>
 	/// GET /appsettings
@@ -25,12 +29,16 @@ public:
 	void appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <remarks>
 	/// POST /appsettings/reload
 	/// Authorization: magnopus-admin
 	/// </remarks>
 	void appsettingsReloadPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
 							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <remarks>
 	/// GET /featureflags
@@ -46,6 +54,8 @@ public:
 	NtpApi(csp::web::WebClient* InWebClient);
 	virtual ~NtpApi();
 
+
+
 	/// <remarks>
 	/// GET /datetime
 	/// Authorization: Anonymous
@@ -59,6 +69,8 @@ class PingApi final : public csp::services::ApiBase
 public:
 	PingApi(csp::web::WebClient* InWebClient);
 	virtual ~PingApi();
+
+
 
 	/// <remarks>
 	/// GET /ping
@@ -74,6 +86,8 @@ public:
 	QuotaActivityApi(csp::web::WebClient* InWebClient);
 	virtual ~QuotaActivityApi();
 
+
+
 	/// <summary>
 	/// Gets the user's progress toward quota limits per feature
 	/// </summary>
@@ -86,6 +100,8 @@ public:
 										  csp::services::ApiResponseHandlerBase* ResponseHandler,
 										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Gets the group's progress toward quota limits per feature (tier assignment is by the group owner)
 	/// </summary>
@@ -97,6 +113,8 @@ public:
 											const std::optional<std::vector<utility::string_t>>& features,
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Gets the individual activity toward a user's quota limits per feature
@@ -113,6 +131,8 @@ public:
 										 const std::optional<int32_t>& Limit,
 										 csp::services::ApiResponseHandlerBase* ResponseHandler,
 										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Gets the individual activity toward a group's quota limits per feature (tier assignment is by the group owner)
@@ -137,6 +157,8 @@ public:
 	QuotaManagementApi(csp::web::WebClient* InWebClient);
 	virtual ~QuotaManagementApi();
 
+
+
 	/// <summary>
 	/// Gets all feature quota definition at the specified tier
 	/// </summary>
@@ -147,6 +169,8 @@ public:
 	void apiV1TiersTierNameQuotasGet(const utility::string_t& tierName,
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
 									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Gets a quota definition for a feature at the specified tier
@@ -161,6 +185,7 @@ public:
 													   csp::common::CancellationToken& CancellationToken
 													   = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Creates or updates a quota definition for a feature at the specified tier
 	/// </summary>
@@ -174,6 +199,7 @@ public:
 													   csp::services::ApiResponseHandlerBase* ResponseHandler,
 													   csp::common::CancellationToken& CancellationToken
 													   = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Deletes a quota definition for a feature at the specified tier <br />
@@ -197,6 +223,8 @@ public:
 	QuotaTierAssignmentApi(csp::web::WebClient* InWebClient);
 	virtual ~QuotaTierAssignmentApi();
 
+
+
 	/// <summary>
 	/// Gets the user's tier assignment
 	/// </summary>
@@ -207,6 +235,7 @@ public:
 	void apiV1UsersUserIdTierAssignmentGet(const utility::string_t& userId,
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Updates the user's tier assignment
@@ -220,6 +249,7 @@ public:
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Deletes the user's tier assignment
 	/// </summary>
@@ -231,6 +261,8 @@ public:
 											  csp::services::ApiResponseHandlerBase* ResponseHandler,
 											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Gets the tenant's tier assignment
 	/// </summary>
@@ -241,6 +273,7 @@ public:
 	void apiV1TenantsTenantNameTierAssignmentGet(const utility::string_t& tenantName,
 												 csp::services::ApiResponseHandlerBase* ResponseHandler,
 												 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Updates the tenant's tier assignment
@@ -254,6 +287,7 @@ public:
 												 csp::services::ApiResponseHandlerBase* ResponseHandler,
 												 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Deletes the tenant's tier assignment
 	/// </summary>
@@ -266,6 +300,8 @@ public:
 													csp::common::CancellationToken& CancellationToken
 													= csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Gets the group(s) tier assignments (the tier assignment of each group owner)
 	/// </summary>
@@ -277,5 +313,6 @@ public:
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
+
 
 } // namespace csp::services::generated::trackingservice

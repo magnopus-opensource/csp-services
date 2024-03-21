@@ -6,6 +6,7 @@
 
 #include <optional>
 
+
 namespace csp::services::generated::trackingservice
 {
 
@@ -15,6 +16,8 @@ class QuotaFeatureLimitProgressDto;
 class QuotaFeatureTierDto;
 class QuotaSumByPeriodDto;
 class QuotaTierAssignmentDto;
+
+
 
 /// <summary>
 /// The quota activity for a feature
@@ -28,25 +31,23 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The name of the feature
 	/// </summary>
 	utility::string_t GetFeatureName() const;
-	void SetFeatureName(const utility::string_t& Value);
 	bool HasFeatureName() const;
 
 	/// <summary>
 	/// The type of the entity(s) that the quota applies to (literal strings "user", etc)
 	/// </summary>
 	utility::string_t GetAppliesToType() const;
-	void SetAppliesToType(const utility::string_t& Value);
 	bool HasAppliesToType() const;
 
 	/// <summary>
 	/// The id of the entity(s) that the quota applies to (user id, etc)
 	/// </summary>
 	utility::string_t GetAppliesToId() const;
-	void SetAppliesToId(const utility::string_t& Value);
 	bool HasAppliesToId() const;
 
 	/// <summary>
@@ -54,7 +55,6 @@ public:
 	/// Note: this can be `null` when this feature only applies to one entity
 	/// </summary>
 	utility::string_t GetAppliesToQualifierType() const;
-	void SetAppliesToQualifierType(const utility::string_t& Value);
 	bool HasAppliesToQualifierType() const;
 
 	/// <summary>
@@ -62,21 +62,18 @@ public:
 	/// Note: this can be `null` when this feature only applies to one entity
 	/// </summary>
 	utility::string_t GetAppliesToQualifierId() const;
-	void SetAppliesToQualifierId(const utility::string_t& Value);
 	bool HasAppliesToQualifierId() const;
 
 	/// <summary>
 	/// The user that performed the activity
 	/// </summary>
 	utility::string_t GetCreatedBy() const;
-	void SetCreatedBy(const utility::string_t& Value);
 	bool HasCreatedBy() const;
 
 	/// <summary>
 	/// The date/time the activity was performed
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
 
 	/// <summary>
@@ -84,8 +81,8 @@ public:
 	/// (can be negative when the activity is a delete or other kind of removal)
 	/// </summary>
 	int32_t GetAmount() const;
-	void SetAmount(int32_t Value);
 	bool HasAmount() const;
+
 
 protected:
 	std::optional<utility::string_t> m_FeatureName;
@@ -107,6 +104,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<std::shared_ptr<QuotaFeatureActivityDto>>& GetItems() const;
 	void SetItems(const std::vector<std::shared_ptr<QuotaFeatureActivityDto>>& Value);
 	bool HasItems() const;
@@ -126,6 +124,7 @@ public:
 	int64_t GetItemTotalCount() const;
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
+
 
 protected:
 	std::optional<std::vector<std::shared_ptr<QuotaFeatureActivityDto>>> m_Items;
@@ -147,26 +146,25 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The name of the feature
 	/// </summary>
 	utility::string_t GetFeatureName() const;
-	void SetFeatureName(const utility::string_t& Value);
 	bool HasFeatureName() const;
 
 	/// <summary>
 	/// The amount of activity toward the feature's limit
 	/// </summary>
 	int32_t GetActivityCount() const;
-	void SetActivityCount(int32_t Value);
 	bool HasActivityCount() const;
 
 	/// <summary>
 	/// The feature's limit
 	/// </summary>
 	int32_t GetLimit() const;
-	void SetLimit(int32_t Value);
 	bool HasLimit() const;
+
 
 protected:
 	std::optional<utility::string_t> m_FeatureName;
@@ -186,18 +184,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The name of the feature
 	/// </summary>
 	utility::string_t GetFeatureName() const;
-	void SetFeatureName(const utility::string_t& Value);
 	bool HasFeatureName() const;
 
 	/// <summary>
 	/// The name of the tier this applies to
 	/// </summary>
 	utility::string_t GetTierName() const;
-	void SetTierName(const utility::string_t& Value);
 	bool HasTierName() const;
 
 	/// <summary>
@@ -219,6 +216,7 @@ public:
 	bool GetAllowReductions() const;
 	void SetAllowReductions(const bool& Value);
 	bool HasAllowReductions() const;
+
 
 protected:
 	std::optional<utility::string_t> m_FeatureName;
@@ -267,18 +265,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The type of the entity this tier quota is assigned to (literal strings "user", "tenant", etc)
 	/// </summary>
 	utility::string_t GetAssignedToType() const;
-	void SetAssignedToType(const utility::string_t& Value);
 	bool HasAssignedToType() const;
 
 	/// <summary>
 	/// The id of the entity this tier quota is assigned to (user id, tenant name, etc)
 	/// </summary>
 	utility::string_t GetAssignedToId() const;
-	void SetAssignedToId(const utility::string_t& Value);
 	bool HasAssignedToId() const;
 
 	/// <summary>
@@ -302,6 +299,7 @@ public:
 	void SetExpiresAt(const utility::string_t& Value);
 	bool HasExpiresAt() const;
 
+
 protected:
 	std::optional<utility::string_t> m_AssignedToType;
 	std::optional<utility::string_t> m_AssignedToId;
@@ -309,5 +307,6 @@ protected:
 	std::optional<utility::string_t> m_TenantName;
 	std::optional<utility::string_t> m_ExpiresAt;
 };
+
 
 } // namespace csp::services::generated::trackingservice

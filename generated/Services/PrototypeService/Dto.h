@@ -6,6 +6,7 @@
 
 #include <optional>
 
+
 namespace csp::services::generated::prototypeservice
 {
 
@@ -21,6 +22,8 @@ class PrototypeDto;
 class PrototypeDtoDataPage;
 class SortDirection;
 
+
+
 /// <summary>
 /// Contains the details of An Asset File and what platforms it supports.
 /// </summary>
@@ -33,25 +36,23 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Prototype this Asset is assigned to
 	/// </summary>
 	utility::string_t GetPrototypeId() const;
-	void SetPrototypeId(const utility::string_t& Value);
 	bool HasPrototypeId() const;
 
 	/// <summary>
 	/// The unique identifier for this asset
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// Filename for the asset, mainly useful for unity side
 	/// </summary>
 	utility::string_t GetFileName() const;
-	void SetFileName(const utility::string_t& Value);
 	bool HasFileName() const;
 
 	/// <summary>
@@ -93,7 +94,9 @@ public:
 	/// <summary>
 	/// The Unique Identifier for a specific AddressableItem within a package
 	/// </summary>
+	[[deprecated("'addressableId' has been deprecated!")]]
 	utility::string_t GetAddressableId() const;
+	[[deprecated("'addressableId' has been deprecated!")]]
 	void SetAddressableId(const utility::string_t& Value);
 	bool HasAddressableId() const;
 
@@ -108,7 +111,6 @@ public:
 	/// Url where the asset is able to be retrieved from
 	/// </summary>
 	utility::string_t GetUri() const;
-	void SetUri(const utility::string_t& Value);
 	bool HasUri() const;
 
 	/// <summary>
@@ -116,7 +118,6 @@ public:
 	/// get an updated version.
 	/// </summary>
 	utility::string_t GetChecksum() const;
-	void SetChecksum(const utility::string_t& Value);
 	bool HasChecksum() const;
 
 	/// <summary>
@@ -124,7 +125,6 @@ public:
 	/// if the client version details match the services at a quick glance.
 	/// </summary>
 	utility::string_t GetVersion() const;
-	void SetVersion(const utility::string_t& Value);
 	bool HasVersion() const;
 
 	/// <summary>
@@ -132,7 +132,6 @@ public:
 	/// and be able to handle it correctly.
 	/// </summary>
 	utility::string_t GetMimeType() const;
-	void SetMimeType(const utility::string_t& Value);
 	bool HasMimeType() const;
 
 	/// <summary>
@@ -163,8 +162,8 @@ public:
 	/// Size of the current version of the raw asset in bytes - 0 if external or no file uploaded
 	/// </summary>
 	int64_t GetSizeInBytes() const;
-	void SetSizeInBytes(int64_t Value);
 	bool HasSizeInBytes() const;
+
 
 protected:
 	std::optional<utility::string_t> m_PrototypeId;
@@ -199,18 +198,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The ID of the prototype associated with the processed asset-detail
 	/// </summary>
 	utility::string_t GetPrototypeId() const;
-	void SetPrototypeId(const utility::string_t& Value);
 	bool HasPrototypeId() const;
 
 	/// <summary>
 	/// The ID of the asset-detail processed to generate the associated assets
 	/// </summary>
 	utility::string_t GetAssetDetailId() const;
-	void SetAssetDetailId(const utility::string_t& Value);
 	bool HasAssetDetailId() const;
 
 	/// <summary>
@@ -261,6 +259,7 @@ public:
 	void SetLodLevels(const std::vector<std::shared_ptr<AssetPipelineModelLodLevelDto>>& Value);
 	bool HasLodLevels() const;
 
+
 protected:
 	std::optional<utility::string_t> m_PrototypeId;
 	std::optional<utility::string_t> m_AssetDetailId;
@@ -282,18 +281,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The ID of the prototype associated with the processed asset-detail
 	/// </summary>
 	utility::string_t GetPrototypeId() const;
-	void SetPrototypeId(const utility::string_t& Value);
 	bool HasPrototypeId() const;
 
 	/// <summary>
 	/// Asset-detail associated with this LOD level
 	/// </summary>
 	utility::string_t GetAssetDetailId() const;
-	void SetAssetDetailId(const utility::string_t& Value);
 	bool HasAssetDetailId() const;
 
 	std::shared_ptr<AssetPipelineStatus> GetStatus() const;
@@ -359,6 +357,7 @@ public:
 	void SetHighQualityTextures(const bool& Value);
 	bool HasHighQualityTextures() const;
 
+
 protected:
 	std::optional<utility::string_t> m_PrototypeId;
 	std::optional<utility::string_t> m_AssetDetailId;
@@ -412,18 +411,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The ID of the prototype associated with the processed asset-detail
 	/// </summary>
 	utility::string_t GetPrototypeId() const;
-	void SetPrototypeId(const utility::string_t& Value);
 	bool HasPrototypeId() const;
 
 	/// <summary>
 	/// Asset-detail associated with this thumbnail
 	/// </summary>
 	utility::string_t GetAssetDetailId() const;
-	void SetAssetDetailId(const utility::string_t& Value);
 	bool HasAssetDetailId() const;
 
 	std::shared_ptr<AssetPipelineStatus> GetStatus() const;
@@ -451,6 +449,7 @@ public:
 	void SetImageSizeY(int32_t Value);
 	bool HasImageSizeY() const;
 
+
 protected:
 	std::optional<utility::string_t> m_PrototypeId;
 	std::optional<utility::string_t> m_AssetDetailId;
@@ -472,6 +471,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The unique identifier for this asset
 	/// </summary>
@@ -483,14 +483,12 @@ public:
 	/// Prototype this Asset is assigned to
 	/// </summary>
 	utility::string_t GetPrototypeId() const;
-	void SetPrototypeId(const utility::string_t& Value);
 	bool HasPrototypeId() const;
 
 	/// <summary>
 	/// Filename for the asset, mainly useful for unity side
 	/// </summary>
 	utility::string_t GetFileName() const;
-	void SetFileName(const utility::string_t& Value);
 	bool HasFileName() const;
 
 	/// <summary>
@@ -532,7 +530,9 @@ public:
 	/// <summary>
 	/// The Unique Identifier for a specific AddressableItem within a package
 	/// </summary>
+	[[deprecated("'addressableId' has been deprecated!")]]
 	utility::string_t GetAddressableId() const;
+	[[deprecated("'addressableId' has been deprecated!")]]
 	void SetAddressableId(const utility::string_t& Value);
 	bool HasAddressableId() const;
 
@@ -547,7 +547,6 @@ public:
 	/// Url where the asset is able to be retrieved from
 	/// </summary>
 	utility::string_t GetUri() const;
-	void SetUri(const utility::string_t& Value);
 	bool HasUri() const;
 
 	/// <summary>
@@ -555,7 +554,6 @@ public:
 	/// get an updated version.
 	/// </summary>
 	utility::string_t GetChecksum() const;
-	void SetChecksum(const utility::string_t& Value);
 	bool HasChecksum() const;
 
 	/// <summary>
@@ -563,7 +561,6 @@ public:
 	/// if the client version details match the services at a quick glance.
 	/// </summary>
 	utility::string_t GetVersion() const;
-	void SetVersion(const utility::string_t& Value);
 	bool HasVersion() const;
 
 	/// <summary>
@@ -571,7 +568,6 @@ public:
 	/// and be able to handle it correctly.
 	/// </summary>
 	utility::string_t GetMimeType() const;
-	void SetMimeType(const utility::string_t& Value);
 	bool HasMimeType() const;
 
 	/// <summary>
@@ -602,8 +598,8 @@ public:
 	/// Size of the current version of the raw asset in bytes - 0 if external or no file uploaded
 	/// </summary>
 	int64_t GetSizeInBytes() const;
-	void SetSizeInBytes(int64_t Value);
 	bool HasSizeInBytes() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -638,6 +634,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The unique identifier for this instance
 	/// </summary>
@@ -707,28 +704,24 @@ public:
 	/// The user identity which created this instance
 	/// </summary>
 	utility::string_t GetCreatedBy() const;
-	void SetCreatedBy(const utility::string_t& Value);
 	bool HasCreatedBy() const;
 
 	/// <summary>
 	/// The date and time this prototype was first created
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
 
 	/// <summary>
 	/// The user identity which last updated this instance
 	/// </summary>
 	utility::string_t GetUpdatedBy() const;
-	void SetUpdatedBy(const utility::string_t& Value);
 	bool HasUpdatedBy() const;
 
 	/// <summary>
 	/// The date and time this prototype was last updated
 	/// </summary>
 	utility::string_t GetUpdatedAt() const;
-	void SetUpdatedAt(const utility::string_t& Value);
 	bool HasUpdatedAt() const;
 
 	/// <summary>
@@ -772,6 +765,7 @@ public:
 	const std::vector<utility::string_t>& GetWriteAccess() const;
 	void SetWriteAccess(const std::vector<utility::string_t>& Value);
 	bool HasWriteAccess() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -804,6 +798,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	utility::string_t GetLanguageCode() const;
 	void SetLanguageCode(const utility::string_t& Value);
 	bool HasLanguageCode() const;
@@ -811,6 +806,7 @@ public:
 	utility::string_t GetValue() const;
 	void SetValue(const utility::string_t& Value);
 	bool HasValue() const;
+
 
 protected:
 	std::optional<utility::string_t> m_LanguageCode;
@@ -829,11 +825,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The unique identifier for this instance
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
@@ -898,28 +894,24 @@ public:
 	/// The user identity which created this instance
 	/// </summary>
 	utility::string_t GetCreatedBy() const;
-	void SetCreatedBy(const utility::string_t& Value);
 	bool HasCreatedBy() const;
 
 	/// <summary>
 	/// The date and time this prototype was first created
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
 
 	/// <summary>
 	/// The user identity which last updated this instance
 	/// </summary>
 	utility::string_t GetUpdatedBy() const;
-	void SetUpdatedBy(const utility::string_t& Value);
 	bool HasUpdatedBy() const;
 
 	/// <summary>
 	/// The date and time this prototype was last updated
 	/// </summary>
 	utility::string_t GetUpdatedAt() const;
-	void SetUpdatedAt(const utility::string_t& Value);
 	bool HasUpdatedAt() const;
 
 	/// <summary>
@@ -964,6 +956,7 @@ public:
 	void SetWriteAccess(const std::vector<utility::string_t>& Value);
 	bool HasWriteAccess() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Id;
 	std::optional<utility::string_t> m_Name;
@@ -995,6 +988,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<std::shared_ptr<PrototypeDto>>& GetItems() const;
 	void SetItems(const std::vector<std::shared_ptr<PrototypeDto>>& Value);
 	bool HasItems() const;
@@ -1014,6 +1008,7 @@ public:
 	int64_t GetItemTotalCount() const;
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
+
 
 protected:
 	std::optional<std::vector<std::shared_ptr<PrototypeDto>>> m_Items;
@@ -1045,5 +1040,6 @@ public:
 protected:
 	eSortDirection Value = {};
 };
+
 
 } // namespace csp::services::generated::prototypeservice

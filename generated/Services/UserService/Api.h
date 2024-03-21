@@ -9,14 +9,18 @@
 
 #include <optional>
 
+
 namespace csp::services::generated::userservice
 {
+
 
 class ApplicationSettingsApi final : public csp::services::ApiBase
 {
 public:
 	ApplicationSettingsApi(csp::web::WebClient* InWebClient);
 	virtual ~ApplicationSettingsApi();
+
+
 
 	/// <summary>
 	/// Creates context settings or updates existing settings - any previously existing settings
@@ -33,6 +37,7 @@ public:
 															csp::common::CancellationToken& CancellationToken
 															= csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Gets the settings for an application by context.  If keys are provided
 	/// then only values for those keys will be returned, otherwise all key/value pairs are returned.
@@ -48,6 +53,7 @@ public:
 															csp::common::CancellationToken& CancellationToken
 															= csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Deletes all application settings related to a context.
 	/// </summary>
@@ -61,6 +67,8 @@ public:
 															   csp::common::CancellationToken& CancellationToken
 															   = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Gets all the contexts for which the application has settings
 	/// </summary>
@@ -73,6 +81,7 @@ public:
 													 csp::common::CancellationToken& CancellationToken
 													 = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Deletes all settings related to a context.
 	/// </summary>
@@ -84,6 +93,8 @@ public:
 														csp::services::ApiResponseHandlerBase* ResponseHandler,
 														csp::common::CancellationToken& CancellationToken
 														= csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Deletes keyname setting at a context.
@@ -106,6 +117,8 @@ public:
 	AuthenticationApi(csp::web::WebClient* InWebClient);
 	virtual ~AuthenticationApi();
 
+
+
 	/// <summary>
 	/// Provides ability to login with username/pw or auto-register/login by unique identifier.
 	/// </summary>
@@ -116,6 +129,8 @@ public:
 	void apiV1UsersLoginPost(const std::shared_ptr<LoginRequest>& RequestBody,
 							 csp::services::ApiResponseHandlerBase* ResponseHandler,
 							 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Provides ability to login with a social authentication provider's token (such as Google).
@@ -130,6 +145,8 @@ public:
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
 								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Looks up the basic info required by a client to perform oauth2 flow
 	/// with a social authentication provider by the provider's name.
@@ -143,6 +160,8 @@ public:
 										 csp::services::ApiResponseHandlerBase* ResponseHandler,
 										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Provides registered accounts with the ability to logout with username/pw.
 	/// </summary>
@@ -153,6 +172,8 @@ public:
 	void apiV1UsersLogoutPost(const std::shared_ptr<LogoutRequest>& RequestBody,
 							  csp::services::ApiResponseHandlerBase* ResponseHandler,
 							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Provides ability to refresh the authentication tokens (access token and refresh token)
@@ -172,6 +193,8 @@ public:
 	AvatarsApi(csp::web::WebClient* InWebClient);
 	virtual ~AvatarsApi();
 
+
+
 	/// <summary>
 	/// Creates a new avatar manifest
 	/// </summary>
@@ -184,6 +207,8 @@ public:
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
 									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Finds avatar manifest by its unique identifier
 	/// </summary>
@@ -195,6 +220,7 @@ public:
 											const utility::string_t& avatarId,
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates avatar manifest by its unique identifier avatarId
@@ -210,6 +236,7 @@ public:
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Locates the avatar manifest by its ID avatarId
 	/// and deletes it from the data store.
@@ -222,6 +249,8 @@ public:
 											   const utility::string_t& avatarId,
 											   csp::services::ApiResponseHandlerBase* ResponseHandler,
 											   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Finds whether an avatar manifest exists by its unique identifier
@@ -242,6 +271,8 @@ public:
 	ConfigurationApi(csp::web::WebClient* InWebClient);
 	virtual ~ConfigurationApi();
 
+
+
 	/// <remarks>
 	/// GET /appsettings
 	/// Authorization: magnopus-admin
@@ -249,12 +280,16 @@ public:
 	void appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <remarks>
 	/// POST /appsettings/reload
 	/// Authorization: magnopus-admin
 	/// </remarks>
 	void appsettingsReloadPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
 							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <remarks>
 	/// GET /featureflags
@@ -270,6 +305,8 @@ public:
 	GroupApi(csp::web::WebClient* InWebClient);
 	virtual ~GroupApi();
 
+
+
 	/// <summary>
 	/// Creates a new user group
 	/// </summary>
@@ -281,6 +318,7 @@ public:
 						 csp::services::ApiResponseHandlerBase* ResponseHandler,
 						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Locates groups by a provided list of ids
 	/// </summary>
@@ -291,6 +329,8 @@ public:
 	void apiV1GroupsGet(const std::optional<std::vector<utility::string_t>>& ids,
 						csp::services::ApiResponseHandlerBase* ResponseHandler,
 						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Used to join a user group.
@@ -304,6 +344,8 @@ public:
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Used to create new group code and remove old group code.
 	/// </summary>
@@ -314,6 +356,8 @@ public:
 	void apiV1GroupsGroupIdGroupCodeResetPost(const utility::string_t& groupId,
 											  csp::services::ApiResponseHandlerBase* ResponseHandler,
 											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Finds a user by userId and bans the user from the group.
@@ -327,6 +371,7 @@ public:
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Finds a user by userId and removes the user from banned list for group
 	/// </summary>
@@ -338,6 +383,8 @@ public:
 												   const utility::string_t& userId,
 												   csp::services::ApiResponseHandlerBase* ResponseHandler,
 												   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Locates the user group by its ID groupId
@@ -351,6 +398,7 @@ public:
 								  csp::services::ApiResponseHandlerBase* ResponseHandler,
 								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Locates a group by the group's unique identifier groupId
 	/// </summary>
@@ -362,6 +410,8 @@ public:
 							   csp::services::ApiResponseHandlerBase* ResponseHandler,
 							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Locates all groups for the user with unique identifier userId
 	/// </summary>
@@ -372,6 +422,8 @@ public:
 	void apiV1UsersUserIdGroupsGet(const utility::string_t& userId,
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
 								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Finds a user by userId and removes the user from the group
@@ -385,6 +437,8 @@ public:
 											 csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Finds group summary by group code
 	/// </summary>
@@ -396,6 +450,8 @@ public:
 								 csp::services::ApiResponseHandlerBase* ResponseHandler,
 								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Sends email with a link to accept request to join a group with existing account or signup and join
 	/// </summary>
@@ -403,11 +459,14 @@ public:
 	/// POST /api/v1/groups/{groupId}/email-invite
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
+	[[deprecated("'POST /api/v1/groups/{groupId}/email-invite' is deprecated!")]]
 	void apiV1GroupsGroupIdEmailInvitePost(const utility::string_t& groupId,
 										   const std::optional<bool>& resendInvite,
 										   const std::shared_ptr<GroupInviteDto>& RequestBody,
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Sends email with a link to accept request to join a group with existing account or signup and join
@@ -424,6 +483,7 @@ public:
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Finds all outstanding invites to a group for group owners
 	/// </summary>
@@ -434,6 +494,8 @@ public:
 	void apiV1GroupsGroupIdEmailInvitesGet(const utility::string_t& groupId,
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Sends email with a link to many people to accept request to join a group with existing account or signup and join
@@ -450,6 +512,8 @@ public:
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Locates a group by its unique identifier and updates the updateable fields
 	/// </summary>
@@ -462,6 +526,7 @@ public:
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
 								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Locates the simplified group by its unique identifier
 	/// </summary>
@@ -472,6 +537,8 @@ public:
 	void apiV1GroupsGroupIdLiteGet(const utility::string_t& groupId,
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
 								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Used to reassign new owner to the group
@@ -484,6 +551,8 @@ public:
 												   const utility::string_t& newGroupOwnerId,
 												   csp::services::ApiResponseHandlerBase* ResponseHandler,
 												   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Finds the specified invite for a group and removes it
@@ -498,6 +567,8 @@ public:
 														   csp::common::CancellationToken& CancellationToken
 														   = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Used to add moderator to a group.
 	/// </summary>
@@ -510,6 +581,7 @@ public:
 											   csp::services::ApiResponseHandlerBase* ResponseHandler,
 											   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Removes a user as moderator of the group
 	/// </summary>
@@ -521,6 +593,8 @@ public:
 												  const utility::string_t& userId,
 												  csp::services::ApiResponseHandlerBase* ResponseHandler,
 												  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Search across all the groups for those that match the search criteria
@@ -546,6 +620,8 @@ public:
 							csp::services::ApiResponseHandlerBase* ResponseHandler,
 							csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Finds all outstanding invites for user
 	/// </summary>
@@ -556,6 +632,8 @@ public:
 	void apiV1GroupsUsersUserIdEmailInvitesGet(const utility::string_t& userId,
 											   csp::services::ApiResponseHandlerBase* ResponseHandler,
 											   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Accepts an email invite to join a group for a user
@@ -570,6 +648,8 @@ public:
 																		  csp::services::ApiResponseHandlerBase* ResponseHandler,
 																		  csp::common::CancellationToken& CancellationToken
 																		  = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Used to set whether a Group is archived or not. Archived Groups
@@ -591,6 +671,8 @@ class InventoryApi final : public csp::services::ApiBase
 public:
 	InventoryApi(csp::web::WebClient* InWebClient);
 	virtual ~InventoryApi();
+
+
 
 	/// <summary>
 	/// Search across all of the user's inventory for those that match the search criteria
@@ -617,6 +699,7 @@ public:
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Adds new item to user inventory items
 	/// </summary>
@@ -629,6 +712,8 @@ public:
 											const std::shared_ptr<InventoryItemDto>& RequestBody,
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Search across all of the inventory for those that match the search criteria
@@ -653,6 +738,8 @@ public:
 										 csp::services::ApiResponseHandlerBase* ResponseHandler,
 										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Search across all of the item ids for those that match the search criteria
 	/// or an empty list if none found
@@ -675,6 +762,8 @@ public:
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Count across all of the inventory for those that match the search criteria
 	/// </summary>
@@ -696,6 +785,8 @@ public:
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
 									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Locates the inventory items by its instance's unique identifier id
 	/// </summary>
@@ -707,6 +798,7 @@ public:
 											 const utility::string_t& id,
 											 csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates the inventory item by its user's unique identifier userId
@@ -722,6 +814,7 @@ public:
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Locates the inventory item instance by its unique identifier id
 	/// and updates the fields of that item with the new values from the request body.
@@ -735,6 +828,8 @@ public:
 											 const std::shared_ptr<InventoryItemDto>& RequestBody,
 											 csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Equip or UnEquip an inventory item based on a particular user
@@ -756,6 +851,8 @@ public:
 	NtpApi(csp::web::WebClient* InWebClient);
 	virtual ~NtpApi();
 
+
+
 	/// <remarks>
 	/// GET /datetime
 	/// Authorization: Anonymous
@@ -770,6 +867,8 @@ public:
 	OrganizationApi(csp::web::WebClient* InWebClient);
 	virtual ~OrganizationApi();
 
+
+
 	/// <summary>
 	/// Creates a new organization
 	/// </summary>
@@ -781,6 +880,8 @@ public:
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
 								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Locates the organization by its unique identifier organizationId
 	/// </summary>
@@ -791,6 +892,7 @@ public:
 	void apiV1OrganizationsOrganizationIdGet(const utility::string_t& organizationId,
 											 csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates the organization by its unique identifier organizationId
@@ -805,6 +907,7 @@ public:
 											 csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Locates the organization by its unique identifier organizationId
 	/// and deletes it from the data store.
@@ -816,6 +919,8 @@ public:
 	void apiV1OrganizationsOrganizationIdDelete(const utility::string_t& organizationId,
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Sends email with a link to accept request to join an organization
@@ -833,6 +938,7 @@ public:
 															   csp::common::CancellationToken& CancellationToken
 															   = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Finds all pending membership invites to the organization
 	/// </summary>
@@ -844,6 +950,8 @@ public:
 															  csp::services::ApiResponseHandlerBase* ResponseHandler,
 															  csp::common::CancellationToken& CancellationToken
 															  = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Sends email with a link to many users to join an organization with existing account or signup and join
@@ -861,6 +969,8 @@ public:
 																   csp::common::CancellationToken& CancellationToken
 																   = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Finds a user by userId and removes the user from the organization
 	/// </summary>
@@ -874,6 +984,8 @@ public:
 														   csp::common::CancellationToken& CancellationToken
 														   = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Locates the roles of the members in the organization by their unique identifier userIds
 	/// </summary>
@@ -885,6 +997,8 @@ public:
 												  const std::optional<std::vector<utility::string_t>>& userIds,
 												  csp::services::ApiResponseHandlerBase* ResponseHandler,
 												  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Locates the roles of user in the organization by its unique identifier organizationId
@@ -908,6 +1022,8 @@ public:
 	PingApi(csp::web::WebClient* InWebClient);
 	virtual ~PingApi();
 
+
+
 	/// <remarks>
 	/// GET /ping
 	/// Authorization: Anonymous
@@ -922,6 +1038,8 @@ public:
 	ProfileApi(csp::web::WebClient* InWebClient);
 	virtual ~ProfileApi();
 
+
+
 	/// <summary>
 	/// Used to Create a User Profile.
 	/// </summary>
@@ -932,6 +1050,7 @@ public:
 	void apiV1UsersPost(const std::shared_ptr<CreateUserRequest>& RequestBody,
 						csp::services::ApiResponseHandlerBase* ResponseHandler,
 						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Search across all the Users for those that match the search criteria
@@ -955,6 +1074,8 @@ public:
 					   csp::services::ApiResponseHandlerBase* ResponseHandler,
 					   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Used to Create a User Profile using a token from a social authentication provider.
 	/// </summary>
@@ -965,6 +1086,8 @@ public:
 	void apiV1UsersCreateSocialPost(const std::shared_ptr<CreateUserSocialRequest>& RequestBody,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
 									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Used to upgrade a guest user into an registered User Profile.  This profile will not be email-verified
@@ -980,6 +1103,8 @@ public:
 										  csp::services::ApiResponseHandlerBase* ResponseHandler,
 										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Used to upgrade a guest user into an registered User Profile using a token from a social authentication provider.
 	/// This profile will be email-verified.
@@ -993,6 +1118,8 @@ public:
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Locates the user profile by its ID userId
 	/// and deletes it.
@@ -1005,6 +1132,7 @@ public:
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
 								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Locates the user profile by its unique identifier userId
 	/// </summary>
@@ -1015,6 +1143,8 @@ public:
 	void apiV1UsersUserIdGet(const utility::string_t& userId,
 							 csp::services::ApiResponseHandlerBase* ResponseHandler,
 							 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Use email-provided token to change password
@@ -1028,6 +1158,8 @@ public:
 												 csp::services::ApiResponseHandlerBase* ResponseHandler,
 												 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Send email to user with a link to reset user password
 	/// </summary>
@@ -1035,12 +1167,15 @@ public:
 	/// POST /api/v1/users/{userId}/reset-password
 	/// Authorization: Anonymous
 	/// </remarks>
+	[[deprecated("'POST /api/v1/users/{userId}/reset-password' is deprecated!")]]
 	void apiV1UsersUserIdResetPasswordPost(const utility::string_t& userId,
 										   const std::optional<utility::string_t>& tenant,
 										   const std::optional<utility::string_t>& redirect,
 										   const std::optional<utility::string_t>& emailLinkUrl,
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Send email to user with a link to reset user password
@@ -1056,6 +1191,8 @@ public:
 									  csp::services::ApiResponseHandlerBase* ResponseHandler,
 									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Sends email with a confirmation link to verify email address
 	/// </summary>
@@ -1067,6 +1204,8 @@ public:
 										  const std::optional<utility::string_t>& redirect,
 										  csp::services::ApiResponseHandlerBase* ResponseHandler,
 										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Resends email with a confirmation link to verify email address
@@ -1082,6 +1221,8 @@ public:
 													 csp::common::CancellationToken& CancellationToken
 													 = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Locates the user metagame progress by its ID userId
 	/// and updates the data based on the update to apply.
@@ -1095,6 +1236,7 @@ public:
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
 									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Locates the user metagame progress by its unique identifier userId
 	/// </summary>
@@ -1105,6 +1247,8 @@ public:
 	void apiV1UsersUserIdMetagameGet(const utility::string_t& userId,
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
 									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Set the user profile's first name
@@ -1118,6 +1262,8 @@ public:
 											   csp::services::ApiResponseHandlerBase* ResponseHandler,
 											   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Set the user profile's display name
 	/// </summary>
@@ -1130,6 +1276,8 @@ public:
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Locates the simplified user profile by its unique identifier
 	/// </summary>
@@ -1140,6 +1288,8 @@ public:
 	void apiV1UsersUserIdLiteGet(const utility::string_t& userId,
 								 csp::services::ApiResponseHandlerBase* ResponseHandler,
 								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Get the user profile's personality type and/or personality values type />
@@ -1152,6 +1302,8 @@ public:
 						   csp::services::ApiResponseHandlerBase* ResponseHandler,
 						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Sets the Users account to Locked
 	/// </summary>
@@ -1162,6 +1314,8 @@ public:
 	void apiV1UsersUserIdLockAccountPut(const utility::string_t& userId,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Sets the Users account to unlocked
@@ -1181,6 +1335,8 @@ public:
 	SettingsApi(csp::web::WebClient* InWebClient);
 	virtual ~SettingsApi();
 
+
+
 	/// <summary>
 	/// Creates context settings or updates existing settings - any previously existing settings
 	/// stored in the context not referenced in the call are left unchanged.
@@ -1194,6 +1350,7 @@ public:
 											const std::shared_ptr<SettingsDto>& RequestBody,
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Gets the settings for a user by context.  If keys are provided
@@ -1209,6 +1366,7 @@ public:
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Deletes all settings related to a context.
 	/// </summary>
@@ -1220,6 +1378,8 @@ public:
 											   const utility::string_t& context,
 											   csp::services::ApiResponseHandlerBase* ResponseHandler,
 											   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Gets the settings for one or more users by context.  If keys are provided
@@ -1235,6 +1395,8 @@ public:
 									  csp::services::ApiResponseHandlerBase* ResponseHandler,
 									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Gets all the contexts for which the user has settings
 	/// </summary>
@@ -1245,6 +1407,8 @@ public:
 	void apiV1UsersUserIdSettingsGet(const utility::string_t& userId,
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
 									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Deletes keyname setting at a context.
@@ -1267,6 +1431,8 @@ public:
 	StripeApi(csp::web::WebClient* InWebClient);
 	virtual ~StripeApi();
 
+
+
 	/// <summary>
 	/// Here to handle webhooks
 	/// </summary>
@@ -1277,6 +1443,8 @@ public:
 	void apiV1VendorsStripeWebhookPost(const std::optional<utility::string_t>& tenant,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Here to handle checkout session creation
@@ -1289,6 +1457,8 @@ public:
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Here to handle checkout session creation
 	/// </summary>
@@ -1299,6 +1469,8 @@ public:
 	void apiV1VendorsStripeCustomersUserIdGet(const utility::string_t& userId,
 											  csp::services::ApiResponseHandlerBase* ResponseHandler,
 											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Here to provide link to customer portal
@@ -1319,6 +1491,8 @@ public:
 	TenantApi(csp::web::WebClient* InWebClient);
 	virtual ~TenantApi();
 
+
+
 	/// <summary>
 	/// Creates tenant settings or updates existing tenant settings
 	/// </summary>
@@ -1330,6 +1504,7 @@ public:
 										const std::shared_ptr<TenantDto>& RequestBody,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates the tenant by its unique tenantName
@@ -1349,6 +1524,8 @@ public:
 	UserRolesApi(csp::web::WebClient* InWebClient);
 	virtual ~UserRolesApi();
 
+
+
 	/// <summary>
 	/// Gets the user's authorization roles by the user's userId
 	/// </summary>
@@ -1359,6 +1536,7 @@ public:
 	void apiV1UsersUserIdRolesGet(const utility::string_t& userId,
 								  csp::services::ApiResponseHandlerBase* ResponseHandler,
 								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Updates the user's authorization roles by the userId to the roles provided
@@ -1372,5 +1550,6 @@ public:
 								  csp::services::ApiResponseHandlerBase* ResponseHandler,
 								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
+
 
 } // namespace csp::services::generated::userservice

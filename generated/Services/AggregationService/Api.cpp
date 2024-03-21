@@ -6,8 +6,10 @@
 #include "Web/HttpAuth.h"
 #include "Web/HttpPayload.h"
 
+
 namespace csp::services::generated::aggregationservice
 {
+
 
 CacheApi::CacheApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
 {
@@ -16,6 +18,8 @@ CacheApi::CacheApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp
 CacheApi::~CacheApi()
 {
 }
+
+
 
 void CacheApi::apiV1CacheKeysGet(const std::optional<utility::string_t>& pattern,
 								 const std::optional<int32_t>& Skip,
@@ -26,15 +30,18 @@ void CacheApi::apiV1CacheKeysGet(const std::optional<utility::string_t>& pattern
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/cache-keys", {});
 
+
 	if (pattern.has_value())
 	{
 		Uri.AddQueryParams("pattern", pattern.value());
 	}
 
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
+
 
 	if (Limit.has_value())
 	{
@@ -55,6 +62,7 @@ void CacheApi::apiV1CacheKeysDelete(const std::optional<utility::string_t>& patt
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/cache-keys", {});
 
+
 	if (pattern.has_value())
 	{
 		Uri.AddQueryParams("pattern", pattern.value());
@@ -67,6 +75,8 @@ void CacheApi::apiV1CacheKeysDelete(const std::optional<utility::string_t>& patt
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
 {
 }
@@ -74,6 +84,8 @@ ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(I
 ConfigurationApi::~ConfigurationApi()
 {
 }
+
+
 
 void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
@@ -86,6 +98,8 @@ void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* Res
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken) const
@@ -100,6 +114,8 @@ void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBa
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken) const
 {
@@ -113,6 +129,8 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 ExternalServiceProxyApi::ExternalServiceProxyApi(csp::web::WebClient* InWebClient)
 	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
 {
@@ -121,6 +139,8 @@ ExternalServiceProxyApi::ExternalServiceProxyApi(csp::web::WebClient* InWebClien
 ExternalServiceProxyApi::~ExternalServiceProxyApi()
 {
 }
+
+
 
 void ExternalServiceProxyApi::serviceProxyPost(const std::shared_ptr<ServiceRequest>& RequestBody,
 											   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -137,6 +157,8 @@ void ExternalServiceProxyApi::serviceProxyPost(const std::shared_ptr<ServiceRequ
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 GroupRolesApi::GroupRolesApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
 {
 }
@@ -144,6 +166,8 @@ GroupRolesApi::GroupRolesApi(csp::web::WebClient* InWebClient) : ApiBase(InWebCl
 GroupRolesApi::~GroupRolesApi()
 {
 }
+
+
 
 void GroupRolesApi::apiV1UsersUserIdGroupsGroupIdRolesPut(const utility::string_t& userId,
 														  const utility::string_t& groupId,
@@ -162,6 +186,8 @@ void GroupRolesApi::apiV1UsersUserIdGroupsGroupIdRolesPut(const utility::string_
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
 {
 }
@@ -169,6 +195,8 @@ NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CS
 NtpApi::~NtpApi()
 {
 }
+
+
 
 void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
@@ -181,6 +209,8 @@ void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
 {
 }
@@ -188,6 +218,8 @@ PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::
 PingApi::~PingApi()
 {
 }
+
+
 
 void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
@@ -200,6 +232,8 @@ void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, cs
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 ShopifyApi::ShopifyApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
 {
 }
@@ -207,6 +241,8 @@ ShopifyApi::ShopifyApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, 
 ShopifyApi::~ShopifyApi()
 {
 }
+
+
 
 void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyProductsProductIdGet(const utility::string_t& spaceId,
 																	  const utility::string_t& productId,
@@ -223,6 +259,8 @@ void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyProductsProductIdGet(const util
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyProductsVariantsGet(const utility::string_t& spaceId,
 																	 const std::optional<std::vector<utility::string_t>>& ids,
 																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -230,6 +268,7 @@ void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyProductsVariantsGet(const utili
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/spaces/{spaceId}/vendors/shopify/products/variants", {spaceId});
+
 
 	if (ids.has_value())
 	{
@@ -242,6 +281,8 @@ void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyProductsVariantsGet(const utili
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyPut(const utility::string_t& spaceId,
 													 const std::shared_ptr<ShopifyStorefrontDto>& RequestBody,
@@ -259,6 +300,8 @@ void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyPut(const utility::string_t& sp
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void ShopifyApi::apiV1VendorsShopifyValidatePut(const std::shared_ptr<ShopifyStorefrontValidationRequest>& RequestBody,
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken) const
@@ -274,6 +317,8 @@ void ShopifyApi::apiV1VendorsShopifyValidatePut(const std::shared_ptr<ShopifySto
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void ShopifyApi::apiV1VendorsShopifyUsersUserIdStorefrontsGet(const utility::string_t& userId,
 															  const std::optional<bool>& active,
 															  const std::optional<int32_t>& Skip,
@@ -284,15 +329,18 @@ void ShopifyApi::apiV1VendorsShopifyUsersUserIdStorefrontsGet(const utility::str
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/vendors/shopify/users/{userId}/storefronts", {userId});
 
+
 	if (active.has_value())
 	{
 		Uri.AddQueryParams("active", active.value());
 	}
 
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
+
 
 	if (Limit.has_value())
 	{
@@ -305,6 +353,8 @@ void ShopifyApi::apiV1VendorsShopifyUsersUserIdStorefrontsGet(const utility::str
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyCartsPost(const utility::string_t& spaceId,
 														   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -319,6 +369,8 @@ void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyCartsPost(const utility::string
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyCartsCartIdGet(const utility::string_t& spaceId,
 																const utility::string_t& cartId,
@@ -352,6 +404,8 @@ void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyCartsCartIdPut(const utility::s
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyCartsCartIdCheckoutInfoGet(const utility::string_t& spaceId,
 																			const utility::string_t& cartId,
 																			csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -367,6 +421,8 @@ void ShopifyApi::apiV1SpacesSpaceIdVendorsShopifyCartsCartIdCheckoutInfoGet(cons
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 SpaceApi::SpaceApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
 {
 }
@@ -374,6 +430,8 @@ SpaceApi::SpaceApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp
 SpaceApi::~SpaceApi()
 {
 }
+
+
 
 void SpaceApi::apiV1SpacesSpaceIdDelete(const utility::string_t& spaceId,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -389,6 +447,8 @@ void SpaceApi::apiV1SpacesSpaceIdDelete(const utility::string_t& spaceId,
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void SpaceApi::apiV1SpacesDelete(const std::optional<std::vector<utility::string_t>>& spaceIds,
 								 const std::optional<bool>& asyncCall,
 								 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -397,10 +457,12 @@ void SpaceApi::apiV1SpacesDelete(const std::optional<std::vector<utility::string
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/spaces", {});
 
+
 	if (spaceIds.has_value())
 	{
 		Uri.AddQueryParams("spaceIds", spaceIds.value());
 	}
+
 
 	if (asyncCall.has_value())
 	{
@@ -413,6 +475,8 @@ void SpaceApi::apiV1SpacesDelete(const std::optional<std::vector<utility::string
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void SpaceApi::apiV1SpacesSpaceIdMultiplayerObjectsKmlGet(const utility::string_t& spaceId,
 														  csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -428,6 +492,8 @@ void SpaceApi::apiV1SpacesSpaceIdMultiplayerObjectsKmlGet(const utility::string_
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void SpaceApi::apiV1SpacesSpaceIdDuplicatePost(const utility::string_t& spaceId,
 											   const std::optional<bool>& asyncCall,
 											   const std::shared_ptr<DuplicateSpaceRequest>& RequestBody,
@@ -436,6 +502,7 @@ void SpaceApi::apiV1SpacesSpaceIdDuplicatePost(const utility::string_t& spaceId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/spaces/{spaceId}/duplicate", {spaceId});
+
 
 	if (asyncCall.has_value())
 	{
@@ -450,6 +517,8 @@ void SpaceApi::apiV1SpacesSpaceIdDuplicatePost(const utility::string_t& spaceId,
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 TicketedSpaceApi::TicketedSpaceApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
 {
 }
@@ -457,6 +526,8 @@ TicketedSpaceApi::TicketedSpaceApi(csp::web::WebClient* InWebClient) : ApiBase(I
 TicketedSpaceApi::~TicketedSpaceApi()
 {
 }
+
+
 
 void TicketedSpaceApi::apiV1SpacesSpaceIdEventsPost(const utility::string_t& spaceId,
 													const std::shared_ptr<SpaceEventDto>& RequestBody,
@@ -473,6 +544,8 @@ void TicketedSpaceApi::apiV1SpacesSpaceIdEventsPost(const utility::string_t& spa
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void TicketedSpaceApi::apiV1SpacesSpaceIdEventsEventIdPut(const utility::string_t& spaceId,
 														  const utility::string_t& eventId,
@@ -491,6 +564,8 @@ void TicketedSpaceApi::apiV1SpacesSpaceIdEventsEventIdPut(const utility::string_
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void TicketedSpaceApi::apiV1SpacesEventsGet(const std::optional<std::vector<utility::string_t>>& VendorEventIds,
 											const std::optional<utility::string_t>& VendorName,
 											const std::optional<std::vector<utility::string_t>>& SpaceIds,
@@ -504,35 +579,42 @@ void TicketedSpaceApi::apiV1SpacesEventsGet(const std::optional<std::vector<util
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/spaces/events", {});
 
+
 	if (VendorEventIds.has_value())
 	{
 		Uri.AddQueryParams("VendorEventIds", VendorEventIds.value());
 	}
+
 
 	if (VendorName.has_value())
 	{
 		Uri.AddQueryParams("VendorName", VendorName.value());
 	}
 
+
 	if (SpaceIds.has_value())
 	{
 		Uri.AddQueryParams("SpaceIds", SpaceIds.value());
 	}
+
 
 	if (UserIds.has_value())
 	{
 		Uri.AddQueryParams("UserIds", UserIds.value());
 	}
 
+
 	if (IsTicketingActive.has_value())
 	{
 		Uri.AddQueryParams("IsTicketingActive", IsTicketingActive.value());
 	}
 
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
 	}
+
 
 	if (Limit.has_value())
 	{
@@ -545,6 +627,8 @@ void TicketedSpaceApi::apiV1SpacesEventsGet(const std::optional<std::vector<util
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 void TicketedSpaceApi::apiV1SpacesSpaceIdVendorsVendorNameEventsVendorEventIdTicketsVendorTicketIdPut(
 	const utility::string_t& spaceId,
@@ -559,6 +643,7 @@ void TicketedSpaceApi::apiV1SpacesSpaceIdVendorsVendorNameEventsVendorEventIdTic
 	Uri.SetWithParams(*RootUri + "/api/v1/spaces/{spaceId}/vendors/{vendorName}/events/{vendorEventId}/tickets/{vendorTicketId}",
 					  {spaceId, vendorName, vendorEventId, vendorTicketId});
 
+
 	if (onBehalfOfUserId.has_value())
 	{
 		Uri.AddQueryParams("onBehalfOfUserId", onBehalfOfUserId.value());
@@ -571,12 +656,15 @@ void TicketedSpaceApi::apiV1SpacesSpaceIdVendorsVendorNameEventsVendorEventIdTic
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void TicketedSpaceApi::apiV1SpacesTicketedGet(const std::optional<std::vector<utility::string_t>>& spaceIds,
 											  csp::services::ApiResponseHandlerBase* ResponseHandler,
 											  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/spaces/ticketed", {});
+
 
 	if (spaceIds.has_value())
 	{
@@ -590,6 +678,8 @@ void TicketedSpaceApi::apiV1SpacesTicketedGet(const std::optional<std::vector<ut
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void TicketedSpaceApi::apiV1VendorsVendorNameOauthGet(const utility::string_t& vendorName,
 													  const std::optional<utility::string_t>& code,
 													  const std::optional<utility::string_t>& userId,
@@ -601,20 +691,24 @@ void TicketedSpaceApi::apiV1VendorsVendorNameOauthGet(const utility::string_t& v
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/vendors/{vendorName}/oauth", {vendorName});
 
+
 	if (code.has_value())
 	{
 		Uri.AddQueryParams("code", code.value());
 	}
+
 
 	if (userId.has_value())
 	{
 		Uri.AddQueryParams("userId", userId.value());
 	}
 
+
 	if (tenant.has_value())
 	{
 		Uri.AddQueryParams("tenant", tenant.value());
 	}
+
 
 	if (error_code.has_value())
 	{
@@ -627,6 +721,8 @@ void TicketedSpaceApi::apiV1VendorsVendorNameOauthGet(const utility::string_t& v
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
+
 void TicketedSpaceApi::apiV1VendorsVendorNameUsersUserIdProviderInfoGet(const utility::string_t& vendorName,
 																		const utility::string_t& userId,
 																		const std::optional<utility::string_t>& tenant,
@@ -635,6 +731,7 @@ void TicketedSpaceApi::apiV1VendorsVendorNameUsersUserIdProviderInfoGet(const ut
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/vendors/{vendorName}/users/{userId}/provider-info", {vendorName, userId});
+
 
 	if (tenant.has_value())
 	{
@@ -647,5 +744,7 @@ void TicketedSpaceApi::apiV1VendorsVendorNameUsersUserIdProviderInfoGet(const ut
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
+
 
 } // namespace csp::services::generated::aggregationservice

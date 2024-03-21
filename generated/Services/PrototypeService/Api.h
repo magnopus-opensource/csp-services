@@ -9,14 +9,18 @@
 
 #include <optional>
 
+
 namespace csp::services::generated::prototypeservice
 {
+
 
 class AssetDetailApi final : public csp::services::ApiBase
 {
 public:
 	AssetDetailApi(csp::web::WebClient* InWebClient);
 	virtual ~AssetDetailApi();
+
+
 
 	/// <summary>
 	/// Creates a new AssetBundle linked to a Prototype
@@ -30,6 +34,7 @@ public:
 													csp::services::ApiResponseHandlerBase* ResponseHandler,
 													csp::common::CancellationToken& CancellationToken
 													= csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates the assetDetail by its unique identifier prototypeId
@@ -53,6 +58,8 @@ public:
 												   csp::services::ApiResponseHandlerBase* ResponseHandler,
 												   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Bulk Upsert for a set of AssetDetails linked to a Prototype
 	/// </summary>
@@ -66,6 +73,8 @@ public:
 													   csp::common::CancellationToken& CancellationToken
 													   = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Locates the assetDetail by its unique identifier prototype
 	/// </summary>
@@ -78,6 +87,7 @@ public:
 																csp::services::ApiResponseHandlerBase* ResponseHandler,
 																csp::common::CancellationToken& CancellationToken
 																= csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates the assetDetail by its unique identifier  assetDetailId and the prototype  prototypeId it belongs to
@@ -94,6 +104,7 @@ public:
 																csp::common::CancellationToken& CancellationToken
 																= csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Locates the assetDetails by its unique identifier  assetDetailId and the prototype  prototypeId it belongs to
 	/// and deletes it from the data store.
@@ -107,6 +118,8 @@ public:
 																   csp::services::ApiResponseHandlerBase* ResponseHandler,
 																   csp::common::CancellationToken& CancellationToken
 																   = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Locates the assetDetails by asset detail filters
@@ -129,6 +142,8 @@ public:
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Uploads AssetDetail file to S3 Bucket
 	/// </summary>
@@ -144,6 +159,8 @@ public:
 																	 csp::common::CancellationToken& CancellationToken
 																	 = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Updates an addressable id.
 	/// </summary>
@@ -151,12 +168,14 @@ public:
 	/// PUT /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
+	[[deprecated("'PUT /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}' is deprecated!")]]
 	void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdPut(const utility::string_t& prototypeId,
 																						const utility::string_t& assetDetailId,
 																						const utility::string_t& addressableId,
 																						csp::services::ApiResponseHandlerBase* ResponseHandler,
 																						csp::common::CancellationToken& CancellationToken
 																						= csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Deletes/Clears the string which associates this asset with an AddressableId.
@@ -165,12 +184,15 @@ public:
 	/// DELETE /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
+	[[deprecated("'DELETE /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}' is deprecated!")]]
 	void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdDelete(const utility::string_t& prototypeId,
 																						   const utility::string_t& assetDetailId,
 																						   const utility::string_t& addressableId,
 																						   csp::services::ApiResponseHandlerBase* ResponseHandler,
 																						   csp::common::CancellationToken& CancellationToken
 																						   = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Updates a Third Party Reference Id.
@@ -187,6 +209,7 @@ public:
 																							   csp::common::CancellationToken& CancellationToken
 																							   = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Deletes/Clears the string which associates this asset with an ThirdPartyReferenceId.
 	/// </summary>
@@ -200,6 +223,8 @@ public:
 		const utility::string_t& thirdPartyReferenceId,
 		csp::services::ApiResponseHandlerBase* ResponseHandler,
 		csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Bulk endpoint to get the parameters for all generated assets of a 3d models.
@@ -223,6 +248,8 @@ public:
 														  csp::common::CancellationToken& CancellationToken
 														  = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Gets the parameters for generated assets of a 3d model.
 	/// </summary>
@@ -235,6 +262,7 @@ public:
 																				  csp::services::ApiResponseHandlerBase* ResponseHandler,
 																				  csp::common::CancellationToken& CancellationToken
 																				  = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Sets or updates the parameters for generated assets of a 3d model. <br />
@@ -259,6 +287,8 @@ public:
 	ConfigurationApi(csp::web::WebClient* InWebClient);
 	virtual ~ConfigurationApi();
 
+
+
 	/// <remarks>
 	/// GET /appsettings
 	/// Authorization: magnopus-admin
@@ -266,12 +296,16 @@ public:
 	void appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <remarks>
 	/// POST /appsettings/reload
 	/// Authorization: magnopus-admin
 	/// </remarks>
 	void appsettingsReloadPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
 							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <remarks>
 	/// GET /featureflags
@@ -287,6 +321,8 @@ public:
 	NtpApi(csp::web::WebClient* InWebClient);
 	virtual ~NtpApi();
 
+
+
 	/// <remarks>
 	/// GET /datetime
 	/// Authorization: Anonymous
@@ -300,6 +336,8 @@ class PingApi final : public csp::services::ApiBase
 public:
 	PingApi(csp::web::WebClient* InWebClient);
 	virtual ~PingApi();
+
+
 
 	/// <remarks>
 	/// GET /ping
@@ -315,6 +353,8 @@ public:
 	PrototypeApi(csp::web::WebClient* InWebClient);
 	virtual ~PrototypeApi();
 
+
+
 	/// <summary>
 	/// Creates a new prototype
 	/// </summary>
@@ -325,6 +365,7 @@ public:
 	void apiV1PrototypesPost(const std::shared_ptr<PrototypeDto>& RequestBody,
 							 csp::services::ApiResponseHandlerBase* ResponseHandler,
 							 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Search across all of the prototypes for those that match the search criteria
@@ -356,6 +397,7 @@ public:
 							csp::services::ApiResponseHandlerBase* ResponseHandler,
 							csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Locates all prototypes by their unique identifier(s) ids
 	/// and deletes them from the data store.
@@ -367,6 +409,8 @@ public:
 	void apiV1PrototypesDelete(const std::optional<std::vector<utility::string_t>>& ids,
 							   csp::services::ApiResponseHandlerBase* ResponseHandler,
 							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Duplicates prototype(s) to a new group by filters
@@ -398,6 +442,8 @@ public:
 																		 csp::common::CancellationToken& CancellationToken
 																		 = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Bulk upsert operation for prototypes
 	/// </summary>
@@ -408,6 +454,8 @@ public:
 	void apiV1PrototypesBulkPut(const std::vector<std::shared_ptr<BulkUpsertPrototypeDto>>& RequestBody,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
 								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Search across all of the prototypes for those that match the search criteria
@@ -435,6 +483,8 @@ public:
 								 csp::services::ApiResponseHandlerBase* ResponseHandler,
 								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Locates the prototype by its unique identifier id
 	/// </summary>
@@ -445,6 +495,7 @@ public:
 	void apiV1PrototypesIdGet(const utility::string_t& id,
 							  csp::services::ApiResponseHandlerBase* ResponseHandler,
 							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates the prototype by its unique identifier id
@@ -459,6 +510,7 @@ public:
 							  csp::services::ApiResponseHandlerBase* ResponseHandler,
 							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Locates the prototype by its unique identifier id
 	/// and deletes it from the data store.
@@ -471,6 +523,8 @@ public:
 								 csp::services::ApiResponseHandlerBase* ResponseHandler,
 								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Locates the prototype by its unique name
 	/// </summary>
@@ -481,6 +535,8 @@ public:
 	void apiV1PrototypesNameNameGet(const utility::string_t& name,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
 									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Creates state key value pairs or updates existing - any previously existing state
@@ -495,6 +551,7 @@ public:
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Gets the state of a prototype.  If keys are provided
 	/// then only values for those keys will be returned, otherwise all key/value pairs are returned
@@ -508,5 +565,6 @@ public:
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
+
 
 } // namespace csp::services::generated::prototypeservice

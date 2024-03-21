@@ -9,14 +9,18 @@
 
 #include <optional>
 
+
 namespace csp::services::generated::spatialdataservice
 {
+
 
 class AnchorsApi final : public csp::services::ApiBase
 {
 public:
 	AnchorsApi(csp::web::WebClient* InWebClient);
 	virtual ~AnchorsApi();
+
+
 
 	/// <summary>
 	/// Locates the anchor data by its unique identifier id
@@ -28,6 +32,7 @@ public:
 	void apiV1AnchorsIdGet(const utility::string_t& id,
 						   csp::services::ApiResponseHandlerBase* ResponseHandler,
 						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates the anchor by its unique identifier id
@@ -42,6 +47,7 @@ public:
 						   csp::services::ApiResponseHandlerBase* ResponseHandler,
 						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Deletes Anchors by its unique identifier id
 	/// </summary>
@@ -52,6 +58,8 @@ public:
 	void apiV1AnchorsIdDelete(const utility::string_t& id,
 							  csp::services::ApiResponseHandlerBase* ResponseHandler,
 							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Adds an anchor key to the list of known anchor keys
@@ -64,6 +72,7 @@ public:
 						  csp::services::ApiResponseHandlerBase* ResponseHandler,
 						  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Deletes all Anchors by its unique identifier(s) ids
 	/// </summary>
@@ -74,6 +83,7 @@ public:
 	void apiV1AnchorsDelete(const std::optional<std::vector<utility::string_t>>& ids,
 							csp::services::ApiResponseHandlerBase* ResponseHandler,
 							csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates all the anchors by filters
@@ -98,6 +108,8 @@ public:
 						 csp::services::ApiResponseHandlerBase* ResponseHandler,
 						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Creates anchor resolution
 	/// </summary>
@@ -108,6 +120,7 @@ public:
 	void apiV1AnchorResolutionsPost(const std::shared_ptr<AnchorResolutionDto>& RequestBody,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
 									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates all the anchor resolutions by filters
@@ -124,6 +137,8 @@ public:
 								   const std::optional<int32_t>& Limit,
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
 								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Locates anchor stats by filters
@@ -146,6 +161,8 @@ public:
 	ConfigurationApi(csp::web::WebClient* InWebClient);
 	virtual ~ConfigurationApi();
 
+
+
 	/// <remarks>
 	/// GET /appsettings
 	/// Authorization: magnopus-admin
@@ -153,12 +170,16 @@ public:
 	void appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <remarks>
 	/// POST /appsettings/reload
 	/// Authorization: magnopus-admin
 	/// </remarks>
 	void appsettingsReloadPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
 							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <remarks>
 	/// GET /featureflags
@@ -174,6 +195,8 @@ public:
 	NtpApi(csp::web::WebClient* InWebClient);
 	virtual ~NtpApi();
 
+
+
 	/// <remarks>
 	/// GET /datetime
 	/// Authorization: Anonymous
@@ -188,6 +211,8 @@ public:
 	PersonalPointOfInterestApi(csp::web::WebClient* InWebClient);
 	virtual ~PersonalPointOfInterestApi();
 
+
+
 	/// <summary>
 	/// Gets the points of interest associated with user identified by userId
 	/// </summary>
@@ -198,6 +223,8 @@ public:
 	void apiV1UsersUserIdPoiGet(const utility::string_t& userId,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
 								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Creates an association between a user and a point of interest
@@ -210,6 +237,7 @@ public:
 									 const utility::string_t& poiId,
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
 									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Deletes an association between a user and a point of interest
@@ -230,6 +258,8 @@ public:
 	PingApi(csp::web::WebClient* InWebClient);
 	virtual ~PingApi();
 
+
+
 	/// <remarks>
 	/// GET /ping
 	/// Authorization: Anonymous
@@ -244,6 +274,8 @@ public:
 	PointOfInterestApi(csp::web::WebClient* InWebClient);
 	virtual ~PointOfInterestApi();
 
+
+
 	/// <summary>
 	/// Locates the POI data by its unique identifier id
 	/// </summary>
@@ -254,6 +286,7 @@ public:
 	void apiV1PoiIdGet(const utility::string_t& id,
 					   csp::services::ApiResponseHandlerBase* ResponseHandler,
 					   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates the POI by its unique identifier id
@@ -268,6 +301,7 @@ public:
 					   csp::services::ApiResponseHandlerBase* ResponseHandler,
 					   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Locates the POI by its unique identifier id
 	/// and deletes it from the data store.
@@ -279,6 +313,8 @@ public:
 	void apiV1PoiIdDelete(const utility::string_t& id,
 						  csp::services::ApiResponseHandlerBase* ResponseHandler,
 						  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Search across all of the POI's for those that match the search criteria and gets simplified POI result
@@ -316,6 +352,8 @@ public:
 						 csp::services::ApiResponseHandlerBase* ResponseHandler,
 						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Search across all of the POI's for those that match the search criteria and gets only the Ids as a result
 	/// or an empty list if none found
@@ -351,6 +389,8 @@ public:
 					   const std::optional<int32_t>& Limit,
 					   csp::services::ApiResponseHandlerBase* ResponseHandler,
 					   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Search across all of the POI's for those that match the search criteria
@@ -388,6 +428,7 @@ public:
 					 csp::services::ApiResponseHandlerBase* ResponseHandler,
 					 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Creates a new point of interest
 	/// </summary>
@@ -398,6 +439,7 @@ public:
 	void apiV1PoiPost(const std::shared_ptr<PointOfInterestDto>& RequestBody,
 					  csp::services::ApiResponseHandlerBase* ResponseHandler,
 					  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates the POI by their unique identifier(s) ids
@@ -411,6 +453,8 @@ public:
 						csp::services::ApiResponseHandlerBase* ResponseHandler,
 						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Locates the POI by its unique identifier id
 	/// and updates only the fields specified in the request body on the POI.
@@ -423,6 +467,8 @@ public:
 									const std::shared_ptr<PoiPartialUpdate>& RequestBody,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
 									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Search across all of the POI documents to get a collection of all distinct tags
@@ -441,6 +487,8 @@ class PositionApi final : public csp::services::ApiBase
 public:
 	PositionApi(csp::web::WebClient* InWebClient);
 	virtual ~PositionApi();
+
+
 
 	/// <summary>
 	/// Gets the position(s) history of the specified user by the search filter criteria
@@ -464,6 +512,7 @@ public:
 									  csp::services::ApiResponseHandlerBase* ResponseHandler,
 									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Persists a new position for the specified user
 	/// </summary>
@@ -475,6 +524,8 @@ public:
 									   const std::shared_ptr<PositionDto>& RequestBody,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Gets the latest position(s) history of all users by the search filter criteria
@@ -497,6 +548,8 @@ public:
 									  csp::services::ApiResponseHandlerBase* ResponseHandler,
 									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Gets the latest position of the specified user
 	/// </summary>
@@ -507,6 +560,8 @@ public:
 	void apiV1UsersUserIdPositionsLatestGet(const utility::string_t& userId,
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Gets the position of the specified user by the position id
@@ -520,6 +575,7 @@ public:
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Deletes the position of the specified user by the position id
 	/// </summary>
@@ -531,6 +587,8 @@ public:
 												   const utility::string_t& positionId,
 												   csp::services::ApiResponseHandlerBase* ResponseHandler,
 												   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Finds the location of all members in a specific group by the group's groupId
@@ -544,6 +602,8 @@ public:
 											  csp::services::ApiResponseHandlerBase* ResponseHandler,
 											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Finds the location of all members in the list of groups specified in groupIds
 	/// </summary>
@@ -555,6 +615,8 @@ public:
 									   const std::optional<std::vector<utility::string_t>>& UserIds,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Finds the latest positions for user(s) and returns them as kml formmatted xml
@@ -584,6 +646,8 @@ public:
 	PositionSpoofingApi(csp::web::WebClient* InWebClient);
 	virtual ~PositionSpoofingApi();
 
+
+
 	/// <summary>
 	/// Persists a new spoofed position for the specified user
 	/// </summary>
@@ -597,6 +661,7 @@ public:
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Gets all of the positions that are spoof positions for the specified userId
 	/// </summary>
@@ -608,6 +673,7 @@ public:
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
 	/// <summary>
 	/// Deletes all of the positions that are spoof positions for the specified userId
 	/// </summary>
@@ -618,6 +684,8 @@ public:
 	void apiV1UsersUserIdPositionsSpoofDelete(const utility::string_t& userId,
 											  csp::services::ApiResponseHandlerBase* ResponseHandler,
 											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Gets the user ids for all users that currently have spoof data
@@ -636,6 +704,8 @@ public:
 	SpaceTimeApi(csp::web::WebClient* InWebClient);
 	virtual ~SpaceTimeApi();
 
+
+
 	/// <summary>
 	/// Locates the spacetime event data by its unique identifier id and associated  userId
 	/// </summary>
@@ -647,6 +717,7 @@ public:
 										const utility::string_t& id,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates the SpaceTime Event by its unique identifier id and userId
@@ -660,6 +731,7 @@ public:
 										   const utility::string_t& id,
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
 
 	/// <summary>
 	/// Locates the SpaceTime Event by its unique identifier id and the  userId
@@ -675,6 +747,8 @@ public:
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
+
+
 	/// <summary>
 	/// Adds a spacetime event for a user by userId with associated  spaceTimeEventToCreate
 	/// </summary>
@@ -686,6 +760,8 @@ public:
 									   const std::shared_ptr<SpaceTimeDto>& RequestBody,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
 
 	/// <summary>
 	/// Search across all of SpaceTime for those that match the search criteria using filters and pagination
@@ -709,5 +785,6 @@ public:
 						   csp::services::ApiResponseHandlerBase* ResponseHandler,
 						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
+
 
 } // namespace csp::services::generated::spatialdataservice

@@ -8,15 +8,17 @@
 
 #include <optional>
 
+
 using namespace csp::web;
+
 
 namespace csp::services::generated::userservice
 {
 
+
 ApplicationSettingsDto::ApplicationSettingsDto()
 {
 }
-
 ApplicationSettingsDto::~ApplicationSettingsDto()
 {
 }
@@ -24,6 +26,7 @@ ApplicationSettingsDto::~ApplicationSettingsDto()
 utility::string_t ApplicationSettingsDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_ApplicationName.has_value())
 	{
@@ -43,6 +46,7 @@ utility::string_t ApplicationSettingsDto::ToJson() const
 		JsonDoc.AddMember("settings", SettingsValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -56,6 +60,7 @@ void ApplicationSettingsDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("applicationName"))
 	{
@@ -92,6 +97,7 @@ void ApplicationSettingsDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t ApplicationSettingsDto::GetApplicationName() const
 {
 	return m_ApplicationName.value();
@@ -101,12 +107,6 @@ bool ApplicationSettingsDto::HasApplicationName() const
 {
 	return m_ApplicationName.has_value();
 }
-
-void ApplicationSettingsDto::SetApplicationName(const utility::string_t& Value)
-{
-	m_ApplicationName = Value;
-}
-
 utility::string_t ApplicationSettingsDto::GetContext() const
 {
 	return m_Context.value();
@@ -116,12 +116,6 @@ bool ApplicationSettingsDto::HasContext() const
 {
 	return m_Context.has_value();
 }
-
-void ApplicationSettingsDto::SetContext(const utility::string_t& Value)
-{
-	m_Context = Value;
-}
-
 const std::map<utility::string_t, utility::string_t>& ApplicationSettingsDto::GetSettings() const
 {
 	return m_Settings.value();
@@ -131,7 +125,6 @@ bool ApplicationSettingsDto::HasSettings() const
 {
 	return m_Settings.has_value();
 }
-
 void ApplicationSettingsDto::SetSettings(const std::map<utility::string_t, utility::string_t>& Value)
 {
 	m_Settings = Value;
@@ -140,7 +133,6 @@ void ApplicationSettingsDto::SetSettings(const std::map<utility::string_t, utili
 AuthDto::AuthDto()
 {
 }
-
 AuthDto::~AuthDto()
 {
 }
@@ -148,6 +140,7 @@ AuthDto::~AuthDto()
 utility::string_t AuthDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_UserId.has_value())
 	{
@@ -185,6 +178,7 @@ utility::string_t AuthDto::ToJson() const
 		JsonDoc.AddMember("deviceId", DeviceIdValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -198,6 +192,7 @@ void AuthDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("userId"))
 	{
@@ -260,6 +255,7 @@ void AuthDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t AuthDto::GetUserId() const
 {
 	return m_UserId.value();
@@ -269,12 +265,10 @@ bool AuthDto::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
 void AuthDto::SetUserId(const utility::string_t& Value)
 {
 	m_UserId = Value;
 }
-
 utility::string_t AuthDto::GetAccessToken() const
 {
 	return m_AccessToken.value();
@@ -284,12 +278,10 @@ bool AuthDto::HasAccessToken() const
 {
 	return m_AccessToken.has_value();
 }
-
 void AuthDto::SetAccessToken(const utility::string_t& Value)
 {
 	m_AccessToken = Value;
 }
-
 utility::string_t AuthDto::GetAccessTokenExpiresAt() const
 {
 	return m_AccessTokenExpiresAt.value();
@@ -299,12 +291,10 @@ bool AuthDto::HasAccessTokenExpiresAt() const
 {
 	return m_AccessTokenExpiresAt.has_value();
 }
-
 void AuthDto::SetAccessTokenExpiresAt(const utility::string_t& Value)
 {
 	m_AccessTokenExpiresAt = Value;
 }
-
 utility::string_t AuthDto::GetRefreshToken() const
 {
 	return m_RefreshToken.value();
@@ -314,12 +304,10 @@ bool AuthDto::HasRefreshToken() const
 {
 	return m_RefreshToken.has_value();
 }
-
 void AuthDto::SetRefreshToken(const utility::string_t& Value)
 {
 	m_RefreshToken = Value;
 }
-
 utility::string_t AuthDto::GetRefreshTokenExpiresAt() const
 {
 	return m_RefreshTokenExpiresAt.value();
@@ -329,12 +317,10 @@ bool AuthDto::HasRefreshTokenExpiresAt() const
 {
 	return m_RefreshTokenExpiresAt.has_value();
 }
-
 void AuthDto::SetRefreshTokenExpiresAt(const utility::string_t& Value)
 {
 	m_RefreshTokenExpiresAt = Value;
 }
-
 utility::string_t AuthDto::GetDeviceId() const
 {
 	return m_DeviceId.value();
@@ -344,7 +330,6 @@ bool AuthDto::HasDeviceId() const
 {
 	return m_DeviceId.has_value();
 }
-
 void AuthDto::SetDeviceId(const utility::string_t& Value)
 {
 	m_DeviceId = Value;
@@ -353,7 +338,6 @@ void AuthDto::SetDeviceId(const utility::string_t& Value)
 AvatarManifestDto::AvatarManifestDto()
 {
 }
-
 AvatarManifestDto::~AvatarManifestDto()
 {
 }
@@ -361,6 +345,7 @@ AvatarManifestDto::~AvatarManifestDto()
 utility::string_t AvatarManifestDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -386,6 +371,7 @@ utility::string_t AvatarManifestDto::ToJson() const
 		JsonDoc.AddMember("externalUri", ExternalUriValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -399,6 +385,7 @@ void AvatarManifestDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -445,6 +432,7 @@ void AvatarManifestDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t AvatarManifestDto::GetId() const
 {
 	return m_Id.value();
@@ -454,12 +442,6 @@ bool AvatarManifestDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void AvatarManifestDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t AvatarManifestDto::GetUserId() const
 {
 	return m_UserId.value();
@@ -469,12 +451,6 @@ bool AvatarManifestDto::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
-void AvatarManifestDto::SetUserId(const utility::string_t& Value)
-{
-	m_UserId = Value;
-}
-
 std::shared_ptr<Gender> AvatarManifestDto::GetGender() const
 {
 	return m_Gender.value();
@@ -484,12 +460,10 @@ bool AvatarManifestDto::HasGender() const
 {
 	return m_Gender.has_value();
 }
-
 void AvatarManifestDto::SetGender(const std::shared_ptr<Gender>& Value)
 {
 	m_Gender = Value;
 }
-
 utility::string_t AvatarManifestDto::GetExternalUri() const
 {
 	return m_ExternalUri.value();
@@ -499,7 +473,6 @@ bool AvatarManifestDto::HasExternalUri() const
 {
 	return m_ExternalUri.has_value();
 }
-
 void AvatarManifestDto::SetExternalUri(const utility::string_t& Value)
 {
 	m_ExternalUri = Value;
@@ -508,7 +481,6 @@ void AvatarManifestDto::SetExternalUri(const utility::string_t& Value)
 CreateUserRequest::CreateUserRequest()
 {
 }
-
 CreateUserRequest::~CreateUserRequest()
 {
 }
@@ -516,6 +488,7 @@ CreateUserRequest::~CreateUserRequest()
 utility::string_t CreateUserRequest::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Tenant.has_value())
 	{
@@ -583,6 +556,7 @@ utility::string_t CreateUserRequest::ToJson() const
 		JsonDoc.AddMember("initialSettings", InitialSettingsValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -596,6 +570,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("tenant"))
 	{
@@ -708,6 +683,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t CreateUserRequest::GetTenant() const
 {
 	return m_Tenant.value();
@@ -717,12 +693,10 @@ bool CreateUserRequest::HasTenant() const
 {
 	return m_Tenant.has_value();
 }
-
 void CreateUserRequest::SetTenant(const utility::string_t& Value)
 {
 	m_Tenant = Value;
 }
-
 utility::string_t CreateUserRequest::GetEmail() const
 {
 	return m_Email.value();
@@ -732,12 +706,10 @@ bool CreateUserRequest::HasEmail() const
 {
 	return m_Email.has_value();
 }
-
 void CreateUserRequest::SetEmail(const utility::string_t& Value)
 {
 	m_Email = Value;
 }
-
 utility::string_t CreateUserRequest::GetPassword() const
 {
 	return m_Password.value();
@@ -747,12 +719,10 @@ bool CreateUserRequest::HasPassword() const
 {
 	return m_Password.has_value();
 }
-
 void CreateUserRequest::SetPassword(const utility::string_t& Value)
 {
 	m_Password = Value;
 }
-
 utility::string_t CreateUserRequest::GetUserName() const
 {
 	return m_UserName.value();
@@ -762,12 +732,10 @@ bool CreateUserRequest::HasUserName() const
 {
 	return m_UserName.has_value();
 }
-
 void CreateUserRequest::SetUserName(const utility::string_t& Value)
 {
 	m_UserName = Value;
 }
-
 utility::string_t CreateUserRequest::GetDisplayName() const
 {
 	return m_DisplayName.value();
@@ -777,12 +745,10 @@ bool CreateUserRequest::HasDisplayName() const
 {
 	return m_DisplayName.has_value();
 }
-
 void CreateUserRequest::SetDisplayName(const utility::string_t& Value)
 {
 	m_DisplayName = Value;
 }
-
 utility::string_t CreateUserRequest::GetGuestDeviceId() const
 {
 	return m_GuestDeviceId.value();
@@ -792,12 +758,10 @@ bool CreateUserRequest::HasGuestDeviceId() const
 {
 	return m_GuestDeviceId.has_value();
 }
-
 void CreateUserRequest::SetGuestDeviceId(const utility::string_t& Value)
 {
 	m_GuestDeviceId = Value;
 }
-
 utility::string_t CreateUserRequest::GetAvatarId() const
 {
 	return m_AvatarId.value();
@@ -807,12 +771,10 @@ bool CreateUserRequest::HasAvatarId() const
 {
 	return m_AvatarId.has_value();
 }
-
 void CreateUserRequest::SetAvatarId(const utility::string_t& Value)
 {
 	m_AvatarId = Value;
 }
-
 utility::string_t CreateUserRequest::GetInviteToken() const
 {
 	return m_InviteToken.value();
@@ -822,12 +784,10 @@ bool CreateUserRequest::HasInviteToken() const
 {
 	return m_InviteToken.has_value();
 }
-
 void CreateUserRequest::SetInviteToken(const utility::string_t& Value)
 {
 	m_InviteToken = Value;
 }
-
 utility::string_t CreateUserRequest::GetRedirectUrl() const
 {
 	return m_RedirectUrl.value();
@@ -837,12 +797,10 @@ bool CreateUserRequest::HasRedirectUrl() const
 {
 	return m_RedirectUrl.has_value();
 }
-
 void CreateUserRequest::SetRedirectUrl(const utility::string_t& Value)
 {
 	m_RedirectUrl = Value;
 }
-
 bool CreateUserRequest::GetVerifiedAgeEighteen() const
 {
 	return m_VerifiedAgeEighteen.value();
@@ -852,12 +810,10 @@ bool CreateUserRequest::HasVerifiedAgeEighteen() const
 {
 	return m_VerifiedAgeEighteen.has_value();
 }
-
 void CreateUserRequest::SetVerifiedAgeEighteen(const bool& Value)
 {
 	m_VerifiedAgeEighteen = Value;
 }
-
 const std::vector<std::shared_ptr<InitialSettingsDto>>& CreateUserRequest::GetInitialSettings() const
 {
 	return m_InitialSettings.value();
@@ -867,7 +823,6 @@ bool CreateUserRequest::HasInitialSettings() const
 {
 	return m_InitialSettings.has_value();
 }
-
 void CreateUserRequest::SetInitialSettings(const std::vector<std::shared_ptr<InitialSettingsDto>>& Value)
 {
 	m_InitialSettings = Value;
@@ -876,7 +831,6 @@ void CreateUserRequest::SetInitialSettings(const std::vector<std::shared_ptr<Ini
 CreateUserSocialRequest::CreateUserSocialRequest()
 {
 }
-
 CreateUserSocialRequest::~CreateUserSocialRequest()
 {
 }
@@ -884,6 +838,7 @@ CreateUserSocialRequest::~CreateUserSocialRequest()
 utility::string_t CreateUserSocialRequest::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Tenant.has_value())
 	{
@@ -957,6 +912,7 @@ utility::string_t CreateUserSocialRequest::ToJson() const
 		JsonDoc.AddMember("initialSettings", InitialSettingsValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -970,6 +926,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("tenant"))
 	{
@@ -1100,6 +1057,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t CreateUserSocialRequest::GetTenant() const
 {
 	return m_Tenant.value();
@@ -1109,12 +1067,10 @@ bool CreateUserSocialRequest::HasTenant() const
 {
 	return m_Tenant.has_value();
 }
-
 void CreateUserSocialRequest::SetTenant(const utility::string_t& Value)
 {
 	m_Tenant = Value;
 }
-
 utility::string_t CreateUserSocialRequest::GetProvider() const
 {
 	return m_Provider.value();
@@ -1124,12 +1080,10 @@ bool CreateUserSocialRequest::HasProvider() const
 {
 	return m_Provider.has_value();
 }
-
 void CreateUserSocialRequest::SetProvider(const utility::string_t& Value)
 {
 	m_Provider = Value;
 }
-
 utility::string_t CreateUserSocialRequest::GetToken() const
 {
 	return m_Token.value();
@@ -1139,12 +1093,10 @@ bool CreateUserSocialRequest::HasToken() const
 {
 	return m_Token.has_value();
 }
-
 void CreateUserSocialRequest::SetToken(const utility::string_t& Value)
 {
 	m_Token = Value;
 }
-
 utility::string_t CreateUserSocialRequest::GetPassword() const
 {
 	return m_Password.value();
@@ -1154,12 +1106,10 @@ bool CreateUserSocialRequest::HasPassword() const
 {
 	return m_Password.has_value();
 }
-
 void CreateUserSocialRequest::SetPassword(const utility::string_t& Value)
 {
 	m_Password = Value;
 }
-
 utility::string_t CreateUserSocialRequest::GetUserName() const
 {
 	return m_UserName.value();
@@ -1169,12 +1119,10 @@ bool CreateUserSocialRequest::HasUserName() const
 {
 	return m_UserName.has_value();
 }
-
 void CreateUserSocialRequest::SetUserName(const utility::string_t& Value)
 {
 	m_UserName = Value;
 }
-
 utility::string_t CreateUserSocialRequest::GetDisplayName() const
 {
 	return m_DisplayName.value();
@@ -1184,12 +1132,10 @@ bool CreateUserSocialRequest::HasDisplayName() const
 {
 	return m_DisplayName.has_value();
 }
-
 void CreateUserSocialRequest::SetDisplayName(const utility::string_t& Value)
 {
 	m_DisplayName = Value;
 }
-
 utility::string_t CreateUserSocialRequest::GetAvatarId() const
 {
 	return m_AvatarId.value();
@@ -1199,12 +1145,10 @@ bool CreateUserSocialRequest::HasAvatarId() const
 {
 	return m_AvatarId.has_value();
 }
-
 void CreateUserSocialRequest::SetAvatarId(const utility::string_t& Value)
 {
 	m_AvatarId = Value;
 }
-
 utility::string_t CreateUserSocialRequest::GetInviteToken() const
 {
 	return m_InviteToken.value();
@@ -1214,12 +1158,10 @@ bool CreateUserSocialRequest::HasInviteToken() const
 {
 	return m_InviteToken.has_value();
 }
-
 void CreateUserSocialRequest::SetInviteToken(const utility::string_t& Value)
 {
 	m_InviteToken = Value;
 }
-
 utility::string_t CreateUserSocialRequest::GetRedirectUrl() const
 {
 	return m_RedirectUrl.value();
@@ -1229,12 +1171,10 @@ bool CreateUserSocialRequest::HasRedirectUrl() const
 {
 	return m_RedirectUrl.has_value();
 }
-
 void CreateUserSocialRequest::SetRedirectUrl(const utility::string_t& Value)
 {
 	m_RedirectUrl = Value;
 }
-
 bool CreateUserSocialRequest::GetVerifiedAgeEighteen() const
 {
 	return m_VerifiedAgeEighteen.value();
@@ -1244,12 +1184,10 @@ bool CreateUserSocialRequest::HasVerifiedAgeEighteen() const
 {
 	return m_VerifiedAgeEighteen.has_value();
 }
-
 void CreateUserSocialRequest::SetVerifiedAgeEighteen(const bool& Value)
 {
 	m_VerifiedAgeEighteen = Value;
 }
-
 utility::string_t CreateUserSocialRequest::GetOAuthRedirectUri() const
 {
 	return m_OAuthRedirectUri.value();
@@ -1259,12 +1197,10 @@ bool CreateUserSocialRequest::HasOAuthRedirectUri() const
 {
 	return m_OAuthRedirectUri.has_value();
 }
-
 void CreateUserSocialRequest::SetOAuthRedirectUri(const utility::string_t& Value)
 {
 	m_OAuthRedirectUri = Value;
 }
-
 const std::vector<std::shared_ptr<InitialSettingsDto>>& CreateUserSocialRequest::GetInitialSettings() const
 {
 	return m_InitialSettings.value();
@@ -1274,7 +1210,6 @@ bool CreateUserSocialRequest::HasInitialSettings() const
 {
 	return m_InitialSettings.has_value();
 }
-
 void CreateUserSocialRequest::SetInitialSettings(const std::vector<std::shared_ptr<InitialSettingsDto>>& Value)
 {
 	m_InitialSettings = Value;
@@ -1283,7 +1218,6 @@ void CreateUserSocialRequest::SetInitialSettings(const std::vector<std::shared_p
 EquipItemDto::EquipItemDto()
 {
 }
-
 EquipItemDto::~EquipItemDto()
 {
 }
@@ -1292,11 +1226,13 @@ utility::string_t EquipItemDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
 
+
 	if (m_IsEquipped.has_value())
 	{
 		rapidjson::Value IsEquippedValue(TypeToJsonValue(m_IsEquipped, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("isEquipped", IsEquippedValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -1311,6 +1247,7 @@ void EquipItemDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("isEquipped"))
 	{
@@ -1327,6 +1264,7 @@ void EquipItemDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 bool EquipItemDto::GetIsEquipped() const
 {
 	return m_IsEquipped.value();
@@ -1336,7 +1274,6 @@ bool EquipItemDto::HasIsEquipped() const
 {
 	return m_IsEquipped.has_value();
 }
-
 void EquipItemDto::SetIsEquipped(const bool& Value)
 {
 	m_IsEquipped = Value;
@@ -1345,7 +1282,6 @@ void EquipItemDto::SetIsEquipped(const bool& Value)
 ForgotPasswordRequest::ForgotPasswordRequest()
 {
 }
-
 ForgotPasswordRequest::~ForgotPasswordRequest()
 {
 }
@@ -1353,6 +1289,7 @@ ForgotPasswordRequest::~ForgotPasswordRequest()
 utility::string_t ForgotPasswordRequest::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Tenant.has_value())
 	{
@@ -1365,6 +1302,7 @@ utility::string_t ForgotPasswordRequest::ToJson() const
 		rapidjson::Value EmailValue(TypeToJsonValue(m_Email, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("email", EmailValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -1379,6 +1317,7 @@ void ForgotPasswordRequest::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("tenant"))
 	{
@@ -1405,6 +1344,7 @@ void ForgotPasswordRequest::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t ForgotPasswordRequest::GetTenant() const
 {
 	return m_Tenant.value();
@@ -1414,12 +1354,10 @@ bool ForgotPasswordRequest::HasTenant() const
 {
 	return m_Tenant.has_value();
 }
-
 void ForgotPasswordRequest::SetTenant(const utility::string_t& Value)
 {
 	m_Tenant = Value;
 }
-
 utility::string_t ForgotPasswordRequest::GetEmail() const
 {
 	return m_Email.value();
@@ -1429,7 +1367,6 @@ bool ForgotPasswordRequest::HasEmail() const
 {
 	return m_Email.has_value();
 }
-
 void ForgotPasswordRequest::SetEmail(const utility::string_t& Value)
 {
 	m_Email = Value;
@@ -1438,7 +1375,6 @@ void ForgotPasswordRequest::SetEmail(const utility::string_t& Value)
 Gender::Gender()
 {
 }
-
 Gender::~Gender()
 {
 }
@@ -1488,7 +1424,6 @@ void Gender::SetValue(Gender::eGender const InValue)
 GroupDto::GroupDto()
 {
 }
-
 GroupDto::~GroupDto()
 {
 }
@@ -1496,6 +1431,7 @@ GroupDto::~GroupDto()
 utility::string_t GroupDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -1611,6 +1547,7 @@ utility::string_t GroupDto::ToJson() const
 		JsonDoc.AddMember("isCurrentUserBanned", IsCurrentUserBannedValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -1624,6 +1561,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -1828,6 +1766,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t GroupDto::GetId() const
 {
 	return m_Id.value();
@@ -1837,12 +1776,6 @@ bool GroupDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void GroupDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t GroupDto::GetCreatedBy() const
 {
 	return m_CreatedBy.value();
@@ -1852,12 +1785,6 @@ bool GroupDto::HasCreatedBy() const
 {
 	return m_CreatedBy.has_value();
 }
-
-void GroupDto::SetCreatedBy(const utility::string_t& Value)
-{
-	m_CreatedBy = Value;
-}
-
 utility::string_t GroupDto::GetCreatedAt() const
 {
 	return m_CreatedAt.value();
@@ -1867,12 +1794,6 @@ bool GroupDto::HasCreatedAt() const
 {
 	return m_CreatedAt.has_value();
 }
-
-void GroupDto::SetCreatedAt(const utility::string_t& Value)
-{
-	m_CreatedAt = Value;
-}
-
 utility::string_t GroupDto::GetGroupOwnerId() const
 {
 	return m_GroupOwnerId.value();
@@ -1882,12 +1803,10 @@ bool GroupDto::HasGroupOwnerId() const
 {
 	return m_GroupOwnerId.has_value();
 }
-
 void GroupDto::SetGroupOwnerId(const utility::string_t& Value)
 {
 	m_GroupOwnerId = Value;
 }
-
 utility::string_t GroupDto::GetGroupCode() const
 {
 	return m_GroupCode.value();
@@ -1897,12 +1816,6 @@ bool GroupDto::HasGroupCode() const
 {
 	return m_GroupCode.has_value();
 }
-
-void GroupDto::SetGroupCode(const utility::string_t& Value)
-{
-	m_GroupCode = Value;
-}
-
 utility::string_t GroupDto::GetGroupType() const
 {
 	return m_GroupType.value();
@@ -1912,12 +1825,10 @@ bool GroupDto::HasGroupType() const
 {
 	return m_GroupType.has_value();
 }
-
 void GroupDto::SetGroupType(const utility::string_t& Value)
 {
 	m_GroupType = Value;
 }
-
 utility::string_t GroupDto::GetName() const
 {
 	return m_Name.value();
@@ -1927,12 +1838,10 @@ bool GroupDto::HasName() const
 {
 	return m_Name.has_value();
 }
-
 void GroupDto::SetName(const utility::string_t& Value)
 {
 	m_Name = Value;
 }
-
 utility::string_t GroupDto::GetDescription() const
 {
 	return m_Description.value();
@@ -1942,12 +1851,10 @@ bool GroupDto::HasDescription() const
 {
 	return m_Description.has_value();
 }
-
 void GroupDto::SetDescription(const utility::string_t& Value)
 {
 	m_Description = Value;
 }
-
 const std::vector<utility::string_t>& GroupDto::GetUsers() const
 {
 	return m_Users.value();
@@ -1957,12 +1864,10 @@ bool GroupDto::HasUsers() const
 {
 	return m_Users.has_value();
 }
-
 void GroupDto::SetUsers(const std::vector<utility::string_t>& Value)
 {
 	m_Users = Value;
 }
-
 const std::vector<utility::string_t>& GroupDto::GetBannedUsers() const
 {
 	return m_BannedUsers.value();
@@ -1972,12 +1877,10 @@ bool GroupDto::HasBannedUsers() const
 {
 	return m_BannedUsers.has_value();
 }
-
 void GroupDto::SetBannedUsers(const std::vector<utility::string_t>& Value)
 {
 	m_BannedUsers = Value;
 }
-
 const std::vector<utility::string_t>& GroupDto::GetModerators() const
 {
 	return m_Moderators.value();
@@ -1987,12 +1890,10 @@ bool GroupDto::HasModerators() const
 {
 	return m_Moderators.has_value();
 }
-
 void GroupDto::SetModerators(const std::vector<utility::string_t>& Value)
 {
 	m_Moderators = Value;
 }
-
 bool GroupDto::GetDiscoverable() const
 {
 	return m_Discoverable.value();
@@ -2002,12 +1903,10 @@ bool GroupDto::HasDiscoverable() const
 {
 	return m_Discoverable.has_value();
 }
-
 void GroupDto::SetDiscoverable(const bool& Value)
 {
 	m_Discoverable = Value;
 }
-
 bool GroupDto::GetAutoModerator() const
 {
 	return m_AutoModerator.value();
@@ -2017,12 +1916,10 @@ bool GroupDto::HasAutoModerator() const
 {
 	return m_AutoModerator.has_value();
 }
-
 void GroupDto::SetAutoModerator(const bool& Value)
 {
 	m_AutoModerator = Value;
 }
-
 bool GroupDto::GetRequiresInvite() const
 {
 	return m_RequiresInvite.value();
@@ -2032,12 +1929,10 @@ bool GroupDto::HasRequiresInvite() const
 {
 	return m_RequiresInvite.has_value();
 }
-
 void GroupDto::SetRequiresInvite(const bool& Value)
 {
 	m_RequiresInvite = Value;
 }
-
 bool GroupDto::GetArchived() const
 {
 	return m_Archived.value();
@@ -2047,12 +1942,6 @@ bool GroupDto::HasArchived() const
 {
 	return m_Archived.has_value();
 }
-
-void GroupDto::SetArchived(const bool& Value)
-{
-	m_Archived = Value;
-}
-
 bool GroupDto::GetIsCurrentUserOwner() const
 {
 	return m_IsCurrentUserOwner.value();
@@ -2062,12 +1951,6 @@ bool GroupDto::HasIsCurrentUserOwner() const
 {
 	return m_IsCurrentUserOwner.has_value();
 }
-
-void GroupDto::SetIsCurrentUserOwner(const bool& Value)
-{
-	m_IsCurrentUserOwner = Value;
-}
-
 bool GroupDto::GetIsCurrentUserMember() const
 {
 	return m_IsCurrentUserMember.value();
@@ -2077,12 +1960,6 @@ bool GroupDto::HasIsCurrentUserMember() const
 {
 	return m_IsCurrentUserMember.has_value();
 }
-
-void GroupDto::SetIsCurrentUserMember(const bool& Value)
-{
-	m_IsCurrentUserMember = Value;
-}
-
 bool GroupDto::GetIsCurrentUserModerator() const
 {
 	return m_IsCurrentUserModerator.value();
@@ -2092,12 +1969,6 @@ bool GroupDto::HasIsCurrentUserModerator() const
 {
 	return m_IsCurrentUserModerator.has_value();
 }
-
-void GroupDto::SetIsCurrentUserModerator(const bool& Value)
-{
-	m_IsCurrentUserModerator = Value;
-}
-
 bool GroupDto::GetIsCurrentUserBanned() const
 {
 	return m_IsCurrentUserBanned.value();
@@ -2108,15 +1979,9 @@ bool GroupDto::HasIsCurrentUserBanned() const
 	return m_IsCurrentUserBanned.has_value();
 }
 
-void GroupDto::SetIsCurrentUserBanned(const bool& Value)
-{
-	m_IsCurrentUserBanned = Value;
-}
-
 GroupInviteDto::GroupInviteDto()
 {
 }
-
 GroupInviteDto::~GroupInviteDto()
 {
 }
@@ -2124,6 +1989,7 @@ GroupInviteDto::~GroupInviteDto()
 utility::string_t GroupInviteDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -2191,6 +2057,7 @@ utility::string_t GroupInviteDto::ToJson() const
 		JsonDoc.AddMember("sendSpaceLink", SendSpaceLinkValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -2204,6 +2071,7 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -2332,6 +2200,7 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t GroupInviteDto::GetId() const
 {
 	return m_Id.value();
@@ -2341,12 +2210,6 @@ bool GroupInviteDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void GroupInviteDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t GroupInviteDto::GetCreatedBy() const
 {
 	return m_CreatedBy.value();
@@ -2356,12 +2219,6 @@ bool GroupInviteDto::HasCreatedBy() const
 {
 	return m_CreatedBy.has_value();
 }
-
-void GroupInviteDto::SetCreatedBy(const utility::string_t& Value)
-{
-	m_CreatedBy = Value;
-}
-
 utility::string_t GroupInviteDto::GetEmail() const
 {
 	return m_Email.value();
@@ -2371,12 +2228,10 @@ bool GroupInviteDto::HasEmail() const
 {
 	return m_Email.has_value();
 }
-
 void GroupInviteDto::SetEmail(const utility::string_t& Value)
 {
 	m_Email = Value;
 }
-
 utility::string_t GroupInviteDto::GetGroupId() const
 {
 	return m_GroupId.value();
@@ -2386,12 +2241,6 @@ bool GroupInviteDto::HasGroupId() const
 {
 	return m_GroupId.has_value();
 }
-
-void GroupInviteDto::SetGroupId(const utility::string_t& Value)
-{
-	m_GroupId = Value;
-}
-
 utility::string_t GroupInviteDto::GetName() const
 {
 	return m_Name.value();
@@ -2401,12 +2250,6 @@ bool GroupInviteDto::HasName() const
 {
 	return m_Name.has_value();
 }
-
-void GroupInviteDto::SetName(const utility::string_t& Value)
-{
-	m_Name = Value;
-}
-
 bool GroupInviteDto::GetAsModerator() const
 {
 	return m_AsModerator.value();
@@ -2416,12 +2259,10 @@ bool GroupInviteDto::HasAsModerator() const
 {
 	return m_AsModerator.has_value();
 }
-
 void GroupInviteDto::SetAsModerator(const bool& Value)
 {
 	m_AsModerator = Value;
 }
-
 utility::string_t GroupInviteDto::GetExpiresAt() const
 {
 	return m_ExpiresAt.value();
@@ -2431,12 +2272,6 @@ bool GroupInviteDto::HasExpiresAt() const
 {
 	return m_ExpiresAt.has_value();
 }
-
-void GroupInviteDto::SetExpiresAt(const utility::string_t& Value)
-{
-	m_ExpiresAt = Value;
-}
-
 utility::string_t GroupInviteDto::GetCreatedAt() const
 {
 	return m_CreatedAt.value();
@@ -2446,12 +2281,6 @@ bool GroupInviteDto::HasCreatedAt() const
 {
 	return m_CreatedAt.has_value();
 }
-
-void GroupInviteDto::SetCreatedAt(const utility::string_t& Value)
-{
-	m_CreatedAt = Value;
-}
-
 utility::string_t GroupInviteDto::GetUpdatedBy() const
 {
 	return m_UpdatedBy.value();
@@ -2461,12 +2290,6 @@ bool GroupInviteDto::HasUpdatedBy() const
 {
 	return m_UpdatedBy.has_value();
 }
-
-void GroupInviteDto::SetUpdatedBy(const utility::string_t& Value)
-{
-	m_UpdatedBy = Value;
-}
-
 utility::string_t GroupInviteDto::GetUpdatedAt() const
 {
 	return m_UpdatedAt.value();
@@ -2476,12 +2299,6 @@ bool GroupInviteDto::HasUpdatedAt() const
 {
 	return m_UpdatedAt.has_value();
 }
-
-void GroupInviteDto::SetUpdatedAt(const utility::string_t& Value)
-{
-	m_UpdatedAt = Value;
-}
-
 bool GroupInviteDto::GetSendSpaceLink() const
 {
 	return m_SendSpaceLink.value();
@@ -2491,7 +2308,6 @@ bool GroupInviteDto::HasSendSpaceLink() const
 {
 	return m_SendSpaceLink.has_value();
 }
-
 void GroupInviteDto::SetSendSpaceLink(const bool& Value)
 {
 	m_SendSpaceLink = Value;
@@ -2500,7 +2316,6 @@ void GroupInviteDto::SetSendSpaceLink(const bool& Value)
 GroupLiteDto::GroupLiteDto()
 {
 }
-
 GroupLiteDto::~GroupLiteDto()
 {
 }
@@ -2508,6 +2323,7 @@ GroupLiteDto::~GroupLiteDto()
 utility::string_t GroupLiteDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -2593,6 +2409,7 @@ utility::string_t GroupLiteDto::ToJson() const
 		JsonDoc.AddMember("isCurrentUserBanned", IsCurrentUserBannedValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -2606,6 +2423,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -2752,6 +2570,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t GroupLiteDto::GetId() const
 {
 	return m_Id.value();
@@ -2761,12 +2580,6 @@ bool GroupLiteDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void GroupLiteDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t GroupLiteDto::GetName() const
 {
 	return m_Name.value();
@@ -2776,12 +2589,10 @@ bool GroupLiteDto::HasName() const
 {
 	return m_Name.has_value();
 }
-
 void GroupLiteDto::SetName(const utility::string_t& Value)
 {
 	m_Name = Value;
 }
-
 utility::string_t GroupLiteDto::GetDescription() const
 {
 	return m_Description.value();
@@ -2791,12 +2602,10 @@ bool GroupLiteDto::HasDescription() const
 {
 	return m_Description.has_value();
 }
-
 void GroupLiteDto::SetDescription(const utility::string_t& Value)
 {
 	m_Description = Value;
 }
-
 utility::string_t GroupLiteDto::GetGroupType() const
 {
 	return m_GroupType.value();
@@ -2806,12 +2615,10 @@ bool GroupLiteDto::HasGroupType() const
 {
 	return m_GroupType.has_value();
 }
-
 void GroupLiteDto::SetGroupType(const utility::string_t& Value)
 {
 	m_GroupType = Value;
 }
-
 utility::string_t GroupLiteDto::GetGroupOwnerId() const
 {
 	return m_GroupOwnerId.value();
@@ -2821,12 +2628,6 @@ bool GroupLiteDto::HasGroupOwnerId() const
 {
 	return m_GroupOwnerId.has_value();
 }
-
-void GroupLiteDto::SetGroupOwnerId(const utility::string_t& Value)
-{
-	m_GroupOwnerId = Value;
-}
-
 utility::string_t GroupLiteDto::GetCreatedAt() const
 {
 	return m_CreatedAt.value();
@@ -2836,12 +2637,6 @@ bool GroupLiteDto::HasCreatedAt() const
 {
 	return m_CreatedAt.has_value();
 }
-
-void GroupLiteDto::SetCreatedAt(const utility::string_t& Value)
-{
-	m_CreatedAt = Value;
-}
-
 bool GroupLiteDto::GetDiscoverable() const
 {
 	return m_Discoverable.value();
@@ -2851,12 +2646,10 @@ bool GroupLiteDto::HasDiscoverable() const
 {
 	return m_Discoverable.has_value();
 }
-
 void GroupLiteDto::SetDiscoverable(const bool& Value)
 {
 	m_Discoverable = Value;
 }
-
 bool GroupLiteDto::GetAutoModerator() const
 {
 	return m_AutoModerator.value();
@@ -2866,12 +2659,10 @@ bool GroupLiteDto::HasAutoModerator() const
 {
 	return m_AutoModerator.has_value();
 }
-
 void GroupLiteDto::SetAutoModerator(const bool& Value)
 {
 	m_AutoModerator = Value;
 }
-
 bool GroupLiteDto::GetRequiresInvite() const
 {
 	return m_RequiresInvite.value();
@@ -2881,12 +2672,10 @@ bool GroupLiteDto::HasRequiresInvite() const
 {
 	return m_RequiresInvite.has_value();
 }
-
 void GroupLiteDto::SetRequiresInvite(const bool& Value)
 {
 	m_RequiresInvite = Value;
 }
-
 bool GroupLiteDto::GetArchived() const
 {
 	return m_Archived.value();
@@ -2896,12 +2685,10 @@ bool GroupLiteDto::HasArchived() const
 {
 	return m_Archived.has_value();
 }
-
 void GroupLiteDto::SetArchived(const bool& Value)
 {
 	m_Archived = Value;
 }
-
 bool GroupLiteDto::GetIsCurrentUserOwner() const
 {
 	return m_IsCurrentUserOwner.value();
@@ -2911,12 +2698,6 @@ bool GroupLiteDto::HasIsCurrentUserOwner() const
 {
 	return m_IsCurrentUserOwner.has_value();
 }
-
-void GroupLiteDto::SetIsCurrentUserOwner(const bool& Value)
-{
-	m_IsCurrentUserOwner = Value;
-}
-
 bool GroupLiteDto::GetIsCurrentUserMember() const
 {
 	return m_IsCurrentUserMember.value();
@@ -2926,12 +2707,6 @@ bool GroupLiteDto::HasIsCurrentUserMember() const
 {
 	return m_IsCurrentUserMember.has_value();
 }
-
-void GroupLiteDto::SetIsCurrentUserMember(const bool& Value)
-{
-	m_IsCurrentUserMember = Value;
-}
-
 bool GroupLiteDto::GetIsCurrentUserModerator() const
 {
 	return m_IsCurrentUserModerator.value();
@@ -2941,12 +2716,6 @@ bool GroupLiteDto::HasIsCurrentUserModerator() const
 {
 	return m_IsCurrentUserModerator.has_value();
 }
-
-void GroupLiteDto::SetIsCurrentUserModerator(const bool& Value)
-{
-	m_IsCurrentUserModerator = Value;
-}
-
 bool GroupLiteDto::GetIsCurrentUserBanned() const
 {
 	return m_IsCurrentUserBanned.value();
@@ -2957,15 +2726,9 @@ bool GroupLiteDto::HasIsCurrentUserBanned() const
 	return m_IsCurrentUserBanned.has_value();
 }
 
-void GroupLiteDto::SetIsCurrentUserBanned(const bool& Value)
-{
-	m_IsCurrentUserBanned = Value;
-}
-
 GroupLiteDtoDataPage::GroupLiteDtoDataPage()
 {
 }
-
 GroupLiteDtoDataPage::~GroupLiteDtoDataPage()
 {
 }
@@ -2973,6 +2736,7 @@ GroupLiteDtoDataPage::~GroupLiteDtoDataPage()
 utility::string_t GroupLiteDtoDataPage::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Items.has_value())
 	{
@@ -3004,6 +2768,7 @@ utility::string_t GroupLiteDtoDataPage::ToJson() const
 		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -3017,6 +2782,7 @@ void GroupLiteDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("items"))
 	{
@@ -3081,6 +2847,7 @@ void GroupLiteDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<std::shared_ptr<GroupLiteDto>>& GroupLiteDtoDataPage::GetItems() const
 {
 	return m_Items.value();
@@ -3090,12 +2857,10 @@ bool GroupLiteDtoDataPage::HasItems() const
 {
 	return m_Items.has_value();
 }
-
 void GroupLiteDtoDataPage::SetItems(const std::vector<std::shared_ptr<GroupLiteDto>>& Value)
 {
 	m_Items = Value;
 }
-
 int32_t GroupLiteDtoDataPage::GetSkip() const
 {
 	return m_Skip.value();
@@ -3105,12 +2870,10 @@ bool GroupLiteDtoDataPage::HasSkip() const
 {
 	return m_Skip.has_value();
 }
-
 void GroupLiteDtoDataPage::SetSkip(int32_t Value)
 {
 	m_Skip = Value;
 }
-
 int32_t GroupLiteDtoDataPage::GetLimit() const
 {
 	return m_Limit.value();
@@ -3120,12 +2883,10 @@ bool GroupLiteDtoDataPage::HasLimit() const
 {
 	return m_Limit.has_value();
 }
-
 void GroupLiteDtoDataPage::SetLimit(int32_t Value)
 {
 	m_Limit = Value;
 }
-
 int32_t GroupLiteDtoDataPage::GetItemCount() const
 {
 	return m_ItemCount.value();
@@ -3135,12 +2896,10 @@ bool GroupLiteDtoDataPage::HasItemCount() const
 {
 	return m_ItemCount.has_value();
 }
-
 void GroupLiteDtoDataPage::SetItemCount(int32_t Value)
 {
 	m_ItemCount = Value;
 }
-
 int64_t GroupLiteDtoDataPage::GetItemTotalCount() const
 {
 	return m_ItemTotalCount.value();
@@ -3150,7 +2909,6 @@ bool GroupLiteDtoDataPage::HasItemTotalCount() const
 {
 	return m_ItemTotalCount.has_value();
 }
-
 void GroupLiteDtoDataPage::SetItemTotalCount(int64_t Value)
 {
 	m_ItemTotalCount = Value;
@@ -3159,7 +2917,6 @@ void GroupLiteDtoDataPage::SetItemTotalCount(int64_t Value)
 GroupSummaryDto::GroupSummaryDto()
 {
 }
-
 GroupSummaryDto::~GroupSummaryDto()
 {
 }
@@ -3167,6 +2924,7 @@ GroupSummaryDto::~GroupSummaryDto()
 utility::string_t GroupSummaryDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_GroupId.has_value())
 	{
@@ -3186,6 +2944,7 @@ utility::string_t GroupSummaryDto::ToJson() const
 		JsonDoc.AddMember("name", NameValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -3199,6 +2958,7 @@ void GroupSummaryDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("groupId"))
 	{
@@ -3231,6 +2991,7 @@ void GroupSummaryDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t GroupSummaryDto::GetGroupId() const
 {
 	return m_GroupId.value();
@@ -3240,12 +3001,10 @@ bool GroupSummaryDto::HasGroupId() const
 {
 	return m_GroupId.has_value();
 }
-
 void GroupSummaryDto::SetGroupId(const utility::string_t& Value)
 {
 	m_GroupId = Value;
 }
-
 utility::string_t GroupSummaryDto::GetGroupCode() const
 {
 	return m_GroupCode.value();
@@ -3255,12 +3014,10 @@ bool GroupSummaryDto::HasGroupCode() const
 {
 	return m_GroupCode.has_value();
 }
-
 void GroupSummaryDto::SetGroupCode(const utility::string_t& Value)
 {
 	m_GroupCode = Value;
 }
-
 utility::string_t GroupSummaryDto::GetName() const
 {
 	return m_Name.value();
@@ -3270,7 +3027,6 @@ bool GroupSummaryDto::HasName() const
 {
 	return m_Name.has_value();
 }
-
 void GroupSummaryDto::SetName(const utility::string_t& Value)
 {
 	m_Name = Value;
@@ -3279,7 +3035,6 @@ void GroupSummaryDto::SetName(const utility::string_t& Value)
 InitialSettingsDto::InitialSettingsDto()
 {
 }
-
 InitialSettingsDto::~InitialSettingsDto()
 {
 }
@@ -3287,6 +3042,7 @@ InitialSettingsDto::~InitialSettingsDto()
 utility::string_t InitialSettingsDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Context.has_value())
 	{
@@ -3306,6 +3062,7 @@ utility::string_t InitialSettingsDto::ToJson() const
 		JsonDoc.AddMember("settings", SettingsValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -3319,6 +3076,7 @@ void InitialSettingsDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("context"))
 	{
@@ -3359,6 +3117,7 @@ void InitialSettingsDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t InitialSettingsDto::GetContext() const
 {
 	return m_Context.value();
@@ -3368,12 +3127,10 @@ bool InitialSettingsDto::HasContext() const
 {
 	return m_Context.has_value();
 }
-
 void InitialSettingsDto::SetContext(const utility::string_t& Value)
 {
 	m_Context = Value;
 }
-
 utility::string_t InitialSettingsDto::GetUserId() const
 {
 	return m_UserId.value();
@@ -3383,12 +3140,6 @@ bool InitialSettingsDto::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
-void InitialSettingsDto::SetUserId(const utility::string_t& Value)
-{
-	m_UserId = Value;
-}
-
 const std::map<utility::string_t, utility::string_t>& InitialSettingsDto::GetSettings() const
 {
 	return m_Settings.value();
@@ -3398,7 +3149,6 @@ bool InitialSettingsDto::HasSettings() const
 {
 	return m_Settings.has_value();
 }
-
 void InitialSettingsDto::SetSettings(const std::map<utility::string_t, utility::string_t>& Value)
 {
 	m_Settings = Value;
@@ -3407,7 +3157,6 @@ void InitialSettingsDto::SetSettings(const std::map<utility::string_t, utility::
 InventoryItemDto::InventoryItemDto()
 {
 }
-
 InventoryItemDto::~InventoryItemDto()
 {
 }
@@ -3415,6 +3164,7 @@ InventoryItemDto::~InventoryItemDto()
 utility::string_t InventoryItemDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -3500,6 +3250,7 @@ utility::string_t InventoryItemDto::ToJson() const
 		JsonDoc.AddMember("updatedAt", UpdatedAtValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -3513,6 +3264,7 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -3671,6 +3423,7 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t InventoryItemDto::GetId() const
 {
 	return m_Id.value();
@@ -3680,12 +3433,6 @@ bool InventoryItemDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void InventoryItemDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t InventoryItemDto::GetPrototypeId() const
 {
 	return m_PrototypeId.value();
@@ -3695,12 +3442,10 @@ bool InventoryItemDto::HasPrototypeId() const
 {
 	return m_PrototypeId.has_value();
 }
-
 void InventoryItemDto::SetPrototypeId(const utility::string_t& Value)
 {
 	m_PrototypeId = Value;
 }
-
 utility::string_t InventoryItemDto::GetUserId() const
 {
 	return m_UserId.value();
@@ -3710,12 +3455,6 @@ bool InventoryItemDto::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
-void InventoryItemDto::SetUserId(const utility::string_t& Value)
-{
-	m_UserId = Value;
-}
-
 bool InventoryItemDto::GetExchangeable() const
 {
 	return m_Exchangeable.value();
@@ -3725,12 +3464,10 @@ bool InventoryItemDto::HasExchangeable() const
 {
 	return m_Exchangeable.has_value();
 }
-
 void InventoryItemDto::SetExchangeable(const bool& Value)
 {
 	m_Exchangeable = Value;
 }
-
 bool InventoryItemDto::GetIsGift() const
 {
 	return m_IsGift.value();
@@ -3740,12 +3477,10 @@ bool InventoryItemDto::HasIsGift() const
 {
 	return m_IsGift.has_value();
 }
-
 void InventoryItemDto::SetIsGift(const bool& Value)
 {
 	m_IsGift = Value;
 }
-
 const std::vector<utility::string_t>& InventoryItemDto::GetTags() const
 {
 	return m_Tags.value();
@@ -3755,12 +3490,10 @@ bool InventoryItemDto::HasTags() const
 {
 	return m_Tags.has_value();
 }
-
 void InventoryItemDto::SetTags(const std::vector<utility::string_t>& Value)
 {
 	m_Tags = Value;
 }
-
 const std::map<utility::string_t, utility::string_t>& InventoryItemDto::GetState() const
 {
 	return m_State.value();
@@ -3770,12 +3503,10 @@ bool InventoryItemDto::HasState() const
 {
 	return m_State.has_value();
 }
-
 void InventoryItemDto::SetState(const std::map<utility::string_t, utility::string_t>& Value)
 {
 	m_State = Value;
 }
-
 bool InventoryItemDto::GetEquippable() const
 {
 	return m_Equippable.value();
@@ -3785,12 +3516,10 @@ bool InventoryItemDto::HasEquippable() const
 {
 	return m_Equippable.has_value();
 }
-
 void InventoryItemDto::SetEquippable(const bool& Value)
 {
 	m_Equippable = Value;
 }
-
 bool InventoryItemDto::GetEquipped() const
 {
 	return m_Equipped.value();
@@ -3800,12 +3529,10 @@ bool InventoryItemDto::HasEquipped() const
 {
 	return m_Equipped.has_value();
 }
-
 void InventoryItemDto::SetEquipped(const bool& Value)
 {
 	m_Equipped = Value;
 }
-
 utility::string_t InventoryItemDto::GetItemType() const
 {
 	return m_ItemType.value();
@@ -3815,12 +3542,10 @@ bool InventoryItemDto::HasItemType() const
 {
 	return m_ItemType.has_value();
 }
-
 void InventoryItemDto::SetItemType(const utility::string_t& Value)
 {
 	m_ItemType = Value;
 }
-
 utility::string_t InventoryItemDto::GetCreatedAt() const
 {
 	return m_CreatedAt.value();
@@ -3830,12 +3555,6 @@ bool InventoryItemDto::HasCreatedAt() const
 {
 	return m_CreatedAt.has_value();
 }
-
-void InventoryItemDto::SetCreatedAt(const utility::string_t& Value)
-{
-	m_CreatedAt = Value;
-}
-
 utility::string_t InventoryItemDto::GetCreatedBy() const
 {
 	return m_CreatedBy.value();
@@ -3845,12 +3564,6 @@ bool InventoryItemDto::HasCreatedBy() const
 {
 	return m_CreatedBy.has_value();
 }
-
-void InventoryItemDto::SetCreatedBy(const utility::string_t& Value)
-{
-	m_CreatedBy = Value;
-}
-
 utility::string_t InventoryItemDto::GetUpdatedBy() const
 {
 	return m_UpdatedBy.value();
@@ -3860,12 +3573,6 @@ bool InventoryItemDto::HasUpdatedBy() const
 {
 	return m_UpdatedBy.has_value();
 }
-
-void InventoryItemDto::SetUpdatedBy(const utility::string_t& Value)
-{
-	m_UpdatedBy = Value;
-}
-
 utility::string_t InventoryItemDto::GetUpdatedAt() const
 {
 	return m_UpdatedAt.value();
@@ -3876,15 +3583,9 @@ bool InventoryItemDto::HasUpdatedAt() const
 	return m_UpdatedAt.has_value();
 }
 
-void InventoryItemDto::SetUpdatedAt(const utility::string_t& Value)
-{
-	m_UpdatedAt = Value;
-}
-
 InventoryItemDtoDataPage::InventoryItemDtoDataPage()
 {
 }
-
 InventoryItemDtoDataPage::~InventoryItemDtoDataPage()
 {
 }
@@ -3892,6 +3593,7 @@ InventoryItemDtoDataPage::~InventoryItemDtoDataPage()
 utility::string_t InventoryItemDtoDataPage::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Items.has_value())
 	{
@@ -3923,6 +3625,7 @@ utility::string_t InventoryItemDtoDataPage::ToJson() const
 		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -3936,6 +3639,7 @@ void InventoryItemDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("items"))
 	{
@@ -4000,6 +3704,7 @@ void InventoryItemDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<std::shared_ptr<InventoryItemDto>>& InventoryItemDtoDataPage::GetItems() const
 {
 	return m_Items.value();
@@ -4009,12 +3714,10 @@ bool InventoryItemDtoDataPage::HasItems() const
 {
 	return m_Items.has_value();
 }
-
 void InventoryItemDtoDataPage::SetItems(const std::vector<std::shared_ptr<InventoryItemDto>>& Value)
 {
 	m_Items = Value;
 }
-
 int32_t InventoryItemDtoDataPage::GetSkip() const
 {
 	return m_Skip.value();
@@ -4024,12 +3727,10 @@ bool InventoryItemDtoDataPage::HasSkip() const
 {
 	return m_Skip.has_value();
 }
-
 void InventoryItemDtoDataPage::SetSkip(int32_t Value)
 {
 	m_Skip = Value;
 }
-
 int32_t InventoryItemDtoDataPage::GetLimit() const
 {
 	return m_Limit.value();
@@ -4039,12 +3740,10 @@ bool InventoryItemDtoDataPage::HasLimit() const
 {
 	return m_Limit.has_value();
 }
-
 void InventoryItemDtoDataPage::SetLimit(int32_t Value)
 {
 	m_Limit = Value;
 }
-
 int32_t InventoryItemDtoDataPage::GetItemCount() const
 {
 	return m_ItemCount.value();
@@ -4054,12 +3753,10 @@ bool InventoryItemDtoDataPage::HasItemCount() const
 {
 	return m_ItemCount.has_value();
 }
-
 void InventoryItemDtoDataPage::SetItemCount(int32_t Value)
 {
 	m_ItemCount = Value;
 }
-
 int64_t InventoryItemDtoDataPage::GetItemTotalCount() const
 {
 	return m_ItemTotalCount.value();
@@ -4069,7 +3766,6 @@ bool InventoryItemDtoDataPage::HasItemTotalCount() const
 {
 	return m_ItemTotalCount.has_value();
 }
-
 void InventoryItemDtoDataPage::SetItemTotalCount(int64_t Value)
 {
 	m_ItemTotalCount = Value;
@@ -4078,7 +3774,6 @@ void InventoryItemDtoDataPage::SetItemTotalCount(int64_t Value)
 LoginRequest::LoginRequest()
 {
 }
-
 LoginRequest::~LoginRequest()
 {
 }
@@ -4086,6 +3781,7 @@ LoginRequest::~LoginRequest()
 utility::string_t LoginRequest::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Tenant.has_value())
 	{
@@ -4123,6 +3819,7 @@ utility::string_t LoginRequest::ToJson() const
 		JsonDoc.AddMember("verifiedAgeEighteen", VerifiedAgeEighteenValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -4136,6 +3833,7 @@ void LoginRequest::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("tenant"))
 	{
@@ -4202,6 +3900,7 @@ void LoginRequest::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t LoginRequest::GetTenant() const
 {
 	return m_Tenant.value();
@@ -4211,12 +3910,10 @@ bool LoginRequest::HasTenant() const
 {
 	return m_Tenant.has_value();
 }
-
 void LoginRequest::SetTenant(const utility::string_t& Value)
 {
 	m_Tenant = Value;
 }
-
 utility::string_t LoginRequest::GetEmail() const
 {
 	return m_Email.value();
@@ -4226,12 +3923,10 @@ bool LoginRequest::HasEmail() const
 {
 	return m_Email.has_value();
 }
-
 void LoginRequest::SetEmail(const utility::string_t& Value)
 {
 	m_Email = Value;
 }
-
 utility::string_t LoginRequest::GetUserName() const
 {
 	return m_UserName.value();
@@ -4241,12 +3936,10 @@ bool LoginRequest::HasUserName() const
 {
 	return m_UserName.has_value();
 }
-
 void LoginRequest::SetUserName(const utility::string_t& Value)
 {
 	m_UserName = Value;
 }
-
 utility::string_t LoginRequest::GetPassword() const
 {
 	return m_Password.value();
@@ -4256,12 +3949,10 @@ bool LoginRequest::HasPassword() const
 {
 	return m_Password.has_value();
 }
-
 void LoginRequest::SetPassword(const utility::string_t& Value)
 {
 	m_Password = Value;
 }
-
 utility::string_t LoginRequest::GetDeviceId() const
 {
 	return m_DeviceId.value();
@@ -4271,12 +3962,10 @@ bool LoginRequest::HasDeviceId() const
 {
 	return m_DeviceId.has_value();
 }
-
 void LoginRequest::SetDeviceId(const utility::string_t& Value)
 {
 	m_DeviceId = Value;
 }
-
 bool LoginRequest::GetVerifiedAgeEighteen() const
 {
 	return m_VerifiedAgeEighteen.value();
@@ -4286,7 +3975,6 @@ bool LoginRequest::HasVerifiedAgeEighteen() const
 {
 	return m_VerifiedAgeEighteen.has_value();
 }
-
 void LoginRequest::SetVerifiedAgeEighteen(const bool& Value)
 {
 	m_VerifiedAgeEighteen = Value;
@@ -4295,7 +3983,6 @@ void LoginRequest::SetVerifiedAgeEighteen(const bool& Value)
 LoginSocialRequest::LoginSocialRequest()
 {
 }
-
 LoginSocialRequest::~LoginSocialRequest()
 {
 }
@@ -4303,6 +3990,7 @@ LoginSocialRequest::~LoginSocialRequest()
 utility::string_t LoginSocialRequest::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Tenant.has_value())
 	{
@@ -4340,6 +4028,7 @@ utility::string_t LoginSocialRequest::ToJson() const
 		JsonDoc.AddMember("verifiedAgeEighteen", VerifiedAgeEighteenValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -4353,6 +4042,7 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("tenant"))
 	{
@@ -4427,6 +4117,7 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t LoginSocialRequest::GetTenant() const
 {
 	return m_Tenant.value();
@@ -4436,12 +4127,10 @@ bool LoginSocialRequest::HasTenant() const
 {
 	return m_Tenant.has_value();
 }
-
 void LoginSocialRequest::SetTenant(const utility::string_t& Value)
 {
 	m_Tenant = Value;
 }
-
 utility::string_t LoginSocialRequest::GetProvider() const
 {
 	return m_Provider.value();
@@ -4451,12 +4140,10 @@ bool LoginSocialRequest::HasProvider() const
 {
 	return m_Provider.has_value();
 }
-
 void LoginSocialRequest::SetProvider(const utility::string_t& Value)
 {
 	m_Provider = Value;
 }
-
 utility::string_t LoginSocialRequest::GetToken() const
 {
 	return m_Token.value();
@@ -4466,12 +4153,10 @@ bool LoginSocialRequest::HasToken() const
 {
 	return m_Token.has_value();
 }
-
 void LoginSocialRequest::SetToken(const utility::string_t& Value)
 {
 	m_Token = Value;
 }
-
 utility::string_t LoginSocialRequest::GetDeviceId() const
 {
 	return m_DeviceId.value();
@@ -4481,12 +4166,10 @@ bool LoginSocialRequest::HasDeviceId() const
 {
 	return m_DeviceId.has_value();
 }
-
 void LoginSocialRequest::SetDeviceId(const utility::string_t& Value)
 {
 	m_DeviceId = Value;
 }
-
 utility::string_t LoginSocialRequest::GetOAuthRedirectUri() const
 {
 	return m_OAuthRedirectUri.value();
@@ -4496,12 +4179,10 @@ bool LoginSocialRequest::HasOAuthRedirectUri() const
 {
 	return m_OAuthRedirectUri.has_value();
 }
-
 void LoginSocialRequest::SetOAuthRedirectUri(const utility::string_t& Value)
 {
 	m_OAuthRedirectUri = Value;
 }
-
 bool LoginSocialRequest::GetVerifiedAgeEighteen() const
 {
 	return m_VerifiedAgeEighteen.value();
@@ -4511,7 +4192,6 @@ bool LoginSocialRequest::HasVerifiedAgeEighteen() const
 {
 	return m_VerifiedAgeEighteen.has_value();
 }
-
 void LoginSocialRequest::SetVerifiedAgeEighteen(const bool& Value)
 {
 	m_VerifiedAgeEighteen = Value;
@@ -4520,7 +4200,6 @@ void LoginSocialRequest::SetVerifiedAgeEighteen(const bool& Value)
 LogoutRequest::LogoutRequest()
 {
 }
-
 LogoutRequest::~LogoutRequest()
 {
 }
@@ -4528,6 +4207,7 @@ LogoutRequest::~LogoutRequest()
 utility::string_t LogoutRequest::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_UserId.has_value())
 	{
@@ -4540,6 +4220,7 @@ utility::string_t LogoutRequest::ToJson() const
 		rapidjson::Value DeviceIdValue(TypeToJsonValue(m_DeviceId, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("deviceId", DeviceIdValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -4554,6 +4235,7 @@ void LogoutRequest::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("userId"))
 	{
@@ -4580,6 +4262,7 @@ void LogoutRequest::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t LogoutRequest::GetUserId() const
 {
 	return m_UserId.value();
@@ -4589,12 +4272,10 @@ bool LogoutRequest::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
 void LogoutRequest::SetUserId(const utility::string_t& Value)
 {
 	m_UserId = Value;
 }
-
 utility::string_t LogoutRequest::GetDeviceId() const
 {
 	return m_DeviceId.value();
@@ -4604,7 +4285,6 @@ bool LogoutRequest::HasDeviceId() const
 {
 	return m_DeviceId.has_value();
 }
-
 void LogoutRequest::SetDeviceId(const utility::string_t& Value)
 {
 	m_DeviceId = Value;
@@ -4613,7 +4293,6 @@ void LogoutRequest::SetDeviceId(const utility::string_t& Value)
 MetagameProgressDto::MetagameProgressDto()
 {
 }
-
 MetagameProgressDto::~MetagameProgressDto()
 {
 }
@@ -4621,6 +4300,7 @@ MetagameProgressDto::~MetagameProgressDto()
 utility::string_t MetagameProgressDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_UserId.has_value())
 	{
@@ -4640,6 +4320,7 @@ utility::string_t MetagameProgressDto::ToJson() const
 		JsonDoc.AddMember("metagameLevel", MetagameLevelValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -4653,6 +4334,7 @@ void MetagameProgressDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("userId"))
 	{
@@ -4689,6 +4371,7 @@ void MetagameProgressDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t MetagameProgressDto::GetUserId() const
 {
 	return m_UserId.value();
@@ -4698,12 +4381,10 @@ bool MetagameProgressDto::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
 void MetagameProgressDto::SetUserId(const utility::string_t& Value)
 {
 	m_UserId = Value;
 }
-
 float MetagameProgressDto::GetPercentTowardsNextSeed() const
 {
 	return m_PercentTowardsNextSeed.value();
@@ -4713,12 +4394,10 @@ bool MetagameProgressDto::HasPercentTowardsNextSeed() const
 {
 	return m_PercentTowardsNextSeed.has_value();
 }
-
 void MetagameProgressDto::SetPercentTowardsNextSeed(float Value)
 {
 	m_PercentTowardsNextSeed = Value;
 }
-
 int32_t MetagameProgressDto::GetMetagameLevel() const
 {
 	return m_MetagameLevel.value();
@@ -4728,7 +4407,6 @@ bool MetagameProgressDto::HasMetagameLevel() const
 {
 	return m_MetagameLevel.has_value();
 }
-
 void MetagameProgressDto::SetMetagameLevel(int32_t Value)
 {
 	m_MetagameLevel = Value;
@@ -4737,7 +4415,6 @@ void MetagameProgressDto::SetMetagameLevel(int32_t Value)
 MetagameUpdate::MetagameUpdate()
 {
 }
-
 MetagameUpdate::~MetagameUpdate()
 {
 }
@@ -4745,6 +4422,7 @@ MetagameUpdate::~MetagameUpdate()
 utility::string_t MetagameUpdate::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_PercentDeltaAsTotal.has_value())
 	{
@@ -4757,6 +4435,7 @@ utility::string_t MetagameUpdate::ToJson() const
 		rapidjson::Value PercentDeltaValue(TypeToJsonValue(m_PercentDelta, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("percentDelta", PercentDeltaValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -4771,6 +4450,7 @@ void MetagameUpdate::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("percentDeltaAsTotal"))
 	{
@@ -4801,6 +4481,7 @@ void MetagameUpdate::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 bool MetagameUpdate::GetPercentDeltaAsTotal() const
 {
 	return m_PercentDeltaAsTotal.value();
@@ -4810,12 +4491,10 @@ bool MetagameUpdate::HasPercentDeltaAsTotal() const
 {
 	return m_PercentDeltaAsTotal.has_value();
 }
-
 void MetagameUpdate::SetPercentDeltaAsTotal(const bool& Value)
 {
 	m_PercentDeltaAsTotal = Value;
 }
-
 double MetagameUpdate::GetPercentDelta() const
 {
 	return m_PercentDelta.value();
@@ -4825,7 +4504,6 @@ bool MetagameUpdate::HasPercentDelta() const
 {
 	return m_PercentDelta.has_value();
 }
-
 void MetagameUpdate::SetPercentDelta(double Value)
 {
 	m_PercentDelta = Value;
@@ -4834,7 +4512,6 @@ void MetagameUpdate::SetPercentDelta(double Value)
 OrganizationDto::OrganizationDto()
 {
 }
-
 OrganizationDto::~OrganizationDto()
 {
 }
@@ -4842,6 +4519,7 @@ OrganizationDto::~OrganizationDto()
 utility::string_t OrganizationDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -4867,6 +4545,7 @@ utility::string_t OrganizationDto::ToJson() const
 		JsonDoc.AddMember("members", MembersValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -4880,6 +4559,7 @@ void OrganizationDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -4930,6 +4610,7 @@ void OrganizationDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t OrganizationDto::GetId() const
 {
 	return m_Id.value();
@@ -4939,12 +4620,6 @@ bool OrganizationDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void OrganizationDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t OrganizationDto::GetOrganizationOwnerId() const
 {
 	return m_OrganizationOwnerId.value();
@@ -4954,12 +4629,10 @@ bool OrganizationDto::HasOrganizationOwnerId() const
 {
 	return m_OrganizationOwnerId.has_value();
 }
-
 void OrganizationDto::SetOrganizationOwnerId(const utility::string_t& Value)
 {
 	m_OrganizationOwnerId = Value;
 }
-
 utility::string_t OrganizationDto::GetName() const
 {
 	return m_Name.value();
@@ -4969,12 +4642,10 @@ bool OrganizationDto::HasName() const
 {
 	return m_Name.has_value();
 }
-
 void OrganizationDto::SetName(const utility::string_t& Value)
 {
 	m_Name = Value;
 }
-
 const std::vector<std::shared_ptr<OrganizationMember>>& OrganizationDto::GetMembers() const
 {
 	return m_Members.value();
@@ -4985,15 +4656,9 @@ bool OrganizationDto::HasMembers() const
 	return m_Members.has_value();
 }
 
-void OrganizationDto::SetMembers(const std::vector<std::shared_ptr<OrganizationMember>>& Value)
-{
-	m_Members = Value;
-}
-
 OrganizationInviteDto::OrganizationInviteDto()
 {
 }
-
 OrganizationInviteDto::~OrganizationInviteDto()
 {
 }
@@ -5001,6 +4666,7 @@ OrganizationInviteDto::~OrganizationInviteDto()
 utility::string_t OrganizationInviteDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -5044,6 +4710,7 @@ utility::string_t OrganizationInviteDto::ToJson() const
 		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -5057,6 +4724,7 @@ void OrganizationInviteDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -5137,6 +4805,7 @@ void OrganizationInviteDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t OrganizationInviteDto::GetId() const
 {
 	return m_Id.value();
@@ -5146,12 +4815,6 @@ bool OrganizationInviteDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void OrganizationInviteDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t OrganizationInviteDto::GetCreatedBy() const
 {
 	return m_CreatedBy.value();
@@ -5161,12 +4824,6 @@ bool OrganizationInviteDto::HasCreatedBy() const
 {
 	return m_CreatedBy.has_value();
 }
-
-void OrganizationInviteDto::SetCreatedBy(const utility::string_t& Value)
-{
-	m_CreatedBy = Value;
-}
-
 utility::string_t OrganizationInviteDto::GetEmail() const
 {
 	return m_Email.value();
@@ -5176,12 +4833,10 @@ bool OrganizationInviteDto::HasEmail() const
 {
 	return m_Email.has_value();
 }
-
 void OrganizationInviteDto::SetEmail(const utility::string_t& Value)
 {
 	m_Email = Value;
 }
-
 utility::string_t OrganizationInviteDto::GetOrganizationId() const
 {
 	return m_OrganizationId.value();
@@ -5191,12 +4846,6 @@ bool OrganizationInviteDto::HasOrganizationId() const
 {
 	return m_OrganizationId.has_value();
 }
-
-void OrganizationInviteDto::SetOrganizationId(const utility::string_t& Value)
-{
-	m_OrganizationId = Value;
-}
-
 const std::vector<utility::string_t>& OrganizationInviteDto::GetRoles() const
 {
 	return m_Roles.value();
@@ -5206,12 +4855,10 @@ bool OrganizationInviteDto::HasRoles() const
 {
 	return m_Roles.has_value();
 }
-
 void OrganizationInviteDto::SetRoles(const std::vector<utility::string_t>& Value)
 {
 	m_Roles = Value;
 }
-
 utility::string_t OrganizationInviteDto::GetExpiresAt() const
 {
 	return m_ExpiresAt.value();
@@ -5221,12 +4868,6 @@ bool OrganizationInviteDto::HasExpiresAt() const
 {
 	return m_ExpiresAt.has_value();
 }
-
-void OrganizationInviteDto::SetExpiresAt(const utility::string_t& Value)
-{
-	m_ExpiresAt = Value;
-}
-
 utility::string_t OrganizationInviteDto::GetCreatedAt() const
 {
 	return m_CreatedAt.value();
@@ -5237,15 +4878,9 @@ bool OrganizationInviteDto::HasCreatedAt() const
 	return m_CreatedAt.has_value();
 }
 
-void OrganizationInviteDto::SetCreatedAt(const utility::string_t& Value)
-{
-	m_CreatedAt = Value;
-}
-
 OrganizationMember::OrganizationMember()
 {
 }
-
 OrganizationMember::~OrganizationMember()
 {
 }
@@ -5253,6 +4888,7 @@ OrganizationMember::~OrganizationMember()
 utility::string_t OrganizationMember::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_UserId.has_value())
 	{
@@ -5265,6 +4901,7 @@ utility::string_t OrganizationMember::ToJson() const
 		rapidjson::Value RolesValue(TypeToJsonValue(m_Roles, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("roles", RolesValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -5279,6 +4916,7 @@ void OrganizationMember::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("userId"))
 	{
@@ -5301,6 +4939,7 @@ void OrganizationMember::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t OrganizationMember::GetUserId() const
 {
 	return m_UserId.value();
@@ -5310,12 +4949,10 @@ bool OrganizationMember::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
 void OrganizationMember::SetUserId(const utility::string_t& Value)
 {
 	m_UserId = Value;
 }
-
 const std::vector<utility::string_t>& OrganizationMember::GetRoles() const
 {
 	return m_Roles.value();
@@ -5325,7 +4962,6 @@ bool OrganizationMember::HasRoles() const
 {
 	return m_Roles.has_value();
 }
-
 void OrganizationMember::SetRoles(const std::vector<utility::string_t>& Value)
 {
 	m_Roles = Value;
@@ -5334,7 +4970,6 @@ void OrganizationMember::SetRoles(const std::vector<utility::string_t>& Value)
 ProfileDto::ProfileDto()
 {
 }
-
 ProfileDto::~ProfileDto()
 {
 }
@@ -5342,6 +4977,7 @@ ProfileDto::~ProfileDto()
 utility::string_t ProfileDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -5463,6 +5099,7 @@ utility::string_t ProfileDto::ToJson() const
 		JsonDoc.AddMember("locked", LockedValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -5476,6 +5113,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -5686,6 +5324,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t ProfileDto::GetId() const
 {
 	return m_Id.value();
@@ -5695,12 +5334,6 @@ bool ProfileDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void ProfileDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t ProfileDto::GetEmail() const
 {
 	return m_Email.value();
@@ -5710,12 +5343,6 @@ bool ProfileDto::HasEmail() const
 {
 	return m_Email.has_value();
 }
-
-void ProfileDto::SetEmail(const utility::string_t& Value)
-{
-	m_Email = Value;
-}
-
 utility::string_t ProfileDto::GetGuestDeviceId() const
 {
 	return m_GuestDeviceId.value();
@@ -5725,12 +5352,6 @@ bool ProfileDto::HasGuestDeviceId() const
 {
 	return m_GuestDeviceId.has_value();
 }
-
-void ProfileDto::SetGuestDeviceId(const utility::string_t& Value)
-{
-	m_GuestDeviceId = Value;
-}
-
 bool ProfileDto::GetGuestFirstLoginIdentified() const
 {
 	return m_GuestFirstLoginIdentified.value();
@@ -5740,12 +5361,6 @@ bool ProfileDto::HasGuestFirstLoginIdentified() const
 {
 	return m_GuestFirstLoginIdentified.has_value();
 }
-
-void ProfileDto::SetGuestFirstLoginIdentified(const bool& Value)
-{
-	m_GuestFirstLoginIdentified = Value;
-}
-
 utility::string_t ProfileDto::GetLastLoginAt() const
 {
 	return m_LastLoginAt.value();
@@ -5755,12 +5370,6 @@ bool ProfileDto::HasLastLoginAt() const
 {
 	return m_LastLoginAt.has_value();
 }
-
-void ProfileDto::SetLastLoginAt(const utility::string_t& Value)
-{
-	m_LastLoginAt = Value;
-}
-
 utility::string_t ProfileDto::GetLastLoginNonce() const
 {
 	return m_LastLoginNonce.value();
@@ -5770,12 +5379,6 @@ bool ProfileDto::HasLastLoginNonce() const
 {
 	return m_LastLoginNonce.has_value();
 }
-
-void ProfileDto::SetLastLoginNonce(const utility::string_t& Value)
-{
-	m_LastLoginNonce = Value;
-}
-
 utility::string_t ProfileDto::GetLastDeviceId() const
 {
 	return m_LastDeviceId.value();
@@ -5785,12 +5388,6 @@ bool ProfileDto::HasLastDeviceId() const
 {
 	return m_LastDeviceId.has_value();
 }
-
-void ProfileDto::SetLastDeviceId(const utility::string_t& Value)
-{
-	m_LastDeviceId = Value;
-}
-
 utility::string_t ProfileDto::GetLastPlatform() const
 {
 	return m_LastPlatform.value();
@@ -5800,12 +5397,6 @@ bool ProfileDto::HasLastPlatform() const
 {
 	return m_LastPlatform.has_value();
 }
-
-void ProfileDto::SetLastPlatform(const utility::string_t& Value)
-{
-	m_LastPlatform = Value;
-}
-
 utility::string_t ProfileDto::GetAvatarId() const
 {
 	return m_AvatarId.value();
@@ -5815,12 +5406,6 @@ bool ProfileDto::HasAvatarId() const
 {
 	return m_AvatarId.has_value();
 }
-
-void ProfileDto::SetAvatarId(const utility::string_t& Value)
-{
-	m_AvatarId = Value;
-}
-
 utility::string_t ProfileDto::GetUserName() const
 {
 	return m_UserName.value();
@@ -5830,12 +5415,6 @@ bool ProfileDto::HasUserName() const
 {
 	return m_UserName.has_value();
 }
-
-void ProfileDto::SetUserName(const utility::string_t& Value)
-{
-	m_UserName = Value;
-}
-
 utility::string_t ProfileDto::GetFirstName() const
 {
 	return m_FirstName.value();
@@ -5845,12 +5424,6 @@ bool ProfileDto::HasFirstName() const
 {
 	return m_FirstName.has_value();
 }
-
-void ProfileDto::SetFirstName(const utility::string_t& Value)
-{
-	m_FirstName = Value;
-}
-
 utility::string_t ProfileDto::GetDisplayName() const
 {
 	return m_DisplayName.value();
@@ -5860,12 +5433,10 @@ bool ProfileDto::HasDisplayName() const
 {
 	return m_DisplayName.has_value();
 }
-
 void ProfileDto::SetDisplayName(const utility::string_t& Value)
 {
 	m_DisplayName = Value;
 }
-
 bool ProfileDto::GetIsEmailConfirmed() const
 {
 	return m_IsEmailConfirmed.value();
@@ -5875,12 +5446,6 @@ bool ProfileDto::HasIsEmailConfirmed() const
 {
 	return m_IsEmailConfirmed.has_value();
 }
-
-void ProfileDto::SetIsEmailConfirmed(const bool& Value)
-{
-	m_IsEmailConfirmed = Value;
-}
-
 const std::vector<utility::string_t>& ProfileDto::GetRoles() const
 {
 	return m_Roles.value();
@@ -5890,12 +5455,6 @@ bool ProfileDto::HasRoles() const
 {
 	return m_Roles.has_value();
 }
-
-void ProfileDto::SetRoles(const std::vector<utility::string_t>& Value)
-{
-	m_Roles = Value;
-}
-
 bool ProfileDto::GetVerifiedAgeEighteen() const
 {
 	return m_VerifiedAgeEighteen.value();
@@ -5905,12 +5464,10 @@ bool ProfileDto::HasVerifiedAgeEighteen() const
 {
 	return m_VerifiedAgeEighteen.has_value();
 }
-
 void ProfileDto::SetVerifiedAgeEighteen(const bool& Value)
 {
 	m_VerifiedAgeEighteen = Value;
 }
-
 utility::string_t ProfileDto::GetCreatedBy() const
 {
 	return m_CreatedBy.value();
@@ -5920,12 +5477,6 @@ bool ProfileDto::HasCreatedBy() const
 {
 	return m_CreatedBy.has_value();
 }
-
-void ProfileDto::SetCreatedBy(const utility::string_t& Value)
-{
-	m_CreatedBy = Value;
-}
-
 utility::string_t ProfileDto::GetCreatedAt() const
 {
 	return m_CreatedAt.value();
@@ -5935,12 +5486,6 @@ bool ProfileDto::HasCreatedAt() const
 {
 	return m_CreatedAt.has_value();
 }
-
-void ProfileDto::SetCreatedAt(const utility::string_t& Value)
-{
-	m_CreatedAt = Value;
-}
-
 utility::string_t ProfileDto::GetUpdatedBy() const
 {
 	return m_UpdatedBy.value();
@@ -5950,12 +5495,6 @@ bool ProfileDto::HasUpdatedBy() const
 {
 	return m_UpdatedBy.has_value();
 }
-
-void ProfileDto::SetUpdatedBy(const utility::string_t& Value)
-{
-	m_UpdatedBy = Value;
-}
-
 utility::string_t ProfileDto::GetUpdatedAt() const
 {
 	return m_UpdatedAt.value();
@@ -5965,12 +5504,6 @@ bool ProfileDto::HasUpdatedAt() const
 {
 	return m_UpdatedAt.has_value();
 }
-
-void ProfileDto::SetUpdatedAt(const utility::string_t& Value)
-{
-	m_UpdatedAt = Value;
-}
-
 bool ProfileDto::GetLocked() const
 {
 	return m_Locked.value();
@@ -5981,15 +5514,9 @@ bool ProfileDto::HasLocked() const
 	return m_Locked.has_value();
 }
 
-void ProfileDto::SetLocked(const bool& Value)
-{
-	m_Locked = Value;
-}
-
 ProfileDtoDataPage::ProfileDtoDataPage()
 {
 }
-
 ProfileDtoDataPage::~ProfileDtoDataPage()
 {
 }
@@ -5997,6 +5524,7 @@ ProfileDtoDataPage::~ProfileDtoDataPage()
 utility::string_t ProfileDtoDataPage::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Items.has_value())
 	{
@@ -6028,6 +5556,7 @@ utility::string_t ProfileDtoDataPage::ToJson() const
 		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -6041,6 +5570,7 @@ void ProfileDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("items"))
 	{
@@ -6105,6 +5635,7 @@ void ProfileDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<std::shared_ptr<ProfileDto>>& ProfileDtoDataPage::GetItems() const
 {
 	return m_Items.value();
@@ -6114,12 +5645,10 @@ bool ProfileDtoDataPage::HasItems() const
 {
 	return m_Items.has_value();
 }
-
 void ProfileDtoDataPage::SetItems(const std::vector<std::shared_ptr<ProfileDto>>& Value)
 {
 	m_Items = Value;
 }
-
 int32_t ProfileDtoDataPage::GetSkip() const
 {
 	return m_Skip.value();
@@ -6129,12 +5658,10 @@ bool ProfileDtoDataPage::HasSkip() const
 {
 	return m_Skip.has_value();
 }
-
 void ProfileDtoDataPage::SetSkip(int32_t Value)
 {
 	m_Skip = Value;
 }
-
 int32_t ProfileDtoDataPage::GetLimit() const
 {
 	return m_Limit.value();
@@ -6144,12 +5671,10 @@ bool ProfileDtoDataPage::HasLimit() const
 {
 	return m_Limit.has_value();
 }
-
 void ProfileDtoDataPage::SetLimit(int32_t Value)
 {
 	m_Limit = Value;
 }
-
 int32_t ProfileDtoDataPage::GetItemCount() const
 {
 	return m_ItemCount.value();
@@ -6159,12 +5684,10 @@ bool ProfileDtoDataPage::HasItemCount() const
 {
 	return m_ItemCount.has_value();
 }
-
 void ProfileDtoDataPage::SetItemCount(int32_t Value)
 {
 	m_ItemCount = Value;
 }
-
 int64_t ProfileDtoDataPage::GetItemTotalCount() const
 {
 	return m_ItemTotalCount.value();
@@ -6174,7 +5697,6 @@ bool ProfileDtoDataPage::HasItemTotalCount() const
 {
 	return m_ItemTotalCount.has_value();
 }
-
 void ProfileDtoDataPage::SetItemTotalCount(int64_t Value)
 {
 	m_ItemTotalCount = Value;
@@ -6183,7 +5705,6 @@ void ProfileDtoDataPage::SetItemTotalCount(int64_t Value)
 ProfileLiteDto::ProfileLiteDto()
 {
 }
-
 ProfileLiteDto::~ProfileLiteDto()
 {
 }
@@ -6191,6 +5712,7 @@ ProfileLiteDto::~ProfileLiteDto()
 utility::string_t ProfileLiteDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Id.has_value())
 	{
@@ -6222,6 +5744,7 @@ utility::string_t ProfileLiteDto::ToJson() const
 		JsonDoc.AddMember("platform", PlatformValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -6235,6 +5758,7 @@ void ProfileLiteDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("id"))
 	{
@@ -6287,6 +5811,7 @@ void ProfileLiteDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t ProfileLiteDto::GetId() const
 {
 	return m_Id.value();
@@ -6296,12 +5821,6 @@ bool ProfileLiteDto::HasId() const
 {
 	return m_Id.has_value();
 }
-
-void ProfileLiteDto::SetId(const utility::string_t& Value)
-{
-	m_Id = Value;
-}
-
 utility::string_t ProfileLiteDto::GetAvatarId() const
 {
 	return m_AvatarId.value();
@@ -6311,12 +5830,6 @@ bool ProfileLiteDto::HasAvatarId() const
 {
 	return m_AvatarId.has_value();
 }
-
-void ProfileLiteDto::SetAvatarId(const utility::string_t& Value)
-{
-	m_AvatarId = Value;
-}
-
 utility::string_t ProfileLiteDto::GetUserName() const
 {
 	return m_UserName.value();
@@ -6326,12 +5839,6 @@ bool ProfileLiteDto::HasUserName() const
 {
 	return m_UserName.has_value();
 }
-
-void ProfileLiteDto::SetUserName(const utility::string_t& Value)
-{
-	m_UserName = Value;
-}
-
 utility::string_t ProfileLiteDto::GetDisplayName() const
 {
 	return m_DisplayName.value();
@@ -6341,12 +5848,6 @@ bool ProfileLiteDto::HasDisplayName() const
 {
 	return m_DisplayName.has_value();
 }
-
-void ProfileLiteDto::SetDisplayName(const utility::string_t& Value)
-{
-	m_DisplayName = Value;
-}
-
 utility::string_t ProfileLiteDto::GetPlatform() const
 {
 	return m_Platform.value();
@@ -6357,15 +5858,9 @@ bool ProfileLiteDto::HasPlatform() const
 	return m_Platform.has_value();
 }
 
-void ProfileLiteDto::SetPlatform(const utility::string_t& Value)
-{
-	m_Platform = Value;
-}
-
 RefreshRequest::RefreshRequest()
 {
 }
-
 RefreshRequest::~RefreshRequest()
 {
 }
@@ -6373,6 +5868,7 @@ RefreshRequest::~RefreshRequest()
 utility::string_t RefreshRequest::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_UserId.has_value())
 	{
@@ -6392,6 +5888,7 @@ utility::string_t RefreshRequest::ToJson() const
 		JsonDoc.AddMember("deviceId", DeviceIdValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -6405,6 +5902,7 @@ void RefreshRequest::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("userId"))
 	{
@@ -6449,6 +5947,7 @@ void RefreshRequest::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t RefreshRequest::GetUserId() const
 {
 	return m_UserId.value();
@@ -6458,12 +5957,10 @@ bool RefreshRequest::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
 void RefreshRequest::SetUserId(const utility::string_t& Value)
 {
 	m_UserId = Value;
 }
-
 utility::string_t RefreshRequest::GetRefreshToken() const
 {
 	return m_RefreshToken.value();
@@ -6473,12 +5970,10 @@ bool RefreshRequest::HasRefreshToken() const
 {
 	return m_RefreshToken.has_value();
 }
-
 void RefreshRequest::SetRefreshToken(const utility::string_t& Value)
 {
 	m_RefreshToken = Value;
 }
-
 utility::string_t RefreshRequest::GetDeviceId() const
 {
 	return m_DeviceId.value();
@@ -6488,7 +5983,6 @@ bool RefreshRequest::HasDeviceId() const
 {
 	return m_DeviceId.has_value();
 }
-
 void RefreshRequest::SetDeviceId(const utility::string_t& Value)
 {
 	m_DeviceId = Value;
@@ -6497,7 +5991,6 @@ void RefreshRequest::SetDeviceId(const utility::string_t& Value)
 SettingsDto::SettingsDto()
 {
 }
-
 SettingsDto::~SettingsDto()
 {
 }
@@ -6505,6 +5998,7 @@ SettingsDto::~SettingsDto()
 utility::string_t SettingsDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_UserId.has_value())
 	{
@@ -6524,6 +6018,7 @@ utility::string_t SettingsDto::ToJson() const
 		JsonDoc.AddMember("settings", SettingsValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -6537,6 +6032,7 @@ void SettingsDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("userId"))
 	{
@@ -6573,6 +6069,7 @@ void SettingsDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t SettingsDto::GetUserId() const
 {
 	return m_UserId.value();
@@ -6582,12 +6079,6 @@ bool SettingsDto::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
-void SettingsDto::SetUserId(const utility::string_t& Value)
-{
-	m_UserId = Value;
-}
-
 utility::string_t SettingsDto::GetContext() const
 {
 	return m_Context.value();
@@ -6597,12 +6088,6 @@ bool SettingsDto::HasContext() const
 {
 	return m_Context.has_value();
 }
-
-void SettingsDto::SetContext(const utility::string_t& Value)
-{
-	m_Context = Value;
-}
-
 const std::map<utility::string_t, utility::string_t>& SettingsDto::GetSettings() const
 {
 	return m_Settings.value();
@@ -6612,7 +6097,6 @@ bool SettingsDto::HasSettings() const
 {
 	return m_Settings.has_value();
 }
-
 void SettingsDto::SetSettings(const std::map<utility::string_t, utility::string_t>& Value)
 {
 	m_Settings = Value;
@@ -6621,7 +6105,6 @@ void SettingsDto::SetSettings(const std::map<utility::string_t, utility::string_
 SocialProviderInfo::SocialProviderInfo()
 {
 }
-
 SocialProviderInfo::~SocialProviderInfo()
 {
 }
@@ -6629,6 +6112,7 @@ SocialProviderInfo::~SocialProviderInfo()
 utility::string_t SocialProviderInfo::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_ProviderName.has_value())
 	{
@@ -6654,6 +6138,7 @@ utility::string_t SocialProviderInfo::ToJson() const
 		JsonDoc.AddMember("authorizeEndpoint", AuthorizeEndpointValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -6667,6 +6152,7 @@ void SocialProviderInfo::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("providerName"))
 	{
@@ -6709,6 +6195,7 @@ void SocialProviderInfo::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t SocialProviderInfo::GetProviderName() const
 {
 	return m_ProviderName.value();
@@ -6718,12 +6205,10 @@ bool SocialProviderInfo::HasProviderName() const
 {
 	return m_ProviderName.has_value();
 }
-
 void SocialProviderInfo::SetProviderName(const utility::string_t& Value)
 {
 	m_ProviderName = Value;
 }
-
 utility::string_t SocialProviderInfo::GetClientId() const
 {
 	return m_ClientId.value();
@@ -6733,12 +6218,10 @@ bool SocialProviderInfo::HasClientId() const
 {
 	return m_ClientId.has_value();
 }
-
 void SocialProviderInfo::SetClientId(const utility::string_t& Value)
 {
 	m_ClientId = Value;
 }
-
 const std::vector<utility::string_t>& SocialProviderInfo::GetScopes() const
 {
 	return m_Scopes.value();
@@ -6748,12 +6231,10 @@ bool SocialProviderInfo::HasScopes() const
 {
 	return m_Scopes.has_value();
 }
-
 void SocialProviderInfo::SetScopes(const std::vector<utility::string_t>& Value)
 {
 	m_Scopes = Value;
 }
-
 utility::string_t SocialProviderInfo::GetAuthorizeEndpoint() const
 {
 	return m_AuthorizeEndpoint.value();
@@ -6763,7 +6244,6 @@ bool SocialProviderInfo::HasAuthorizeEndpoint() const
 {
 	return m_AuthorizeEndpoint.has_value();
 }
-
 void SocialProviderInfo::SetAuthorizeEndpoint(const utility::string_t& Value)
 {
 	m_AuthorizeEndpoint = Value;
@@ -6772,7 +6252,6 @@ void SocialProviderInfo::SetAuthorizeEndpoint(const utility::string_t& Value)
 StripeCheckoutRequest::StripeCheckoutRequest()
 {
 }
-
 StripeCheckoutRequest::~StripeCheckoutRequest()
 {
 }
@@ -6781,11 +6260,13 @@ utility::string_t StripeCheckoutRequest::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
 
+
 	if (m_LookupKey.has_value())
 	{
 		rapidjson::Value LookupKeyValue(TypeToJsonValue(m_LookupKey, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("lookupKey", LookupKeyValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -6800,6 +6281,7 @@ void StripeCheckoutRequest::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("lookupKey"))
 	{
@@ -6816,6 +6298,7 @@ void StripeCheckoutRequest::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t StripeCheckoutRequest::GetLookupKey() const
 {
 	return m_LookupKey.value();
@@ -6825,7 +6308,6 @@ bool StripeCheckoutRequest::HasLookupKey() const
 {
 	return m_LookupKey.has_value();
 }
-
 void StripeCheckoutRequest::SetLookupKey(const utility::string_t& Value)
 {
 	m_LookupKey = Value;
@@ -6834,7 +6316,6 @@ void StripeCheckoutRequest::SetLookupKey(const utility::string_t& Value)
 StripeCheckoutSessionDto::StripeCheckoutSessionDto()
 {
 }
-
 StripeCheckoutSessionDto::~StripeCheckoutSessionDto()
 {
 }
@@ -6843,11 +6324,13 @@ utility::string_t StripeCheckoutSessionDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
 
+
 	if (m_CheckoutUrl.has_value())
 	{
 		rapidjson::Value CheckoutUrlValue(TypeToJsonValue(m_CheckoutUrl, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("checkoutUrl", CheckoutUrlValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -6863,6 +6346,7 @@ void StripeCheckoutSessionDto::FromJson(const utility::string_t& Val)
 
 	JsonDoc.Parse(Val.c_str());
 
+
 	if (JsonDoc.HasMember("checkoutUrl"))
 	{
 		const rapidjson::Value& CheckoutUrlValue = JsonDoc["checkoutUrl"];
@@ -6874,6 +6358,7 @@ void StripeCheckoutSessionDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t StripeCheckoutSessionDto::GetCheckoutUrl() const
 {
 	return m_CheckoutUrl.value();
@@ -6884,15 +6369,9 @@ bool StripeCheckoutSessionDto::HasCheckoutUrl() const
 	return m_CheckoutUrl.has_value();
 }
 
-void StripeCheckoutSessionDto::SetCheckoutUrl(const utility::string_t& Value)
-{
-	m_CheckoutUrl = Value;
-}
-
 StripeCustomerDto::StripeCustomerDto()
 {
 }
-
 StripeCustomerDto::~StripeCustomerDto()
 {
 }
@@ -6900,6 +6379,7 @@ StripeCustomerDto::~StripeCustomerDto()
 utility::string_t StripeCustomerDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_StripeCustomerId.has_value())
 	{
@@ -6919,6 +6399,7 @@ utility::string_t StripeCustomerDto::ToJson() const
 		JsonDoc.AddMember("customerName", CustomerNameValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -6932,6 +6413,7 @@ void StripeCustomerDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("stripeCustomerId"))
 	{
@@ -6964,6 +6446,7 @@ void StripeCustomerDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t StripeCustomerDto::GetStripeCustomerId() const
 {
 	return m_StripeCustomerId.value();
@@ -6973,12 +6456,6 @@ bool StripeCustomerDto::HasStripeCustomerId() const
 {
 	return m_StripeCustomerId.has_value();
 }
-
-void StripeCustomerDto::SetStripeCustomerId(const utility::string_t& Value)
-{
-	m_StripeCustomerId = Value;
-}
-
 utility::string_t StripeCustomerDto::GetUserId() const
 {
 	return m_UserId.value();
@@ -6988,12 +6465,6 @@ bool StripeCustomerDto::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
-void StripeCustomerDto::SetUserId(const utility::string_t& Value)
-{
-	m_UserId = Value;
-}
-
 utility::string_t StripeCustomerDto::GetCustomerName() const
 {
 	return m_CustomerName.value();
@@ -7004,15 +6475,9 @@ bool StripeCustomerDto::HasCustomerName() const
 	return m_CustomerName.has_value();
 }
 
-void StripeCustomerDto::SetCustomerName(const utility::string_t& Value)
-{
-	m_CustomerName = Value;
-}
-
 StripeCustomerPortalDto::StripeCustomerPortalDto()
 {
 }
-
 StripeCustomerPortalDto::~StripeCustomerPortalDto()
 {
 }
@@ -7021,11 +6486,13 @@ utility::string_t StripeCustomerPortalDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
 
+
 	if (m_CustomerPortalUrl.has_value())
 	{
 		rapidjson::Value CustomerPortalUrlValue(TypeToJsonValue(m_CustomerPortalUrl, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("customerPortalUrl", CustomerPortalUrlValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -7041,6 +6508,7 @@ void StripeCustomerPortalDto::FromJson(const utility::string_t& Val)
 
 	JsonDoc.Parse(Val.c_str());
 
+
 	if (JsonDoc.HasMember("customerPortalUrl"))
 	{
 		const rapidjson::Value& CustomerPortalUrlValue = JsonDoc["customerPortalUrl"];
@@ -7052,6 +6520,7 @@ void StripeCustomerPortalDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t StripeCustomerPortalDto::GetCustomerPortalUrl() const
 {
 	return m_CustomerPortalUrl.value();
@@ -7062,15 +6531,9 @@ bool StripeCustomerPortalDto::HasCustomerPortalUrl() const
 	return m_CustomerPortalUrl.has_value();
 }
 
-void StripeCustomerPortalDto::SetCustomerPortalUrl(const utility::string_t& Value)
-{
-	m_CustomerPortalUrl = Value;
-}
-
 TenantDto::TenantDto()
 {
 }
-
 TenantDto::~TenantDto()
 {
 }
@@ -7078,6 +6541,7 @@ TenantDto::~TenantDto()
 utility::string_t TenantDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_TenantName.has_value())
 	{
@@ -7090,6 +6554,7 @@ utility::string_t TenantDto::ToJson() const
 		rapidjson::Value LockedValue(TypeToJsonValue(m_Locked, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("locked", LockedValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -7104,6 +6569,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("tenantName"))
 	{
@@ -7126,6 +6592,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t TenantDto::GetTenantName() const
 {
 	return m_TenantName.value();
@@ -7135,12 +6602,6 @@ bool TenantDto::HasTenantName() const
 {
 	return m_TenantName.has_value();
 }
-
-void TenantDto::SetTenantName(const utility::string_t& Value)
-{
-	m_TenantName = Value;
-}
-
 bool TenantDto::GetLocked() const
 {
 	return m_Locked.value();
@@ -7150,7 +6611,6 @@ bool TenantDto::HasLocked() const
 {
 	return m_Locked.has_value();
 }
-
 void TenantDto::SetLocked(const bool& Value)
 {
 	m_Locked = Value;
@@ -7159,7 +6619,6 @@ void TenantDto::SetLocked(const bool& Value)
 TokenResetPasswordRequest::TokenResetPasswordRequest()
 {
 }
-
 TokenResetPasswordRequest::~TokenResetPasswordRequest()
 {
 }
@@ -7167,6 +6626,7 @@ TokenResetPasswordRequest::~TokenResetPasswordRequest()
 utility::string_t TokenResetPasswordRequest::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Token.has_value())
 	{
@@ -7179,6 +6639,7 @@ utility::string_t TokenResetPasswordRequest::ToJson() const
 		rapidjson::Value NewPasswordValue(TypeToJsonValue(m_NewPassword, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("newPassword", NewPasswordValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -7193,6 +6654,7 @@ void TokenResetPasswordRequest::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("token"))
 	{
@@ -7223,6 +6685,7 @@ void TokenResetPasswordRequest::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t TokenResetPasswordRequest::GetToken() const
 {
 	return m_Token.value();
@@ -7232,12 +6695,10 @@ bool TokenResetPasswordRequest::HasToken() const
 {
 	return m_Token.has_value();
 }
-
 void TokenResetPasswordRequest::SetToken(const utility::string_t& Value)
 {
 	m_Token = Value;
 }
-
 utility::string_t TokenResetPasswordRequest::GetNewPassword() const
 {
 	return m_NewPassword.value();
@@ -7247,7 +6708,6 @@ bool TokenResetPasswordRequest::HasNewPassword() const
 {
 	return m_NewPassword.has_value();
 }
-
 void TokenResetPasswordRequest::SetNewPassword(const utility::string_t& Value)
 {
 	m_NewPassword = Value;
@@ -7256,7 +6716,6 @@ void TokenResetPasswordRequest::SetNewPassword(const utility::string_t& Value)
 UpgradeGuestRequest::UpgradeGuestRequest()
 {
 }
-
 UpgradeGuestRequest::~UpgradeGuestRequest()
 {
 }
@@ -7264,6 +6723,7 @@ UpgradeGuestRequest::~UpgradeGuestRequest()
 utility::string_t UpgradeGuestRequest::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Email.has_value())
 	{
@@ -7319,6 +6779,7 @@ utility::string_t UpgradeGuestRequest::ToJson() const
 		JsonDoc.AddMember("redirectUrl", RedirectUrlValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -7332,6 +6793,7 @@ void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("email"))
 	{
@@ -7436,6 +6898,7 @@ void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t UpgradeGuestRequest::GetEmail() const
 {
 	return m_Email.value();
@@ -7445,12 +6908,10 @@ bool UpgradeGuestRequest::HasEmail() const
 {
 	return m_Email.has_value();
 }
-
 void UpgradeGuestRequest::SetEmail(const utility::string_t& Value)
 {
 	m_Email = Value;
 }
-
 utility::string_t UpgradeGuestRequest::GetUserName() const
 {
 	return m_UserName.value();
@@ -7460,12 +6921,10 @@ bool UpgradeGuestRequest::HasUserName() const
 {
 	return m_UserName.has_value();
 }
-
 void UpgradeGuestRequest::SetUserName(const utility::string_t& Value)
 {
 	m_UserName = Value;
 }
-
 utility::string_t UpgradeGuestRequest::GetDisplayName() const
 {
 	return m_DisplayName.value();
@@ -7475,12 +6934,10 @@ bool UpgradeGuestRequest::HasDisplayName() const
 {
 	return m_DisplayName.has_value();
 }
-
 void UpgradeGuestRequest::SetDisplayName(const utility::string_t& Value)
 {
 	m_DisplayName = Value;
 }
-
 utility::string_t UpgradeGuestRequest::GetPassword() const
 {
 	return m_Password.value();
@@ -7490,12 +6947,10 @@ bool UpgradeGuestRequest::HasPassword() const
 {
 	return m_Password.has_value();
 }
-
 void UpgradeGuestRequest::SetPassword(const utility::string_t& Value)
 {
 	m_Password = Value;
 }
-
 utility::string_t UpgradeGuestRequest::GetGuestDeviceId() const
 {
 	return m_GuestDeviceId.value();
@@ -7505,12 +6960,10 @@ bool UpgradeGuestRequest::HasGuestDeviceId() const
 {
 	return m_GuestDeviceId.has_value();
 }
-
 void UpgradeGuestRequest::SetGuestDeviceId(const utility::string_t& Value)
 {
 	m_GuestDeviceId = Value;
 }
-
 bool UpgradeGuestRequest::GetSuppressConfirmationEmail() const
 {
 	return m_SuppressConfirmationEmail.value();
@@ -7520,12 +6973,10 @@ bool UpgradeGuestRequest::HasSuppressConfirmationEmail() const
 {
 	return m_SuppressConfirmationEmail.has_value();
 }
-
 void UpgradeGuestRequest::SetSuppressConfirmationEmail(const bool& Value)
 {
 	m_SuppressConfirmationEmail = Value;
 }
-
 bool UpgradeGuestRequest::GetAutoConfirm() const
 {
 	return m_AutoConfirm.value();
@@ -7535,12 +6986,10 @@ bool UpgradeGuestRequest::HasAutoConfirm() const
 {
 	return m_AutoConfirm.has_value();
 }
-
 void UpgradeGuestRequest::SetAutoConfirm(const bool& Value)
 {
 	m_AutoConfirm = Value;
 }
-
 utility::string_t UpgradeGuestRequest::GetInviteToken() const
 {
 	return m_InviteToken.value();
@@ -7550,12 +6999,10 @@ bool UpgradeGuestRequest::HasInviteToken() const
 {
 	return m_InviteToken.has_value();
 }
-
 void UpgradeGuestRequest::SetInviteToken(const utility::string_t& Value)
 {
 	m_InviteToken = Value;
 }
-
 utility::string_t UpgradeGuestRequest::GetRedirectUrl() const
 {
 	return m_RedirectUrl.value();
@@ -7565,7 +7012,6 @@ bool UpgradeGuestRequest::HasRedirectUrl() const
 {
 	return m_RedirectUrl.has_value();
 }
-
 void UpgradeGuestRequest::SetRedirectUrl(const utility::string_t& Value)
 {
 	m_RedirectUrl = Value;
@@ -7574,7 +7020,6 @@ void UpgradeGuestRequest::SetRedirectUrl(const utility::string_t& Value)
 UpgradeGuestSocialRequest::UpgradeGuestSocialRequest()
 {
 }
-
 UpgradeGuestSocialRequest::~UpgradeGuestSocialRequest()
 {
 }
@@ -7582,6 +7027,7 @@ UpgradeGuestSocialRequest::~UpgradeGuestSocialRequest()
 utility::string_t UpgradeGuestSocialRequest::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Provider.has_value())
 	{
@@ -7631,6 +7077,7 @@ utility::string_t UpgradeGuestSocialRequest::ToJson() const
 		JsonDoc.AddMember("oAuthRedirectUri", OAuthRedirectUriValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -7644,6 +7091,7 @@ void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("provider"))
 	{
@@ -7738,6 +7186,7 @@ void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t UpgradeGuestSocialRequest::GetProvider() const
 {
 	return m_Provider.value();
@@ -7747,12 +7196,10 @@ bool UpgradeGuestSocialRequest::HasProvider() const
 {
 	return m_Provider.has_value();
 }
-
 void UpgradeGuestSocialRequest::SetProvider(const utility::string_t& Value)
 {
 	m_Provider = Value;
 }
-
 utility::string_t UpgradeGuestSocialRequest::GetToken() const
 {
 	return m_Token.value();
@@ -7762,12 +7209,10 @@ bool UpgradeGuestSocialRequest::HasToken() const
 {
 	return m_Token.has_value();
 }
-
 void UpgradeGuestSocialRequest::SetToken(const utility::string_t& Value)
 {
 	m_Token = Value;
 }
-
 utility::string_t UpgradeGuestSocialRequest::GetUserName() const
 {
 	return m_UserName.value();
@@ -7777,12 +7222,10 @@ bool UpgradeGuestSocialRequest::HasUserName() const
 {
 	return m_UserName.has_value();
 }
-
 void UpgradeGuestSocialRequest::SetUserName(const utility::string_t& Value)
 {
 	m_UserName = Value;
 }
-
 utility::string_t UpgradeGuestSocialRequest::GetDisplayName() const
 {
 	return m_DisplayName.value();
@@ -7792,12 +7235,10 @@ bool UpgradeGuestSocialRequest::HasDisplayName() const
 {
 	return m_DisplayName.has_value();
 }
-
 void UpgradeGuestSocialRequest::SetDisplayName(const utility::string_t& Value)
 {
 	m_DisplayName = Value;
 }
-
 utility::string_t UpgradeGuestSocialRequest::GetPassword() const
 {
 	return m_Password.value();
@@ -7807,12 +7248,10 @@ bool UpgradeGuestSocialRequest::HasPassword() const
 {
 	return m_Password.has_value();
 }
-
 void UpgradeGuestSocialRequest::SetPassword(const utility::string_t& Value)
 {
 	m_Password = Value;
 }
-
 utility::string_t UpgradeGuestSocialRequest::GetGuestDeviceId() const
 {
 	return m_GuestDeviceId.value();
@@ -7822,12 +7261,10 @@ bool UpgradeGuestSocialRequest::HasGuestDeviceId() const
 {
 	return m_GuestDeviceId.has_value();
 }
-
 void UpgradeGuestSocialRequest::SetGuestDeviceId(const utility::string_t& Value)
 {
 	m_GuestDeviceId = Value;
 }
-
 utility::string_t UpgradeGuestSocialRequest::GetRedirectUrl() const
 {
 	return m_RedirectUrl.value();
@@ -7837,12 +7274,10 @@ bool UpgradeGuestSocialRequest::HasRedirectUrl() const
 {
 	return m_RedirectUrl.has_value();
 }
-
 void UpgradeGuestSocialRequest::SetRedirectUrl(const utility::string_t& Value)
 {
 	m_RedirectUrl = Value;
 }
-
 utility::string_t UpgradeGuestSocialRequest::GetOAuthRedirectUri() const
 {
 	return m_OAuthRedirectUri.value();
@@ -7852,7 +7287,6 @@ bool UpgradeGuestSocialRequest::HasOAuthRedirectUri() const
 {
 	return m_OAuthRedirectUri.has_value();
 }
-
 void UpgradeGuestSocialRequest::SetOAuthRedirectUri(const utility::string_t& Value)
 {
 	m_OAuthRedirectUri = Value;
@@ -7861,7 +7295,6 @@ void UpgradeGuestSocialRequest::SetOAuthRedirectUri(const utility::string_t& Val
 UserRolesDto::UserRolesDto()
 {
 }
-
 UserRolesDto::~UserRolesDto()
 {
 }
@@ -7869,6 +7302,7 @@ UserRolesDto::~UserRolesDto()
 utility::string_t UserRolesDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_UserId.has_value())
 	{
@@ -7881,6 +7315,7 @@ utility::string_t UserRolesDto::ToJson() const
 		rapidjson::Value RolesValue(TypeToJsonValue(m_Roles, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("roles", RolesValue, JsonDoc.GetAllocator());
 	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -7895,6 +7330,7 @@ void UserRolesDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("userId"))
 	{
@@ -7917,6 +7353,7 @@ void UserRolesDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t UserRolesDto::GetUserId() const
 {
 	return m_UserId.value();
@@ -7926,12 +7363,6 @@ bool UserRolesDto::HasUserId() const
 {
 	return m_UserId.has_value();
 }
-
-void UserRolesDto::SetUserId(const utility::string_t& Value)
-{
-	m_UserId = Value;
-}
-
 const std::vector<utility::string_t>& UserRolesDto::GetRoles() const
 {
 	return m_Roles.value();
@@ -7941,10 +7372,10 @@ bool UserRolesDto::HasRoles() const
 {
 	return m_Roles.has_value();
 }
-
 void UserRolesDto::SetRoles(const std::vector<utility::string_t>& Value)
 {
 	m_Roles = Value;
 }
+
 
 } // namespace csp::services::generated::userservice

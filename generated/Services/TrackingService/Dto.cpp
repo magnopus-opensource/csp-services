@@ -8,15 +8,17 @@
 
 #include <optional>
 
+
 using namespace csp::web;
+
 
 namespace csp::services::generated::trackingservice
 {
 
+
 QuotaFeatureActivityDto::QuotaFeatureActivityDto()
 {
 }
-
 QuotaFeatureActivityDto::~QuotaFeatureActivityDto()
 {
 }
@@ -24,6 +26,7 @@ QuotaFeatureActivityDto::~QuotaFeatureActivityDto()
 utility::string_t QuotaFeatureActivityDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_FeatureName.has_value())
 	{
@@ -73,6 +76,7 @@ utility::string_t QuotaFeatureActivityDto::ToJson() const
 		JsonDoc.AddMember("amount", AmountValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -86,6 +90,7 @@ void QuotaFeatureActivityDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("featureName"))
 	{
@@ -176,6 +181,7 @@ void QuotaFeatureActivityDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t QuotaFeatureActivityDto::GetFeatureName() const
 {
 	return m_FeatureName.value();
@@ -185,12 +191,6 @@ bool QuotaFeatureActivityDto::HasFeatureName() const
 {
 	return m_FeatureName.has_value();
 }
-
-void QuotaFeatureActivityDto::SetFeatureName(const utility::string_t& Value)
-{
-	m_FeatureName = Value;
-}
-
 utility::string_t QuotaFeatureActivityDto::GetAppliesToType() const
 {
 	return m_AppliesToType.value();
@@ -200,12 +200,6 @@ bool QuotaFeatureActivityDto::HasAppliesToType() const
 {
 	return m_AppliesToType.has_value();
 }
-
-void QuotaFeatureActivityDto::SetAppliesToType(const utility::string_t& Value)
-{
-	m_AppliesToType = Value;
-}
-
 utility::string_t QuotaFeatureActivityDto::GetAppliesToId() const
 {
 	return m_AppliesToId.value();
@@ -215,12 +209,6 @@ bool QuotaFeatureActivityDto::HasAppliesToId() const
 {
 	return m_AppliesToId.has_value();
 }
-
-void QuotaFeatureActivityDto::SetAppliesToId(const utility::string_t& Value)
-{
-	m_AppliesToId = Value;
-}
-
 utility::string_t QuotaFeatureActivityDto::GetAppliesToQualifierType() const
 {
 	return m_AppliesToQualifierType.value();
@@ -230,12 +218,6 @@ bool QuotaFeatureActivityDto::HasAppliesToQualifierType() const
 {
 	return m_AppliesToQualifierType.has_value();
 }
-
-void QuotaFeatureActivityDto::SetAppliesToQualifierType(const utility::string_t& Value)
-{
-	m_AppliesToQualifierType = Value;
-}
-
 utility::string_t QuotaFeatureActivityDto::GetAppliesToQualifierId() const
 {
 	return m_AppliesToQualifierId.value();
@@ -245,12 +227,6 @@ bool QuotaFeatureActivityDto::HasAppliesToQualifierId() const
 {
 	return m_AppliesToQualifierId.has_value();
 }
-
-void QuotaFeatureActivityDto::SetAppliesToQualifierId(const utility::string_t& Value)
-{
-	m_AppliesToQualifierId = Value;
-}
-
 utility::string_t QuotaFeatureActivityDto::GetCreatedBy() const
 {
 	return m_CreatedBy.value();
@@ -260,12 +236,6 @@ bool QuotaFeatureActivityDto::HasCreatedBy() const
 {
 	return m_CreatedBy.has_value();
 }
-
-void QuotaFeatureActivityDto::SetCreatedBy(const utility::string_t& Value)
-{
-	m_CreatedBy = Value;
-}
-
 utility::string_t QuotaFeatureActivityDto::GetCreatedAt() const
 {
 	return m_CreatedAt.value();
@@ -275,12 +245,6 @@ bool QuotaFeatureActivityDto::HasCreatedAt() const
 {
 	return m_CreatedAt.has_value();
 }
-
-void QuotaFeatureActivityDto::SetCreatedAt(const utility::string_t& Value)
-{
-	m_CreatedAt = Value;
-}
-
 int32_t QuotaFeatureActivityDto::GetAmount() const
 {
 	return m_Amount.value();
@@ -291,15 +255,9 @@ bool QuotaFeatureActivityDto::HasAmount() const
 	return m_Amount.has_value();
 }
 
-void QuotaFeatureActivityDto::SetAmount(int32_t Value)
-{
-	m_Amount = Value;
-}
-
 QuotaFeatureActivityDtoDataPage::QuotaFeatureActivityDtoDataPage()
 {
 }
-
 QuotaFeatureActivityDtoDataPage::~QuotaFeatureActivityDtoDataPage()
 {
 }
@@ -307,6 +265,7 @@ QuotaFeatureActivityDtoDataPage::~QuotaFeatureActivityDtoDataPage()
 utility::string_t QuotaFeatureActivityDtoDataPage::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_Items.has_value())
 	{
@@ -338,6 +297,7 @@ utility::string_t QuotaFeatureActivityDtoDataPage::ToJson() const
 		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -351,6 +311,7 @@ void QuotaFeatureActivityDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("items"))
 	{
@@ -415,6 +376,7 @@ void QuotaFeatureActivityDtoDataPage::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 const std::vector<std::shared_ptr<QuotaFeatureActivityDto>>& QuotaFeatureActivityDtoDataPage::GetItems() const
 {
 	return m_Items.value();
@@ -424,12 +386,10 @@ bool QuotaFeatureActivityDtoDataPage::HasItems() const
 {
 	return m_Items.has_value();
 }
-
 void QuotaFeatureActivityDtoDataPage::SetItems(const std::vector<std::shared_ptr<QuotaFeatureActivityDto>>& Value)
 {
 	m_Items = Value;
 }
-
 int32_t QuotaFeatureActivityDtoDataPage::GetSkip() const
 {
 	return m_Skip.value();
@@ -439,12 +399,10 @@ bool QuotaFeatureActivityDtoDataPage::HasSkip() const
 {
 	return m_Skip.has_value();
 }
-
 void QuotaFeatureActivityDtoDataPage::SetSkip(int32_t Value)
 {
 	m_Skip = Value;
 }
-
 int32_t QuotaFeatureActivityDtoDataPage::GetLimit() const
 {
 	return m_Limit.value();
@@ -454,12 +412,10 @@ bool QuotaFeatureActivityDtoDataPage::HasLimit() const
 {
 	return m_Limit.has_value();
 }
-
 void QuotaFeatureActivityDtoDataPage::SetLimit(int32_t Value)
 {
 	m_Limit = Value;
 }
-
 int32_t QuotaFeatureActivityDtoDataPage::GetItemCount() const
 {
 	return m_ItemCount.value();
@@ -469,12 +425,10 @@ bool QuotaFeatureActivityDtoDataPage::HasItemCount() const
 {
 	return m_ItemCount.has_value();
 }
-
 void QuotaFeatureActivityDtoDataPage::SetItemCount(int32_t Value)
 {
 	m_ItemCount = Value;
 }
-
 int64_t QuotaFeatureActivityDtoDataPage::GetItemTotalCount() const
 {
 	return m_ItemTotalCount.value();
@@ -484,7 +438,6 @@ bool QuotaFeatureActivityDtoDataPage::HasItemTotalCount() const
 {
 	return m_ItemTotalCount.has_value();
 }
-
 void QuotaFeatureActivityDtoDataPage::SetItemTotalCount(int64_t Value)
 {
 	m_ItemTotalCount = Value;
@@ -493,7 +446,6 @@ void QuotaFeatureActivityDtoDataPage::SetItemTotalCount(int64_t Value)
 QuotaFeatureLimitProgressDto::QuotaFeatureLimitProgressDto()
 {
 }
-
 QuotaFeatureLimitProgressDto::~QuotaFeatureLimitProgressDto()
 {
 }
@@ -501,6 +453,7 @@ QuotaFeatureLimitProgressDto::~QuotaFeatureLimitProgressDto()
 utility::string_t QuotaFeatureLimitProgressDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_FeatureName.has_value())
 	{
@@ -520,6 +473,7 @@ utility::string_t QuotaFeatureLimitProgressDto::ToJson() const
 		JsonDoc.AddMember("limit", LimitValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -533,6 +487,7 @@ void QuotaFeatureLimitProgressDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("featureName"))
 	{
@@ -565,6 +520,7 @@ void QuotaFeatureLimitProgressDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t QuotaFeatureLimitProgressDto::GetFeatureName() const
 {
 	return m_FeatureName.value();
@@ -574,12 +530,6 @@ bool QuotaFeatureLimitProgressDto::HasFeatureName() const
 {
 	return m_FeatureName.has_value();
 }
-
-void QuotaFeatureLimitProgressDto::SetFeatureName(const utility::string_t& Value)
-{
-	m_FeatureName = Value;
-}
-
 int32_t QuotaFeatureLimitProgressDto::GetActivityCount() const
 {
 	return m_ActivityCount.value();
@@ -589,12 +539,6 @@ bool QuotaFeatureLimitProgressDto::HasActivityCount() const
 {
 	return m_ActivityCount.has_value();
 }
-
-void QuotaFeatureLimitProgressDto::SetActivityCount(int32_t Value)
-{
-	m_ActivityCount = Value;
-}
-
 int32_t QuotaFeatureLimitProgressDto::GetLimit() const
 {
 	return m_Limit.value();
@@ -605,15 +549,9 @@ bool QuotaFeatureLimitProgressDto::HasLimit() const
 	return m_Limit.has_value();
 }
 
-void QuotaFeatureLimitProgressDto::SetLimit(int32_t Value)
-{
-	m_Limit = Value;
-}
-
 QuotaFeatureTierDto::QuotaFeatureTierDto()
 {
 }
-
 QuotaFeatureTierDto::~QuotaFeatureTierDto()
 {
 }
@@ -621,6 +559,7 @@ QuotaFeatureTierDto::~QuotaFeatureTierDto()
 utility::string_t QuotaFeatureTierDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_FeatureName.has_value())
 	{
@@ -652,6 +591,7 @@ utility::string_t QuotaFeatureTierDto::ToJson() const
 		JsonDoc.AddMember("allowReductions", AllowReductionsValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -665,6 +605,7 @@ void QuotaFeatureTierDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("featureName"))
 	{
@@ -725,6 +666,7 @@ void QuotaFeatureTierDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t QuotaFeatureTierDto::GetFeatureName() const
 {
 	return m_FeatureName.value();
@@ -734,12 +676,6 @@ bool QuotaFeatureTierDto::HasFeatureName() const
 {
 	return m_FeatureName.has_value();
 }
-
-void QuotaFeatureTierDto::SetFeatureName(const utility::string_t& Value)
-{
-	m_FeatureName = Value;
-}
-
 utility::string_t QuotaFeatureTierDto::GetTierName() const
 {
 	return m_TierName.value();
@@ -749,12 +685,6 @@ bool QuotaFeatureTierDto::HasTierName() const
 {
 	return m_TierName.has_value();
 }
-
-void QuotaFeatureTierDto::SetTierName(const utility::string_t& Value)
-{
-	m_TierName = Value;
-}
-
 int32_t QuotaFeatureTierDto::GetLimit() const
 {
 	return m_Limit.value();
@@ -764,12 +694,10 @@ bool QuotaFeatureTierDto::HasLimit() const
 {
 	return m_Limit.has_value();
 }
-
 void QuotaFeatureTierDto::SetLimit(int32_t Value)
 {
 	m_Limit = Value;
 }
-
 std::shared_ptr<QuotaSumByPeriodDto> QuotaFeatureTierDto::GetPeriod() const
 {
 	return m_Period.value();
@@ -779,12 +707,10 @@ bool QuotaFeatureTierDto::HasPeriod() const
 {
 	return m_Period.has_value();
 }
-
 void QuotaFeatureTierDto::SetPeriod(const std::shared_ptr<QuotaSumByPeriodDto>& Value)
 {
 	m_Period = Value;
 }
-
 bool QuotaFeatureTierDto::GetAllowReductions() const
 {
 	return m_AllowReductions.value();
@@ -794,7 +720,6 @@ bool QuotaFeatureTierDto::HasAllowReductions() const
 {
 	return m_AllowReductions.has_value();
 }
-
 void QuotaFeatureTierDto::SetAllowReductions(const bool& Value)
 {
 	m_AllowReductions = Value;
@@ -803,7 +728,6 @@ void QuotaFeatureTierDto::SetAllowReductions(const bool& Value)
 QuotaSumByPeriodDto::QuotaSumByPeriodDto()
 {
 }
-
 QuotaSumByPeriodDto::~QuotaSumByPeriodDto()
 {
 }
@@ -853,7 +777,6 @@ void QuotaSumByPeriodDto::SetValue(QuotaSumByPeriodDto::eQuotaSumByPeriodDto con
 QuotaTierAssignmentDto::QuotaTierAssignmentDto()
 {
 }
-
 QuotaTierAssignmentDto::~QuotaTierAssignmentDto()
 {
 }
@@ -861,6 +784,7 @@ QuotaTierAssignmentDto::~QuotaTierAssignmentDto()
 utility::string_t QuotaTierAssignmentDto::ToJson() const
 {
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
 
 	if (m_AssignedToType.has_value())
 	{
@@ -892,6 +816,7 @@ utility::string_t QuotaTierAssignmentDto::ToJson() const
 		JsonDoc.AddMember("expiresAt", ExpiresAtValue, JsonDoc.GetAllocator());
 	}
 
+
 	return JsonDocToString(JsonDoc);
 }
 
@@ -905,6 +830,7 @@ void QuotaTierAssignmentDto::FromJson(const utility::string_t& Val)
 	}
 
 	JsonDoc.Parse(Val.c_str());
+
 
 	if (JsonDoc.HasMember("assignedToType"))
 	{
@@ -965,6 +891,7 @@ void QuotaTierAssignmentDto::FromJson(const utility::string_t& Val)
 	}
 }
 
+
 utility::string_t QuotaTierAssignmentDto::GetAssignedToType() const
 {
 	return m_AssignedToType.value();
@@ -974,12 +901,6 @@ bool QuotaTierAssignmentDto::HasAssignedToType() const
 {
 	return m_AssignedToType.has_value();
 }
-
-void QuotaTierAssignmentDto::SetAssignedToType(const utility::string_t& Value)
-{
-	m_AssignedToType = Value;
-}
-
 utility::string_t QuotaTierAssignmentDto::GetAssignedToId() const
 {
 	return m_AssignedToId.value();
@@ -989,12 +910,6 @@ bool QuotaTierAssignmentDto::HasAssignedToId() const
 {
 	return m_AssignedToId.has_value();
 }
-
-void QuotaTierAssignmentDto::SetAssignedToId(const utility::string_t& Value)
-{
-	m_AssignedToId = Value;
-}
-
 utility::string_t QuotaTierAssignmentDto::GetTierName() const
 {
 	return m_TierName.value();
@@ -1004,12 +919,10 @@ bool QuotaTierAssignmentDto::HasTierName() const
 {
 	return m_TierName.has_value();
 }
-
 void QuotaTierAssignmentDto::SetTierName(const utility::string_t& Value)
 {
 	m_TierName = Value;
 }
-
 utility::string_t QuotaTierAssignmentDto::GetTenantName() const
 {
 	return m_TenantName.value();
@@ -1019,12 +932,10 @@ bool QuotaTierAssignmentDto::HasTenantName() const
 {
 	return m_TenantName.has_value();
 }
-
 void QuotaTierAssignmentDto::SetTenantName(const utility::string_t& Value)
 {
 	m_TenantName = Value;
 }
-
 utility::string_t QuotaTierAssignmentDto::GetExpiresAt() const
 {
 	return m_ExpiresAt.value();
@@ -1034,10 +945,10 @@ bool QuotaTierAssignmentDto::HasExpiresAt() const
 {
 	return m_ExpiresAt.has_value();
 }
-
 void QuotaTierAssignmentDto::SetExpiresAt(const utility::string_t& Value)
 {
 	m_ExpiresAt = Value;
 }
+
 
 } // namespace csp::services::generated::trackingservice

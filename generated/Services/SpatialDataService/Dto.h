@@ -6,6 +6,7 @@
 
 #include <optional>
 
+
 namespace csp::services::generated::spatialdataservice
 {
 
@@ -55,6 +56,8 @@ class Style;
 class Transform;
 class Translation;
 
+
+
 /// <summary>
 /// An enum describing the different altitudes a line can inhabit
 /// </summary>
@@ -96,6 +99,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifier for an anchor
 	/// </summary>
@@ -107,7 +111,6 @@ public:
 	/// Unique auto generated bson identifier for an anchor
 	/// </summary>
 	utility::string_t GetMgsId() const;
-	void SetMgsId(const utility::string_t& Value);
 	bool HasMgsId() const;
 
 	/// <summary>
@@ -175,15 +178,14 @@ public:
 	/// Anchor Hosting Timestamp
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
 
 	/// <summary>
 	/// Anchor Hosting User
 	/// </summary>
 	utility::string_t GetCreatedBy() const;
-	void SetCreatedBy(const utility::string_t& Value);
 	bool HasCreatedBy() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -211,6 +213,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<std::shared_ptr<AnchorDto>>& GetItems() const;
 	void SetItems(const std::vector<std::shared_ptr<AnchorDto>>& Value);
 	bool HasItems() const;
@@ -231,6 +234,7 @@ public:
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
 
+
 protected:
 	std::optional<std::vector<std::shared_ptr<AnchorDto>>> m_Items;
 	std::optional<int32_t> m_Skip;
@@ -250,6 +254,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// X value of the position vector
@@ -272,6 +277,7 @@ public:
 	void SetZ(double Value);
 	bool HasZ() const;
 
+
 protected:
 	std::optional<double> m_X;
 	std::optional<double> m_Y;
@@ -290,11 +296,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The unique identifier for this instance
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
@@ -332,6 +338,7 @@ public:
 	void SetTags(const std::vector<utility::string_t>& Value);
 	bool HasTags() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Id;
 	std::optional<utility::string_t> m_AnchorId;
@@ -349,6 +356,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	const std::vector<std::shared_ptr<AnchorResolutionDto>>& GetItems() const;
 	void SetItems(const std::vector<std::shared_ptr<AnchorResolutionDto>>& Value);
@@ -370,6 +378,7 @@ public:
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
 
+
 protected:
 	std::optional<std::vector<std::shared_ptr<AnchorResolutionDto>>> m_Items;
 	std::optional<int32_t> m_Skip;
@@ -389,6 +398,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// X value of the Quaternion
@@ -418,6 +428,7 @@ public:
 	void SetW(double Value);
 	bool HasW() const;
 
+
 protected:
 	std::optional<double> m_X;
 	std::optional<double> m_Y;
@@ -437,6 +448,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifier of anchor
 	/// </summary>
@@ -448,22 +460,20 @@ public:
 	/// Resolve time of anchor over time in seconds
 	/// </summary>
 	double GetAverageResolveTime() const;
-	void SetAverageResolveTime(double Value);
 	bool HasAverageResolveTime() const;
 
 	/// <summary>
 	/// Successfully resolved average of anchor over time
 	/// </summary>
 	double GetAverageSuccessfullyResolved() const;
-	void SetAverageSuccessfullyResolved(double Value);
 	bool HasAverageSuccessfullyResolved() const;
 
 	/// <summary>
 	/// Resolve attempted average of anchor over time
 	/// </summary>
 	double GetAverageResolveAttempted() const;
-	void SetAverageResolveAttempted(double Value);
 	bool HasAverageResolveAttempted() const;
+
 
 protected:
 	std::optional<utility::string_t> m_AnchorId;
@@ -484,6 +494,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The start time of the event
 	/// </summary>
@@ -497,6 +508,7 @@ public:
 	utility::string_t GetEventEnd() const;
 	void SetEventEnd(const utility::string_t& Value);
 	bool HasEventEnd() const;
+
 
 protected:
 	std::optional<utility::string_t> m_EventStart;
@@ -512,9 +524,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<std::shared_ptr<CalendarItemDto>>& GetValue() const;
 	void SetValue(const std::vector<std::shared_ptr<CalendarItemDto>>& Value);
 	bool HasValue() const;
+
 
 protected:
 	std::optional<std::vector<std::shared_ptr<CalendarItemDto>>> m_Value;
@@ -532,6 +546,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Longitude of the coordinate
 	/// </summary>
@@ -545,6 +560,7 @@ public:
 	double GetLatitude() const;
 	void SetLatitude(double Value);
 	bool HasLatitude() const;
+
 
 protected:
 	std::optional<double> m_Longitude;
@@ -560,9 +576,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<std::shared_ptr<GeoCoord>>& GetValue() const;
 	void SetValue(const std::vector<std::shared_ptr<GeoCoord>>& Value);
 	bool HasValue() const;
+
 
 protected:
 	std::optional<std::vector<std::shared_ptr<GeoCoord>>> m_Value;
@@ -577,9 +595,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	std::shared_ptr<GeoCoord> GetValue() const;
 	void SetValue(const std::shared_ptr<GeoCoord>& Value);
 	bool HasValue() const;
+
 
 protected:
 	std::optional<std::shared_ptr<GeoCoord>> m_Value;
@@ -597,12 +617,14 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The url for the pin style for google earth
 	/// </summary>
 	utility::string_t GetHref() const;
 	void SetHref(const utility::string_t& Value);
 	bool HasHref() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Href;
@@ -619,6 +641,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The name of the icon style
@@ -655,6 +678,7 @@ public:
 	void SetIcon(const std::shared_ptr<Icon>& Value);
 	bool HasIcon() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Id;
 	std::optional<utility::string_t> m_Color;
@@ -675,9 +699,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	std::shared_ptr<PositionKml> GetDocument() const;
 	void SetDocument(const std::shared_ptr<PositionKml>& Value);
 	bool HasDocument() const;
+
 
 protected:
 	std::optional<std::shared_ptr<PositionKml>> m_Document;
@@ -694,6 +720,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// Extrude the line to the ground
@@ -720,6 +747,7 @@ public:
 	void SetCoordinates(const utility::string_t& Value);
 	bool HasCoordinates() const;
 
+
 protected:
 	std::optional<bool> m_Extrude;
 	std::optional<bool> m_Tessellate;
@@ -736,6 +764,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	utility::string_t GetLanguageCode() const;
 	void SetLanguageCode(const utility::string_t& Value);
 	bool HasLanguageCode() const;
@@ -743,6 +772,7 @@ public:
 	utility::string_t GetValue() const;
 	void SetValue(const utility::string_t& Value);
 	bool HasValue() const;
+
 
 protected:
 	std::optional<utility::string_t> m_LanguageCode;
@@ -760,6 +790,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The Longitude
@@ -802,6 +833,7 @@ public:
 	double GetHeading() const;
 	void SetHeading(double Value);
 	bool HasHeading() const;
+
 
 protected:
 	std::optional<double> m_Longitude;
@@ -862,6 +894,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// the value of the Id attribute
 	/// </summary>
@@ -889,6 +922,7 @@ public:
 	void SetLink(const std::shared_ptr<ModelLink>& Value);
 	bool HasLink() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Id;
 	std::optional<std::shared_ptr<AltitudeMode>> m_AltitudeMode;
@@ -910,12 +944,14 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The location of the 3d object
 	/// </summary>
 	utility::string_t GetHref() const;
 	void SetHref(const utility::string_t& Value);
 	bool HasHref() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Href;
@@ -932,6 +968,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The Longitude of the 3d object
@@ -954,6 +991,7 @@ public:
 	void SetAltitude(int32_t Value);
 	bool HasAltitude() const;
 
+
 protected:
 	std::optional<double> m_Longitude;
 	std::optional<double> m_Latitude;
@@ -971,6 +1009,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The heading for the orientation of the object
@@ -993,6 +1032,7 @@ public:
 	void SetRoll(int32_t Value);
 	bool HasRoll() const;
 
+
 protected:
 	std::optional<float> m_Heading;
 	std::optional<float> m_Tilt;
@@ -1010,6 +1050,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The X scale
@@ -1032,6 +1073,7 @@ public:
 	void SetZ(int32_t Value);
 	bool HasZ() const;
 
+
 protected:
 	std::optional<int32_t> m_X;
 	std::optional<int32_t> m_Y;
@@ -1050,19 +1092,19 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifier for the user
 	/// </summary>
 	utility::string_t GetUserId() const;
-	void SetUserId(const utility::string_t& Value);
 	bool HasUserId() const;
 
 	/// <summary>
 	/// Unique identifier for the associated POI
 	/// </summary>
 	utility::string_t GetPoiId() const;
-	void SetPoiId(const utility::string_t& Value);
 	bool HasPoiId() const;
+
 
 protected:
 	std::optional<utility::string_t> m_UserId;
@@ -1080,6 +1122,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// the value of the Id attribute
@@ -1128,6 +1171,7 @@ public:
 	void SetLookAt(const std::shared_ptr<LookAt>& Value);
 	bool HasLookAt() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Id;
 	std::optional<utility::string_t> m_Name;
@@ -1151,6 +1195,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	std::shared_ptr<GeoCoordPartialUpdate> GetLocation() const;
 	void SetLocation(const std::shared_ptr<GeoCoordPartialUpdate>& Value);
 	bool HasLocation() const;
@@ -1162,6 +1207,7 @@ public:
 	std::shared_ptr<CalendarItemDtoArrayPartialUpdate> GetScheduledEvents() const;
 	void SetScheduledEvents(const std::shared_ptr<CalendarItemDtoArrayPartialUpdate>& Value);
 	bool HasScheduledEvents() const;
+
 
 protected:
 	std::optional<std::shared_ptr<GeoCoordPartialUpdate>> m_Location;
@@ -1181,6 +1227,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Tessellate breaks the line up into smaller chunks
 	/// </summary>
@@ -1198,6 +1245,7 @@ public:
 	utility::string_t GetCoordinates() const;
 	void SetCoordinates(const utility::string_t& Value);
 	bool HasCoordinates() const;
+
 
 protected:
 	std::optional<bool> m_Tessellate;
@@ -1217,39 +1265,35 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifier for an POI
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// User id that created to the POI
 	/// </summary>
 	utility::string_t GetCreatedBy() const;
-	void SetCreatedBy(const utility::string_t& Value);
 	bool HasCreatedBy() const;
 
 	/// <summary>
 	/// User id most that most recently updated the POI
 	/// </summary>
 	utility::string_t GetUpdatedBy() const;
-	void SetUpdatedBy(const utility::string_t& Value);
 	bool HasUpdatedBy() const;
 
 	/// <summary>
 	/// DateTime at which the POI was created
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
 
 	/// <summary>
 	/// DateTime of the POI's most recent update
 	/// </summary>
 	utility::string_t GetUpdatedAt() const;
-	void SetUpdatedAt(const utility::string_t& Value);
 	bool HasUpdatedAt() const;
 
 	/// <summary>
@@ -1337,7 +1381,6 @@ public:
 	/// Calendar list of start and end times auto generated by events for the POI
 	/// </summary>
 	const std::vector<std::shared_ptr<CalendarItemDto>>& GetGeneratedSchedule() const;
-	void SetGeneratedSchedule(const std::vector<std::shared_ptr<CalendarItemDto>>& Value);
 	bool HasGeneratedSchedule() const;
 
 	/// <summary>
@@ -1400,7 +1443,9 @@ public:
 	/// <summary>
 	/// Prototype that is referenced by the POI to be used by clients for instantiation of objects
 	/// </summary>
+	[[deprecated("'prototypeName' has been deprecated!")]]
 	utility::string_t GetPrototypeName() const;
+	[[deprecated("'prototypeName' has been deprecated!")]]
 	void SetPrototypeName(const utility::string_t& Value);
 	bool HasPrototypeName() const;
 
@@ -1428,6 +1473,7 @@ public:
 	std::shared_ptr<Transform> GetPrototypeTransform() const;
 	void SetPrototypeTransform(const std::shared_ptr<Transform>& Value);
 	bool HasPrototypeTransform() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -1472,6 +1518,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<std::shared_ptr<PointOfInterestDto>>& GetItems() const;
 	void SetItems(const std::vector<std::shared_ptr<PointOfInterestDto>>& Value);
 	bool HasItems() const;
@@ -1491,6 +1538,7 @@ public:
 	int64_t GetItemTotalCount() const;
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
+
 
 protected:
 	std::optional<std::vector<std::shared_ptr<PointOfInterestDto>>> m_Items;
@@ -1512,11 +1560,11 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifier for an POI
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
@@ -1597,7 +1645,9 @@ public:
 	/// <summary>
 	/// Prototype that is referenced by the POI to be used by clients for instantiation of objects
 	/// </summary>
+	[[deprecated("'prototypeName' has been deprecated!")]]
 	utility::string_t GetPrototypeName() const;
+	[[deprecated("'prototypeName' has been deprecated!")]]
 	void SetPrototypeName(const utility::string_t& Value);
 	bool HasPrototypeName() const;
 
@@ -1614,6 +1664,7 @@ public:
 	float GetOrientation() const;
 	void SetOrientation(float Value);
 	bool HasOrientation() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -1642,6 +1693,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<std::shared_ptr<PointOfInterestLiteDto>>& GetItems() const;
 	void SetItems(const std::vector<std::shared_ptr<PointOfInterestLiteDto>>& Value);
 	bool HasItems() const;
@@ -1661,6 +1713,7 @@ public:
 	int64_t GetItemTotalCount() const;
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
+
 
 protected:
 	std::optional<std::vector<std::shared_ptr<PointOfInterestLiteDto>>> m_Items;
@@ -1682,18 +1735,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The unique identifier for the position update for this user
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// The user unique id associated with the position
 	/// </summary>
 	utility::string_t GetUserId() const;
-	void SetUserId(const utility::string_t& Value);
 	bool HasUserId() const;
 
 	std::shared_ptr<GeoCoord> GetPosition() const;
@@ -1719,14 +1771,12 @@ public:
 	/// The date and time this position was reported
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
 
 	/// <summary>
 	/// The radius for the next geofence search upon after a user position has been created
 	/// </summary>
 	double GetGeofenceSearchRadius() const;
-	void SetGeofenceSearchRadius(double Value);
 	bool HasGeofenceSearchRadius() const;
 
 	/// <summary>
@@ -1735,6 +1785,7 @@ public:
 	bool GetSpectator() const;
 	void SetSpectator(const bool& Value);
 	bool HasSpectator() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -1756,6 +1807,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<std::shared_ptr<PositionDto>>& GetItems() const;
 	void SetItems(const std::vector<std::shared_ptr<PositionDto>>& Value);
 	bool HasItems() const;
@@ -1776,6 +1828,7 @@ public:
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
 
+
 protected:
 	std::optional<std::vector<std::shared_ptr<PositionDto>>> m_Items;
 	std::optional<int32_t> m_Skip;
@@ -1795,6 +1848,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The name of the kml structure
@@ -1832,6 +1886,7 @@ public:
 	void SetPlacemark(const std::vector<std::shared_ptr<Placemark>>& Value);
 	bool HasPlacemark() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Name;
 	std::optional<std::vector<std::shared_ptr<Style>>> m_Style;
@@ -1851,6 +1906,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// X component of the Quaternion
@@ -1880,6 +1936,7 @@ public:
 	void SetW(float Value);
 	bool HasW() const;
 
+
 protected:
 	std::optional<float> m_X;
 	std::optional<float> m_Y;
@@ -1898,6 +1955,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The X coordinate
@@ -1920,6 +1978,7 @@ public:
 	void SetZ(float Value);
 	bool HasZ() const;
 
+
 protected:
 	std::optional<float> m_X;
 	std::optional<float> m_Y;
@@ -1938,18 +1997,17 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// Unique identifier for a SpaceTime event
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
 	/// DateTime at which the SpaceTime event was created
 	/// </summary>
 	utility::string_t GetCreatedAt() const;
-	void SetCreatedAt(const utility::string_t& Value);
 	bool HasCreatedAt() const;
 
 	std::shared_ptr<SpaceTimeType> GetSpaceTimeType() const;
@@ -1967,7 +2025,6 @@ public:
 	/// UserId associated with this SpaceTime event
 	/// </summary>
 	utility::string_t GetUserId() const;
-	void SetUserId(const utility::string_t& Value);
 	bool HasUserId() const;
 
 	std::shared_ptr<GeoCoord> GetLocation() const;
@@ -1996,6 +2053,7 @@ public:
 	void SetPrototypeId(const utility::string_t& Value);
 	bool HasPrototypeId() const;
 
+
 protected:
 	std::optional<utility::string_t> m_Id;
 	std::optional<utility::string_t> m_CreatedAt;
@@ -2017,6 +2075,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<std::shared_ptr<SpaceTimeDto>>& GetItems() const;
 	void SetItems(const std::vector<std::shared_ptr<SpaceTimeDto>>& Value);
 	bool HasItems() const;
@@ -2036,6 +2095,7 @@ public:
 	int64_t GetItemTotalCount() const;
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
+
 
 protected:
 	std::optional<std::vector<std::shared_ptr<SpaceTimeDto>>> m_Items;
@@ -2080,6 +2140,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	const std::vector<utility::string_t>& GetItems() const;
 	void SetItems(const std::vector<utility::string_t>& Value);
 	bool HasItems() const;
@@ -2099,6 +2160,7 @@ public:
 	int64_t GetItemTotalCount() const;
 	void SetItemTotalCount(int64_t Value);
 	bool HasItemTotalCount() const;
+
 
 protected:
 	std::optional<std::vector<utility::string_t>> m_Items;
@@ -2120,6 +2182,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	/// <summary>
 	/// The name of the style, to be referenced in the placemark
 	/// </summary>
@@ -2130,6 +2193,7 @@ public:
 	std::shared_ptr<IconStyle> GetIconStyle() const;
 	void SetIconStyle(const std::shared_ptr<IconStyle>& Value);
 	bool HasIconStyle() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Id;
@@ -2151,6 +2215,7 @@ public:
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
 
+
 	std::shared_ptr<Scale> GetScale() const;
 	void SetScale(const std::shared_ptr<Scale>& Value);
 	bool HasScale() const;
@@ -2162,6 +2227,7 @@ public:
 	std::shared_ptr<Rotation> GetRotation() const;
 	void SetRotation(const std::shared_ptr<Rotation>& Value);
 	bool HasRotation() const;
+
 
 protected:
 	std::optional<std::shared_ptr<Scale>> m_Scale;
@@ -2180,6 +2246,7 @@ public:
 
 	utility::string_t ToJson() const override;
 	void FromJson(const utility::string_t& Json) override;
+
 
 	/// <summary>
 	/// The X coordinate for the triple vector
@@ -2202,10 +2269,12 @@ public:
 	void SetZ(float Value);
 	bool HasZ() const;
 
+
 protected:
 	std::optional<float> m_X;
 	std::optional<float> m_Y;
 	std::optional<float> m_Z;
 };
+
 
 } // namespace csp::services::generated::spatialdataservice
