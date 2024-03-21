@@ -120,16 +120,18 @@ namespace csp::services::generated::{{ service_name | lower }}
                 return m_{{ property_name | pascalcase }}.has_value();
             }
 
-            {% if property.type == 'integer' or property.type == 'number' -%}
-                void {{ schema_name }}::Set{{ property_name | pascalcase }}({{ print_type(property) }} Value)
-            {% else -%}
-                void {{ schema_name }}::Set{{ property_name | pascalcase }}(
-                    const {{ print_type(property) }}& Value
-                )
-            {% endif -%}
-                {
-                    m_{{ property_name | pascalcase }} = Value;
-                }
+            {%- if not property.readOnly -%}
+                {% if property.type == 'integer' or property.type == 'number' -%}
+                    void {{ schema_name }}::Set{{ property_name | pascalcase }}({{ print_type(property) }} Value)
+                {% else -%}
+                    void {{ schema_name }}::Set{{ property_name | pascalcase }}(
+                        const {{ print_type(property) }}& Value
+                    )
+                {% endif -%}
+                    {
+                        m_{{ property_name | pascalcase }} = Value;
+                    }
+            {%- endif -%}
                 
         {% endfor %}
     {%- endif %}

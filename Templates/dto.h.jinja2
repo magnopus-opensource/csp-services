@@ -63,16 +63,24 @@ namespace csp::services::generated::{{ service_name | lower }}
                     {% endfor -%}
                     /// </summary>
                 {% endif -%}
+                {% if property.deprecated -%}
+                    [[deprecated("'{{ property_name }}' has been deprecated!")]]
+                {% endif -%}
                 {% if property.type == 'array' or property.type == 'object' -%}
                     const {{ print_type(property) }}& Get{{ property_name | pascalcase }}() const;
                 {% else -%}
                     {{ print_type(property) }} Get{{ property_name | pascalcase }}() const;
                 {% endif -%}
 
-                {%- if property.type == 'integer' or property.type == 'number' -%}
-                    void Set{{ property_name | pascalcase }}({{ print_type(property) }} Value);
-                {%- else -%}
-                    void Set{{ property_name | pascalcase }}(const {{ print_type(property) }}& Value);
+                {%- if not property.readOnly -%}
+                    {% if property.deprecated -%}
+                        [[deprecated("'{{ property_name }}' has been deprecated!")]]
+                    {% endif -%}
+                    {%- if property.type == 'integer' or property.type == 'number' -%}
+                        void Set{{ property_name | pascalcase }}({{ print_type(property) }} Value);
+                    {%- else -%}
+                        void Set{{ property_name | pascalcase }}(const {{ print_type(property) }}& Value);
+                    {%- endif -%}
                 {%- endif -%}
 
                 bool Has{{ property_name | pascalcase }}() const;

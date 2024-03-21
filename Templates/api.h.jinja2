@@ -35,6 +35,9 @@ namespace csp::services::generated::{{ service_name | lower }}
                     /// {{ line }}
                 {% endfor -%}
                 /// </remarks>
+                {% if method.deprecated -%}
+                    [[deprecated("'{{ method_name | upper }} {{ route_path }}' is deprecated!")]]
+                {% endif -%}
                 void {{ route_path | camelcase }}{{ method_name | capitalize }}(
                     {{ print_method_parameters(method) }}
                 ) const;

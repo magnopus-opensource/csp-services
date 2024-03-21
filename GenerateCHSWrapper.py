@@ -18,8 +18,10 @@ from Config import config
 def is_enum_schema(value: OpenApi.Schema) -> bool:
     return 'enum' in value.keys()
 
+
 def make_identifier(value: str) -> str:
     return value.replace('/', '_').replace('-', '_').replace('.', '_').replace('{', '').replace('}', '')
+
 
 def make_camel_case(value: str) -> str:
     value = make_identifier(value)
@@ -32,6 +34,7 @@ def make_camel_case(value: str) -> str:
             words[i] = word[0].upper() + word[1:]
 
     return ''.join(words)
+
 
 def make_pascal_case(value: str) -> str:
     value = make_identifier(value)
