@@ -2676,10 +2676,6 @@ bool GroupLiteDto::HasGroupType() const
 {
 	return m_GroupType.has_value();
 }
-void GroupLiteDto::SetGroupType(const utility::string_t& Value)
-{
-	m_GroupType = Value;
-}
 utility::string_t GroupLiteDto::GetGroupOwnerId() const
 {
 	return m_GroupOwnerId.value();
@@ -4597,6 +4593,12 @@ utility::string_t OrganizationDto::ToJson() const
 		JsonDoc.AddMember("id", IdValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_OrganizationOwnerId.has_value())
 	{
 		rapidjson::Value OrganizationOwnerIdValue(TypeToJsonValue(m_OrganizationOwnerId, JsonDoc.GetAllocator()));
@@ -4638,6 +4640,20 @@ void OrganizationDto::FromJson(const utility::string_t& Val)
 		if (IdValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(IdValue, m_Id);
+		}
+	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -4689,6 +4705,15 @@ utility::string_t OrganizationDto::GetId() const
 bool OrganizationDto::HasId() const
 {
 	return m_Id.has_value();
+}
+utility::string_t OrganizationDto::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool OrganizationDto::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
 }
 utility::string_t OrganizationDto::GetOrganizationOwnerId() const
 {

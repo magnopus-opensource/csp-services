@@ -801,7 +801,6 @@ public:
 	/// Type of group
 	/// </summary>
 	utility::string_t GetGroupType() const;
-	void SetGroupType(const utility::string_t& Value);
 	bool HasGroupType() const;
 
 	/// <summary>
@@ -1435,6 +1434,12 @@ public:
 	bool HasId() const;
 
 	/// <summary>
+	/// When created
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	bool HasCreatedAt() const;
+
+	/// <summary>
 	/// Owner of organization
 	/// </summary>
 	utility::string_t GetOrganizationOwnerId() const;
@@ -1457,6 +1462,7 @@ public:
 
 protected:
 	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_CreatedAt;
 	std::optional<utility::string_t> m_OrganizationOwnerId;
 	std::optional<utility::string_t> m_Name;
 	std::optional<std::vector<std::shared_ptr<OrganizationMember>>> m_Members;
