@@ -107,6 +107,12 @@ utility::string_t DuplicateSpaceRequest::ToJson() const
 		JsonDoc.AddMember("newGroupOwnerId", NewGroupOwnerIdValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_MemberGroupIds.has_value())
+	{
+		rapidjson::Value MemberGroupIdsValue(TypeToJsonValue(m_MemberGroupIds, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("memberGroupIds", MemberGroupIdsValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_RequestUserId.has_value())
 	{
 		rapidjson::Value RequestUserIdValue(TypeToJsonValue(m_RequestUserId, JsonDoc.GetAllocator()));
@@ -184,6 +190,16 @@ void DuplicateSpaceRequest::FromJson(const utility::string_t& Val)
 		else
 		{
 			CSP_LOG_ERROR_MSG("Error: Non-nullable member newGroupOwnerId is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("memberGroupIds"))
+	{
+		const rapidjson::Value& MemberGroupIdsValue = JsonDoc["memberGroupIds"];
+
+		if (MemberGroupIdsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MemberGroupIdsValue, m_MemberGroupIds);
 		}
 	}
 
@@ -289,6 +305,19 @@ bool DuplicateSpaceRequest::HasNewGroupOwnerId() const
 void DuplicateSpaceRequest::SetNewGroupOwnerId(const utility::string_t& Value)
 {
 	m_NewGroupOwnerId = Value;
+}
+const std::vector<utility::string_t>& DuplicateSpaceRequest::GetMemberGroupIds() const
+{
+	return m_MemberGroupIds.value();
+}
+
+bool DuplicateSpaceRequest::HasMemberGroupIds() const
+{
+	return m_MemberGroupIds.has_value();
+}
+void DuplicateSpaceRequest::SetMemberGroupIds(const std::vector<utility::string_t>& Value)
+{
+	m_MemberGroupIds = Value;
 }
 utility::string_t DuplicateSpaceRequest::GetRequestUserId() const
 {

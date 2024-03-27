@@ -2017,6 +2017,12 @@ utility::string_t BulkUpsertPrototypeDto::ToJson() const
 		JsonDoc.AddMember("prototypeOwnerId", PrototypeOwnerIdValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_OrganizationId.has_value())
+	{
+		rapidjson::Value OrganizationIdValue(TypeToJsonValue(m_OrganizationId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("organizationId", OrganizationIdValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_ReadAccess.has_value())
 	{
 		rapidjson::Value ReadAccessValue(TypeToJsonValue(m_ReadAccess, JsonDoc.GetAllocator()));
@@ -2216,6 +2222,16 @@ void BulkUpsertPrototypeDto::FromJson(const utility::string_t& Val)
 		if (PrototypeOwnerIdValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(PrototypeOwnerIdValue, m_PrototypeOwnerId);
+		}
+	}
+
+	if (JsonDoc.HasMember("organizationId"))
+	{
+		const rapidjson::Value& OrganizationIdValue = JsonDoc["organizationId"];
+
+		if (OrganizationIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OrganizationIdValue, m_OrganizationId);
 		}
 	}
 
@@ -2445,6 +2461,15 @@ bool BulkUpsertPrototypeDto::HasPrototypeOwnerId() const
 void BulkUpsertPrototypeDto::SetPrototypeOwnerId(const utility::string_t& Value)
 {
 	m_PrototypeOwnerId = Value;
+}
+utility::string_t BulkUpsertPrototypeDto::GetOrganizationId() const
+{
+	return m_OrganizationId.value();
+}
+
+bool BulkUpsertPrototypeDto::HasOrganizationId() const
+{
+	return m_OrganizationId.has_value();
 }
 const std::vector<utility::string_t>& BulkUpsertPrototypeDto::GetReadAccess() const
 {
@@ -2676,6 +2701,12 @@ utility::string_t PrototypeDto::ToJson() const
 		JsonDoc.AddMember("prototypeOwnerId", PrototypeOwnerIdValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_OrganizationId.has_value())
+	{
+		rapidjson::Value OrganizationIdValue(TypeToJsonValue(m_OrganizationId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("organizationId", OrganizationIdValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_ReadAccess.has_value())
 	{
 		rapidjson::Value ReadAccessValue(TypeToJsonValue(m_ReadAccess, JsonDoc.GetAllocator()));
@@ -2875,6 +2906,16 @@ void PrototypeDto::FromJson(const utility::string_t& Val)
 		if (PrototypeOwnerIdValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(PrototypeOwnerIdValue, m_PrototypeOwnerId);
+		}
+	}
+
+	if (JsonDoc.HasMember("organizationId"))
+	{
+		const rapidjson::Value& OrganizationIdValue = JsonDoc["organizationId"];
+
+		if (OrganizationIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OrganizationIdValue, m_OrganizationId);
 		}
 	}
 
@@ -3100,6 +3141,15 @@ bool PrototypeDto::HasPrototypeOwnerId() const
 void PrototypeDto::SetPrototypeOwnerId(const utility::string_t& Value)
 {
 	m_PrototypeOwnerId = Value;
+}
+utility::string_t PrototypeDto::GetOrganizationId() const
+{
+	return m_OrganizationId.value();
+}
+
+bool PrototypeDto::HasOrganizationId() const
+{
+	return m_OrganizationId.has_value();
 }
 const std::vector<utility::string_t>& PrototypeDto::GetReadAccess() const
 {

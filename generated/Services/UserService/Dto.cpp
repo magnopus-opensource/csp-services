@@ -1523,6 +1523,12 @@ utility::string_t GroupDto::ToJson() const
 		JsonDoc.AddMember("archived", ArchivedValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_OrganizationId.has_value())
+	{
+		rapidjson::Value OrganizationIdValue(TypeToJsonValue(m_OrganizationId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("organizationId", OrganizationIdValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_IsCurrentUserOwner.has_value())
 	{
 		rapidjson::Value IsCurrentUserOwnerValue(TypeToJsonValue(m_IsCurrentUserOwner, JsonDoc.GetAllocator()));
@@ -1693,6 +1699,10 @@ void GroupDto::FromJson(const utility::string_t& Val)
 		{
 			JsonValueToType(DiscoverableValue, m_Discoverable);
 		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member discoverable is null!");
+		}
 	}
 
 	if (JsonDoc.HasMember("autoModerator"))
@@ -1713,6 +1723,10 @@ void GroupDto::FromJson(const utility::string_t& Val)
 		{
 			JsonValueToType(RequiresInviteValue, m_RequiresInvite);
 		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member requiresInvite is null!");
+		}
 	}
 
 	if (JsonDoc.HasMember("archived"))
@@ -1722,6 +1736,16 @@ void GroupDto::FromJson(const utility::string_t& Val)
 		if (ArchivedValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(ArchivedValue, m_Archived);
+		}
+	}
+
+	if (JsonDoc.HasMember("organizationId"))
+	{
+		const rapidjson::Value& OrganizationIdValue = JsonDoc["organizationId"];
+
+		if (OrganizationIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OrganizationIdValue, m_OrganizationId);
 		}
 	}
 
@@ -1941,6 +1965,15 @@ bool GroupDto::GetArchived() const
 bool GroupDto::HasArchived() const
 {
 	return m_Archived.has_value();
+}
+utility::string_t GroupDto::GetOrganizationId() const
+{
+	return m_OrganizationId.value();
+}
+
+bool GroupDto::HasOrganizationId() const
+{
+	return m_OrganizationId.has_value();
 }
 bool GroupDto::GetIsCurrentUserOwner() const
 {
@@ -2385,6 +2418,12 @@ utility::string_t GroupLiteDto::ToJson() const
 		JsonDoc.AddMember("archived", ArchivedValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_OrganizationId.has_value())
+	{
+		rapidjson::Value OrganizationIdValue(TypeToJsonValue(m_OrganizationId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("organizationId", OrganizationIdValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_IsCurrentUserOwner.has_value())
 	{
 		rapidjson::Value IsCurrentUserOwnerValue(TypeToJsonValue(m_IsCurrentUserOwner, JsonDoc.GetAllocator()));
@@ -2497,6 +2536,10 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 		{
 			JsonValueToType(DiscoverableValue, m_Discoverable);
 		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member discoverable is null!");
+		}
 	}
 
 	if (JsonDoc.HasMember("autoModerator"))
@@ -2506,6 +2549,10 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 		if (AutoModeratorValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(AutoModeratorValue, m_AutoModerator);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member autoModerator is null!");
 		}
 	}
 
@@ -2517,6 +2564,10 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 		{
 			JsonValueToType(RequiresInviteValue, m_RequiresInvite);
 		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member requiresInvite is null!");
+		}
 	}
 
 	if (JsonDoc.HasMember("archived"))
@@ -2526,6 +2577,16 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 		if (ArchivedValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(ArchivedValue, m_Archived);
+		}
+	}
+
+	if (JsonDoc.HasMember("organizationId"))
+	{
+		const rapidjson::Value& OrganizationIdValue = JsonDoc["organizationId"];
+
+		if (OrganizationIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OrganizationIdValue, m_OrganizationId);
 		}
 	}
 
@@ -2688,6 +2749,15 @@ bool GroupLiteDto::HasArchived() const
 void GroupLiteDto::SetArchived(const bool& Value)
 {
 	m_Archived = Value;
+}
+utility::string_t GroupLiteDto::GetOrganizationId() const
+{
+	return m_OrganizationId.value();
+}
+
+bool GroupLiteDto::HasOrganizationId() const
+{
+	return m_OrganizationId.has_value();
 }
 bool GroupLiteDto::GetIsCurrentUserOwner() const
 {
@@ -5069,6 +5139,12 @@ utility::string_t ProfileDto::ToJson() const
 		JsonDoc.AddMember("verifiedAgeEighteen", VerifiedAgeEighteenValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_OrganizationIds.has_value())
+	{
+		rapidjson::Value OrganizationIdsValue(TypeToJsonValue(m_OrganizationIds, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("organizationIds", OrganizationIdsValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_CreatedBy.has_value())
 	{
 		rapidjson::Value CreatedByValue(TypeToJsonValue(m_CreatedBy, JsonDoc.GetAllocator()));
@@ -5266,6 +5342,16 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 		if (VerifiedAgeEighteenValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen);
+		}
+	}
+
+	if (JsonDoc.HasMember("organizationIds"))
+	{
+		const rapidjson::Value& OrganizationIdsValue = JsonDoc["organizationIds"];
+
+		if (OrganizationIdsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OrganizationIdsValue, m_OrganizationIds);
 		}
 	}
 
@@ -5467,6 +5553,15 @@ bool ProfileDto::HasVerifiedAgeEighteen() const
 void ProfileDto::SetVerifiedAgeEighteen(const bool& Value)
 {
 	m_VerifiedAgeEighteen = Value;
+}
+const std::vector<utility::string_t>& ProfileDto::GetOrganizationIds() const
+{
+	return m_OrganizationIds.value();
+}
+
+bool ProfileDto::HasOrganizationIds() const
+{
+	return m_OrganizationIds.has_value();
 }
 utility::string_t ProfileDto::GetCreatedBy() const
 {

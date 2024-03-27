@@ -794,6 +794,7 @@ void GroupApi::apiV1GroupsLiteGet(const std::optional<std::vector<utility::strin
 								  const std::optional<bool>& AutoModerator,
 								  const std::optional<bool>& RequiresInvite,
 								  const std::optional<bool>& Archived,
+								  const std::optional<std::vector<utility::string_t>>& OrganizationIds,
 								  const std::optional<int32_t>& Skip,
 								  const std::optional<int32_t>& Limit,
 								  csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -866,6 +867,12 @@ void GroupApi::apiV1GroupsLiteGet(const std::optional<std::vector<utility::strin
 	if (Archived.has_value())
 	{
 		Uri.AddQueryParams("Archived", Archived.value());
+	}
+
+
+	if (OrganizationIds.has_value())
+	{
+		Uri.AddQueryParams("OrganizationIds", OrganizationIds.value());
 	}
 
 

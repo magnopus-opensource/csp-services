@@ -113,6 +113,13 @@ public:
 	bool HasNewGroupOwnerId() const;
 
 	/// <summary>
+	/// The groupIds we wish to copy the userList from, to apply to the duplicated space
+	/// </summary>
+	const std::vector<utility::string_t>& GetMemberGroupIds() const;
+	void SetMemberGroupIds(const std::vector<utility::string_t>& Value);
+	bool HasMemberGroupIds() const;
+
+	/// <summary>
 	/// THe user that is requesting the space duplication
 	/// </summary>
 	utility::string_t GetRequestUserId() const;
@@ -151,6 +158,7 @@ protected:
 	std::optional<utility::string_t> m_TenantName;
 	std::optional<utility::string_t> m_SpaceId;
 	std::optional<utility::string_t> m_NewGroupOwnerId;
+	std::optional<std::vector<utility::string_t>> m_MemberGroupIds;
 	std::optional<utility::string_t> m_RequestUserId;
 	std::optional<utility::string_t> m_NewUniqueName;
 	std::optional<bool> m_RequiresInvite;

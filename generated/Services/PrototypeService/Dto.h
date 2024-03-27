@@ -753,6 +753,12 @@ public:
 	bool HasPrototypeOwnerId() const;
 
 	/// <summary>
+	/// The organizationId that the prototype belogs to
+	/// </summary>
+	utility::string_t GetOrganizationId() const;
+	bool HasOrganizationId() const;
+
+	/// <summary>
 	/// Access restrictions for read, if none, publicly readable
 	/// </summary>
 	const std::vector<utility::string_t>& GetReadAccess() const;
@@ -785,6 +791,7 @@ protected:
 	std::optional<utility::string_t> m_Type;
 	std::optional<bool> m_SystemOwned;
 	std::optional<utility::string_t> m_PrototypeOwnerId;
+	std::optional<utility::string_t> m_OrganizationId;
 	std::optional<std::vector<utility::string_t>> m_ReadAccess;
 	std::optional<std::vector<utility::string_t>> m_WriteAccess;
 };
@@ -943,6 +950,12 @@ public:
 	bool HasPrototypeOwnerId() const;
 
 	/// <summary>
+	/// The organizationId that the prototype belogs to
+	/// </summary>
+	utility::string_t GetOrganizationId() const;
+	bool HasOrganizationId() const;
+
+	/// <summary>
 	/// Access restrictions for read, if none, publicly readable
 	/// </summary>
 	const std::vector<utility::string_t>& GetReadAccess() const;
@@ -975,6 +988,7 @@ protected:
 	std::optional<utility::string_t> m_Type;
 	std::optional<bool> m_SystemOwned;
 	std::optional<utility::string_t> m_PrototypeOwnerId;
+	std::optional<utility::string_t> m_OrganizationId;
 	std::optional<std::vector<utility::string_t>> m_ReadAccess;
 	std::optional<std::vector<utility::string_t>> m_WriteAccess;
 };

@@ -390,6 +390,7 @@ public:
 							const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
 							const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
 							const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+							const std::optional<std::vector<utility::string_t>>& OrganizationIds,
 							const std::optional<int32_t>& Skip,
 							const std::optional<int32_t>& Limit,
 							const std::optional<utility::string_t>& SortBy,
@@ -434,6 +435,7 @@ public:
 																		 const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
 																		 const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
 																		 const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+																		 const std::optional<std::vector<utility::string_t>>& OrganizationIds,
 																		 const utility::string_t& originalGroupId,
 																		 const utility::string_t& newGroupId,
 																		 const std::optional<bool>& shallowCopy,
@@ -480,6 +482,7 @@ public:
 								 const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
 								 const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
 								 const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+								 const std::optional<std::vector<utility::string_t>>& OrganizationIds,
 								 csp::services::ApiResponseHandlerBase* ResponseHandler,
 								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 

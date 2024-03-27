@@ -658,6 +658,7 @@ void PrototypeApi::apiV1PrototypesGet(const std::optional<std::vector<utility::s
 									  const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
 									  const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
 									  const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+									  const std::optional<std::vector<utility::string_t>>& OrganizationIds,
 									  const std::optional<int32_t>& Skip,
 									  const std::optional<int32_t>& Limit,
 									  const std::optional<utility::string_t>& SortBy,
@@ -759,6 +760,12 @@ void PrototypeApi::apiV1PrototypesGet(const std::optional<std::vector<utility::s
 	}
 
 
+	if (OrganizationIds.has_value())
+	{
+		Uri.AddQueryParams("OrganizationIds", OrganizationIds.value());
+	}
+
+
 	if (Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Skip.value());
@@ -827,6 +834,7 @@ void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPo
 	const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
 	const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
 	const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+	const std::optional<std::vector<utility::string_t>>& OrganizationIds,
 	const utility::string_t& originalGroupId,
 	const utility::string_t& newGroupId,
 	const std::optional<bool>& shallowCopy,
@@ -928,6 +936,12 @@ void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPo
 	}
 
 
+	if (OrganizationIds.has_value())
+	{
+		Uri.AddQueryParams("OrganizationIds", OrganizationIds.value());
+	}
+
+
 	if (shallowCopy.has_value())
 	{
 		Uri.AddQueryParams("shallowCopy", shallowCopy.value());
@@ -980,6 +994,7 @@ void PrototypeApi::apiV1PrototypesCountGet(const std::optional<std::vector<utili
 										   const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
 										   const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
 										   const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+										   const std::optional<std::vector<utility::string_t>>& OrganizationIds,
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken) const
 {
@@ -1074,6 +1089,12 @@ void PrototypeApi::apiV1PrototypesCountGet(const std::optional<std::vector<utili
 	if (WriteAccessFilters.has_value())
 	{
 		Uri.AddQueryParams("WriteAccessFilters", WriteAccessFilters.value());
+	}
+
+
+	if (OrganizationIds.has_value())
+	{
+		Uri.AddQueryParams("OrganizationIds", OrganizationIds.value());
 	}
 
 	csp::web::HttpPayload Payload;

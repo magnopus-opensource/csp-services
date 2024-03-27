@@ -614,6 +614,12 @@ public:
 	bool HasArchived() const;
 
 	/// <summary>
+	/// The organizationId that the group belongs to
+	/// </summary>
+	utility::string_t GetOrganizationId() const;
+	bool HasOrganizationId() const;
+
+	/// <summary>
 	/// `true` when the current calling user is the owner of the group; otherwise `false`
 	/// </summary>
 	bool GetIsCurrentUserOwner() const;
@@ -654,6 +660,7 @@ protected:
 	std::optional<bool> m_AutoModerator;
 	std::optional<bool> m_RequiresInvite;
 	std::optional<bool> m_Archived;
+	std::optional<utility::string_t> m_OrganizationId;
 	std::optional<bool> m_IsCurrentUserOwner;
 	std::optional<bool> m_IsCurrentUserMember;
 	std::optional<bool> m_IsCurrentUserModerator;
@@ -838,6 +845,12 @@ public:
 	bool HasArchived() const;
 
 	/// <summary>
+	/// The organizationId that the group belogs to
+	/// </summary>
+	utility::string_t GetOrganizationId() const;
+	bool HasOrganizationId() const;
+
+	/// <summary>
 	/// `true` when the current calling user is the owner of the group; otherwise `false`
 	/// </summary>
 	bool GetIsCurrentUserOwner() const;
@@ -873,6 +886,7 @@ protected:
 	std::optional<bool> m_AutoModerator;
 	std::optional<bool> m_RequiresInvite;
 	std::optional<bool> m_Archived;
+	std::optional<utility::string_t> m_OrganizationId;
 	std::optional<bool> m_IsCurrentUserOwner;
 	std::optional<bool> m_IsCurrentUserMember;
 	std::optional<bool> m_IsCurrentUserModerator;
@@ -1658,6 +1672,12 @@ public:
 	bool HasVerifiedAgeEighteen() const;
 
 	/// <summary>
+	/// List of organizationIds the user is member in
+	/// </summary>
+	const std::vector<utility::string_t>& GetOrganizationIds() const;
+	bool HasOrganizationIds() const;
+
+	/// <summary>
 	/// The user identity which created this instance
 	/// </summary>
 	utility::string_t GetCreatedBy() const;
@@ -1704,6 +1724,7 @@ protected:
 	std::optional<bool> m_IsEmailConfirmed;
 	std::optional<std::vector<utility::string_t>> m_Roles;
 	std::optional<bool> m_VerifiedAgeEighteen;
+	std::optional<std::vector<utility::string_t>> m_OrganizationIds;
 	std::optional<utility::string_t> m_CreatedBy;
 	std::optional<utility::string_t> m_CreatedAt;
 	std::optional<utility::string_t> m_UpdatedBy;

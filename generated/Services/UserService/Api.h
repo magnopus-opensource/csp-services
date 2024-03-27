@@ -615,6 +615,7 @@ public:
 							const std::optional<bool>& AutoModerator,
 							const std::optional<bool>& RequiresInvite,
 							const std::optional<bool>& Archived,
+							const std::optional<std::vector<utility::string_t>>& OrganizationIds,
 							const std::optional<int32_t>& Skip,
 							const std::optional<int32_t>& Limit,
 							csp::services::ApiResponseHandlerBase* ResponseHandler,
