@@ -753,7 +753,7 @@ public:
 	bool HasPrototypeOwnerId() const;
 
 	/// <summary>
-	/// The organizationId that the prototype belogs to
+	/// The organizationId that the prototype belongs to
 	/// </summary>
 	utility::string_t GetOrganizationId() const;
 	bool HasOrganizationId() const;
@@ -950,7 +950,7 @@ public:
 	bool HasPrototypeOwnerId() const;
 
 	/// <summary>
-	/// The organizationId that the prototype belogs to
+	/// The organizationId that the prototype belongs to
 	/// </summary>
 	utility::string_t GetOrganizationId() const;
 	bool HasOrganizationId() const;

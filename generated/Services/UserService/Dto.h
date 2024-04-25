@@ -44,7 +44,10 @@ class StripeCheckoutRequest;
 class StripeCheckoutSessionDto;
 class StripeCustomerDto;
 class StripeCustomerPortalDto;
+class TenantAdminAccount;
 class TenantDto;
+class TenantEmailSettingsDto;
+class TenantEmailTemplateSettingsDto;
 class TokenResetPasswordRequest;
 class UpgradeGuestRequest;
 class UpgradeGuestSocialRequest;
@@ -140,6 +143,13 @@ public:
 	bool HasRefreshTokenExpiresAt() const;
 
 	/// <summary>
+	/// Ids of the user's organizations
+	/// </summary>
+	const std::vector<utility::string_t>& GetOrganizationIds() const;
+	void SetOrganizationIds(const std::vector<utility::string_t>& Value);
+	bool HasOrganizationIds() const;
+
+	/// <summary>
 	/// The ID of the device which has been granted access.
 	/// </summary>
 	utility::string_t GetDeviceId() const;
@@ -153,6 +163,7 @@ protected:
 	std::optional<utility::string_t> m_AccessTokenExpiresAt;
 	std::optional<utility::string_t> m_RefreshToken;
 	std::optional<utility::string_t> m_RefreshTokenExpiresAt;
+	std::optional<std::vector<utility::string_t>> m_OrganizationIds;
 	std::optional<utility::string_t> m_DeviceId;
 };
 
@@ -2071,6 +2082,46 @@ protected:
 };
 
 /// <summary>
+/// Object containing the admin information for a tenant
+/// </summary>
+class TenantAdminAccount : public csp::services::DtoBase
+{
+public:
+	TenantAdminAccount();
+	virtual ~TenantAdminAccount();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The administrator email address to access this tenant
+	/// </summary>
+	utility::string_t GetEmailAddress() const;
+	void SetEmailAddress(const utility::string_t& Value);
+	bool HasEmailAddress() const;
+
+	/// <summary>
+	/// The administrator password
+	/// </summary>
+	utility::string_t GetPassword() const;
+	bool HasPassword() const;
+
+	/// <summary>
+	/// The user's assigned authorization roles
+	/// </summary>
+	const std::vector<utility::string_t>& GetRoles() const;
+	void SetRoles(const std::vector<utility::string_t>& Value);
+	bool HasRoles() const;
+
+
+protected:
+	std::optional<utility::string_t> m_EmailAddress;
+	std::optional<utility::string_t> m_Password;
+	std::optional<std::vector<utility::string_t>> m_Roles;
+};
+
+/// <summary>
 /// Tenant data transfer object
 /// </summary>
 class TenantDto : public csp::services::DtoBase
@@ -2086,8 +2137,8 @@ public:
 	/// <summary>
 	/// Name of the tenant for these settings
 	/// </summary>
-	utility::string_t GetTenantName() const;
-	bool HasTenantName() const;
+	utility::string_t GetName() const;
+	bool HasName() const;
 
 	/// <summary>
 	/// Whether or not the tenant is locked
@@ -2096,10 +2147,181 @@ public:
 	void SetLocked(const bool& Value);
 	bool HasLocked() const;
 
+	std::shared_ptr<TenantEmailSettingsDto> GetEmailSettings() const;
+	void SetEmailSettings(const std::shared_ptr<TenantEmailSettingsDto>& Value);
+	bool HasEmailSettings() const;
+
+	/// <summary>
+	/// Contains all the email templates this tenant has defined
+	/// </summary>
+	const std::vector<std::shared_ptr<TenantEmailTemplateSettingsDto>>& GetEmailTemplateSettings() const;
+	void SetEmailTemplateSettings(const std::vector<std::shared_ptr<TenantEmailTemplateSettingsDto>>& Value);
+	bool HasEmailTemplateSettings() const;
+
+	/// <summary>
+	/// List of allowed redirect urls
+	/// </summary>
+	const std::vector<utility::string_t>& GetEmailRedirectUrlAllowList() const;
+	void SetEmailRedirectUrlAllowList(const std::vector<utility::string_t>& Value);
+	bool HasEmailRedirectUrlAllowList() const;
+
+	/// <summary>
+	/// The domains allowed to connect to our services
+	/// </summary>
+	const std::vector<utility::string_t>& GetCorsAllowedOrigins() const;
+	void SetCorsAllowedOrigins(const std::vector<utility::string_t>& Value);
+	bool HasCorsAllowedOrigins() const;
+
+	/// <summary>
+	/// The linked account that acts as the tenant admin
+	/// </summary>
+	utility::string_t GetAdminUserId() const;
+	bool HasAdminUserId() const;
+
+	/// <summary>
+	/// Whether to enable Musubi for image processing
+	/// </summary>
+	bool GetEnableMusubi() const;
+	void SetEnableMusubi(const bool& Value);
+	bool HasEnableMusubi() const;
+
+	std::shared_ptr<TenantAdminAccount> GetAdminCredentials() const;
+	void SetAdminCredentials(const std::shared_ptr<TenantAdminAccount>& Value);
+	bool HasAdminCredentials() const;
+
 
 protected:
-	std::optional<utility::string_t> m_TenantName;
+	std::optional<utility::string_t> m_Name;
 	std::optional<bool> m_Locked;
+	std::optional<std::shared_ptr<TenantEmailSettingsDto>> m_EmailSettings;
+	std::optional<std::vector<std::shared_ptr<TenantEmailTemplateSettingsDto>>> m_EmailTemplateSettings;
+	std::optional<std::vector<utility::string_t>> m_EmailRedirectUrlAllowList;
+	std::optional<std::vector<utility::string_t>> m_CorsAllowedOrigins;
+	std::optional<utility::string_t> m_AdminUserId;
+	std::optional<bool> m_EnableMusubi;
+	std::optional<std::shared_ptr<TenantAdminAccount>> m_AdminCredentials;
+};
+
+/// <summary>
+/// Object containing the settings for a tenants email options
+/// </summary>
+class TenantEmailSettingsDto : public csp::services::DtoBase
+{
+public:
+	TenantEmailSettingsDto();
+	virtual ~TenantEmailSettingsDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The domains allowed to register for a profile
+	/// </summary>
+	const std::vector<utility::string_t>& GetAllowedEmailDomains() const;
+	void SetAllowedEmailDomains(const std::vector<utility::string_t>& Value);
+	bool HasAllowedEmailDomains() const;
+
+	/// <summary>
+	/// The username suffixes allowed to register for a profile
+	/// </summary>
+	const std::vector<utility::string_t>& GetAllowedEmailUserNameSuffixes() const;
+	void SetAllowedEmailUserNameSuffixes(const std::vector<utility::string_t>& Value);
+	bool HasAllowedEmailUserNameSuffixes() const;
+
+
+protected:
+	std::optional<std::vector<utility::string_t>> m_AllowedEmailDomains;
+	std::optional<std::vector<utility::string_t>> m_AllowedEmailUserNameSuffixes;
+};
+
+/// <summary>
+/// Object containing the settings for a tenants email template(s)
+/// </summary>
+class TenantEmailTemplateSettingsDto : public csp::services::DtoBase
+{
+public:
+	TenantEmailTemplateSettingsDto();
+	virtual ~TenantEmailTemplateSettingsDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The type of template this record belongs to (PasswordReset, EmailConfirmation)
+	/// </summary>
+	utility::string_t GetType() const;
+	void SetType(const utility::string_t& Value);
+	bool HasType() const;
+
+	/// <summary>
+	/// The name of the template
+	/// </summary>
+	utility::string_t GetTemplateName() const;
+	void SetTemplateName(const utility::string_t& Value);
+	bool HasTemplateName() const;
+
+	/// <summary>
+	/// The name of the space link template
+	/// </summary>
+	utility::string_t GetSpaceLinkTemplateName() const;
+	void SetSpaceLinkTemplateName(const utility::string_t& Value);
+	bool HasSpaceLinkTemplateName() const;
+
+	/// <summary>
+	/// The Environment Url
+	/// </summary>
+	utility::string_t GetEnvironmentUrl() const;
+	void SetEnvironmentUrl(const utility::string_t& Value);
+	bool HasEnvironmentUrl() const;
+
+	/// <summary>
+	/// For certain templates we require an environmentUrlTemplate
+	/// </summary>
+	utility::string_t GetEnvironmentUrlTemplate() const;
+	void SetEnvironmentUrlTemplate(const utility::string_t& Value);
+	bool HasEnvironmentUrlTemplate() const;
+
+	/// <summary>
+	/// The environment url of the space link template
+	/// </summary>
+	utility::string_t GetSpaceLinkUrlTemplate() const;
+	void SetSpaceLinkUrlTemplate(const utility::string_t& Value);
+	bool HasSpaceLinkUrlTemplate() const;
+
+	/// <summary>
+	/// The Environment Specific URL used to generate tokens for reset passwords
+	/// </summary>
+	utility::string_t GetTokenEnvironmentUrl() const;
+	void SetTokenEnvironmentUrl(const utility::string_t& Value);
+	bool HasTokenEnvironmentUrl() const;
+
+	/// <summary>
+	/// The email address this template is being sent from
+	/// </summary>
+	utility::string_t GetSenderEmail() const;
+	void SetSenderEmail(const utility::string_t& Value);
+	bool HasSenderEmail() const;
+
+	/// <summary>
+	/// The email address this template is being sent to
+	/// </summary>
+	utility::string_t GetRecipientEmail() const;
+	void SetRecipientEmail(const utility::string_t& Value);
+	bool HasRecipientEmail() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Type;
+	std::optional<utility::string_t> m_TemplateName;
+	std::optional<utility::string_t> m_SpaceLinkTemplateName;
+	std::optional<utility::string_t> m_EnvironmentUrl;
+	std::optional<utility::string_t> m_EnvironmentUrlTemplate;
+	std::optional<utility::string_t> m_SpaceLinkUrlTemplate;
+	std::optional<utility::string_t> m_TokenEnvironmentUrl;
+	std::optional<utility::string_t> m_SenderEmail;
+	std::optional<utility::string_t> m_RecipientEmail;
 };
 
 /// <summary>

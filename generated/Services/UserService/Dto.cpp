@@ -172,6 +172,12 @@ utility::string_t AuthDto::ToJson() const
 		JsonDoc.AddMember("refreshTokenExpiresAt", RefreshTokenExpiresAtValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_OrganizationIds.has_value())
+	{
+		rapidjson::Value OrganizationIdsValue(TypeToJsonValue(m_OrganizationIds, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("organizationIds", OrganizationIdsValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_DeviceId.has_value())
 	{
 		rapidjson::Value DeviceIdValue(TypeToJsonValue(m_DeviceId, JsonDoc.GetAllocator()));
@@ -241,6 +247,16 @@ void AuthDto::FromJson(const utility::string_t& Val)
 		if (RefreshTokenExpiresAtValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(RefreshTokenExpiresAtValue, m_RefreshTokenExpiresAt);
+		}
+	}
+
+	if (JsonDoc.HasMember("organizationIds"))
+	{
+		const rapidjson::Value& OrganizationIdsValue = JsonDoc["organizationIds"];
+
+		if (OrganizationIdsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OrganizationIdsValue, m_OrganizationIds);
 		}
 	}
 
@@ -320,6 +336,19 @@ bool AuthDto::HasRefreshTokenExpiresAt() const
 void AuthDto::SetRefreshTokenExpiresAt(const utility::string_t& Value)
 {
 	m_RefreshTokenExpiresAt = Value;
+}
+const std::vector<utility::string_t>& AuthDto::GetOrganizationIds() const
+{
+	return m_OrganizationIds.value();
+}
+
+bool AuthDto::HasOrganizationIds() const
+{
+	return m_OrganizationIds.has_value();
+}
+void AuthDto::SetOrganizationIds(const std::vector<utility::string_t>& Value)
+{
+	m_OrganizationIds = Value;
 }
 utility::string_t AuthDto::GetDeviceId() const
 {
@@ -6651,6 +6680,128 @@ bool StripeCustomerPortalDto::HasCustomerPortalUrl() const
 	return m_CustomerPortalUrl.has_value();
 }
 
+TenantAdminAccount::TenantAdminAccount()
+{
+}
+TenantAdminAccount::~TenantAdminAccount()
+{
+}
+
+utility::string_t TenantAdminAccount::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_EmailAddress.has_value())
+	{
+		rapidjson::Value EmailAddressValue(TypeToJsonValue(m_EmailAddress, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("emailAddress", EmailAddressValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Password.has_value())
+	{
+		rapidjson::Value PasswordValue(TypeToJsonValue(m_Password, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("password", PasswordValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Roles.has_value())
+	{
+		rapidjson::Value RolesValue(TypeToJsonValue(m_Roles, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("roles", RolesValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void TenantAdminAccount::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("emailAddress"))
+	{
+		const rapidjson::Value& EmailAddressValue = JsonDoc["emailAddress"];
+
+		if (EmailAddressValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EmailAddressValue, m_EmailAddress);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member emailAddress is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("password"))
+	{
+		const rapidjson::Value& PasswordValue = JsonDoc["password"];
+
+		if (PasswordValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(PasswordValue, m_Password);
+		}
+	}
+
+	if (JsonDoc.HasMember("roles"))
+	{
+		const rapidjson::Value& RolesValue = JsonDoc["roles"];
+
+		if (RolesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RolesValue, m_Roles);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member roles is null!");
+		}
+	}
+}
+
+
+utility::string_t TenantAdminAccount::GetEmailAddress() const
+{
+	return m_EmailAddress.value();
+}
+
+bool TenantAdminAccount::HasEmailAddress() const
+{
+	return m_EmailAddress.has_value();
+}
+void TenantAdminAccount::SetEmailAddress(const utility::string_t& Value)
+{
+	m_EmailAddress = Value;
+}
+utility::string_t TenantAdminAccount::GetPassword() const
+{
+	return m_Password.value();
+}
+
+bool TenantAdminAccount::HasPassword() const
+{
+	return m_Password.has_value();
+}
+const std::vector<utility::string_t>& TenantAdminAccount::GetRoles() const
+{
+	return m_Roles.value();
+}
+
+bool TenantAdminAccount::HasRoles() const
+{
+	return m_Roles.has_value();
+}
+void TenantAdminAccount::SetRoles(const std::vector<utility::string_t>& Value)
+{
+	m_Roles = Value;
+}
+
 TenantDto::TenantDto()
 {
 }
@@ -6663,16 +6814,58 @@ utility::string_t TenantDto::ToJson() const
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
 
 
-	if (m_TenantName.has_value())
+	if (m_Name.has_value())
 	{
-		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
-		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+		rapidjson::Value NameValue(TypeToJsonValue(m_Name, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("name", NameValue, JsonDoc.GetAllocator());
 	}
 
 	if (m_Locked.has_value())
 	{
 		rapidjson::Value LockedValue(TypeToJsonValue(m_Locked, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("locked", LockedValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EmailSettings.has_value())
+	{
+		rapidjson::Value EmailSettingsValue(TypeToJsonValue(m_EmailSettings, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("emailSettings", EmailSettingsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EmailTemplateSettings.has_value())
+	{
+		rapidjson::Value EmailTemplateSettingsValue(TypeToJsonValue(m_EmailTemplateSettings, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("emailTemplateSettings", EmailTemplateSettingsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EmailRedirectUrlAllowList.has_value())
+	{
+		rapidjson::Value EmailRedirectUrlAllowListValue(TypeToJsonValue(m_EmailRedirectUrlAllowList, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("emailRedirectUrlAllowList", EmailRedirectUrlAllowListValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CorsAllowedOrigins.has_value())
+	{
+		rapidjson::Value CorsAllowedOriginsValue(TypeToJsonValue(m_CorsAllowedOrigins, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("corsAllowedOrigins", CorsAllowedOriginsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AdminUserId.has_value())
+	{
+		rapidjson::Value AdminUserIdValue(TypeToJsonValue(m_AdminUserId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("adminUserId", AdminUserIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EnableMusubi.has_value())
+	{
+		rapidjson::Value EnableMusubiValue(TypeToJsonValue(m_EnableMusubi, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("enableMusubi", EnableMusubiValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AdminCredentials.has_value())
+	{
+		rapidjson::Value AdminCredentialsValue(TypeToJsonValue(m_AdminCredentials, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("adminCredentials", AdminCredentialsValue, JsonDoc.GetAllocator());
 	}
 
 
@@ -6691,13 +6884,13 @@ void TenantDto::FromJson(const utility::string_t& Val)
 	JsonDoc.Parse(Val.c_str());
 
 
-	if (JsonDoc.HasMember("tenantName"))
+	if (JsonDoc.HasMember("name"))
 	{
-		const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+		const rapidjson::Value& NameValue = JsonDoc["name"];
 
-		if (TenantNameValue != rapidjson::Type::kNullType)
+		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantNameValue, m_TenantName);
+			JsonValueToType(NameValue, m_Name);
 		}
 	}
 
@@ -6709,18 +6902,104 @@ void TenantDto::FromJson(const utility::string_t& Val)
 		{
 			JsonValueToType(LockedValue, m_Locked);
 		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member locked is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("emailSettings"))
+	{
+		const rapidjson::Value& EmailSettingsValue = JsonDoc["emailSettings"];
+
+		if (EmailSettingsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EmailSettingsValue, m_EmailSettings);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member emailSettings is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("emailTemplateSettings"))
+	{
+		const rapidjson::Value& EmailTemplateSettingsValue = JsonDoc["emailTemplateSettings"];
+
+		if (EmailTemplateSettingsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EmailTemplateSettingsValue, m_EmailTemplateSettings);
+		}
+	}
+
+	if (JsonDoc.HasMember("emailRedirectUrlAllowList"))
+	{
+		const rapidjson::Value& EmailRedirectUrlAllowListValue = JsonDoc["emailRedirectUrlAllowList"];
+
+		if (EmailRedirectUrlAllowListValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EmailRedirectUrlAllowListValue, m_EmailRedirectUrlAllowList);
+		}
+	}
+
+	if (JsonDoc.HasMember("corsAllowedOrigins"))
+	{
+		const rapidjson::Value& CorsAllowedOriginsValue = JsonDoc["corsAllowedOrigins"];
+
+		if (CorsAllowedOriginsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CorsAllowedOriginsValue, m_CorsAllowedOrigins);
+		}
+	}
+
+	if (JsonDoc.HasMember("adminUserId"))
+	{
+		const rapidjson::Value& AdminUserIdValue = JsonDoc["adminUserId"];
+
+		if (AdminUserIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AdminUserIdValue, m_AdminUserId);
+		}
+	}
+
+	if (JsonDoc.HasMember("enableMusubi"))
+	{
+		const rapidjson::Value& EnableMusubiValue = JsonDoc["enableMusubi"];
+
+		if (EnableMusubiValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EnableMusubiValue, m_EnableMusubi);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member enableMusubi is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("adminCredentials"))
+	{
+		const rapidjson::Value& AdminCredentialsValue = JsonDoc["adminCredentials"];
+
+		if (AdminCredentialsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AdminCredentialsValue, m_AdminCredentials);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member adminCredentials is null!");
+		}
 	}
 }
 
 
-utility::string_t TenantDto::GetTenantName() const
+utility::string_t TenantDto::GetName() const
 {
-	return m_TenantName.value();
+	return m_Name.value();
 }
 
-bool TenantDto::HasTenantName() const
+bool TenantDto::HasName() const
 {
-	return m_TenantName.has_value();
+	return m_Name.has_value();
 }
 bool TenantDto::GetLocked() const
 {
@@ -6734,6 +7013,486 @@ bool TenantDto::HasLocked() const
 void TenantDto::SetLocked(const bool& Value)
 {
 	m_Locked = Value;
+}
+std::shared_ptr<TenantEmailSettingsDto> TenantDto::GetEmailSettings() const
+{
+	return m_EmailSettings.value();
+}
+
+bool TenantDto::HasEmailSettings() const
+{
+	return m_EmailSettings.has_value();
+}
+void TenantDto::SetEmailSettings(const std::shared_ptr<TenantEmailSettingsDto>& Value)
+{
+	m_EmailSettings = Value;
+}
+const std::vector<std::shared_ptr<TenantEmailTemplateSettingsDto>>& TenantDto::GetEmailTemplateSettings() const
+{
+	return m_EmailTemplateSettings.value();
+}
+
+bool TenantDto::HasEmailTemplateSettings() const
+{
+	return m_EmailTemplateSettings.has_value();
+}
+void TenantDto::SetEmailTemplateSettings(const std::vector<std::shared_ptr<TenantEmailTemplateSettingsDto>>& Value)
+{
+	m_EmailTemplateSettings = Value;
+}
+const std::vector<utility::string_t>& TenantDto::GetEmailRedirectUrlAllowList() const
+{
+	return m_EmailRedirectUrlAllowList.value();
+}
+
+bool TenantDto::HasEmailRedirectUrlAllowList() const
+{
+	return m_EmailRedirectUrlAllowList.has_value();
+}
+void TenantDto::SetEmailRedirectUrlAllowList(const std::vector<utility::string_t>& Value)
+{
+	m_EmailRedirectUrlAllowList = Value;
+}
+const std::vector<utility::string_t>& TenantDto::GetCorsAllowedOrigins() const
+{
+	return m_CorsAllowedOrigins.value();
+}
+
+bool TenantDto::HasCorsAllowedOrigins() const
+{
+	return m_CorsAllowedOrigins.has_value();
+}
+void TenantDto::SetCorsAllowedOrigins(const std::vector<utility::string_t>& Value)
+{
+	m_CorsAllowedOrigins = Value;
+}
+utility::string_t TenantDto::GetAdminUserId() const
+{
+	return m_AdminUserId.value();
+}
+
+bool TenantDto::HasAdminUserId() const
+{
+	return m_AdminUserId.has_value();
+}
+bool TenantDto::GetEnableMusubi() const
+{
+	return m_EnableMusubi.value();
+}
+
+bool TenantDto::HasEnableMusubi() const
+{
+	return m_EnableMusubi.has_value();
+}
+void TenantDto::SetEnableMusubi(const bool& Value)
+{
+	m_EnableMusubi = Value;
+}
+std::shared_ptr<TenantAdminAccount> TenantDto::GetAdminCredentials() const
+{
+	return m_AdminCredentials.value();
+}
+
+bool TenantDto::HasAdminCredentials() const
+{
+	return m_AdminCredentials.has_value();
+}
+void TenantDto::SetAdminCredentials(const std::shared_ptr<TenantAdminAccount>& Value)
+{
+	m_AdminCredentials = Value;
+}
+
+TenantEmailSettingsDto::TenantEmailSettingsDto()
+{
+}
+TenantEmailSettingsDto::~TenantEmailSettingsDto()
+{
+}
+
+utility::string_t TenantEmailSettingsDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_AllowedEmailDomains.has_value())
+	{
+		rapidjson::Value AllowedEmailDomainsValue(TypeToJsonValue(m_AllowedEmailDomains, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowedEmailDomains", AllowedEmailDomainsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AllowedEmailUserNameSuffixes.has_value())
+	{
+		rapidjson::Value AllowedEmailUserNameSuffixesValue(TypeToJsonValue(m_AllowedEmailUserNameSuffixes, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowedEmailUserNameSuffixes", AllowedEmailUserNameSuffixesValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void TenantEmailSettingsDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("allowedEmailDomains"))
+	{
+		const rapidjson::Value& AllowedEmailDomainsValue = JsonDoc["allowedEmailDomains"];
+
+		if (AllowedEmailDomainsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowedEmailDomainsValue, m_AllowedEmailDomains);
+		}
+	}
+
+	if (JsonDoc.HasMember("allowedEmailUserNameSuffixes"))
+	{
+		const rapidjson::Value& AllowedEmailUserNameSuffixesValue = JsonDoc["allowedEmailUserNameSuffixes"];
+
+		if (AllowedEmailUserNameSuffixesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowedEmailUserNameSuffixesValue, m_AllowedEmailUserNameSuffixes);
+		}
+	}
+}
+
+
+const std::vector<utility::string_t>& TenantEmailSettingsDto::GetAllowedEmailDomains() const
+{
+	return m_AllowedEmailDomains.value();
+}
+
+bool TenantEmailSettingsDto::HasAllowedEmailDomains() const
+{
+	return m_AllowedEmailDomains.has_value();
+}
+void TenantEmailSettingsDto::SetAllowedEmailDomains(const std::vector<utility::string_t>& Value)
+{
+	m_AllowedEmailDomains = Value;
+}
+const std::vector<utility::string_t>& TenantEmailSettingsDto::GetAllowedEmailUserNameSuffixes() const
+{
+	return m_AllowedEmailUserNameSuffixes.value();
+}
+
+bool TenantEmailSettingsDto::HasAllowedEmailUserNameSuffixes() const
+{
+	return m_AllowedEmailUserNameSuffixes.has_value();
+}
+void TenantEmailSettingsDto::SetAllowedEmailUserNameSuffixes(const std::vector<utility::string_t>& Value)
+{
+	m_AllowedEmailUserNameSuffixes = Value;
+}
+
+TenantEmailTemplateSettingsDto::TenantEmailTemplateSettingsDto()
+{
+}
+TenantEmailTemplateSettingsDto::~TenantEmailTemplateSettingsDto()
+{
+}
+
+utility::string_t TenantEmailTemplateSettingsDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Type.has_value())
+	{
+		rapidjson::Value TypeValue(TypeToJsonValue(m_Type, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("type", TypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TemplateName.has_value())
+	{
+		rapidjson::Value TemplateNameValue(TypeToJsonValue(m_TemplateName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("templateName", TemplateNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SpaceLinkTemplateName.has_value())
+	{
+		rapidjson::Value SpaceLinkTemplateNameValue(TypeToJsonValue(m_SpaceLinkTemplateName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("spaceLinkTemplateName", SpaceLinkTemplateNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EnvironmentUrl.has_value())
+	{
+		rapidjson::Value EnvironmentUrlValue(TypeToJsonValue(m_EnvironmentUrl, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("environmentUrl", EnvironmentUrlValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EnvironmentUrlTemplate.has_value())
+	{
+		rapidjson::Value EnvironmentUrlTemplateValue(TypeToJsonValue(m_EnvironmentUrlTemplate, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("environmentUrlTemplate", EnvironmentUrlTemplateValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SpaceLinkUrlTemplate.has_value())
+	{
+		rapidjson::Value SpaceLinkUrlTemplateValue(TypeToJsonValue(m_SpaceLinkUrlTemplate, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("spaceLinkUrlTemplate", SpaceLinkUrlTemplateValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TokenEnvironmentUrl.has_value())
+	{
+		rapidjson::Value TokenEnvironmentUrlValue(TypeToJsonValue(m_TokenEnvironmentUrl, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tokenEnvironmentUrl", TokenEnvironmentUrlValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SenderEmail.has_value())
+	{
+		rapidjson::Value SenderEmailValue(TypeToJsonValue(m_SenderEmail, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("senderEmail", SenderEmailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RecipientEmail.has_value())
+	{
+		rapidjson::Value RecipientEmailValue(TypeToJsonValue(m_RecipientEmail, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("recipientEmail", RecipientEmailValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("type"))
+	{
+		const rapidjson::Value& TypeValue = JsonDoc["type"];
+
+		if (TypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TypeValue, m_Type);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("templateName"))
+	{
+		const rapidjson::Value& TemplateNameValue = JsonDoc["templateName"];
+
+		if (TemplateNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TemplateNameValue, m_TemplateName);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member templateName is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("spaceLinkTemplateName"))
+	{
+		const rapidjson::Value& SpaceLinkTemplateNameValue = JsonDoc["spaceLinkTemplateName"];
+
+		if (SpaceLinkTemplateNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SpaceLinkTemplateNameValue, m_SpaceLinkTemplateName);
+		}
+	}
+
+	if (JsonDoc.HasMember("environmentUrl"))
+	{
+		const rapidjson::Value& EnvironmentUrlValue = JsonDoc["environmentUrl"];
+
+		if (EnvironmentUrlValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EnvironmentUrlValue, m_EnvironmentUrl);
+		}
+	}
+
+	if (JsonDoc.HasMember("environmentUrlTemplate"))
+	{
+		const rapidjson::Value& EnvironmentUrlTemplateValue = JsonDoc["environmentUrlTemplate"];
+
+		if (EnvironmentUrlTemplateValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EnvironmentUrlTemplateValue, m_EnvironmentUrlTemplate);
+		}
+	}
+
+	if (JsonDoc.HasMember("spaceLinkUrlTemplate"))
+	{
+		const rapidjson::Value& SpaceLinkUrlTemplateValue = JsonDoc["spaceLinkUrlTemplate"];
+
+		if (SpaceLinkUrlTemplateValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SpaceLinkUrlTemplateValue, m_SpaceLinkUrlTemplate);
+		}
+	}
+
+	if (JsonDoc.HasMember("tokenEnvironmentUrl"))
+	{
+		const rapidjson::Value& TokenEnvironmentUrlValue = JsonDoc["tokenEnvironmentUrl"];
+
+		if (TokenEnvironmentUrlValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TokenEnvironmentUrlValue, m_TokenEnvironmentUrl);
+		}
+	}
+
+	if (JsonDoc.HasMember("senderEmail"))
+	{
+		const rapidjson::Value& SenderEmailValue = JsonDoc["senderEmail"];
+
+		if (SenderEmailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SenderEmailValue, m_SenderEmail);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member senderEmail is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("recipientEmail"))
+	{
+		const rapidjson::Value& RecipientEmailValue = JsonDoc["recipientEmail"];
+
+		if (RecipientEmailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RecipientEmailValue, m_RecipientEmail);
+		}
+	}
+}
+
+
+utility::string_t TenantEmailTemplateSettingsDto::GetType() const
+{
+	return m_Type.value();
+}
+
+bool TenantEmailTemplateSettingsDto::HasType() const
+{
+	return m_Type.has_value();
+}
+void TenantEmailTemplateSettingsDto::SetType(const utility::string_t& Value)
+{
+	m_Type = Value;
+}
+utility::string_t TenantEmailTemplateSettingsDto::GetTemplateName() const
+{
+	return m_TemplateName.value();
+}
+
+bool TenantEmailTemplateSettingsDto::HasTemplateName() const
+{
+	return m_TemplateName.has_value();
+}
+void TenantEmailTemplateSettingsDto::SetTemplateName(const utility::string_t& Value)
+{
+	m_TemplateName = Value;
+}
+utility::string_t TenantEmailTemplateSettingsDto::GetSpaceLinkTemplateName() const
+{
+	return m_SpaceLinkTemplateName.value();
+}
+
+bool TenantEmailTemplateSettingsDto::HasSpaceLinkTemplateName() const
+{
+	return m_SpaceLinkTemplateName.has_value();
+}
+void TenantEmailTemplateSettingsDto::SetSpaceLinkTemplateName(const utility::string_t& Value)
+{
+	m_SpaceLinkTemplateName = Value;
+}
+utility::string_t TenantEmailTemplateSettingsDto::GetEnvironmentUrl() const
+{
+	return m_EnvironmentUrl.value();
+}
+
+bool TenantEmailTemplateSettingsDto::HasEnvironmentUrl() const
+{
+	return m_EnvironmentUrl.has_value();
+}
+void TenantEmailTemplateSettingsDto::SetEnvironmentUrl(const utility::string_t& Value)
+{
+	m_EnvironmentUrl = Value;
+}
+utility::string_t TenantEmailTemplateSettingsDto::GetEnvironmentUrlTemplate() const
+{
+	return m_EnvironmentUrlTemplate.value();
+}
+
+bool TenantEmailTemplateSettingsDto::HasEnvironmentUrlTemplate() const
+{
+	return m_EnvironmentUrlTemplate.has_value();
+}
+void TenantEmailTemplateSettingsDto::SetEnvironmentUrlTemplate(const utility::string_t& Value)
+{
+	m_EnvironmentUrlTemplate = Value;
+}
+utility::string_t TenantEmailTemplateSettingsDto::GetSpaceLinkUrlTemplate() const
+{
+	return m_SpaceLinkUrlTemplate.value();
+}
+
+bool TenantEmailTemplateSettingsDto::HasSpaceLinkUrlTemplate() const
+{
+	return m_SpaceLinkUrlTemplate.has_value();
+}
+void TenantEmailTemplateSettingsDto::SetSpaceLinkUrlTemplate(const utility::string_t& Value)
+{
+	m_SpaceLinkUrlTemplate = Value;
+}
+utility::string_t TenantEmailTemplateSettingsDto::GetTokenEnvironmentUrl() const
+{
+	return m_TokenEnvironmentUrl.value();
+}
+
+bool TenantEmailTemplateSettingsDto::HasTokenEnvironmentUrl() const
+{
+	return m_TokenEnvironmentUrl.has_value();
+}
+void TenantEmailTemplateSettingsDto::SetTokenEnvironmentUrl(const utility::string_t& Value)
+{
+	m_TokenEnvironmentUrl = Value;
+}
+utility::string_t TenantEmailTemplateSettingsDto::GetSenderEmail() const
+{
+	return m_SenderEmail.value();
+}
+
+bool TenantEmailTemplateSettingsDto::HasSenderEmail() const
+{
+	return m_SenderEmail.has_value();
+}
+void TenantEmailTemplateSettingsDto::SetSenderEmail(const utility::string_t& Value)
+{
+	m_SenderEmail = Value;
+}
+utility::string_t TenantEmailTemplateSettingsDto::GetRecipientEmail() const
+{
+	return m_RecipientEmail.value();
+}
+
+bool TenantEmailTemplateSettingsDto::HasRecipientEmail() const
+{
+	return m_RecipientEmail.has_value();
+}
+void TenantEmailTemplateSettingsDto::SetRecipientEmail(const utility::string_t& Value)
+{
+	m_RecipientEmail = Value;
 }
 
 TokenResetPasswordRequest::TokenResetPasswordRequest()

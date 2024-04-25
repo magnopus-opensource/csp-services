@@ -839,6 +839,7 @@ void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPo
 	const utility::string_t& newGroupId,
 	const std::optional<bool>& shallowCopy,
 	const std::optional<bool>& asyncCall,
+	const std::optional<utility::string_t>& onBehalfOf,
 	csp::services::ApiResponseHandlerBase* ResponseHandler,
 	csp::common::CancellationToken& CancellationToken) const
 {
@@ -951,6 +952,12 @@ void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPo
 	if (asyncCall.has_value())
 	{
 		Uri.AddQueryParams("asyncCall", asyncCall.value());
+	}
+
+
+	if (onBehalfOf.has_value())
+	{
+		Uri.AddQueryParams("onBehalfOf", onBehalfOf.value());
 	}
 
 	csp::web::HttpPayload Payload;

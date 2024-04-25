@@ -440,6 +440,7 @@ public:
 																		 const utility::string_t& newGroupId,
 																		 const std::optional<bool>& shallowCopy,
 																		 const std::optional<bool>& asyncCall,
+																		 const std::optional<utility::string_t>& onBehalfOf,
 																		 csp::services::ApiResponseHandlerBase* ResponseHandler,
 																		 csp::common::CancellationToken& CancellationToken
 																		 = csp::common::CancellationToken::Dummy()) const;
