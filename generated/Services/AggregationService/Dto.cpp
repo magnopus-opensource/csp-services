@@ -3785,6 +3785,12 @@ utility::string_t ShopifyProductVariants::ToJson() const
 		JsonDoc.AddMember("availableForSale", AvailableForSaleValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_QuantityAvailable.has_value())
+	{
+		rapidjson::Value QuantityAvailableValue(TypeToJsonValue(m_QuantityAvailable, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("quantityAvailable", QuantityAvailableValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_Image.has_value())
 	{
 		rapidjson::Value ImageValue(TypeToJsonValue(m_Image, JsonDoc.GetAllocator()));
@@ -3846,6 +3852,20 @@ void ShopifyProductVariants::FromJson(const utility::string_t& Val)
 		if (AvailableForSaleValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(AvailableForSaleValue, m_AvailableForSale);
+		}
+	}
+
+	if (JsonDoc.HasMember("quantityAvailable"))
+	{
+		const rapidjson::Value& QuantityAvailableValue = JsonDoc["quantityAvailable"];
+
+		if (QuantityAvailableValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(QuantityAvailableValue, m_QuantityAvailable);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member quantityAvailable is null!");
 		}
 	}
 
@@ -3915,6 +3935,15 @@ bool ShopifyProductVariants::GetAvailableForSale() const
 bool ShopifyProductVariants::HasAvailableForSale() const
 {
 	return m_AvailableForSale.has_value();
+}
+int32_t ShopifyProductVariants::GetQuantityAvailable() const
+{
+	return m_QuantityAvailable.value();
+}
+
+bool ShopifyProductVariants::HasQuantityAvailable() const
+{
+	return m_QuantityAvailable.has_value();
 }
 std::shared_ptr<ShopifyProductMedia> ShopifyProductVariants::GetImage() const
 {

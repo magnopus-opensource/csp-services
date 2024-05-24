@@ -1250,6 +1250,12 @@ public:
 	bool GetAvailableForSale() const;
 	bool HasAvailableForSale() const;
 
+	/// <summary>
+	/// Inventory quantity available
+	/// </summary>
+	int32_t GetQuantityAvailable() const;
+	bool HasQuantityAvailable() const;
+
 	std::shared_ptr<ShopifyProductMedia> GetImage() const;
 	void SetImage(const std::shared_ptr<ShopifyProductMedia>& Value);
 	bool HasImage() const;
@@ -1269,6 +1275,7 @@ protected:
 	std::optional<utility::string_t> m_Id;
 	std::optional<utility::string_t> m_Title;
 	std::optional<bool> m_AvailableForSale;
+	std::optional<int32_t> m_QuantityAvailable;
 	std::optional<std::shared_ptr<ShopifyProductMedia>> m_Image;
 	std::optional<std::vector<std::shared_ptr<ShopifyVariantOption>>> m_SelectedOptions;
 	std::optional<std::shared_ptr<ShopifyMoney>> m_UnitPrice;
