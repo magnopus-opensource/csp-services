@@ -7126,6 +7126,18 @@ utility::string_t TenantEmailSettingsDto::ToJson() const
 		JsonDoc.AddMember("allowedEmailUserNameSuffixes", AllowedEmailUserNameSuffixesValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_DisableEmailSender.has_value())
+	{
+		rapidjson::Value DisableEmailSenderValue(TypeToJsonValue(m_DisableEmailSender, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("disableEmailSender", DisableEmailSenderValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EnableEmailAutoConfirm.has_value())
+	{
+		rapidjson::Value EnableEmailAutoConfirmValue(TypeToJsonValue(m_EnableEmailAutoConfirm, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("enableEmailAutoConfirm", EnableEmailAutoConfirmValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -7161,6 +7173,34 @@ void TenantEmailSettingsDto::FromJson(const utility::string_t& Val)
 			JsonValueToType(AllowedEmailUserNameSuffixesValue, m_AllowedEmailUserNameSuffixes);
 		}
 	}
+
+	if (JsonDoc.HasMember("disableEmailSender"))
+	{
+		const rapidjson::Value& DisableEmailSenderValue = JsonDoc["disableEmailSender"];
+
+		if (DisableEmailSenderValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DisableEmailSenderValue, m_DisableEmailSender);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member disableEmailSender is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("enableEmailAutoConfirm"))
+	{
+		const rapidjson::Value& EnableEmailAutoConfirmValue = JsonDoc["enableEmailAutoConfirm"];
+
+		if (EnableEmailAutoConfirmValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EnableEmailAutoConfirmValue, m_EnableEmailAutoConfirm);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member enableEmailAutoConfirm is null!");
+		}
+	}
 }
 
 
@@ -7189,6 +7229,32 @@ bool TenantEmailSettingsDto::HasAllowedEmailUserNameSuffixes() const
 void TenantEmailSettingsDto::SetAllowedEmailUserNameSuffixes(const std::vector<utility::string_t>& Value)
 {
 	m_AllowedEmailUserNameSuffixes = Value;
+}
+bool TenantEmailSettingsDto::GetDisableEmailSender() const
+{
+	return m_DisableEmailSender.value();
+}
+
+bool TenantEmailSettingsDto::HasDisableEmailSender() const
+{
+	return m_DisableEmailSender.has_value();
+}
+void TenantEmailSettingsDto::SetDisableEmailSender(const bool& Value)
+{
+	m_DisableEmailSender = Value;
+}
+bool TenantEmailSettingsDto::GetEnableEmailAutoConfirm() const
+{
+	return m_EnableEmailAutoConfirm.value();
+}
+
+bool TenantEmailSettingsDto::HasEnableEmailAutoConfirm() const
+{
+	return m_EnableEmailAutoConfirm.has_value();
+}
+void TenantEmailSettingsDto::SetEnableEmailAutoConfirm(const bool& Value)
+{
+	m_EnableEmailAutoConfirm = Value;
 }
 
 TenantEmailTemplateSettingsDto::TenantEmailTemplateSettingsDto()

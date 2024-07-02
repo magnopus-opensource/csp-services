@@ -242,7 +242,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// PUT /api/v1/users/{userId}/tier-assignment
-	/// Authorization: magnopus-admin
+	/// Authorization: magnopus-admin,internal-service
 	/// </remarks>
 	void apiV1UsersUserIdTierAssignmentPut(const utility::string_t& userId,
 										   const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody,
@@ -280,7 +280,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// PUT /api/v1/tenants/{tenantName}/tier-assignment
-	/// Authorization: magnopus-admin
+	/// Authorization: magnopus-admin,internal-service
 	/// </remarks>
 	void apiV1TenantsTenantNameTierAssignmentPut(const utility::string_t& tenantName,
 												 const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody,

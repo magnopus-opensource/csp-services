@@ -26,6 +26,9 @@ class ModelScale;
 class Placemark;
 class Point;
 class PositionKml;
+class ProblemDetails;
+class SequenceDto;
+class SequenceDtoDataPage;
 class ServiceRequest;
 class ServiceResponse;
 class ShopifyCartDto;
@@ -786,6 +789,145 @@ protected:
 	std::optional<bool> m_Visibility;
 	std::optional<bool> m_Open;
 	std::optional<std::vector<std::shared_ptr<Placemark>>> m_Placemark;
+};
+
+class ProblemDetails : public csp::services::DtoBase
+{
+public:
+	ProblemDetails();
+	virtual ~ProblemDetails();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	utility::string_t GetType() const;
+	void SetType(const utility::string_t& Value);
+	bool HasType() const;
+
+	utility::string_t GetTitle() const;
+	void SetTitle(const utility::string_t& Value);
+	bool HasTitle() const;
+
+	int32_t GetStatus() const;
+	void SetStatus(int32_t Value);
+	bool HasStatus() const;
+
+	utility::string_t GetDetail() const;
+	void SetDetail(const utility::string_t& Value);
+	bool HasDetail() const;
+
+	utility::string_t GetInstance() const;
+	void SetInstance(const utility::string_t& Value);
+	bool HasInstance() const;
+
+	const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& GetExtensions() const;
+	bool HasExtensions() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Type;
+	std::optional<utility::string_t> m_Title;
+	std::optional<int32_t> m_Status;
+	std::optional<utility::string_t> m_Detail;
+	std::optional<utility::string_t> m_Instance;
+	std::optional<std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>> m_Extensions;
+};
+
+/// <summary>
+/// Contains information for sorting entities.
+/// </summary>
+class SequenceDto : public csp::services::DtoBase
+{
+public:
+	SequenceDto();
+	virtual ~SequenceDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The Id of this sequence.
+	/// </summary>
+	utility::string_t GetId() const;
+	void SetId(const utility::string_t& Value);
+	bool HasId() const;
+
+	/// <summary>
+	/// The unique key used to identify this sequence.
+	/// </summary>
+	utility::string_t GetKey() const;
+	void SetKey(const utility::string_t& Value);
+	bool HasKey() const;
+
+	/// <summary>
+	/// An ordered list of Ids in this sequence.
+	/// </summary>
+	const std::vector<utility::string_t>& GetItems() const;
+	void SetItems(const std::vector<utility::string_t>& Value);
+	bool HasItems() const;
+
+	/// <summary>
+	/// The type of entity that the Olympus.Service.Aggregation.Dtos.SequenceDto.ReferenceId identifies, e.g. "GroupId".
+	/// </summary>
+	utility::string_t GetReferenceType() const;
+	void SetReferenceType(const utility::string_t& Value);
+	bool HasReferenceType() const;
+
+	/// <summary>
+	/// The Id of the entity that this sequence is associated with to, e.g. a group Id.
+	/// </summary>
+	utility::string_t GetReferenceId() const;
+	void SetReferenceId(const utility::string_t& Value);
+	bool HasReferenceId() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_Key;
+	std::optional<std::vector<utility::string_t>> m_Items;
+	std::optional<utility::string_t> m_ReferenceType;
+	std::optional<utility::string_t> m_ReferenceId;
+};
+
+class SequenceDtoDataPage : public csp::services::DtoBase
+{
+public:
+	SequenceDtoDataPage();
+	virtual ~SequenceDtoDataPage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	const std::vector<std::shared_ptr<SequenceDto>>& GetItems() const;
+	void SetItems(const std::vector<std::shared_ptr<SequenceDto>>& Value);
+	bool HasItems() const;
+
+	int32_t GetSkip() const;
+	void SetSkip(int32_t Value);
+	bool HasSkip() const;
+
+	int32_t GetLimit() const;
+	void SetLimit(int32_t Value);
+	bool HasLimit() const;
+
+	int32_t GetItemCount() const;
+	void SetItemCount(int32_t Value);
+	bool HasItemCount() const;
+
+	int64_t GetItemTotalCount() const;
+	void SetItemTotalCount(int64_t Value);
+	bool HasItemTotalCount() const;
+
+
+protected:
+	std::optional<std::vector<std::shared_ptr<SequenceDto>>> m_Items;
+	std::optional<int32_t> m_Skip;
+	std::optional<int32_t> m_Limit;
+	std::optional<int32_t> m_ItemCount;
+	std::optional<int64_t> m_ItemTotalCount;
 };
 
 /// <summary>

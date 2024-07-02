@@ -555,7 +555,7 @@ void PointOfInterestApi::apiV1PoiLiteGet(const std::optional<utility::string_t>&
 										 const std::optional<int32_t>& ZoomLevel,
 										 const std::optional<utility::string_t>& EventStartTime,
 										 const std::optional<utility::string_t>& EventEndTime,
-										 const std::optional<std::vector<utility::string_t>>& CmsIds,
+										 const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
 										 const std::optional<bool>& IncludeHidden,
 										 const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
 										 const std::optional<bool>& HasSchedule,
@@ -667,9 +667,9 @@ void PointOfInterestApi::apiV1PoiLiteGet(const std::optional<utility::string_t>&
 	}
 
 
-	if (CmsIds.has_value())
+	if (ReferenceLookups.has_value())
 	{
-		Uri.AddQueryParams("CmsIds", CmsIds.value());
+		Uri.AddQueryParams("ReferenceLookups", ReferenceLookups.value());
 	}
 
 
@@ -745,7 +745,7 @@ void PointOfInterestApi::apiV1PoiIdGet(const std::optional<utility::string_t>& p
 									   const std::optional<int32_t>& ZoomLevel,
 									   const std::optional<utility::string_t>& EventStartTime,
 									   const std::optional<utility::string_t>& EventEndTime,
-									   const std::optional<std::vector<utility::string_t>>& CmsIds,
+									   const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
 									   const std::optional<bool>& IncludeHidden,
 									   const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
 									   const std::optional<bool>& HasSchedule,
@@ -857,9 +857,9 @@ void PointOfInterestApi::apiV1PoiIdGet(const std::optional<utility::string_t>& p
 	}
 
 
-	if (CmsIds.has_value())
+	if (ReferenceLookups.has_value())
 	{
-		Uri.AddQueryParams("CmsIds", CmsIds.value());
+		Uri.AddQueryParams("ReferenceLookups", ReferenceLookups.value());
 	}
 
 
@@ -935,7 +935,7 @@ void PointOfInterestApi::apiV1PoiGet(const std::optional<utility::string_t>& ppo
 									 const std::optional<int32_t>& ZoomLevel,
 									 const std::optional<utility::string_t>& EventStartTime,
 									 const std::optional<utility::string_t>& EventEndTime,
-									 const std::optional<std::vector<utility::string_t>>& CmsIds,
+									 const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
 									 const std::optional<bool>& IncludeHidden,
 									 const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
 									 const std::optional<bool>& HasSchedule,
@@ -1047,9 +1047,9 @@ void PointOfInterestApi::apiV1PoiGet(const std::optional<utility::string_t>& ppo
 	}
 
 
-	if (CmsIds.has_value())
+	if (ReferenceLookups.has_value())
 	{
-		Uri.AddQueryParams("CmsIds", CmsIds.value());
+		Uri.AddQueryParams("ReferenceLookups", ReferenceLookups.value());
 	}
 
 

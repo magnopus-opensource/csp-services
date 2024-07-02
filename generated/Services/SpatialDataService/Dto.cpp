@@ -4278,10 +4278,10 @@ utility::string_t PointOfInterestDto::ToJson() const
 		JsonDoc.AddMember("private", PrivateValue, JsonDoc.GetAllocator());
 	}
 
-	if (m_CmsId.has_value())
+	if (m_ReferenceLookup.has_value())
 	{
-		rapidjson::Value CmsIdValue(TypeToJsonValue(m_CmsId, JsonDoc.GetAllocator()));
-		JsonDoc.AddMember("cmsId", CmsIdValue, JsonDoc.GetAllocator());
+		rapidjson::Value ReferenceLookupValue(TypeToJsonValue(m_ReferenceLookup, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("referenceLookup", ReferenceLookupValue, JsonDoc.GetAllocator());
 	}
 
 	if (m_PrototypeId.has_value())
@@ -4596,13 +4596,13 @@ void PointOfInterestDto::FromJson(const utility::string_t& Val)
 		}
 	}
 
-	if (JsonDoc.HasMember("cmsId"))
+	if (JsonDoc.HasMember("referenceLookup"))
 	{
-		const rapidjson::Value& CmsIdValue = JsonDoc["cmsId"];
+		const rapidjson::Value& ReferenceLookupValue = JsonDoc["referenceLookup"];
 
-		if (CmsIdValue != rapidjson::Type::kNullType)
+		if (ReferenceLookupValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CmsIdValue, m_CmsId);
+			JsonValueToType(ReferenceLookupValue, m_ReferenceLookup);
 		}
 	}
 
@@ -4960,18 +4960,18 @@ void PointOfInterestDto::SetPrivate(const bool& Value)
 {
 	m_Private = Value;
 }
-utility::string_t PointOfInterestDto::GetCmsId() const
+utility::string_t PointOfInterestDto::GetReferenceLookup() const
 {
-	return m_CmsId.value();
+	return m_ReferenceLookup.value();
 }
 
-bool PointOfInterestDto::HasCmsId() const
+bool PointOfInterestDto::HasReferenceLookup() const
 {
-	return m_CmsId.has_value();
+	return m_ReferenceLookup.has_value();
 }
-void PointOfInterestDto::SetCmsId(const utility::string_t& Value)
+void PointOfInterestDto::SetReferenceLookup(const utility::string_t& Value)
 {
-	m_CmsId = Value;
+	m_ReferenceLookup = Value;
 }
 utility::string_t PointOfInterestDto::GetPrototypeId() const
 {

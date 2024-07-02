@@ -156,6 +156,110 @@ public:
 				 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
+class SequenceApi final : public csp::services::ApiBase
+{
+public:
+	SequenceApi(csp::web::WebClient* InWebClient);
+	virtual ~SequenceApi();
+
+
+
+	/// <summary>
+	/// Finds all matching sequences.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/sequences
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1SequencesGet(const std::optional<std::vector<utility::string_t>>& Keys,
+						   const std::optional<utility::string_t>& KeyLikeRegex,
+						   const std::optional<utility::string_t>& ReferenceType,
+						   const std::optional<std::vector<utility::string_t>>& ReferenceIds,
+						   const std::optional<int32_t>& Skip,
+						   const std::optional<int32_t>& Limit,
+						   csp::services::ApiResponseHandlerBase* ResponseHandler,
+						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+	/// <summary>
+	/// Creates or updates a sequence.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/sequences
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1SequencesPut(const std::shared_ptr<SequenceDto>& RequestBody,
+						   csp::services::ApiResponseHandlerBase* ResponseHandler,
+						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Gets a sequence by key.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/sequences/keys/{key}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1SequencesKeysKeyGet(const utility::string_t& key,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+	/// <summary>
+	/// Deletes a sequence with the given key.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/sequences/keys/{key}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1SequencesKeysKeyDelete(const utility::string_t& key,
+									 csp::services::ApiResponseHandlerBase* ResponseHandler,
+									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Moves a sequence from one key to another.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/sequences/keys/{oldKey}/key
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1SequencesKeysOldKeyKeyPut(const utility::string_t& oldKey,
+										const utility::string_t& newKey,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Deletes all sequences with the given keys.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/sequences/keys
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1SequencesKeysDelete(const std::vector<utility::string_t>& keys,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Deletes all sequences with the given reference.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/sequences/reference-type/{referenceType}/reference-id/{referenceId}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1SequencesReferenceTypeReferenceTypeReferenceIdReferenceIdDelete(const utility::string_t& referenceType,
+																			  const utility::string_t& referenceId,
+																			  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																			  csp::common::CancellationToken& CancellationToken
+																			  = csp::common::CancellationToken::Dummy()) const;
+};
+
 class ShopifyApi final : public csp::services::ApiBase
 {
 public:
