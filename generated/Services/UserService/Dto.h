@@ -855,7 +855,7 @@ public:
 	bool HasArchived() const;
 
 	/// <summary>
-	/// The organizationId that the group belogs to
+	/// The organizationId that the group belongs to
 	/// </summary>
 	utility::string_t GetOrganizationId() const;
 	bool HasOrganizationId() const;
@@ -2229,10 +2229,26 @@ public:
 	void SetAllowedEmailUserNameSuffixes(const std::vector<utility::string_t>& Value);
 	bool HasAllowedEmailUserNameSuffixes() const;
 
+	/// <summary>
+	/// Weather or not to disable sending emails for this tenant
+	/// </summary>
+	bool GetDisableEmailSender() const;
+	void SetDisableEmailSender(const bool& Value);
+	bool HasDisableEmailSender() const;
+
+	/// <summary>
+	/// Weather or not to enable auto-confirmation for accounts for this tenant
+	/// </summary>
+	bool GetEnableEmailAutoConfirm() const;
+	void SetEnableEmailAutoConfirm(const bool& Value);
+	bool HasEnableEmailAutoConfirm() const;
+
 
 protected:
 	std::optional<std::vector<utility::string_t>> m_AllowedEmailDomains;
 	std::optional<std::vector<utility::string_t>> m_AllowedEmailUserNameSuffixes;
+	std::optional<bool> m_DisableEmailSender;
+	std::optional<bool> m_EnableEmailAutoConfirm;
 };
 
 /// <summary>

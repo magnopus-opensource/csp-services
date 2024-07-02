@@ -1427,11 +1427,11 @@ public:
 	bool HasPrivate() const;
 
 	/// <summary>
-	/// Expo POI content management system ID
+	/// A lookup key for another system
 	/// </summary>
-	utility::string_t GetCmsId() const;
-	void SetCmsId(const utility::string_t& Value);
-	bool HasCmsId() const;
+	utility::string_t GetReferenceLookup() const;
+	void SetReferenceLookup(const utility::string_t& Value);
+	bool HasReferenceLookup() const;
 
 	/// <summary>
 	/// Prototype that is referenced by the POI to be used by clients for instantiation of objects
@@ -1500,7 +1500,7 @@ protected:
 	std::optional<bool> m_Hidden;
 	std::optional<std::vector<std::shared_ptr<GeoCoord>>> m_Geofence;
 	std::optional<bool> m_Private;
-	std::optional<utility::string_t> m_CmsId;
+	std::optional<utility::string_t> m_ReferenceLookup;
 	std::optional<utility::string_t> m_PrototypeId;
 	std::optional<utility::string_t> m_PrototypeName;
 	std::optional<bool> m_RequireAction;

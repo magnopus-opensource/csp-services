@@ -234,6 +234,174 @@ void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, cs
 
 
 
+SequenceApi::SequenceApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
+{
+}
+
+SequenceApi::~SequenceApi()
+{
+}
+
+
+
+void SequenceApi::apiV1SequencesGet(const std::optional<std::vector<utility::string_t>>& Keys,
+									const std::optional<utility::string_t>& KeyLikeRegex,
+									const std::optional<utility::string_t>& ReferenceType,
+									const std::optional<std::vector<utility::string_t>>& ReferenceIds,
+									const std::optional<int32_t>& Skip,
+									const std::optional<int32_t>& Limit,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/sequences", {});
+
+
+	if (Keys.has_value())
+	{
+		Uri.AddQueryParams("Keys", Keys.value());
+	}
+
+
+	if (KeyLikeRegex.has_value())
+	{
+		Uri.AddQueryParams("KeyLikeRegex", KeyLikeRegex.value());
+	}
+
+
+	if (ReferenceType.has_value())
+	{
+		Uri.AddQueryParams("ReferenceType", ReferenceType.value());
+	}
+
+
+	if (ReferenceIds.has_value())
+	{
+		Uri.AddQueryParams("ReferenceIds", ReferenceIds.value());
+	}
+
+
+	if (Skip.has_value())
+	{
+		Uri.AddQueryParams("Skip", Skip.value());
+	}
+
+
+	if (Limit.has_value())
+	{
+		Uri.AddQueryParams("Limit", Limit.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+void SequenceApi::apiV1SequencesPut(const std::shared_ptr<SequenceDto>& RequestBody,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/sequences", {});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SequenceApi::apiV1SequencesKeysKeyGet(const utility::string_t& key,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/sequences/keys/{key}", {key});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+void SequenceApi::apiV1SequencesKeysKeyDelete(const utility::string_t& key,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/sequences/keys/{key}", {key});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SequenceApi::apiV1SequencesKeysOldKeyKeyPut(const utility::string_t& oldKey,
+												 const utility::string_t& newKey,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/sequences/keys/{oldKey}/key", {oldKey});
+
+
+	Uri.AddQueryParams("newKey", newKey);
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SequenceApi::apiV1SequencesKeysDelete(const std::vector<utility::string_t>& keys,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/sequences/keys", {});
+
+
+	Uri.AddQueryParams("keys", keys);
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SequenceApi::apiV1SequencesReferenceTypeReferenceTypeReferenceIdReferenceIdDelete(const utility::string_t& referenceType,
+																					   const utility::string_t& referenceId,
+																					   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																					   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/sequences/reference-type/{referenceType}/reference-id/{referenceId}", {referenceType, referenceId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 ShopifyApi::ShopifyApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
 {
 }
