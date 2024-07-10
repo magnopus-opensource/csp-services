@@ -374,6 +374,12 @@ class UserRolesDto;
                 utility::string_t GetOAuthRedirectUri() const;
                 void SetOAuthRedirectUri(const utility::string_t& Value);bool HasOAuthRedirectUri() const;
             
+                /// <summary>
+                    /// Optional Id of the User with the Social Provider, when needed for Login
+                    /// </summary>
+                utility::string_t GetOptionalProviderUserId() const;
+                void SetOptionalProviderUserId(const utility::string_t& Value);bool HasOptionalProviderUserId() const;
+            
                 const std::vector<std::shared_ptr<InitialSettingsDto>>& GetInitialSettings() const;
                 void SetInitialSettings(const std::vector<std::shared_ptr<InitialSettingsDto>>& Value);bool HasInitialSettings() const;
             
@@ -390,6 +396,7 @@ class UserRolesDto;
             std::optional<utility::string_t> m_RedirectUrl;
             std::optional<bool> m_VerifiedAgeEighteen;
             std::optional<utility::string_t> m_OAuthRedirectUri;
+            std::optional<utility::string_t> m_OptionalProviderUserId;
             std::optional<std::vector<std::shared_ptr<InitialSettingsDto>>> m_InitialSettings;
             };
 
@@ -1217,6 +1224,12 @@ class UserRolesDto;
                 bool GetVerifiedAgeEighteen() const;
                 void SetVerifiedAgeEighteen(const bool& Value);bool HasVerifiedAgeEighteen() const;
             
+                /// <summary>
+                    /// Optional Id of the User with the Social Provider, when needed for Login
+                    /// </summary>
+                utility::string_t GetOptionalProviderUserId() const;
+                void SetOptionalProviderUserId(const utility::string_t& Value);bool HasOptionalProviderUserId() const;
+            
 
         protected:
             std::optional<utility::string_t> m_Tenant;
@@ -1225,6 +1238,7 @@ class UserRolesDto;
             std::optional<utility::string_t> m_DeviceId;
             std::optional<utility::string_t> m_OAuthRedirectUri;
             std::optional<bool> m_VerifiedAgeEighteen;
+            std::optional<utility::string_t> m_OptionalProviderUserId;
             };
 
     /// <summary>
@@ -2374,6 +2388,12 @@ class UserRolesDto;
                 utility::string_t GetOAuthRedirectUri() const;
                 void SetOAuthRedirectUri(const utility::string_t& Value);bool HasOAuthRedirectUri() const;
             
+                /// <summary>
+                    /// Optional Id of the User with the Social Provider, when needed for Login
+                    /// </summary>
+                utility::string_t GetOptionalProviderUserId() const;
+                void SetOptionalProviderUserId(const utility::string_t& Value);bool HasOptionalProviderUserId() const;
+            
 
         protected:
             std::optional<utility::string_t> m_Provider;
@@ -2384,6 +2404,7 @@ class UserRolesDto;
             std::optional<utility::string_t> m_GuestDeviceId;
             std::optional<utility::string_t> m_RedirectUrl;
             std::optional<utility::string_t> m_OAuthRedirectUri;
+            std::optional<utility::string_t> m_OptionalProviderUserId;
             };
 
     /// <summary>

@@ -14,6 +14,45 @@ namespace csp::services::generated::aggregationservice
 {
 
 
+    class AloMovesApi final : public csp::services::ApiBase
+    {
+    public:
+        AloMovesApi(csp::web::WebClient* InWebClient);
+        virtual ~AloMovesApi();
+
+        
+            
+                
+                    /// <summary>
+                    /// Harmonize with Meta
+                    /// </summary>
+                /// <remarks>
+                /// POST /api/v1/alo/harmonize
+                /// Authorization: Anonymous
+                /// </remarks>
+                void apiV1AloHarmonizePost(
+                    const std::shared_ptr<HarmonizeAloRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Class Completed
+                    /// </summary>
+                /// <remarks>
+                /// POST /api/v1/alo/{userId}/classes/{classDefinitionId}/completed
+                /// !AUTHORIZATION REQUIREMENTS NOT SET!
+                /// </remarks>
+                void apiV1AloUserIdClassesClassDefinitionIdCompletedPost(
+                    const utility::string_t& userId,const utility::string_t& classDefinitionId,const std::shared_ptr<AloClassCompletedRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+    };
+    
     class CacheApi final : public csp::services::ApiBase
     {
     public:

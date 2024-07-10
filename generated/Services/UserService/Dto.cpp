@@ -1161,6 +1161,18 @@ namespace csp::services::generated::userservice
                     );
                 }
             
+                if (m_OptionalProviderUserId.has_value())
+                {
+                    rapidjson::Value OptionalProviderUserIdValue(
+                        TypeToJsonValue(m_OptionalProviderUserId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "optionalProviderUserId",
+                        OptionalProviderUserIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
                 if (m_InitialSettings.has_value())
                 {
                     rapidjson::Value InitialSettingsValue(
@@ -1306,6 +1318,16 @@ namespace csp::services::generated::userservice
                     if (OAuthRedirectUriValue != rapidjson::Type::kNullType)
                     {
                         JsonValueToType(OAuthRedirectUriValue, m_OAuthRedirectUri);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("optionalProviderUserId"))
+                {
+                    const rapidjson::Value& OptionalProviderUserIdValue = JsonDoc["optionalProviderUserId"];
+
+                    if (OptionalProviderUserIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId);
                     }
                 }
             
@@ -1475,6 +1497,20 @@ namespace csp::services::generated::userservice
                     )
                 {
                         m_OAuthRedirectUri = Value;
+                    }
+            utility::string_t CreateUserSocialRequest::GetOptionalProviderUserId() const
+            {
+                    return m_OptionalProviderUserId.value();
+                }
+
+            bool CreateUserSocialRequest::HasOptionalProviderUserId() const
+            {
+                return m_OptionalProviderUserId.has_value();
+            }void CreateUserSocialRequest::SetOptionalProviderUserId(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_OptionalProviderUserId = Value;
                     }
             const std::vector<std::shared_ptr<InitialSettingsDto>>&
                     CreateUserSocialRequest::GetInitialSettings() const
@@ -4948,6 +4984,18 @@ namespace csp::services::generated::userservice
                     );
                 }
             
+                if (m_OptionalProviderUserId.has_value())
+                {
+                    rapidjson::Value OptionalProviderUserIdValue(
+                        TypeToJsonValue(m_OptionalProviderUserId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "optionalProviderUserId",
+                        OptionalProviderUserIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
 
             return JsonDocToString(JsonDoc);
         }
@@ -5039,6 +5087,16 @@ namespace csp::services::generated::userservice
                     }
                 }
             
+                if (JsonDoc.HasMember("optionalProviderUserId"))
+                {
+                    const rapidjson::Value& OptionalProviderUserIdValue = JsonDoc["optionalProviderUserId"];
+
+                    if (OptionalProviderUserIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId);
+                    }
+                }
+            
         }
 
         
@@ -5125,6 +5183,20 @@ namespace csp::services::generated::userservice
                     )
                 {
                         m_VerifiedAgeEighteen = Value;
+                    }
+            utility::string_t LoginSocialRequest::GetOptionalProviderUserId() const
+            {
+                    return m_OptionalProviderUserId.value();
+                }
+
+            bool LoginSocialRequest::HasOptionalProviderUserId() const
+            {
+                return m_OptionalProviderUserId.has_value();
+            }void LoginSocialRequest::SetOptionalProviderUserId(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_OptionalProviderUserId = Value;
                     }
 
     LogoutRequest::LogoutRequest() { }
@@ -9556,6 +9628,18 @@ namespace csp::services::generated::userservice
                     );
                 }
             
+                if (m_OptionalProviderUserId.has_value())
+                {
+                    rapidjson::Value OptionalProviderUserIdValue(
+                        TypeToJsonValue(m_OptionalProviderUserId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "optionalProviderUserId",
+                        OptionalProviderUserIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
 
             return JsonDocToString(JsonDoc);
         }
@@ -9664,6 +9748,16 @@ namespace csp::services::generated::userservice
                     if (OAuthRedirectUriValue != rapidjson::Type::kNullType)
                     {
                         JsonValueToType(OAuthRedirectUriValue, m_OAuthRedirectUri);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("optionalProviderUserId"))
+                {
+                    const rapidjson::Value& OptionalProviderUserIdValue = JsonDoc["optionalProviderUserId"];
+
+                    if (OptionalProviderUserIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId);
                     }
                 }
             
@@ -9781,6 +9875,20 @@ namespace csp::services::generated::userservice
                     )
                 {
                         m_OAuthRedirectUri = Value;
+                    }
+            utility::string_t UpgradeGuestSocialRequest::GetOptionalProviderUserId() const
+            {
+                    return m_OptionalProviderUserId.value();
+                }
+
+            bool UpgradeGuestSocialRequest::HasOptionalProviderUserId() const
+            {
+                return m_OptionalProviderUserId.has_value();
+            }void UpgradeGuestSocialRequest::SetOptionalProviderUserId(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_OptionalProviderUserId = Value;
                     }
 
     UserRolesDto::UserRolesDto() { }

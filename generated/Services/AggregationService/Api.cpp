@@ -10,6 +10,56 @@
 namespace csp::services::generated::aggregationservice {
 
 
+    AloMovesApi::AloMovesApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
+    {
+
+    }
+
+    AloMovesApi::~AloMovesApi()
+    {
+
+    }
+
+    
+        
+            void AloMovesApi::apiV1AloHarmonizePost(
+                const std::shared_ptr<HarmonizeAloRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/alo/harmonize",
+                    {}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+
+                WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+        
+            void AloMovesApi::apiV1AloUserIdClassesClassDefinitionIdCompletedPost(
+                const utility::string_t& userId,const utility::string_t& classDefinitionId,const std::shared_ptr<AloClassCompletedRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/alo/{userId}/classes/{classDefinitionId}/completed",
+                    {userId,classDefinitionId}
+                );
+
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+
+                WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
+    
+
     CacheApi::CacheApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
     {
 
