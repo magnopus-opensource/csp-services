@@ -16,6 +16,161 @@ namespace csp::services::generated::aggregationservice
 {
 
 
+    AloClassCompletedRequest::AloClassCompletedRequest() { }
+    AloClassCompletedRequest::~AloClassCompletedRequest() { }
+
+    utility::string_t AloClassCompletedRequest::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_UserId.has_value())
+                {
+                    rapidjson::Value UserIdValue(
+                        TypeToJsonValue(m_UserId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "userId",
+                        UserIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_ClassDefinitionId.has_value())
+                {
+                    rapidjson::Value ClassDefinitionIdValue(
+                        TypeToJsonValue(m_ClassDefinitionId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "classDefinitionId",
+                        ClassDefinitionIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void AloClassCompletedRequest::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("userId"))
+                {
+                    const rapidjson::Value& UserIdValue = JsonDoc["userId"];
+
+                    if (UserIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(UserIdValue, m_UserId);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("classDefinitionId"))
+                {
+                    const rapidjson::Value& ClassDefinitionIdValue = JsonDoc["classDefinitionId"];
+
+                    if (ClassDefinitionIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ClassDefinitionIdValue, m_ClassDefinitionId);
+                    }
+                }
+            
+        }
+
+        
+            utility::string_t AloClassCompletedRequest::GetUserId() const
+            {
+                    return m_UserId.value();
+                }
+
+            bool AloClassCompletedRequest::HasUserId() const
+            {
+                return m_UserId.has_value();
+            }
+            utility::string_t AloClassCompletedRequest::GetClassDefinitionId() const
+            {
+                    return m_ClassDefinitionId.value();
+                }
+
+            bool AloClassCompletedRequest::HasClassDefinitionId() const
+            {
+                return m_ClassDefinitionId.has_value();
+            }
+
+    AloClassCompletedResponse::AloClassCompletedResponse() { }
+    AloClassCompletedResponse::~AloClassCompletedResponse() { }
+
+    utility::string_t AloClassCompletedResponse::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_BadgeIdsEarned.has_value())
+                {
+                    rapidjson::Value BadgeIdsEarnedValue(
+                        TypeToJsonValue(m_BadgeIdsEarned, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "badgeIdsEarned",
+                        BadgeIdsEarnedValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void AloClassCompletedResponse::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("badgeIdsEarned"))
+                {
+                    const rapidjson::Value& BadgeIdsEarnedValue = JsonDoc["badgeIdsEarned"];
+
+                    if (BadgeIdsEarnedValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(BadgeIdsEarnedValue, m_BadgeIdsEarned);
+                    }
+                }
+            
+        }
+
+        
+            const std::vector<utility::string_t>&
+                    AloClassCompletedResponse::GetBadgeIdsEarned() const
+            {
+                    return m_BadgeIdsEarned.value();
+                }
+
+            bool AloClassCompletedResponse::HasBadgeIdsEarned() const
+            {
+                return m_BadgeIdsEarned.has_value();
+            }void AloClassCompletedResponse::SetBadgeIdsEarned(
+                        const std::vector<utility::string_t>& Value
+                    )
+                {
+                        m_BadgeIdsEarned = Value;
+                    }
+
     AltitudeMode::AltitudeMode() { }
     AltitudeMode::~AltitudeMode() { }
 
@@ -73,6 +228,287 @@ namespace csp::services::generated::aggregationservice
         {
             Value = InValue;
         }
+
+    AuthDto::AuthDto() { }
+    AuthDto::~AuthDto() { }
+
+    utility::string_t AuthDto::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_UserId.has_value())
+                {
+                    rapidjson::Value UserIdValue(
+                        TypeToJsonValue(m_UserId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "userId",
+                        UserIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_AccessToken.has_value())
+                {
+                    rapidjson::Value AccessTokenValue(
+                        TypeToJsonValue(m_AccessToken, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "accessToken",
+                        AccessTokenValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_AccessTokenExpiresAt.has_value())
+                {
+                    rapidjson::Value AccessTokenExpiresAtValue(
+                        TypeToJsonValue(m_AccessTokenExpiresAt, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "accessTokenExpiresAt",
+                        AccessTokenExpiresAtValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_RefreshToken.has_value())
+                {
+                    rapidjson::Value RefreshTokenValue(
+                        TypeToJsonValue(m_RefreshToken, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "refreshToken",
+                        RefreshTokenValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_RefreshTokenExpiresAt.has_value())
+                {
+                    rapidjson::Value RefreshTokenExpiresAtValue(
+                        TypeToJsonValue(m_RefreshTokenExpiresAt, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "refreshTokenExpiresAt",
+                        RefreshTokenExpiresAtValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_OrganizationIds.has_value())
+                {
+                    rapidjson::Value OrganizationIdsValue(
+                        TypeToJsonValue(m_OrganizationIds, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "organizationIds",
+                        OrganizationIdsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_DeviceId.has_value())
+                {
+                    rapidjson::Value DeviceIdValue(
+                        TypeToJsonValue(m_DeviceId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "deviceId",
+                        DeviceIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void AuthDto::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("userId"))
+                {
+                    const rapidjson::Value& UserIdValue = JsonDoc["userId"];
+
+                    if (UserIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(UserIdValue, m_UserId);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("accessToken"))
+                {
+                    const rapidjson::Value& AccessTokenValue = JsonDoc["accessToken"];
+
+                    if (AccessTokenValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(AccessTokenValue, m_AccessToken);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("accessTokenExpiresAt"))
+                {
+                    const rapidjson::Value& AccessTokenExpiresAtValue = JsonDoc["accessTokenExpiresAt"];
+
+                    if (AccessTokenExpiresAtValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(AccessTokenExpiresAtValue, m_AccessTokenExpiresAt);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("refreshToken"))
+                {
+                    const rapidjson::Value& RefreshTokenValue = JsonDoc["refreshToken"];
+
+                    if (RefreshTokenValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(RefreshTokenValue, m_RefreshToken);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("refreshTokenExpiresAt"))
+                {
+                    const rapidjson::Value& RefreshTokenExpiresAtValue = JsonDoc["refreshTokenExpiresAt"];
+
+                    if (RefreshTokenExpiresAtValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(RefreshTokenExpiresAtValue, m_RefreshTokenExpiresAt);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("organizationIds"))
+                {
+                    const rapidjson::Value& OrganizationIdsValue = JsonDoc["organizationIds"];
+
+                    if (OrganizationIdsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OrganizationIdsValue, m_OrganizationIds);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("deviceId"))
+                {
+                    const rapidjson::Value& DeviceIdValue = JsonDoc["deviceId"];
+
+                    if (DeviceIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(DeviceIdValue, m_DeviceId);
+                    }
+                }
+            
+        }
+
+        
+            utility::string_t AuthDto::GetUserId() const
+            {
+                    return m_UserId.value();
+                }
+
+            bool AuthDto::HasUserId() const
+            {
+                return m_UserId.has_value();
+            }void AuthDto::SetUserId(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_UserId = Value;
+                    }
+            utility::string_t AuthDto::GetAccessToken() const
+            {
+                    return m_AccessToken.value();
+                }
+
+            bool AuthDto::HasAccessToken() const
+            {
+                return m_AccessToken.has_value();
+            }void AuthDto::SetAccessToken(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_AccessToken = Value;
+                    }
+            utility::string_t AuthDto::GetAccessTokenExpiresAt() const
+            {
+                    return m_AccessTokenExpiresAt.value();
+                }
+
+            bool AuthDto::HasAccessTokenExpiresAt() const
+            {
+                return m_AccessTokenExpiresAt.has_value();
+            }void AuthDto::SetAccessTokenExpiresAt(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_AccessTokenExpiresAt = Value;
+                    }
+            utility::string_t AuthDto::GetRefreshToken() const
+            {
+                    return m_RefreshToken.value();
+                }
+
+            bool AuthDto::HasRefreshToken() const
+            {
+                return m_RefreshToken.has_value();
+            }void AuthDto::SetRefreshToken(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_RefreshToken = Value;
+                    }
+            utility::string_t AuthDto::GetRefreshTokenExpiresAt() const
+            {
+                    return m_RefreshTokenExpiresAt.value();
+                }
+
+            bool AuthDto::HasRefreshTokenExpiresAt() const
+            {
+                return m_RefreshTokenExpiresAt.has_value();
+            }void AuthDto::SetRefreshTokenExpiresAt(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_RefreshTokenExpiresAt = Value;
+                    }
+            const std::vector<utility::string_t>&
+                    AuthDto::GetOrganizationIds() const
+            {
+                    return m_OrganizationIds.value();
+                }
+
+            bool AuthDto::HasOrganizationIds() const
+            {
+                return m_OrganizationIds.has_value();
+            }void AuthDto::SetOrganizationIds(
+                        const std::vector<utility::string_t>& Value
+                    )
+                {
+                        m_OrganizationIds = Value;
+                    }
+            utility::string_t AuthDto::GetDeviceId() const
+            {
+                    return m_DeviceId.value();
+                }
+
+            bool AuthDto::HasDeviceId() const
+            {
+                return m_DeviceId.has_value();
+            }void AuthDto::SetDeviceId(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_DeviceId = Value;
+                    }
 
     DuplicateSpaceRequest::DuplicateSpaceRequest() { }
     DuplicateSpaceRequest::~DuplicateSpaceRequest() { }
@@ -592,6 +1028,185 @@ namespace csp::services::generated::aggregationservice
                     )
                 {
                         m_GroupRoles = Value;
+                    }
+
+    HarmonizeAloRequest::HarmonizeAloRequest() { }
+    HarmonizeAloRequest::~HarmonizeAloRequest() { }
+
+    utility::string_t HarmonizeAloRequest::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_Nonce.has_value())
+                {
+                    rapidjson::Value NonceValue(
+                        TypeToJsonValue(m_Nonce, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "nonce",
+                        NonceValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_MetaUserId.has_value())
+                {
+                    rapidjson::Value MetaUserIdValue(
+                        TypeToJsonValue(m_MetaUserId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "metaUserId",
+                        MetaUserIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void HarmonizeAloRequest::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("nonce"))
+                {
+                    const rapidjson::Value& NonceValue = JsonDoc["nonce"];
+
+                    if (NonceValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(NonceValue, m_Nonce);
+                    }
+                    else
+                    {
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member nonce is null!");
+                    }
+                    
+                }
+            
+                if (JsonDoc.HasMember("metaUserId"))
+                {
+                    const rapidjson::Value& MetaUserIdValue = JsonDoc["metaUserId"];
+
+                    if (MetaUserIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(MetaUserIdValue, m_MetaUserId);
+                    }
+                    else
+                    {
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member metaUserId is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            utility::string_t HarmonizeAloRequest::GetNonce() const
+            {
+                    return m_Nonce.value();
+                }
+
+            bool HarmonizeAloRequest::HasNonce() const
+            {
+                return m_Nonce.has_value();
+            }void HarmonizeAloRequest::SetNonce(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_Nonce = Value;
+                    }
+            utility::string_t HarmonizeAloRequest::GetMetaUserId() const
+            {
+                    return m_MetaUserId.value();
+                }
+
+            bool HarmonizeAloRequest::HasMetaUserId() const
+            {
+                return m_MetaUserId.has_value();
+            }void HarmonizeAloRequest::SetMetaUserId(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_MetaUserId = Value;
+                    }
+
+    HarmonizeAloResponse::HarmonizeAloResponse() { }
+    HarmonizeAloResponse::~HarmonizeAloResponse() { }
+
+    utility::string_t HarmonizeAloResponse::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_Auth.has_value())
+                {
+                    rapidjson::Value AuthValue(
+                        TypeToJsonValue(m_Auth, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "auth",
+                        AuthValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void HarmonizeAloResponse::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("auth"))
+                {
+                    const rapidjson::Value& AuthValue = JsonDoc["auth"];
+
+                    if (AuthValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(AuthValue, m_Auth);
+                    }
+                    else
+                    {
+                        CSP_LOG_ERROR_MSG("Error: Non-nullable member auth is null!");
+                    }
+                    
+                }
+            
+        }
+
+        
+            std::shared_ptr<AuthDto> HarmonizeAloResponse::GetAuth() const
+            {
+                    return m_Auth.value();
+                }
+
+            bool HarmonizeAloResponse::HasAuth() const
+            {
+                return m_Auth.has_value();
+            }void HarmonizeAloResponse::SetAuth(
+                        const std::shared_ptr<AuthDto>& Value
+                    )
+                {
+                        m_Auth = Value;
                     }
 
     Icon::Icon() { }
@@ -3098,7 +3713,12 @@ namespace csp::services::generated::aggregationservice
             bool ProblemDetails::HasExtensions() const
             {
                 return m_Extensions.has_value();
-            }
+            }void ProblemDetails::SetExtensions(
+                        const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& Value
+                    )
+                {
+                        m_Extensions = Value;
+                    }
 
     SequenceDto::SequenceDto() { }
     SequenceDto::~SequenceDto() { }
@@ -3164,6 +3784,18 @@ namespace csp::services::generated::aggregationservice
                     JsonDoc.AddMember(
                         "referenceId",
                         ReferenceIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Metadata.has_value())
+                {
+                    rapidjson::Value MetadataValue(
+                        TypeToJsonValue(m_Metadata, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "metadata",
+                        MetadataValue,
                         JsonDoc.GetAllocator()
                     );
                 }
@@ -3254,6 +3886,16 @@ namespace csp::services::generated::aggregationservice
                     
                 }
             
+                if (JsonDoc.HasMember("metadata"))
+                {
+                    const rapidjson::Value& MetadataValue = JsonDoc["metadata"];
+
+                    if (MetadataValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(MetadataValue, m_Metadata);
+                    }
+                }
+            
         }
 
         
@@ -3327,6 +3969,21 @@ namespace csp::services::generated::aggregationservice
                     )
                 {
                         m_ReferenceId = Value;
+                    }
+            const std::map<utility::string_t, utility::string_t>&
+                    SequenceDto::GetMetadata() const
+            {
+                    return m_Metadata.value();
+                }
+
+            bool SequenceDto::HasMetadata() const
+            {
+                return m_Metadata.has_value();
+            }void SequenceDto::SetMetadata(
+                        const std::map<utility::string_t, utility::string_t>& Value
+                    )
+                {
+                        m_Metadata = Value;
                     }
 
     SequenceDtoDataPage::SequenceDtoDataPage() { }

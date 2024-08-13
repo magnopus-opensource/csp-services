@@ -142,6 +142,12 @@ class SortDirection;
                 void SetExternalMimeType(const utility::string_t& Value);bool HasExternalMimeType() const;
             
                 /// <summary>
+                    /// Path to the original asset
+                    /// </summary>
+                utility::string_t GetOriginalAssetUri() const;
+                void SetOriginalAssetUri(const utility::string_t& Value);bool HasOriginalAssetUri() const;
+            
+                /// <summary>
                     /// Tags for this asset-detail
                     /// or an empty list if none
                     /// </summary>
@@ -172,6 +178,7 @@ class SortDirection;
             std::optional<utility::string_t> m_MimeType;
             std::optional<utility::string_t> m_ExternalUri;
             std::optional<utility::string_t> m_ExternalMimeType;
+            std::optional<utility::string_t> m_OriginalAssetUri;
             std::optional<std::vector<utility::string_t>> m_Tags;
             std::optional<int64_t> m_SizeInBytes;
             };
@@ -546,6 +553,12 @@ class SortDirection;
                 void SetExternalMimeType(const utility::string_t& Value);bool HasExternalMimeType() const;
             
                 /// <summary>
+                    /// Path to the original asset
+                    /// </summary>
+                utility::string_t GetOriginalAssetUri() const;
+                void SetOriginalAssetUri(const utility::string_t& Value);bool HasOriginalAssetUri() const;
+            
+                /// <summary>
                     /// Tags for this asset-detail
                     /// or an empty list if none
                     /// </summary>
@@ -576,6 +589,7 @@ class SortDirection;
             std::optional<utility::string_t> m_MimeType;
             std::optional<utility::string_t> m_ExternalUri;
             std::optional<utility::string_t> m_ExternalMimeType;
+            std::optional<utility::string_t> m_OriginalAssetUri;
             std::optional<std::vector<utility::string_t>> m_Tags;
             std::optional<int64_t> m_SizeInBytes;
             };

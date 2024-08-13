@@ -1161,6 +1161,18 @@ namespace csp::services::generated::userservice
                     );
                 }
             
+                if (m_OptionalProviderUserId.has_value())
+                {
+                    rapidjson::Value OptionalProviderUserIdValue(
+                        TypeToJsonValue(m_OptionalProviderUserId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "optionalProviderUserId",
+                        OptionalProviderUserIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
                 if (m_InitialSettings.has_value())
                 {
                     rapidjson::Value InitialSettingsValue(
@@ -1306,6 +1318,16 @@ namespace csp::services::generated::userservice
                     if (OAuthRedirectUriValue != rapidjson::Type::kNullType)
                     {
                         JsonValueToType(OAuthRedirectUriValue, m_OAuthRedirectUri);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("optionalProviderUserId"))
+                {
+                    const rapidjson::Value& OptionalProviderUserIdValue = JsonDoc["optionalProviderUserId"];
+
+                    if (OptionalProviderUserIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId);
                     }
                 }
             
@@ -1475,6 +1497,20 @@ namespace csp::services::generated::userservice
                     )
                 {
                         m_OAuthRedirectUri = Value;
+                    }
+            utility::string_t CreateUserSocialRequest::GetOptionalProviderUserId() const
+            {
+                    return m_OptionalProviderUserId.value();
+                }
+
+            bool CreateUserSocialRequest::HasOptionalProviderUserId() const
+            {
+                return m_OptionalProviderUserId.has_value();
+            }void CreateUserSocialRequest::SetOptionalProviderUserId(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_OptionalProviderUserId = Value;
                     }
             const std::vector<std::shared_ptr<InitialSettingsDto>>&
                     CreateUserSocialRequest::GetInitialSettings() const
@@ -2437,6 +2473,473 @@ namespace csp::services::generated::userservice
             {
                 return m_IsCurrentUserBanned.has_value();
             }
+
+    GroupFilters::GroupFilters() { }
+    GroupFilters::~GroupFilters() { }
+
+    utility::string_t GroupFilters::ToJson() const
+        {
+            rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+            
+                if (m_Ids.has_value())
+                {
+                    rapidjson::Value IdsValue(
+                        TypeToJsonValue(m_Ids, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "ids",
+                        IdsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_GroupTypes.has_value())
+                {
+                    rapidjson::Value GroupTypesValue(
+                        TypeToJsonValue(m_GroupTypes, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "groupTypes",
+                        GroupTypesValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Names.has_value())
+                {
+                    rapidjson::Value NamesValue(
+                        TypeToJsonValue(m_Names, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "names",
+                        NamesValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_PartialName.has_value())
+                {
+                    rapidjson::Value PartialNameValue(
+                        TypeToJsonValue(m_PartialName, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "partialName",
+                        PartialNameValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_GroupOwnerIds.has_value())
+                {
+                    rapidjson::Value GroupOwnerIdsValue(
+                        TypeToJsonValue(m_GroupOwnerIds, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "groupOwnerIds",
+                        GroupOwnerIdsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_ExcludeGroupOwnerIds.has_value())
+                {
+                    rapidjson::Value ExcludeGroupOwnerIdsValue(
+                        TypeToJsonValue(m_ExcludeGroupOwnerIds, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "excludeGroupOwnerIds",
+                        ExcludeGroupOwnerIdsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Users.has_value())
+                {
+                    rapidjson::Value UsersValue(
+                        TypeToJsonValue(m_Users, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "users",
+                        UsersValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Discoverable.has_value())
+                {
+                    rapidjson::Value DiscoverableValue(
+                        TypeToJsonValue(m_Discoverable, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "discoverable",
+                        DiscoverableValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_AutoModerator.has_value())
+                {
+                    rapidjson::Value AutoModeratorValue(
+                        TypeToJsonValue(m_AutoModerator, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "autoModerator",
+                        AutoModeratorValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_RequiresInvite.has_value())
+                {
+                    rapidjson::Value RequiresInviteValue(
+                        TypeToJsonValue(m_RequiresInvite, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "requiresInvite",
+                        RequiresInviteValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_Archived.has_value())
+                {
+                    rapidjson::Value ArchivedValue(
+                        TypeToJsonValue(m_Archived, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "archived",
+                        ArchivedValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+                if (m_OrganizationIds.has_value())
+                {
+                    rapidjson::Value OrganizationIdsValue(
+                        TypeToJsonValue(m_OrganizationIds, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "organizationIds",
+                        OrganizationIdsValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
+
+            return JsonDocToString(JsonDoc);
+        }
+
+        void GroupFilters::FromJson(const utility::string_t& Val)
+        {
+            rapidjson::Document JsonDoc;
+
+            if (Val.c_str() == nullptr)
+            {
+                return;
+            }
+
+            JsonDoc.Parse(Val.c_str());
+
+            
+                if (JsonDoc.HasMember("ids"))
+                {
+                    const rapidjson::Value& IdsValue = JsonDoc["ids"];
+
+                    if (IdsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(IdsValue, m_Ids);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("groupTypes"))
+                {
+                    const rapidjson::Value& GroupTypesValue = JsonDoc["groupTypes"];
+
+                    if (GroupTypesValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(GroupTypesValue, m_GroupTypes);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("names"))
+                {
+                    const rapidjson::Value& NamesValue = JsonDoc["names"];
+
+                    if (NamesValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(NamesValue, m_Names);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("partialName"))
+                {
+                    const rapidjson::Value& PartialNameValue = JsonDoc["partialName"];
+
+                    if (PartialNameValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(PartialNameValue, m_PartialName);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("groupOwnerIds"))
+                {
+                    const rapidjson::Value& GroupOwnerIdsValue = JsonDoc["groupOwnerIds"];
+
+                    if (GroupOwnerIdsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(GroupOwnerIdsValue, m_GroupOwnerIds);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("excludeGroupOwnerIds"))
+                {
+                    const rapidjson::Value& ExcludeGroupOwnerIdsValue = JsonDoc["excludeGroupOwnerIds"];
+
+                    if (ExcludeGroupOwnerIdsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ExcludeGroupOwnerIdsValue, m_ExcludeGroupOwnerIds);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("users"))
+                {
+                    const rapidjson::Value& UsersValue = JsonDoc["users"];
+
+                    if (UsersValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(UsersValue, m_Users);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("discoverable"))
+                {
+                    const rapidjson::Value& DiscoverableValue = JsonDoc["discoverable"];
+
+                    if (DiscoverableValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(DiscoverableValue, m_Discoverable);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("autoModerator"))
+                {
+                    const rapidjson::Value& AutoModeratorValue = JsonDoc["autoModerator"];
+
+                    if (AutoModeratorValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(AutoModeratorValue, m_AutoModerator);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("requiresInvite"))
+                {
+                    const rapidjson::Value& RequiresInviteValue = JsonDoc["requiresInvite"];
+
+                    if (RequiresInviteValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(RequiresInviteValue, m_RequiresInvite);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("archived"))
+                {
+                    const rapidjson::Value& ArchivedValue = JsonDoc["archived"];
+
+                    if (ArchivedValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(ArchivedValue, m_Archived);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("organizationIds"))
+                {
+                    const rapidjson::Value& OrganizationIdsValue = JsonDoc["organizationIds"];
+
+                    if (OrganizationIdsValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OrganizationIdsValue, m_OrganizationIds);
+                    }
+                }
+            
+        }
+
+        
+            const std::vector<utility::string_t>&
+                    GroupFilters::GetIds() const
+            {
+                    return m_Ids.value();
+                }
+
+            bool GroupFilters::HasIds() const
+            {
+                return m_Ids.has_value();
+            }void GroupFilters::SetIds(
+                        const std::vector<utility::string_t>& Value
+                    )
+                {
+                        m_Ids = Value;
+                    }
+            const std::vector<utility::string_t>&
+                    GroupFilters::GetGroupTypes() const
+            {
+                    return m_GroupTypes.value();
+                }
+
+            bool GroupFilters::HasGroupTypes() const
+            {
+                return m_GroupTypes.has_value();
+            }void GroupFilters::SetGroupTypes(
+                        const std::vector<utility::string_t>& Value
+                    )
+                {
+                        m_GroupTypes = Value;
+                    }
+            const std::vector<utility::string_t>&
+                    GroupFilters::GetNames() const
+            {
+                    return m_Names.value();
+                }
+
+            bool GroupFilters::HasNames() const
+            {
+                return m_Names.has_value();
+            }void GroupFilters::SetNames(
+                        const std::vector<utility::string_t>& Value
+                    )
+                {
+                        m_Names = Value;
+                    }
+            utility::string_t GroupFilters::GetPartialName() const
+            {
+                    return m_PartialName.value();
+                }
+
+            bool GroupFilters::HasPartialName() const
+            {
+                return m_PartialName.has_value();
+            }void GroupFilters::SetPartialName(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_PartialName = Value;
+                    }
+            const std::vector<utility::string_t>&
+                    GroupFilters::GetGroupOwnerIds() const
+            {
+                    return m_GroupOwnerIds.value();
+                }
+
+            bool GroupFilters::HasGroupOwnerIds() const
+            {
+                return m_GroupOwnerIds.has_value();
+            }void GroupFilters::SetGroupOwnerIds(
+                        const std::vector<utility::string_t>& Value
+                    )
+                {
+                        m_GroupOwnerIds = Value;
+                    }
+            const std::vector<utility::string_t>&
+                    GroupFilters::GetExcludeGroupOwnerIds() const
+            {
+                    return m_ExcludeGroupOwnerIds.value();
+                }
+
+            bool GroupFilters::HasExcludeGroupOwnerIds() const
+            {
+                return m_ExcludeGroupOwnerIds.has_value();
+            }void GroupFilters::SetExcludeGroupOwnerIds(
+                        const std::vector<utility::string_t>& Value
+                    )
+                {
+                        m_ExcludeGroupOwnerIds = Value;
+                    }
+            const std::vector<utility::string_t>&
+                    GroupFilters::GetUsers() const
+            {
+                    return m_Users.value();
+                }
+
+            bool GroupFilters::HasUsers() const
+            {
+                return m_Users.has_value();
+            }void GroupFilters::SetUsers(
+                        const std::vector<utility::string_t>& Value
+                    )
+                {
+                        m_Users = Value;
+                    }
+            bool GroupFilters::GetDiscoverable() const
+            {
+                    return m_Discoverable.value();
+                }
+
+            bool GroupFilters::HasDiscoverable() const
+            {
+                return m_Discoverable.has_value();
+            }void GroupFilters::SetDiscoverable(
+                        const bool& Value
+                    )
+                {
+                        m_Discoverable = Value;
+                    }
+            bool GroupFilters::GetAutoModerator() const
+            {
+                    return m_AutoModerator.value();
+                }
+
+            bool GroupFilters::HasAutoModerator() const
+            {
+                return m_AutoModerator.has_value();
+            }void GroupFilters::SetAutoModerator(
+                        const bool& Value
+                    )
+                {
+                        m_AutoModerator = Value;
+                    }
+            bool GroupFilters::GetRequiresInvite() const
+            {
+                    return m_RequiresInvite.value();
+                }
+
+            bool GroupFilters::HasRequiresInvite() const
+            {
+                return m_RequiresInvite.has_value();
+            }void GroupFilters::SetRequiresInvite(
+                        const bool& Value
+                    )
+                {
+                        m_RequiresInvite = Value;
+                    }
+            bool GroupFilters::GetArchived() const
+            {
+                    return m_Archived.value();
+                }
+
+            bool GroupFilters::HasArchived() const
+            {
+                return m_Archived.has_value();
+            }void GroupFilters::SetArchived(
+                        const bool& Value
+                    )
+                {
+                        m_Archived = Value;
+                    }
+            const std::vector<utility::string_t>&
+                    GroupFilters::GetOrganizationIds() const
+            {
+                    return m_OrganizationIds.value();
+                }
+
+            bool GroupFilters::HasOrganizationIds() const
+            {
+                return m_OrganizationIds.has_value();
+            }void GroupFilters::SetOrganizationIds(
+                        const std::vector<utility::string_t>& Value
+                    )
+                {
+                        m_OrganizationIds = Value;
+                    }
 
     GroupInviteDto::GroupInviteDto() { }
     GroupInviteDto::~GroupInviteDto() { }
@@ -4948,6 +5451,18 @@ namespace csp::services::generated::userservice
                     );
                 }
             
+                if (m_OptionalProviderUserId.has_value())
+                {
+                    rapidjson::Value OptionalProviderUserIdValue(
+                        TypeToJsonValue(m_OptionalProviderUserId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "optionalProviderUserId",
+                        OptionalProviderUserIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
 
             return JsonDocToString(JsonDoc);
         }
@@ -5039,6 +5554,16 @@ namespace csp::services::generated::userservice
                     }
                 }
             
+                if (JsonDoc.HasMember("optionalProviderUserId"))
+                {
+                    const rapidjson::Value& OptionalProviderUserIdValue = JsonDoc["optionalProviderUserId"];
+
+                    if (OptionalProviderUserIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId);
+                    }
+                }
+            
         }
 
         
@@ -5125,6 +5650,20 @@ namespace csp::services::generated::userservice
                     )
                 {
                         m_VerifiedAgeEighteen = Value;
+                    }
+            utility::string_t LoginSocialRequest::GetOptionalProviderUserId() const
+            {
+                    return m_OptionalProviderUserId.value();
+                }
+
+            bool LoginSocialRequest::HasOptionalProviderUserId() const
+            {
+                return m_OptionalProviderUserId.has_value();
+            }void LoginSocialRequest::SetOptionalProviderUserId(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_OptionalProviderUserId = Value;
                     }
 
     LogoutRequest::LogoutRequest() { }
@@ -9556,6 +10095,18 @@ namespace csp::services::generated::userservice
                     );
                 }
             
+                if (m_OptionalProviderUserId.has_value())
+                {
+                    rapidjson::Value OptionalProviderUserIdValue(
+                        TypeToJsonValue(m_OptionalProviderUserId, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "optionalProviderUserId",
+                        OptionalProviderUserIdValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
 
             return JsonDocToString(JsonDoc);
         }
@@ -9664,6 +10215,16 @@ namespace csp::services::generated::userservice
                     if (OAuthRedirectUriValue != rapidjson::Type::kNullType)
                     {
                         JsonValueToType(OAuthRedirectUriValue, m_OAuthRedirectUri);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("optionalProviderUserId"))
+                {
+                    const rapidjson::Value& OptionalProviderUserIdValue = JsonDoc["optionalProviderUserId"];
+
+                    if (OptionalProviderUserIdValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId);
                     }
                 }
             
@@ -9781,6 +10342,20 @@ namespace csp::services::generated::userservice
                     )
                 {
                         m_OAuthRedirectUri = Value;
+                    }
+            utility::string_t UpgradeGuestSocialRequest::GetOptionalProviderUserId() const
+            {
+                    return m_OptionalProviderUserId.value();
+                }
+
+            bool UpgradeGuestSocialRequest::HasOptionalProviderUserId() const
+            {
+                return m_OptionalProviderUserId.has_value();
+            }void UpgradeGuestSocialRequest::SetOptionalProviderUserId(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_OptionalProviderUserId = Value;
                     }
 
     UserRolesDto::UserRolesDto() { }

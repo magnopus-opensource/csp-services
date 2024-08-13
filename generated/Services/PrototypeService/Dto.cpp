@@ -216,6 +216,18 @@ namespace csp::services::generated::prototypeservice
                     );
                 }
             
+                if (m_OriginalAssetUri.has_value())
+                {
+                    rapidjson::Value OriginalAssetUriValue(
+                        TypeToJsonValue(m_OriginalAssetUri, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "originalAssetUri",
+                        OriginalAssetUriValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
                 if (m_Tags.has_value())
                 {
                     rapidjson::Value TagsValue(
@@ -433,6 +445,16 @@ namespace csp::services::generated::prototypeservice
                     if (ExternalMimeTypeValue != rapidjson::Type::kNullType)
                     {
                         JsonValueToType(ExternalMimeTypeValue, m_ExternalMimeType);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("originalAssetUri"))
+                {
+                    const rapidjson::Value& OriginalAssetUriValue = JsonDoc["originalAssetUri"];
+
+                    if (OriginalAssetUriValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OriginalAssetUriValue, m_OriginalAssetUri);
                     }
                 }
             
@@ -654,6 +676,20 @@ namespace csp::services::generated::prototypeservice
                     )
                 {
                         m_ExternalMimeType = Value;
+                    }
+            utility::string_t AssetDetailDto::GetOriginalAssetUri() const
+            {
+                    return m_OriginalAssetUri.value();
+                }
+
+            bool AssetDetailDto::HasOriginalAssetUri() const
+            {
+                return m_OriginalAssetUri.has_value();
+            }void AssetDetailDto::SetOriginalAssetUri(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_OriginalAssetUri = Value;
                     }
             const std::vector<utility::string_t>&
                     AssetDetailDto::GetTags() const
@@ -1810,6 +1846,18 @@ namespace csp::services::generated::prototypeservice
                     );
                 }
             
+                if (m_OriginalAssetUri.has_value())
+                {
+                    rapidjson::Value OriginalAssetUriValue(
+                        TypeToJsonValue(m_OriginalAssetUri, JsonDoc.GetAllocator())
+                    );
+                    JsonDoc.AddMember(
+                        "originalAssetUri",
+                        OriginalAssetUriValue,
+                        JsonDoc.GetAllocator()
+                    );
+                }
+            
                 if (m_Tags.has_value())
                 {
                     rapidjson::Value TagsValue(
@@ -2027,6 +2075,16 @@ namespace csp::services::generated::prototypeservice
                     if (ExternalMimeTypeValue != rapidjson::Type::kNullType)
                     {
                         JsonValueToType(ExternalMimeTypeValue, m_ExternalMimeType);
+                    }
+                }
+            
+                if (JsonDoc.HasMember("originalAssetUri"))
+                {
+                    const rapidjson::Value& OriginalAssetUriValue = JsonDoc["originalAssetUri"];
+
+                    if (OriginalAssetUriValue != rapidjson::Type::kNullType)
+                    {
+                        JsonValueToType(OriginalAssetUriValue, m_OriginalAssetUri);
                     }
                 }
             
@@ -2253,6 +2311,20 @@ namespace csp::services::generated::prototypeservice
                     )
                 {
                         m_ExternalMimeType = Value;
+                    }
+            utility::string_t BulkUpsertAssetDetailDto::GetOriginalAssetUri() const
+            {
+                    return m_OriginalAssetUri.value();
+                }
+
+            bool BulkUpsertAssetDetailDto::HasOriginalAssetUri() const
+            {
+                return m_OriginalAssetUri.has_value();
+            }void BulkUpsertAssetDetailDto::SetOriginalAssetUri(
+                        const utility::string_t& Value
+                    )
+                {
+                        m_OriginalAssetUri = Value;
                     }
             const std::vector<utility::string_t>&
                     BulkUpsertAssetDetailDto::GetTags() const

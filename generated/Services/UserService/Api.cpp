@@ -1037,6 +1037,38 @@ namespace csp::services::generated::userservice {
                 WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
             }
         
+            void GroupApi::apiV1GroupsLitePost(
+                const std::optional<int32_t>&
+                Skip,const std::optional<int32_t>&
+                Limit,const std::shared_ptr<GroupFilters>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken
+            ) const
+            {
+                csp::web::Uri Uri;
+                Uri.SetWithParams(
+                    *RootUri + "/api/v1/groups/lite",
+                    {}
+                );
+
+                
+                        if (Skip.has_value())
+                        {
+                            Uri.AddQueryParams("Skip", Skip.value());
+                        }
+                    
+                
+                        if (Limit.has_value())
+                        {
+                            Uri.AddQueryParams("Limit", Limit.value());
+                        }
+                    
+                csp::web::HttpPayload Payload;
+                Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                    Payload.SetBearerToken();
+
+                WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+            }
+        
     
         
             void GroupApi::apiV1GroupsUsersUserIdEmailInvitesGet(

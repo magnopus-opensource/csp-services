@@ -10,9 +10,14 @@
 namespace csp::services::generated::aggregationservice
 {
 
+class AloClassCompletedRequest;
+class AloClassCompletedResponse;
 class AltitudeMode;
+class AuthDto;
 class DuplicateSpaceRequest;
 class GroupRoleDto;
+class HarmonizeAloRequest;
+class HarmonizeAloResponse;
 class Icon;
 class IconStyle;
 class Kml;
@@ -54,6 +59,61 @@ class VendorProviderInfo;
 
 
     /// <summary>
+        /// Request to server when class is completed
+        /// </summary>
+    class AloClassCompletedRequest : public csp::services::DtoBase
+        {
+        public:
+            AloClassCompletedRequest();
+            virtual ~AloClassCompletedRequest();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Id of the user who completed the class
+                    /// </summary>
+                utility::string_t GetUserId() const;
+                bool HasUserId() const;
+            
+                /// <summary>
+                    /// Id of the Class Definition Prototype
+                    /// </summary>
+                utility::string_t GetClassDefinitionId() const;
+                bool HasClassDefinitionId() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_UserId;
+            std::optional<utility::string_t> m_ClassDefinitionId;
+            };
+
+    /// <summary>
+        /// Response from server when class is completed
+        /// </summary>
+    class AloClassCompletedResponse : public csp::services::DtoBase
+        {
+        public:
+            AloClassCompletedResponse();
+            virtual ~AloClassCompletedResponse();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Ids of the Badges earned
+                    /// </summary>
+                const std::vector<utility::string_t>& GetBadgeIdsEarned() const;
+                void SetBadgeIdsEarned(const std::vector<utility::string_t>& Value);bool HasBadgeIdsEarned() const;
+            
+
+        protected:
+            std::optional<std::vector<utility::string_t>> m_BadgeIdsEarned;
+            };
+
+    /// <summary>
         /// An enum describing the different altitudes a line can inhabit
         /// </summary>
     class AltitudeMode : public csp::services::EnumBase
@@ -81,6 +141,72 @@ class VendorProviderInfo;
         protected:
             eAltitudeMode Value = {};
         };
+
+    /// <summary>
+        /// DTO for carrying authentication information.
+        /// </summary>
+    class AuthDto : public csp::services::DtoBase
+        {
+        public:
+            AuthDto();
+            virtual ~AuthDto();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// The unique identifier for the user
+                    /// </summary>
+                utility::string_t GetUserId() const;
+                void SetUserId(const utility::string_t& Value);bool HasUserId() const;
+            
+                /// <summary>
+                    /// The token for accessing the API
+                    /// </summary>
+                utility::string_t GetAccessToken() const;
+                void SetAccessToken(const utility::string_t& Value);bool HasAccessToken() const;
+            
+                /// <summary>
+                    /// The date and time the access token expires
+                    /// </summary>
+                utility::string_t GetAccessTokenExpiresAt() const;
+                void SetAccessTokenExpiresAt(const utility::string_t& Value);bool HasAccessTokenExpiresAt() const;
+            
+                /// <summary>
+                    /// The refresh token to use to request a new access token
+                    /// </summary>
+                utility::string_t GetRefreshToken() const;
+                void SetRefreshToken(const utility::string_t& Value);bool HasRefreshToken() const;
+            
+                /// <summary>
+                    /// The date and time the refresh token expires
+                    /// </summary>
+                utility::string_t GetRefreshTokenExpiresAt() const;
+                void SetRefreshTokenExpiresAt(const utility::string_t& Value);bool HasRefreshTokenExpiresAt() const;
+            
+                /// <summary>
+                    /// Ids of the user's organizations
+                    /// </summary>
+                const std::vector<utility::string_t>& GetOrganizationIds() const;
+                void SetOrganizationIds(const std::vector<utility::string_t>& Value);bool HasOrganizationIds() const;
+            
+                /// <summary>
+                    /// The ID of the device which has been granted access.
+                    /// </summary>
+                utility::string_t GetDeviceId() const;
+                void SetDeviceId(const utility::string_t& Value);bool HasDeviceId() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_UserId;
+            std::optional<utility::string_t> m_AccessToken;
+            std::optional<utility::string_t> m_AccessTokenExpiresAt;
+            std::optional<utility::string_t> m_RefreshToken;
+            std::optional<utility::string_t> m_RefreshTokenExpiresAt;
+            std::optional<std::vector<utility::string_t>> m_OrganizationIds;
+            std::optional<utility::string_t> m_DeviceId;
+            };
 
     /// <summary>
         /// A request that includes the needed data to duplicate a space
@@ -198,6 +324,58 @@ class VendorProviderInfo;
             std::optional<utility::string_t> m_UserId;
             std::optional<utility::string_t> m_GroupId;
             std::optional<std::vector<utility::string_t>> m_GroupRoles;
+            };
+
+    /// <summary>
+        /// Request to harmonize alo
+        /// </summary>
+    class HarmonizeAloRequest : public csp::services::DtoBase
+        {
+        public:
+            HarmonizeAloRequest();
+            virtual ~HarmonizeAloRequest();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Nonce from Meta
+                    /// </summary>
+                utility::string_t GetNonce() const;
+                void SetNonce(const utility::string_t& Value);bool HasNonce() const;
+            
+                /// <summary>
+                    /// UserId from Meta
+                    /// </summary>
+                utility::string_t GetMetaUserId() const;
+                void SetMetaUserId(const utility::string_t& Value);bool HasMetaUserId() const;
+            
+
+        protected:
+            std::optional<utility::string_t> m_Nonce;
+            std::optional<utility::string_t> m_MetaUserId;
+            };
+
+    /// <summary>
+        /// Response from harmonize
+        /// </summary>
+    class HarmonizeAloResponse : public csp::services::DtoBase
+        {
+        public:
+            HarmonizeAloResponse();
+            virtual ~HarmonizeAloResponse();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                std::shared_ptr<AuthDto> GetAuth() const;
+                void SetAuth(const std::shared_ptr<AuthDto>& Value);bool HasAuth() const;
+            
+
+        protected:
+            std::optional<std::shared_ptr<AuthDto>> m_Auth;
             };
 
     /// <summary>
@@ -758,7 +936,7 @@ class VendorProviderInfo;
                 void SetInstance(const utility::string_t& Value);bool HasInstance() const;
             
                 const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& GetExtensions() const;
-                bool HasExtensions() const;
+                void SetExtensions(const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& Value);bool HasExtensions() const;
             
 
         protected:
@@ -784,13 +962,13 @@ class VendorProviderInfo;
 
             
                 /// <summary>
-                    /// The Id of this sequence.
+                    /// The Id of this sequence. Can be at most 64 characters.
                     /// </summary>
                 utility::string_t GetId() const;
                 void SetId(const utility::string_t& Value);bool HasId() const;
             
                 /// <summary>
-                    /// The unique key used to identify this sequence.
+                    /// The unique key used to identify this sequence. Can be at most 1000 characters.
                     /// </summary>
                 utility::string_t GetKey() const;
                 void SetKey(const utility::string_t& Value);bool HasKey() const;
@@ -803,15 +981,25 @@ class VendorProviderInfo;
             
                 /// <summary>
                     /// The type of entity that the Olympus.Service.Aggregation.Dtos.SequenceDto.ReferenceId identifies, e.g. "GroupId".
+                    /// Can be at most 64 characters.
                     /// </summary>
                 utility::string_t GetReferenceType() const;
                 void SetReferenceType(const utility::string_t& Value);bool HasReferenceType() const;
             
                 /// <summary>
-                    /// The Id of the entity that this sequence is associated with to, e.g. a group Id.
+                    /// The Id of the entity that this sequence is associated with to, e.g. a group Id. Can
+                    /// be at most 64 characters.
                     /// </summary>
                 utility::string_t GetReferenceId() const;
                 void SetReferenceId(const utility::string_t& Value);bool HasReferenceId() const;
+            
+                /// <summary>
+                    /// Optional metadata about the sequence. Can be used as the client sees fit for managing
+                    /// sequences. Keys and values can be at most 64 characters. The dictionary can have at most
+                    /// 25 entries.
+                    /// </summary>
+                const std::map<utility::string_t, utility::string_t>& GetMetadata() const;
+                void SetMetadata(const std::map<utility::string_t, utility::string_t>& Value);bool HasMetadata() const;
             
 
         protected:
@@ -820,6 +1008,7 @@ class VendorProviderInfo;
             std::optional<std::vector<utility::string_t>> m_Items;
             std::optional<utility::string_t> m_ReferenceType;
             std::optional<utility::string_t> m_ReferenceId;
+            std::optional<std::map<utility::string_t, utility::string_t>> m_Metadata;
             };
 
     class SequenceDtoDataPage : public csp::services::DtoBase

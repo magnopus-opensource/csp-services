@@ -672,6 +672,22 @@ namespace csp::services::generated::userservice
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
                 ) const;
             
+                
+                    /// <summary>
+                    /// Search across all the groups for those that match the search criteria
+                    /// or an empty list if none found
+                    /// </summary>
+                /// <remarks>
+                /// POST /api/v1/groups/lite
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1GroupsLitePost(
+                    const std::optional<int32_t>&
+                Skip,const std::optional<int32_t>&
+                Limit,const std::shared_ptr<GroupFilters>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
         
             
                 

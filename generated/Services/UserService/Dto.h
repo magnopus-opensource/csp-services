@@ -19,6 +19,7 @@ class EquipItemDto;
 class ForgotPasswordRequest;
 class Gender;
 class GroupDto;
+class GroupFilters;
 class GroupInviteDto;
 class GroupLiteDto;
 class GroupLiteDtoDataPage;
@@ -374,6 +375,12 @@ class UserRolesDto;
                 utility::string_t GetOAuthRedirectUri() const;
                 void SetOAuthRedirectUri(const utility::string_t& Value);bool HasOAuthRedirectUri() const;
             
+                /// <summary>
+                    /// Optional Id of the User with the Social Provider, when needed for Login
+                    /// </summary>
+                utility::string_t GetOptionalProviderUserId() const;
+                void SetOptionalProviderUserId(const utility::string_t& Value);bool HasOptionalProviderUserId() const;
+            
                 const std::vector<std::shared_ptr<InitialSettingsDto>>& GetInitialSettings() const;
                 void SetInitialSettings(const std::vector<std::shared_ptr<InitialSettingsDto>>& Value);bool HasInitialSettings() const;
             
@@ -390,6 +397,7 @@ class UserRolesDto;
             std::optional<utility::string_t> m_RedirectUrl;
             std::optional<bool> m_VerifiedAgeEighteen;
             std::optional<utility::string_t> m_OAuthRedirectUri;
+            std::optional<utility::string_t> m_OptionalProviderUserId;
             std::optional<std::vector<std::shared_ptr<InitialSettingsDto>>> m_InitialSettings;
             };
 
@@ -630,6 +638,107 @@ class UserRolesDto;
             std::optional<bool> m_IsCurrentUserMember;
             std::optional<bool> m_IsCurrentUserModerator;
             std::optional<bool> m_IsCurrentUserBanned;
+            };
+
+    /// <summary>
+        /// Object containing properties to filter on groups.
+        /// </summary>
+    class GroupFilters : public csp::services::DtoBase
+        {
+        public:
+            GroupFilters();
+            virtual ~GroupFilters();
+
+            utility::string_t ToJson() const override;
+            void FromJson(const utility::string_t& Json) override;
+
+            
+                /// <summary>
+                    /// Unique group identifiers
+                    /// </summary>
+                const std::vector<utility::string_t>& GetIds() const;
+                void SetIds(const std::vector<utility::string_t>& Value);bool HasIds() const;
+            
+                /// <summary>
+                    /// Type of group
+                    /// </summary>
+                const std::vector<utility::string_t>& GetGroupTypes() const;
+                void SetGroupTypes(const std::vector<utility::string_t>& Value);bool HasGroupTypes() const;
+            
+                /// <summary>
+                    /// Name of group unique for public group type only
+                    /// </summary>
+                const std::vector<utility::string_t>& GetNames() const;
+                void SetNames(const std::vector<utility::string_t>& Value);bool HasNames() const;
+            
+                /// <summary>
+                    /// Partial name for a group that you have access to search against
+                    /// </summary>
+                utility::string_t GetPartialName() const;
+                void SetPartialName(const utility::string_t& Value);bool HasPartialName() const;
+            
+                /// <summary>
+                    /// Unique identifier of the group owner(s)
+                    /// </summary>
+                const std::vector<utility::string_t>& GetGroupOwnerIds() const;
+                void SetGroupOwnerIds(const std::vector<utility::string_t>& Value);bool HasGroupOwnerIds() const;
+            
+                /// <summary>
+                    /// Unique identifier of the group owner(s) to exclude in the search
+                    /// </summary>
+                const std::vector<utility::string_t>& GetExcludeGroupOwnerIds() const;
+                void SetExcludeGroupOwnerIds(const std::vector<utility::string_t>& Value);bool HasExcludeGroupOwnerIds() const;
+            
+                /// <summary>
+                    /// Unique identifier of the group member(s)
+                    /// </summary>
+                const std::vector<utility::string_t>& GetUsers() const;
+                void SetUsers(const std::vector<utility::string_t>& Value);bool HasUsers() const;
+            
+                /// <summary>
+                    /// Whether the group shows up in searches by non-members or not
+                    /// </summary>
+                bool GetDiscoverable() const;
+                void SetDiscoverable(const bool& Value);bool HasDiscoverable() const;
+            
+                /// <summary>
+                    /// Whether users join as moderators by default or not
+                    /// </summary>
+                bool GetAutoModerator() const;
+                void SetAutoModerator(const bool& Value);bool HasAutoModerator() const;
+            
+                /// <summary>
+                    /// Whether the group join code is public, or is included in searches by non-members
+                    /// </summary>
+                bool GetRequiresInvite() const;
+                void SetRequiresInvite(const bool& Value);bool HasRequiresInvite() const;
+            
+                /// <summary>
+                    /// Whether the group is archived or not
+                    /// </summary>
+                bool GetArchived() const;
+                void SetArchived(const bool& Value);bool HasArchived() const;
+            
+                /// <summary>
+                    /// Unique identifier of the organization group belongs to
+                    /// </summary>
+                const std::vector<utility::string_t>& GetOrganizationIds() const;
+                void SetOrganizationIds(const std::vector<utility::string_t>& Value);bool HasOrganizationIds() const;
+            
+
+        protected:
+            std::optional<std::vector<utility::string_t>> m_Ids;
+            std::optional<std::vector<utility::string_t>> m_GroupTypes;
+            std::optional<std::vector<utility::string_t>> m_Names;
+            std::optional<utility::string_t> m_PartialName;
+            std::optional<std::vector<utility::string_t>> m_GroupOwnerIds;
+            std::optional<std::vector<utility::string_t>> m_ExcludeGroupOwnerIds;
+            std::optional<std::vector<utility::string_t>> m_Users;
+            std::optional<bool> m_Discoverable;
+            std::optional<bool> m_AutoModerator;
+            std::optional<bool> m_RequiresInvite;
+            std::optional<bool> m_Archived;
+            std::optional<std::vector<utility::string_t>> m_OrganizationIds;
             };
 
     /// <summary>
@@ -1217,6 +1326,12 @@ class UserRolesDto;
                 bool GetVerifiedAgeEighteen() const;
                 void SetVerifiedAgeEighteen(const bool& Value);bool HasVerifiedAgeEighteen() const;
             
+                /// <summary>
+                    /// Optional Id of the User with the Social Provider, when needed for Login
+                    /// </summary>
+                utility::string_t GetOptionalProviderUserId() const;
+                void SetOptionalProviderUserId(const utility::string_t& Value);bool HasOptionalProviderUserId() const;
+            
 
         protected:
             std::optional<utility::string_t> m_Tenant;
@@ -1225,6 +1340,7 @@ class UserRolesDto;
             std::optional<utility::string_t> m_DeviceId;
             std::optional<utility::string_t> m_OAuthRedirectUri;
             std::optional<bool> m_VerifiedAgeEighteen;
+            std::optional<utility::string_t> m_OptionalProviderUserId;
             };
 
     /// <summary>
@@ -2374,6 +2490,12 @@ class UserRolesDto;
                 utility::string_t GetOAuthRedirectUri() const;
                 void SetOAuthRedirectUri(const utility::string_t& Value);bool HasOAuthRedirectUri() const;
             
+                /// <summary>
+                    /// Optional Id of the User with the Social Provider, when needed for Login
+                    /// </summary>
+                utility::string_t GetOptionalProviderUserId() const;
+                void SetOptionalProviderUserId(const utility::string_t& Value);bool HasOptionalProviderUserId() const;
+            
 
         protected:
             std::optional<utility::string_t> m_Provider;
@@ -2384,6 +2506,7 @@ class UserRolesDto;
             std::optional<utility::string_t> m_GuestDeviceId;
             std::optional<utility::string_t> m_RedirectUrl;
             std::optional<utility::string_t> m_OAuthRedirectUri;
+            std::optional<utility::string_t> m_OptionalProviderUserId;
             };
 
     /// <summary>

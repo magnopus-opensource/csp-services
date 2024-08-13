@@ -14,6 +14,45 @@ namespace csp::services::generated::aggregationservice
 {
 
 
+    class AloMovesApi final : public csp::services::ApiBase
+    {
+    public:
+        AloMovesApi(csp::web::WebClient* InWebClient);
+        virtual ~AloMovesApi();
+
+        
+            
+                
+                    /// <summary>
+                    /// Harmonize with Meta
+                    /// </summary>
+                /// <remarks>
+                /// POST /api/v1/alo/harmonize
+                /// Authorization: Anonymous
+                /// </remarks>
+                void apiV1AloHarmonizePost(
+                    const std::shared_ptr<HarmonizeAloRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+            
+                
+                    /// <summary>
+                    /// Class Completed
+                    /// </summary>
+                /// <remarks>
+                /// POST /api/v1/alo/{userId}/classes/{classDefinitionId}/completed
+                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// </remarks>
+                void apiV1AloUserIdClassesClassDefinitionIdCompletedPost(
+                    const utility::string_t& userId,const utility::string_t& classDefinitionId,const std::shared_ptr<AloClassCompletedRequest>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
+    csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
+                ) const;
+            
+        
+    };
+    
     class CacheApi final : public csp::services::ApiBase
     {
     public:
@@ -199,14 +238,33 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/sequences
-                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Requests may leverage any of the available search criteria to find sequences. The one
+                /// caveat is that if you are searching by reference then you must specify both a `ReferenceType`
+                /// (e.g. the literal string "GroupId") and at least one `ReferenceId` (e.g. the Id of the group).
+                /// If multiple criteria are supplied (e.g. `KeyLikeRegex`, `Metadata`, and `ReferenceType` +
+                /// `ReferenceIds`), this endpoint will return sequences that match ALL specified criteria.
+                ///             
+                /// This search is paginated. To page through the search results, call this endpoint multiple
+                /// times with the same search criteria and different `Skip` and `Limit` values. If no pagination is
+                /// specified, it will default to the first 10 results.
+                ///             
+                /// <b>Sample Requests:</b>
+                ///             
+                ///     GET /oly-aggregations/api/v1/sequences?Keys=key1&Keys=key2
+                ///             
+                ///     GET /oly-aggregations/api/v1/sequences?KeyLikeRegEx=key%5Cd%2B
+                ///             
+                ///     GET /oly-aggregations/api/v1/sequences?ReferenceType=GroupId&ReferenceIds=000000000000000000000000
+                ///             
+                ///     GET /oly-aggregations/api/v1/sequences?Metadata[key1]=value1&Metadata[key2]=value2
                 /// </remarks>
                 void apiV1SequencesGet(
                     const std::optional<std::vector<utility::string_t>>&
                 Keys,const std::optional<utility::string_t>&
                 KeyLikeRegex,const std::optional<utility::string_t>&
                 ReferenceType,const std::optional<std::vector<utility::string_t>>&
-                ReferenceIds,const std::optional<int32_t>&
+                ReferenceIds,const std::optional<std::map<utility::string_t, utility::string_t>>&
+                Metadata,const std::optional<int32_t>&
                 Skip,const std::optional<int32_t>&
                 Limit,csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken= csp::common::CancellationToken::Dummy()
@@ -218,7 +276,31 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/sequences
-                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// If a sequence with this key already exists and the current user has permission to modify
+                /// the sequence then update the sequence. If the sequence does not exist and the current user
+                /// has permission to create the specified sequence then create the sequence. Otherwise, return
+                /// 403 Forbidden. See the description of the 403 Forbidden response for more details.
+                ///             
+                /// If a sequence is created or updated and the `ReferenceType` is "GroupId" then a multiplayer
+                /// message will be sent to clients via the Global scope for the group.
+                ///             
+                /// <b>Sample Requests:</b>
+                ///             
+                ///     PUT /oly-aggregations/api/v1/sequences
+                ///     {
+                ///         "key": "key1",
+                ///         "referenceType": "GroupId",
+                ///         "referenceId": "000000000000000000000000",
+                ///         "items": [
+                ///             "item1",
+                ///             "item2",
+                ///             "item3"
+                ///         ],
+                ///         "metadata": {
+                ///             "property1": "value1",
+                ///             "property2": "value2"
+                ///         }
+                ///     }
                 /// </remarks>
                 void apiV1SequencesPut(
                     const std::shared_ptr<SequenceDto>& RequestBody,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -233,7 +315,13 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// GET /api/v1/sequences/keys/{key}
-                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Returns the sequence with the specified `key`, if it exists. Otherwise, return 404 NotFound.
+                ///             
+                /// <b>Sample Requests:</b>
+                ///             
+                ///     GET /oly-aggregations/api/v1/sequences/keys/key1
+                ///             
+                ///     GET /oly-aggregations/api/v1/sequences/keys/key2
                 /// </remarks>
                 void apiV1SequencesKeysKeyGet(
                     const utility::string_t& key,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -246,7 +334,15 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/sequences/keys/{key}
-                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Returns 204 No Content regardless of whether or not a sequence with the specified `key`
+                /// existed or not.
+                ///             
+                /// If a sequence is deleted with the `ReferenceType` of "GroupId" then a multiplayer message will
+                /// be sent to clients via the Global scope for that group.
+                ///             
+                /// <b>Sample Requests:</b>
+                ///             
+                ///     DELETE /oly-aggregations/api/v1/sequences/keys/key1
                 /// </remarks>
                 void apiV1SequencesKeysKeyDelete(
                     const utility::string_t& key,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -261,7 +357,17 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// PUT /api/v1/sequences/keys/{oldKey}/key
-                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// If the a sequence with the `oldKey` exists and a sequence with the `newKey` does not exist
+                /// and the current user has permission to modify the sequence then update the key of the
+                /// sequence to `newKey`. If no sequence with `oldKey` exists then return 404 NotFound. If a
+                /// sequence with `newKey` already exists then return 409 Conflict.
+                ///             
+                /// If a sequence is moved with the `ReferenceType` of "GroupId" then a multiplayer message will
+                /// be sent to clients via the Global scope for the group.
+                ///             
+                /// <b>Sample Requests:</b>
+                ///             
+                ///     PUT /oly-aggregations/api/v1/sequences/keys/key1/key/key2
                 /// </remarks>
                 void apiV1SequencesKeysOldKeyKeyPut(
                     const utility::string_t& oldKey,const utility::string_t& newKey,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -276,7 +382,15 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/sequences/keys
-                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Returns 204 No Content regardless of whether or not any sequences with the specified `keys`
+                /// existed or not.
+                ///             
+                /// Each sequence that is deleted with the `ReferenceType` of "GroupId" will result in a multiplayer
+                /// message being sent to clients via the Global scope for that group.
+                ///             
+                /// <b>Sample Requests:</b>
+                ///             
+                ///     DELETE /oly-aggregations/api/v1/sequences?keys=key1&keys=key2
                 /// </remarks>
                 void apiV1SequencesKeysDelete(
                     const std::vector<utility::string_t>& keys,csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -291,7 +405,15 @@ namespace csp::services::generated::aggregationservice
                     /// </summary>
                 /// <remarks>
                 /// DELETE /api/v1/sequences/reference-type/{referenceType}/reference-id/{referenceId}
-                /// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+                /// Returns 204 No Content regardless of whether or not any sequences with the specified `referenceType`
+                /// and `referenceId` existed or not.
+                ///             
+                /// Each sequence that is deleted with the `ReferenceType` is "GroupId" will result in a multiplayer
+                /// message being sent to clients via the Global scope for that group.
+                ///             
+                /// <b>Sample Requests:</b>
+                ///             
+                ///     DELETE /oly-aggregations/api/v1/sequences/reference-type/GroupId/reference-id/000000000000000000000000
                 /// </remarks>
                 void apiV1SequencesReferenceTypeReferenceTypeReferenceIdReferenceIdDelete(
                     const utility::string_t& referenceType,const utility::string_t& referenceId,csp::services::ApiResponseHandlerBase* ResponseHandler,

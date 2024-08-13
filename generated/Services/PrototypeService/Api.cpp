@@ -725,7 +725,8 @@ namespace csp::services::generated::prototypeservice {
                 GroupIds,const std::optional<std::vector<utility::string_t>>&
                 Types,const std::optional<bool>&
                 HasGroup,const std::optional<utility::string_t>&
-                CreatedBy,const std::optional<std::vector<utility::string_t>>&
+                CreatedBy,const std::optional<utility::string_t>&
+                CreatedAfter,const std::optional<std::vector<utility::string_t>>&
                 PrototypeOwnerIds,const std::optional<std::vector<utility::string_t>>&
                 ReadAccessFilters,const std::optional<std::vector<utility::string_t>>&
                 WriteAccessFilters,const std::optional<std::vector<utility::string_t>>&
@@ -813,6 +814,12 @@ namespace csp::services::generated::prototypeservice {
                         if (CreatedBy.has_value())
                         {
                             Uri.AddQueryParams("CreatedBy", CreatedBy.value());
+                        }
+                    
+                
+                        if (CreatedAfter.has_value())
+                        {
+                            Uri.AddQueryParams("CreatedAfter", CreatedAfter.value());
                         }
                     
                 
@@ -910,7 +917,8 @@ namespace csp::services::generated::prototypeservice {
                 GroupIds,const std::optional<std::vector<utility::string_t>>&
                 Types,const std::optional<bool>&
                 HasGroup,const std::optional<utility::string_t>&
-                CreatedBy,const std::optional<std::vector<utility::string_t>>&
+                CreatedBy,const std::optional<utility::string_t>&
+                CreatedAfter,const std::optional<std::vector<utility::string_t>>&
                 PrototypeOwnerIds,const std::optional<std::vector<utility::string_t>>&
                 ReadAccessFilters,const std::optional<std::vector<utility::string_t>>&
                 WriteAccessFilters,const std::optional<std::vector<utility::string_t>>&
@@ -1000,6 +1008,12 @@ namespace csp::services::generated::prototypeservice {
                         }
                     
                 
+                        if (CreatedAfter.has_value())
+                        {
+                            Uri.AddQueryParams("CreatedAfter", CreatedAfter.value());
+                        }
+                    
+                
                         if (PrototypeOwnerIds.has_value())
                         {
                             Uri.AddQueryParams("PrototypeOwnerIds", PrototypeOwnerIds.value());
@@ -1083,7 +1097,8 @@ namespace csp::services::generated::prototypeservice {
                 GroupIds,const std::optional<std::vector<utility::string_t>>&
                 Types,const std::optional<bool>&
                 HasGroup,const std::optional<utility::string_t>&
-                CreatedBy,const std::optional<std::vector<utility::string_t>>&
+                CreatedBy,const std::optional<utility::string_t>&
+                CreatedAfter,const std::optional<std::vector<utility::string_t>>&
                 PrototypeOwnerIds,const std::optional<std::vector<utility::string_t>>&
                 ReadAccessFilters,const std::optional<std::vector<utility::string_t>>&
                 WriteAccessFilters,const std::optional<std::vector<utility::string_t>>&
@@ -1167,6 +1182,12 @@ namespace csp::services::generated::prototypeservice {
                         if (CreatedBy.has_value())
                         {
                             Uri.AddQueryParams("CreatedBy", CreatedBy.value());
+                        }
+                    
+                
+                        if (CreatedAfter.has_value())
+                        {
+                            Uri.AddQueryParams("CreatedAfter", CreatedAfter.value());
                         }
                     
                 
