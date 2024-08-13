@@ -13,23 +13,23 @@ class Config(TypedDict):
 config: Config = {
     'swagger_files': [
         {
-            'url': 'https://ogs-odev-internal.magnoboard.com/mag-user/swagger/v2/swagger.json',
+            'url': 'https://ogs-odev-internal.magnoboard.com/mag-user/swagger/v1/swagger.json',
             'service': 'UserService'
         },
         {
-            'url': 'https://ogs-odev-internal.magnoboard.com/mag-prototype/swagger/v2/swagger.json',
+            'url': 'https://ogs-odev-internal.magnoboard.com/mag-prototype/swagger/v1/swagger.json',
             'service': 'PrototypeService'
         },
         {
-            'url': 'https://ogs-odev-internal.magnoboard.com/mag-spatialdata/swagger/v2/swagger.json',
+            'url': 'https://ogs-odev-internal.magnoboard.com/mag-spatialdata/swagger/v1/swagger.json',
             'service': 'SpatialDataService'
         },
         {
-            'url': 'https://ogs-odev-internal.magnoboard.com/oly-aggregation/swagger/v2/swagger.json',
+            'url': 'https://ogs-odev-internal.magnoboard.com/oly-aggregation/swagger/v1/swagger.json',
             'service': 'AggregationService'
         },
         {
-            'url': 'https://ogs-odev-internal.magnoboard.com/mag-tracking/swagger/v2/swagger.json',
+            'url': 'https://ogs-odev-internal.magnoboard.com/mag-tracking/swagger/v1/swagger.json',
             'service': 'TrackingService'
         }
     ]
