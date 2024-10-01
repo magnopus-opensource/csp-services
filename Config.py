@@ -13,15 +13,15 @@ class Config(TypedDict):
 config: Config = {
     'swagger_files': [
         {
-            'url': 'https://ogs-internal.magnopus-dev.cloud//mag-user/swagger/v1/swagger.json',
+            'url': 'https://ogs-internal.magnopus-dev.cloud/mag-user/swagger/v1/swagger.json',
             'service': 'UserService'
         },
         {
-            'url': 'https://ogs-internal.magnopus-dev.cloud//mag-prototype/swagger/v1/swagger.json',
+            'url': 'https://ogs-internal.magnopus-dev.cloud/mag-prototype/swagger/v1/swagger.json',
             'service': 'PrototypeService'
         },
         {
-            'url': 'https://ogs-internal.magnopus-dev.cloud//mag-spatialdata/swagger/v1/swagger.json',
+            'url': 'https://ogs-internal.magnopus-dev.cloud/mag-spatialdata/swagger/v1/swagger.json',
             'service': 'SpatialDataService'
         },
         {
