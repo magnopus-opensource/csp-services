@@ -25,7 +25,7 @@ config: Config = {
             'service': 'SpatialDataService'
         },
         {
-            'url': 'https://ogs-internal.magnopus-dev.cloud//oly-aggregation/swagger/v1/swagger.json',
+            'url': 'https://ogs-internal.magnopus-dev.cloud/oly-aggregation/swagger/v1/swagger.json',
             'service': 'AggregationService'
         },
         {
