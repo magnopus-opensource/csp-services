@@ -7257,6 +7257,30 @@ utility::string_t TenantDto::ToJson() const
 		JsonDoc.AddMember("name", NameValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_CompanyName.has_value())
+	{
+		rapidjson::Value CompanyNameValue(TypeToJsonValue(m_CompanyName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("companyName", CompanyNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AdminFullName.has_value())
+	{
+		rapidjson::Value AdminFullNameValue(TypeToJsonValue(m_AdminFullName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("adminFullName", AdminFullNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CompanyWebUrl.has_value())
+	{
+		rapidjson::Value CompanyWebUrlValue(TypeToJsonValue(m_CompanyWebUrl, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("companyWebUrl", CompanyWebUrlValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_PendingAdmin.has_value())
+	{
+		rapidjson::Value PendingAdminValue(TypeToJsonValue(m_PendingAdmin, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("pendingAdmin", PendingAdminValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_Locked.has_value())
 	{
 		rapidjson::Value LockedValue(TypeToJsonValue(m_Locked, JsonDoc.GetAllocator()));
@@ -7328,6 +7352,50 @@ void TenantDto::FromJson(const utility::string_t& Val)
 		if (NameValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(NameValue, m_Name);
+		}
+	}
+
+	if (JsonDoc.HasMember("companyName"))
+	{
+		const rapidjson::Value& CompanyNameValue = JsonDoc["companyName"];
+
+		if (CompanyNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CompanyNameValue, m_CompanyName);
+		}
+	}
+
+	if (JsonDoc.HasMember("adminFullName"))
+	{
+		const rapidjson::Value& AdminFullNameValue = JsonDoc["adminFullName"];
+
+		if (AdminFullNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AdminFullNameValue, m_AdminFullName);
+		}
+	}
+
+	if (JsonDoc.HasMember("companyWebUrl"))
+	{
+		const rapidjson::Value& CompanyWebUrlValue = JsonDoc["companyWebUrl"];
+
+		if (CompanyWebUrlValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CompanyWebUrlValue, m_CompanyWebUrl);
+		}
+	}
+
+	if (JsonDoc.HasMember("pendingAdmin"))
+	{
+		const rapidjson::Value& PendingAdminValue = JsonDoc["pendingAdmin"];
+
+		if (PendingAdminValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(PendingAdminValue, m_PendingAdmin);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member pendingAdmin is null!");
 		}
 	}
 
@@ -7437,6 +7505,54 @@ utility::string_t TenantDto::GetName() const
 bool TenantDto::HasName() const
 {
 	return m_Name.has_value();
+}
+utility::string_t TenantDto::GetCompanyName() const
+{
+	return m_CompanyName.value();
+}
+
+bool TenantDto::HasCompanyName() const
+{
+	return m_CompanyName.has_value();
+}
+utility::string_t TenantDto::GetAdminFullName() const
+{
+	return m_AdminFullName.value();
+}
+
+bool TenantDto::HasAdminFullName() const
+{
+	return m_AdminFullName.has_value();
+}
+void TenantDto::SetAdminFullName(const utility::string_t& Value)
+{
+	m_AdminFullName = Value;
+}
+utility::string_t TenantDto::GetCompanyWebUrl() const
+{
+	return m_CompanyWebUrl.value();
+}
+
+bool TenantDto::HasCompanyWebUrl() const
+{
+	return m_CompanyWebUrl.has_value();
+}
+void TenantDto::SetCompanyWebUrl(const utility::string_t& Value)
+{
+	m_CompanyWebUrl = Value;
+}
+bool TenantDto::GetPendingAdmin() const
+{
+	return m_PendingAdmin.value();
+}
+
+bool TenantDto::HasPendingAdmin() const
+{
+	return m_PendingAdmin.has_value();
+}
+void TenantDto::SetPendingAdmin(const bool& Value)
+{
+	m_PendingAdmin = Value;
 }
 bool TenantDto::GetLocked() const
 {

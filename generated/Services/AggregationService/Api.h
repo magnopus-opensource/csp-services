@@ -48,6 +48,123 @@ public:
 															 csp::services::ApiResponseHandlerBase* ResponseHandler,
 															 csp::common::CancellationToken& CancellationToken
 															 = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// QA test function to setup the scenario to test a specific badge.  Note Bene!!!: this contract
+	/// you are accepting when calling this function is that it will delete all your class and badge data.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/alo/qa/{userId}/badge-expressions
+	/// ```markdown
+	/// ### Badge Creation DSL Documentation
+	///
+	/// This guide explains how to use the Badge Creation DSL to simulate class completions and test badge awarding in our application.You’ll use
+	/// these expressions in Swagger to automate the creation of class records.
+	///
+	/// #### DSL Format
+	///
+	/// The DSL expression follows this format:
+	///
+	/// ```
+	/// [total_classes] [frequency] [interval] [consecutive | flexible][across_year]
+	/// ```
+	///
+	/// - **total_classes**: The number of classes to be completed.
+	/// - **frequency**: The time unit for class completions :
+	///   - `D` for daily
+	///   - `W` for weekly
+	///   - `M` for monthly
+	///   - `Y` for yearly
+	/// - **interval**: The number of days, weeks, months, or years over which the classes are spread.
+	/// - **consecutive | flexible** (optional):
+	///   - `consecutive`: Classes must occur on consecutive days/weeks/months.
+	///   - `flexible`: Classes can be spread out within the interval(default if not specified).
+	/// - **across_year** (optional): Use this if the interval crosses from one year into the next.
+	///
+	/// #### Examples
+	///
+	/// 1. **7 consecutive days in a row**:
+	///    ```
+	///    7 D 1 consecutive
+	///    ```
+	///    - Simulates 7 classes completed on consecutive days.
+	///
+	/// 2. **5 classes within one week**:
+	///    ```
+	///    5 W 1 flexible
+	///    ```
+	///    - Simulates 5 classes spread out within a single week.
+	///
+	/// 3. **1 class per month for 3 consecutive months**:
+	///    ```
+	///    1 M 3 consecutive
+	///    ```
+	///    - Simulates 1 class each month for 3 consecutive months.
+	///
+	/// 4. **15 classes in one month**:
+	///    ```
+	///    15 M 1 flexible
+	///    ```
+	///    - Simulates 15 classes within a single month.
+	///
+	/// 5. **5 classes across a week that crosses into the next year**:
+	///    ```
+	///    5 W 1 flexible across_year
+	///    ```
+	///    - Simulates 5 classes within a week that spans the end of one year and the beginning of the next.
+	///
+	/// #### How to Use in Swagger
+	///
+	/// 1. Enter the expression into the designated field in Swagger.
+	/// 2. The system will automatically create the necessary class completions according to the rules defined in your DSL expression.
+	/// 3. Verify that the appropriate badge is awarded as expected.
+	///
+	/// #### Tips
+	///
+	/// - Use `consecutive` when you need classes to be back-to-back.
+	/// - Use `flexible` for more relaxed scheduling within the specified interval.
+	/// - Use `across_year` if your scenario involves a time period that spans two years.
+	///
+	/// This DSL simplifies your testing by automating class creation. If you encounter any issues or need help, refer back to this guide or contact
+	/// the development team.
+	/// ```
+	/// </remarks>
+	void apiV1AloQaUserIdBadgeExpressionsPost(const utility::string_t& userId,
+											  const std::optional<utility::string_t>& classDefinitionId,
+											  const std::optional<utility::string_t>& expression,
+											  const std::optional<bool>& createFinalClass,
+											  const std::optional<bool>& deletePreviousData,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Gets recommended classes for the user
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/alo/{userId}/classes/recommendations
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1AloUserIdClassesRecommendationsGet(const utility::string_t& userId,
+												 const std::optional<int32_t>& Skip,
+												 const std::optional<int32_t>& Limit,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// QA method for asynchronously syncing class data manually
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/alo/qa/sync/class-data
+	/// Authorization: admin
+	/// </remarks>
+	void apiV1AloQaSyncClassDataPut(csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class CacheApi final : public csp::services::ApiBase
@@ -229,6 +346,7 @@ public:
 						   const std::optional<utility::string_t>& KeyLikeRegex,
 						   const std::optional<utility::string_t>& ReferenceType,
 						   const std::optional<std::vector<utility::string_t>>& ReferenceIds,
+						   const std::optional<std::vector<utility::string_t>>& Items,
 						   const std::optional<std::map<utility::string_t, utility::string_t>>& Metadata,
 						   const std::optional<int32_t>& Skip,
 						   const std::optional<int32_t>& Limit,

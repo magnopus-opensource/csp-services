@@ -22,6 +22,7 @@ class Icon;
 class IconStyle;
 class Kml;
 class LineString;
+class LocalizedString;
 class LookAt;
 class Model;
 class ModelLink;
@@ -32,6 +33,8 @@ class Placemark;
 class Point;
 class PositionKml;
 class ProblemDetails;
+class PrototypeDto;
+class PrototypeDtoDataPage;
 class SequenceDto;
 class SequenceDtoDataPage;
 class ServiceRequest;
@@ -549,6 +552,30 @@ protected:
 	std::optional<utility::string_t> m_Coordinates;
 };
 
+class LocalizedString : public csp::services::DtoBase
+{
+public:
+	LocalizedString();
+	virtual ~LocalizedString();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	utility::string_t GetLanguageCode() const;
+	void SetLanguageCode(const utility::string_t& Value);
+	bool HasLanguageCode() const;
+
+	utility::string_t GetValue() const;
+	void SetValue(const utility::string_t& Value);
+	bool HasValue() const;
+
+
+protected:
+	std::optional<utility::string_t> m_LanguageCode;
+	std::optional<utility::string_t> m_Value;
+};
+
 /// <summary>
 /// The origin view for the scene
 /// </summary>
@@ -1025,6 +1052,218 @@ protected:
 };
 
 /// <summary>
+/// Prototype data transform object
+/// </summary>
+class PrototypeDto : public csp::services::DtoBase
+{
+public:
+	PrototypeDto();
+	virtual ~PrototypeDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The unique identifier for this instance
+	/// </summary>
+	utility::string_t GetId() const;
+	bool HasId() const;
+
+	/// <summary>
+	/// Name for the prototype
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+	/// <summary>
+	/// Tags for this prototype
+	/// or an empty list if none
+	/// </summary>
+	const std::vector<utility::string_t>& GetTags() const;
+	void SetTags(const std::vector<utility::string_t>& Value);
+	bool HasTags() const;
+
+	/// <summary>
+	/// Collection of metadata for this prototype
+	/// or an empty dictionary if none
+	/// </summary>
+	const std::map<utility::string_t, utility::string_t>& GetMetadata() const;
+	void SetMetadata(const std::map<utility::string_t, utility::string_t>& Value);
+	bool HasMetadata() const;
+
+	/// <summary>
+	/// Collection of translations stored per key meant to be shown in localized user interfaces.
+	/// </summary>
+	const std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>& GetUiStrings() const;
+	void SetUiStrings(const std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>& Value);
+	bool HasUiStrings() const;
+
+	/// <summary>
+	/// Collection of default states for certain items such as reward items.
+	/// </summary>
+	const std::map<utility::string_t, utility::string_t>& GetState() const;
+	void SetState(const std::map<utility::string_t, utility::string_t>& Value);
+	bool HasState() const;
+
+	/// <summary>
+	/// The Point of Interest ID that contains geospatial data related to this Prototype
+	/// </summary>
+	utility::string_t GetPointOfInterestId() const;
+	void SetPointOfInterestId(const utility::string_t& Value);
+	bool HasPointOfInterestId() const;
+
+	/// <summary>
+	/// The Parent PrototypeId to this particular record, if any
+	/// </summary>
+	utility::string_t GetParentId() const;
+	void SetParentId(const utility::string_t& Value);
+	bool HasParentId() const;
+
+	/// <summary>
+	/// If this prototype can only be viewed by a specific set of group ids
+	/// </summary>
+	const std::vector<utility::string_t>& GetGroupIds() const;
+	void SetGroupIds(const std::vector<utility::string_t>& Value);
+	bool HasGroupIds() const;
+
+	/// <summary>
+	/// The user identity which created this instance
+	/// </summary>
+	utility::string_t GetCreatedBy() const;
+	bool HasCreatedBy() const;
+
+	/// <summary>
+	/// The date and time this prototype was first created
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	bool HasCreatedAt() const;
+
+	/// <summary>
+	/// The user identity which last updated this instance
+	/// </summary>
+	utility::string_t GetUpdatedBy() const;
+	bool HasUpdatedBy() const;
+
+	/// <summary>
+	/// The date and time this prototype was last updated
+	/// </summary>
+	utility::string_t GetUpdatedAt() const;
+	bool HasUpdatedAt() const;
+
+	/// <summary>
+	/// There can be only one... instantiated prototype per user
+	/// </summary>
+	bool GetHighlander() const;
+	void SetHighlander(const bool& Value);
+	bool HasHighlander() const;
+
+	/// <summary>
+	/// Type of the prototype
+	/// </summary>
+	utility::string_t GetType() const;
+	void SetType(const utility::string_t& Value);
+	bool HasType() const;
+
+	/// <summary>
+	/// Whether the prototype is owned by the system
+	/// </summary>
+	bool GetSystemOwned() const;
+	void SetSystemOwned(const bool& Value);
+	bool HasSystemOwned() const;
+
+	/// <summary>
+	/// Whether the prototype is owned by the user who created it
+	/// </summary>
+	utility::string_t GetPrototypeOwnerId() const;
+	void SetPrototypeOwnerId(const utility::string_t& Value);
+	bool HasPrototypeOwnerId() const;
+
+	/// <summary>
+	/// The organizationId that the prototype belongs to
+	/// </summary>
+	utility::string_t GetOrganizationId() const;
+	bool HasOrganizationId() const;
+
+	/// <summary>
+	/// Access restrictions for read, if none, publicly readable
+	/// </summary>
+	const std::vector<utility::string_t>& GetReadAccess() const;
+	void SetReadAccess(const std::vector<utility::string_t>& Value);
+	bool HasReadAccess() const;
+
+	/// <summary>
+	/// Access restrictions for write, if none, publicly writeable
+	/// </summary>
+	const std::vector<utility::string_t>& GetWriteAccess() const;
+	void SetWriteAccess(const std::vector<utility::string_t>& Value);
+	bool HasWriteAccess() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_Name;
+	std::optional<std::vector<utility::string_t>> m_Tags;
+	std::optional<std::map<utility::string_t, utility::string_t>> m_Metadata;
+	std::optional<std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>> m_UiStrings;
+	std::optional<std::map<utility::string_t, utility::string_t>> m_State;
+	std::optional<utility::string_t> m_PointOfInterestId;
+	std::optional<utility::string_t> m_ParentId;
+	std::optional<std::vector<utility::string_t>> m_GroupIds;
+	std::optional<utility::string_t> m_CreatedBy;
+	std::optional<utility::string_t> m_CreatedAt;
+	std::optional<utility::string_t> m_UpdatedBy;
+	std::optional<utility::string_t> m_UpdatedAt;
+	std::optional<bool> m_Highlander;
+	std::optional<utility::string_t> m_Type;
+	std::optional<bool> m_SystemOwned;
+	std::optional<utility::string_t> m_PrototypeOwnerId;
+	std::optional<utility::string_t> m_OrganizationId;
+	std::optional<std::vector<utility::string_t>> m_ReadAccess;
+	std::optional<std::vector<utility::string_t>> m_WriteAccess;
+};
+
+class PrototypeDtoDataPage : public csp::services::DtoBase
+{
+public:
+	PrototypeDtoDataPage();
+	virtual ~PrototypeDtoDataPage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	const std::vector<std::shared_ptr<PrototypeDto>>& GetItems() const;
+	void SetItems(const std::vector<std::shared_ptr<PrototypeDto>>& Value);
+	bool HasItems() const;
+
+	int32_t GetSkip() const;
+	void SetSkip(int32_t Value);
+	bool HasSkip() const;
+
+	int32_t GetLimit() const;
+	void SetLimit(int32_t Value);
+	bool HasLimit() const;
+
+	int32_t GetItemCount() const;
+	void SetItemCount(int32_t Value);
+	bool HasItemCount() const;
+
+	int64_t GetItemTotalCount() const;
+	void SetItemTotalCount(int64_t Value);
+	bool HasItemTotalCount() const;
+
+
+protected:
+	std::optional<std::vector<std::shared_ptr<PrototypeDto>>> m_Items;
+	std::optional<int32_t> m_Skip;
+	std::optional<int32_t> m_Limit;
+	std::optional<int32_t> m_ItemCount;
+	std::optional<int64_t> m_ItemTotalCount;
+};
+
+/// <summary>
 /// Contains information for sorting entities.
 /// </summary>
 class SequenceDto : public csp::services::DtoBase
@@ -1041,7 +1280,6 @@ public:
 	/// The Id of this sequence. Can be at most 64 characters.
 	/// </summary>
 	utility::string_t GetId() const;
-	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>

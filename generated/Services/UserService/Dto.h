@@ -2271,7 +2271,34 @@ public:
 	bool HasName() const;
 
 	/// <summary>
-	/// Whether or not the tenant is locked
+	/// The Company Name associated with this Tenant
+	/// </summary>
+	utility::string_t GetCompanyName() const;
+	bool HasCompanyName() const;
+
+	/// <summary>
+	/// The Administrators full name
+	/// </summary>
+	utility::string_t GetAdminFullName() const;
+	void SetAdminFullName(const utility::string_t& Value);
+	bool HasAdminFullName() const;
+
+	/// <summary>
+	/// The web URL for the tenant
+	/// </summary>
+	utility::string_t GetCompanyWebUrl() const;
+	void SetCompanyWebUrl(const utility::string_t& Value);
+	bool HasCompanyWebUrl() const;
+
+	/// <summary>
+	/// If the tenant hasn't verified their admin credentials
+	/// </summary>
+	bool GetPendingAdmin() const;
+	void SetPendingAdmin(const bool& Value);
+	bool HasPendingAdmin() const;
+
+	/// <summary>
+	/// Whether the tenant is locked
 	/// </summary>
 	bool GetLocked() const;
 	void SetLocked(const bool& Value);
@@ -2322,6 +2349,10 @@ public:
 
 protected:
 	std::optional<utility::string_t> m_Name;
+	std::optional<utility::string_t> m_CompanyName;
+	std::optional<utility::string_t> m_AdminFullName;
+	std::optional<utility::string_t> m_CompanyWebUrl;
+	std::optional<bool> m_PendingAdmin;
 	std::optional<bool> m_Locked;
 	std::optional<std::shared_ptr<TenantEmailSettingsDto>> m_EmailSettings;
 	std::optional<std::vector<std::shared_ptr<TenantEmailTemplateSettingsDto>>> m_EmailTemplateSettings;

@@ -56,6 +56,95 @@ void AloMovesApi::apiV1AloUserIdClassesClassDefinitionIdCompletedPost(const util
 
 
 
+void AloMovesApi::apiV1AloQaUserIdBadgeExpressionsPost(const utility::string_t& userId,
+													   const std::optional<utility::string_t>& classDefinitionId,
+													   const std::optional<utility::string_t>& expression,
+													   const std::optional<bool>& createFinalClass,
+													   const std::optional<bool>& deletePreviousData,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/alo/qa/{userId}/badge-expressions", {userId});
+
+
+	if (classDefinitionId.has_value())
+	{
+		Uri.AddQueryParams("classDefinitionId", classDefinitionId.value());
+	}
+
+
+	if (expression.has_value())
+	{
+		Uri.AddQueryParams("expression", expression.value());
+	}
+
+
+	if (createFinalClass.has_value())
+	{
+		Uri.AddQueryParams("createFinalClass", createFinalClass.value());
+	}
+
+
+	if (deletePreviousData.has_value())
+	{
+		Uri.AddQueryParams("deletePreviousData", deletePreviousData.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void AloMovesApi::apiV1AloUserIdClassesRecommendationsGet(const utility::string_t& userId,
+														  const std::optional<int32_t>& Skip,
+														  const std::optional<int32_t>& Limit,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/alo/{userId}/classes/recommendations", {userId});
+
+
+	if (Skip.has_value())
+	{
+		Uri.AddQueryParams("Skip", Skip.value());
+	}
+
+
+	if (Limit.has_value())
+	{
+		Uri.AddQueryParams("Limit", Limit.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void AloMovesApi::apiV1AloQaSyncClassDataPut(csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/alo/qa/sync/class-data", {});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 CacheApi::CacheApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
 {
 }
@@ -293,6 +382,7 @@ void SequenceApi::apiV1SequencesGet(const std::optional<std::vector<utility::str
 									const std::optional<utility::string_t>& KeyLikeRegex,
 									const std::optional<utility::string_t>& ReferenceType,
 									const std::optional<std::vector<utility::string_t>>& ReferenceIds,
+									const std::optional<std::vector<utility::string_t>>& Items,
 									const std::optional<std::map<utility::string_t, utility::string_t>>& Metadata,
 									const std::optional<int32_t>& Skip,
 									const std::optional<int32_t>& Limit,
@@ -324,6 +414,12 @@ void SequenceApi::apiV1SequencesGet(const std::optional<std::vector<utility::str
 	if (ReferenceIds.has_value())
 	{
 		Uri.AddQueryParams("ReferenceIds", ReferenceIds.value());
+	}
+
+
+	if (Items.has_value())
+	{
+		Uri.AddQueryParams("Items", Items.value());
 	}
 
 
