@@ -48,6 +48,7 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsGet(const utility::st
 															   const std::optional<std::vector<utility::string_t>>& PrototypeNames,
 															   const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
 															   const std::optional<std::vector<utility::string_t>>& Tags,
+															   const std::optional<std::vector<utility::string_t>>& ExcludedTags,
 															   const std::optional<bool>& TagsAll,
 															   csp::services::ApiResponseHandlerBase* ResponseHandler,
 															   csp::common::CancellationToken& CancellationToken) const
@@ -113,6 +114,12 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsGet(const utility::st
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
+	}
+
+
+	if (ExcludedTags.has_value())
+	{
+		Uri.AddQueryParams("ExcludedTags", ExcludedTags.value());
 	}
 
 
@@ -207,6 +214,7 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsGet(const std::optional<std::vec
 													const std::optional<std::vector<utility::string_t>>& PrototypeNames,
 													const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
 													const std::optional<std::vector<utility::string_t>>& Tags,
+													const std::optional<std::vector<utility::string_t>>& ExcludedTags,
 													const std::optional<bool>& TagsAll,
 													csp::services::ApiResponseHandlerBase* ResponseHandler,
 													csp::common::CancellationToken& CancellationToken) const
@@ -272,6 +280,12 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsGet(const std::optional<std::vec
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
+	}
+
+
+	if (ExcludedTags.has_value())
+	{
+		Uri.AddQueryParams("ExcludedTags", ExcludedTags.value());
 	}
 
 
@@ -401,6 +415,7 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsAssetPipelineModelGet(const std:
 																	  const std::optional<std::vector<utility::string_t>>& PrototypeNames,
 																	  const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
 																	  const std::optional<std::vector<utility::string_t>>& Tags,
+																	  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
 																	  const std::optional<bool>& TagsAll,
 																	  csp::services::ApiResponseHandlerBase* ResponseHandler,
 																	  csp::common::CancellationToken& CancellationToken) const
@@ -466,6 +481,12 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsAssetPipelineModelGet(const std:
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
+	}
+
+
+	if (ExcludedTags.has_value())
+	{
+		Uri.AddQueryParams("ExcludedTags", ExcludedTags.value());
 	}
 
 
@@ -644,6 +665,7 @@ void PrototypeApi::apiV1PrototypesPost(const std::shared_ptr<PrototypeDto>& Requ
 }
 
 void PrototypeApi::apiV1PrototypesGet(const std::optional<std::vector<utility::string_t>>& Tags,
+									  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
 									  const std::optional<bool>& TagsAll,
 									  const std::optional<std::vector<utility::string_t>>& Ids,
 									  const std::optional<std::vector<utility::string_t>>& Names,
@@ -674,6 +696,12 @@ void PrototypeApi::apiV1PrototypesGet(const std::optional<std::vector<utility::s
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
+	}
+
+
+	if (ExcludedTags.has_value())
+	{
+		Uri.AddQueryParams("ExcludedTags", ExcludedTags.value());
 	}
 
 
@@ -827,6 +855,7 @@ void PrototypeApi::apiV1PrototypesDelete(const std::optional<std::vector<utility
 
 void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPost(
 	const std::optional<std::vector<utility::string_t>>& Tags,
+	const std::optional<std::vector<utility::string_t>>& ExcludedTags,
 	const std::optional<bool>& TagsAll,
 	const std::optional<std::vector<utility::string_t>>& Ids,
 	const std::optional<std::vector<utility::string_t>>& Names,
@@ -858,6 +887,12 @@ void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPo
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
+	}
+
+
+	if (ExcludedTags.has_value())
+	{
+		Uri.AddQueryParams("ExcludedTags", ExcludedTags.value());
 	}
 
 
@@ -1001,6 +1036,7 @@ void PrototypeApi::apiV1PrototypesBulkPut(const std::vector<std::shared_ptr<Bulk
 
 
 void PrototypeApi::apiV1PrototypesCountGet(const std::optional<std::vector<utility::string_t>>& Tags,
+										   const std::optional<std::vector<utility::string_t>>& ExcludedTags,
 										   const std::optional<bool>& TagsAll,
 										   const std::optional<std::vector<utility::string_t>>& Ids,
 										   const std::optional<std::vector<utility::string_t>>& Names,
@@ -1027,6 +1063,12 @@ void PrototypeApi::apiV1PrototypesCountGet(const std::optional<std::vector<utili
 	if (Tags.has_value())
 	{
 		Uri.AddQueryParams("Tags", Tags.value());
+	}
+
+
+	if (ExcludedTags.has_value())
+	{
+		Uri.AddQueryParams("ExcludedTags", ExcludedTags.value());
 	}
 
 

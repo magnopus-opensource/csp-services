@@ -518,6 +518,12 @@ utility::string_t DuplicateSpaceRequest::ToJson() const
 		JsonDoc.AddMember("shallowCopy", ShallowCopyValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_AsyncCall.has_value())
+	{
+		rapidjson::Value AsyncCallValue(TypeToJsonValue(m_AsyncCall, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("asyncCall", AsyncCallValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -643,6 +649,16 @@ void DuplicateSpaceRequest::FromJson(const utility::string_t& Val)
 			CSP_LOG_ERROR_MSG("Error: Non-nullable member shallowCopy is null!");
 		}
 	}
+
+	if (JsonDoc.HasMember("asyncCall"))
+	{
+		const rapidjson::Value& AsyncCallValue = JsonDoc["asyncCall"];
+
+		if (AsyncCallValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AsyncCallValue, m_AsyncCall);
+		}
+	}
 }
 
 
@@ -754,6 +770,19 @@ bool DuplicateSpaceRequest::HasShallowCopy() const
 void DuplicateSpaceRequest::SetShallowCopy(const bool& Value)
 {
 	m_ShallowCopy = Value;
+}
+bool DuplicateSpaceRequest::GetAsyncCall() const
+{
+	return m_AsyncCall.value();
+}
+
+bool DuplicateSpaceRequest::HasAsyncCall() const
+{
+	return m_AsyncCall.has_value();
+}
+void DuplicateSpaceRequest::SetAsyncCall(const bool& Value)
+{
+	m_AsyncCall = Value;
 }
 
 GroupRoleDto::GroupRoleDto()
@@ -6558,6 +6587,66 @@ bool ShopifyVariantOption::HasOptionValue() const
 	return m_OptionValue.has_value();
 }
 
+SliceCompatibility::SliceCompatibility()
+{
+}
+SliceCompatibility::~SliceCompatibility()
+{
+}
+
+utility::string_t SliceCompatibility::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_MinimumVersion.has_value())
+	{
+		rapidjson::Value MinimumVersionValue(TypeToJsonValue(m_MinimumVersion, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("minimumVersion", MinimumVersionValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void SliceCompatibility::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("minimumVersion"))
+	{
+		const rapidjson::Value& MinimumVersionValue = JsonDoc["minimumVersion"];
+
+		if (MinimumVersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MinimumVersionValue, m_MinimumVersion);
+		}
+	}
+}
+
+
+utility::string_t SliceCompatibility::GetMinimumVersion() const
+{
+	return m_MinimumVersion.value();
+}
+
+bool SliceCompatibility::HasMinimumVersion() const
+{
+	return m_MinimumVersion.has_value();
+}
+void SliceCompatibility::SetMinimumVersion(const utility::string_t& Value)
+{
+	m_MinimumVersion = Value;
+}
+
 SpaceEventDto::SpaceEventDto()
 {
 }
@@ -7672,6 +7761,95 @@ utility::string_t VendorProviderInfo::GetOAuthRedirectUrl() const
 bool VendorProviderInfo::HasOAuthRedirectUrl() const
 {
 	return m_OAuthRedirectUrl.has_value();
+}
+
+VersionMatrix::VersionMatrix()
+{
+}
+VersionMatrix::~VersionMatrix()
+{
+}
+
+utility::string_t VersionMatrix::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_ServiceVersion.has_value())
+	{
+		rapidjson::Value ServiceVersionValue(TypeToJsonValue(m_ServiceVersion, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("serviceVersion", ServiceVersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Matrix.has_value())
+	{
+		rapidjson::Value MatrixValue(TypeToJsonValue(m_Matrix, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("matrix", MatrixValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void VersionMatrix::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("serviceVersion"))
+	{
+		const rapidjson::Value& ServiceVersionValue = JsonDoc["serviceVersion"];
+
+		if (ServiceVersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ServiceVersionValue, m_ServiceVersion);
+		}
+	}
+
+	if (JsonDoc.HasMember("matrix"))
+	{
+		const rapidjson::Value& MatrixValue = JsonDoc["matrix"];
+
+		if (MatrixValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MatrixValue, m_Matrix);
+		}
+	}
+}
+
+
+utility::string_t VersionMatrix::GetServiceVersion() const
+{
+	return m_ServiceVersion.value();
+}
+
+bool VersionMatrix::HasServiceVersion() const
+{
+	return m_ServiceVersion.has_value();
+}
+void VersionMatrix::SetServiceVersion(const utility::string_t& Value)
+{
+	m_ServiceVersion = Value;
+}
+const std::map<utility::string_t, std::shared_ptr<SliceCompatibility>>& VersionMatrix::GetMatrix() const
+{
+	return m_Matrix.value();
+}
+
+bool VersionMatrix::HasMatrix() const
+{
+	return m_Matrix.has_value();
+}
+void VersionMatrix::SetMatrix(const std::map<utility::string_t, std::shared_ptr<SliceCompatibility>>& Value)
+{
+	m_Matrix = Value;
 }
 
 

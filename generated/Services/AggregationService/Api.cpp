@@ -37,6 +37,20 @@ void AloMovesApi::apiV1AloHarmonizePost(const std::shared_ptr<HarmonizeAloReques
 
 
 
+void AloMovesApi::apiV1AloVersionsMatrixPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/alo/versions-matrix", {});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 void AloMovesApi::apiV1AloUserIdClassesClassDefinitionIdCompletedPost(const utility::string_t& userId,
 																	  const utility::string_t& classDefinitionId,
 																	  const std::shared_ptr<AloClassCompletedRequest>& RequestBody,
@@ -103,6 +117,7 @@ void AloMovesApi::apiV1AloQaUserIdBadgeExpressionsPost(const utility::string_t& 
 void AloMovesApi::apiV1AloUserIdClassesRecommendationsGet(const utility::string_t& userId,
 														  const std::optional<int32_t>& Skip,
 														  const std::optional<int32_t>& Limit,
+														  const std::optional<bool>& isSeries,
 														  csp::services::ApiResponseHandlerBase* ResponseHandler,
 														  csp::common::CancellationToken& CancellationToken) const
 {
@@ -119,6 +134,12 @@ void AloMovesApi::apiV1AloUserIdClassesRecommendationsGet(const utility::string_
 	if (Limit.has_value())
 	{
 		Uri.AddQueryParams("Limit", Limit.value());
+	}
+
+
+	if (isSeries.has_value())
+	{
+		Uri.AddQueryParams("isSeries", isSeries.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -447,12 +468,19 @@ void SequenceApi::apiV1SequencesGet(const std::optional<std::vector<utility::str
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void SequenceApi::apiV1SequencesPut(const std::shared_ptr<SequenceDto>& RequestBody,
+void SequenceApi::apiV1SequencesPut(const std::optional<utility::string_t>& newKey,
+									const std::shared_ptr<SequenceDto>& RequestBody,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
 									csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(*RootUri + "/api/v1/sequences", {});
+
+
+	if (newKey.has_value())
+	{
+		Uri.AddQueryParams("newKey", newKey.value());
+	}
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));

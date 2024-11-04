@@ -54,6 +54,7 @@ public:
 												   const std::optional<std::vector<utility::string_t>>& PrototypeNames,
 												   const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
 												   const std::optional<std::vector<utility::string_t>>& Tags,
+												   const std::optional<std::vector<utility::string_t>>& ExcludedTags,
 												   const std::optional<bool>& TagsAll,
 												   csp::services::ApiResponseHandlerBase* ResponseHandler,
 												   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
@@ -138,6 +139,7 @@ public:
 										const std::optional<std::vector<utility::string_t>>& PrototypeNames,
 										const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
 										const std::optional<std::vector<utility::string_t>>& Tags,
+										const std::optional<std::vector<utility::string_t>>& ExcludedTags,
 										const std::optional<bool>& TagsAll,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
@@ -243,6 +245,7 @@ public:
 														  const std::optional<std::vector<utility::string_t>>& PrototypeNames,
 														  const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
 														  const std::optional<std::vector<utility::string_t>>& Tags,
+														  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
 														  const std::optional<bool>& TagsAll,
 														  csp::services::ApiResponseHandlerBase* ResponseHandler,
 														  csp::common::CancellationToken& CancellationToken
@@ -376,6 +379,7 @@ public:
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
 	void apiV1PrototypesGet(const std::optional<std::vector<utility::string_t>>& Tags,
+							const std::optional<std::vector<utility::string_t>>& ExcludedTags,
 							const std::optional<bool>& TagsAll,
 							const std::optional<std::vector<utility::string_t>>& Ids,
 							const std::optional<std::vector<utility::string_t>>& Names,
@@ -422,6 +426,7 @@ public:
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
 	void apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPost(const std::optional<std::vector<utility::string_t>>& Tags,
+																		 const std::optional<std::vector<utility::string_t>>& ExcludedTags,
 																		 const std::optional<bool>& TagsAll,
 																		 const std::optional<std::vector<utility::string_t>>& Ids,
 																		 const std::optional<std::vector<utility::string_t>>& Names,
@@ -471,6 +476,7 @@ public:
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
 	void apiV1PrototypesCountGet(const std::optional<std::vector<utility::string_t>>& Tags,
+								 const std::optional<std::vector<utility::string_t>>& ExcludedTags,
 								 const std::optional<bool>& TagsAll,
 								 const std::optional<std::vector<utility::string_t>>& Ids,
 								 const std::optional<std::vector<utility::string_t>>& Names,

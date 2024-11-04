@@ -36,6 +36,18 @@ public:
 
 
 	/// <summary>
+	/// Get min compatible versions
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/alo/versions-matrix
+	/// Authorization: Anonymous
+	/// </remarks>
+	void apiV1AloVersionsMatrixPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
 	/// Class Completed
 	/// </summary>
 	/// <remarks>
@@ -60,7 +72,7 @@ public:
 	/// ```markdown
 	/// ### Badge Creation DSL Documentation
 	///
-	/// This guide explains how to use the Badge Creation DSL to simulate class completions and test badge awarding in our application.Youâ€™ll use
+	/// This guide explains how to use the Badge Creation DSL to simulate class completions and test badge awarding in our application.You’ll use
 	/// these expressions in Swagger to automate the creation of class records.
 	///
 	/// #### DSL Format
@@ -151,6 +163,7 @@ public:
 	void apiV1AloUserIdClassesRecommendationsGet(const utility::string_t& userId,
 												 const std::optional<int32_t>& Skip,
 												 const std::optional<int32_t>& Limit,
+												 const std::optional<bool>& isSeries,
 												 csp::services::ApiResponseHandlerBase* ResponseHandler,
 												 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
@@ -367,9 +380,12 @@ public:
 	/// If a sequence is created or updated and the `ReferenceType` is "GroupId" then a multiplayer
 	/// message will be sent to clients via the Global scope for the group.
 	///
+	/// If you include a new key in the query string, and key in the querystring doesn't already exist
+	/// on another document, this will update the key for an existing document to the new key.
+	///
 	/// <b>Sample Requests:</b>
 	///
-	///     PUT /oly-aggregations/api/v1/sequences
+	///     PUT /oly-aggregations/api/v1/sequences?newKey=newKey
 	///     {
 	///         "key": "key1",
 	///         "referenceType": "GroupId",
@@ -385,7 +401,8 @@ public:
 	///         }
 	///     }
 	/// </remarks>
-	void apiV1SequencesPut(const std::shared_ptr<SequenceDto>& RequestBody,
+	void apiV1SequencesPut(const std::optional<utility::string_t>& newKey,
+						   const std::shared_ptr<SequenceDto>& RequestBody,
 						   csp::services::ApiResponseHandlerBase* ResponseHandler,
 						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
@@ -447,6 +464,7 @@ public:
 	///
 	///     PUT /oly-aggregations/api/v1/sequences/keys/key1/key/key2
 	/// </remarks>
+	[[deprecated("'PUT /api/v1/sequences/keys/{oldKey}/key' is deprecated!")]]
 	void apiV1SequencesKeysOldKeyKeyPut(const utility::string_t& oldKey,
 										const utility::string_t& newKey,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,

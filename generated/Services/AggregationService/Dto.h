@@ -51,6 +51,7 @@ class ShopifyStorefrontDto;
 class ShopifyStorefrontDtoDataPage;
 class ShopifyStorefrontValidationRequest;
 class ShopifyVariantOption;
+class SliceCompatibility;
 class SpaceEventDto;
 class SpaceEventDtoDataPage;
 class SpaceTicketDto;
@@ -58,6 +59,7 @@ class StringDataPage;
 class Style;
 class TicketStatus;
 class VendorProviderInfo;
+class VersionMatrix;
 
 
 
@@ -293,6 +295,13 @@ public:
 	void SetShallowCopy(const bool& Value);
 	bool HasShallowCopy() const;
 
+	/// <summary>
+	/// If true, the request is immediately responded with a 200 and a message is put on the queue
+	/// </summary>
+	bool GetAsyncCall() const;
+	void SetAsyncCall(const bool& Value);
+	bool HasAsyncCall() const;
+
 
 protected:
 	std::optional<utility::string_t> m_TenantName;
@@ -304,6 +313,7 @@ protected:
 	std::optional<bool> m_RequiresInvite;
 	std::optional<bool> m_Discoverable;
 	std::optional<bool> m_ShallowCopy;
+	std::optional<bool> m_AsyncCall;
 };
 
 /// <summary>
@@ -2032,6 +2042,34 @@ protected:
 };
 
 /// <summary>
+/// Version info related to a named slice of functionality -
+/// could be a subsystem or a whole (hotspots [CSP feature], CSP [entire client platform], stripe [3rd party api])
+/// </summary>
+class SliceCompatibility : public csp::services::DtoBase
+{
+public:
+	SliceCompatibility();
+	virtual ~SliceCompatibility();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The minimum, lowest, oldest version this slice is compatible with -
+	/// ie, the first version to support this slice or the last breaking change.
+	/// A value of '*' indicates total compatibility, should that exist.
+	/// </summary>
+	utility::string_t GetMinimumVersion() const;
+	void SetMinimumVersion(const utility::string_t& Value);
+	bool HasMinimumVersion() const;
+
+
+protected:
+	std::optional<utility::string_t> m_MinimumVersion;
+};
+
+/// <summary>
 /// Object containing properties for space event details.
 /// </summary>
 class SpaceEventDto : public csp::services::DtoBase
@@ -2351,6 +2389,39 @@ protected:
 	std::optional<utility::string_t> m_ClientId;
 	std::optional<utility::string_t> m_AuthorizeEndpoint;
 	std::optional<utility::string_t> m_OAuthRedirectUrl;
+};
+
+/// <summary>
+/// map of features/products/skus
+/// </summary>
+class VersionMatrix : public csp::services::DtoBase
+{
+public:
+	VersionMatrix();
+	virtual ~VersionMatrix();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Current version of the service deployment
+	/// </summary>
+	utility::string_t GetServiceVersion() const;
+	void SetServiceVersion(const utility::string_t& Value);
+	bool HasServiceVersion() const;
+
+	/// <summary>
+	/// matrix of slice version compatibilities
+	/// </summary>
+	const std::map<utility::string_t, std::shared_ptr<SliceCompatibility>>& GetMatrix() const;
+	void SetMatrix(const std::map<utility::string_t, std::shared_ptr<SliceCompatibility>>& Value);
+	bool HasMatrix() const;
+
+
+protected:
+	std::optional<utility::string_t> m_ServiceVersion;
+	std::optional<std::map<utility::string_t, std::shared_ptr<SliceCompatibility>>> m_Matrix;
 };
 
 
