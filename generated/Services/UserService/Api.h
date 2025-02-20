@@ -320,6 +320,19 @@ public:
 
 
 	/// <summary>
+	/// Locates the user groups by their ID groupIds
+	/// and deletes it from the data store.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/groups
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1GroupsDelete(const std::optional<std::vector<utility::string_t>>& groupIds,
+						   csp::services::ApiResponseHandlerBase* ResponseHandler,
+						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+	/// <summary>
 	/// Locates groups by a provided list of ids
 	/// </summary>
 	/// <remarks>
@@ -549,6 +562,19 @@ public:
 	/// </remarks>
 	void apiV1GroupsGroupIdOwnerNewGroupOwnerIdPut(const utility::string_t& groupId,
 												   const utility::string_t& newGroupOwnerId,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Finds all accepted invites to a group
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/groups/{groupId}/email-invites/accepted
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1GroupsGroupIdEmailInvitesAcceptedGet(const utility::string_t& groupId,
 												   csp::services::ApiResponseHandlerBase* ResponseHandler,
 												   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
@@ -1077,6 +1103,7 @@ public:
 	/// Authorization: magnopus-admin,admin,support,internal-service,account-manager
 	/// </remarks>
 	void apiV1UsersGet(const std::optional<utility::string_t>& GuestDeviceId,
+					   const std::optional<utility::string_t>& PartialGuestDeviceId,
 					   const std::optional<utility::string_t>& Email,
 					   const std::optional<utility::string_t>& UserName,
 					   const std::optional<utility::string_t>& LastDeviceId,
@@ -1138,7 +1165,7 @@ public:
 
 	/// <summary>
 	/// Locates the user profile by its ID userId
-	/// and deletes it.
+	/// and anonymizes the user data, and deletes supporting data.
 	/// </summary>
 	/// <remarks>
 	/// DELETE /api/v1/users/{userId}
@@ -1159,6 +1186,50 @@ public:
 	void apiV1UsersUserIdGet(const utility::string_t& userId,
 							 csp::services::ApiResponseHandlerBase* ResponseHandler,
 							 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Locates the user profile by its ID userId
+	/// and delete the profile as well as any supporting data.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/users/{userId}/hard-delete
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void apiV1UsersUserIdHardDeleteDelete(const utility::string_t& userId,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Locates the user profiles by their IDs ids
+	/// and delete the profiles as well as any supporting data.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/users/hard-delete
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void apiV1UsersHardDeleteDelete(const std::optional<std::vector<utility::string_t>>& ids,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Search across all the Users for those that match the search criteria and returns a list of profile id's
+	/// or an empty list if none found
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/users/profile-ids
+	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// </remarks>
+	void apiV1UsersProfileIdsPost(const std::optional<int32_t>& Skip,
+								  const std::optional<int32_t>& Limit,
+								  const std::shared_ptr<UserQuery>& RequestBody,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -1457,6 +1528,7 @@ public:
 	/// Authorization: Anonymous
 	/// </remarks>
 	void apiV1VendorsStripeWebhookPost(const std::optional<utility::string_t>& tenant,
+									   const std::optional<utility::string_t>& environmentAlias,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
@@ -1532,6 +1604,37 @@ public:
 	void apiV1TenantsNamesTenantNameGet(const utility::string_t& tenantName,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Deletes all tenants still pending after a certain age tenantAgeInDays
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/tenants/pending
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void apiV1TenantsPendingDelete(const int32_t& tenantAgeInDays,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Deletes a tenant and all the tenant data that match the
+	/// name
+	/// Deletion happens asynchronously, so you will receive a response before the call is completed.
+	/// Completing the call may take upwards of a few minutes depending on the size of the tenant and the data
+	/// there within
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/tenants/names/{name}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void apiV1TenantsNamesNameDelete(const utility::string_t& name,
+									 const std::shared_ptr<TenantCleanupFilters>& RequestBody,
+									 csp::services::ApiResponseHandlerBase* ResponseHandler,
+									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class UserRolesApi final : public csp::services::ApiBase

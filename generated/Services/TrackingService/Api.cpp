@@ -356,6 +356,22 @@ QuotaTierAssignmentApi::~QuotaTierAssignmentApi()
 
 
 
+void QuotaTierAssignmentApi::apiV1TierAssignmentsIdGet(const utility::string_t& id,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/tier-assignments/{id}", {id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 void QuotaTierAssignmentApi::apiV1UsersUserIdTierAssignmentGet(const utility::string_t& userId,
 															   csp::services::ApiResponseHandlerBase* ResponseHandler,
 															   csp::common::CancellationToken& CancellationToken) const

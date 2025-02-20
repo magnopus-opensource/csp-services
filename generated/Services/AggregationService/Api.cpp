@@ -863,6 +863,31 @@ void SpaceApi::apiV1SpacesSpaceIdDuplicatePost(const utility::string_t& spaceId,
 
 
 
+void SpaceApi::apiV1SpacesSpaceIdExportPost(const utility::string_t& spaceId,
+											const std::optional<bool>& asyncCall,
+											const std::shared_ptr<SpaceExportDto>& RequestBody,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/spaces/{spaceId}/export", {spaceId});
+
+
+	if (asyncCall.has_value())
+	{
+		Uri.AddQueryParams("asyncCall", asyncCall.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 TicketedSpaceApi::TicketedSpaceApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
 {
 }

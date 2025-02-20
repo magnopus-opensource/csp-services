@@ -17,10 +17,14 @@ class AssetPipelineStatus;
 class AssetPipelineThumbnailDto;
 class BulkUpsertAssetDetailDto;
 class BulkUpsertPrototypeDto;
+class ExportPrototypesResponse;
+class ExportedAssetDetailDto;
+class ExportedPrototypeDto;
 class LocalizedString;
 class PrototypeDto;
 class PrototypeDtoDataPage;
 class SortDirection;
+class StringDataPage;
 
 
 
@@ -812,6 +816,418 @@ protected:
 	std::optional<std::vector<utility::string_t>> m_WriteAccess;
 };
 
+/// <summary>
+/// Data from exporting prototypes
+/// </summary>
+class ExportPrototypesResponse : public csp::services::DtoBase
+{
+public:
+	ExportPrototypesResponse();
+	virtual ~ExportPrototypesResponse();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The newly prepared prototypes with the ids of the original objects
+	/// </summary>
+	const std::vector<std::shared_ptr<ExportedPrototypeDto>>& GetPrototypes() const;
+	void SetPrototypes(const std::vector<std::shared_ptr<ExportedPrototypeDto>>& Value);
+	bool HasPrototypes() const;
+
+	/// <summary>
+	/// The newly prepared assets with the ids of the original objects
+	/// </summary>
+	const std::vector<std::shared_ptr<ExportedAssetDetailDto>>& GetAssets() const;
+	void SetAssets(const std::vector<std::shared_ptr<ExportedAssetDetailDto>>& Value);
+	bool HasAssets() const;
+
+	/// <summary>
+	/// Reasons for failure
+	/// </summary>
+	const std::vector<utility::string_t>& GetDenials() const;
+	void SetDenials(const std::vector<utility::string_t>& Value);
+	bool HasDenials() const;
+
+
+protected:
+	std::optional<std::vector<std::shared_ptr<ExportedPrototypeDto>>> m_Prototypes;
+	std::optional<std::vector<std::shared_ptr<ExportedAssetDetailDto>>> m_Assets;
+	std::optional<std::vector<utility::string_t>> m_Denials;
+};
+
+/// <summary>
+/// The representation of an asset detail in the process of being exported
+/// </summary>
+class ExportedAssetDetailDto : public csp::services::DtoBase
+{
+public:
+	ExportedAssetDetailDto();
+	virtual ~ExportedAssetDetailDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The id of the asset detail from which this was derived
+	/// </summary>
+	utility::string_t GetOriginalAssetDetailId() const;
+	bool HasOriginalAssetDetailId() const;
+
+	/// <summary>
+	/// The id of the prototype to which the asset detail from which this was derived was attached
+	/// </summary>
+	utility::string_t GetOriginalPrototypeId() const;
+	bool HasOriginalPrototypeId() const;
+
+	/// <summary>
+	/// Prototype this Asset is assigned to
+	/// </summary>
+	utility::string_t GetPrototypeId() const;
+	bool HasPrototypeId() const;
+
+	/// <summary>
+	/// The unique identifier for this asset
+	/// </summary>
+	utility::string_t GetId() const;
+	bool HasId() const;
+
+	/// <summary>
+	/// Filename for the asset, mainly useful for unity side
+	/// </summary>
+	utility::string_t GetFileName() const;
+	bool HasFileName() const;
+
+	/// <summary>
+	/// The name of the asset
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+	/// <summary>
+	/// LanguageCode for the asset defaults to en-us
+	/// </summary>
+	utility::string_t GetLanguageCode() const;
+	void SetLanguageCode(const utility::string_t& Value);
+	bool HasLanguageCode() const;
+
+	/// <summary>
+	/// Type of Asset
+	/// </summary>
+	utility::string_t GetAssetType() const;
+	void SetAssetType(const utility::string_t& Value);
+	bool HasAssetType() const;
+
+	/// <summary>
+	/// List of the Platforms this asset supports
+	/// </summary>
+	const std::vector<utility::string_t>& GetSupportedPlatforms() const;
+	void SetSupportedPlatforms(const std::vector<utility::string_t>& Value);
+	bool HasSupportedPlatforms() const;
+
+	/// <summary>
+	/// What style is this asset:
+	/// Low-Res, High-Res, Low-Bandwidth etc
+	/// </summary>
+	const std::vector<utility::string_t>& GetStyle() const;
+	void SetStyle(const std::vector<utility::string_t>& Value);
+	bool HasStyle() const;
+
+	/// <summary>
+	/// The Unique Identifier for a specific AddressableItem within a package
+	/// </summary>
+	[[deprecated("'addressableId' has been deprecated!")]]
+	utility::string_t GetAddressableId() const;
+	[[deprecated("'addressableId' has been deprecated!")]]
+	void SetAddressableId(const utility::string_t& Value);
+	bool HasAddressableId() const;
+
+	/// <summary>
+	/// The Reference Id associated with an outside application
+	/// </summary>
+	utility::string_t GetThirdPartyReferenceId() const;
+	void SetThirdPartyReferenceId(const utility::string_t& Value);
+	bool HasThirdPartyReferenceId() const;
+
+	/// <summary>
+	/// Url where the asset is able to be retrieved from
+	/// </summary>
+	utility::string_t GetUri() const;
+	bool HasUri() const;
+
+	/// <summary>
+	/// An MD5 Hash of the uploaded file used to determine if the client needs to
+	/// get an updated version.
+	/// </summary>
+	utility::string_t GetChecksum() const;
+	bool HasChecksum() const;
+
+	/// <summary>
+	/// Version number of the Asset, this is used mostly for debugging when checking to see
+	/// if the client version details match the services at a quick glance.
+	/// </summary>
+	utility::string_t GetVersion() const;
+	bool HasVersion() const;
+
+	/// <summary>
+	/// Mimetype of the AssetDetail for web base solutions to know what the file type is
+	/// and be able to handle it correctly.
+	/// </summary>
+	utility::string_t GetMimeType() const;
+	bool HasMimeType() const;
+
+	/// <summary>
+	/// The external full URI to the location of media - this will never be populated on objects
+	/// returned from the server - it is meant to set the Uri field on updates.
+	/// </summary>
+	utility::string_t GetExternalUri() const;
+	void SetExternalUri(const utility::string_t& Value);
+	bool HasExternalUri() const;
+
+	/// <summary>
+	/// MIME type set on the data at the associated path - this will never be populated on objects
+	/// returned from the server - it is meant to set the MimeType field on updates.
+	/// </summary>
+	utility::string_t GetExternalMimeType() const;
+	void SetExternalMimeType(const utility::string_t& Value);
+	bool HasExternalMimeType() const;
+
+	/// <summary>
+	/// Path to the original asset
+	/// </summary>
+	utility::string_t GetOriginalAssetUri() const;
+	void SetOriginalAssetUri(const utility::string_t& Value);
+	bool HasOriginalAssetUri() const;
+
+	/// <summary>
+	/// Tags for this asset-detail
+	/// or an empty list if none
+	/// </summary>
+	const std::vector<utility::string_t>& GetTags() const;
+	void SetTags(const std::vector<utility::string_t>& Value);
+	bool HasTags() const;
+
+	/// <summary>
+	/// Size of the current version of the raw asset in bytes - 0 if external or no file uploaded
+	/// </summary>
+	int64_t GetSizeInBytes() const;
+	bool HasSizeInBytes() const;
+
+
+protected:
+	std::optional<utility::string_t> m_OriginalAssetDetailId;
+	std::optional<utility::string_t> m_OriginalPrototypeId;
+	std::optional<utility::string_t> m_PrototypeId;
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_FileName;
+	std::optional<utility::string_t> m_Name;
+	std::optional<utility::string_t> m_LanguageCode;
+	std::optional<utility::string_t> m_AssetType;
+	std::optional<std::vector<utility::string_t>> m_SupportedPlatforms;
+	std::optional<std::vector<utility::string_t>> m_Style;
+	std::optional<utility::string_t> m_AddressableId;
+	std::optional<utility::string_t> m_ThirdPartyReferenceId;
+	std::optional<utility::string_t> m_Uri;
+	std::optional<utility::string_t> m_Checksum;
+	std::optional<utility::string_t> m_Version;
+	std::optional<utility::string_t> m_MimeType;
+	std::optional<utility::string_t> m_ExternalUri;
+	std::optional<utility::string_t> m_ExternalMimeType;
+	std::optional<utility::string_t> m_OriginalAssetUri;
+	std::optional<std::vector<utility::string_t>> m_Tags;
+	std::optional<int64_t> m_SizeInBytes;
+};
+
+/// <summary>
+/// The representation of a prototype in the process of being exported
+/// </summary>
+class ExportedPrototypeDto : public csp::services::DtoBase
+{
+public:
+	ExportedPrototypeDto();
+	virtual ~ExportedPrototypeDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The id of the prototype from which this was derived
+	/// </summary>
+	utility::string_t GetOriginalPrototypeId() const;
+	bool HasOriginalPrototypeId() const;
+
+	/// <summary>
+	/// The id of the prototype to which this object was originally parented
+	/// </summary>
+	utility::string_t GetOriginalParentId() const;
+	bool HasOriginalParentId() const;
+
+	/// <summary>
+	/// The unique identifier for this instance
+	/// </summary>
+	utility::string_t GetId() const;
+	bool HasId() const;
+
+	/// <summary>
+	/// Name for the prototype
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+	/// <summary>
+	/// Tags for this prototype
+	/// or an empty list if none
+	/// </summary>
+	const std::vector<utility::string_t>& GetTags() const;
+	void SetTags(const std::vector<utility::string_t>& Value);
+	bool HasTags() const;
+
+	/// <summary>
+	/// Collection of metadata for this prototype
+	/// or an empty dictionary if none
+	/// </summary>
+	const std::map<utility::string_t, utility::string_t>& GetMetadata() const;
+	void SetMetadata(const std::map<utility::string_t, utility::string_t>& Value);
+	bool HasMetadata() const;
+
+	/// <summary>
+	/// Collection of translations stored per key meant to be shown in localized user interfaces.
+	/// </summary>
+	const std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>& GetUiStrings() const;
+	void SetUiStrings(const std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>& Value);
+	bool HasUiStrings() const;
+
+	/// <summary>
+	/// Collection of default states for certain items such as reward items.
+	/// </summary>
+	const std::map<utility::string_t, utility::string_t>& GetState() const;
+	void SetState(const std::map<utility::string_t, utility::string_t>& Value);
+	bool HasState() const;
+
+	/// <summary>
+	/// The Point of Interest ID that contains geospatial data related to this Prototype
+	/// </summary>
+	utility::string_t GetPointOfInterestId() const;
+	void SetPointOfInterestId(const utility::string_t& Value);
+	bool HasPointOfInterestId() const;
+
+	/// <summary>
+	/// The Parent PrototypeId to this particular record, if any
+	/// </summary>
+	utility::string_t GetParentId() const;
+	void SetParentId(const utility::string_t& Value);
+	bool HasParentId() const;
+
+	/// <summary>
+	/// If this prototype can only be viewed by a specific set of group ids
+	/// </summary>
+	const std::vector<utility::string_t>& GetGroupIds() const;
+	void SetGroupIds(const std::vector<utility::string_t>& Value);
+	bool HasGroupIds() const;
+
+	/// <summary>
+	/// The user identity which created this instance
+	/// </summary>
+	utility::string_t GetCreatedBy() const;
+	bool HasCreatedBy() const;
+
+	/// <summary>
+	/// The date and time this prototype was first created
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	bool HasCreatedAt() const;
+
+	/// <summary>
+	/// The user identity which last updated this instance
+	/// </summary>
+	utility::string_t GetUpdatedBy() const;
+	bool HasUpdatedBy() const;
+
+	/// <summary>
+	/// The date and time this prototype was last updated
+	/// </summary>
+	utility::string_t GetUpdatedAt() const;
+	bool HasUpdatedAt() const;
+
+	/// <summary>
+	/// There can be only one... instantiated prototype per user
+	/// </summary>
+	bool GetHighlander() const;
+	void SetHighlander(const bool& Value);
+	bool HasHighlander() const;
+
+	/// <summary>
+	/// Type of the prototype
+	/// </summary>
+	utility::string_t GetType() const;
+	void SetType(const utility::string_t& Value);
+	bool HasType() const;
+
+	/// <summary>
+	/// Whether the prototype is owned by the system
+	/// </summary>
+	bool GetSystemOwned() const;
+	void SetSystemOwned(const bool& Value);
+	bool HasSystemOwned() const;
+
+	/// <summary>
+	/// Whether the prototype is owned by the user who created it
+	/// </summary>
+	utility::string_t GetPrototypeOwnerId() const;
+	void SetPrototypeOwnerId(const utility::string_t& Value);
+	bool HasPrototypeOwnerId() const;
+
+	/// <summary>
+	/// The organizationId that the prototype belongs to
+	/// </summary>
+	utility::string_t GetOrganizationId() const;
+	bool HasOrganizationId() const;
+
+	/// <summary>
+	/// Access restrictions for read, if none, publicly readable
+	/// </summary>
+	const std::vector<utility::string_t>& GetReadAccess() const;
+	void SetReadAccess(const std::vector<utility::string_t>& Value);
+	bool HasReadAccess() const;
+
+	/// <summary>
+	/// Access restrictions for write, if none, publicly writeable
+	/// </summary>
+	const std::vector<utility::string_t>& GetWriteAccess() const;
+	void SetWriteAccess(const std::vector<utility::string_t>& Value);
+	bool HasWriteAccess() const;
+
+
+protected:
+	std::optional<utility::string_t> m_OriginalPrototypeId;
+	std::optional<utility::string_t> m_OriginalParentId;
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_Name;
+	std::optional<std::vector<utility::string_t>> m_Tags;
+	std::optional<std::map<utility::string_t, utility::string_t>> m_Metadata;
+	std::optional<std::map<utility::string_t, std::vector<std::shared_ptr<LocalizedString>>>> m_UiStrings;
+	std::optional<std::map<utility::string_t, utility::string_t>> m_State;
+	std::optional<utility::string_t> m_PointOfInterestId;
+	std::optional<utility::string_t> m_ParentId;
+	std::optional<std::vector<utility::string_t>> m_GroupIds;
+	std::optional<utility::string_t> m_CreatedBy;
+	std::optional<utility::string_t> m_CreatedAt;
+	std::optional<utility::string_t> m_UpdatedBy;
+	std::optional<utility::string_t> m_UpdatedAt;
+	std::optional<bool> m_Highlander;
+	std::optional<utility::string_t> m_Type;
+	std::optional<bool> m_SystemOwned;
+	std::optional<utility::string_t> m_PrototypeOwnerId;
+	std::optional<utility::string_t> m_OrganizationId;
+	std::optional<std::vector<utility::string_t>> m_ReadAccess;
+	std::optional<std::vector<utility::string_t>> m_WriteAccess;
+};
+
 class LocalizedString : public csp::services::DtoBase
 {
 public:
@@ -1069,6 +1485,45 @@ public:
 
 protected:
 	eSortDirection Value = {};
+};
+
+class StringDataPage : public csp::services::DtoBase
+{
+public:
+	StringDataPage();
+	virtual ~StringDataPage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	const std::vector<utility::string_t>& GetItems() const;
+	void SetItems(const std::vector<utility::string_t>& Value);
+	bool HasItems() const;
+
+	int32_t GetSkip() const;
+	void SetSkip(int32_t Value);
+	bool HasSkip() const;
+
+	int32_t GetLimit() const;
+	void SetLimit(int32_t Value);
+	bool HasLimit() const;
+
+	int32_t GetItemCount() const;
+	void SetItemCount(int32_t Value);
+	bool HasItemCount() const;
+
+	int64_t GetItemTotalCount() const;
+	void SetItemTotalCount(int64_t Value);
+	bool HasItemTotalCount() const;
+
+
+protected:
+	std::optional<std::vector<utility::string_t>> m_Items;
+	std::optional<int32_t> m_Skip;
+	std::optional<int32_t> m_Limit;
+	std::optional<int32_t> m_ItemCount;
+	std::optional<int64_t> m_ItemTotalCount;
 };
 
 

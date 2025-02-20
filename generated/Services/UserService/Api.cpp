@@ -396,6 +396,26 @@ void GroupApi::apiV1GroupsPost(const std::shared_ptr<GroupDto>& RequestBody,
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+void GroupApi::apiV1GroupsDelete(const std::optional<std::vector<utility::string_t>>& groupIds,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/groups", {});
+
+
+	if (groupIds.has_value())
+	{
+		Uri.AddQueryParams("groupIds", groupIds.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
 void GroupApi::apiV1GroupsGet(const std::optional<std::vector<utility::string_t>>& ids,
 							  csp::services::ApiResponseHandlerBase* ResponseHandler,
 							  csp::common::CancellationToken& CancellationToken) const
@@ -730,6 +750,22 @@ void GroupApi::apiV1GroupsGroupIdOwnerNewGroupOwnerIdPut(const utility::string_t
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void GroupApi::apiV1GroupsGroupIdEmailInvitesAcceptedGet(const utility::string_t& groupId,
+														 csp::services::ApiResponseHandlerBase* ResponseHandler,
+														 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/groups/{groupId}/email-invites/accepted", {groupId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
@@ -1770,6 +1806,7 @@ void ProfileApi::apiV1UsersPost(const std::shared_ptr<CreateUserRequest>& Reques
 }
 
 void ProfileApi::apiV1UsersGet(const std::optional<utility::string_t>& GuestDeviceId,
+							   const std::optional<utility::string_t>& PartialGuestDeviceId,
 							   const std::optional<utility::string_t>& Email,
 							   const std::optional<utility::string_t>& UserName,
 							   const std::optional<utility::string_t>& LastDeviceId,
@@ -1790,6 +1827,12 @@ void ProfileApi::apiV1UsersGet(const std::optional<utility::string_t>& GuestDevi
 	if (GuestDeviceId.has_value())
 	{
 		Uri.AddQueryParams("GuestDeviceId", GuestDeviceId.value());
+	}
+
+
+	if (PartialGuestDeviceId.has_value())
+	{
+		Uri.AddQueryParams("PartialGuestDeviceId", PartialGuestDeviceId.value());
 	}
 
 
@@ -1939,6 +1982,75 @@ void ProfileApi::apiV1UsersUserIdGet(const utility::string_t& userId,
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ProfileApi::apiV1UsersUserIdHardDeleteDelete(const utility::string_t& userId,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/hard-delete", {userId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ProfileApi::apiV1UsersHardDeleteDelete(const std::optional<std::vector<utility::string_t>>& ids,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/users/hard-delete", {});
+
+
+	if (ids.has_value())
+	{
+		Uri.AddQueryParams("ids", ids.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ProfileApi::apiV1UsersProfileIdsPost(const std::optional<int32_t>& Skip,
+										  const std::optional<int32_t>& Limit,
+										  const std::shared_ptr<UserQuery>& RequestBody,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/users/profile-ids", {});
+
+
+	if (Skip.has_value())
+	{
+		Uri.AddQueryParams("Skip", Skip.value());
+	}
+
+
+	if (Limit.has_value())
+	{
+		Uri.AddQueryParams("Limit", Limit.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
@@ -2365,6 +2477,7 @@ StripeApi::~StripeApi()
 
 
 void StripeApi::apiV1VendorsStripeWebhookPost(const std::optional<utility::string_t>& tenant,
+											  const std::optional<utility::string_t>& environmentAlias,
 											  csp::services::ApiResponseHandlerBase* ResponseHandler,
 											  csp::common::CancellationToken& CancellationToken) const
 {
@@ -2375,6 +2488,12 @@ void StripeApi::apiV1VendorsStripeWebhookPost(const std::optional<utility::strin
 	if (tenant.has_value())
 	{
 		Uri.AddQueryParams("tenant", tenant.value());
+	}
+
+
+	if (environmentAlias.has_value())
+	{
+		Uri.AddQueryParams("environmentAlias", environmentAlias.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -2471,6 +2590,43 @@ void TenantApi::apiV1TenantsNamesTenantNameGet(const utility::string_t& tenantNa
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void TenantApi::apiV1TenantsPendingDelete(const int32_t& tenantAgeInDays,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/tenants/pending", {});
+
+
+	Uri.AddQueryParams("tenantAgeInDays", tenantAgeInDays);
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void TenantApi::apiV1TenantsNamesNameDelete(const utility::string_t& name,
+											const std::shared_ptr<TenantCleanupFilters>& RequestBody,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/tenants/names/{name}", {name});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 

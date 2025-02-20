@@ -720,6 +720,22 @@ public:
 										 const std::shared_ptr<DuplicateSpaceRequest>& RequestBody,
 										 csp::services::ApiResponseHandlerBase* ResponseHandler,
 										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Extracts the quintessence of the referenced Space to be compressed and distilled into a pair of Artifacts
+	/// accessible in other places and times.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/spaces/{spaceId}/export
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1SpacesSpaceIdExportPost(const utility::string_t& spaceId,
+									  const std::optional<bool>& asyncCall,
+									  const std::shared_ptr<SpaceExportDto>& RequestBody,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class TicketedSpaceApi final : public csp::services::ApiBase
