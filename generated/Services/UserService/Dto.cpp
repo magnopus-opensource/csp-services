@@ -2467,6 +2467,12 @@ utility::string_t GroupInviteDto::ToJson() const
 		JsonDoc.AddMember("id", IdValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_UserId.has_value())
+	{
+		rapidjson::Value UserIdValue(TypeToJsonValue(m_UserId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("userId", UserIdValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_CreatedBy.has_value())
 	{
 		rapidjson::Value CreatedByValue(TypeToJsonValue(m_CreatedBy, JsonDoc.GetAllocator()));
@@ -2550,6 +2556,16 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 		if (IdValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(IdValue, m_Id);
+		}
+	}
+
+	if (JsonDoc.HasMember("userId"))
+	{
+		const rapidjson::Value& UserIdValue = JsonDoc["userId"];
+
+		if (UserIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UserIdValue, m_UserId);
 		}
 	}
 
@@ -2679,6 +2695,15 @@ utility::string_t GroupInviteDto::GetId() const
 bool GroupInviteDto::HasId() const
 {
 	return m_Id.has_value();
+}
+utility::string_t GroupInviteDto::GetUserId() const
+{
+	return m_UserId.value();
+}
+
+bool GroupInviteDto::HasUserId() const
+{
+	return m_UserId.has_value();
 }
 utility::string_t GroupInviteDto::GetCreatedBy() const
 {
@@ -6835,6 +6860,194 @@ void SocialProviderInfo::SetAuthorizeEndpoint(const utility::string_t& Value)
 	m_AuthorizeEndpoint = Value;
 }
 
+StringDataPage::StringDataPage()
+{
+}
+StringDataPage::~StringDataPage()
+{
+}
+
+utility::string_t StringDataPage::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Items.has_value())
+	{
+		rapidjson::Value ItemsValue(TypeToJsonValue(m_Items, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("items", ItemsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Skip.has_value())
+	{
+		rapidjson::Value SkipValue(TypeToJsonValue(m_Skip, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("skip", SkipValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Limit.has_value())
+	{
+		rapidjson::Value LimitValue(TypeToJsonValue(m_Limit, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("limit", LimitValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemCount.has_value())
+	{
+		rapidjson::Value ItemCountValue(TypeToJsonValue(m_ItemCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemCount", ItemCountValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemTotalCount.has_value())
+	{
+		rapidjson::Value ItemTotalCountValue(TypeToJsonValue(m_ItemTotalCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void StringDataPage::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("items"))
+	{
+		const rapidjson::Value& ItemsValue = JsonDoc["items"];
+
+		if (ItemsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemsValue, m_Items);
+		}
+	}
+
+	if (JsonDoc.HasMember("skip"))
+	{
+		const rapidjson::Value& SkipValue = JsonDoc["skip"];
+
+		if (SkipValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SkipValue, m_Skip);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("limit"))
+	{
+		const rapidjson::Value& LimitValue = JsonDoc["limit"];
+
+		if (LimitValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LimitValue, m_Limit);
+		}
+	}
+
+	if (JsonDoc.HasMember("itemCount"))
+	{
+		const rapidjson::Value& ItemCountValue = JsonDoc["itemCount"];
+
+		if (ItemCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemCountValue, m_ItemCount);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("itemTotalCount"))
+	{
+		const rapidjson::Value& ItemTotalCountValue = JsonDoc["itemTotalCount"];
+
+		if (ItemTotalCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+		}
+	}
+}
+
+
+const std::vector<utility::string_t>& StringDataPage::GetItems() const
+{
+	return m_Items.value();
+}
+
+bool StringDataPage::HasItems() const
+{
+	return m_Items.has_value();
+}
+void StringDataPage::SetItems(const std::vector<utility::string_t>& Value)
+{
+	m_Items = Value;
+}
+int32_t StringDataPage::GetSkip() const
+{
+	return m_Skip.value();
+}
+
+bool StringDataPage::HasSkip() const
+{
+	return m_Skip.has_value();
+}
+void StringDataPage::SetSkip(int32_t Value)
+{
+	m_Skip = Value;
+}
+int32_t StringDataPage::GetLimit() const
+{
+	return m_Limit.value();
+}
+
+bool StringDataPage::HasLimit() const
+{
+	return m_Limit.has_value();
+}
+void StringDataPage::SetLimit(int32_t Value)
+{
+	m_Limit = Value;
+}
+int32_t StringDataPage::GetItemCount() const
+{
+	return m_ItemCount.value();
+}
+
+bool StringDataPage::HasItemCount() const
+{
+	return m_ItemCount.has_value();
+}
+void StringDataPage::SetItemCount(int32_t Value)
+{
+	m_ItemCount = Value;
+}
+int64_t StringDataPage::GetItemTotalCount() const
+{
+	return m_ItemTotalCount.value();
+}
+
+bool StringDataPage::HasItemTotalCount() const
+{
+	return m_ItemTotalCount.has_value();
+}
+void StringDataPage::SetItemTotalCount(int64_t Value)
+{
+	m_ItemTotalCount = Value;
+}
+
 StripeCheckoutRequest::StripeCheckoutRequest()
 {
 }
@@ -7237,6 +7450,240 @@ bool TenantAdminAccount::HasRoles() const
 void TenantAdminAccount::SetRoles(const std::vector<utility::string_t>& Value)
 {
 	m_Roles = Value;
+}
+
+TenantCleanupFilters::TenantCleanupFilters()
+{
+}
+TenantCleanupFilters::~TenantCleanupFilters()
+{
+}
+
+utility::string_t TenantCleanupFilters::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_DeleteTenant.has_value())
+	{
+		rapidjson::Value DeleteTenantValue(TypeToJsonValue(m_DeleteTenant, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("deleteTenant", DeleteTenantValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DeleteAllSpaces.has_value())
+	{
+		rapidjson::Value DeleteAllSpacesValue(TypeToJsonValue(m_DeleteAllSpaces, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("deleteAllSpaces", DeleteAllSpacesValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DeleteAllUsers.has_value())
+	{
+		rapidjson::Value DeleteAllUsersValue(TypeToJsonValue(m_DeleteAllUsers, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("deleteAllUsers", DeleteAllUsersValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DeleteAllPois.has_value())
+	{
+		rapidjson::Value DeleteAllPoisValue(TypeToJsonValue(m_DeleteAllPois, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("deleteAllPois", DeleteAllPoisValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DeleteAllSequences.has_value())
+	{
+		rapidjson::Value DeleteAllSequencesValue(TypeToJsonValue(m_DeleteAllSequences, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("deleteAllSequences", DeleteAllSequencesValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DeleteAllEncryptedDocuments.has_value())
+	{
+		rapidjson::Value DeleteAllEncryptedDocumentsValue(TypeToJsonValue(m_DeleteAllEncryptedDocuments, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("deleteAllEncryptedDocuments", DeleteAllEncryptedDocumentsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DeleteAllPrototypes.has_value())
+	{
+		rapidjson::Value DeleteAllPrototypesValue(TypeToJsonValue(m_DeleteAllPrototypes, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("deleteAllPrototypes", DeleteAllPrototypesValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void TenantCleanupFilters::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("deleteTenant"))
+	{
+		const rapidjson::Value& DeleteTenantValue = JsonDoc["deleteTenant"];
+
+		if (DeleteTenantValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DeleteTenantValue, m_DeleteTenant);
+		}
+	}
+
+	if (JsonDoc.HasMember("deleteAllSpaces"))
+	{
+		const rapidjson::Value& DeleteAllSpacesValue = JsonDoc["deleteAllSpaces"];
+
+		if (DeleteAllSpacesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DeleteAllSpacesValue, m_DeleteAllSpaces);
+		}
+	}
+
+	if (JsonDoc.HasMember("deleteAllUsers"))
+	{
+		const rapidjson::Value& DeleteAllUsersValue = JsonDoc["deleteAllUsers"];
+
+		if (DeleteAllUsersValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DeleteAllUsersValue, m_DeleteAllUsers);
+		}
+	}
+
+	if (JsonDoc.HasMember("deleteAllPois"))
+	{
+		const rapidjson::Value& DeleteAllPoisValue = JsonDoc["deleteAllPois"];
+
+		if (DeleteAllPoisValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DeleteAllPoisValue, m_DeleteAllPois);
+		}
+	}
+
+	if (JsonDoc.HasMember("deleteAllSequences"))
+	{
+		const rapidjson::Value& DeleteAllSequencesValue = JsonDoc["deleteAllSequences"];
+
+		if (DeleteAllSequencesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DeleteAllSequencesValue, m_DeleteAllSequences);
+		}
+	}
+
+	if (JsonDoc.HasMember("deleteAllEncryptedDocuments"))
+	{
+		const rapidjson::Value& DeleteAllEncryptedDocumentsValue = JsonDoc["deleteAllEncryptedDocuments"];
+
+		if (DeleteAllEncryptedDocumentsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DeleteAllEncryptedDocumentsValue, m_DeleteAllEncryptedDocuments);
+		}
+	}
+
+	if (JsonDoc.HasMember("deleteAllPrototypes"))
+	{
+		const rapidjson::Value& DeleteAllPrototypesValue = JsonDoc["deleteAllPrototypes"];
+
+		if (DeleteAllPrototypesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DeleteAllPrototypesValue, m_DeleteAllPrototypes);
+		}
+	}
+}
+
+
+bool TenantCleanupFilters::GetDeleteTenant() const
+{
+	return m_DeleteTenant.value();
+}
+
+bool TenantCleanupFilters::HasDeleteTenant() const
+{
+	return m_DeleteTenant.has_value();
+}
+void TenantCleanupFilters::SetDeleteTenant(const bool& Value)
+{
+	m_DeleteTenant = Value;
+}
+bool TenantCleanupFilters::GetDeleteAllSpaces() const
+{
+	return m_DeleteAllSpaces.value();
+}
+
+bool TenantCleanupFilters::HasDeleteAllSpaces() const
+{
+	return m_DeleteAllSpaces.has_value();
+}
+void TenantCleanupFilters::SetDeleteAllSpaces(const bool& Value)
+{
+	m_DeleteAllSpaces = Value;
+}
+bool TenantCleanupFilters::GetDeleteAllUsers() const
+{
+	return m_DeleteAllUsers.value();
+}
+
+bool TenantCleanupFilters::HasDeleteAllUsers() const
+{
+	return m_DeleteAllUsers.has_value();
+}
+void TenantCleanupFilters::SetDeleteAllUsers(const bool& Value)
+{
+	m_DeleteAllUsers = Value;
+}
+bool TenantCleanupFilters::GetDeleteAllPois() const
+{
+	return m_DeleteAllPois.value();
+}
+
+bool TenantCleanupFilters::HasDeleteAllPois() const
+{
+	return m_DeleteAllPois.has_value();
+}
+void TenantCleanupFilters::SetDeleteAllPois(const bool& Value)
+{
+	m_DeleteAllPois = Value;
+}
+bool TenantCleanupFilters::GetDeleteAllSequences() const
+{
+	return m_DeleteAllSequences.value();
+}
+
+bool TenantCleanupFilters::HasDeleteAllSequences() const
+{
+	return m_DeleteAllSequences.has_value();
+}
+void TenantCleanupFilters::SetDeleteAllSequences(const bool& Value)
+{
+	m_DeleteAllSequences = Value;
+}
+bool TenantCleanupFilters::GetDeleteAllEncryptedDocuments() const
+{
+	return m_DeleteAllEncryptedDocuments.value();
+}
+
+bool TenantCleanupFilters::HasDeleteAllEncryptedDocuments() const
+{
+	return m_DeleteAllEncryptedDocuments.has_value();
+}
+void TenantCleanupFilters::SetDeleteAllEncryptedDocuments(const bool& Value)
+{
+	m_DeleteAllEncryptedDocuments = Value;
+}
+bool TenantCleanupFilters::GetDeleteAllPrototypes() const
+{
+	return m_DeleteAllPrototypes.value();
+}
+
+bool TenantCleanupFilters::HasDeleteAllPrototypes() const
+{
+	return m_DeleteAllPrototypes.has_value();
+}
+void TenantCleanupFilters::SetDeleteAllPrototypes(const bool& Value)
+{
+	m_DeleteAllPrototypes = Value;
 }
 
 TenantDto::TenantDto()
@@ -8817,6 +9264,327 @@ bool UpgradeGuestSocialRequest::HasOptionalProviderUserId() const
 void UpgradeGuestSocialRequest::SetOptionalProviderUserId(const utility::string_t& Value)
 {
 	m_OptionalProviderUserId = Value;
+}
+
+UserQuery::UserQuery()
+{
+}
+UserQuery::~UserQuery()
+{
+}
+
+utility::string_t UserQuery::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_GuestDeviceId.has_value())
+	{
+		rapidjson::Value GuestDeviceIdValue(TypeToJsonValue(m_GuestDeviceId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("guestDeviceId", GuestDeviceIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_PartialGuestDeviceId.has_value())
+	{
+		rapidjson::Value PartialGuestDeviceIdValue(TypeToJsonValue(m_PartialGuestDeviceId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("partialGuestDeviceId", PartialGuestDeviceIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Email.has_value())
+	{
+		rapidjson::Value EmailValue(TypeToJsonValue(m_Email, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("email", EmailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UserName.has_value())
+	{
+		rapidjson::Value UserNameValue(TypeToJsonValue(m_UserName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("userName", UserNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LastDeviceId.has_value())
+	{
+		rapidjson::Value LastDeviceIdValue(TypeToJsonValue(m_LastDeviceId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("lastDeviceId", LastDeviceIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SearchPartialEmails.has_value())
+	{
+		rapidjson::Value SearchPartialEmailsValue(TypeToJsonValue(m_SearchPartialEmails, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("searchPartialEmails", SearchPartialEmailsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_GuestDeviceIds.has_value())
+	{
+		rapidjson::Value GuestDeviceIdsValue(TypeToJsonValue(m_GuestDeviceIds, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("guestDeviceIds", GuestDeviceIdsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EmailAddresses.has_value())
+	{
+		rapidjson::Value EmailAddressesValue(TypeToJsonValue(m_EmailAddresses, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("emailAddresses", EmailAddressesValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UserNames.has_value())
+	{
+		rapidjson::Value UserNamesValue(TypeToJsonValue(m_UserNames, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("userNames", UserNamesValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LastDeviceIds.has_value())
+	{
+		rapidjson::Value LastDeviceIdsValue(TypeToJsonValue(m_LastDeviceIds, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("lastDeviceIds", LastDeviceIdsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void UserQuery::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("guestDeviceId"))
+	{
+		const rapidjson::Value& GuestDeviceIdValue = JsonDoc["guestDeviceId"];
+
+		if (GuestDeviceIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GuestDeviceIdValue, m_GuestDeviceId);
+		}
+	}
+
+	if (JsonDoc.HasMember("partialGuestDeviceId"))
+	{
+		const rapidjson::Value& PartialGuestDeviceIdValue = JsonDoc["partialGuestDeviceId"];
+
+		if (PartialGuestDeviceIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(PartialGuestDeviceIdValue, m_PartialGuestDeviceId);
+		}
+	}
+
+	if (JsonDoc.HasMember("email"))
+	{
+		const rapidjson::Value& EmailValue = JsonDoc["email"];
+
+		if (EmailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EmailValue, m_Email);
+		}
+	}
+
+	if (JsonDoc.HasMember("userName"))
+	{
+		const rapidjson::Value& UserNameValue = JsonDoc["userName"];
+
+		if (UserNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UserNameValue, m_UserName);
+		}
+	}
+
+	if (JsonDoc.HasMember("lastDeviceId"))
+	{
+		const rapidjson::Value& LastDeviceIdValue = JsonDoc["lastDeviceId"];
+
+		if (LastDeviceIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LastDeviceIdValue, m_LastDeviceId);
+		}
+	}
+
+	if (JsonDoc.HasMember("searchPartialEmails"))
+	{
+		const rapidjson::Value& SearchPartialEmailsValue = JsonDoc["searchPartialEmails"];
+
+		if (SearchPartialEmailsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SearchPartialEmailsValue, m_SearchPartialEmails);
+		}
+	}
+
+	if (JsonDoc.HasMember("guestDeviceIds"))
+	{
+		const rapidjson::Value& GuestDeviceIdsValue = JsonDoc["guestDeviceIds"];
+
+		if (GuestDeviceIdsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GuestDeviceIdsValue, m_GuestDeviceIds);
+		}
+	}
+
+	if (JsonDoc.HasMember("emailAddresses"))
+	{
+		const rapidjson::Value& EmailAddressesValue = JsonDoc["emailAddresses"];
+
+		if (EmailAddressesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EmailAddressesValue, m_EmailAddresses);
+		}
+	}
+
+	if (JsonDoc.HasMember("userNames"))
+	{
+		const rapidjson::Value& UserNamesValue = JsonDoc["userNames"];
+
+		if (UserNamesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UserNamesValue, m_UserNames);
+		}
+	}
+
+	if (JsonDoc.HasMember("lastDeviceIds"))
+	{
+		const rapidjson::Value& LastDeviceIdsValue = JsonDoc["lastDeviceIds"];
+
+		if (LastDeviceIdsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LastDeviceIdsValue, m_LastDeviceIds);
+		}
+	}
+}
+
+
+utility::string_t UserQuery::GetGuestDeviceId() const
+{
+	return m_GuestDeviceId.value();
+}
+
+bool UserQuery::HasGuestDeviceId() const
+{
+	return m_GuestDeviceId.has_value();
+}
+void UserQuery::SetGuestDeviceId(const utility::string_t& Value)
+{
+	m_GuestDeviceId = Value;
+}
+utility::string_t UserQuery::GetPartialGuestDeviceId() const
+{
+	return m_PartialGuestDeviceId.value();
+}
+
+bool UserQuery::HasPartialGuestDeviceId() const
+{
+	return m_PartialGuestDeviceId.has_value();
+}
+void UserQuery::SetPartialGuestDeviceId(const utility::string_t& Value)
+{
+	m_PartialGuestDeviceId = Value;
+}
+utility::string_t UserQuery::GetEmail() const
+{
+	return m_Email.value();
+}
+
+bool UserQuery::HasEmail() const
+{
+	return m_Email.has_value();
+}
+void UserQuery::SetEmail(const utility::string_t& Value)
+{
+	m_Email = Value;
+}
+utility::string_t UserQuery::GetUserName() const
+{
+	return m_UserName.value();
+}
+
+bool UserQuery::HasUserName() const
+{
+	return m_UserName.has_value();
+}
+void UserQuery::SetUserName(const utility::string_t& Value)
+{
+	m_UserName = Value;
+}
+utility::string_t UserQuery::GetLastDeviceId() const
+{
+	return m_LastDeviceId.value();
+}
+
+bool UserQuery::HasLastDeviceId() const
+{
+	return m_LastDeviceId.has_value();
+}
+void UserQuery::SetLastDeviceId(const utility::string_t& Value)
+{
+	m_LastDeviceId = Value;
+}
+bool UserQuery::GetSearchPartialEmails() const
+{
+	return m_SearchPartialEmails.value();
+}
+
+bool UserQuery::HasSearchPartialEmails() const
+{
+	return m_SearchPartialEmails.has_value();
+}
+void UserQuery::SetSearchPartialEmails(const bool& Value)
+{
+	m_SearchPartialEmails = Value;
+}
+const std::vector<utility::string_t>& UserQuery::GetGuestDeviceIds() const
+{
+	return m_GuestDeviceIds.value();
+}
+
+bool UserQuery::HasGuestDeviceIds() const
+{
+	return m_GuestDeviceIds.has_value();
+}
+void UserQuery::SetGuestDeviceIds(const std::vector<utility::string_t>& Value)
+{
+	m_GuestDeviceIds = Value;
+}
+const std::vector<utility::string_t>& UserQuery::GetEmailAddresses() const
+{
+	return m_EmailAddresses.value();
+}
+
+bool UserQuery::HasEmailAddresses() const
+{
+	return m_EmailAddresses.has_value();
+}
+void UserQuery::SetEmailAddresses(const std::vector<utility::string_t>& Value)
+{
+	m_EmailAddresses = Value;
+}
+const std::vector<utility::string_t>& UserQuery::GetUserNames() const
+{
+	return m_UserNames.value();
+}
+
+bool UserQuery::HasUserNames() const
+{
+	return m_UserNames.has_value();
+}
+void UserQuery::SetUserNames(const std::vector<utility::string_t>& Value)
+{
+	m_UserNames = Value;
+}
+const std::vector<utility::string_t>& UserQuery::GetLastDeviceIds() const
+{
+	return m_LastDeviceIds.value();
+}
+
+bool UserQuery::HasLastDeviceIds() const
+{
+	return m_LastDeviceIds.has_value();
+}
+void UserQuery::SetLastDeviceIds(const std::vector<utility::string_t>& Value)
+{
+	m_LastDeviceIds = Value;
 }
 
 UserRolesDto::UserRolesDto()

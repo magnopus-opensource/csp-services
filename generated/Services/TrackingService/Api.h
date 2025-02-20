@@ -229,6 +229,19 @@ public:
 	/// Gets the user's tier assignment
 	/// </summary>
 	/// <remarks>
+	/// GET /api/v1/tier-assignments/{id}
+	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// </remarks>
+	void apiV1TierAssignmentsIdGet(const utility::string_t& id,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Gets the user's tier assignment
+	/// </summary>
+	/// <remarks>
 	/// GET /api/v1/users/{userId}/tier-assignment
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>

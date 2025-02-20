@@ -40,6 +40,12 @@ utility::string_t AloClassCompletedRequest::ToJson() const
 		JsonDoc.AddMember("classDefinitionId", ClassDefinitionIdValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_SeriesPlanId.has_value())
+	{
+		rapidjson::Value SeriesPlanIdValue(TypeToJsonValue(m_SeriesPlanId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("seriesPlanId", SeriesPlanIdValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -75,6 +81,16 @@ void AloClassCompletedRequest::FromJson(const utility::string_t& Val)
 			JsonValueToType(ClassDefinitionIdValue, m_ClassDefinitionId);
 		}
 	}
+
+	if (JsonDoc.HasMember("seriesPlanId"))
+	{
+		const rapidjson::Value& SeriesPlanIdValue = JsonDoc["seriesPlanId"];
+
+		if (SeriesPlanIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SeriesPlanIdValue, m_SeriesPlanId);
+		}
+	}
 }
 
 
@@ -95,6 +111,19 @@ utility::string_t AloClassCompletedRequest::GetClassDefinitionId() const
 bool AloClassCompletedRequest::HasClassDefinitionId() const
 {
 	return m_ClassDefinitionId.has_value();
+}
+utility::string_t AloClassCompletedRequest::GetSeriesPlanId() const
+{
+	return m_SeriesPlanId.value();
+}
+
+bool AloClassCompletedRequest::HasSeriesPlanId() const
+{
+	return m_SeriesPlanId.has_value();
+}
+void AloClassCompletedRequest::SetSeriesPlanId(const utility::string_t& Value)
+{
+	m_SeriesPlanId = Value;
 }
 
 AloClassCompletedResponse::AloClassCompletedResponse()
@@ -7059,6 +7088,112 @@ bool SpaceEventDtoDataPage::HasItemTotalCount() const
 void SpaceEventDtoDataPage::SetItemTotalCount(int64_t Value)
 {
 	m_ItemTotalCount = Value;
+}
+
+SpaceExportDto::SpaceExportDto()
+{
+}
+SpaceExportDto::~SpaceExportDto()
+{
+}
+
+utility::string_t SpaceExportDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Id.has_value())
+	{
+		rapidjson::Value IdValue(TypeToJsonValue(m_Id, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("id", IdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SpaceId.has_value())
+	{
+		rapidjson::Value SpaceIdValue(TypeToJsonValue(m_SpaceId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("spaceId", SpaceIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TenantName.has_value())
+	{
+		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void SpaceExportDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("id"))
+	{
+		const rapidjson::Value& IdValue = JsonDoc["id"];
+
+		if (IdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IdValue, m_Id);
+		}
+	}
+
+	if (JsonDoc.HasMember("spaceId"))
+	{
+		const rapidjson::Value& SpaceIdValue = JsonDoc["spaceId"];
+
+		if (SpaceIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SpaceIdValue, m_SpaceId);
+		}
+	}
+
+	if (JsonDoc.HasMember("tenantName"))
+	{
+		const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+
+		if (TenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantNameValue, m_TenantName);
+		}
+	}
+}
+
+
+utility::string_t SpaceExportDto::GetId() const
+{
+	return m_Id.value();
+}
+
+bool SpaceExportDto::HasId() const
+{
+	return m_Id.has_value();
+}
+utility::string_t SpaceExportDto::GetSpaceId() const
+{
+	return m_SpaceId.value();
+}
+
+bool SpaceExportDto::HasSpaceId() const
+{
+	return m_SpaceId.has_value();
+}
+utility::string_t SpaceExportDto::GetTenantName() const
+{
+	return m_TenantName.value();
+}
+
+bool SpaceExportDto::HasTenantName() const
+{
+	return m_TenantName.has_value();
 }
 
 SpaceTicketDto::SpaceTicketDto()

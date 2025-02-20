@@ -41,17 +41,20 @@ class ProfileLiteDto;
 class RefreshRequest;
 class SettingsDto;
 class SocialProviderInfo;
+class StringDataPage;
 class StripeCheckoutRequest;
 class StripeCheckoutSessionDto;
 class StripeCustomerDto;
 class StripeCustomerPortalDto;
 class TenantAdminAccount;
+class TenantCleanupFilters;
 class TenantDto;
 class TenantEmailSettingsDto;
 class TenantEmailTemplateSettingsDto;
 class TokenResetPasswordRequest;
 class UpgradeGuestRequest;
 class UpgradeGuestSocialRequest;
+class UserQuery;
 class UserRolesDto;
 
 
@@ -820,6 +823,12 @@ public:
 	bool HasId() const;
 
 	/// <summary>
+	/// Unique identifier of the User
+	/// </summary>
+	utility::string_t GetUserId() const;
+	bool HasUserId() const;
+
+	/// <summary>
 	/// Sender of group invite
 	/// </summary>
 	utility::string_t GetCreatedBy() const;
@@ -885,6 +894,7 @@ public:
 
 protected:
 	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_UserId;
 	std::optional<utility::string_t> m_CreatedBy;
 	std::optional<utility::string_t> m_Email;
 	std::optional<utility::string_t> m_GroupId;
@@ -2100,6 +2110,45 @@ protected:
 	std::optional<utility::string_t> m_AuthorizeEndpoint;
 };
 
+class StringDataPage : public csp::services::DtoBase
+{
+public:
+	StringDataPage();
+	virtual ~StringDataPage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	const std::vector<utility::string_t>& GetItems() const;
+	void SetItems(const std::vector<utility::string_t>& Value);
+	bool HasItems() const;
+
+	int32_t GetSkip() const;
+	void SetSkip(int32_t Value);
+	bool HasSkip() const;
+
+	int32_t GetLimit() const;
+	void SetLimit(int32_t Value);
+	bool HasLimit() const;
+
+	int32_t GetItemCount() const;
+	void SetItemCount(int32_t Value);
+	bool HasItemCount() const;
+
+	int64_t GetItemTotalCount() const;
+	void SetItemTotalCount(int64_t Value);
+	bool HasItemTotalCount() const;
+
+
+protected:
+	std::optional<std::vector<utility::string_t>> m_Items;
+	std::optional<int32_t> m_Skip;
+	std::optional<int32_t> m_Limit;
+	std::optional<int32_t> m_ItemCount;
+	std::optional<int64_t> m_ItemTotalCount;
+};
+
 /// <summary>
 /// Contains info related to requesting a stripe checkout
 /// </summary>
@@ -2249,6 +2298,79 @@ protected:
 	std::optional<utility::string_t> m_EmailAddress;
 	std::optional<utility::string_t> m_Password;
 	std::optional<std::vector<utility::string_t>> m_Roles;
+};
+
+/// <summary>
+/// Contains information used to filter sequences when searching.
+/// </summary>
+class TenantCleanupFilters : public csp::services::DtoBase
+{
+public:
+	TenantCleanupFilters();
+	virtual ~TenantCleanupFilters();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Delete the tenant and all the data under it
+	/// </summary>
+	bool GetDeleteTenant() const;
+	void SetDeleteTenant(const bool& Value);
+	bool HasDeleteTenant() const;
+
+	/// <summary>
+	/// Delete all the spaces under a tenant
+	/// </summary>
+	bool GetDeleteAllSpaces() const;
+	void SetDeleteAllSpaces(const bool& Value);
+	bool HasDeleteAllSpaces() const;
+
+	/// <summary>
+	/// Delete all the users under a tenant
+	/// </summary>
+	bool GetDeleteAllUsers() const;
+	void SetDeleteAllUsers(const bool& Value);
+	bool HasDeleteAllUsers() const;
+
+	/// <summary>
+	/// Delete all the poi data under a tenant
+	/// </summary>
+	bool GetDeleteAllPois() const;
+	void SetDeleteAllPois(const bool& Value);
+	bool HasDeleteAllPois() const;
+
+	/// <summary>
+	/// Delete all the sequences data under a tenant
+	/// </summary>
+	bool GetDeleteAllSequences() const;
+	void SetDeleteAllSequences(const bool& Value);
+	bool HasDeleteAllSequences() const;
+
+	/// <summary>
+	/// Delete all the encrypted data under a tenant
+	/// </summary>
+	bool GetDeleteAllEncryptedDocuments() const;
+	void SetDeleteAllEncryptedDocuments(const bool& Value);
+	bool HasDeleteAllEncryptedDocuments() const;
+
+	/// <summary>
+	/// Delete all the prototypes not associated with spaces
+	/// </summary>
+	bool GetDeleteAllPrototypes() const;
+	void SetDeleteAllPrototypes(const bool& Value);
+	bool HasDeleteAllPrototypes() const;
+
+
+protected:
+	std::optional<bool> m_DeleteTenant;
+	std::optional<bool> m_DeleteAllSpaces;
+	std::optional<bool> m_DeleteAllUsers;
+	std::optional<bool> m_DeleteAllPois;
+	std::optional<bool> m_DeleteAllSequences;
+	std::optional<bool> m_DeleteAllEncryptedDocuments;
+	std::optional<bool> m_DeleteAllPrototypes;
 };
 
 /// <summary>
@@ -2714,6 +2836,106 @@ protected:
 	std::optional<utility::string_t> m_RedirectUrl;
 	std::optional<utility::string_t> m_OAuthRedirectUri;
 	std::optional<utility::string_t> m_OptionalProviderUserId;
+};
+
+/// <summary>
+/// Encapsulates optional arguments to use while constructing a User query.
+/// </summary>
+class UserQuery : public csp::services::DtoBase
+{
+public:
+	UserQuery();
+	virtual ~UserQuery();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Guest deviceId value to ge the mapped profile for
+	/// Guest profiles have no email/password
+	/// </summary>
+	utility::string_t GetGuestDeviceId() const;
+	void SetGuestDeviceId(const utility::string_t& Value);
+	bool HasGuestDeviceId() const;
+
+	/// <summary>
+	/// Partial guest deviceId
+	/// </summary>
+	utility::string_t GetPartialGuestDeviceId() const;
+	void SetPartialGuestDeviceId(const utility::string_t& Value);
+	bool HasPartialGuestDeviceId() const;
+
+	/// <summary>
+	/// Email to query for.
+	/// Only valid for non-guest profiles (guest profiles have no email/password)
+	/// </summary>
+	utility::string_t GetEmail() const;
+	void SetEmail(const utility::string_t& Value);
+	bool HasEmail() const;
+
+	/// <summary>
+	/// User name to query for.
+	/// </summary>
+	utility::string_t GetUserName() const;
+	void SetUserName(const utility::string_t& Value);
+	bool HasUserName() const;
+
+	/// <summary>
+	/// Query on the user's LastDeviceId
+	/// </summary>
+	utility::string_t GetLastDeviceId() const;
+	void SetLastDeviceId(const utility::string_t& Value);
+	bool HasLastDeviceId() const;
+
+	/// <summary>
+	/// Flag to do partial email matching on searches
+	/// </summary>
+	bool GetSearchPartialEmails() const;
+	void SetSearchPartialEmails(const bool& Value);
+	bool HasSearchPartialEmails() const;
+
+	/// <summary>
+	/// Guest deviceId values to get the mapped profile for
+	/// Guest profiles have no email/password
+	/// </summary>
+	const std::vector<utility::string_t>& GetGuestDeviceIds() const;
+	void SetGuestDeviceIds(const std::vector<utility::string_t>& Value);
+	bool HasGuestDeviceIds() const;
+
+	/// <summary>
+	/// Query on users EmailAddresses
+	/// </summary>
+	const std::vector<utility::string_t>& GetEmailAddresses() const;
+	void SetEmailAddresses(const std::vector<utility::string_t>& Value);
+	bool HasEmailAddresses() const;
+
+	/// <summary>
+	/// Query on users UserNames
+	/// </summary>
+	const std::vector<utility::string_t>& GetUserNames() const;
+	void SetUserNames(const std::vector<utility::string_t>& Value);
+	bool HasUserNames() const;
+
+	/// <summary>
+	/// Query on users LastDeviceIds
+	/// </summary>
+	const std::vector<utility::string_t>& GetLastDeviceIds() const;
+	void SetLastDeviceIds(const std::vector<utility::string_t>& Value);
+	bool HasLastDeviceIds() const;
+
+
+protected:
+	std::optional<utility::string_t> m_GuestDeviceId;
+	std::optional<utility::string_t> m_PartialGuestDeviceId;
+	std::optional<utility::string_t> m_Email;
+	std::optional<utility::string_t> m_UserName;
+	std::optional<utility::string_t> m_LastDeviceId;
+	std::optional<bool> m_SearchPartialEmails;
+	std::optional<std::vector<utility::string_t>> m_GuestDeviceIds;
+	std::optional<std::vector<utility::string_t>> m_EmailAddresses;
+	std::optional<std::vector<utility::string_t>> m_UserNames;
+	std::optional<std::vector<utility::string_t>> m_LastDeviceIds;
 };
 
 /// <summary>

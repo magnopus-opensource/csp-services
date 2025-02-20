@@ -54,6 +54,7 @@ class ShopifyVariantOption;
 class SliceCompatibility;
 class SpaceEventDto;
 class SpaceEventDtoDataPage;
+class SpaceExportDto;
 class SpaceTicketDto;
 class StringDataPage;
 class Style;
@@ -88,10 +89,18 @@ public:
 	utility::string_t GetClassDefinitionId() const;
 	bool HasClassDefinitionId() const;
 
+	/// <summary>
+	/// Optional: Id of the parent Series (Plan)
+	/// </summary>
+	utility::string_t GetSeriesPlanId() const;
+	void SetSeriesPlanId(const utility::string_t& Value);
+	bool HasSeriesPlanId() const;
+
 
 protected:
 	std::optional<utility::string_t> m_UserId;
 	std::optional<utility::string_t> m_ClassDefinitionId;
+	std::optional<utility::string_t> m_SeriesPlanId;
 };
 
 /// <summary>
@@ -2176,6 +2185,44 @@ protected:
 	std::optional<int32_t> m_Limit;
 	std::optional<int32_t> m_ItemCount;
 	std::optional<int64_t> m_ItemTotalCount;
+};
+
+/// <summary>
+/// Space Export data
+/// </summary>
+class SpaceExportDto : public csp::services::DtoBase
+{
+public:
+	SpaceExportDto();
+	virtual ~SpaceExportDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Id of the attempt to export a space
+	/// </summary>
+	utility::string_t GetId() const;
+	bool HasId() const;
+
+	/// <summary>
+	/// Id of the space that was exported
+	/// </summary>
+	utility::string_t GetSpaceId() const;
+	bool HasSpaceId() const;
+
+	/// <summary>
+	/// Tenant of the Space
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	bool HasTenantName() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_SpaceId;
+	std::optional<utility::string_t> m_TenantName;
 };
 
 /// <summary>
