@@ -831,6 +831,9 @@ void GroupApi::apiV1GroupsLiteGet(const std::optional<std::vector<utility::strin
 								  const std::optional<bool>& RequiresInvite,
 								  const std::optional<bool>& Archived,
 								  const std::optional<std::vector<utility::string_t>>& OrganizationIds,
+								  const std::optional<std::vector<utility::string_t>>& Tags,
+								  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+								  const std::optional<bool>& TagsAll,
 								  const std::optional<int32_t>& Skip,
 								  const std::optional<int32_t>& Limit,
 								  csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -909,6 +912,24 @@ void GroupApi::apiV1GroupsLiteGet(const std::optional<std::vector<utility::strin
 	if (OrganizationIds.has_value())
 	{
 		Uri.AddQueryParams("OrganizationIds", OrganizationIds.value());
+	}
+
+
+	if (Tags.has_value())
+	{
+		Uri.AddQueryParams("Tags", Tags.value());
+	}
+
+
+	if (ExcludedTags.has_value())
+	{
+		Uri.AddQueryParams("ExcludedTags", ExcludedTags.value());
+	}
+
+
+	if (TagsAll.has_value())
+	{
+		Uri.AddQueryParams("TagsAll", TagsAll.value());
 	}
 
 

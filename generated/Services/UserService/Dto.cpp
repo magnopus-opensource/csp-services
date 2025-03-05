@@ -1587,6 +1587,12 @@ utility::string_t GroupDto::ToJson() const
 		JsonDoc.AddMember("organizationId", OrganizationIdValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_Tags.has_value())
+	{
+		rapidjson::Value TagsValue(TypeToJsonValue(m_Tags, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tags", TagsValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_IsCurrentUserOwner.has_value())
 	{
 		rapidjson::Value IsCurrentUserOwnerValue(TypeToJsonValue(m_IsCurrentUserOwner, JsonDoc.GetAllocator()));
@@ -1804,6 +1810,16 @@ void GroupDto::FromJson(const utility::string_t& Val)
 		if (OrganizationIdValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(OrganizationIdValue, m_OrganizationId);
+		}
+	}
+
+	if (JsonDoc.HasMember("tags"))
+	{
+		const rapidjson::Value& TagsValue = JsonDoc["tags"];
+
+		if (TagsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TagsValue, m_Tags);
 		}
 	}
 
@@ -2033,6 +2049,19 @@ bool GroupDto::HasOrganizationId() const
 {
 	return m_OrganizationId.has_value();
 }
+const std::vector<utility::string_t>& GroupDto::GetTags() const
+{
+	return m_Tags.value();
+}
+
+bool GroupDto::HasTags() const
+{
+	return m_Tags.has_value();
+}
+void GroupDto::SetTags(const std::vector<utility::string_t>& Value)
+{
+	m_Tags = Value;
+}
 bool GroupDto::GetIsCurrentUserOwner() const
 {
 	return m_IsCurrentUserOwner.value();
@@ -2152,6 +2181,24 @@ utility::string_t GroupFilters::ToJson() const
 	{
 		rapidjson::Value OrganizationIdsValue(TypeToJsonValue(m_OrganizationIds, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("organizationIds", OrganizationIdsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Tags.has_value())
+	{
+		rapidjson::Value TagsValue(TypeToJsonValue(m_Tags, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tags", TagsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ExcludedTags.has_value())
+	{
+		rapidjson::Value ExcludedTagsValue(TypeToJsonValue(m_ExcludedTags, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("excludedTags", ExcludedTagsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TagsAll.has_value())
+	{
+		rapidjson::Value TagsAllValue(TypeToJsonValue(m_TagsAll, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tagsAll", TagsAllValue, JsonDoc.GetAllocator());
 	}
 
 
@@ -2287,6 +2334,36 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 		if (OrganizationIdsValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(OrganizationIdsValue, m_OrganizationIds);
+		}
+	}
+
+	if (JsonDoc.HasMember("tags"))
+	{
+		const rapidjson::Value& TagsValue = JsonDoc["tags"];
+
+		if (TagsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TagsValue, m_Tags);
+		}
+	}
+
+	if (JsonDoc.HasMember("excludedTags"))
+	{
+		const rapidjson::Value& ExcludedTagsValue = JsonDoc["excludedTags"];
+
+		if (ExcludedTagsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExcludedTagsValue, m_ExcludedTags);
+		}
+	}
+
+	if (JsonDoc.HasMember("tagsAll"))
+	{
+		const rapidjson::Value& TagsAllValue = JsonDoc["tagsAll"];
+
+		if (TagsAllValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TagsAllValue, m_TagsAll);
 		}
 	}
 }
@@ -2447,6 +2524,45 @@ bool GroupFilters::HasOrganizationIds() const
 void GroupFilters::SetOrganizationIds(const std::vector<utility::string_t>& Value)
 {
 	m_OrganizationIds = Value;
+}
+const std::vector<utility::string_t>& GroupFilters::GetTags() const
+{
+	return m_Tags.value();
+}
+
+bool GroupFilters::HasTags() const
+{
+	return m_Tags.has_value();
+}
+void GroupFilters::SetTags(const std::vector<utility::string_t>& Value)
+{
+	m_Tags = Value;
+}
+const std::vector<utility::string_t>& GroupFilters::GetExcludedTags() const
+{
+	return m_ExcludedTags.value();
+}
+
+bool GroupFilters::HasExcludedTags() const
+{
+	return m_ExcludedTags.has_value();
+}
+void GroupFilters::SetExcludedTags(const std::vector<utility::string_t>& Value)
+{
+	m_ExcludedTags = Value;
+}
+bool GroupFilters::GetTagsAll() const
+{
+	return m_TagsAll.value();
+}
+
+bool GroupFilters::HasTagsAll() const
+{
+	return m_TagsAll.has_value();
+}
+void GroupFilters::SetTagsAll(const bool& Value)
+{
+	m_TagsAll = Value;
 }
 
 GroupInviteDto::GroupInviteDto()
@@ -2886,6 +3002,12 @@ utility::string_t GroupLiteDto::ToJson() const
 		JsonDoc.AddMember("organizationId", OrganizationIdValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_Tags.has_value())
+	{
+		rapidjson::Value TagsValue(TypeToJsonValue(m_Tags, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tags", TagsValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_IsCurrentUserOwner.has_value())
 	{
 		rapidjson::Value IsCurrentUserOwnerValue(TypeToJsonValue(m_IsCurrentUserOwner, JsonDoc.GetAllocator()));
@@ -3049,6 +3171,16 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 		if (OrganizationIdValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(OrganizationIdValue, m_OrganizationId);
+		}
+	}
+
+	if (JsonDoc.HasMember("tags"))
+	{
+		const rapidjson::Value& TagsValue = JsonDoc["tags"];
+
+		if (TagsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TagsValue, m_Tags);
 		}
 	}
 
@@ -3216,6 +3348,19 @@ utility::string_t GroupLiteDto::GetOrganizationId() const
 bool GroupLiteDto::HasOrganizationId() const
 {
 	return m_OrganizationId.has_value();
+}
+const std::vector<utility::string_t>& GroupLiteDto::GetTags() const
+{
+	return m_Tags.value();
+}
+
+bool GroupLiteDto::HasTags() const
+{
+	return m_Tags.has_value();
+}
+void GroupLiteDto::SetTags(const std::vector<utility::string_t>& Value)
+{
+	m_Tags = Value;
 }
 bool GroupLiteDto::GetIsCurrentUserOwner() const
 {

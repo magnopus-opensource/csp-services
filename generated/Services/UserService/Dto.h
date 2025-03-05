@@ -643,6 +643,14 @@ public:
 	bool HasOrganizationId() const;
 
 	/// <summary>
+	/// Tags for this group
+	/// or an empty list if none
+	/// </summary>
+	const std::vector<utility::string_t>& GetTags() const;
+	void SetTags(const std::vector<utility::string_t>& Value);
+	bool HasTags() const;
+
+	/// <summary>
 	/// `true` when the current calling user is the owner of the group; otherwise `false`
 	/// </summary>
 	bool GetIsCurrentUserOwner() const;
@@ -684,6 +692,7 @@ protected:
 	std::optional<bool> m_RequiresInvite;
 	std::optional<bool> m_Archived;
 	std::optional<utility::string_t> m_OrganizationId;
+	std::optional<std::vector<utility::string_t>> m_Tags;
 	std::optional<bool> m_IsCurrentUserOwner;
 	std::optional<bool> m_IsCurrentUserMember;
 	std::optional<bool> m_IsCurrentUserModerator;
@@ -787,6 +796,28 @@ public:
 	void SetOrganizationIds(const std::vector<utility::string_t>& Value);
 	bool HasOrganizationIds() const;
 
+	/// <summary>
+	/// The tags the group must contain
+	/// </summary>
+	const std::vector<utility::string_t>& GetTags() const;
+	void SetTags(const std::vector<utility::string_t>& Value);
+	bool HasTags() const;
+
+	/// <summary>
+	/// The tags the group must not contain
+	/// </summary>
+	const std::vector<utility::string_t>& GetExcludedTags() const;
+	void SetExcludedTags(const std::vector<utility::string_t>& Value);
+	bool HasExcludedTags() const;
+
+	/// <summary>
+	/// Each group must contain ALL listed Magnopus.Service.User.Structures.GroupFilters.Tags
+	/// (default is false - ANY)
+	/// </summary>
+	bool GetTagsAll() const;
+	void SetTagsAll(const bool& Value);
+	bool HasTagsAll() const;
+
 
 protected:
 	std::optional<std::vector<utility::string_t>> m_Ids;
@@ -801,6 +832,9 @@ protected:
 	std::optional<bool> m_RequiresInvite;
 	std::optional<bool> m_Archived;
 	std::optional<std::vector<utility::string_t>> m_OrganizationIds;
+	std::optional<std::vector<utility::string_t>> m_Tags;
+	std::optional<std::vector<utility::string_t>> m_ExcludedTags;
+	std::optional<bool> m_TagsAll;
 };
 
 /// <summary>
@@ -993,6 +1027,14 @@ public:
 	bool HasOrganizationId() const;
 
 	/// <summary>
+	/// Tags for this group
+	/// or an empty list if none
+	/// </summary>
+	const std::vector<utility::string_t>& GetTags() const;
+	void SetTags(const std::vector<utility::string_t>& Value);
+	bool HasTags() const;
+
+	/// <summary>
 	/// `true` when the current calling user is the owner of the group; otherwise `false`
 	/// </summary>
 	bool GetIsCurrentUserOwner() const;
@@ -1029,6 +1071,7 @@ protected:
 	std::optional<bool> m_RequiresInvite;
 	std::optional<bool> m_Archived;
 	std::optional<utility::string_t> m_OrganizationId;
+	std::optional<std::vector<utility::string_t>> m_Tags;
 	std::optional<bool> m_IsCurrentUserOwner;
 	std::optional<bool> m_IsCurrentUserMember;
 	std::optional<bool> m_IsCurrentUserModerator;
