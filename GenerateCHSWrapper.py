@@ -82,6 +82,13 @@ def main():
 
     for service_name, service in services.items():
         os.mkdir(f"generated/Services/{ service_name }")
+        
+        schemas = service['components'].get('schemas', {})
+
+        # Ensure each schema has a 'properties' field, making an empty one if not so the rendering dosen't fail.
+        for schema in schemas.values():
+            if isinstance(schema, dict) and 'properties' not in schema:
+                schema['properties'] = {}
 
         # Render data models header
         with open(f"generated/Services/{ service_name }/Dto.h", 'w') as f:
