@@ -85,7 +85,7 @@ def main():
         
         schemas = service['components'].get('schemas', {})
 
-        # Ensure each schema has a 'properties' field, making an empty one if not so the rendering dosen't fail.
+        # Ensure each schema has a 'properties' field, making an empty one if not so the rendering doesn't fail.
         for schema in schemas.values():
             if isinstance(schema, dict) and 'properties' not in schema:
                 schema['properties'] = {}
