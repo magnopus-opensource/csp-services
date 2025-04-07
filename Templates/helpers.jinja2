@@ -24,6 +24,8 @@
                 std::shared_ptr<{{ array['$ref'].split('/')[-1] }}>
             {%- elif array.type in type_map -%}
                 {{ type_map[array.type] }}
+            {%- elif array.format in type_map -%}
+                {{ type_map[array.format] }}
             {%- else -%}
                 /* UNSUPPORTED ARRAY TYPE {{ type_name }} */
             {%- endif -%}
