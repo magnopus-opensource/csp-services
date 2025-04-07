@@ -31,7 +31,11 @@ namespace csp::services::generated::{{ service_name | lower }} {
                     *RootUri + "{{ route_path }}",
                     {
                         {%- for parameter in method.parameters | selectattr('in', 'equalto', 'path') -%}
-                            {{ parameter.name | identifier }}{{ ',' if not loop.last }}
+                            {%- if parameter.schema.type == 'string' -%}
+                                {{ parameter.name | identifier }}
+                            {%- else -%}
+                                std::to_string({{ parameter.name | identifier }}).c_str()
+                            {%- endif -%}{{ ',' if not loop.last }}
                         {%- endfor -%}
                     }
                 );
