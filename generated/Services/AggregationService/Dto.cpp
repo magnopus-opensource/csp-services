@@ -7102,10 +7102,10 @@ utility::string_t SpaceExportDto::ToJson() const
 	rapidjson::Document JsonDoc(rapidjson::kObjectType);
 
 
-	if (m_Id.has_value())
+	if (m_ExportId.has_value())
 	{
-		rapidjson::Value IdValue(TypeToJsonValue(m_Id, JsonDoc.GetAllocator()));
-		JsonDoc.AddMember("id", IdValue, JsonDoc.GetAllocator());
+		rapidjson::Value ExportIdValue(TypeToJsonValue(m_ExportId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("exportId", ExportIdValue, JsonDoc.GetAllocator());
 	}
 
 	if (m_SpaceId.has_value())
@@ -7118,6 +7118,18 @@ utility::string_t SpaceExportDto::ToJson() const
 	{
 		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AsyncCall.has_value())
+	{
+		rapidjson::Value AsyncCallValue(TypeToJsonValue(m_AsyncCall, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("asyncCall", AsyncCallValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RequestUserId.has_value())
+	{
+		rapidjson::Value RequestUserIdValue(TypeToJsonValue(m_RequestUserId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("requestUserId", RequestUserIdValue, JsonDoc.GetAllocator());
 	}
 
 
@@ -7136,13 +7148,13 @@ void SpaceExportDto::FromJson(const utility::string_t& Val)
 	JsonDoc.Parse(Val.c_str());
 
 
-	if (JsonDoc.HasMember("id"))
+	if (JsonDoc.HasMember("exportId"))
 	{
-		const rapidjson::Value& IdValue = JsonDoc["id"];
+		const rapidjson::Value& ExportIdValue = JsonDoc["exportId"];
 
-		if (IdValue != rapidjson::Type::kNullType)
+		if (ExportIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(ExportIdValue, m_ExportId);
 		}
 	}
 
@@ -7165,17 +7177,37 @@ void SpaceExportDto::FromJson(const utility::string_t& Val)
 			JsonValueToType(TenantNameValue, m_TenantName);
 		}
 	}
+
+	if (JsonDoc.HasMember("asyncCall"))
+	{
+		const rapidjson::Value& AsyncCallValue = JsonDoc["asyncCall"];
+
+		if (AsyncCallValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AsyncCallValue, m_AsyncCall);
+		}
+	}
+
+	if (JsonDoc.HasMember("requestUserId"))
+	{
+		const rapidjson::Value& RequestUserIdValue = JsonDoc["requestUserId"];
+
+		if (RequestUserIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RequestUserIdValue, m_RequestUserId);
+		}
+	}
 }
 
 
-utility::string_t SpaceExportDto::GetId() const
+utility::string_t SpaceExportDto::GetExportId() const
 {
-	return m_Id.value();
+	return m_ExportId.value();
 }
 
-bool SpaceExportDto::HasId() const
+bool SpaceExportDto::HasExportId() const
 {
-	return m_Id.has_value();
+	return m_ExportId.has_value();
 }
 utility::string_t SpaceExportDto::GetSpaceId() const
 {
@@ -7194,6 +7226,167 @@ utility::string_t SpaceExportDto::GetTenantName() const
 bool SpaceExportDto::HasTenantName() const
 {
 	return m_TenantName.has_value();
+}
+bool SpaceExportDto::GetAsyncCall() const
+{
+	return m_AsyncCall.value();
+}
+
+bool SpaceExportDto::HasAsyncCall() const
+{
+	return m_AsyncCall.has_value();
+}
+void SpaceExportDto::SetAsyncCall(const bool& Value)
+{
+	m_AsyncCall = Value;
+}
+utility::string_t SpaceExportDto::GetRequestUserId() const
+{
+	return m_RequestUserId.value();
+}
+
+bool SpaceExportDto::HasRequestUserId() const
+{
+	return m_RequestUserId.has_value();
+}
+void SpaceExportDto::SetRequestUserId(const utility::string_t& Value)
+{
+	m_RequestUserId = Value;
+}
+
+SpaceImportDto::SpaceImportDto()
+{
+}
+SpaceImportDto::~SpaceImportDto()
+{
+}
+
+utility::string_t SpaceImportDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_ExportId.has_value())
+	{
+		rapidjson::Value ExportIdValue(TypeToJsonValue(m_ExportId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("exportId", ExportIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SpaceId.has_value())
+	{
+		rapidjson::Value SpaceIdValue(TypeToJsonValue(m_SpaceId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("spaceId", SpaceIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TenantName.has_value())
+	{
+		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AsyncCall.has_value())
+	{
+		rapidjson::Value AsyncCallValue(TypeToJsonValue(m_AsyncCall, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("asyncCall", AsyncCallValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void SpaceImportDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("exportId"))
+	{
+		const rapidjson::Value& ExportIdValue = JsonDoc["exportId"];
+
+		if (ExportIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExportIdValue, m_ExportId);
+		}
+	}
+
+	if (JsonDoc.HasMember("spaceId"))
+	{
+		const rapidjson::Value& SpaceIdValue = JsonDoc["spaceId"];
+
+		if (SpaceIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SpaceIdValue, m_SpaceId);
+		}
+	}
+
+	if (JsonDoc.HasMember("tenantName"))
+	{
+		const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+
+		if (TenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantNameValue, m_TenantName);
+		}
+	}
+
+	if (JsonDoc.HasMember("asyncCall"))
+	{
+		const rapidjson::Value& AsyncCallValue = JsonDoc["asyncCall"];
+
+		if (AsyncCallValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AsyncCallValue, m_AsyncCall);
+		}
+	}
+}
+
+
+utility::string_t SpaceImportDto::GetExportId() const
+{
+	return m_ExportId.value();
+}
+
+bool SpaceImportDto::HasExportId() const
+{
+	return m_ExportId.has_value();
+}
+utility::string_t SpaceImportDto::GetSpaceId() const
+{
+	return m_SpaceId.value();
+}
+
+bool SpaceImportDto::HasSpaceId() const
+{
+	return m_SpaceId.has_value();
+}
+utility::string_t SpaceImportDto::GetTenantName() const
+{
+	return m_TenantName.value();
+}
+
+bool SpaceImportDto::HasTenantName() const
+{
+	return m_TenantName.has_value();
+}
+bool SpaceImportDto::GetAsyncCall() const
+{
+	return m_AsyncCall.value();
+}
+
+bool SpaceImportDto::HasAsyncCall() const
+{
+	return m_AsyncCall.has_value();
+}
+void SpaceImportDto::SetAsyncCall(const bool& Value)
+{
+	m_AsyncCall = Value;
 }
 
 SpaceTicketDto::SpaceTicketDto()

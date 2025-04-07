@@ -729,13 +729,28 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// POST /api/v1/spaces/{spaceId}/export
-	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// Authorization: magnopus-admin,admin,support,internal-service
 	/// </remarks>
 	void apiV1SpacesSpaceIdExportPost(const utility::string_t& spaceId,
 									  const std::optional<bool>& asyncCall,
-									  const std::shared_ptr<SpaceExportDto>& RequestBody,
 									  csp::services::ApiResponseHandlerBase* ResponseHandler,
 									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Takes an exported space, that has been saved in a location accessible to all environments. Translates it, and imports it into an environment
+	/// as a new space
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/spaces/{exportId}/import
+	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// </remarks>
+	void apiV1SpacesExportIdImportPost(const utility::string_t& exportId,
+									   const std::optional<bool>& asyncCall,
+									   const std::shared_ptr<DuplicateSpaceRequest>& RequestBody,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class TicketedSpaceApi final : public csp::services::ApiBase

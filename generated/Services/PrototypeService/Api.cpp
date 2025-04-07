@@ -1018,33 +1018,34 @@ void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPo
 
 
 
-void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdExportPost(const std::optional<std::vector<utility::string_t>>& Tags,
-																	  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-																	  const std::optional<bool>& TagsAll,
-																	  const std::optional<std::vector<utility::string_t>>& Ids,
-																	  const std::optional<std::vector<utility::string_t>>& Names,
-																	  const std::optional<std::vector<utility::string_t>>& PartialNames,
-																	  const std::optional<std::vector<utility::string_t>>& ExcludedIds,
-																	  const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
-																	  const std::optional<utility::string_t>& ParentId,
-																	  const std::optional<std::vector<utility::string_t>>& GroupIds,
-																	  const std::optional<std::vector<utility::string_t>>& Types,
-																	  const std::optional<bool>& HasGroup,
-																	  const std::optional<utility::string_t>& CreatedBy,
-																	  const std::optional<utility::string_t>& CreatedAfter,
-																	  const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
-																	  const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
-																	  const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
-																	  const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-																	  const utility::string_t& originalGroupId,
-																	  const std::optional<bool>& shallowCopy,
-																	  const std::optional<bool>& asyncCall,
-																	  const std::optional<utility::string_t>& onBehalfOf,
-																	  csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	  csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdExportExportIdPost(const utility::string_t& originalGroupId,
+																			  const utility::string_t& exportId,
+																			  const std::optional<std::vector<utility::string_t>>& Tags,
+																			  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+																			  const std::optional<bool>& TagsAll,
+																			  const std::optional<std::vector<utility::string_t>>& Ids,
+																			  const std::optional<std::vector<utility::string_t>>& Names,
+																			  const std::optional<std::vector<utility::string_t>>& PartialNames,
+																			  const std::optional<std::vector<utility::string_t>>& ExcludedIds,
+																			  const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
+																			  const std::optional<utility::string_t>& ParentId,
+																			  const std::optional<std::vector<utility::string_t>>& GroupIds,
+																			  const std::optional<std::vector<utility::string_t>>& Types,
+																			  const std::optional<bool>& HasGroup,
+																			  const std::optional<utility::string_t>& CreatedBy,
+																			  const std::optional<utility::string_t>& CreatedAfter,
+																			  const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
+																			  const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
+																			  const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+																			  const std::optional<std::vector<utility::string_t>>& OrganizationIds,
+																			  const std::optional<bool>& shallowCopy,
+																			  const std::optional<bool>& asyncCall,
+																			  const std::optional<utility::string_t>& onBehalfOf,
+																			  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																			  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/group-owned/{originalGroupId}/export", {originalGroupId});
+	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/group-owned/{originalGroupId}/export/{exportId}", {originalGroupId, exportId});
 
 
 	if (Tags.has_value())
@@ -1159,6 +1160,37 @@ void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdExportPost(const std:
 	{
 		Uri.AddQueryParams("shallowCopy", shallowCopy.value());
 	}
+
+
+	if (asyncCall.has_value())
+	{
+		Uri.AddQueryParams("asyncCall", asyncCall.value());
+	}
+
+
+	if (onBehalfOf.has_value())
+	{
+		Uri.AddQueryParams("onBehalfOf", onBehalfOf.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void PrototypeApi::apiV1PrototypesGroupOwnedNewGroupIdImportExportIdPost(const utility::string_t& exportId,
+																		 const utility::string_t& newGroupId,
+																		 const std::optional<bool>& asyncCall,
+																		 const std::optional<utility::string_t>& onBehalfOf,
+																		 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/group-owned/{newGroupId}/import/{exportId}", {exportId, newGroupId});
 
 
 	if (asyncCall.has_value())

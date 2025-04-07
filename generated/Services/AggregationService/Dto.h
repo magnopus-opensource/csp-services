@@ -55,6 +55,7 @@ class SliceCompatibility;
 class SpaceEventDto;
 class SpaceEventDtoDataPage;
 class SpaceExportDto;
+class SpaceImportDto;
 class SpaceTicketDto;
 class StringDataPage;
 class Style;
@@ -2203,8 +2204,8 @@ public:
 	/// <summary>
 	/// Id of the attempt to export a space
 	/// </summary>
-	utility::string_t GetId() const;
-	bool HasId() const;
+	utility::string_t GetExportId() const;
+	bool HasExportId() const;
 
 	/// <summary>
 	/// Id of the space that was exported
@@ -2218,11 +2219,73 @@ public:
 	utility::string_t GetTenantName() const;
 	bool HasTenantName() const;
 
+	/// <summary>
+	/// Run this as an async call
+	/// </summary>
+	bool GetAsyncCall() const;
+	void SetAsyncCall(const bool& Value);
+	bool HasAsyncCall() const;
+
+	/// <summary>
+	/// Id of the User who made the original request
+	/// </summary>
+	utility::string_t GetRequestUserId() const;
+	void SetRequestUserId(const utility::string_t& Value);
+	bool HasRequestUserId() const;
+
 
 protected:
-	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_ExportId;
 	std::optional<utility::string_t> m_SpaceId;
 	std::optional<utility::string_t> m_TenantName;
+	std::optional<bool> m_AsyncCall;
+	std::optional<utility::string_t> m_RequestUserId;
+};
+
+/// <summary>
+/// Space Export data
+/// </summary>
+class SpaceImportDto : public csp::services::DtoBase
+{
+public:
+	SpaceImportDto();
+	virtual ~SpaceImportDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Id of the export we are attempting to import
+	/// </summary>
+	utility::string_t GetExportId() const;
+	bool HasExportId() const;
+
+	/// <summary>
+	/// Id of the space that was created
+	/// </summary>
+	utility::string_t GetSpaceId() const;
+	bool HasSpaceId() const;
+
+	/// <summary>
+	/// Tenant of the Space
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// Run this as an async call
+	/// </summary>
+	bool GetAsyncCall() const;
+	void SetAsyncCall(const bool& Value);
+	bool HasAsyncCall() const;
+
+
+protected:
+	std::optional<utility::string_t> m_ExportId;
+	std::optional<utility::string_t> m_SpaceId;
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<bool> m_AsyncCall;
 };
 
 /// <summary>
