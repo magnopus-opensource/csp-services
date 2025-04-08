@@ -503,7 +503,7 @@ void ObjectMessageApi::apiV1ObjectsIdGet(const int32_t& id,
 										 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/objects/{id}", {id});
+	Uri.SetWithParams(*RootUri + "/api/v1/objects/{id}", {std::to_string(id).c_str()});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -518,7 +518,7 @@ void ObjectMessageApi::apiV1ObjectsIdPut(const int32_t& id,
 										 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/objects/{id}", {id});
+	Uri.SetWithParams(*RootUri + "/api/v1/objects/{id}", {std::to_string(id).c_str()});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -533,7 +533,7 @@ void ObjectMessageApi::apiV1ObjectsIdDelete(const int32_t& id,
 											csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/objects/{id}", {id});
+	Uri.SetWithParams(*RootUri + "/api/v1/objects/{id}", {std::to_string(id).c_str()});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -550,7 +550,7 @@ void ObjectMessageApi::apiV1ObjectsIdPartialUpdatePut(const int32_t& id,
 													  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/objects/{id}/partial-update", {id});
+	Uri.SetWithParams(*RootUri + "/api/v1/objects/{id}/partial-update", {std::to_string(id).c_str()});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
