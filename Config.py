@@ -33,7 +33,7 @@ config: Config = {
             'service': 'TrackingService'
         },
         {
-            'url': 'https://ogs-internal.magnopus-dev.cloud/mag-multiplayer/swagger/v1/swagger.json',
+            'url': 'https://ogs-multiplayer-internal.magnopus-dev.cloud/mag-multiplayer/swagger/v1/swagger.json',
             'service': 'MultiplayerService'
         }
     ]
