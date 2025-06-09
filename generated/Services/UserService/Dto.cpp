@@ -2,9 +2,9 @@
 
 #include "Dto.h"
 
-#include "Common/Web/Json.h"
-#include "Common/Web/Json_HttpPayload.h"
 #include "Debug/Logging.h"
+#include "Web/Json.h"
+#include "Web/Json_HttpPayload.h"
 
 #include <optional>
 
