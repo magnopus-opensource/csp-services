@@ -3,8 +3,8 @@
 #include "Api.h"
 
 #include "CSP/CSPFoundation.h"
-#include "Web/HttpAuth.h"
-#include "Web/HttpPayload.h"
+#include "Common/Web/HttpAuth.h"
+#include "Common/Web/HttpPayload.h"
 
 
 namespace csp::services::generated::multiplayerservice
@@ -498,6 +498,47 @@ void ObjectMessageApi::apiV1ObjectsOwnersUserIdBatchPost(const utility::string_t
 
 
 
+void ObjectMessageApi::apiV1ObjectsExportExportIdPost(const utility::string_t& exportId,
+													  const std::shared_ptr<ImportObjectMessageRequest>& RequestBody,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/objects/export/{exportId}", {exportId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ObjectMessageApi::apiV1ObjectsImportExportIdPost(const utility::string_t& exportId,
+													  const std::optional<utility::string_t>& ownerId,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/objects/import/{exportId}", {exportId});
+
+
+	if (ownerId.has_value())
+	{
+		Uri.AddQueryParams("ownerId", ownerId.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 void ObjectMessageApi::apiV1ObjectsIdGet(const int32_t& id,
 										 csp::services::ApiResponseHandlerBase* ResponseHandler,
 										 csp::common::CancellationToken& CancellationToken) const
@@ -657,6 +698,21 @@ void ScopesApi::apiV1ScopesPost(const std::shared_ptr<ScopeDto>& RequestBody,
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+void ScopesApi::apiV1ScopesPut(const std::shared_ptr<ScopeDto>& RequestBody,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/scopes", {});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 void ScopesApi::apiV1ScopesGet(const std::optional<std::vector<utility::string_t>>& Ids,

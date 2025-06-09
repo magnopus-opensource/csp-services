@@ -3,8 +3,8 @@
 #include "Api.h"
 
 #include "CSP/CSPFoundation.h"
-#include "Web/HttpAuth.h"
-#include "Web/HttpPayload.h"
+#include "Common/Web/HttpAuth.h"
+#include "Common/Web/HttpPayload.h"
 
 
 namespace csp::services::generated::userservice
@@ -74,6 +74,31 @@ void ApplicationSettingsApi::apiV1ApplicationsApplicationNameSettingsContextDele
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ApplicationSettingsApi::apiV1TenantsTenantApplicationsApplicationNameSettingsContextGet(
+	const utility::string_t& tenant,
+	const utility::string_t& applicationName,
+	const utility::string_t& context,
+	const std::optional<std::vector<utility::string_t>>& keys,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/tenants/{tenant}/applications/{applicationName}/settings/{context}", {tenant, applicationName, context});
+
+
+	if (keys.has_value())
+	{
+		Uri.AddQueryParams("keys", keys.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
@@ -394,6 +419,21 @@ void GroupApi::apiV1GroupsPost(const std::shared_ptr<GroupDto>& RequestBody,
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+void GroupApi::apiV1GroupsPut(const std::shared_ptr<GroupDto>& RequestBody,
+							  csp::services::ApiResponseHandlerBase* ResponseHandler,
+							  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/groups", {});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 void GroupApi::apiV1GroupsDelete(const std::optional<std::vector<utility::string_t>>& groupIds,
@@ -825,6 +865,7 @@ void GroupApi::apiV1GroupsLiteGet(const std::optional<std::vector<utility::strin
 								  const std::optional<utility::string_t>& PartialName,
 								  const std::optional<std::vector<utility::string_t>>& GroupOwnerIds,
 								  const std::optional<std::vector<utility::string_t>>& ExcludeGroupOwnerIds,
+								  const std::optional<std::vector<utility::string_t>>& ExcludeIds,
 								  const std::optional<std::vector<utility::string_t>>& Users,
 								  const std::optional<bool>& Discoverable,
 								  const std::optional<bool>& AutoModerator,
@@ -876,6 +917,12 @@ void GroupApi::apiV1GroupsLiteGet(const std::optional<std::vector<utility::strin
 	if (ExcludeGroupOwnerIds.has_value())
 	{
 		Uri.AddQueryParams("ExcludeGroupOwnerIds", ExcludeGroupOwnerIds.value());
+	}
+
+
+	if (ExcludeIds.has_value())
+	{
+		Uri.AddQueryParams("ExcludeIds", ExcludeIds.value());
 	}
 
 
@@ -2076,6 +2123,38 @@ void ProfileApi::apiV1UsersProfileIdsPost(const std::optional<int32_t>& Skip,
 
 
 
+void ProfileApi::apiV1UsersTenantsTenantProfileIdsPost(const utility::string_t& tenant,
+													   const std::optional<int32_t>& Skip,
+													   const std::optional<int32_t>& Limit,
+													   const std::shared_ptr<UserQuery>& RequestBody,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/users/tenants/{tenant}/profile-ids", {tenant});
+
+
+	if (Skip.has_value())
+	{
+		Uri.AddQueryParams("Skip", Skip.value());
+	}
+
+
+	if (Limit.has_value())
+	{
+		Uri.AddQueryParams("Limit", Limit.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 void ProfileApi::apiV1UsersUserIdTokenChangePasswordPost(const utility::string_t& userId,
 														 const std::shared_ptr<TokenResetPasswordRequest>& RequestBody,
 														 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -2087,42 +2166,6 @@ void ProfileApi::apiV1UsersUserIdTokenChangePasswordPost(const utility::string_t
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
 	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
-
-	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
-}
-
-
-
-void ProfileApi::apiV1UsersUserIdResetPasswordPost(const utility::string_t& userId,
-												   const std::optional<utility::string_t>& tenant,
-												   const std::optional<utility::string_t>& redirect,
-												   const std::optional<utility::string_t>& emailLinkUrl,
-												   csp::services::ApiResponseHandlerBase* ResponseHandler,
-												   csp::common::CancellationToken& CancellationToken) const
-{
-	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/reset-password", {userId});
-
-
-	if (tenant.has_value())
-	{
-		Uri.AddQueryParams("tenant", tenant.value());
-	}
-
-
-	if (redirect.has_value())
-	{
-		Uri.AddQueryParams("redirect", redirect.value());
-	}
-
-
-	if (emailLinkUrl.has_value())
-	{
-		Uri.AddQueryParams("emailLinkUrl", emailLinkUrl.value());
-	}
-
-	csp::web::HttpPayload Payload;
-	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }

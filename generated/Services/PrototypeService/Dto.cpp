@@ -2,9 +2,9 @@
 
 #include "Dto.h"
 
+#include "Common/Web/Json.h"
+#include "Common/Web/Json_HttpPayload.h"
 #include "Debug/Logging.h"
-#include "Web/Json.h"
-#include "Web/Json_HttpPayload.h"
 
 #include <optional>
 
@@ -3935,6 +3935,152 @@ void ExportedPrototypeDto::SetWriteAccess(const std::vector<utility::string_t>& 
 	m_WriteAccess = Value;
 }
 
+FileSource::FileSource()
+{
+}
+FileSource::~FileSource()
+{
+}
+
+utility::string_t FileSource::ToJson() const
+{
+	switch (Value)
+	{
+		case eFileSource::LOCAL:
+			return "Local";
+		case eFileSource::S3:
+			return "S3";
+		case eFileSource::WEB:
+			return "Web";
+
+		default:
+			throw std::runtime_error("Unknown enum value!");
+	}
+}
+
+void FileSource::FromJson(const utility::string_t& Val)
+{
+	if (Val == "Local")
+	{
+		Value = eFileSource::LOCAL;
+	}
+	else if (Val == "S3")
+	{
+		Value = eFileSource::S3;
+	}
+	else if (Val == "Web")
+	{
+		Value = eFileSource::WEB;
+	}
+}
+
+FileSource::eFileSource FileSource::GetValue() const
+{
+	return Value;
+}
+
+void FileSource::SetValue(FileSource::eFileSource const InValue)
+{
+	Value = InValue;
+}
+
+InternalFileCopyRequest::InternalFileCopyRequest()
+{
+}
+InternalFileCopyRequest::~InternalFileCopyRequest()
+{
+}
+
+utility::string_t InternalFileCopyRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_SourceFileInfo.has_value())
+	{
+		rapidjson::Value SourceFileInfoValue(TypeToJsonValue(m_SourceFileInfo, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("sourceFileInfo", SourceFileInfoValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DestinationFileInfo.has_value())
+	{
+		rapidjson::Value DestinationFileInfoValue(TypeToJsonValue(m_DestinationFileInfo, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("destinationFileInfo", DestinationFileInfoValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void InternalFileCopyRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("sourceFileInfo"))
+	{
+		const rapidjson::Value& SourceFileInfoValue = JsonDoc["sourceFileInfo"];
+
+		if (SourceFileInfoValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SourceFileInfoValue, m_SourceFileInfo);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member sourceFileInfo is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("destinationFileInfo"))
+	{
+		const rapidjson::Value& DestinationFileInfoValue = JsonDoc["destinationFileInfo"];
+
+		if (DestinationFileInfoValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DestinationFileInfoValue, m_DestinationFileInfo);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member destinationFileInfo is null!");
+		}
+	}
+}
+
+
+std::shared_ptr<MusubiFileInfo> InternalFileCopyRequest::GetSourceFileInfo() const
+{
+	return m_SourceFileInfo.value();
+}
+
+bool InternalFileCopyRequest::HasSourceFileInfo() const
+{
+	return m_SourceFileInfo.has_value();
+}
+void InternalFileCopyRequest::SetSourceFileInfo(const std::shared_ptr<MusubiFileInfo>& Value)
+{
+	m_SourceFileInfo = Value;
+}
+std::shared_ptr<MusubiFileInfo> InternalFileCopyRequest::GetDestinationFileInfo() const
+{
+	return m_DestinationFileInfo.value();
+}
+
+bool InternalFileCopyRequest::HasDestinationFileInfo() const
+{
+	return m_DestinationFileInfo.has_value();
+}
+void InternalFileCopyRequest::SetDestinationFileInfo(const std::shared_ptr<MusubiFileInfo>& Value)
+{
+	m_DestinationFileInfo = Value;
+}
+
 LocalizedString::LocalizedString()
 {
 }
@@ -4022,6 +4168,314 @@ bool LocalizedString::HasValue() const
 void LocalizedString::SetValue(const utility::string_t& Value)
 {
 	m_Value = Value;
+}
+
+MusubiFileInfo::MusubiFileInfo()
+{
+}
+MusubiFileInfo::~MusubiFileInfo()
+{
+}
+
+utility::string_t MusubiFileInfo::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Source.has_value())
+	{
+		rapidjson::Value SourceValue(TypeToJsonValue(m_Source, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("source", SourceValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_FileSource.has_value())
+	{
+		rapidjson::Value FileSourceValue(TypeToJsonValue(m_FileSource, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("fileSource", FileSourceValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Directory.has_value())
+	{
+		rapidjson::Value DirectoryValue(TypeToJsonValue(m_Directory, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("directory", DirectoryValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Filename.has_value())
+	{
+		rapidjson::Value FilenameValue(TypeToJsonValue(m_Filename, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("filename", FilenameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Extension.has_value())
+	{
+		rapidjson::Value ExtensionValue(TypeToJsonValue(m_Extension, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("extension", ExtensionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Bucket.has_value())
+	{
+		rapidjson::Value BucketValue(TypeToJsonValue(m_Bucket, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("bucket", BucketValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_BucketInfo.has_value())
+	{
+		rapidjson::Value BucketInfoValue(TypeToJsonValue(m_BucketInfo, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("bucketInfo", BucketInfoValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_FullUrl.has_value())
+	{
+		rapidjson::Value FullUrlValue(TypeToJsonValue(m_FullUrl, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("fullUrl", FullUrlValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_MimeType.has_value())
+	{
+		rapidjson::Value MimeTypeValue(TypeToJsonValue(m_MimeType, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("mimeType", MimeTypeValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void MusubiFileInfo::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("source"))
+	{
+		const rapidjson::Value& SourceValue = JsonDoc["source"];
+
+		if (SourceValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SourceValue, m_Source);
+		}
+	}
+
+	if (JsonDoc.HasMember("fileSource"))
+	{
+		const rapidjson::Value& FileSourceValue = JsonDoc["fileSource"];
+
+		if (FileSourceValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FileSourceValue, m_FileSource);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member fileSource is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("directory"))
+	{
+		const rapidjson::Value& DirectoryValue = JsonDoc["directory"];
+
+		if (DirectoryValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DirectoryValue, m_Directory);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member directory is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("filename"))
+	{
+		const rapidjson::Value& FilenameValue = JsonDoc["filename"];
+
+		if (FilenameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FilenameValue, m_Filename);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member filename is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("extension"))
+	{
+		const rapidjson::Value& ExtensionValue = JsonDoc["extension"];
+
+		if (ExtensionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExtensionValue, m_Extension);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member extension is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("bucket"))
+	{
+		const rapidjson::Value& BucketValue = JsonDoc["bucket"];
+
+		if (BucketValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(BucketValue, m_Bucket);
+		}
+	}
+
+	if (JsonDoc.HasMember("bucketInfo"))
+	{
+		const rapidjson::Value& BucketInfoValue = JsonDoc["bucketInfo"];
+
+		if (BucketInfoValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(BucketInfoValue, m_BucketInfo);
+		}
+	}
+
+	if (JsonDoc.HasMember("fullUrl"))
+	{
+		const rapidjson::Value& FullUrlValue = JsonDoc["fullUrl"];
+
+		if (FullUrlValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FullUrlValue, m_FullUrl);
+		}
+	}
+
+	if (JsonDoc.HasMember("mimeType"))
+	{
+		const rapidjson::Value& MimeTypeValue = JsonDoc["mimeType"];
+
+		if (MimeTypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MimeTypeValue, m_MimeType);
+		}
+	}
+}
+
+
+utility::string_t MusubiFileInfo::GetSource() const
+{
+	return m_Source.value();
+}
+
+bool MusubiFileInfo::HasSource() const
+{
+	return m_Source.has_value();
+}
+void MusubiFileInfo::SetSource(const utility::string_t& Value)
+{
+	m_Source = Value;
+}
+std::shared_ptr<FileSource> MusubiFileInfo::GetFileSource() const
+{
+	return m_FileSource.value();
+}
+
+bool MusubiFileInfo::HasFileSource() const
+{
+	return m_FileSource.has_value();
+}
+void MusubiFileInfo::SetFileSource(const std::shared_ptr<FileSource>& Value)
+{
+	m_FileSource = Value;
+}
+utility::string_t MusubiFileInfo::GetDirectory() const
+{
+	return m_Directory.value();
+}
+
+bool MusubiFileInfo::HasDirectory() const
+{
+	return m_Directory.has_value();
+}
+void MusubiFileInfo::SetDirectory(const utility::string_t& Value)
+{
+	m_Directory = Value;
+}
+utility::string_t MusubiFileInfo::GetFilename() const
+{
+	return m_Filename.value();
+}
+
+bool MusubiFileInfo::HasFilename() const
+{
+	return m_Filename.has_value();
+}
+void MusubiFileInfo::SetFilename(const utility::string_t& Value)
+{
+	m_Filename = Value;
+}
+utility::string_t MusubiFileInfo::GetExtension() const
+{
+	return m_Extension.value();
+}
+
+bool MusubiFileInfo::HasExtension() const
+{
+	return m_Extension.has_value();
+}
+void MusubiFileInfo::SetExtension(const utility::string_t& Value)
+{
+	m_Extension = Value;
+}
+utility::string_t MusubiFileInfo::GetBucket() const
+{
+	return m_Bucket.value();
+}
+
+bool MusubiFileInfo::HasBucket() const
+{
+	return m_Bucket.has_value();
+}
+void MusubiFileInfo::SetBucket(const utility::string_t& Value)
+{
+	m_Bucket = Value;
+}
+utility::string_t MusubiFileInfo::GetBucketInfo() const
+{
+	return m_BucketInfo.value();
+}
+
+bool MusubiFileInfo::HasBucketInfo() const
+{
+	return m_BucketInfo.has_value();
+}
+void MusubiFileInfo::SetBucketInfo(const utility::string_t& Value)
+{
+	m_BucketInfo = Value;
+}
+utility::string_t MusubiFileInfo::GetFullUrl() const
+{
+	return m_FullUrl.value();
+}
+
+bool MusubiFileInfo::HasFullUrl() const
+{
+	return m_FullUrl.has_value();
+}
+void MusubiFileInfo::SetFullUrl(const utility::string_t& Value)
+{
+	m_FullUrl = Value;
+}
+utility::string_t MusubiFileInfo::GetMimeType() const
+{
+	return m_MimeType.value();
+}
+
+bool MusubiFileInfo::HasMimeType() const
+{
+	return m_MimeType.has_value();
+}
+void MusubiFileInfo::SetMimeType(const utility::string_t& Value)
+{
+	m_MimeType = Value;
 }
 
 PrototypeDto::PrototypeDto()

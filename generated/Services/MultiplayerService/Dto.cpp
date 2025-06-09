@@ -2,9 +2,9 @@
 
 #include "Dto.h"
 
+#include "Common/Web/Json.h"
+#include "Common/Web/Json_HttpPayload.h"
 #include "Debug/Logging.h"
-#include "Web/Json.h"
-#include "Web/Json_HttpPayload.h"
 
 #include <optional>
 
@@ -1198,6 +1198,103 @@ void IComponentData::FromJson(const utility::string_t& Val)
 }
 
 
+
+ImportObjectMessageRequest::ImportObjectMessageRequest()
+{
+}
+ImportObjectMessageRequest::~ImportObjectMessageRequest()
+{
+}
+
+utility::string_t ImportObjectMessageRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_ScopeReferenceId.has_value())
+	{
+		rapidjson::Value ScopeReferenceIdValue(TypeToJsonValue(m_ScopeReferenceId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("scopeReferenceId", ScopeReferenceIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ScopeReferenceType.has_value())
+	{
+		rapidjson::Value ScopeReferenceTypeValue(TypeToJsonValue(m_ScopeReferenceType, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("scopeReferenceType", ScopeReferenceTypeValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ImportObjectMessageRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("scopeReferenceId"))
+	{
+		const rapidjson::Value& ScopeReferenceIdValue = JsonDoc["scopeReferenceId"];
+
+		if (ScopeReferenceIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ScopeReferenceIdValue, m_ScopeReferenceId);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member scopeReferenceId is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("scopeReferenceType"))
+	{
+		const rapidjson::Value& ScopeReferenceTypeValue = JsonDoc["scopeReferenceType"];
+
+		if (ScopeReferenceTypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ScopeReferenceTypeValue, m_ScopeReferenceType);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member scopeReferenceType is null!");
+		}
+	}
+}
+
+
+utility::string_t ImportObjectMessageRequest::GetScopeReferenceId() const
+{
+	return m_ScopeReferenceId.value();
+}
+
+bool ImportObjectMessageRequest::HasScopeReferenceId() const
+{
+	return m_ScopeReferenceId.has_value();
+}
+void ImportObjectMessageRequest::SetScopeReferenceId(const utility::string_t& Value)
+{
+	m_ScopeReferenceId = Value;
+}
+utility::string_t ImportObjectMessageRequest::GetScopeReferenceType() const
+{
+	return m_ScopeReferenceType.value();
+}
+
+bool ImportObjectMessageRequest::HasScopeReferenceType() const
+{
+	return m_ScopeReferenceType.has_value();
+}
+void ImportObjectMessageRequest::SetScopeReferenceType(const utility::string_t& Value)
+{
+	m_ScopeReferenceType = Value;
+}
 
 ObjectMessageDto::ObjectMessageDto()
 {

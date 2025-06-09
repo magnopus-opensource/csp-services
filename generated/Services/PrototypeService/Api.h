@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CSP/Common/CancellationToken.h"
+#include "Common/Web/HttpPayload.h"
 #include "Dto.h"
 #include "Services/ApiBase/ApiBase.h"
-#include "Web/HttpPayload.h"
 
 #include <optional>
 
@@ -160,6 +160,22 @@ public:
 																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
 																	 csp::common::CancellationToken& CancellationToken
 																	 = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Copies AssetDetail file from source file to destination file
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/internal-copy
+	/// Authorization: internal-service
+	/// </remarks>
+	void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdInternalCopyPost(const utility::string_t& prototypeId,
+																			 const utility::string_t& assetDetailId,
+																			 const std::shared_ptr<InternalFileCopyRequest>& RequestBody,
+																			 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																			 csp::common::CancellationToken& CancellationToken
+																			 = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -458,35 +474,35 @@ public:
 	/// Create and return new prototype(s) that have not been saved to the database
 	/// </summary>
 	/// <remarks>
-	/// POST /api/v1/prototypes/group-owned/{originalGroupId}/export/{exportId}
+	/// POST /api/v1/prototypes/group-owned/{originalGroupId}/exports/{exportId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesGroupOwnedOriginalGroupIdExportExportIdPost(const utility::string_t& originalGroupId,
-																	const utility::string_t& exportId,
-																	const std::optional<std::vector<utility::string_t>>& Tags,
-																	const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-																	const std::optional<bool>& TagsAll,
-																	const std::optional<std::vector<utility::string_t>>& Ids,
-																	const std::optional<std::vector<utility::string_t>>& Names,
-																	const std::optional<std::vector<utility::string_t>>& PartialNames,
-																	const std::optional<std::vector<utility::string_t>>& ExcludedIds,
-																	const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
-																	const std::optional<utility::string_t>& ParentId,
-																	const std::optional<std::vector<utility::string_t>>& GroupIds,
-																	const std::optional<std::vector<utility::string_t>>& Types,
-																	const std::optional<bool>& HasGroup,
-																	const std::optional<utility::string_t>& CreatedBy,
-																	const std::optional<utility::string_t>& CreatedAfter,
-																	const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
-																	const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
-																	const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
-																	const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-																	const std::optional<bool>& shallowCopy,
-																	const std::optional<bool>& asyncCall,
-																	const std::optional<utility::string_t>& onBehalfOf,
-																	csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	csp::common::CancellationToken& CancellationToken
-																	= csp::common::CancellationToken::Dummy()) const;
+	void apiV1PrototypesGroupOwnedOriginalGroupIdExportsExportIdPost(const utility::string_t& originalGroupId,
+																	 const utility::string_t& exportId,
+																	 const std::optional<std::vector<utility::string_t>>& Tags,
+																	 const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+																	 const std::optional<bool>& TagsAll,
+																	 const std::optional<std::vector<utility::string_t>>& Ids,
+																	 const std::optional<std::vector<utility::string_t>>& Names,
+																	 const std::optional<std::vector<utility::string_t>>& PartialNames,
+																	 const std::optional<std::vector<utility::string_t>>& ExcludedIds,
+																	 const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
+																	 const std::optional<utility::string_t>& ParentId,
+																	 const std::optional<std::vector<utility::string_t>>& GroupIds,
+																	 const std::optional<std::vector<utility::string_t>>& Types,
+																	 const std::optional<bool>& HasGroup,
+																	 const std::optional<utility::string_t>& CreatedBy,
+																	 const std::optional<utility::string_t>& CreatedAfter,
+																	 const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
+																	 const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
+																	 const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+																	 const std::optional<std::vector<utility::string_t>>& OrganizationIds,
+																	 const std::optional<bool>& shallowCopy,
+																	 const std::optional<bool>& asyncCall,
+																	 const std::optional<utility::string_t>& onBehalfOf,
+																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	 csp::common::CancellationToken& CancellationToken
+																	 = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -494,16 +510,16 @@ public:
 	/// Imports a set of prototypes and assigns them to a space
 	/// </summary>
 	/// <remarks>
-	/// POST /api/v1/prototypes/group-owned/{newGroupId}/import/{exportId}
+	/// POST /api/v1/prototypes/group-owned/{newGroupId}/exports/{exportId}/import
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesGroupOwnedNewGroupIdImportExportIdPost(const utility::string_t& exportId,
-															   const utility::string_t& newGroupId,
-															   const std::optional<bool>& asyncCall,
-															   const std::optional<utility::string_t>& onBehalfOf,
-															   csp::services::ApiResponseHandlerBase* ResponseHandler,
-															   csp::common::CancellationToken& CancellationToken
-															   = csp::common::CancellationToken::Dummy()) const;
+	void apiV1PrototypesGroupOwnedNewGroupIdExportsExportIdImportPost(const utility::string_t& exportId,
+																	  const utility::string_t& newGroupId,
+																	  const std::optional<bool>& asyncCall,
+																	  const std::optional<utility::string_t>& onBehalfOf,
+																	  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	  csp::common::CancellationToken& CancellationToken
+																	  = csp::common::CancellationToken::Dummy()) const;
 
 
 

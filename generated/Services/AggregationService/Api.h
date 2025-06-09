@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CSP/Common/CancellationToken.h"
+#include "Common/Web/HttpPayload.h"
 #include "Dto.h"
 #include "Services/ApiBase/ApiBase.h"
-#include "Web/HttpPayload.h"
 
 #include <optional>
 
@@ -729,7 +729,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// POST /api/v1/spaces/{spaceId}/export
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1SpacesSpaceIdExportPost(const utility::string_t& spaceId,
 									  const std::optional<bool>& asyncCall,
@@ -743,14 +743,14 @@ public:
 	/// as a new space
 	/// </summary>
 	/// <remarks>
-	/// POST /api/v1/spaces/{exportId}/import
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// POST /api/v1/spaces/exports/{exportId}/import
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void apiV1SpacesExportIdImportPost(const utility::string_t& exportId,
-									   const std::optional<bool>& asyncCall,
-									   const std::shared_ptr<DuplicateSpaceRequest>& RequestBody,
-									   csp::services::ApiResponseHandlerBase* ResponseHandler,
-									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void apiV1SpacesExportsExportIdImportPost(const utility::string_t& exportId,
+											  const std::optional<bool>& asyncCall,
+											  const std::shared_ptr<ImportSpaceRequest>& RequestBody,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class TicketedSpaceApi final : public csp::services::ApiBase
@@ -872,6 +872,28 @@ public:
 														  csp::services::ApiResponseHandlerBase* ResponseHandler,
 														  csp::common::CancellationToken& CancellationToken
 														  = csp::common::CancellationToken::Dummy()) const;
+};
+
+class UserSustainedActivityApi final : public csp::services::ApiBase
+{
+public:
+	UserSustainedActivityApi(csp::web::WebClient* InWebClient);
+	virtual ~UserSustainedActivityApi();
+
+
+
+	/// <summary>
+	/// Get the all users' sustained activity of the given tenants within a time range - inclusive of the start time and exclusive of the end time
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/users/sustained-activity
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void apiV1UsersSustainedActivityGet(const std::optional<std::vector<utility::string_t>>& tenants,
+										const std::optional<utility::string_t>& start,
+										const std::optional<utility::string_t>& end,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 

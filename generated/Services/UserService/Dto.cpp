@@ -2,9 +2,9 @@
 
 #include "Dto.h"
 
+#include "Common/Web/Json.h"
+#include "Common/Web/Json_HttpPayload.h"
 #include "Debug/Logging.h"
-#include "Web/Json.h"
-#include "Web/Json_HttpPayload.h"
 
 #include <optional>
 
@@ -38,6 +38,12 @@ utility::string_t ApplicationSettingsDto::ToJson() const
 	{
 		rapidjson::Value ContextValue(TypeToJsonValue(m_Context, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("context", ContextValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AllowAnonymous.has_value())
+	{
+		rapidjson::Value AllowAnonymousValue(TypeToJsonValue(m_AllowAnonymous, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowAnonymous", AllowAnonymousValue, JsonDoc.GetAllocator());
 	}
 
 	if (m_Settings.has_value())
@@ -82,6 +88,16 @@ void ApplicationSettingsDto::FromJson(const utility::string_t& Val)
 		}
 	}
 
+	if (JsonDoc.HasMember("allowAnonymous"))
+	{
+		const rapidjson::Value& AllowAnonymousValue = JsonDoc["allowAnonymous"];
+
+		if (AllowAnonymousValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowAnonymousValue, m_AllowAnonymous);
+		}
+	}
+
 	if (JsonDoc.HasMember("settings"))
 	{
 		const rapidjson::Value& SettingsValue = JsonDoc["settings"];
@@ -115,6 +131,19 @@ utility::string_t ApplicationSettingsDto::GetContext() const
 bool ApplicationSettingsDto::HasContext() const
 {
 	return m_Context.has_value();
+}
+bool ApplicationSettingsDto::GetAllowAnonymous() const
+{
+	return m_AllowAnonymous.value();
+}
+
+bool ApplicationSettingsDto::HasAllowAnonymous() const
+{
+	return m_AllowAnonymous.has_value();
+}
+void ApplicationSettingsDto::SetAllowAnonymous(const bool& Value)
+{
+	m_AllowAnonymous = Value;
 }
 const std::map<utility::string_t, utility::string_t>& ApplicationSettingsDto::GetSettings() const
 {
@@ -2147,6 +2176,12 @@ utility::string_t GroupFilters::ToJson() const
 		JsonDoc.AddMember("excludeGroupOwnerIds", ExcludeGroupOwnerIdsValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_ExcludeIds.has_value())
+	{
+		rapidjson::Value ExcludeIdsValue(TypeToJsonValue(m_ExcludeIds, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("excludeIds", ExcludeIdsValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_Users.has_value())
 	{
 		rapidjson::Value UsersValue(TypeToJsonValue(m_Users, JsonDoc.GetAllocator()));
@@ -2274,6 +2309,16 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 		if (ExcludeGroupOwnerIdsValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(ExcludeGroupOwnerIdsValue, m_ExcludeGroupOwnerIds);
+		}
+	}
+
+	if (JsonDoc.HasMember("excludeIds"))
+	{
+		const rapidjson::Value& ExcludeIdsValue = JsonDoc["excludeIds"];
+
+		if (ExcludeIdsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExcludeIdsValue, m_ExcludeIds);
 		}
 	}
 
@@ -2446,6 +2491,19 @@ bool GroupFilters::HasExcludeGroupOwnerIds() const
 void GroupFilters::SetExcludeGroupOwnerIds(const std::vector<utility::string_t>& Value)
 {
 	m_ExcludeGroupOwnerIds = Value;
+}
+const std::vector<utility::string_t>& GroupFilters::GetExcludeIds() const
+{
+	return m_ExcludeIds.value();
+}
+
+bool GroupFilters::HasExcludeIds() const
+{
+	return m_ExcludeIds.has_value();
+}
+void GroupFilters::SetExcludeIds(const std::vector<utility::string_t>& Value)
+{
+	m_ExcludeIds = Value;
 }
 const std::vector<utility::string_t>& GroupFilters::GetUsers() const
 {

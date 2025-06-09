@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CSP/Common/CancellationToken.h"
+#include "Common/Web/HttpPayload.h"
 #include "Dto.h"
 #include "Services/ApiBase/ApiBase.h"
-#include "Web/HttpPayload.h"
 
 #include <optional>
 
@@ -28,7 +28,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// PUT /api/v1/applications/{applicationName}/settings/{context}
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1ApplicationsApplicationNameSettingsContextPut(const utility::string_t& applicationName,
 															const utility::string_t& context,
@@ -59,7 +59,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// DELETE /api/v1/applications/{applicationName}/settings/{context}
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1ApplicationsApplicationNameSettingsContextDelete(const utility::string_t& applicationName,
 															   const utility::string_t& context,
@@ -70,11 +70,29 @@ public:
 
 
 	/// <summary>
+	/// Anonymously gets the settings for an application by context. If keys are provided
+	/// then only values for those keys will be returned, otherwise all key/value pairs are returned.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenants/{tenant}/applications/{applicationName}/settings/{context}
+	/// Authorization: Anonymous
+	/// </remarks>
+	void apiV1TenantsTenantApplicationsApplicationNameSettingsContextGet(const utility::string_t& tenant,
+																		 const utility::string_t& applicationName,
+																		 const utility::string_t& context,
+																		 const std::optional<std::vector<utility::string_t>>& keys,
+																		 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		 csp::common::CancellationToken& CancellationToken
+																		 = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
 	/// Gets all the contexts for which the application has settings
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/applications/{applicationName}/settings
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1ApplicationsApplicationNameSettingsGet(const utility::string_t& applicationName,
 													 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -87,7 +105,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// DELETE /api/v1/applications/{applicationName}/settings
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1ApplicationsApplicationNameSettingsDelete(const utility::string_t& applicationName,
 														csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -101,7 +119,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// DELETE /api/v1/applications/{applicationName}/settings/{context}/{keyname}
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1ApplicationsApplicationNameSettingsContextKeynameDelete(const utility::string_t& applicationName,
 																	  const utility::string_t& context,
@@ -317,6 +335,18 @@ public:
 	void apiV1GroupsPost(const std::shared_ptr<GroupDto>& RequestBody,
 						 csp::services::ApiResponseHandlerBase* ResponseHandler,
 						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+	/// <summary>
+	/// Creates or updates a user group
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/groups
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void apiV1GroupsPut(const std::shared_ptr<GroupDto>& RequestBody,
+						csp::services::ApiResponseHandlerBase* ResponseHandler,
+						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -636,6 +666,7 @@ public:
 							const std::optional<utility::string_t>& PartialName,
 							const std::optional<std::vector<utility::string_t>>& GroupOwnerIds,
 							const std::optional<std::vector<utility::string_t>>& ExcludeGroupOwnerIds,
+							const std::optional<std::vector<utility::string_t>>& ExcludeIds,
 							const std::optional<std::vector<utility::string_t>>& Users,
 							const std::optional<bool>& Discoverable,
 							const std::optional<bool>& AutoModerator,
@@ -750,7 +781,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// POST /api/v1/users/{userId}/inventory-items
-	/// Authorization: external-service,magnopus-admin,admin,support,internal-service,tester
+	/// Authorization: external-service,magnopus-admin,magnopus-support,admin,support,internal-service,tester
 	/// </remarks>
 	void apiV1UsersUserIdInventoryItemsPost(const utility::string_t& userId,
 											const std::optional<bool>& notify,
@@ -791,7 +822,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/users/inventory-items/owners
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1UsersInventoryItemsOwnersGet(const std::optional<std::vector<utility::string_t>>& Ids,
 										   const std::optional<std::vector<utility::string_t>>& PrototypeIds,
@@ -866,7 +897,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// PUT /api/v1/users/{userId}/inventory-items/{id}
-	/// Authorization: external-service,magnopus-admin,admin,support,internal-service
+	/// Authorization: external-service,magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1UsersUserIdInventoryItemsIdPut(const utility::string_t& userId,
 											 const utility::string_t& id,
@@ -919,7 +950,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// POST /api/v1/organizations
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1OrganizationsPost(const std::shared_ptr<OrganizationDto>& RequestBody,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1103,7 +1134,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/users
-	/// Authorization: magnopus-admin,admin,support,internal-service,account-manager
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,account-manager
 	/// </remarks>
 	void apiV1UsersGet(const std::optional<utility::string_t>& GuestDeviceId,
 					   const std::optional<utility::string_t>& PartialGuestDeviceId,
@@ -1226,13 +1257,30 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// POST /api/v1/users/profile-ids
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1UsersProfileIdsPost(const std::optional<int32_t>& Skip,
 								  const std::optional<int32_t>& Limit,
 								  const std::shared_ptr<UserQuery>& RequestBody,
 								  csp::services::ApiResponseHandlerBase* ResponseHandler,
 								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Search across all the Users for those that match the search criteria and returns a list of profile id's
+	/// or an empty list if none found
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/users/tenants/{tenant}/profile-ids
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void apiV1UsersTenantsTenantProfileIdsPost(const utility::string_t& tenant,
+											   const std::optional<int32_t>& Skip,
+											   const std::optional<int32_t>& Limit,
+											   const std::shared_ptr<UserQuery>& RequestBody,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -1247,23 +1295,6 @@ public:
 												 const std::shared_ptr<TokenResetPasswordRequest>& RequestBody,
 												 csp::services::ApiResponseHandlerBase* ResponseHandler,
 												 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
-
-
-
-	/// <summary>
-	/// Send email to user with a link to reset user password
-	/// </summary>
-	/// <remarks>
-	/// POST /api/v1/users/{userId}/reset-password
-	/// Authorization: Anonymous
-	/// </remarks>
-	[[deprecated("'POST /api/v1/users/{userId}/reset-password' is deprecated!")]]
-	void apiV1UsersUserIdResetPasswordPost(const utility::string_t& userId,
-										   const std::optional<utility::string_t>& tenant,
-										   const std::optional<utility::string_t>& redirect,
-										   const std::optional<utility::string_t>& emailLinkUrl,
-										   csp::services::ApiResponseHandlerBase* ResponseHandler,
-										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -1319,7 +1350,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// PUT /api/v1/users/{userId}/metagame
-	/// Authorization: magnopus-admin,admin,support,internal-service,external-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,external-service
 	/// </remarks>
 	void apiV1UsersUserIdMetagamePut(const utility::string_t& userId,
 									 const std::shared_ptr<MetagameUpdate>& RequestBody,
@@ -1399,7 +1430,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// PUT /api/v1/users/{userId}/lock-account
-	/// Authorization: account-manager,magnopus-admin,admin,support,internal-service
+	/// Authorization: account-manager,magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1UsersUserIdLockAccountPut(const utility::string_t& userId,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1412,7 +1443,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// PUT /api/v1/users/{userId}/unlock-account
-	/// Authorization: account-manager,magnopus-admin,admin,support,internal-service
+	/// Authorization: account-manager,magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1UsersUserIdUnlockAccountPut(const utility::string_t& userId,
 										  csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1477,7 +1508,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/users/settings/{context}
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1UsersSettingsContextGet(const utility::string_t& context,
 									  const std::optional<std::vector<utility::string_t>>& userIds,
@@ -1665,7 +1696,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// PUT /api/v1/users/{userId}/roles
-	/// Authorization: magnopus-admin,admin,support,internal-service,account-manager
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,account-manager
 	/// </remarks>
 	void apiV1UsersUserIdRolesPut(const utility::string_t& userId,
 								  const std::shared_ptr<UserRolesDto>& RequestBody,

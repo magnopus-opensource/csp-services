@@ -85,6 +85,13 @@ public:
 	bool HasContext() const;
 
 	/// <summary>
+	/// Whether the settings can be retrieved anonymously
+	/// </summary>
+	bool GetAllowAnonymous() const;
+	void SetAllowAnonymous(const bool& Value);
+	bool HasAllowAnonymous() const;
+
+	/// <summary>
 	/// Settings of the application
 	/// </summary>
 	const std::map<utility::string_t, utility::string_t>& GetSettings() const;
@@ -95,6 +102,7 @@ public:
 protected:
 	std::optional<utility::string_t> m_ApplicationName;
 	std::optional<utility::string_t> m_Context;
+	std::optional<bool> m_AllowAnonymous;
 	std::optional<std::map<utility::string_t, utility::string_t>> m_Settings;
 };
 
@@ -390,7 +398,8 @@ public:
 	bool HasInviteToken() const;
 
 	/// <summary>
-	/// Optional redirect URI to embed in the confirmation email
+	/// Optional full url that is embedded in the confirmation email as the primary link to be redirected to after email confirmation is complete.
+	/// If this URL is not provided, the system will use the default configured for the environment/tenant to direct new users.
 	/// </summary>
 	utility::string_t GetRedirectUrl() const;
 	void SetRedirectUrl(const utility::string_t& Value);
@@ -404,7 +413,7 @@ public:
 	bool HasVerifiedAgeEighteen() const;
 
 	/// <summary>
-	/// The URI given in the original OAuth request to get the auth token
+	/// The full url provided in the original OAuth flow that represents the final destination of the user after the OAuth flow is complete
 	/// </summary>
 	utility::string_t GetOAuthRedirectUri() const;
 	void SetOAuthRedirectUri(const utility::string_t& Value);
@@ -755,6 +764,13 @@ public:
 	bool HasExcludeGroupOwnerIds() const;
 
 	/// <summary>
+	/// Exclude groups with these unique identifiers
+	/// </summary>
+	const std::vector<utility::string_t>& GetExcludeIds() const;
+	void SetExcludeIds(const std::vector<utility::string_t>& Value);
+	bool HasExcludeIds() const;
+
+	/// <summary>
 	/// Unique identifier of the group member(s)
 	/// </summary>
 	const std::vector<utility::string_t>& GetUsers() const;
@@ -826,6 +842,7 @@ protected:
 	std::optional<utility::string_t> m_PartialName;
 	std::optional<std::vector<utility::string_t>> m_GroupOwnerIds;
 	std::optional<std::vector<utility::string_t>> m_ExcludeGroupOwnerIds;
+	std::optional<std::vector<utility::string_t>> m_ExcludeIds;
 	std::optional<std::vector<utility::string_t>> m_Users;
 	std::optional<bool> m_Discoverable;
 	std::optional<bool> m_AutoModerator;
@@ -1469,7 +1486,7 @@ public:
 	bool HasDeviceId() const;
 
 	/// <summary>
-	/// The URI given in the original OAuth request to get the auth token
+	/// The full url provided in the original OAuth flow that represents the final destination of the user after the OAuth flow is complete
 	/// </summary>
 	utility::string_t GetOAuthRedirectUri() const;
 	void SetOAuthRedirectUri(const utility::string_t& Value);
@@ -2770,7 +2787,8 @@ public:
 	bool HasInviteToken() const;
 
 	/// <summary>
-	/// Optional redirect URI to embed in the confirmation email
+	/// Optional full url that is embedded in the confirmation email as the primary link to be redirected to after email confirmation is complete.
+	/// If this URL is not provided, the system will use the default configured for the environment/tenant to direct new users.
 	/// </summary>
 	utility::string_t GetRedirectUrl() const;
 	void SetRedirectUrl(const utility::string_t& Value);
@@ -2848,14 +2866,15 @@ public:
 	bool HasGuestDeviceId() const;
 
 	/// <summary>
-	/// Optional redirect URI to embed in the confirmation email
+	/// Optional full url that is embedded in the confirmation email as the primary link to be redirected to after email confirmation is complete.
+	/// If this URL is not provided, the system will use the default configured for the environment/tenant to direct new users.
 	/// </summary>
 	utility::string_t GetRedirectUrl() const;
 	void SetRedirectUrl(const utility::string_t& Value);
 	bool HasRedirectUrl() const;
 
 	/// <summary>
-	/// The URI given in the original OAuth request to get the auth token
+	/// The full url provided in the original OAuth flow that represents the final destination of the user after the OAuth flow is complete
 	/// </summary>
 	utility::string_t GetOAuthRedirectUri() const;
 	void SetOAuthRedirectUri(const utility::string_t& Value);

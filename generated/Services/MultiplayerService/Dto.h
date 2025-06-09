@@ -18,6 +18,7 @@ class ClientConnectionStatus;
 class EventMessageDto;
 class GeoCoord;
 class IComponentData;
+class ImportObjectMessageRequest;
 class ObjectMessageDto;
 class ObjectMessageDtoDataPage;
 class ObjectMessagePatchDto;
@@ -383,6 +384,39 @@ public:
 
 
 protected:
+};
+
+/// <summary>
+/// Defines a structure required for importing object messages from an external source
+/// </summary>
+class ImportObjectMessageRequest : public csp::services::DtoBase
+{
+public:
+	ImportObjectMessageRequest();
+	virtual ~ImportObjectMessageRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The scope reference Id associated with these object messages
+	/// </summary>
+	utility::string_t GetScopeReferenceId() const;
+	void SetScopeReferenceId(const utility::string_t& Value);
+	bool HasScopeReferenceId() const;
+
+	/// <summary>
+	/// The type of reference the ScopeReferenceId is associated with
+	/// </summary>
+	utility::string_t GetScopeReferenceType() const;
+	void SetScopeReferenceType(const utility::string_t& Value);
+	bool HasScopeReferenceType() const;
+
+
+protected:
+	std::optional<utility::string_t> m_ScopeReferenceId;
+	std::optional<utility::string_t> m_ScopeReferenceType;
 };
 
 /// <summary>

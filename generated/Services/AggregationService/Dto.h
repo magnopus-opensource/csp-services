@@ -20,6 +20,8 @@ class HarmonizeAloRequest;
 class HarmonizeAloResponse;
 class Icon;
 class IconStyle;
+class ImportSpaceOptions;
+class ImportSpaceRequest;
 class Kml;
 class LineString;
 class LocalizedString;
@@ -502,6 +504,115 @@ protected:
 	std::optional<utility::string_t> m_ColorMode;
 	std::optional<float> m_Scale;
 	std::optional<std::shared_ptr<Icon>> m_Icon;
+};
+
+/// <summary>
+/// Additional options for importing a space
+/// </summary>
+class ImportSpaceOptions : public csp::services::DtoBase
+{
+public:
+	ImportSpaceOptions();
+	virtual ~ImportSpaceOptions();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// If true, we will locate an existing space in this environment and overwrite it with the details on the export
+	/// </summary>
+	bool GetOverwriteExistingSpace() const;
+	void SetOverwriteExistingSpace(const bool& Value);
+	bool HasOverwriteExistingSpace() const;
+
+	/// <summary>
+	/// If this space requires an invite to join
+	/// </summary>
+	bool GetRequiresInvite() const;
+	void SetRequiresInvite(const bool& Value);
+	bool HasRequiresInvite() const;
+
+	/// <summary>
+	/// If this space is discoverable
+	/// </summary>
+	bool GetDiscoverable() const;
+	void SetDiscoverable(const bool& Value);
+	bool HasDiscoverable() const;
+
+
+protected:
+	std::optional<bool> m_OverwriteExistingSpace;
+	std::optional<bool> m_RequiresInvite;
+	std::optional<bool> m_Discoverable;
+};
+
+/// <summary>
+/// A request that includes the needed data to import a space
+/// </summary>
+class ImportSpaceRequest : public csp::services::DtoBase
+{
+public:
+	ImportSpaceRequest();
+	virtual ~ImportSpaceRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The tenant name that the space belongs to
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// The id of the space to duplicate
+	/// </summary>
+	utility::string_t GetExportId() const;
+	void SetExportId(const utility::string_t& Value);
+	bool HasExportId() const;
+
+	/// <summary>
+	/// The ownerId (userId) that this new space will be assigned to
+	/// </summary>
+	utility::string_t GetNewGroupOwnerId() const;
+	void SetNewGroupOwnerId(const utility::string_t& Value);
+	bool HasNewGroupOwnerId() const;
+
+	/// <summary>
+	/// The groupIds we wish to copy the userList from, to apply to the duplicated space
+	/// </summary>
+	const std::vector<utility::string_t>& GetMemberGroupIds() const;
+	void SetMemberGroupIds(const std::vector<utility::string_t>& Value);
+	bool HasMemberGroupIds() const;
+
+	/// <summary>
+	/// THe user that is requesting the space duplication
+	/// </summary>
+	utility::string_t GetRequestUserId() const;
+	bool HasRequestUserId() const;
+
+	/// <summary>
+	/// The unique name for the new space
+	/// </summary>
+	utility::string_t GetNewUniqueName() const;
+	void SetNewUniqueName(const utility::string_t& Value);
+	bool HasNewUniqueName() const;
+
+	std::shared_ptr<ImportSpaceOptions> GetImportSpaceOptions() const;
+	void SetImportSpaceOptions(const std::shared_ptr<ImportSpaceOptions>& Value);
+	bool HasImportSpaceOptions() const;
+
+
+protected:
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<utility::string_t> m_ExportId;
+	std::optional<utility::string_t> m_NewGroupOwnerId;
+	std::optional<std::vector<utility::string_t>> m_MemberGroupIds;
+	std::optional<utility::string_t> m_RequestUserId;
+	std::optional<utility::string_t> m_NewUniqueName;
+	std::optional<std::shared_ptr<ImportSpaceOptions>> m_ImportSpaceOptions;
 };
 
 /// <summary>

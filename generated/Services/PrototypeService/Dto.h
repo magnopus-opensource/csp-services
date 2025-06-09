@@ -20,7 +20,10 @@ class BulkUpsertPrototypeDto;
 class ExportPrototypesResponse;
 class ExportedAssetDetailDto;
 class ExportedPrototypeDto;
+class FileSource;
+class InternalFileCopyRequest;
 class LocalizedString;
+class MusubiFileInfo;
 class PrototypeDto;
 class PrototypeDtoDataPage;
 class SortDirection;
@@ -1228,6 +1231,54 @@ protected:
 	std::optional<std::vector<utility::string_t>> m_WriteAccess;
 };
 
+class FileSource : public csp::services::EnumBase
+{
+public:
+	FileSource();
+	virtual ~FileSource();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+	enum class eFileSource
+	{
+		LOCAL,
+		S3,
+		WEB
+
+	};
+
+	eFileSource GetValue() const;
+	void SetValue(eFileSource const Value);
+
+protected:
+	eFileSource Value = {};
+};
+
+class InternalFileCopyRequest : public csp::services::DtoBase
+{
+public:
+	InternalFileCopyRequest();
+	virtual ~InternalFileCopyRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	std::shared_ptr<MusubiFileInfo> GetSourceFileInfo() const;
+	void SetSourceFileInfo(const std::shared_ptr<MusubiFileInfo>& Value);
+	bool HasSourceFileInfo() const;
+
+	std::shared_ptr<MusubiFileInfo> GetDestinationFileInfo() const;
+	void SetDestinationFileInfo(const std::shared_ptr<MusubiFileInfo>& Value);
+	bool HasDestinationFileInfo() const;
+
+
+protected:
+	std::optional<std::shared_ptr<MusubiFileInfo>> m_SourceFileInfo;
+	std::optional<std::shared_ptr<MusubiFileInfo>> m_DestinationFileInfo;
+};
+
 class LocalizedString : public csp::services::DtoBase
 {
 public:
@@ -1250,6 +1301,65 @@ public:
 protected:
 	std::optional<utility::string_t> m_LanguageCode;
 	std::optional<utility::string_t> m_Value;
+};
+
+class MusubiFileInfo : public csp::services::DtoBase
+{
+public:
+	MusubiFileInfo();
+	virtual ~MusubiFileInfo();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	utility::string_t GetSource() const;
+	void SetSource(const utility::string_t& Value);
+	bool HasSource() const;
+
+	std::shared_ptr<FileSource> GetFileSource() const;
+	void SetFileSource(const std::shared_ptr<FileSource>& Value);
+	bool HasFileSource() const;
+
+	utility::string_t GetDirectory() const;
+	void SetDirectory(const utility::string_t& Value);
+	bool HasDirectory() const;
+
+	utility::string_t GetFilename() const;
+	void SetFilename(const utility::string_t& Value);
+	bool HasFilename() const;
+
+	utility::string_t GetExtension() const;
+	void SetExtension(const utility::string_t& Value);
+	bool HasExtension() const;
+
+	utility::string_t GetBucket() const;
+	void SetBucket(const utility::string_t& Value);
+	bool HasBucket() const;
+
+	utility::string_t GetBucketInfo() const;
+	void SetBucketInfo(const utility::string_t& Value);
+	bool HasBucketInfo() const;
+
+	utility::string_t GetFullUrl() const;
+	void SetFullUrl(const utility::string_t& Value);
+	bool HasFullUrl() const;
+
+	utility::string_t GetMimeType() const;
+	void SetMimeType(const utility::string_t& Value);
+	bool HasMimeType() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Source;
+	std::optional<std::shared_ptr<FileSource>> m_FileSource;
+	std::optional<utility::string_t> m_Directory;
+	std::optional<utility::string_t> m_Filename;
+	std::optional<utility::string_t> m_Extension;
+	std::optional<utility::string_t> m_Bucket;
+	std::optional<utility::string_t> m_BucketInfo;
+	std::optional<utility::string_t> m_FullUrl;
+	std::optional<utility::string_t> m_MimeType;
 };
 
 /// <summary>

@@ -2,9 +2,9 @@
 
 #include "Dto.h"
 
+#include "Common/Web/Json.h"
+#include "Common/Web/Json_HttpPayload.h"
 #include "Debug/Logging.h"
-#include "Web/Json.h"
-#include "Web/Json_HttpPayload.h"
 
 #include <optional>
 
@@ -1347,6 +1347,370 @@ bool IconStyle::HasIcon() const
 void IconStyle::SetIcon(const std::shared_ptr<Icon>& Value)
 {
 	m_Icon = Value;
+}
+
+ImportSpaceOptions::ImportSpaceOptions()
+{
+}
+ImportSpaceOptions::~ImportSpaceOptions()
+{
+}
+
+utility::string_t ImportSpaceOptions::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_OverwriteExistingSpace.has_value())
+	{
+		rapidjson::Value OverwriteExistingSpaceValue(TypeToJsonValue(m_OverwriteExistingSpace, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("overwriteExistingSpace", OverwriteExistingSpaceValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RequiresInvite.has_value())
+	{
+		rapidjson::Value RequiresInviteValue(TypeToJsonValue(m_RequiresInvite, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("requiresInvite", RequiresInviteValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Discoverable.has_value())
+	{
+		rapidjson::Value DiscoverableValue(TypeToJsonValue(m_Discoverable, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("discoverable", DiscoverableValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ImportSpaceOptions::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("overwriteExistingSpace"))
+	{
+		const rapidjson::Value& OverwriteExistingSpaceValue = JsonDoc["overwriteExistingSpace"];
+
+		if (OverwriteExistingSpaceValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OverwriteExistingSpaceValue, m_OverwriteExistingSpace);
+		}
+	}
+
+	if (JsonDoc.HasMember("requiresInvite"))
+	{
+		const rapidjson::Value& RequiresInviteValue = JsonDoc["requiresInvite"];
+
+		if (RequiresInviteValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RequiresInviteValue, m_RequiresInvite);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member requiresInvite is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("discoverable"))
+	{
+		const rapidjson::Value& DiscoverableValue = JsonDoc["discoverable"];
+
+		if (DiscoverableValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DiscoverableValue, m_Discoverable);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member discoverable is null!");
+		}
+	}
+}
+
+
+bool ImportSpaceOptions::GetOverwriteExistingSpace() const
+{
+	return m_OverwriteExistingSpace.value();
+}
+
+bool ImportSpaceOptions::HasOverwriteExistingSpace() const
+{
+	return m_OverwriteExistingSpace.has_value();
+}
+void ImportSpaceOptions::SetOverwriteExistingSpace(const bool& Value)
+{
+	m_OverwriteExistingSpace = Value;
+}
+bool ImportSpaceOptions::GetRequiresInvite() const
+{
+	return m_RequiresInvite.value();
+}
+
+bool ImportSpaceOptions::HasRequiresInvite() const
+{
+	return m_RequiresInvite.has_value();
+}
+void ImportSpaceOptions::SetRequiresInvite(const bool& Value)
+{
+	m_RequiresInvite = Value;
+}
+bool ImportSpaceOptions::GetDiscoverable() const
+{
+	return m_Discoverable.value();
+}
+
+bool ImportSpaceOptions::HasDiscoverable() const
+{
+	return m_Discoverable.has_value();
+}
+void ImportSpaceOptions::SetDiscoverable(const bool& Value)
+{
+	m_Discoverable = Value;
+}
+
+ImportSpaceRequest::ImportSpaceRequest()
+{
+}
+ImportSpaceRequest::~ImportSpaceRequest()
+{
+}
+
+utility::string_t ImportSpaceRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_TenantName.has_value())
+	{
+		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ExportId.has_value())
+	{
+		rapidjson::Value ExportIdValue(TypeToJsonValue(m_ExportId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("exportId", ExportIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_NewGroupOwnerId.has_value())
+	{
+		rapidjson::Value NewGroupOwnerIdValue(TypeToJsonValue(m_NewGroupOwnerId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("newGroupOwnerId", NewGroupOwnerIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_MemberGroupIds.has_value())
+	{
+		rapidjson::Value MemberGroupIdsValue(TypeToJsonValue(m_MemberGroupIds, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("memberGroupIds", MemberGroupIdsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RequestUserId.has_value())
+	{
+		rapidjson::Value RequestUserIdValue(TypeToJsonValue(m_RequestUserId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("requestUserId", RequestUserIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_NewUniqueName.has_value())
+	{
+		rapidjson::Value NewUniqueNameValue(TypeToJsonValue(m_NewUniqueName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("newUniqueName", NewUniqueNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ImportSpaceOptions.has_value())
+	{
+		rapidjson::Value ImportSpaceOptionsValue(TypeToJsonValue(m_ImportSpaceOptions, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("importSpaceOptions", ImportSpaceOptionsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ImportSpaceRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("tenantName"))
+	{
+		const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+
+		if (TenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantNameValue, m_TenantName);
+		}
+	}
+
+	if (JsonDoc.HasMember("exportId"))
+	{
+		const rapidjson::Value& ExportIdValue = JsonDoc["exportId"];
+
+		if (ExportIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExportIdValue, m_ExportId);
+		}
+	}
+
+	if (JsonDoc.HasMember("newGroupOwnerId"))
+	{
+		const rapidjson::Value& NewGroupOwnerIdValue = JsonDoc["newGroupOwnerId"];
+
+		if (NewGroupOwnerIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NewGroupOwnerIdValue, m_NewGroupOwnerId);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member newGroupOwnerId is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("memberGroupIds"))
+	{
+		const rapidjson::Value& MemberGroupIdsValue = JsonDoc["memberGroupIds"];
+
+		if (MemberGroupIdsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MemberGroupIdsValue, m_MemberGroupIds);
+		}
+	}
+
+	if (JsonDoc.HasMember("requestUserId"))
+	{
+		const rapidjson::Value& RequestUserIdValue = JsonDoc["requestUserId"];
+
+		if (RequestUserIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RequestUserIdValue, m_RequestUserId);
+		}
+	}
+
+	if (JsonDoc.HasMember("newUniqueName"))
+	{
+		const rapidjson::Value& NewUniqueNameValue = JsonDoc["newUniqueName"];
+
+		if (NewUniqueNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NewUniqueNameValue, m_NewUniqueName);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member newUniqueName is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("importSpaceOptions"))
+	{
+		const rapidjson::Value& ImportSpaceOptionsValue = JsonDoc["importSpaceOptions"];
+
+		if (ImportSpaceOptionsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ImportSpaceOptionsValue, m_ImportSpaceOptions);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member importSpaceOptions is null!");
+		}
+	}
+}
+
+
+utility::string_t ImportSpaceRequest::GetTenantName() const
+{
+	return m_TenantName.value();
+}
+
+bool ImportSpaceRequest::HasTenantName() const
+{
+	return m_TenantName.has_value();
+}
+utility::string_t ImportSpaceRequest::GetExportId() const
+{
+	return m_ExportId.value();
+}
+
+bool ImportSpaceRequest::HasExportId() const
+{
+	return m_ExportId.has_value();
+}
+void ImportSpaceRequest::SetExportId(const utility::string_t& Value)
+{
+	m_ExportId = Value;
+}
+utility::string_t ImportSpaceRequest::GetNewGroupOwnerId() const
+{
+	return m_NewGroupOwnerId.value();
+}
+
+bool ImportSpaceRequest::HasNewGroupOwnerId() const
+{
+	return m_NewGroupOwnerId.has_value();
+}
+void ImportSpaceRequest::SetNewGroupOwnerId(const utility::string_t& Value)
+{
+	m_NewGroupOwnerId = Value;
+}
+const std::vector<utility::string_t>& ImportSpaceRequest::GetMemberGroupIds() const
+{
+	return m_MemberGroupIds.value();
+}
+
+bool ImportSpaceRequest::HasMemberGroupIds() const
+{
+	return m_MemberGroupIds.has_value();
+}
+void ImportSpaceRequest::SetMemberGroupIds(const std::vector<utility::string_t>& Value)
+{
+	m_MemberGroupIds = Value;
+}
+utility::string_t ImportSpaceRequest::GetRequestUserId() const
+{
+	return m_RequestUserId.value();
+}
+
+bool ImportSpaceRequest::HasRequestUserId() const
+{
+	return m_RequestUserId.has_value();
+}
+utility::string_t ImportSpaceRequest::GetNewUniqueName() const
+{
+	return m_NewUniqueName.value();
+}
+
+bool ImportSpaceRequest::HasNewUniqueName() const
+{
+	return m_NewUniqueName.has_value();
+}
+void ImportSpaceRequest::SetNewUniqueName(const utility::string_t& Value)
+{
+	m_NewUniqueName = Value;
+}
+std::shared_ptr<ImportSpaceOptions> ImportSpaceRequest::GetImportSpaceOptions() const
+{
+	return m_ImportSpaceOptions.value();
+}
+
+bool ImportSpaceRequest::HasImportSpaceOptions() const
+{
+	return m_ImportSpaceOptions.has_value();
+}
+void ImportSpaceRequest::SetImportSpaceOptions(const std::shared_ptr<ImportSpaceOptions>& Value)
+{
+	m_ImportSpaceOptions = Value;
 }
 
 Kml::Kml()

@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CSP/Common/CancellationToken.h"
+#include "Common/Web/HttpPayload.h"
 #include "Dto.h"
 #include "Services/ApiBase/ApiBase.h"
-#include "Web/HttpPayload.h"
 
 #include <optional>
 
@@ -127,7 +127,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/anchor-resolutions
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1AnchorResolutionsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
 								   const std::optional<std::vector<utility::string_t>>& Tags,
@@ -145,7 +145,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/anchor-resolutions/stats
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1AnchorResolutionsStatsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
 										const std::optional<std::vector<utility::string_t>>& Tags,
@@ -581,7 +581,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// DELETE /api/v1/users/{userId}/positions/{positionId}
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1UsersUserIdPositionsPositionIdDelete(const utility::string_t& userId,
 												   const utility::string_t& positionId,
@@ -725,7 +725,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// DELETE /api/v1/users/{userId}/spacetime/{id}
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1UsersUserIdSpacetimeIdDelete(const utility::string_t& userId,
 										   const utility::string_t& id,
@@ -739,7 +739,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// PUT /api/v1/users/{userId}/spacetime/{id}
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1UsersUserIdSpacetimeIdPut(const utility::string_t& userId,
 										const utility::string_t& id,

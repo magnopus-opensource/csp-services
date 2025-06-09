@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CSP/Common/CancellationToken.h"
+#include "Common/Web/HttpPayload.h"
 #include "Dto.h"
 #include "Services/ApiBase/ApiBase.h"
-#include "Web/HttpPayload.h"
 
 #include <optional>
 
@@ -27,7 +27,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// PUT /api/v1/area-of-interest/{userId}/reset
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1AreaOfInterestUserIdResetPut(const utility::string_t& userId,
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -60,7 +60,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/client-connections
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1ClientConnectionsGet(const std::optional<std::vector<utility::string_t>>& UserIds,
 								   const std::optional<std::vector<utility::string_t>>& ScopeIds,
@@ -140,7 +140,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// POST /api/v1/events
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1EventsPost(const std::shared_ptr<EventMessageDto>& RequestBody,
 						 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -176,7 +176,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// POST /api/v1/objects
-	/// Authorization: magnopus-admin,admin,support,internal-service,limited-creator,creator
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,limited-creator,creator
 	/// </remarks>
 	void apiV1ObjectsPost(const std::shared_ptr<ObjectMessageDto>& RequestBody,
 						  csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -214,7 +214,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// DELETE /api/v1/objects
-	/// Authorization: magnopus-admin,admin,support,internal-service,limited-creator,creator
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,limited-creator,creator
 	/// </remarks>
 	void apiV1ObjectsDelete(const std::optional<std::vector<int32_t>>& ids,
 							csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -227,7 +227,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// POST /api/v1/objects/batch
-	/// Authorization: magnopus-admin,admin,support,internal-service,limited-creator,creator
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,limited-creator,creator
 	/// </remarks>
 	void apiV1ObjectsBatchPost(const std::vector<std::shared_ptr<ObjectMessageDto>>& RequestBody,
 							   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -251,6 +251,34 @@ public:
 
 
 	/// <summary>
+	/// Locates and exports object messages
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/objects/export/{exportId}
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void apiV1ObjectsExportExportIdPost(const utility::string_t& exportId,
+										const std::shared_ptr<ImportObjectMessageRequest>& RequestBody,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Imports object messages into a space from an archival backup
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/objects/import/{exportId}
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void apiV1ObjectsImportExportIdPost(const utility::string_t& exportId,
+										const std::optional<utility::string_t>& ownerId,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
 	/// Locates the multiplayer object data by its unique identifier id
 	/// </summary>
 	/// <remarks>
@@ -268,7 +296,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// PUT /api/v1/objects/{id}
-	/// Authorization: magnopus-admin,admin,support,internal-service,limited-creator,creator
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,limited-creator,creator
 	/// </remarks>
 	void apiV1ObjectsIdPut(const int32_t& id,
 						   const std::shared_ptr<ObjectMessageDto>& RequestBody,
@@ -281,7 +309,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// DELETE /api/v1/objects/{id}
-	/// Authorization: magnopus-admin,admin,support,internal-service,limited-creator,creator
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,limited-creator,creator
 	/// </remarks>
 	void apiV1ObjectsIdDelete(const int32_t& id,
 							  csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -376,6 +404,18 @@ public:
 	void apiV1ScopesPost(const std::shared_ptr<ScopeDto>& RequestBody,
 						 csp::services::ApiResponseHandlerBase* ResponseHandler,
 						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+	/// <summary>
+	/// Upserts a definition for a new/existing scope
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/scopes
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void apiV1ScopesPut(const std::shared_ptr<ScopeDto>& RequestBody,
+						csp::services::ApiResponseHandlerBase* ResponseHandler,
+						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>

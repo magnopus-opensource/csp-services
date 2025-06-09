@@ -3,8 +3,8 @@
 #include "Api.h"
 
 #include "CSP/CSPFoundation.h"
-#include "Web/HttpAuth.h"
-#include "Web/HttpPayload.h"
+#include "Common/Web/HttpAuth.h"
+#include "Common/Web/HttpPayload.h"
 
 
 namespace csp::services::generated::aggregationservice
@@ -886,14 +886,14 @@ void SpaceApi::apiV1SpacesSpaceIdExportPost(const utility::string_t& spaceId,
 
 
 
-void SpaceApi::apiV1SpacesExportIdImportPost(const utility::string_t& exportId,
-											 const std::optional<bool>& asyncCall,
-											 const std::shared_ptr<DuplicateSpaceRequest>& RequestBody,
-											 csp::services::ApiResponseHandlerBase* ResponseHandler,
-											 csp::common::CancellationToken& CancellationToken) const
+void SpaceApi::apiV1SpacesExportsExportIdImportPost(const utility::string_t& exportId,
+													const std::optional<bool>& asyncCall,
+													const std::shared_ptr<ImportSpaceRequest>& RequestBody,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/spaces/{exportId}/import", {exportId});
+	Uri.SetWithParams(*RootUri + "/api/v1/spaces/exports/{exportId}/import", {exportId});
 
 
 	if (asyncCall.has_value())
@@ -1128,6 +1128,53 @@ void TicketedSpaceApi::apiV1VendorsVendorNameUsersUserIdProviderInfoGet(const ut
 	if (tenant.has_value())
 	{
 		Uri.AddQueryParams("tenant", tenant.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+UserSustainedActivityApi::UserSustainedActivityApi(csp::web::WebClient* InWebClient)
+	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().AggregationServiceURI)
+{
+}
+
+UserSustainedActivityApi::~UserSustainedActivityApi()
+{
+}
+
+
+
+void UserSustainedActivityApi::apiV1UsersSustainedActivityGet(const std::optional<std::vector<utility::string_t>>& tenants,
+															  const std::optional<utility::string_t>& start,
+															  const std::optional<utility::string_t>& end,
+															  csp::services::ApiResponseHandlerBase* ResponseHandler,
+															  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(*RootUri + "/api/v1/users/sustained-activity", {});
+
+
+	if (tenants.has_value())
+	{
+		Uri.AddQueryParams("tenants", tenants.value());
+	}
+
+
+	if (start.has_value())
+	{
+		Uri.AddQueryParams("start", start.value());
+	}
+
+
+	if (end.has_value())
+	{
+		Uri.AddQueryParams("end", end.value());
 	}
 
 	csp::web::HttpPayload Payload;

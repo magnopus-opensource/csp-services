@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CSP/Common/CancellationToken.h"
+#include "Common/Web/HttpPayload.h"
 #include "Dto.h"
 #include "Services/ApiBase/ApiBase.h"
-#include "Web/HttpPayload.h"
 
 #include <optional>
 
@@ -230,7 +230,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/tier-assignments/{id}
-	/// Authorization: magnopus-admin,admin,support,internal-service
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void apiV1TierAssignmentsIdGet(const utility::string_t& id,
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
