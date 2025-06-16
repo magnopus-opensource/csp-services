@@ -7,6 +7,7 @@
 #include "Web/HttpPayload.h"
 #include "Dto.h"
 
+#include <string>
 #include <optional>
 
 
@@ -38,7 +39,7 @@ namespace csp::services::generated::{{ service_name | lower }}
                 {% if method.deprecated -%}
                     [[deprecated("'{{ method_name | upper }} {{ route_path }}' is deprecated!")]]
                 {% endif -%}
-                void {{ route_path | camelcase }}{{ method_name | capitalize }}(
+                void {% if route_path[:6] == '/api/v' -%} {{ route_path[7:] | camelcase }} {%- else -%} {{ route_path | camelcase }} {%- endif -%}{{ method_name | capitalize }}(
                     {{ print_method_parameters(method) }}
                 ) const;
             {% endfor %}
