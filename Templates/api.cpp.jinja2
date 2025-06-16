@@ -7,6 +7,7 @@
 #include "Api.h"
 
 #include <string>
+#include <fmt/format.h>
 
 
 namespace csp::services::generated::{{ service_name | lower }} {
@@ -31,9 +32,9 @@ namespace csp::services::generated::{{ service_name | lower }} {
                 csp::web::Uri Uri;
                 Uri.SetWithParams(
                     {%- if route_path[:6] == '/api/v' -%} 
-                        (ServiceDefinition->GetURI().c_str() + std::string("/api/v") + std::to_string(ServiceDefinition->GetVersion()) + "{{ route_path[7:] }}").c_str()
+                        fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "{{ route_path[7:] }}").c_str()
                     {%- else -%} 
-                        (ServiceDefinition->GetURI() + "{{ route_path }}").c_str()
+                        fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "{{ route_path }}").c_str()
                     {%- endif -%},
                     {
                         {%- for parameter in method.parameters | selectattr('in', 'equalto', 'path') -%}
