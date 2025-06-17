@@ -3,15 +3,18 @@
 #include "Api.h"
 
 #include "CSP/CSPFoundation.h"
-#include "Common/Web/HttpAuth.h"
-#include "Common/Web/HttpPayload.h"
+#include "Web/HttpAuth.h"
+#include "Web/HttpPayload.h"
+
+#include <fmt/format.h>
+#include <string>
 
 
 namespace csp::services::generated::trackingservice
 {
 
 
-ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingServiceURI)
+ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingService)
 {
 }
 
@@ -24,7 +27,7 @@ ConfigurationApi::~ConfigurationApi()
 void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/appsettings", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/appsettings").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -39,7 +42,7 @@ void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBa
 											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/appsettings/reload", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/appsettings/reload").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -54,7 +57,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/featureflags", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/featureflags").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -65,7 +68,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 
 
 
-NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingServiceURI)
+NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingService)
 {
 }
 
@@ -78,7 +81,7 @@ NtpApi::~NtpApi()
 void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/datetime", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/datetime").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -88,7 +91,7 @@ void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 
 
 
-PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingServiceURI)
+PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingService)
 {
 }
 
@@ -101,7 +104,7 @@ PingApi::~PingApi()
 void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/ping", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/ping").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -111,7 +114,7 @@ void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, cs
 
 
 
-QuotaActivityApi::QuotaActivityApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingServiceURI)
+QuotaActivityApi::QuotaActivityApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingService)
 {
 }
 
@@ -121,13 +124,16 @@ QuotaActivityApi::~QuotaActivityApi()
 
 
 
-void QuotaActivityApi::apiV1UsersUserIdQuotaProgressGet(const utility::string_t& userId,
-														const std::optional<std::vector<utility::string_t>>& features,
-														csp::services::ApiResponseHandlerBase* ResponseHandler,
-														csp::common::CancellationToken& CancellationToken) const
+void QuotaActivityApi::usersUserIdQuotaProgressGet(const utility::string_t& userId,
+												   const std::optional<std::vector<utility::string_t>>& features,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/quota-progress", {userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/quota-progress")
+			.c_str(),
+		{userId});
 
 
 	if (features.has_value())
@@ -144,13 +150,16 @@ void QuotaActivityApi::apiV1UsersUserIdQuotaProgressGet(const utility::string_t&
 
 
 
-void QuotaActivityApi::apiV1GroupsGroupIdQuotaProgressGet(const utility::string_t& groupId,
-														  const std::optional<std::vector<utility::string_t>>& features,
-														  csp::services::ApiResponseHandlerBase* ResponseHandler,
-														  csp::common::CancellationToken& CancellationToken) const
+void QuotaActivityApi::groupsGroupIdQuotaProgressGet(const utility::string_t& groupId,
+													 const std::optional<std::vector<utility::string_t>>& features,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/groups/{groupId}/quota-progress", {groupId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}/quota-progress")
+			.c_str(),
+		{groupId});
 
 
 	if (features.has_value())
@@ -167,17 +176,19 @@ void QuotaActivityApi::apiV1GroupsGroupIdQuotaProgressGet(const utility::string_
 
 
 
-void QuotaActivityApi::apiV1UserUserIdQuotaActivityGet(const utility::string_t& userId,
-													   const std::optional<std::vector<utility::string_t>>& Features,
-													   const std::optional<utility::string_t>& StartDateTime,
-													   const std::optional<utility::string_t>& EndDateTime,
-													   const std::optional<int32_t>& Skip,
-													   const std::optional<int32_t>& Limit,
-													   csp::services::ApiResponseHandlerBase* ResponseHandler,
-													   csp::common::CancellationToken& CancellationToken) const
+void QuotaActivityApi::userUserIdQuotaActivityGet(const utility::string_t& userId,
+												  const std::optional<std::vector<utility::string_t>>& Features,
+												  const std::optional<utility::string_t>& StartDateTime,
+												  const std::optional<utility::string_t>& EndDateTime,
+												  const std::optional<int32_t>& Skip,
+												  const std::optional<int32_t>& Limit,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/user/{userId}/quota-activity", {userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/user/{userId}/quota-activity").c_str(),
+		{userId});
 
 
 	if (Features.has_value())
@@ -218,17 +229,20 @@ void QuotaActivityApi::apiV1UserUserIdQuotaActivityGet(const utility::string_t& 
 
 
 
-void QuotaActivityApi::apiV1GroupGroupIdQuotaActivityGet(const utility::string_t& groupId,
-														 const std::optional<std::vector<utility::string_t>>& Features,
-														 const std::optional<utility::string_t>& StartDateTime,
-														 const std::optional<utility::string_t>& EndDateTime,
-														 const std::optional<int32_t>& Skip,
-														 const std::optional<int32_t>& Limit,
-														 csp::services::ApiResponseHandlerBase* ResponseHandler,
-														 csp::common::CancellationToken& CancellationToken) const
+void QuotaActivityApi::groupGroupIdQuotaActivityGet(const utility::string_t& groupId,
+													const std::optional<std::vector<utility::string_t>>& Features,
+													const std::optional<utility::string_t>& StartDateTime,
+													const std::optional<utility::string_t>& EndDateTime,
+													const std::optional<int32_t>& Skip,
+													const std::optional<int32_t>& Limit,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/group/{groupId}/quota-activity", {groupId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/group/{groupId}/quota-activity")
+			.c_str(),
+		{groupId});
 
 
 	if (Features.has_value())
@@ -269,8 +283,7 @@ void QuotaActivityApi::apiV1GroupGroupIdQuotaActivityGet(const utility::string_t
 
 
 
-QuotaManagementApi::QuotaManagementApi(csp::web::WebClient* InWebClient)
-	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingServiceURI)
+QuotaManagementApi::QuotaManagementApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingService)
 {
 }
 
@@ -280,12 +293,14 @@ QuotaManagementApi::~QuotaManagementApi()
 
 
 
-void QuotaManagementApi::apiV1TiersTierNameQuotasGet(const utility::string_t& tierName,
-													 csp::services::ApiResponseHandlerBase* ResponseHandler,
-													 csp::common::CancellationToken& CancellationToken) const
+void QuotaManagementApi::tiersTierNameQuotasGet(const utility::string_t& tierName,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/tiers/{tierName}/quotas", {tierName});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tiers/{tierName}/quotas").c_str(),
+		{tierName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -296,13 +311,18 @@ void QuotaManagementApi::apiV1TiersTierNameQuotasGet(const utility::string_t& ti
 
 
 
-void QuotaManagementApi::apiV1TiersTierNameFeaturesFeatureNameQuotaGet(const utility::string_t& tierName,
-																	   const utility::string_t& featureName,
-																	   csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	   csp::common::CancellationToken& CancellationToken) const
+void QuotaManagementApi::tiersTierNameFeaturesFeatureNameQuotaGet(const utility::string_t& tierName,
+																  const utility::string_t& featureName,
+																  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/tiers/{tierName}/features/{featureName}/quota", {tierName, featureName});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/tiers/{tierName}/features/{featureName}/quota")
+						  .c_str(),
+					  {tierName, featureName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -311,14 +331,19 @@ void QuotaManagementApi::apiV1TiersTierNameFeaturesFeatureNameQuotaGet(const uti
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void QuotaManagementApi::apiV1TiersTierNameFeaturesFeatureNameQuotaPut(const utility::string_t& tierName,
-																	   const utility::string_t& featureName,
-																	   const std::shared_ptr<QuotaFeatureTierDto>& RequestBody,
-																	   csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	   csp::common::CancellationToken& CancellationToken) const
+void QuotaManagementApi::tiersTierNameFeaturesFeatureNameQuotaPut(const utility::string_t& tierName,
+																  const utility::string_t& featureName,
+																  const std::shared_ptr<QuotaFeatureTierDto>& RequestBody,
+																  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/tiers/{tierName}/features/{featureName}/quota", {tierName, featureName});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/tiers/{tierName}/features/{featureName}/quota")
+						  .c_str(),
+					  {tierName, featureName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -328,13 +353,18 @@ void QuotaManagementApi::apiV1TiersTierNameFeaturesFeatureNameQuotaPut(const uti
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void QuotaManagementApi::apiV1TiersTierNameFeaturesFeatureNameQuotaDelete(const utility::string_t& tierName,
-																		  const utility::string_t& featureName,
-																		  csp::services::ApiResponseHandlerBase* ResponseHandler,
-																		  csp::common::CancellationToken& CancellationToken) const
+void QuotaManagementApi::tiersTierNameFeaturesFeatureNameQuotaDelete(const utility::string_t& tierName,
+																	 const utility::string_t& featureName,
+																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/tiers/{tierName}/features/{featureName}/quota", {tierName, featureName});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/tiers/{tierName}/features/{featureName}/quota")
+						  .c_str(),
+					  {tierName, featureName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -346,7 +376,7 @@ void QuotaManagementApi::apiV1TiersTierNameFeaturesFeatureNameQuotaDelete(const 
 
 
 QuotaTierAssignmentApi::QuotaTierAssignmentApi(csp::web::WebClient* InWebClient)
-	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingServiceURI)
+	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingService)
 {
 }
 
@@ -356,12 +386,14 @@ QuotaTierAssignmentApi::~QuotaTierAssignmentApi()
 
 
 
-void QuotaTierAssignmentApi::apiV1TierAssignmentsIdGet(const utility::string_t& id,
-													   csp::services::ApiResponseHandlerBase* ResponseHandler,
-													   csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::tierAssignmentsIdGet(const utility::string_t& id,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/tier-assignments/{id}", {id});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tier-assignments/{id}").c_str(),
+		{id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -372,12 +404,15 @@ void QuotaTierAssignmentApi::apiV1TierAssignmentsIdGet(const utility::string_t& 
 
 
 
-void QuotaTierAssignmentApi::apiV1UsersUserIdTierAssignmentGet(const utility::string_t& userId,
-															   csp::services::ApiResponseHandlerBase* ResponseHandler,
-															   csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::usersUserIdTierAssignmentGet(const utility::string_t& userId,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/tier-assignment", {userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/tier-assignment")
+			.c_str(),
+		{userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -386,13 +421,16 @@ void QuotaTierAssignmentApi::apiV1UsersUserIdTierAssignmentGet(const utility::st
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void QuotaTierAssignmentApi::apiV1UsersUserIdTierAssignmentPut(const utility::string_t& userId,
-															   const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody,
-															   csp::services::ApiResponseHandlerBase* ResponseHandler,
-															   csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::usersUserIdTierAssignmentPut(const utility::string_t& userId,
+														  const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/tier-assignment", {userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/tier-assignment")
+			.c_str(),
+		{userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -402,12 +440,15 @@ void QuotaTierAssignmentApi::apiV1UsersUserIdTierAssignmentPut(const utility::st
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void QuotaTierAssignmentApi::apiV1UsersUserIdTierAssignmentDelete(const utility::string_t& userId,
-																  csp::services::ApiResponseHandlerBase* ResponseHandler,
-																  csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::usersUserIdTierAssignmentDelete(const utility::string_t& userId,
+															 csp::services::ApiResponseHandlerBase* ResponseHandler,
+															 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/tier-assignment", {userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/tier-assignment")
+			.c_str(),
+		{userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -418,12 +459,15 @@ void QuotaTierAssignmentApi::apiV1UsersUserIdTierAssignmentDelete(const utility:
 
 
 
-void QuotaTierAssignmentApi::apiV1TenantsTenantNameTierAssignmentGet(const utility::string_t& tenantName,
-																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	 csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentGet(const utility::string_t& tenantName,
+																csp::services::ApiResponseHandlerBase* ResponseHandler,
+																csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/tenants/{tenantName}/tier-assignment", {tenantName});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tenants/{tenantName}/tier-assignment")
+			.c_str(),
+		{tenantName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -432,13 +476,16 @@ void QuotaTierAssignmentApi::apiV1TenantsTenantNameTierAssignmentGet(const utili
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void QuotaTierAssignmentApi::apiV1TenantsTenantNameTierAssignmentPut(const utility::string_t& tenantName,
-																	 const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody,
-																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	 csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentPut(const utility::string_t& tenantName,
+																const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody,
+																csp::services::ApiResponseHandlerBase* ResponseHandler,
+																csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/tenants/{tenantName}/tier-assignment", {tenantName});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tenants/{tenantName}/tier-assignment")
+			.c_str(),
+		{tenantName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -448,12 +495,15 @@ void QuotaTierAssignmentApi::apiV1TenantsTenantNameTierAssignmentPut(const utili
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void QuotaTierAssignmentApi::apiV1TenantsTenantNameTierAssignmentDelete(const utility::string_t& tenantName,
-																		csp::services::ApiResponseHandlerBase* ResponseHandler,
-																		csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentDelete(const utility::string_t& tenantName,
+																   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/tenants/{tenantName}/tier-assignment", {tenantName});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tenants/{tenantName}/tier-assignment")
+			.c_str(),
+		{tenantName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -464,12 +514,14 @@ void QuotaTierAssignmentApi::apiV1TenantsTenantNameTierAssignmentDelete(const ut
 
 
 
-void QuotaTierAssignmentApi::apiV1GroupsTierAssignmentsGet(const std::optional<std::vector<utility::string_t>>& groupIds,
-														   csp::services::ApiResponseHandlerBase* ResponseHandler,
-														   csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::groupsTierAssignmentsGet(const std::optional<std::vector<utility::string_t>>& groupIds,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/groups/tier-assignments", {});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/tier-assignments").c_str(),
+		{});
 
 
 	if (groupIds.has_value())

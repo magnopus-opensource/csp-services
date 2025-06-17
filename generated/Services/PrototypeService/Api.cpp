@@ -3,15 +3,18 @@
 #include "Api.h"
 
 #include "CSP/CSPFoundation.h"
-#include "Common/Web/HttpAuth.h"
-#include "Common/Web/HttpPayload.h"
+#include "Web/HttpAuth.h"
+#include "Web/HttpPayload.h"
+
+#include <fmt/format.h>
+#include <string>
 
 
 namespace csp::services::generated::prototypeservice
 {
 
 
-AssetDetailApi::AssetDetailApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeServiceURI)
+AssetDetailApi::AssetDetailApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeService)
 {
 }
 
@@ -21,13 +24,18 @@ AssetDetailApi::~AssetDetailApi()
 
 
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsPost(const utility::string_t& prototypeId,
-																const std::shared_ptr<AssetDetailDto>& RequestBody,
-																csp::services::ApiResponseHandlerBase* ResponseHandler,
-																csp::common::CancellationToken& CancellationToken) const
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsPost(const utility::string_t& prototypeId,
+														   const std::shared_ptr<AssetDetailDto>& RequestBody,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details", {prototypeId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details")
+						  .c_str(),
+					  {prototypeId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -37,24 +45,29 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsPost(const utility::s
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsGet(const utility::string_t& prototypeId,
-															   const std::optional<std::vector<utility::string_t>>& Ids,
-															   const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
-															   const std::optional<std::vector<utility::string_t>>& AssetTypes,
-															   const std::optional<std::vector<utility::string_t>>& Styles,
-															   const std::optional<std::vector<utility::string_t>>& Names,
-															   const std::optional<utility::string_t>& CreatedAfter,
-															   const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-															   const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-															   const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
-															   const std::optional<std::vector<utility::string_t>>& Tags,
-															   const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-															   const std::optional<bool>& TagsAll,
-															   csp::services::ApiResponseHandlerBase* ResponseHandler,
-															   csp::common::CancellationToken& CancellationToken) const
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsGet(const utility::string_t& prototypeId,
+														  const std::optional<std::vector<utility::string_t>>& Ids,
+														  const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
+														  const std::optional<std::vector<utility::string_t>>& AssetTypes,
+														  const std::optional<std::vector<utility::string_t>>& Styles,
+														  const std::optional<std::vector<utility::string_t>>& Names,
+														  const std::optional<utility::string_t>& CreatedAfter,
+														  const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+														  const std::optional<std::vector<utility::string_t>>& PrototypeNames,
+														  const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
+														  const std::optional<std::vector<utility::string_t>>& Tags,
+														  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+														  const std::optional<bool>& TagsAll,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details", {prototypeId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details")
+						  .c_str(),
+					  {prototypeId});
 
 
 	if (Ids.has_value())
@@ -137,13 +150,18 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsGet(const utility::st
 
 
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsBulkPut(const utility::string_t& prototypeId,
-																   const std::vector<std::shared_ptr<BulkUpsertAssetDetailDto>>& RequestBody,
-																   csp::services::ApiResponseHandlerBase* ResponseHandler,
-																   csp::common::CancellationToken& CancellationToken) const
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsBulkPut(const utility::string_t& prototypeId,
+															  const std::vector<std::shared_ptr<BulkUpsertAssetDetailDto>>& RequestBody,
+															  csp::services::ApiResponseHandlerBase* ResponseHandler,
+															  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/bulk", {prototypeId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details/bulk")
+						  .c_str(),
+					  {prototypeId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -155,13 +173,18 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsBulkPut(const utility
 
 
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdGet(const utility::string_t& prototypeId,
-																			const utility::string_t& assetDetailId,
-																			csp::services::ApiResponseHandlerBase* ResponseHandler,
-																			csp::common::CancellationToken& CancellationToken) const
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdGet(const utility::string_t& prototypeId,
+																	   const utility::string_t& assetDetailId,
+																	   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}", {prototypeId, assetDetailId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}")
+						  .c_str(),
+					  {prototypeId, assetDetailId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -170,14 +193,19 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdGet(cons
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdPut(const utility::string_t& prototypeId,
-																			const utility::string_t& assetDetailId,
-																			const std::shared_ptr<AssetDetailDto>& RequestBody,
-																			csp::services::ApiResponseHandlerBase* ResponseHandler,
-																			csp::common::CancellationToken& CancellationToken) const
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdPut(const utility::string_t& prototypeId,
+																	   const utility::string_t& assetDetailId,
+																	   const std::shared_ptr<AssetDetailDto>& RequestBody,
+																	   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}", {prototypeId, assetDetailId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}")
+						  .c_str(),
+					  {prototypeId, assetDetailId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -187,13 +215,18 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdPut(cons
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdDelete(const utility::string_t& prototypeId,
-																			   const utility::string_t& assetDetailId,
-																			   csp::services::ApiResponseHandlerBase* ResponseHandler,
-																			   csp::common::CancellationToken& CancellationToken) const
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdDelete(const utility::string_t& prototypeId,
+																		  const utility::string_t& assetDetailId,
+																		  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}", {prototypeId, assetDetailId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}")
+						  .c_str(),
+					  {prototypeId, assetDetailId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -204,23 +237,25 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdDelete(c
 
 
 
-void AssetDetailApi::apiV1PrototypesAssetDetailsGet(const std::optional<std::vector<utility::string_t>>& Ids,
-													const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
-													const std::optional<std::vector<utility::string_t>>& AssetTypes,
-													const std::optional<std::vector<utility::string_t>>& Styles,
-													const std::optional<std::vector<utility::string_t>>& Names,
-													const std::optional<utility::string_t>& CreatedAfter,
-													const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-													const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-													const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
-													const std::optional<std::vector<utility::string_t>>& Tags,
-													const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-													const std::optional<bool>& TagsAll,
-													csp::services::ApiResponseHandlerBase* ResponseHandler,
-													csp::common::CancellationToken& CancellationToken) const
+void AssetDetailApi::prototypesAssetDetailsGet(const std::optional<std::vector<utility::string_t>>& Ids,
+											   const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
+											   const std::optional<std::vector<utility::string_t>>& AssetTypes,
+											   const std::optional<std::vector<utility::string_t>>& Styles,
+											   const std::optional<std::vector<utility::string_t>>& Names,
+											   const std::optional<utility::string_t>& CreatedAfter,
+											   const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+											   const std::optional<std::vector<utility::string_t>>& PrototypeNames,
+											   const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
+											   const std::optional<std::vector<utility::string_t>>& Tags,
+											   const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+											   const std::optional<bool>& TagsAll,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/asset-details", {});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/asset-details").c_str(),
+		{});
 
 
 	if (Ids.has_value())
@@ -303,15 +338,20 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsGet(const std::optional<std::vec
 
 
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdBlobPost(const utility::string_t& prototypeId,
-																				 const utility::string_t& assetDetailId,
-																				 const std::optional<bool>& skipAssetPipeline,
-																				 const std::shared_ptr<csp::web::HttpPayload>& FormFile,
-																				 csp::services::ApiResponseHandlerBase* ResponseHandler,
-																				 csp::common::CancellationToken& CancellationToken) const
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdBlobPost(const utility::string_t& prototypeId,
+																			const utility::string_t& assetDetailId,
+																			const std::optional<bool>& skipAssetPipeline,
+																			const std::shared_ptr<csp::web::HttpPayload>& FormFile,
+																			csp::services::ApiResponseHandlerBase* ResponseHandler,
+																			csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/blob", {prototypeId, assetDetailId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/blob")
+						  .c_str(),
+					  {prototypeId, assetDetailId});
 
 
 	if (skipAssetPipeline.has_value())
@@ -329,14 +369,19 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdBlobPost
 
 
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdInternalCopyPost(const utility::string_t& prototypeId,
-																						 const utility::string_t& assetDetailId,
-																						 const std::shared_ptr<InternalFileCopyRequest>& RequestBody,
-																						 csp::services::ApiResponseHandlerBase* ResponseHandler,
-																						 csp::common::CancellationToken& CancellationToken) const
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdInternalCopyPost(const utility::string_t& prototypeId,
+																					const utility::string_t& assetDetailId,
+																					const std::shared_ptr<InternalFileCopyRequest>& RequestBody,
+																					csp::services::ApiResponseHandlerBase* ResponseHandler,
+																					csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/internal-copy", {prototypeId, assetDetailId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/internal-copy")
+						  .c_str(),
+					  {prototypeId, assetDetailId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -348,7 +393,7 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdInternal
 
 
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdPut(
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdPut(
 	const utility::string_t& prototypeId,
 	const utility::string_t& assetDetailId,
 	const utility::string_t& addressableId,
@@ -356,7 +401,11 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressa
 	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}",
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}")
+						  .c_str(),
 					  {prototypeId, assetDetailId, addressableId});
 
 	csp::web::HttpPayload Payload;
@@ -366,7 +415,7 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressa
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdDelete(
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdDelete(
 	const utility::string_t& prototypeId,
 	const utility::string_t& assetDetailId,
 	const utility::string_t& addressableId,
@@ -374,7 +423,11 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressa
 	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}",
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}")
+						  .c_str(),
 					  {prototypeId, assetDetailId, addressableId});
 
 	csp::web::HttpPayload Payload;
@@ -386,7 +439,7 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressa
 
 
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableThirdPartyReferenceIdPut(
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableThirdPartyReferenceIdPut(
 	const utility::string_t& prototypeId,
 	const utility::string_t& assetDetailId,
 	const utility::string_t& thirdPartyReferenceId,
@@ -394,7 +447,11 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressa
 	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{thirdPartyReferenceId}",
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{thirdPartyReferenceId}")
+						  .c_str(),
 					  {prototypeId, assetDetailId, thirdPartyReferenceId});
 
 	csp::web::HttpPayload Payload;
@@ -404,7 +461,7 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressa
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableThirdPartyReferenceIdDelete(
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableThirdPartyReferenceIdDelete(
 	const utility::string_t& prototypeId,
 	const utility::string_t& assetDetailId,
 	const utility::string_t& thirdPartyReferenceId,
@@ -412,7 +469,11 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressa
 	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{thirdPartyReferenceId}",
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{thirdPartyReferenceId}")
+						  .c_str(),
 					  {prototypeId, assetDetailId, thirdPartyReferenceId});
 
 	csp::web::HttpPayload Payload;
@@ -424,23 +485,28 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressa
 
 
 
-void AssetDetailApi::apiV1PrototypesAssetDetailsAssetPipelineModelGet(const std::optional<std::vector<utility::string_t>>& Ids,
-																	  const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
-																	  const std::optional<std::vector<utility::string_t>>& AssetTypes,
-																	  const std::optional<std::vector<utility::string_t>>& Styles,
-																	  const std::optional<std::vector<utility::string_t>>& Names,
-																	  const std::optional<utility::string_t>& CreatedAfter,
-																	  const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-																	  const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-																	  const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
-																	  const std::optional<std::vector<utility::string_t>>& Tags,
-																	  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-																	  const std::optional<bool>& TagsAll,
-																	  csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	  csp::common::CancellationToken& CancellationToken) const
+void AssetDetailApi::prototypesAssetDetailsAssetPipelineModelGet(const std::optional<std::vector<utility::string_t>>& Ids,
+																 const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
+																 const std::optional<std::vector<utility::string_t>>& AssetTypes,
+																 const std::optional<std::vector<utility::string_t>>& Styles,
+																 const std::optional<std::vector<utility::string_t>>& Names,
+																 const std::optional<utility::string_t>& CreatedAfter,
+																 const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+																 const std::optional<std::vector<utility::string_t>>& PrototypeNames,
+																 const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
+																 const std::optional<std::vector<utility::string_t>>& Tags,
+																 const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+																 const std::optional<bool>& TagsAll,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/asset-details/asset-pipeline-model", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/asset-details/asset-pipeline-model")
+						  .c_str(),
+					  {});
 
 
 	if (Ids.has_value())
@@ -523,13 +589,18 @@ void AssetDetailApi::apiV1PrototypesAssetDetailsAssetPipelineModelGet(const std:
 
 
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelGet(const utility::string_t& prototypeId,
-																							  const utility::string_t& assetDetailId,
-																							  csp::services::ApiResponseHandlerBase* ResponseHandler,
-																							  csp::common::CancellationToken& CancellationToken) const
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelGet(const utility::string_t& prototypeId,
+																						 const utility::string_t& assetDetailId,
+																						 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																						 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/asset-pipeline-model", {prototypeId, assetDetailId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/asset-pipeline-model")
+						  .c_str(),
+					  {prototypeId, assetDetailId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -538,15 +609,19 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAssetPip
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelPut(
-	const utility::string_t& prototypeId,
-	const utility::string_t& assetDetailId,
-	const std::shared_ptr<AssetPipelineModelDto>& RequestBody,
-	csp::services::ApiResponseHandlerBase* ResponseHandler,
-	csp::common::CancellationToken& CancellationToken) const
+void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelPut(const utility::string_t& prototypeId,
+																						 const utility::string_t& assetDetailId,
+																						 const std::shared_ptr<AssetPipelineModelDto>& RequestBody,
+																						 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																						 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/asset-pipeline-model", {prototypeId, assetDetailId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/asset-pipeline-model")
+						  .c_str(),
+					  {prototypeId, assetDetailId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -558,7 +633,7 @@ void AssetDetailApi::apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAssetPip
 
 
 
-ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeServiceURI)
+ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeService)
 {
 }
 
@@ -571,7 +646,7 @@ ConfigurationApi::~ConfigurationApi()
 void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/appsettings", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/appsettings").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -586,7 +661,7 @@ void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBa
 											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/appsettings/reload", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/appsettings/reload").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -601,7 +676,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/featureflags", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/featureflags").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -612,7 +687,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 
 
 
-NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeServiceURI)
+NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeService)
 {
 }
 
@@ -625,7 +700,7 @@ NtpApi::~NtpApi()
 void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/datetime", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/datetime").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -635,7 +710,7 @@ void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 
 
 
-PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeServiceURI)
+PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeService)
 {
 }
 
@@ -648,7 +723,7 @@ PingApi::~PingApi()
 void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/ping", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/ping").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -658,7 +733,7 @@ void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, cs
 
 
 
-PrototypeApi::PrototypeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeServiceURI)
+PrototypeApi::PrototypeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeService)
 {
 }
 
@@ -668,12 +743,13 @@ PrototypeApi::~PrototypeApi()
 
 
 
-void PrototypeApi::apiV1PrototypesPost(const std::shared_ptr<PrototypeDto>& RequestBody,
-									   csp::services::ApiResponseHandlerBase* ResponseHandler,
-									   csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesPost(const std::shared_ptr<PrototypeDto>& RequestBody,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes").c_str(),
+					  {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -683,33 +759,34 @@ void PrototypeApi::apiV1PrototypesPost(const std::shared_ptr<PrototypeDto>& Requ
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PrototypeApi::apiV1PrototypesGet(const std::optional<std::vector<utility::string_t>>& Tags,
-									  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-									  const std::optional<bool>& TagsAll,
-									  const std::optional<std::vector<utility::string_t>>& Ids,
-									  const std::optional<std::vector<utility::string_t>>& Names,
-									  const std::optional<std::vector<utility::string_t>>& PartialNames,
-									  const std::optional<std::vector<utility::string_t>>& ExcludedIds,
-									  const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
-									  const std::optional<utility::string_t>& ParentId,
-									  const std::optional<std::vector<utility::string_t>>& GroupIds,
-									  const std::optional<std::vector<utility::string_t>>& Types,
-									  const std::optional<bool>& HasGroup,
-									  const std::optional<utility::string_t>& CreatedBy,
-									  const std::optional<utility::string_t>& CreatedAfter,
-									  const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
-									  const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
-									  const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
-									  const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-									  const std::optional<int32_t>& Skip,
-									  const std::optional<int32_t>& Limit,
-									  const std::optional<utility::string_t>& SortBy,
-									  const std::optional<std::shared_ptr<SortDirection>>& SortDirection,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesGet(const std::optional<std::vector<utility::string_t>>& Tags,
+								 const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+								 const std::optional<bool>& TagsAll,
+								 const std::optional<std::vector<utility::string_t>>& Ids,
+								 const std::optional<std::vector<utility::string_t>>& Names,
+								 const std::optional<std::vector<utility::string_t>>& PartialNames,
+								 const std::optional<std::vector<utility::string_t>>& ExcludedIds,
+								 const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
+								 const std::optional<utility::string_t>& ParentId,
+								 const std::optional<std::vector<utility::string_t>>& GroupIds,
+								 const std::optional<std::vector<utility::string_t>>& Types,
+								 const std::optional<bool>& HasGroup,
+								 const std::optional<utility::string_t>& CreatedBy,
+								 const std::optional<utility::string_t>& CreatedAfter,
+								 const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
+								 const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
+								 const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+								 const std::optional<std::vector<utility::string_t>>& OrganizationIds,
+								 const std::optional<int32_t>& Skip,
+								 const std::optional<int32_t>& Limit,
+								 const std::optional<utility::string_t>& SortBy,
+								 const std::optional<std::shared_ptr<SortDirection>>& SortDirection,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes").c_str(),
+					  {});
 
 
 	if (Tags.has_value())
@@ -850,12 +927,13 @@ void PrototypeApi::apiV1PrototypesGet(const std::optional<std::vector<utility::s
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PrototypeApi::apiV1PrototypesDelete(const std::optional<std::vector<utility::string_t>>& ids,
-										 csp::services::ApiResponseHandlerBase* ResponseHandler,
-										 csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesDelete(const std::optional<std::vector<utility::string_t>>& ids,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes").c_str(),
+					  {});
 
 
 	if (ids.has_value())
@@ -872,35 +950,39 @@ void PrototypeApi::apiV1PrototypesDelete(const std::optional<std::vector<utility
 
 
 
-void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPost(
-	const std::optional<std::vector<utility::string_t>>& Tags,
-	const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-	const std::optional<bool>& TagsAll,
-	const std::optional<std::vector<utility::string_t>>& Ids,
-	const std::optional<std::vector<utility::string_t>>& Names,
-	const std::optional<std::vector<utility::string_t>>& PartialNames,
-	const std::optional<std::vector<utility::string_t>>& ExcludedIds,
-	const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
-	const std::optional<utility::string_t>& ParentId,
-	const std::optional<std::vector<utility::string_t>>& GroupIds,
-	const std::optional<std::vector<utility::string_t>>& Types,
-	const std::optional<bool>& HasGroup,
-	const std::optional<utility::string_t>& CreatedBy,
-	const std::optional<utility::string_t>& CreatedAfter,
-	const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
-	const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
-	const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
-	const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-	const utility::string_t& originalGroupId,
-	const utility::string_t& newGroupId,
-	const std::optional<bool>& shallowCopy,
-	const std::optional<bool>& asyncCall,
-	const std::optional<utility::string_t>& onBehalfOf,
-	csp::services::ApiResponseHandlerBase* ResponseHandler,
-	csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPost(const std::optional<std::vector<utility::string_t>>& Tags,
+																			  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+																			  const std::optional<bool>& TagsAll,
+																			  const std::optional<std::vector<utility::string_t>>& Ids,
+																			  const std::optional<std::vector<utility::string_t>>& Names,
+																			  const std::optional<std::vector<utility::string_t>>& PartialNames,
+																			  const std::optional<std::vector<utility::string_t>>& ExcludedIds,
+																			  const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
+																			  const std::optional<utility::string_t>& ParentId,
+																			  const std::optional<std::vector<utility::string_t>>& GroupIds,
+																			  const std::optional<std::vector<utility::string_t>>& Types,
+																			  const std::optional<bool>& HasGroup,
+																			  const std::optional<utility::string_t>& CreatedBy,
+																			  const std::optional<utility::string_t>& CreatedAfter,
+																			  const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
+																			  const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
+																			  const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+																			  const std::optional<std::vector<utility::string_t>>& OrganizationIds,
+																			  const utility::string_t& originalGroupId,
+																			  const utility::string_t& newGroupId,
+																			  const std::optional<bool>& shallowCopy,
+																			  const std::optional<bool>& asyncCall,
+																			  const std::optional<utility::string_t>& onBehalfOf,
+																			  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																			  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/group-owned/{originalGroupId}/duplicate/{newGroupId}", {originalGroupId, newGroupId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/group-owned/{originalGroupId}/duplicate/{newGroupId}")
+						  .c_str(),
+					  {originalGroupId, newGroupId});
 
 
 	if (Tags.has_value())
@@ -1037,34 +1119,38 @@ void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPo
 
 
 
-void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdExportsExportIdPost(
-	const utility::string_t& originalGroupId,
-	const utility::string_t& exportId,
-	const std::optional<std::vector<utility::string_t>>& Tags,
-	const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-	const std::optional<bool>& TagsAll,
-	const std::optional<std::vector<utility::string_t>>& Ids,
-	const std::optional<std::vector<utility::string_t>>& Names,
-	const std::optional<std::vector<utility::string_t>>& PartialNames,
-	const std::optional<std::vector<utility::string_t>>& ExcludedIds,
-	const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
-	const std::optional<utility::string_t>& ParentId,
-	const std::optional<std::vector<utility::string_t>>& GroupIds,
-	const std::optional<std::vector<utility::string_t>>& Types,
-	const std::optional<bool>& HasGroup,
-	const std::optional<utility::string_t>& CreatedBy,
-	const std::optional<utility::string_t>& CreatedAfter,
-	const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
-	const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
-	const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
-	const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-	const std::optional<bool>& asyncCall,
-	const std::optional<utility::string_t>& onBehalfOf,
-	csp::services::ApiResponseHandlerBase* ResponseHandler,
-	csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesGroupOwnedOriginalGroupIdExportsExportIdPost(const utility::string_t& originalGroupId,
+																		  const utility::string_t& exportId,
+																		  const std::optional<std::vector<utility::string_t>>& Tags,
+																		  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+																		  const std::optional<bool>& TagsAll,
+																		  const std::optional<std::vector<utility::string_t>>& Ids,
+																		  const std::optional<std::vector<utility::string_t>>& Names,
+																		  const std::optional<std::vector<utility::string_t>>& PartialNames,
+																		  const std::optional<std::vector<utility::string_t>>& ExcludedIds,
+																		  const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
+																		  const std::optional<utility::string_t>& ParentId,
+																		  const std::optional<std::vector<utility::string_t>>& GroupIds,
+																		  const std::optional<std::vector<utility::string_t>>& Types,
+																		  const std::optional<bool>& HasGroup,
+																		  const std::optional<utility::string_t>& CreatedBy,
+																		  const std::optional<utility::string_t>& CreatedAfter,
+																		  const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
+																		  const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
+																		  const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+																		  const std::optional<std::vector<utility::string_t>>& OrganizationIds,
+																		  const std::optional<bool>& asyncCall,
+																		  const std::optional<utility::string_t>& onBehalfOf,
+																		  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/group-owned/{originalGroupId}/exports/{exportId}", {originalGroupId, exportId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/group-owned/{originalGroupId}/exports/{exportId}")
+						  .c_str(),
+					  {originalGroupId, exportId});
 
 
 	if (Tags.has_value())
@@ -1195,15 +1281,20 @@ void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdExportsExportIdPost(
 
 
 
-void PrototypeApi::apiV1PrototypesGroupOwnedNewGroupIdExportsExportIdImportPost(const utility::string_t& exportId,
-																				const utility::string_t& newGroupId,
-																				const std::optional<bool>& asyncCall,
-																				const std::optional<utility::string_t>& onBehalfOf,
-																				csp::services::ApiResponseHandlerBase* ResponseHandler,
-																				csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesGroupOwnedNewGroupIdExportsExportIdImportPost(const utility::string_t& exportId,
+																		   const utility::string_t& newGroupId,
+																		   const std::optional<bool>& asyncCall,
+																		   const std::optional<utility::string_t>& onBehalfOf,
+																		   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/group-owned/{newGroupId}/exports/{exportId}/import", {exportId, newGroupId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition->GetURI().c_str(),
+								  ServiceDefinition->GetVersion(),
+								  "/prototypes/group-owned/{newGroupId}/exports/{exportId}/import")
+						  .c_str(),
+					  {exportId, newGroupId});
 
 
 	if (asyncCall.has_value())
@@ -1226,12 +1317,14 @@ void PrototypeApi::apiV1PrototypesGroupOwnedNewGroupIdExportsExportIdImportPost(
 
 
 
-void PrototypeApi::apiV1PrototypesBulkPut(const std::vector<std::shared_ptr<BulkUpsertPrototypeDto>>& RequestBody,
-										  csp::services::ApiResponseHandlerBase* ResponseHandler,
-										  csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesBulkPut(const std::vector<std::shared_ptr<BulkUpsertPrototypeDto>>& RequestBody,
+									 csp::services::ApiResponseHandlerBase* ResponseHandler,
+									 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/bulk", {});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/bulk").c_str(),
+		{});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1243,31 +1336,32 @@ void PrototypeApi::apiV1PrototypesBulkPut(const std::vector<std::shared_ptr<Bulk
 
 
 
-void PrototypeApi::apiV1PrototypesIdsGet(const std::optional<std::vector<utility::string_t>>& Tags,
-										 const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-										 const std::optional<bool>& TagsAll,
-										 const std::optional<std::vector<utility::string_t>>& Ids,
-										 const std::optional<std::vector<utility::string_t>>& Names,
-										 const std::optional<std::vector<utility::string_t>>& PartialNames,
-										 const std::optional<std::vector<utility::string_t>>& ExcludedIds,
-										 const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
-										 const std::optional<utility::string_t>& ParentId,
-										 const std::optional<std::vector<utility::string_t>>& GroupIds,
-										 const std::optional<std::vector<utility::string_t>>& Types,
-										 const std::optional<bool>& HasGroup,
-										 const std::optional<utility::string_t>& CreatedBy,
-										 const std::optional<utility::string_t>& CreatedAfter,
-										 const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
-										 const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
-										 const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
-										 const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-										 const std::optional<int32_t>& Skip,
-										 const std::optional<int32_t>& Limit,
-										 csp::services::ApiResponseHandlerBase* ResponseHandler,
-										 csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesIdsGet(const std::optional<std::vector<utility::string_t>>& Tags,
+									const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+									const std::optional<bool>& TagsAll,
+									const std::optional<std::vector<utility::string_t>>& Ids,
+									const std::optional<std::vector<utility::string_t>>& Names,
+									const std::optional<std::vector<utility::string_t>>& PartialNames,
+									const std::optional<std::vector<utility::string_t>>& ExcludedIds,
+									const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
+									const std::optional<utility::string_t>& ParentId,
+									const std::optional<std::vector<utility::string_t>>& GroupIds,
+									const std::optional<std::vector<utility::string_t>>& Types,
+									const std::optional<bool>& HasGroup,
+									const std::optional<utility::string_t>& CreatedBy,
+									const std::optional<utility::string_t>& CreatedAfter,
+									const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
+									const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
+									const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+									const std::optional<std::vector<utility::string_t>>& OrganizationIds,
+									const std::optional<int32_t>& Skip,
+									const std::optional<int32_t>& Limit,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/ids", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/ids").c_str(),
+					  {});
 
 
 	if (Tags.has_value())
@@ -1398,29 +1492,31 @@ void PrototypeApi::apiV1PrototypesIdsGet(const std::optional<std::vector<utility
 
 
 
-void PrototypeApi::apiV1PrototypesCountGet(const std::optional<std::vector<utility::string_t>>& Tags,
-										   const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-										   const std::optional<bool>& TagsAll,
-										   const std::optional<std::vector<utility::string_t>>& Ids,
-										   const std::optional<std::vector<utility::string_t>>& Names,
-										   const std::optional<std::vector<utility::string_t>>& PartialNames,
-										   const std::optional<std::vector<utility::string_t>>& ExcludedIds,
-										   const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
-										   const std::optional<utility::string_t>& ParentId,
-										   const std::optional<std::vector<utility::string_t>>& GroupIds,
-										   const std::optional<std::vector<utility::string_t>>& Types,
-										   const std::optional<bool>& HasGroup,
-										   const std::optional<utility::string_t>& CreatedBy,
-										   const std::optional<utility::string_t>& CreatedAfter,
-										   const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
-										   const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
-										   const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
-										   const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-										   csp::services::ApiResponseHandlerBase* ResponseHandler,
-										   csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesCountGet(const std::optional<std::vector<utility::string_t>>& Tags,
+									  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+									  const std::optional<bool>& TagsAll,
+									  const std::optional<std::vector<utility::string_t>>& Ids,
+									  const std::optional<std::vector<utility::string_t>>& Names,
+									  const std::optional<std::vector<utility::string_t>>& PartialNames,
+									  const std::optional<std::vector<utility::string_t>>& ExcludedIds,
+									  const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
+									  const std::optional<utility::string_t>& ParentId,
+									  const std::optional<std::vector<utility::string_t>>& GroupIds,
+									  const std::optional<std::vector<utility::string_t>>& Types,
+									  const std::optional<bool>& HasGroup,
+									  const std::optional<utility::string_t>& CreatedBy,
+									  const std::optional<utility::string_t>& CreatedAfter,
+									  const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
+									  const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
+									  const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+									  const std::optional<std::vector<utility::string_t>>& OrganizationIds,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/count", {});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/count").c_str(),
+		{});
 
 
 	if (Tags.has_value())
@@ -1539,12 +1635,14 @@ void PrototypeApi::apiV1PrototypesCountGet(const std::optional<std::vector<utili
 
 
 
-void PrototypeApi::apiV1PrototypesIdGet(const utility::string_t& id,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesIdGet(const utility::string_t& id,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{id}", {id});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/{id}").c_str(),
+		{id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1553,13 +1651,15 @@ void PrototypeApi::apiV1PrototypesIdGet(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PrototypeApi::apiV1PrototypesIdPut(const utility::string_t& id,
-										const std::shared_ptr<PrototypeDto>& RequestBody,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesIdPut(const utility::string_t& id,
+								   const std::shared_ptr<PrototypeDto>& RequestBody,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{id}", {id});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/{id}").c_str(),
+		{id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1569,12 +1669,14 @@ void PrototypeApi::apiV1PrototypesIdPut(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PrototypeApi::apiV1PrototypesIdDelete(const utility::string_t& id,
-										   csp::services::ApiResponseHandlerBase* ResponseHandler,
-										   csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesIdDelete(const utility::string_t& id,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{id}", {id});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/{id}").c_str(),
+		{id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1585,12 +1687,14 @@ void PrototypeApi::apiV1PrototypesIdDelete(const utility::string_t& id,
 
 
 
-void PrototypeApi::apiV1PrototypesNameNameGet(const utility::string_t& name,
-											  csp::services::ApiResponseHandlerBase* ResponseHandler,
-											  csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesNameNameGet(const utility::string_t& name,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/name/{name}", {name});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/name/{name}").c_str(),
+		{name});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1601,13 +1705,16 @@ void PrototypeApi::apiV1PrototypesNameNameGet(const utility::string_t& name,
 
 
 
-void PrototypeApi::apiV1PrototypesPrototypeIdStatePut(const utility::string_t& prototypeId,
-													  const std::map<utility::string_t, utility::string_t>& RequestBody,
-													  csp::services::ApiResponseHandlerBase* ResponseHandler,
-													  csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesPrototypeIdStatePut(const utility::string_t& prototypeId,
+												 const std::map<utility::string_t, utility::string_t>& RequestBody,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/state", {prototypeId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/{prototypeId}/state")
+			.c_str(),
+		{prototypeId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1617,13 +1724,16 @@ void PrototypeApi::apiV1PrototypesPrototypeIdStatePut(const utility::string_t& p
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PrototypeApi::apiV1PrototypesPrototypeIdStateGet(const utility::string_t& prototypeId,
-													  const std::optional<std::vector<utility::string_t>>& keys,
-													  csp::services::ApiResponseHandlerBase* ResponseHandler,
-													  csp::common::CancellationToken& CancellationToken) const
+void PrototypeApi::prototypesPrototypeIdStateGet(const utility::string_t& prototypeId,
+												 const std::optional<std::vector<utility::string_t>>& keys,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/prototypes/{prototypeId}/state", {prototypeId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/{prototypeId}/state")
+			.c_str(),
+		{prototypeId});
 
 
 	if (keys.has_value())
