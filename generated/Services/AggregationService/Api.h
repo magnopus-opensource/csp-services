@@ -8,6 +8,7 @@
 #include "Web/HttpPayload.h"
 
 #include <optional>
+#include <string>
 
 
 namespace csp::services::generated::aggregationservice
@@ -29,9 +30,9 @@ public:
 	/// POST /api/v1/alo/harmonize
 	/// Authorization: Anonymous
 	/// </remarks>
-	void apiV1AloHarmonizePost(const std::shared_ptr<HarmonizeAloRequest>& RequestBody,
-							   csp::services::ApiResponseHandlerBase* ResponseHandler,
-							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void aloHarmonizePost(const std::shared_ptr<HarmonizeAloRequest>& RequestBody,
+						  csp::services::ApiResponseHandlerBase* ResponseHandler,
+						  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -42,8 +43,8 @@ public:
 	/// POST /api/v1/alo/versions-matrix
 	/// Authorization: Anonymous
 	/// </remarks>
-	void apiV1AloVersionsMatrixPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
-									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void aloVersionsMatrixPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -54,12 +55,12 @@ public:
 	/// POST /api/v1/alo/{userId}/classes/{classDefinitionId}/completed
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1AloUserIdClassesClassDefinitionIdCompletedPost(const utility::string_t& userId,
-															 const utility::string_t& classDefinitionId,
-															 const std::shared_ptr<AloClassCompletedRequest>& RequestBody,
-															 csp::services::ApiResponseHandlerBase* ResponseHandler,
-															 csp::common::CancellationToken& CancellationToken
-															 = csp::common::CancellationToken::Dummy()) const;
+	void aloUserIdClassesClassDefinitionIdCompletedPost(const utility::string_t& userId,
+														const utility::string_t& classDefinitionId,
+														const std::shared_ptr<AloClassCompletedRequest>& RequestBody,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken
+														= csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -143,13 +144,13 @@ public:
 	/// the development team.
 	/// ```
 	/// </remarks>
-	void apiV1AloQaUserIdBadgeExpressionsPost(const utility::string_t& userId,
-											  const std::optional<utility::string_t>& classDefinitionId,
-											  const std::optional<utility::string_t>& expression,
-											  const std::optional<bool>& createFinalClass,
-											  const std::optional<bool>& deletePreviousData,
-											  csp::services::ApiResponseHandlerBase* ResponseHandler,
-											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void aloQaUserIdBadgeExpressionsPost(const utility::string_t& userId,
+										 const std::optional<utility::string_t>& classDefinitionId,
+										 const std::optional<utility::string_t>& expression,
+										 const std::optional<bool>& createFinalClass,
+										 const std::optional<bool>& deletePreviousData,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -160,12 +161,12 @@ public:
 	/// GET /api/v1/alo/{userId}/classes/recommendations
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1AloUserIdClassesRecommendationsGet(const utility::string_t& userId,
-												 const std::optional<int32_t>& Skip,
-												 const std::optional<int32_t>& Limit,
-												 const std::optional<bool>& isSeries,
-												 csp::services::ApiResponseHandlerBase* ResponseHandler,
-												 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void aloUserIdClassesRecommendationsGet(const utility::string_t& userId,
+											const std::optional<int32_t>& Skip,
+											const std::optional<int32_t>& Limit,
+											const std::optional<bool>& isSeries,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -176,8 +177,8 @@ public:
 	/// PUT /api/v1/alo/qa/sync/class-data
 	/// Authorization: admin
 	/// </remarks>
-	void apiV1AloQaSyncClassDataPut(csp::services::ApiResponseHandlerBase* ResponseHandler,
-									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void aloQaSyncClassDataPut(csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class CacheApi final : public csp::services::ApiBase
@@ -195,11 +196,11 @@ public:
 	/// GET /api/v1/cache-keys
 	/// Authorization: magnopus-admin
 	/// </remarks>
-	void apiV1CacheKeysGet(const std::optional<utility::string_t>& pattern,
-						   const std::optional<int32_t>& Skip,
-						   const std::optional<int32_t>& Limit,
-						   csp::services::ApiResponseHandlerBase* ResponseHandler,
-						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void cacheKeysGet(const std::optional<utility::string_t>& pattern,
+					  const std::optional<int32_t>& Skip,
+					  const std::optional<int32_t>& Limit,
+					  csp::services::ApiResponseHandlerBase* ResponseHandler,
+					  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -209,9 +210,9 @@ public:
 	/// DELETE /api/v1/cache-keys
 	/// Authorization: magnopus-admin
 	/// </remarks>
-	void apiV1CacheKeysDelete(const std::optional<utility::string_t>& pattern,
-							  csp::services::ApiResponseHandlerBase* ResponseHandler,
-							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void cacheKeysDelete(const std::optional<utility::string_t>& pattern,
+						 csp::services::ApiResponseHandlerBase* ResponseHandler,
+						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class ConfigurationApi final : public csp::services::ApiBase
@@ -283,11 +284,11 @@ public:
 	/// PUT /api/v1/users/{userId}/groups/{groupId}/roles
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdGroupsGroupIdRolesPut(const utility::string_t& userId,
-											   const utility::string_t& groupId,
-											   const std::shared_ptr<GroupRoleDto>& RequestBody,
-											   csp::services::ApiResponseHandlerBase* ResponseHandler,
-											   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdGroupsGroupIdRolesPut(const utility::string_t& userId,
+										  const utility::string_t& groupId,
+										  const std::shared_ptr<GroupRoleDto>& RequestBody,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class NtpApi final : public csp::services::ApiBase
@@ -355,16 +356,16 @@ public:
 	///
 	///     GET /oly-aggregations/api/v1/sequences?Metadata[key1]=value1&Metadata[key2]=value2
 	/// </remarks>
-	void apiV1SequencesGet(const std::optional<std::vector<utility::string_t>>& Keys,
-						   const std::optional<utility::string_t>& KeyLikeRegex,
-						   const std::optional<utility::string_t>& ReferenceType,
-						   const std::optional<std::vector<utility::string_t>>& ReferenceIds,
-						   const std::optional<std::vector<utility::string_t>>& Items,
-						   const std::optional<std::map<utility::string_t, utility::string_t>>& Metadata,
-						   const std::optional<int32_t>& Skip,
-						   const std::optional<int32_t>& Limit,
-						   csp::services::ApiResponseHandlerBase* ResponseHandler,
-						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void sequencesGet(const std::optional<std::vector<utility::string_t>>& Keys,
+					  const std::optional<utility::string_t>& KeyLikeRegex,
+					  const std::optional<utility::string_t>& ReferenceType,
+					  const std::optional<std::vector<utility::string_t>>& ReferenceIds,
+					  const std::optional<std::vector<utility::string_t>>& Items,
+					  const std::optional<std::map<utility::string_t, utility::string_t>>& Metadata,
+					  const std::optional<int32_t>& Skip,
+					  const std::optional<int32_t>& Limit,
+					  csp::services::ApiResponseHandlerBase* ResponseHandler,
+					  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -401,10 +402,10 @@ public:
 	///         }
 	///     }
 	/// </remarks>
-	void apiV1SequencesPut(const std::optional<utility::string_t>& newKey,
-						   const std::shared_ptr<SequenceDto>& RequestBody,
-						   csp::services::ApiResponseHandlerBase* ResponseHandler,
-						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void sequencesPut(const std::optional<utility::string_t>& newKey,
+					  const std::shared_ptr<SequenceDto>& RequestBody,
+					  csp::services::ApiResponseHandlerBase* ResponseHandler,
+					  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -421,9 +422,9 @@ public:
 	///
 	///     GET /oly-aggregations/api/v1/sequences/keys/key2
 	/// </remarks>
-	void apiV1SequencesKeysKeyGet(const utility::string_t& key,
-								  csp::services::ApiResponseHandlerBase* ResponseHandler,
-								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void sequencesKeysKeyGet(const utility::string_t& key,
+							 csp::services::ApiResponseHandlerBase* ResponseHandler,
+							 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -441,9 +442,9 @@ public:
 	///
 	///     DELETE /oly-aggregations/api/v1/sequences/keys/key1
 	/// </remarks>
-	void apiV1SequencesKeysKeyDelete(const utility::string_t& key,
-									 csp::services::ApiResponseHandlerBase* ResponseHandler,
-									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void sequencesKeysKeyDelete(const utility::string_t& key,
+								csp::services::ApiResponseHandlerBase* ResponseHandler,
+								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -465,10 +466,10 @@ public:
 	///     PUT /oly-aggregations/api/v1/sequences/keys/key1/key/key2
 	/// </remarks>
 	[[deprecated("'PUT /api/v1/sequences/keys/{oldKey}/key' is deprecated!")]]
-	void apiV1SequencesKeysOldKeyKeyPut(const utility::string_t& oldKey,
-										const utility::string_t& newKey,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void sequencesKeysOldKeyKeyPut(const utility::string_t& oldKey,
+								   const utility::string_t& newKey,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -487,9 +488,9 @@ public:
 	///
 	///     DELETE /oly-aggregations/api/v1/sequences?keys=key1&keys=key2
 	/// </remarks>
-	void apiV1SequencesKeysDelete(const std::vector<utility::string_t>& keys,
-								  csp::services::ApiResponseHandlerBase* ResponseHandler,
-								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void sequencesKeysDelete(const std::vector<utility::string_t>& keys,
+							 csp::services::ApiResponseHandlerBase* ResponseHandler,
+							 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -508,11 +509,11 @@ public:
 	///
 	///     DELETE /oly-aggregations/api/v1/sequences/reference-type/GroupId/reference-id/000000000000000000000000
 	/// </remarks>
-	void apiV1SequencesReferenceTypeReferenceTypeReferenceIdReferenceIdDelete(const utility::string_t& referenceType,
-																			  const utility::string_t& referenceId,
-																			  csp::services::ApiResponseHandlerBase* ResponseHandler,
-																			  csp::common::CancellationToken& CancellationToken
-																			  = csp::common::CancellationToken::Dummy()) const;
+	void sequencesReferenceTypeReferenceTypeReferenceIdReferenceIdDelete(const utility::string_t& referenceType,
+																		 const utility::string_t& referenceId,
+																		 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		 csp::common::CancellationToken& CancellationToken
+																		 = csp::common::CancellationToken::Dummy()) const;
 };
 
 class ShopifyApi final : public csp::services::ApiBase
@@ -530,11 +531,11 @@ public:
 	/// GET /api/v1/spaces/{spaceId}/vendors/shopify/products/{productId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesSpaceIdVendorsShopifyProductsProductIdGet(const utility::string_t& spaceId,
-															  const utility::string_t& productId,
-															  csp::services::ApiResponseHandlerBase* ResponseHandler,
-															  csp::common::CancellationToken& CancellationToken
-															  = csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdVendorsShopifyProductsProductIdGet(const utility::string_t& spaceId,
+														 const utility::string_t& productId,
+														 csp::services::ApiResponseHandlerBase* ResponseHandler,
+														 csp::common::CancellationToken& CancellationToken
+														 = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -545,11 +546,11 @@ public:
 	/// GET /api/v1/spaces/{spaceId}/vendors/shopify/products/variants
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesSpaceIdVendorsShopifyProductsVariantsGet(const utility::string_t& spaceId,
-															 const std::optional<std::vector<utility::string_t>>& ids,
-															 csp::services::ApiResponseHandlerBase* ResponseHandler,
-															 csp::common::CancellationToken& CancellationToken
-															 = csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdVendorsShopifyProductsVariantsGet(const utility::string_t& spaceId,
+														const std::optional<std::vector<utility::string_t>>& ids,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken
+														= csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -560,10 +561,10 @@ public:
 	/// PUT /api/v1/spaces/{spaceId}/vendors/shopify
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesSpaceIdVendorsShopifyPut(const utility::string_t& spaceId,
-											 const std::shared_ptr<ShopifyStorefrontDto>& RequestBody,
-											 csp::services::ApiResponseHandlerBase* ResponseHandler,
-											 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdVendorsShopifyPut(const utility::string_t& spaceId,
+										const std::shared_ptr<ShopifyStorefrontDto>& RequestBody,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -574,9 +575,9 @@ public:
 	/// PUT /api/v1/vendors/shopify/validate
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1VendorsShopifyValidatePut(const std::shared_ptr<ShopifyStorefrontValidationRequest>& RequestBody,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void vendorsShopifyValidatePut(const std::shared_ptr<ShopifyStorefrontValidationRequest>& RequestBody,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -587,13 +588,12 @@ public:
 	/// GET /api/v1/vendors/shopify/users/{userId}/storefronts
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1VendorsShopifyUsersUserIdStorefrontsGet(const utility::string_t& userId,
-													  const std::optional<bool>& active,
-													  const std::optional<int32_t>& Skip,
-													  const std::optional<int32_t>& Limit,
-													  csp::services::ApiResponseHandlerBase* ResponseHandler,
-													  csp::common::CancellationToken& CancellationToken
-													  = csp::common::CancellationToken::Dummy()) const;
+	void vendorsShopifyUsersUserIdStorefrontsGet(const utility::string_t& userId,
+												 const std::optional<bool>& active,
+												 const std::optional<int32_t>& Skip,
+												 const std::optional<int32_t>& Limit,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -604,9 +604,9 @@ public:
 	/// POST /api/v1/spaces/{spaceId}/vendors/shopify/carts
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesSpaceIdVendorsShopifyCartsPost(const utility::string_t& spaceId,
-												   csp::services::ApiResponseHandlerBase* ResponseHandler,
-												   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdVendorsShopifyCartsPost(const utility::string_t& spaceId,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -617,11 +617,10 @@ public:
 	/// GET /api/v1/spaces/{spaceId}/vendors/shopify/carts/{cartId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesSpaceIdVendorsShopifyCartsCartIdGet(const utility::string_t& spaceId,
-														const utility::string_t& cartId,
-														csp::services::ApiResponseHandlerBase* ResponseHandler,
-														csp::common::CancellationToken& CancellationToken
-														= csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdVendorsShopifyCartsCartIdGet(const utility::string_t& spaceId,
+												   const utility::string_t& cartId,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -631,12 +630,11 @@ public:
 	/// PUT /api/v1/spaces/{spaceId}/vendors/shopify/carts/{cartId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesSpaceIdVendorsShopifyCartsCartIdPut(const utility::string_t& spaceId,
-														const utility::string_t& cartId,
-														const std::shared_ptr<ShopifyCartUpdateDto>& RequestBody,
-														csp::services::ApiResponseHandlerBase* ResponseHandler,
-														csp::common::CancellationToken& CancellationToken
-														= csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdVendorsShopifyCartsCartIdPut(const utility::string_t& spaceId,
+												   const utility::string_t& cartId,
+												   const std::shared_ptr<ShopifyCartUpdateDto>& RequestBody,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -647,11 +645,11 @@ public:
 	/// GET /api/v1/spaces/{spaceId}/vendors/shopify/carts/{cartId}/checkout-info
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesSpaceIdVendorsShopifyCartsCartIdCheckoutInfoGet(const utility::string_t& spaceId,
-																	const utility::string_t& cartId,
-																	csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	csp::common::CancellationToken& CancellationToken
-																	= csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdVendorsShopifyCartsCartIdCheckoutInfoGet(const utility::string_t& spaceId,
+															   const utility::string_t& cartId,
+															   csp::services::ApiResponseHandlerBase* ResponseHandler,
+															   csp::common::CancellationToken& CancellationToken
+															   = csp::common::CancellationToken::Dummy()) const;
 };
 
 class SpaceApi final : public csp::services::ApiBase
@@ -671,9 +669,9 @@ public:
 	/// DELETE /api/v1/spaces/{spaceId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesSpaceIdDelete(const utility::string_t& spaceId,
-								  csp::services::ApiResponseHandlerBase* ResponseHandler,
-								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdDelete(const utility::string_t& spaceId,
+							 csp::services::ApiResponseHandlerBase* ResponseHandler,
+							 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -686,10 +684,10 @@ public:
 	/// DELETE /api/v1/spaces
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesDelete(const std::optional<std::vector<utility::string_t>>& spaceIds,
-						   const std::optional<bool>& asyncCall,
-						   csp::services::ApiResponseHandlerBase* ResponseHandler,
-						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void spacesDelete(const std::optional<std::vector<utility::string_t>>& spaceIds,
+					  const std::optional<bool>& asyncCall,
+					  csp::services::ApiResponseHandlerBase* ResponseHandler,
+					  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -701,10 +699,9 @@ public:
 	/// GET /api/v1/spaces/{spaceId}/multiplayer-objects/kml
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesSpaceIdMultiplayerObjectsKmlGet(const utility::string_t& spaceId,
-													csp::services::ApiResponseHandlerBase* ResponseHandler,
-													csp::common::CancellationToken& CancellationToken
-													= csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdMultiplayerObjectsKmlGet(const utility::string_t& spaceId,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -715,11 +712,11 @@ public:
 	/// POST /api/v1/spaces/{spaceId}/duplicate
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesSpaceIdDuplicatePost(const utility::string_t& spaceId,
-										 const std::optional<bool>& asyncCall,
-										 const std::shared_ptr<DuplicateSpaceRequest>& RequestBody,
-										 csp::services::ApiResponseHandlerBase* ResponseHandler,
-										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdDuplicatePost(const utility::string_t& spaceId,
+									const std::optional<bool>& asyncCall,
+									const std::shared_ptr<DuplicateSpaceRequest>& RequestBody,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -731,10 +728,10 @@ public:
 	/// POST /api/v1/spaces/{spaceId}/export
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void apiV1SpacesSpaceIdExportPost(const utility::string_t& spaceId,
-									  const std::optional<bool>& asyncCall,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdExportPost(const utility::string_t& spaceId,
+								 const std::optional<bool>& asyncCall,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -746,11 +743,11 @@ public:
 	/// POST /api/v1/spaces/exports/{exportId}/import
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void apiV1SpacesExportsExportIdImportPost(const utility::string_t& exportId,
-											  const std::optional<bool>& asyncCall,
-											  const std::shared_ptr<ImportSpaceRequest>& RequestBody,
-											  csp::services::ApiResponseHandlerBase* ResponseHandler,
-											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void spacesExportsExportIdImportPost(const utility::string_t& exportId,
+										 const std::optional<bool>& asyncCall,
+										 const std::shared_ptr<ImportSpaceRequest>& RequestBody,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class TicketedSpaceApi final : public csp::services::ApiBase
@@ -768,10 +765,10 @@ public:
 	/// POST /api/v1/spaces/{spaceId}/events
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesSpaceIdEventsPost(const utility::string_t& spaceId,
-									  const std::shared_ptr<SpaceEventDto>& RequestBody,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdEventsPost(const utility::string_t& spaceId,
+								 const std::shared_ptr<SpaceEventDto>& RequestBody,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -782,11 +779,11 @@ public:
 	/// PUT /api/v1/spaces/{spaceId}/events/{eventId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesSpaceIdEventsEventIdPut(const utility::string_t& spaceId,
-											const utility::string_t& eventId,
-											const std::shared_ptr<SpaceEventDto>& RequestBody,
-											csp::services::ApiResponseHandlerBase* ResponseHandler,
-											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdEventsEventIdPut(const utility::string_t& spaceId,
+									   const utility::string_t& eventId,
+									   const std::shared_ptr<SpaceEventDto>& RequestBody,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -798,15 +795,15 @@ public:
 	/// GET /api/v1/spaces/events
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesEventsGet(const std::optional<std::vector<utility::string_t>>& VendorEventIds,
-							  const std::optional<utility::string_t>& VendorName,
-							  const std::optional<std::vector<utility::string_t>>& SpaceIds,
-							  const std::optional<std::vector<utility::string_t>>& UserIds,
-							  const std::optional<bool>& IsTicketingActive,
-							  const std::optional<int32_t>& Skip,
-							  const std::optional<int32_t>& Limit,
-							  csp::services::ApiResponseHandlerBase* ResponseHandler,
-							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void spacesEventsGet(const std::optional<std::vector<utility::string_t>>& VendorEventIds,
+						 const std::optional<utility::string_t>& VendorName,
+						 const std::optional<std::vector<utility::string_t>>& SpaceIds,
+						 const std::optional<std::vector<utility::string_t>>& UserIds,
+						 const std::optional<bool>& IsTicketingActive,
+						 const std::optional<int32_t>& Skip,
+						 const std::optional<int32_t>& Limit,
+						 csp::services::ApiResponseHandlerBase* ResponseHandler,
+						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -817,14 +814,14 @@ public:
 	/// PUT /api/v1/spaces/{spaceId}/vendors/{vendorName}/events/{vendorEventId}/tickets/{vendorTicketId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesSpaceIdVendorsVendorNameEventsVendorEventIdTicketsVendorTicketIdPut(const utility::string_t& spaceId,
-																						const utility::string_t& vendorName,
-																						const utility::string_t& vendorEventId,
-																						const utility::string_t& vendorTicketId,
-																						const std::optional<utility::string_t>& onBehalfOfUserId,
-																						csp::services::ApiResponseHandlerBase* ResponseHandler,
-																						csp::common::CancellationToken& CancellationToken
-																						= csp::common::CancellationToken::Dummy()) const;
+	void spacesSpaceIdVendorsVendorNameEventsVendorEventIdTicketsVendorTicketIdPut(const utility::string_t& spaceId,
+																				   const utility::string_t& vendorName,
+																				   const utility::string_t& vendorEventId,
+																				   const utility::string_t& vendorTicketId,
+																				   const std::optional<utility::string_t>& onBehalfOfUserId,
+																				   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																				   csp::common::CancellationToken& CancellationToken
+																				   = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -835,9 +832,9 @@ public:
 	/// GET /api/v1/spaces/ticketed
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacesTicketedGet(const std::optional<std::vector<utility::string_t>>& spaceIds,
-								csp::services::ApiResponseHandlerBase* ResponseHandler,
-								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void spacesTicketedGet(const std::optional<std::vector<utility::string_t>>& spaceIds,
+						   csp::services::ApiResponseHandlerBase* ResponseHandler,
+						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -849,13 +846,13 @@ public:
 	/// GET /api/v1/vendors/{vendorName}/oauth
 	/// Authorization: Anonymous
 	/// </remarks>
-	void apiV1VendorsVendorNameOauthGet(const utility::string_t& vendorName,
-										const std::optional<utility::string_t>& code,
-										const std::optional<utility::string_t>& userId,
-										const std::optional<utility::string_t>& tenant,
-										const std::optional<utility::string_t>& error_code,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void vendorsVendorNameOauthGet(const utility::string_t& vendorName,
+								   const std::optional<utility::string_t>& code,
+								   const std::optional<utility::string_t>& userId,
+								   const std::optional<utility::string_t>& tenant,
+								   const std::optional<utility::string_t>& error_code,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -866,12 +863,12 @@ public:
 	/// GET /api/v1/vendors/{vendorName}/users/{userId}/provider-info
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1VendorsVendorNameUsersUserIdProviderInfoGet(const utility::string_t& vendorName,
-														  const utility::string_t& userId,
-														  const std::optional<utility::string_t>& tenant,
-														  csp::services::ApiResponseHandlerBase* ResponseHandler,
-														  csp::common::CancellationToken& CancellationToken
-														  = csp::common::CancellationToken::Dummy()) const;
+	void vendorsVendorNameUsersUserIdProviderInfoGet(const utility::string_t& vendorName,
+													 const utility::string_t& userId,
+													 const std::optional<utility::string_t>& tenant,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken
+													 = csp::common::CancellationToken::Dummy()) const;
 };
 
 class UserSustainedActivityApi final : public csp::services::ApiBase
@@ -889,11 +886,11 @@ public:
 	/// GET /api/v1/users/sustained-activity
 	/// Authorization: magnopus-admin,magnopus-support
 	/// </remarks>
-	void apiV1UsersSustainedActivityGet(const std::optional<std::vector<utility::string_t>>& tenants,
-										const std::optional<utility::string_t>& start,
-										const std::optional<utility::string_t>& end,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersSustainedActivityGet(const std::optional<std::vector<utility::string_t>>& tenants,
+								   const std::optional<utility::string_t>& start,
+								   const std::optional<utility::string_t>& end,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 

@@ -6,12 +6,15 @@
 #include "Web/HttpAuth.h"
 #include "Web/HttpPayload.h"
 
+#include <fmt/format.h>
+#include <string>
+
 
 namespace csp::services::generated::spatialdataservice
 {
 
 
-AnchorsApi::AnchorsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
+AnchorsApi::AnchorsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataService)
 {
 }
 
@@ -21,12 +24,13 @@ AnchorsApi::~AnchorsApi()
 
 
 
-void AnchorsApi::apiV1AnchorsIdGet(const utility::string_t& id,
-								   csp::services::ApiResponseHandlerBase* ResponseHandler,
-								   csp::common::CancellationToken& CancellationToken) const
+void AnchorsApi::anchorsIdGet(const utility::string_t& id,
+							  csp::services::ApiResponseHandlerBase* ResponseHandler,
+							  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/anchors/{id}", {id});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/anchors/{id}").c_str(),
+					  {id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -35,13 +39,14 @@ void AnchorsApi::apiV1AnchorsIdGet(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void AnchorsApi::apiV1AnchorsIdPut(const utility::string_t& id,
-								   const std::shared_ptr<AnchorDto>& RequestBody,
-								   csp::services::ApiResponseHandlerBase* ResponseHandler,
-								   csp::common::CancellationToken& CancellationToken) const
+void AnchorsApi::anchorsIdPut(const utility::string_t& id,
+							  const std::shared_ptr<AnchorDto>& RequestBody,
+							  csp::services::ApiResponseHandlerBase* ResponseHandler,
+							  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/anchors/{id}", {id});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/anchors/{id}").c_str(),
+					  {id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -51,12 +56,13 @@ void AnchorsApi::apiV1AnchorsIdPut(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void AnchorsApi::apiV1AnchorsIdDelete(const utility::string_t& id,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken) const
+void AnchorsApi::anchorsIdDelete(const utility::string_t& id,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/anchors/{id}", {id});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/anchors/{id}").c_str(),
+					  {id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -67,12 +73,12 @@ void AnchorsApi::apiV1AnchorsIdDelete(const utility::string_t& id,
 
 
 
-void AnchorsApi::apiV1AnchorsPost(const std::shared_ptr<AnchorDto>& RequestBody,
-								  csp::services::ApiResponseHandlerBase* ResponseHandler,
-								  csp::common::CancellationToken& CancellationToken) const
+void AnchorsApi::anchorsPost(const std::shared_ptr<AnchorDto>& RequestBody,
+							 csp::services::ApiResponseHandlerBase* ResponseHandler,
+							 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/anchors", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/anchors").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -82,12 +88,12 @@ void AnchorsApi::apiV1AnchorsPost(const std::shared_ptr<AnchorDto>& RequestBody,
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void AnchorsApi::apiV1AnchorsDelete(const std::optional<std::vector<utility::string_t>>& ids,
-									csp::services::ApiResponseHandlerBase* ResponseHandler,
-									csp::common::CancellationToken& CancellationToken) const
+void AnchorsApi::anchorsDelete(const std::optional<std::vector<utility::string_t>>& ids,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/anchors", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/anchors").c_str(), {});
 
 
 	if (ids.has_value())
@@ -102,24 +108,24 @@ void AnchorsApi::apiV1AnchorsDelete(const std::optional<std::vector<utility::str
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void AnchorsApi::apiV1AnchorsGet(const std::optional<std::vector<utility::string_t>>& Keys,
-								 const std::optional<std::vector<utility::string_t>>& Values,
-								 const std::optional<double>& Coordinate_Longitude,
-								 const std::optional<double>& Coordinate_Latitude,
-								 const std::optional<double>& Coordinate_Radius,
-								 const std::optional<std::vector<utility::string_t>>& Tags,
-								 const std::optional<bool>& TagsAll,
-								 const std::optional<std::vector<utility::string_t>>& ThirdPartyProviderNames,
-								 const std::optional<std::vector<utility::string_t>>& ThirdPartyAnchorIds,
-								 const std::optional<std::vector<utility::string_t>>& ReferenceIds,
-								 const std::optional<std::vector<utility::string_t>>& AnchoredObjectIds,
-								 const std::optional<int32_t>& Skip,
-								 const std::optional<int32_t>& Limit,
-								 csp::services::ApiResponseHandlerBase* ResponseHandler,
-								 csp::common::CancellationToken& CancellationToken) const
+void AnchorsApi::anchorsGet(const std::optional<std::vector<utility::string_t>>& Keys,
+							const std::optional<std::vector<utility::string_t>>& Values,
+							const std::optional<double>& Coordinate_Longitude,
+							const std::optional<double>& Coordinate_Latitude,
+							const std::optional<double>& Coordinate_Radius,
+							const std::optional<std::vector<utility::string_t>>& Tags,
+							const std::optional<bool>& TagsAll,
+							const std::optional<std::vector<utility::string_t>>& ThirdPartyProviderNames,
+							const std::optional<std::vector<utility::string_t>>& ThirdPartyAnchorIds,
+							const std::optional<std::vector<utility::string_t>>& ReferenceIds,
+							const std::optional<std::vector<utility::string_t>>& AnchoredObjectIds,
+							const std::optional<int32_t>& Skip,
+							const std::optional<int32_t>& Limit,
+							csp::services::ApiResponseHandlerBase* ResponseHandler,
+							csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/anchors", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/anchors").c_str(), {});
 
 
 	if (Keys.has_value())
@@ -208,12 +214,14 @@ void AnchorsApi::apiV1AnchorsGet(const std::optional<std::vector<utility::string
 
 
 
-void AnchorsApi::apiV1AnchorResolutionsPost(const std::shared_ptr<AnchorResolutionDto>& RequestBody,
-											csp::services::ApiResponseHandlerBase* ResponseHandler,
-											csp::common::CancellationToken& CancellationToken) const
+void AnchorsApi::anchorResolutionsPost(const std::shared_ptr<AnchorResolutionDto>& RequestBody,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/anchor-resolutions", {});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/anchor-resolutions").c_str(),
+		{});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -223,17 +231,19 @@ void AnchorsApi::apiV1AnchorResolutionsPost(const std::shared_ptr<AnchorResoluti
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void AnchorsApi::apiV1AnchorResolutionsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
-										   const std::optional<std::vector<utility::string_t>>& Tags,
-										   const std::optional<bool>& TagsAll,
-										   const std::optional<bool>& SuccessfullyResolved,
-										   const std::optional<int32_t>& Skip,
-										   const std::optional<int32_t>& Limit,
-										   csp::services::ApiResponseHandlerBase* ResponseHandler,
-										   csp::common::CancellationToken& CancellationToken) const
+void AnchorsApi::anchorResolutionsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
+									  const std::optional<std::vector<utility::string_t>>& Tags,
+									  const std::optional<bool>& TagsAll,
+									  const std::optional<bool>& SuccessfullyResolved,
+									  const std::optional<int32_t>& Skip,
+									  const std::optional<int32_t>& Limit,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/anchor-resolutions", {});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/anchor-resolutions").c_str(),
+		{});
 
 
 	if (AnchorIds.has_value())
@@ -280,15 +290,17 @@ void AnchorsApi::apiV1AnchorResolutionsGet(const std::optional<std::vector<utili
 
 
 
-void AnchorsApi::apiV1AnchorResolutionsStatsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
-												const std::optional<std::vector<utility::string_t>>& Tags,
-												const std::optional<bool>& TagsAll,
-												const std::optional<bool>& SuccessfullyResolved,
-												csp::services::ApiResponseHandlerBase* ResponseHandler,
-												csp::common::CancellationToken& CancellationToken) const
+void AnchorsApi::anchorResolutionsStatsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
+										   const std::optional<std::vector<utility::string_t>>& Tags,
+										   const std::optional<bool>& TagsAll,
+										   const std::optional<bool>& SuccessfullyResolved,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/anchor-resolutions/stats", {});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/anchor-resolutions/stats").c_str(),
+		{});
 
 
 	if (AnchorIds.has_value())
@@ -323,7 +335,7 @@ void AnchorsApi::apiV1AnchorResolutionsStatsGet(const std::optional<std::vector<
 
 
 
-ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
+ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataService)
 {
 }
 
@@ -336,7 +348,7 @@ ConfigurationApi::~ConfigurationApi()
 void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/appsettings", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/appsettings").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -351,7 +363,7 @@ void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBa
 											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/appsettings/reload", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/appsettings/reload").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -366,7 +378,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/featureflags", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/featureflags").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -377,7 +389,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 
 
 
-NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
+NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataService)
 {
 }
 
@@ -390,7 +402,7 @@ NtpApi::~NtpApi()
 void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/datetime", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/datetime").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -401,7 +413,7 @@ void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 
 
 PersonalPointOfInterestApi::PersonalPointOfInterestApi(csp::web::WebClient* InWebClient)
-	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
+	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataService)
 {
 }
 
@@ -411,12 +423,14 @@ PersonalPointOfInterestApi::~PersonalPointOfInterestApi()
 
 
 
-void PersonalPointOfInterestApi::apiV1UsersUserIdPoiGet(const utility::string_t& userId,
-														csp::services::ApiResponseHandlerBase* ResponseHandler,
-														csp::common::CancellationToken& CancellationToken) const
+void PersonalPointOfInterestApi::usersUserIdPoiGet(const utility::string_t& userId,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/poi", {userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/poi").c_str(),
+		{userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -427,13 +441,15 @@ void PersonalPointOfInterestApi::apiV1UsersUserIdPoiGet(const utility::string_t&
 
 
 
-void PersonalPointOfInterestApi::apiV1UsersUserIdPoiPoiIdPut(const utility::string_t& userId,
-															 const utility::string_t& poiId,
-															 csp::services::ApiResponseHandlerBase* ResponseHandler,
-															 csp::common::CancellationToken& CancellationToken) const
+void PersonalPointOfInterestApi::usersUserIdPoiPoiIdPut(const utility::string_t& userId,
+														const utility::string_t& poiId,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/poi/{poiId}", {userId, poiId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/poi/{poiId}").c_str(),
+		{userId, poiId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -442,13 +458,15 @@ void PersonalPointOfInterestApi::apiV1UsersUserIdPoiPoiIdPut(const utility::stri
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PersonalPointOfInterestApi::apiV1UsersUserIdPoiPoiIdDelete(const utility::string_t& userId,
-																const utility::string_t& poiId,
-																csp::services::ApiResponseHandlerBase* ResponseHandler,
-																csp::common::CancellationToken& CancellationToken) const
+void PersonalPointOfInterestApi::usersUserIdPoiPoiIdDelete(const utility::string_t& userId,
+														   const utility::string_t& poiId,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/poi/{poiId}", {userId, poiId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/poi/{poiId}").c_str(),
+		{userId, poiId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -459,7 +477,7 @@ void PersonalPointOfInterestApi::apiV1UsersUserIdPoiPoiIdDelete(const utility::s
 
 
 
-PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
+PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataService)
 {
 }
 
@@ -472,7 +490,7 @@ PingApi::~PingApi()
 void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/ping", {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/ping").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -483,7 +501,7 @@ void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, cs
 
 
 PointOfInterestApi::PointOfInterestApi(csp::web::WebClient* InWebClient)
-	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
+	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataService)
 {
 }
 
@@ -493,12 +511,13 @@ PointOfInterestApi::~PointOfInterestApi()
 
 
 
-void PointOfInterestApi::apiV1PoiIdGet(const utility::string_t& id,
-									   csp::services::ApiResponseHandlerBase* ResponseHandler,
-									   csp::common::CancellationToken& CancellationToken) const
+void PointOfInterestApi::poiIdGet(const utility::string_t& id,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/poi/{id}", {id});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/poi/{id}").c_str(),
+					  {id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -507,13 +526,14 @@ void PointOfInterestApi::apiV1PoiIdGet(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PointOfInterestApi::apiV1PoiIdPut(const utility::string_t& id,
-									   const std::shared_ptr<PointOfInterestDto>& RequestBody,
-									   csp::services::ApiResponseHandlerBase* ResponseHandler,
-									   csp::common::CancellationToken& CancellationToken) const
+void PointOfInterestApi::poiIdPut(const utility::string_t& id,
+								  const std::shared_ptr<PointOfInterestDto>& RequestBody,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/poi/{id}", {id});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/poi/{id}").c_str(),
+					  {id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -523,12 +543,13 @@ void PointOfInterestApi::apiV1PoiIdPut(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PointOfInterestApi::apiV1PoiIdDelete(const utility::string_t& id,
-										  csp::services::ApiResponseHandlerBase* ResponseHandler,
-										  csp::common::CancellationToken& CancellationToken) const
+void PointOfInterestApi::poiIdDelete(const utility::string_t& id,
+									 csp::services::ApiResponseHandlerBase* ResponseHandler,
+									 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/poi/{id}", {id});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/poi/{id}").c_str(),
+					  {id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -539,36 +560,36 @@ void PointOfInterestApi::apiV1PoiIdDelete(const utility::string_t& id,
 
 
 
-void PointOfInterestApi::apiV1PoiLiteGet(const std::optional<utility::string_t>& ppoiUserId,
-										 const std::optional<std::vector<utility::string_t>>& Ids,
-										 const std::optional<utility::string_t>& Type,
-										 const std::optional<std::vector<utility::string_t>>& Types,
-										 const std::optional<std::vector<utility::string_t>>& Tags,
-										 const std::optional<bool>& TagsAll,
-										 const std::optional<double>& Coordinate_Longitude,
-										 const std::optional<double>& Coordinate_Latitude,
-										 const std::optional<double>& Coordinate_Radius,
-										 const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
-										 const std::optional<utility::string_t>& Name,
-										 const std::optional<std::vector<utility::string_t>>& Names,
-										 const std::optional<utility::string_t>& Title,
-										 const std::optional<int32_t>& ZoomLevel,
-										 const std::optional<utility::string_t>& EventStartTime,
-										 const std::optional<utility::string_t>& EventEndTime,
-										 const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
-										 const std::optional<bool>& IncludeHidden,
-										 const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
-										 const std::optional<bool>& HasSchedule,
-										 const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-										 const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-										 const std::optional<std::vector<utility::string_t>>& GroupIds,
-										 const std::optional<int32_t>& Skip,
-										 const std::optional<int32_t>& Limit,
-										 csp::services::ApiResponseHandlerBase* ResponseHandler,
-										 csp::common::CancellationToken& CancellationToken) const
+void PointOfInterestApi::poiLiteGet(const std::optional<utility::string_t>& ppoiUserId,
+									const std::optional<std::vector<utility::string_t>>& Ids,
+									const std::optional<utility::string_t>& Type,
+									const std::optional<std::vector<utility::string_t>>& Types,
+									const std::optional<std::vector<utility::string_t>>& Tags,
+									const std::optional<bool>& TagsAll,
+									const std::optional<double>& Coordinate_Longitude,
+									const std::optional<double>& Coordinate_Latitude,
+									const std::optional<double>& Coordinate_Radius,
+									const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
+									const std::optional<utility::string_t>& Name,
+									const std::optional<std::vector<utility::string_t>>& Names,
+									const std::optional<utility::string_t>& Title,
+									const std::optional<int32_t>& ZoomLevel,
+									const std::optional<utility::string_t>& EventStartTime,
+									const std::optional<utility::string_t>& EventEndTime,
+									const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
+									const std::optional<bool>& IncludeHidden,
+									const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
+									const std::optional<bool>& HasSchedule,
+									const std::optional<std::vector<utility::string_t>>& PrototypeNames,
+									const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+									const std::optional<std::vector<utility::string_t>>& GroupIds,
+									const std::optional<int32_t>& Skip,
+									const std::optional<int32_t>& Limit,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/poi-lite", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/poi-lite").c_str(), {});
 
 
 	if (ppoiUserId.has_value())
@@ -729,36 +750,36 @@ void PointOfInterestApi::apiV1PoiLiteGet(const std::optional<utility::string_t>&
 
 
 
-void PointOfInterestApi::apiV1PoiIdGet(const std::optional<utility::string_t>& ppoiUserId,
-									   const std::optional<std::vector<utility::string_t>>& Ids,
-									   const std::optional<utility::string_t>& Type,
-									   const std::optional<std::vector<utility::string_t>>& Types,
-									   const std::optional<std::vector<utility::string_t>>& Tags,
-									   const std::optional<bool>& TagsAll,
-									   const std::optional<double>& Coordinate_Longitude,
-									   const std::optional<double>& Coordinate_Latitude,
-									   const std::optional<double>& Coordinate_Radius,
-									   const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
-									   const std::optional<utility::string_t>& Name,
-									   const std::optional<std::vector<utility::string_t>>& Names,
-									   const std::optional<utility::string_t>& Title,
-									   const std::optional<int32_t>& ZoomLevel,
-									   const std::optional<utility::string_t>& EventStartTime,
-									   const std::optional<utility::string_t>& EventEndTime,
-									   const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
-									   const std::optional<bool>& IncludeHidden,
-									   const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
-									   const std::optional<bool>& HasSchedule,
-									   const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-									   const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-									   const std::optional<std::vector<utility::string_t>>& GroupIds,
-									   const std::optional<int32_t>& Skip,
-									   const std::optional<int32_t>& Limit,
-									   csp::services::ApiResponseHandlerBase* ResponseHandler,
-									   csp::common::CancellationToken& CancellationToken) const
+void PointOfInterestApi::poiIdGet(const std::optional<utility::string_t>& ppoiUserId,
+								  const std::optional<std::vector<utility::string_t>>& Ids,
+								  const std::optional<utility::string_t>& Type,
+								  const std::optional<std::vector<utility::string_t>>& Types,
+								  const std::optional<std::vector<utility::string_t>>& Tags,
+								  const std::optional<bool>& TagsAll,
+								  const std::optional<double>& Coordinate_Longitude,
+								  const std::optional<double>& Coordinate_Latitude,
+								  const std::optional<double>& Coordinate_Radius,
+								  const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
+								  const std::optional<utility::string_t>& Name,
+								  const std::optional<std::vector<utility::string_t>>& Names,
+								  const std::optional<utility::string_t>& Title,
+								  const std::optional<int32_t>& ZoomLevel,
+								  const std::optional<utility::string_t>& EventStartTime,
+								  const std::optional<utility::string_t>& EventEndTime,
+								  const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
+								  const std::optional<bool>& IncludeHidden,
+								  const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
+								  const std::optional<bool>& HasSchedule,
+								  const std::optional<std::vector<utility::string_t>>& PrototypeNames,
+								  const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+								  const std::optional<std::vector<utility::string_t>>& GroupIds,
+								  const std::optional<int32_t>& Skip,
+								  const std::optional<int32_t>& Limit,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/poi-id", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/poi-id").c_str(), {});
 
 
 	if (ppoiUserId.has_value())
@@ -919,36 +940,36 @@ void PointOfInterestApi::apiV1PoiIdGet(const std::optional<utility::string_t>& p
 
 
 
-void PointOfInterestApi::apiV1PoiGet(const std::optional<utility::string_t>& ppoiUserId,
-									 const std::optional<std::vector<utility::string_t>>& Ids,
-									 const std::optional<utility::string_t>& Type,
-									 const std::optional<std::vector<utility::string_t>>& Types,
-									 const std::optional<std::vector<utility::string_t>>& Tags,
-									 const std::optional<bool>& TagsAll,
-									 const std::optional<double>& Coordinate_Longitude,
-									 const std::optional<double>& Coordinate_Latitude,
-									 const std::optional<double>& Coordinate_Radius,
-									 const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
-									 const std::optional<utility::string_t>& Name,
-									 const std::optional<std::vector<utility::string_t>>& Names,
-									 const std::optional<utility::string_t>& Title,
-									 const std::optional<int32_t>& ZoomLevel,
-									 const std::optional<utility::string_t>& EventStartTime,
-									 const std::optional<utility::string_t>& EventEndTime,
-									 const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
-									 const std::optional<bool>& IncludeHidden,
-									 const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
-									 const std::optional<bool>& HasSchedule,
-									 const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-									 const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-									 const std::optional<std::vector<utility::string_t>>& GroupIds,
-									 const std::optional<int32_t>& Skip,
-									 const std::optional<int32_t>& Limit,
-									 csp::services::ApiResponseHandlerBase* ResponseHandler,
-									 csp::common::CancellationToken& CancellationToken) const
+void PointOfInterestApi::poiGet(const std::optional<utility::string_t>& ppoiUserId,
+								const std::optional<std::vector<utility::string_t>>& Ids,
+								const std::optional<utility::string_t>& Type,
+								const std::optional<std::vector<utility::string_t>>& Types,
+								const std::optional<std::vector<utility::string_t>>& Tags,
+								const std::optional<bool>& TagsAll,
+								const std::optional<double>& Coordinate_Longitude,
+								const std::optional<double>& Coordinate_Latitude,
+								const std::optional<double>& Coordinate_Radius,
+								const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
+								const std::optional<utility::string_t>& Name,
+								const std::optional<std::vector<utility::string_t>>& Names,
+								const std::optional<utility::string_t>& Title,
+								const std::optional<int32_t>& ZoomLevel,
+								const std::optional<utility::string_t>& EventStartTime,
+								const std::optional<utility::string_t>& EventEndTime,
+								const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
+								const std::optional<bool>& IncludeHidden,
+								const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
+								const std::optional<bool>& HasSchedule,
+								const std::optional<std::vector<utility::string_t>>& PrototypeNames,
+								const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+								const std::optional<std::vector<utility::string_t>>& GroupIds,
+								const std::optional<int32_t>& Skip,
+								const std::optional<int32_t>& Limit,
+								csp::services::ApiResponseHandlerBase* ResponseHandler,
+								csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/poi", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/poi").c_str(), {});
 
 
 	if (ppoiUserId.has_value())
@@ -1107,12 +1128,12 @@ void PointOfInterestApi::apiV1PoiGet(const std::optional<utility::string_t>& ppo
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PointOfInterestApi::apiV1PoiPost(const std::shared_ptr<PointOfInterestDto>& RequestBody,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken) const
+void PointOfInterestApi::poiPost(const std::shared_ptr<PointOfInterestDto>& RequestBody,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/poi", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/poi").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1122,12 +1143,12 @@ void PointOfInterestApi::apiV1PoiPost(const std::shared_ptr<PointOfInterestDto>&
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PointOfInterestApi::apiV1PoiDelete(const std::optional<std::vector<utility::string_t>>& ids,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken) const
+void PointOfInterestApi::poiDelete(const std::optional<std::vector<utility::string_t>>& ids,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/poi", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/poi").c_str(), {});
 
 
 	if (ids.has_value())
@@ -1144,13 +1165,15 @@ void PointOfInterestApi::apiV1PoiDelete(const std::optional<std::vector<utility:
 
 
 
-void PointOfInterestApi::apiV1PoiIdPartialUpdatePut(const utility::string_t& id,
-													const std::shared_ptr<PoiPartialUpdate>& RequestBody,
-													csp::services::ApiResponseHandlerBase* ResponseHandler,
-													csp::common::CancellationToken& CancellationToken) const
+void PointOfInterestApi::poiIdPartialUpdatePut(const utility::string_t& id,
+											   const std::shared_ptr<PoiPartialUpdate>& RequestBody,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/poi/{id}/partial-update", {id});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/poi/{id}/partial-update").c_str(),
+		{id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1162,12 +1185,12 @@ void PointOfInterestApi::apiV1PoiIdPartialUpdatePut(const utility::string_t& id,
 
 
 
-void PointOfInterestApi::apiV1PoiTagsGet(const std::optional<utility::string_t>& tagNameWith,
-										 csp::services::ApiResponseHandlerBase* ResponseHandler,
-										 csp::common::CancellationToken& CancellationToken) const
+void PointOfInterestApi::poiTagsGet(const std::optional<utility::string_t>& tagNameWith,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/poi/tags", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/poi/tags").c_str(), {});
 
 
 	if (tagNameWith.has_value())
@@ -1184,7 +1207,7 @@ void PointOfInterestApi::apiV1PoiTagsGet(const std::optional<utility::string_t>&
 
 
 
-PositionApi::PositionApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
+PositionApi::PositionApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataService)
 {
 }
 
@@ -1194,23 +1217,25 @@ PositionApi::~PositionApi()
 
 
 
-void PositionApi::apiV1UsersUserIdPositionsGet(const utility::string_t& userId,
-											   const std::optional<std::vector<utility::string_t>>& UserIds,
-											   const std::optional<std::vector<utility::string_t>>& DeviceIds,
-											   const std::optional<std::vector<utility::string_t>>& PositionIds,
-											   const std::optional<utility::string_t>& StartTimestamp,
-											   const std::optional<utility::string_t>& EndTimestamp,
-											   const std::optional<double>& Coordinate_Longitude,
-											   const std::optional<double>& Coordinate_Latitude,
-											   const std::optional<double>& Coordinate_Radius,
-											   const std::optional<bool>& FindUsersOutsideGeoSphere,
-											   const std::optional<int32_t>& Skip,
-											   const std::optional<int32_t>& Limit,
-											   csp::services::ApiResponseHandlerBase* ResponseHandler,
-											   csp::common::CancellationToken& CancellationToken) const
+void PositionApi::usersUserIdPositionsGet(const utility::string_t& userId,
+										  const std::optional<std::vector<utility::string_t>>& UserIds,
+										  const std::optional<std::vector<utility::string_t>>& DeviceIds,
+										  const std::optional<std::vector<utility::string_t>>& PositionIds,
+										  const std::optional<utility::string_t>& StartTimestamp,
+										  const std::optional<utility::string_t>& EndTimestamp,
+										  const std::optional<double>& Coordinate_Longitude,
+										  const std::optional<double>& Coordinate_Latitude,
+										  const std::optional<double>& Coordinate_Radius,
+										  const std::optional<bool>& FindUsersOutsideGeoSphere,
+										  const std::optional<int32_t>& Skip,
+										  const std::optional<int32_t>& Limit,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/positions", {userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/positions").c_str(),
+		{userId});
 
 
 	if (UserIds.has_value())
@@ -1285,13 +1310,15 @@ void PositionApi::apiV1UsersUserIdPositionsGet(const utility::string_t& userId,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PositionApi::apiV1UsersUserIdPositionsPost(const utility::string_t& userId,
-												const std::shared_ptr<PositionDto>& RequestBody,
-												csp::services::ApiResponseHandlerBase* ResponseHandler,
-												csp::common::CancellationToken& CancellationToken) const
+void PositionApi::usersUserIdPositionsPost(const utility::string_t& userId,
+										   const std::shared_ptr<PositionDto>& RequestBody,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/positions", {userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/positions").c_str(),
+		{userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1303,22 +1330,24 @@ void PositionApi::apiV1UsersUserIdPositionsPost(const utility::string_t& userId,
 
 
 
-void PositionApi::apiV1UsersPositionsLatestGet(const std::optional<std::vector<utility::string_t>>& UserIds,
-											   const std::optional<std::vector<utility::string_t>>& DeviceIds,
-											   const std::optional<std::vector<utility::string_t>>& PositionIds,
-											   const std::optional<utility::string_t>& StartTimestamp,
-											   const std::optional<utility::string_t>& EndTimestamp,
-											   const std::optional<double>& Coordinate_Longitude,
-											   const std::optional<double>& Coordinate_Latitude,
-											   const std::optional<double>& Coordinate_Radius,
-											   const std::optional<bool>& FindUsersOutsideGeoSphere,
-											   const std::optional<int32_t>& Skip,
-											   const std::optional<int32_t>& Limit,
-											   csp::services::ApiResponseHandlerBase* ResponseHandler,
-											   csp::common::CancellationToken& CancellationToken) const
+void PositionApi::usersPositionsLatestGet(const std::optional<std::vector<utility::string_t>>& UserIds,
+										  const std::optional<std::vector<utility::string_t>>& DeviceIds,
+										  const std::optional<std::vector<utility::string_t>>& PositionIds,
+										  const std::optional<utility::string_t>& StartTimestamp,
+										  const std::optional<utility::string_t>& EndTimestamp,
+										  const std::optional<double>& Coordinate_Longitude,
+										  const std::optional<double>& Coordinate_Latitude,
+										  const std::optional<double>& Coordinate_Radius,
+										  const std::optional<bool>& FindUsersOutsideGeoSphere,
+										  const std::optional<int32_t>& Skip,
+										  const std::optional<int32_t>& Limit,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/positions/latest", {});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/positions/latest").c_str(),
+		{});
 
 
 	if (UserIds.has_value())
@@ -1395,12 +1424,15 @@ void PositionApi::apiV1UsersPositionsLatestGet(const std::optional<std::vector<u
 
 
 
-void PositionApi::apiV1UsersUserIdPositionsLatestGet(const utility::string_t& userId,
-													 csp::services::ApiResponseHandlerBase* ResponseHandler,
-													 csp::common::CancellationToken& CancellationToken) const
+void PositionApi::usersUserIdPositionsLatestGet(const utility::string_t& userId,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/positions/latest", {userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/positions/latest")
+			.c_str(),
+		{userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1411,13 +1443,16 @@ void PositionApi::apiV1UsersUserIdPositionsLatestGet(const utility::string_t& us
 
 
 
-void PositionApi::apiV1UsersUserIdPositionsPositionIdGet(const utility::string_t& userId,
-														 const utility::string_t& positionId,
-														 csp::services::ApiResponseHandlerBase* ResponseHandler,
-														 csp::common::CancellationToken& CancellationToken) const
+void PositionApi::usersUserIdPositionsPositionIdGet(const utility::string_t& userId,
+													const utility::string_t& positionId,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/positions/{positionId}", {userId, positionId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/positions/{positionId}")
+			.c_str(),
+		{userId, positionId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1426,13 +1461,16 @@ void PositionApi::apiV1UsersUserIdPositionsPositionIdGet(const utility::string_t
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PositionApi::apiV1UsersUserIdPositionsPositionIdDelete(const utility::string_t& userId,
-															const utility::string_t& positionId,
-															csp::services::ApiResponseHandlerBase* ResponseHandler,
-															csp::common::CancellationToken& CancellationToken) const
+void PositionApi::usersUserIdPositionsPositionIdDelete(const utility::string_t& userId,
+													   const utility::string_t& positionId,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/positions/{positionId}", {userId, positionId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/positions/{positionId}")
+			.c_str(),
+		{userId, positionId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1443,13 +1481,16 @@ void PositionApi::apiV1UsersUserIdPositionsPositionIdDelete(const utility::strin
 
 
 
-void PositionApi::apiV1GroupsGroupIdPositionsLatestGet(const utility::string_t& groupId,
-													   const std::optional<std::vector<utility::string_t>>& UserIds,
-													   csp::services::ApiResponseHandlerBase* ResponseHandler,
-													   csp::common::CancellationToken& CancellationToken) const
+void PositionApi::groupsGroupIdPositionsLatestGet(const utility::string_t& groupId,
+												  const std::optional<std::vector<utility::string_t>>& UserIds,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/groups/{groupId}/positions/latest", {groupId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}/positions/latest")
+			.c_str(),
+		{groupId});
 
 
 	if (UserIds.has_value())
@@ -1466,13 +1507,15 @@ void PositionApi::apiV1GroupsGroupIdPositionsLatestGet(const utility::string_t& 
 
 
 
-void PositionApi::apiV1GroupsPositionsLatestGet(const std::optional<std::vector<utility::string_t>>& groupIds,
-												const std::optional<std::vector<utility::string_t>>& UserIds,
-												csp::services::ApiResponseHandlerBase* ResponseHandler,
-												csp::common::CancellationToken& CancellationToken) const
+void PositionApi::groupsPositionsLatestGet(const std::optional<std::vector<utility::string_t>>& groupIds,
+										   const std::optional<std::vector<utility::string_t>>& UserIds,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/groups/positions/latest", {});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/positions/latest").c_str(),
+		{});
 
 
 	if (groupIds.has_value())
@@ -1495,22 +1538,24 @@ void PositionApi::apiV1GroupsPositionsLatestGet(const std::optional<std::vector<
 
 
 
-void PositionApi::apiV1UsersPositionsGet(const std::optional<std::vector<utility::string_t>>& userIds,
-										 const std::optional<std::vector<utility::string_t>>& UserIds,
-										 const std::optional<std::vector<utility::string_t>>& DeviceIds,
-										 const std::optional<std::vector<utility::string_t>>& PositionIds,
-										 const std::optional<utility::string_t>& StartTimestamp,
-										 const std::optional<utility::string_t>& EndTimestamp,
-										 const std::optional<double>& Coordinate_Longitude,
-										 const std::optional<double>& Coordinate_Latitude,
-										 const std::optional<double>& Coordinate_Radius,
-										 const std::optional<bool>& FindUsersOutsideGeoSphere,
-										 const std::optional<bool>& onlyLatestPosition,
-										 csp::services::ApiResponseHandlerBase* ResponseHandler,
-										 csp::common::CancellationToken& CancellationToken) const
+void PositionApi::usersPositionsGet(const std::optional<std::vector<utility::string_t>>& userIds,
+									const std::optional<std::vector<utility::string_t>>& UserIds,
+									const std::optional<std::vector<utility::string_t>>& DeviceIds,
+									const std::optional<std::vector<utility::string_t>>& PositionIds,
+									const std::optional<utility::string_t>& StartTimestamp,
+									const std::optional<utility::string_t>& EndTimestamp,
+									const std::optional<double>& Coordinate_Longitude,
+									const std::optional<double>& Coordinate_Latitude,
+									const std::optional<double>& Coordinate_Radius,
+									const std::optional<bool>& FindUsersOutsideGeoSphere,
+									const std::optional<bool>& onlyLatestPosition,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/positions", {});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/positions").c_str(),
+		{});
 
 
 	if (userIds.has_value())
@@ -1588,7 +1633,7 @@ void PositionApi::apiV1UsersPositionsGet(const std::optional<std::vector<utility
 
 
 PositionSpoofingApi::PositionSpoofingApi(csp::web::WebClient* InWebClient)
-	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
+	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataService)
 {
 }
 
@@ -1598,14 +1643,17 @@ PositionSpoofingApi::~PositionSpoofingApi()
 
 
 
-void PositionSpoofingApi::apiV1UsersUserIdPositionsSpoofPost(const utility::string_t& userId,
-															 const std::optional<utility::string_t>& duration,
-															 const std::shared_ptr<PositionDto>& RequestBody,
-															 csp::services::ApiResponseHandlerBase* ResponseHandler,
-															 csp::common::CancellationToken& CancellationToken) const
+void PositionSpoofingApi::usersUserIdPositionsSpoofPost(const utility::string_t& userId,
+														const std::optional<utility::string_t>& duration,
+														const std::shared_ptr<PositionDto>& RequestBody,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/positions/spoof", {userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/positions/spoof")
+			.c_str(),
+		{userId});
 
 
 	if (duration.has_value())
@@ -1621,12 +1669,15 @@ void PositionSpoofingApi::apiV1UsersUserIdPositionsSpoofPost(const utility::stri
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PositionSpoofingApi::apiV1UsersUserIdPositionsSpoofGet(const utility::string_t& userId,
-															csp::services::ApiResponseHandlerBase* ResponseHandler,
-															csp::common::CancellationToken& CancellationToken) const
+void PositionSpoofingApi::usersUserIdPositionsSpoofGet(const utility::string_t& userId,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/positions/spoof", {userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/positions/spoof")
+			.c_str(),
+		{userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1635,12 +1686,15 @@ void PositionSpoofingApi::apiV1UsersUserIdPositionsSpoofGet(const utility::strin
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void PositionSpoofingApi::apiV1UsersUserIdPositionsSpoofDelete(const utility::string_t& userId,
-															   csp::services::ApiResponseHandlerBase* ResponseHandler,
-															   csp::common::CancellationToken& CancellationToken) const
+void PositionSpoofingApi::usersUserIdPositionsSpoofDelete(const utility::string_t& userId,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/positions/spoof", {userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/positions/spoof")
+			.c_str(),
+		{userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1651,11 +1705,13 @@ void PositionSpoofingApi::apiV1UsersUserIdPositionsSpoofDelete(const utility::st
 
 
 
-void PositionSpoofingApi::apiV1PositionsSpoofUsersGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
-													  csp::common::CancellationToken& CancellationToken) const
+void PositionSpoofingApi::positionsSpoofUsersGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/positions/spoof/users", {});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/positions/spoof/users").c_str(),
+		{});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1666,7 +1722,7 @@ void PositionSpoofingApi::apiV1PositionsSpoofUsersGet(csp::services::ApiResponse
 
 
 
-SpaceTimeApi::SpaceTimeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataServiceURI)
+SpaceTimeApi::SpaceTimeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().SpatialDataService)
 {
 }
 
@@ -1676,13 +1732,16 @@ SpaceTimeApi::~SpaceTimeApi()
 
 
 
-void SpaceTimeApi::apiV1UsersUserIdSpacetimeIdGet(const utility::string_t& userId,
-												  const utility::string_t& id,
-												  csp::services::ApiResponseHandlerBase* ResponseHandler,
-												  csp::common::CancellationToken& CancellationToken) const
+void SpaceTimeApi::usersUserIdSpacetimeIdGet(const utility::string_t& userId,
+											 const utility::string_t& id,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/spacetime/{id}", {userId, id});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/spacetime/{id}")
+			.c_str(),
+		{userId, id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1691,13 +1750,16 @@ void SpaceTimeApi::apiV1UsersUserIdSpacetimeIdGet(const utility::string_t& userI
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void SpaceTimeApi::apiV1UsersUserIdSpacetimeIdDelete(const utility::string_t& userId,
-													 const utility::string_t& id,
-													 csp::services::ApiResponseHandlerBase* ResponseHandler,
-													 csp::common::CancellationToken& CancellationToken) const
+void SpaceTimeApi::usersUserIdSpacetimeIdDelete(const utility::string_t& userId,
+												const utility::string_t& id,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/spacetime/{id}", {userId, id});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/spacetime/{id}")
+			.c_str(),
+		{userId, id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1706,14 +1768,17 @@ void SpaceTimeApi::apiV1UsersUserIdSpacetimeIdDelete(const utility::string_t& us
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
-void SpaceTimeApi::apiV1UsersUserIdSpacetimeIdPut(const utility::string_t& userId,
-												  const utility::string_t& id,
-												  const std::shared_ptr<SpaceTimeDto>& RequestBody,
-												  csp::services::ApiResponseHandlerBase* ResponseHandler,
-												  csp::common::CancellationToken& CancellationToken) const
+void SpaceTimeApi::usersUserIdSpacetimeIdPut(const utility::string_t& userId,
+											 const utility::string_t& id,
+											 const std::shared_ptr<SpaceTimeDto>& RequestBody,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/spacetime/{id}", {userId, id});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/spacetime/{id}")
+			.c_str(),
+		{userId, id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1725,13 +1790,15 @@ void SpaceTimeApi::apiV1UsersUserIdSpacetimeIdPut(const utility::string_t& userI
 
 
 
-void SpaceTimeApi::apiV1UsersUserIdSpacetimePost(const utility::string_t& userId,
-												 const std::shared_ptr<SpaceTimeDto>& RequestBody,
-												 csp::services::ApiResponseHandlerBase* ResponseHandler,
-												 csp::common::CancellationToken& CancellationToken) const
+void SpaceTimeApi::usersUserIdSpacetimePost(const utility::string_t& userId,
+											const std::shared_ptr<SpaceTimeDto>& RequestBody,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/users/{userId}/spacetime", {userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/spacetime").c_str(),
+		{userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1743,22 +1810,22 @@ void SpaceTimeApi::apiV1UsersUserIdSpacetimePost(const utility::string_t& userId
 
 
 
-void SpaceTimeApi::apiV1SpacetimeGet(const std::optional<std::vector<utility::string_t>>& UserIds,
-									 const std::optional<utility::string_t>& StartTimestamp,
-									 const std::optional<utility::string_t>& EndTimestamp,
-									 const std::optional<std::vector<utility::string_t>>& GroupIds,
-									 const std::optional<double>& Coordinate_Longitude,
-									 const std::optional<double>& Coordinate_Latitude,
-									 const std::optional<double>& Coordinate_Radius,
-									 const std::optional<std::vector<utility::string_t>>& PoiIds,
-									 const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-									 const std::optional<int32_t>& Skip,
-									 const std::optional<int32_t>& Limit,
-									 csp::services::ApiResponseHandlerBase* ResponseHandler,
-									 csp::common::CancellationToken& CancellationToken) const
+void SpaceTimeApi::spacetimeGet(const std::optional<std::vector<utility::string_t>>& UserIds,
+								const std::optional<utility::string_t>& StartTimestamp,
+								const std::optional<utility::string_t>& EndTimestamp,
+								const std::optional<std::vector<utility::string_t>>& GroupIds,
+								const std::optional<double>& Coordinate_Longitude,
+								const std::optional<double>& Coordinate_Latitude,
+								const std::optional<double>& Coordinate_Radius,
+								const std::optional<std::vector<utility::string_t>>& PoiIds,
+								const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+								const std::optional<int32_t>& Skip,
+								const std::optional<int32_t>& Limit,
+								csp::services::ApiResponseHandlerBase* ResponseHandler,
+								csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(*RootUri + "/api/v1/spacetime", {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/spacetime").c_str(), {});
 
 
 	if (UserIds.has_value())
