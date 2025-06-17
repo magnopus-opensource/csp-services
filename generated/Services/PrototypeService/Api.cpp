@@ -3,8 +3,8 @@
 #include "Api.h"
 
 #include "CSP/CSPFoundation.h"
-#include "Web/HttpAuth.h"
-#include "Web/HttpPayload.h"
+#include "Common/Web/HttpAuth.h"
+#include "Common/Web/HttpPayload.h"
 
 
 namespace csp::services::generated::prototypeservice
@@ -1058,7 +1058,6 @@ void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdExportsExportIdPost(
 	const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
 	const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
 	const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-	const std::optional<bool>& shallowCopy,
 	const std::optional<bool>& asyncCall,
 	const std::optional<utility::string_t>& onBehalfOf,
 	csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1173,12 +1172,6 @@ void PrototypeApi::apiV1PrototypesGroupOwnedOriginalGroupIdExportsExportIdPost(
 	if (OrganizationIds.has_value())
 	{
 		Uri.AddQueryParams("OrganizationIds", OrganizationIds.value());
-	}
-
-
-	if (shallowCopy.has_value())
-	{
-		Uri.AddQueryParams("shallowCopy", shallowCopy.value());
 	}
 
 

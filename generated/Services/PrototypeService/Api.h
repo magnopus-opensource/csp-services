@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CSP/Common/CancellationToken.h"
+#include "Common/Web/HttpPayload.h"
 #include "Dto.h"
 #include "Services/ApiBase/ApiBase.h"
-#include "Web/HttpPayload.h"
 
 #include <optional>
 
@@ -497,7 +497,6 @@ public:
 																	 const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
 																	 const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
 																	 const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-																	 const std::optional<bool>& shallowCopy,
 																	 const std::optional<bool>& asyncCall,
 																	 const std::optional<utility::string_t>& onBehalfOf,
 																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
