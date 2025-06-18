@@ -14,7 +14,7 @@ namespace csp::services::generated::trackingservice
 {
 
 
-ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingService)
+ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().TrackingService)
 {
 }
 
@@ -27,7 +27,7 @@ ConfigurationApi::~ConfigurationApi()
 void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/appsettings").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/appsettings").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -42,7 +42,7 @@ void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBa
 											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/appsettings/reload").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/appsettings/reload").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -57,7 +57,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/featureflags").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/featureflags").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -68,7 +68,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 
 
 
-NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingService)
+NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().TrackingService)
 {
 }
 
@@ -81,7 +81,7 @@ NtpApi::~NtpApi()
 void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/datetime").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/datetime").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -91,7 +91,7 @@ void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 
 
 
-PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingService)
+PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().TrackingService)
 {
 }
 
@@ -104,7 +104,7 @@ PingApi::~PingApi()
 void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/ping").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/ping").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -114,7 +114,7 @@ void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, cs
 
 
 
-QuotaActivityApi::QuotaActivityApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingService)
+QuotaActivityApi::QuotaActivityApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().TrackingService)
 {
 }
 
@@ -131,8 +131,7 @@ void QuotaActivityApi::usersUserIdQuotaProgressGet(const utility::string_t& user
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/quota-progress")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/quota-progress").c_str(),
 		{userId});
 
 
@@ -157,7 +156,7 @@ void QuotaActivityApi::groupsGroupIdQuotaProgressGet(const utility::string_t& gr
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}/quota-progress")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/quota-progress")
 			.c_str(),
 		{groupId});
 
@@ -187,7 +186,7 @@ void QuotaActivityApi::userUserIdQuotaActivityGet(const utility::string_t& userI
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/user/{userId}/quota-activity").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/user/{userId}/quota-activity").c_str(),
 		{userId});
 
 
@@ -240,8 +239,7 @@ void QuotaActivityApi::groupGroupIdQuotaActivityGet(const utility::string_t& gro
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/group/{groupId}/quota-activity")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/group/{groupId}/quota-activity").c_str(),
 		{groupId});
 
 
@@ -283,7 +281,7 @@ void QuotaActivityApi::groupGroupIdQuotaActivityGet(const utility::string_t& gro
 
 
 
-QuotaManagementApi::QuotaManagementApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingService)
+QuotaManagementApi::QuotaManagementApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().TrackingService)
 {
 }
 
@@ -299,7 +297,7 @@ void QuotaManagementApi::tiersTierNameQuotasGet(const utility::string_t& tierNam
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tiers/{tierName}/quotas").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tiers/{tierName}/quotas").c_str(),
 		{tierName});
 
 	csp::web::HttpPayload Payload;
@@ -318,8 +316,8 @@ void QuotaManagementApi::tiersTierNameFeaturesFeatureNameQuotaGet(const utility:
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/tiers/{tierName}/features/{featureName}/quota")
 						  .c_str(),
 					  {tierName, featureName});
@@ -339,8 +337,8 @@ void QuotaManagementApi::tiersTierNameFeaturesFeatureNameQuotaPut(const utility:
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/tiers/{tierName}/features/{featureName}/quota")
 						  .c_str(),
 					  {tierName, featureName});
@@ -360,8 +358,8 @@ void QuotaManagementApi::tiersTierNameFeaturesFeatureNameQuotaDelete(const utili
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/tiers/{tierName}/features/{featureName}/quota")
 						  .c_str(),
 					  {tierName, featureName});
@@ -376,7 +374,7 @@ void QuotaManagementApi::tiersTierNameFeaturesFeatureNameQuotaDelete(const utili
 
 
 QuotaTierAssignmentApi::QuotaTierAssignmentApi(csp::web::WebClient* InWebClient)
-	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().TrackingService)
+	: ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().TrackingService)
 {
 }
 
@@ -392,7 +390,7 @@ void QuotaTierAssignmentApi::tierAssignmentsIdGet(const utility::string_t& id,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tier-assignments/{id}").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tier-assignments/{id}").c_str(),
 		{id});
 
 	csp::web::HttpPayload Payload;
@@ -410,8 +408,7 @@ void QuotaTierAssignmentApi::usersUserIdTierAssignmentGet(const utility::string_
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/tier-assignment")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/tier-assignment").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -428,8 +425,7 @@ void QuotaTierAssignmentApi::usersUserIdTierAssignmentPut(const utility::string_
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/tier-assignment")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/tier-assignment").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -446,8 +442,7 @@ void QuotaTierAssignmentApi::usersUserIdTierAssignmentDelete(const utility::stri
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/tier-assignment")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/tier-assignment").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -465,7 +460,7 @@ void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentGet(const utility::s
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tenants/{tenantName}/tier-assignment")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/{tenantName}/tier-assignment")
 			.c_str(),
 		{tenantName});
 
@@ -483,7 +478,7 @@ void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentPut(const utility::s
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tenants/{tenantName}/tier-assignment")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/{tenantName}/tier-assignment")
 			.c_str(),
 		{tenantName});
 
@@ -501,7 +496,7 @@ void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentDelete(const utility
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tenants/{tenantName}/tier-assignment")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/{tenantName}/tier-assignment")
 			.c_str(),
 		{tenantName});
 
@@ -520,7 +515,7 @@ void QuotaTierAssignmentApi::groupsTierAssignmentsGet(const std::optional<std::v
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/tier-assignments").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/tier-assignments").c_str(),
 		{});
 
 

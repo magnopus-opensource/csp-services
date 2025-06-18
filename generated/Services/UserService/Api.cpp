@@ -15,7 +15,7 @@ namespace csp::services::generated::userservice
 
 
 ApplicationSettingsApi::ApplicationSettingsApi(csp::web::WebClient* InWebClient)
-	: ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+	: ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -33,8 +33,8 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextPut(const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/applications/{applicationName}/settings/{context}")
 						  .c_str(),
 					  {applicationName, context});
@@ -55,8 +55,8 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextGet(const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/applications/{applicationName}/settings/{context}")
 						  .c_str(),
 					  {applicationName, context});
@@ -81,8 +81,8 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextDelete(co
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/applications/{applicationName}/settings/{context}")
 						  .c_str(),
 					  {applicationName, context});
@@ -105,8 +105,8 @@ void ApplicationSettingsApi::tenantsTenantApplicationsApplicationNameSettingsCon
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/tenants/{tenant}/applications/{applicationName}/settings/{context}")
 						  .c_str(),
 					  {tenant, applicationName, context});
@@ -130,12 +130,10 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsGet(const utilit
 																	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
-								  "/applications/{applicationName}/settings")
-						  .c_str(),
-					  {applicationName});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/applications/{applicationName}/settings")
+			.c_str(),
+		{applicationName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -149,12 +147,10 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsDelete(const uti
 																	   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
-								  "/applications/{applicationName}/settings")
-						  .c_str(),
-					  {applicationName});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/applications/{applicationName}/settings")
+			.c_str(),
+		{applicationName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -173,8 +169,8 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextKeynameDe
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/applications/{applicationName}/settings/{context}/{keyname}")
 						  .c_str(),
 					  {applicationName, context, keyname});
@@ -188,7 +184,7 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextKeynameDe
 
 
 
-AuthenticationApi::AuthenticationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+AuthenticationApi::AuthenticationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -203,8 +199,7 @@ void AuthenticationApi::usersLoginPost(const std::shared_ptr<LoginRequest>& Requ
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/login").c_str(),
-					  {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/login").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -221,7 +216,7 @@ void AuthenticationApi::usersLoginSocialPost(const std::shared_ptr<LoginSocialRe
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/login-social").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/login-social").c_str(),
 		{});
 
 	csp::web::HttpPayload Payload;
@@ -240,7 +235,7 @@ void AuthenticationApi::socialProvidersProviderGet(const utility::string_t& prov
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/social-providers/{provider}").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/social-providers/{provider}").c_str(),
 		{provider});
 
 
@@ -262,7 +257,7 @@ void AuthenticationApi::usersLogoutPost(const std::shared_ptr<LogoutRequest>& Re
 										csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/logout").c_str(),
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/logout").c_str(),
 					  {});
 
 	csp::web::HttpPayload Payload;
@@ -280,7 +275,7 @@ void AuthenticationApi::usersRefreshPost(const std::shared_ptr<RefreshRequest>& 
 										 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/refresh").c_str(),
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/refresh").c_str(),
 					  {});
 
 	csp::web::HttpPayload Payload;
@@ -292,7 +287,7 @@ void AuthenticationApi::usersRefreshPost(const std::shared_ptr<RefreshRequest>& 
 
 
 
-AvatarsApi::AvatarsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+AvatarsApi::AvatarsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -309,7 +304,7 @@ void AvatarsApi::usersUserIdAvatarsPost(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/avatars").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/avatars").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -329,7 +324,7 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdGet(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/avatars/{avatarId}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/avatars/{avatarId}")
 			.c_str(),
 		{userId, avatarId});
 
@@ -348,7 +343,7 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdPut(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/avatars/{avatarId}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/avatars/{avatarId}")
 			.c_str(),
 		{userId, avatarId});
 
@@ -367,7 +362,7 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdDelete(const utility::string_t& userI
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/avatars/{avatarId}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/avatars/{avatarId}")
 			.c_str(),
 		{userId, avatarId});
 
@@ -387,8 +382,8 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdExistsGet(const utility::string_t& us
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/users/{userId}/avatars/{avatarId}/exists")
 						  .c_str(),
 					  {userId, avatarId});
@@ -402,7 +397,7 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdExistsGet(const utility::string_t& us
 
 
 
-ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -415,7 +410,7 @@ ConfigurationApi::~ConfigurationApi()
 void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/appsettings").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/appsettings").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -430,7 +425,7 @@ void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBa
 											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/appsettings/reload").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/appsettings/reload").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -445,7 +440,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/featureflags").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/featureflags").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -456,7 +451,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 
 
 
-GroupApi::GroupApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+GroupApi::GroupApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -471,7 +466,7 @@ void GroupApi::groupsPost(const std::shared_ptr<GroupDto>& RequestBody,
 						  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -486,7 +481,7 @@ void GroupApi::groupsPut(const std::shared_ptr<GroupDto>& RequestBody,
 						 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -501,7 +496,7 @@ void GroupApi::groupsDelete(const std::optional<std::vector<utility::string_t>>&
 							csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups").c_str(), {});
 
 
 	if (groupIds.has_value())
@@ -521,7 +516,7 @@ void GroupApi::groupsGet(const std::optional<std::vector<utility::string_t>>& id
 						 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups").c_str(), {});
 
 
 	if (ids.has_value())
@@ -544,12 +539,10 @@ void GroupApi::groupCodesGroupCodeUsersUserIdPut(const utility::string_t& groupC
 												 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
-								  "/group-codes/{groupCode}/users/{userId}")
-						  .c_str(),
-					  {groupCode, userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/group-codes/{groupCode}/users/{userId}")
+			.c_str(),
+		{groupCode, userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -566,7 +559,7 @@ void GroupApi::groupsGroupIdGroupCodeResetPost(const utility::string_t& groupId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}/group-code-reset")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/group-code-reset")
 			.c_str(),
 		{groupId});
 
@@ -585,12 +578,10 @@ void GroupApi::groupsGroupIdBannedUsersUserIdPut(const utility::string_t& groupI
 												 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
-								  "/groups/{groupId}/banned-users/{userId}")
-						  .c_str(),
-					  {groupId, userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/banned-users/{userId}")
+			.c_str(),
+		{groupId, userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -605,12 +596,10 @@ void GroupApi::groupsGroupIdBannedUsersUserIdDelete(const utility::string_t& gro
 													csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
-								  "/groups/{groupId}/banned-users/{userId}")
-						  .c_str(),
-					  {groupId, userId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/banned-users/{userId}")
+			.c_str(),
+		{groupId, userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -626,9 +615,8 @@ void GroupApi::groupsGroupIdDelete(const utility::string_t& groupId,
 								   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}").c_str(),
-		{groupId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}").c_str(),
+					  {groupId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -642,9 +630,8 @@ void GroupApi::groupsGroupIdGet(const utility::string_t& groupId,
 								csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}").c_str(),
-		{groupId});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}").c_str(),
+					  {groupId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -661,7 +648,7 @@ void GroupApi::usersUserIdGroupsGet(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/groups").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/groups").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -680,7 +667,7 @@ void GroupApi::groupsGroupIdUsersUserIdDelete(const utility::string_t& groupId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}/users/{userId}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/users/{userId}")
 			.c_str(),
 		{groupId, userId});
 
@@ -698,9 +685,8 @@ void GroupApi::groupsSummariesGet(const std::optional<utility::string_t>& groupC
 								  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups-summaries").c_str(),
-		{});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups-summaries").c_str(),
+					  {});
 
 
 	if (groupCode.has_value())
@@ -725,8 +711,7 @@ void GroupApi::groupsGroupIdEmailInvitePost(const utility::string_t& groupId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}/email-invite")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/email-invite").c_str(),
 		{groupId});
 
 
@@ -755,8 +740,7 @@ void GroupApi::groupsGroupIdEmailInvitesPost(const utility::string_t& groupId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}/email-invites")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/email-invites").c_str(),
 		{groupId});
 
 
@@ -791,8 +775,7 @@ void GroupApi::groupsGroupIdEmailInvitesGet(const utility::string_t& groupId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}/email-invites")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/email-invites").c_str(),
 		{groupId});
 
 	csp::web::HttpPayload Payload;
@@ -814,7 +797,7 @@ void GroupApi::groupsGroupIdEmailInvitesBulkPost(const utility::string_t& groupI
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}/email-invites/bulk")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/email-invites/bulk")
 			.c_str(),
 		{groupId});
 
@@ -853,7 +836,7 @@ void GroupApi::groupsGroupIdLitePut(const utility::string_t& groupId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}/lite").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/lite").c_str(),
 		{groupId});
 
 	csp::web::HttpPayload Payload;
@@ -870,7 +853,7 @@ void GroupApi::groupsGroupIdLiteGet(const utility::string_t& groupId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}/lite").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/lite").c_str(),
 		{groupId});
 
 	csp::web::HttpPayload Payload;
@@ -889,8 +872,8 @@ void GroupApi::groupsGroupIdOwnerNewGroupOwnerIdPut(const utility::string_t& gro
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/groups/{groupId}/owner/{newGroupOwnerId}")
 						  .c_str(),
 					  {groupId, newGroupOwnerId});
@@ -909,12 +892,10 @@ void GroupApi::groupsGroupIdEmailInvitesAcceptedGet(const utility::string_t& gro
 													csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
-								  "/groups/{groupId}/email-invites/accepted")
-						  .c_str(),
-					  {groupId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/email-invites/accepted")
+			.c_str(),
+		{groupId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -932,8 +913,8 @@ void GroupApi::groupsGroupIdEmailInvitesEmailInviteIdDelete(const utility::strin
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/groups/{groupId}/email-invites/{emailInviteId}")
 						  .c_str(),
 					  {groupId, emailInviteId});
@@ -954,7 +935,7 @@ void GroupApi::groupsGroupIdModeratorsUserIdPut(const utility::string_t& groupId
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}/moderators/{userId}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/moderators/{userId}")
 			.c_str(),
 		{groupId, userId});
 
@@ -972,7 +953,7 @@ void GroupApi::groupsGroupIdModeratorsUserIdDelete(const utility::string_t& grou
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/{groupId}/moderators/{userId}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/moderators/{userId}")
 			.c_str(),
 		{groupId, userId});
 
@@ -1007,8 +988,7 @@ void GroupApi::groupsLiteGet(const std::optional<std::vector<utility::string_t>>
 							 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/lite").c_str(),
-					  {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/lite").c_str(), {});
 
 
 	if (Ids.has_value())
@@ -1132,8 +1112,7 @@ void GroupApi::groupsLitePost(const std::optional<int32_t>& Skip,
 							  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/lite").c_str(),
-					  {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/lite").c_str(), {});
 
 
 	if (Skip.has_value())
@@ -1163,7 +1142,7 @@ void GroupApi::groupsUsersUserIdEmailInvitesGet(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/users/{userId}/email-invites")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/users/{userId}/email-invites")
 			.c_str(),
 		{userId});
 
@@ -1184,8 +1163,8 @@ void GroupApi::groupsGroupIdUsersUserIdEmailInvitesEmailInviteIdAcceptPost(const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/groups/{groupId}/users/{userId}/email-invites/{emailInviteId}/accept")
 						  .c_str(),
 					  {groupId, userId, emailInviteId});
@@ -1206,9 +1185,8 @@ void GroupApi::groupsArchivedPut(const utility::string_t& groupOwnerId,
 								 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/groups/archived").c_str(),
-		{});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/archived").c_str(),
+					  {});
 
 
 	Uri.AddQueryParams("groupOwnerId", groupOwnerId);
@@ -1231,7 +1209,7 @@ void GroupApi::groupsArchivedPut(const utility::string_t& groupOwnerId,
 
 
 
-InventoryApi::InventoryApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+InventoryApi::InventoryApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -1260,8 +1238,7 @@ void InventoryApi::usersUserIdInventoryItemsGet(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/inventory-items")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/inventory-items").c_str(),
 		{userId});
 
 
@@ -1357,8 +1334,7 @@ void InventoryApi::usersUserIdInventoryItemsPost(const utility::string_t& userId
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/inventory-items")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/inventory-items").c_str(),
 		{userId});
 
 
@@ -1394,7 +1370,7 @@ void InventoryApi::usersUserIdInventoryIdsGet(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/inventory-ids").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/inventory-ids").c_str(),
 		{userId});
 
 
@@ -1488,7 +1464,7 @@ void InventoryApi::usersInventoryItemsOwnersGet(const std::optional<std::vector<
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/inventory-items/owners").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/inventory-items/owners").c_str(),
 		{});
 
 
@@ -1582,7 +1558,7 @@ void InventoryApi::usersInventoryCountGet(const std::optional<std::vector<utilit
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/inventory-count").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/inventory-count").c_str(),
 		{});
 
 
@@ -1667,7 +1643,7 @@ void InventoryApi::usersUserIdInventoryItemsIdGet(const utility::string_t& userI
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/inventory-items/{id}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/inventory-items/{id}")
 			.c_str(),
 		{userId, id});
 
@@ -1685,7 +1661,7 @@ void InventoryApi::usersUserIdInventoryItemsIdDelete(const utility::string_t& us
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/inventory-items/{id}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/inventory-items/{id}")
 			.c_str(),
 		{userId, id});
 
@@ -1704,7 +1680,7 @@ void InventoryApi::usersUserIdInventoryItemsIdPut(const utility::string_t& userI
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/inventory-items/{id}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/inventory-items/{id}")
 			.c_str(),
 		{userId, id});
 
@@ -1726,8 +1702,8 @@ void InventoryApi::usersUserIdInventoryItemsIdEquipPut(const utility::string_t& 
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/users/{userId}/inventory-items/{id}/equip")
 						  .c_str(),
 					  {userId, id});
@@ -1742,7 +1718,7 @@ void InventoryApi::usersUserIdInventoryItemsIdEquipPut(const utility::string_t& 
 
 
 
-NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -1755,7 +1731,7 @@ NtpApi::~NtpApi()
 void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/datetime").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/datetime").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1765,7 +1741,7 @@ void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 
 
 
-OrganizationApi::OrganizationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+OrganizationApi::OrganizationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -1780,7 +1756,7 @@ void OrganizationApi::organizationsPost(const std::shared_ptr<OrganizationDto>& 
 										csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/organizations").c_str(),
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/organizations").c_str(),
 					  {});
 
 	csp::web::HttpPayload Payload;
@@ -1799,8 +1775,7 @@ void OrganizationApi::organizationsOrganizationIdGet(const utility::string_t& or
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/organizations/{organizationId}")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/organizations/{organizationId}").c_str(),
 		{organizationId});
 
 	csp::web::HttpPayload Payload;
@@ -1817,8 +1792,7 @@ void OrganizationApi::organizationsOrganizationIdPut(const utility::string_t& or
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/organizations/{organizationId}")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/organizations/{organizationId}").c_str(),
 		{organizationId});
 
 	csp::web::HttpPayload Payload;
@@ -1835,8 +1809,7 @@ void OrganizationApi::organizationsOrganizationIdDelete(const utility::string_t&
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/organizations/{organizationId}")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/organizations/{organizationId}").c_str(),
 		{organizationId});
 
 	csp::web::HttpPayload Payload;
@@ -1858,8 +1831,8 @@ void OrganizationApi::organizationsOrganizationIdMembershipInvitesPost(const uti
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/organizations/{organizationId}/membership-invites")
 						  .c_str(),
 					  {organizationId});
@@ -1896,8 +1869,8 @@ void OrganizationApi::organizationsOrganizationIdMembershipInvitesGet(const util
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/organizations/{organizationId}/membership-invites")
 						  .c_str(),
 					  {organizationId});
@@ -1921,8 +1894,8 @@ void OrganizationApi::organizationsOrganizationIdMembershipInvitesBulkPost(const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/organizations/{organizationId}/membership-invites/bulk")
 						  .c_str(),
 					  {organizationId});
@@ -1962,8 +1935,8 @@ void OrganizationApi::organizationsOrganizationIdUsersUserIdDelete(const utility
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/organizations/{organizationId}/users/{userId}")
 						  .c_str(),
 					  {organizationId, userId});
@@ -1984,7 +1957,7 @@ void OrganizationApi::organizationsOrganizationIdRolesGet(const utility::string_
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/organizations/{organizationId}/roles")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/organizations/{organizationId}/roles")
 			.c_str(),
 		{organizationId});
 
@@ -2011,8 +1984,8 @@ void OrganizationApi::organizationsOrganizationIdUsersUserIdRolesPut(const utili
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/organizations/{organizationId}/users/{userId}/roles")
 						  .c_str(),
 					  {organizationId, userId});
@@ -2027,7 +2000,7 @@ void OrganizationApi::organizationsOrganizationIdUsersUserIdRolesPut(const utili
 
 
 
-PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -2040,7 +2013,7 @@ PingApi::~PingApi()
 void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/ping").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/ping").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2050,7 +2023,7 @@ void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, cs
 
 
 
-ProfileApi::ProfileApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+ProfileApi::ProfileApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -2065,7 +2038,7 @@ void ProfileApi::usersPost(const std::shared_ptr<CreateUserRequest>& RequestBody
 						   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2090,7 +2063,7 @@ void ProfileApi::usersGet(const std::optional<utility::string_t>& GuestDeviceId,
 						  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users").c_str(), {});
 
 
 	if (GuestDeviceId.has_value())
@@ -2179,7 +2152,7 @@ void ProfileApi::usersCreateSocialPost(const std::shared_ptr<CreateUserSocialReq
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/create-social").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/create-social").c_str(),
 		{});
 
 	csp::web::HttpPayload Payload;
@@ -2198,7 +2171,7 @@ void ProfileApi::usersUserIdUpgradeGuestPost(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/upgrade-guest").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/upgrade-guest").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -2218,7 +2191,7 @@ void ProfileApi::usersUserIdUpgradeGuestSocialPost(const utility::string_t& user
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/upgrade-guest-social")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/upgrade-guest-social")
 			.c_str(),
 		{userId});
 
@@ -2237,7 +2210,7 @@ void ProfileApi::usersUserIdDelete(const utility::string_t& userId,
 								   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}").c_str(),
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}").c_str(),
 					  {userId});
 
 	csp::web::HttpPayload Payload;
@@ -2252,7 +2225,7 @@ void ProfileApi::usersUserIdGet(const utility::string_t& userId,
 								csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}").c_str(),
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}").c_str(),
 					  {userId});
 
 	csp::web::HttpPayload Payload;
@@ -2270,7 +2243,7 @@ void ProfileApi::usersUserIdHardDeleteDelete(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/hard-delete").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/hard-delete").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -2288,7 +2261,7 @@ void ProfileApi::usersHardDeleteDelete(const std::optional<std::vector<utility::
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/hard-delete").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/hard-delete").c_str(),
 		{});
 
 
@@ -2314,7 +2287,7 @@ void ProfileApi::usersProfileIdsPost(const std::optional<int32_t>& Skip,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/profile-ids").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/profile-ids").c_str(),
 		{});
 
 
@@ -2348,7 +2321,7 @@ void ProfileApi::usersTenantsTenantProfileIdsPost(const utility::string_t& tenan
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/tenants/{tenant}/profile-ids")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/tenants/{tenant}/profile-ids")
 			.c_str(),
 		{tenant});
 
@@ -2381,7 +2354,7 @@ void ProfileApi::usersUserIdTokenChangePasswordPost(const utility::string_t& use
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/token-change-password")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/token-change-password")
 			.c_str(),
 		{userId});
 
@@ -2403,7 +2376,7 @@ void ProfileApi::usersForgotPasswordPost(const std::optional<utility::string_t>&
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/forgot-password").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/forgot-password").c_str(),
 		{});
 
 
@@ -2440,7 +2413,7 @@ void ProfileApi::usersUserIdConfirmEmailPost(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/confirm-email").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/confirm-email").c_str(),
 		{userId});
 
 
@@ -2466,8 +2439,8 @@ void ProfileApi::usersEmailsEmailConfirmEmailReSendPost(const utility::string_t&
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/users/emails/{email}/confirm-email/re-send")
 						  .c_str(),
 					  {email});
@@ -2499,7 +2472,7 @@ void ProfileApi::usersUserIdMetagamePut(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/metagame").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/metagame").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -2516,7 +2489,7 @@ void ProfileApi::usersUserIdMetagameGet(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/metagame").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/metagame").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -2535,7 +2508,7 @@ void ProfileApi::usersUserIdFirstNameFirstNamePut(const utility::string_t& userI
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/first-name/{firstName}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/first-name/{firstName}")
 			.c_str(),
 		{userId, firstName});
 
@@ -2555,7 +2528,7 @@ void ProfileApi::usersUserIdDisplayNamePut(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/display-name").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/display-name").c_str(),
 		{userId});
 
 
@@ -2576,7 +2549,7 @@ void ProfileApi::usersUserIdLiteGet(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/lite").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/lite").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -2593,8 +2566,7 @@ void ProfileApi::usersLiteGet(const std::optional<std::vector<utility::string_t>
 							  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/lite").c_str(),
-					  {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/lite").c_str(), {});
 
 
 	if (ids.has_value())
@@ -2617,7 +2589,7 @@ void ProfileApi::usersUserIdLockAccountPut(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/lock-account").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/lock-account").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -2635,8 +2607,7 @@ void ProfileApi::usersUserIdUnlockAccountPut(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/unlock-account")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/unlock-account").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -2648,7 +2619,7 @@ void ProfileApi::usersUserIdUnlockAccountPut(const utility::string_t& userId,
 
 
 
-SettingsApi::SettingsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+SettingsApi::SettingsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -2666,7 +2637,7 @@ void SettingsApi::usersUserIdSettingsContextPut(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/settings/{context}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/settings/{context}")
 			.c_str(),
 		{userId, context});
 
@@ -2686,7 +2657,7 @@ void SettingsApi::usersUserIdSettingsContextGet(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/settings/{context}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/settings/{context}")
 			.c_str(),
 		{userId, context});
 
@@ -2710,7 +2681,7 @@ void SettingsApi::usersUserIdSettingsContextDelete(const utility::string_t& user
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/settings/{context}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/settings/{context}")
 			.c_str(),
 		{userId, context});
 
@@ -2731,7 +2702,7 @@ void SettingsApi::usersSettingsContextGet(const utility::string_t& context,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/settings/{context}").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/settings/{context}").c_str(),
 		{context});
 
 
@@ -2761,7 +2732,7 @@ void SettingsApi::usersUserIdSettingsGet(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/settings").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/settings").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -2781,8 +2752,8 @@ void SettingsApi::usersUserIdSettingsContextKeynameDelete(const utility::string_
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/users/{userId}/settings/{context}/{keyname}")
 						  .c_str(),
 					  {userId, context, keyname});
@@ -2796,7 +2767,7 @@ void SettingsApi::usersUserIdSettingsContextKeynameDelete(const utility::string_
 
 
 
-StripeApi::StripeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+StripeApi::StripeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -2813,7 +2784,7 @@ void StripeApi::vendorsStripeWebhookPost(const std::optional<utility::string_t>&
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/vendors/stripe/webhook").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/vendors/stripe/webhook").c_str(),
 		{});
 
 
@@ -2842,7 +2813,7 @@ void StripeApi::vendorsStripeCheckoutSessionsPost(const std::shared_ptr<StripeCh
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/vendors/stripe/checkout-sessions")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/vendors/stripe/checkout-sessions")
 			.c_str(),
 		{});
 
@@ -2861,7 +2832,7 @@ void StripeApi::vendorsStripeCustomersUserIdGet(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/vendors/stripe/customers/{userId}")
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/vendors/stripe/customers/{userId}")
 			.c_str(),
 		{userId});
 
@@ -2880,8 +2851,8 @@ void StripeApi::vendorsStripeCustomerPortalsUserIdGet(const utility::string_t& u
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/vendors/stripe/customer-portals/{userId}")
 						  .c_str(),
 					  {userId});
@@ -2895,7 +2866,7 @@ void StripeApi::vendorsStripeCustomerPortalsUserIdGet(const utility::string_t& u
 
 
 
-TenantApi::TenantApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+TenantApi::TenantApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -2912,7 +2883,7 @@ void TenantApi::tenantsNamesTenantNamePut(const utility::string_t& tenantName,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tenants/names/{tenantName}").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/names/{tenantName}").c_str(),
 		{tenantName});
 
 	csp::web::HttpPayload Payload;
@@ -2929,7 +2900,7 @@ void TenantApi::tenantsNamesTenantNameGet(const utility::string_t& tenantName,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tenants/names/{tenantName}").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/names/{tenantName}").c_str(),
 		{tenantName});
 
 	csp::web::HttpPayload Payload;
@@ -2946,9 +2917,8 @@ void TenantApi::tenantsPendingDelete(const int32_t& tenantAgeInDays,
 									 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tenants/pending").c_str(),
-		{});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/pending").c_str(),
+					  {});
 
 
 	Uri.AddQueryParams("tenantAgeInDays", tenantAgeInDays);
@@ -2969,7 +2939,7 @@ void TenantApi::tenantsNamesNameDelete(const utility::string_t& name,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/tenants/names/{name}").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/names/{name}").c_str(),
 		{name});
 
 	csp::web::HttpPayload Payload;
@@ -2982,7 +2952,7 @@ void TenantApi::tenantsNamesNameDelete(const utility::string_t& name,
 
 
 
-UserRolesApi::UserRolesApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().UserService)
+UserRolesApi::UserRolesApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 {
 }
 
@@ -2998,7 +2968,7 @@ void UserRolesApi::usersUserIdRolesGet(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/roles").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/roles").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;
@@ -3015,7 +2985,7 @@ void UserRolesApi::usersUserIdRolesPut(const utility::string_t& userId,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/users/{userId}/roles").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/roles").c_str(),
 		{userId});
 
 	csp::web::HttpPayload Payload;

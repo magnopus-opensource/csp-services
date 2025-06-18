@@ -14,7 +14,7 @@ namespace csp::services::generated::prototypeservice
 {
 
 
-AssetDetailApi::AssetDetailApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeService)
+AssetDetailApi::AssetDetailApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().PrototypeService)
 {
 }
 
@@ -30,12 +30,10 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsPost(const utility::string
 														   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
-								  "/prototypes/{prototypeId}/asset-details")
-						  .c_str(),
-					  {prototypeId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes/{prototypeId}/asset-details")
+			.c_str(),
+		{prototypeId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -62,12 +60,10 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsGet(const utility::string_
 														  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
-								  "/prototypes/{prototypeId}/asset-details")
-						  .c_str(),
-					  {prototypeId});
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes/{prototypeId}/asset-details")
+			.c_str(),
+		{prototypeId});
 
 
 	if (Ids.has_value())
@@ -157,8 +153,8 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsBulkPut(const utility::str
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/{prototypeId}/asset-details/bulk")
 						  .c_str(),
 					  {prototypeId});
@@ -180,8 +176,8 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdGet(const uti
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}")
 						  .c_str(),
 					  {prototypeId, assetDetailId});
@@ -201,8 +197,8 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdPut(const uti
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}")
 						  .c_str(),
 					  {prototypeId, assetDetailId});
@@ -222,8 +218,8 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdDelete(const 
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}")
 						  .c_str(),
 					  {prototypeId, assetDetailId});
@@ -254,7 +250,7 @@ void AssetDetailApi::prototypesAssetDetailsGet(const std::optional<std::vector<u
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/asset-details").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes/asset-details").c_str(),
 		{});
 
 
@@ -347,8 +343,8 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdBlobPost(cons
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/blob")
 						  .c_str(),
 					  {prototypeId, assetDetailId});
@@ -377,8 +373,8 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdInternalCopyP
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/internal-copy")
 						  .c_str(),
 					  {prototypeId, assetDetailId});
@@ -402,8 +398,8 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAd
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}")
 						  .c_str(),
 					  {prototypeId, assetDetailId, addressableId});
@@ -424,8 +420,8 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAd
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}")
 						  .c_str(),
 					  {prototypeId, assetDetailId, addressableId});
@@ -448,8 +444,8 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableTh
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{thirdPartyReferenceId}")
 						  .c_str(),
 					  {prototypeId, assetDetailId, thirdPartyReferenceId});
@@ -470,8 +466,8 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableTh
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{thirdPartyReferenceId}")
 						  .c_str(),
 					  {prototypeId, assetDetailId, thirdPartyReferenceId});
@@ -502,8 +498,8 @@ void AssetDetailApi::prototypesAssetDetailsAssetPipelineModelGet(const std::opti
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/asset-details/asset-pipeline-model")
 						  .c_str(),
 					  {});
@@ -596,8 +592,8 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipeline
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/asset-pipeline-model")
 						  .c_str(),
 					  {prototypeId, assetDetailId});
@@ -617,8 +613,8 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipeline
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/{prototypeId}/asset-details/{assetDetailId}/asset-pipeline-model")
 						  .c_str(),
 					  {prototypeId, assetDetailId});
@@ -633,7 +629,7 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipeline
 
 
 
-ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeService)
+ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().PrototypeService)
 {
 }
 
@@ -646,7 +642,7 @@ ConfigurationApi::~ConfigurationApi()
 void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/appsettings").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/appsettings").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -661,7 +657,7 @@ void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBa
 											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/appsettings/reload").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/appsettings/reload").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -676,7 +672,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/featureflags").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/featureflags").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -687,7 +683,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 
 
 
-NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeService)
+NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().PrototypeService)
 {
 }
 
@@ -700,7 +696,7 @@ NtpApi::~NtpApi()
 void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/datetime").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/datetime").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -710,7 +706,7 @@ void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 
 
 
-PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeService)
+PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().PrototypeService)
 {
 }
 
@@ -723,7 +719,7 @@ PingApi::~PingApi()
 void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "/ping").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/ping").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -733,7 +729,7 @@ void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, cs
 
 
 
-PrototypeApi::PrototypeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().PrototypeService)
+PrototypeApi::PrototypeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().PrototypeService)
 {
 }
 
@@ -748,8 +744,7 @@ void PrototypeApi::prototypesPost(const std::shared_ptr<PrototypeDto>& RequestBo
 								  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes").c_str(),
-					  {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes").c_str(), {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -785,8 +780,7 @@ void PrototypeApi::prototypesGet(const std::optional<std::vector<utility::string
 								 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes").c_str(),
-					  {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes").c_str(), {});
 
 
 	if (Tags.has_value())
@@ -932,8 +926,7 @@ void PrototypeApi::prototypesDelete(const std::optional<std::vector<utility::str
 									csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes").c_str(),
-					  {});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes").c_str(), {});
 
 
 	if (ids.has_value())
@@ -978,8 +971,8 @@ void PrototypeApi::prototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPost(co
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/group-owned/{originalGroupId}/duplicate/{newGroupId}")
 						  .c_str(),
 					  {originalGroupId, newGroupId});
@@ -1146,8 +1139,8 @@ void PrototypeApi::prototypesGroupOwnedOriginalGroupIdExportsExportIdPost(const 
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/group-owned/{originalGroupId}/exports/{exportId}")
 						  .c_str(),
 					  {originalGroupId, exportId});
@@ -1290,8 +1283,8 @@ void PrototypeApi::prototypesGroupOwnedNewGroupIdExportsExportIdImportPost(const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
-								  ServiceDefinition->GetURI().c_str(),
-								  ServiceDefinition->GetVersion(),
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
 								  "/prototypes/group-owned/{newGroupId}/exports/{exportId}/import")
 						  .c_str(),
 					  {exportId, newGroupId});
@@ -1322,9 +1315,8 @@ void PrototypeApi::prototypesBulkPut(const std::vector<std::shared_ptr<BulkUpser
 									 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/bulk").c_str(),
-		{});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes/bulk").c_str(),
+					  {});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1360,7 +1352,7 @@ void PrototypeApi::prototypesIdsGet(const std::optional<std::vector<utility::str
 									csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/ids").c_str(),
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes/ids").c_str(),
 					  {});
 
 
@@ -1514,9 +1506,8 @@ void PrototypeApi::prototypesCountGet(const std::optional<std::vector<utility::s
 									  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/count").c_str(),
-		{});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes/count").c_str(),
+					  {});
 
 
 	if (Tags.has_value())
@@ -1640,9 +1631,8 @@ void PrototypeApi::prototypesIdGet(const utility::string_t& id,
 								   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/{id}").c_str(),
-		{id});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes/{id}").c_str(),
+					  {id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1657,9 +1647,8 @@ void PrototypeApi::prototypesIdPut(const utility::string_t& id,
 								   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/{id}").c_str(),
-		{id});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes/{id}").c_str(),
+					  {id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1674,9 +1663,8 @@ void PrototypeApi::prototypesIdDelete(const utility::string_t& id,
 									  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/{id}").c_str(),
-		{id});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes/{id}").c_str(),
+					  {id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1693,7 +1681,7 @@ void PrototypeApi::prototypesNameNameGet(const utility::string_t& name,
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/name/{name}").c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes/name/{name}").c_str(),
 		{name});
 
 	csp::web::HttpPayload Payload;
@@ -1712,8 +1700,7 @@ void PrototypeApi::prototypesPrototypeIdStatePut(const utility::string_t& protot
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/{prototypeId}/state")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes/{prototypeId}/state").c_str(),
 		{prototypeId});
 
 	csp::web::HttpPayload Payload;
@@ -1731,8 +1718,7 @@ void PrototypeApi::prototypesPrototypeIdStateGet(const utility::string_t& protot
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "/prototypes/{prototypeId}/state")
-			.c_str(),
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/prototypes/{prototypeId}/state").c_str(),
 		{prototypeId});
 
 
