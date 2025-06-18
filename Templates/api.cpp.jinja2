@@ -32,8 +32,10 @@ namespace csp::services::generated::{{ service_name | lower }} {
                 csp::web::Uri Uri;
                 Uri.SetWithParams(
                     {%- if route_path | has_api_version_prefix -%} 
+                        {# Builds the versioned RESTful URL by combining base URI, API version, and a cleaned route path. #}
                         fmt::format("{0}/api/v{1}{2}", ServiceDefinition->GetURI().c_str(), ServiceDefinition->GetVersion(), "{{ route_path | remove_api_version_prefix }}").c_str()
                     {%- else -%} 
+                        {# Builds the root RESTful URL by appending the route path to the service base URI. #}
                         fmt::format("{0}{1}", ServiceDefinition->GetURI().c_str(), "{{ route_path }}").c_str()
                     {%- endif -%},
                     {
