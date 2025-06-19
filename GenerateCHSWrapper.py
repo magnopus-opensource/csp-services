@@ -46,49 +46,6 @@ def make_pascal_case(value: str) -> str:
     return ''.join(words)
 
 
-def has_api_version_prefix(route_path: str) -> bool:
-    """
-    Determines whether the given route path starts with an API version prefix.
-
-    This function checks if the provided `route_path` begins with the string '/api/v',
-    which is commonly used to indicate a versioned API route (e.g., '/api/v1').
-
-    Args:
-        route_path (str): The route path to check.
-
-    Returns:
-        bool: True if the route path starts with '/api/v', False otherwise.
-    """
-    return route_path[:6] == '/api/v'
-
-
-def remove_api_version_prefix(route_path: str) -> str:
-    """
-    Removes the version prefix from an API route path if present.
-
-    Specifically, if the route path starts with the pattern '/api/v' followed by a version number
-    (e.g. '/api/v1/users'), this function strips the '/api/vX' portion and returns the remainder
-    of the path. If the path does not start with '/api/v', it is returned unchanged.
-
-    Args:
-        route_path (str): The original API route path.
-
-    Returns:
-        str: The route path without the version prefix, if it was present.
-    
-    Examples:
-        >>> remove_api_version_prefix('/api/v1/users')
-        '/users'
-        
-        >>> remove_api_version_prefix('/ping')
-        '/ping'
-    """
-    if has_api_version_prefix(route_path):
-        return route_path[7:]
-    
-    return route_path
-
-
 def main():
     # Ensure our current working directory is always this script's directory
     os.chdir(os.path.abspath(os.path.dirname(__file__)))
@@ -109,9 +66,6 @@ def main():
     env.filters['camelcase'] = make_camel_case
     env.filters['pascalcase'] = make_pascal_case
     env.filters['identifier'] = make_identifier
-    
-    env.filters['has_api_version_prefix'] = has_api_version_prefix
-    env.filters['remove_api_version_prefix'] = remove_api_version_prefix
 
     services: Dict[str, SwaggerFile] = {}
 
