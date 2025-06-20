@@ -3,11 +3,12 @@
 #pragma once
 
 #include "CSP/Common/CancellationToken.h"
-#include "Common/Web/HttpPayload.h"
 #include "Dto.h"
 #include "Services/ApiBase/ApiBase.h"
+#include "Web/HttpPayload.h"
 
 #include <optional>
+#include <string>
 
 
 namespace csp::services::generated::trackingservice
@@ -95,10 +96,10 @@ public:
 	/// GET /api/v1/users/{userId}/quota-progress
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdQuotaProgressGet(const utility::string_t& userId,
-										  const std::optional<std::vector<utility::string_t>>& features,
-										  csp::services::ApiResponseHandlerBase* ResponseHandler,
-										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdQuotaProgressGet(const utility::string_t& userId,
+									 const std::optional<std::vector<utility::string_t>>& features,
+									 csp::services::ApiResponseHandlerBase* ResponseHandler,
+									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -109,10 +110,10 @@ public:
 	/// GET /api/v1/groups/{groupId}/quota-progress
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1GroupsGroupIdQuotaProgressGet(const utility::string_t& groupId,
-											const std::optional<std::vector<utility::string_t>>& features,
-											csp::services::ApiResponseHandlerBase* ResponseHandler,
-											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void groupsGroupIdQuotaProgressGet(const utility::string_t& groupId,
+									   const std::optional<std::vector<utility::string_t>>& features,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -123,14 +124,14 @@ public:
 	/// GET /api/v1/user/{userId}/quota-activity
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UserUserIdQuotaActivityGet(const utility::string_t& userId,
-										 const std::optional<std::vector<utility::string_t>>& Features,
-										 const std::optional<utility::string_t>& StartDateTime,
-										 const std::optional<utility::string_t>& EndDateTime,
-										 const std::optional<int32_t>& Skip,
-										 const std::optional<int32_t>& Limit,
-										 csp::services::ApiResponseHandlerBase* ResponseHandler,
-										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void userUserIdQuotaActivityGet(const utility::string_t& userId,
+									const std::optional<std::vector<utility::string_t>>& Features,
+									const std::optional<utility::string_t>& StartDateTime,
+									const std::optional<utility::string_t>& EndDateTime,
+									const std::optional<int32_t>& Skip,
+									const std::optional<int32_t>& Limit,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -141,14 +142,14 @@ public:
 	/// GET /api/v1/group/{groupId}/quota-activity
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1GroupGroupIdQuotaActivityGet(const utility::string_t& groupId,
-										   const std::optional<std::vector<utility::string_t>>& Features,
-										   const std::optional<utility::string_t>& StartDateTime,
-										   const std::optional<utility::string_t>& EndDateTime,
-										   const std::optional<int32_t>& Skip,
-										   const std::optional<int32_t>& Limit,
-										   csp::services::ApiResponseHandlerBase* ResponseHandler,
-										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void groupGroupIdQuotaActivityGet(const utility::string_t& groupId,
+									  const std::optional<std::vector<utility::string_t>>& Features,
+									  const std::optional<utility::string_t>& StartDateTime,
+									  const std::optional<utility::string_t>& EndDateTime,
+									  const std::optional<int32_t>& Skip,
+									  const std::optional<int32_t>& Limit,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class QuotaManagementApi final : public csp::services::ApiBase
@@ -166,9 +167,9 @@ public:
 	/// GET /api/v1/tiers/{tierName}/quotas
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1TiersTierNameQuotasGet(const utility::string_t& tierName,
-									 csp::services::ApiResponseHandlerBase* ResponseHandler,
-									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void tiersTierNameQuotasGet(const utility::string_t& tierName,
+								csp::services::ApiResponseHandlerBase* ResponseHandler,
+								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -179,11 +180,10 @@ public:
 	/// GET /api/v1/tiers/{tierName}/features/{featureName}/quota
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1TiersTierNameFeaturesFeatureNameQuotaGet(const utility::string_t& tierName,
-													   const utility::string_t& featureName,
-													   csp::services::ApiResponseHandlerBase* ResponseHandler,
-													   csp::common::CancellationToken& CancellationToken
-													   = csp::common::CancellationToken::Dummy()) const;
+	void tiersTierNameFeaturesFeatureNameQuotaGet(const utility::string_t& tierName,
+												  const utility::string_t& featureName,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -193,12 +193,11 @@ public:
 	/// PUT /api/v1/tiers/{tierName}/features/{featureName}/quota
 	/// Authorization: magnopus-admin
 	/// </remarks>
-	void apiV1TiersTierNameFeaturesFeatureNameQuotaPut(const utility::string_t& tierName,
-													   const utility::string_t& featureName,
-													   const std::shared_ptr<QuotaFeatureTierDto>& RequestBody,
-													   csp::services::ApiResponseHandlerBase* ResponseHandler,
-													   csp::common::CancellationToken& CancellationToken
-													   = csp::common::CancellationToken::Dummy()) const;
+	void tiersTierNameFeaturesFeatureNameQuotaPut(const utility::string_t& tierName,
+												  const utility::string_t& featureName,
+												  const std::shared_ptr<QuotaFeatureTierDto>& RequestBody,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -210,11 +209,11 @@ public:
 	/// DELETE /api/v1/tiers/{tierName}/features/{featureName}/quota
 	/// Authorization: magnopus-admin
 	/// </remarks>
-	void apiV1TiersTierNameFeaturesFeatureNameQuotaDelete(const utility::string_t& tierName,
-														  const utility::string_t& featureName,
-														  csp::services::ApiResponseHandlerBase* ResponseHandler,
-														  csp::common::CancellationToken& CancellationToken
-														  = csp::common::CancellationToken::Dummy()) const;
+	void tiersTierNameFeaturesFeatureNameQuotaDelete(const utility::string_t& tierName,
+													 const utility::string_t& featureName,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken
+													 = csp::common::CancellationToken::Dummy()) const;
 };
 
 class QuotaTierAssignmentApi final : public csp::services::ApiBase
@@ -232,9 +231,9 @@ public:
 	/// GET /api/v1/tier-assignments/{id}
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void apiV1TierAssignmentsIdGet(const utility::string_t& id,
-								   csp::services::ApiResponseHandlerBase* ResponseHandler,
-								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void tierAssignmentsIdGet(const utility::string_t& id,
+							  csp::services::ApiResponseHandlerBase* ResponseHandler,
+							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -245,9 +244,9 @@ public:
 	/// GET /api/v1/users/{userId}/tier-assignment
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdTierAssignmentGet(const utility::string_t& userId,
-										   csp::services::ApiResponseHandlerBase* ResponseHandler,
-										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdTierAssignmentGet(const utility::string_t& userId,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -257,10 +256,10 @@ public:
 	/// PUT /api/v1/users/{userId}/tier-assignment
 	/// Authorization: magnopus-admin,internal-service
 	/// </remarks>
-	void apiV1UsersUserIdTierAssignmentPut(const utility::string_t& userId,
-										   const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody,
-										   csp::services::ApiResponseHandlerBase* ResponseHandler,
-										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdTierAssignmentPut(const utility::string_t& userId,
+									  const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -270,9 +269,9 @@ public:
 	/// DELETE /api/v1/users/{userId}/tier-assignment
 	/// IMPORTANT NOTE: This does NOT leave the user's tier as unassigned.  This reverts the user to the default tier.
 	/// </remarks>
-	void apiV1UsersUserIdTierAssignmentDelete(const utility::string_t& userId,
-											  csp::services::ApiResponseHandlerBase* ResponseHandler,
-											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdTierAssignmentDelete(const utility::string_t& userId,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -283,9 +282,9 @@ public:
 	/// GET /api/v1/tenants/{tenantName}/tier-assignment
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1TenantsTenantNameTierAssignmentGet(const utility::string_t& tenantName,
-												 csp::services::ApiResponseHandlerBase* ResponseHandler,
-												 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void tenantsTenantNameTierAssignmentGet(const utility::string_t& tenantName,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -295,10 +294,10 @@ public:
 	/// PUT /api/v1/tenants/{tenantName}/tier-assignment
 	/// Authorization: magnopus-admin,internal-service
 	/// </remarks>
-	void apiV1TenantsTenantNameTierAssignmentPut(const utility::string_t& tenantName,
-												 const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody,
-												 csp::services::ApiResponseHandlerBase* ResponseHandler,
-												 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void tenantsTenantNameTierAssignmentPut(const utility::string_t& tenantName,
+											const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -308,10 +307,9 @@ public:
 	/// DELETE /api/v1/tenants/{tenantName}/tier-assignment
 	/// IMPORTANT NOTE: This does NOT leave the tenant's tier as unassigned.  This reverts the tenant to the default tier.
 	/// </remarks>
-	void apiV1TenantsTenantNameTierAssignmentDelete(const utility::string_t& tenantName,
-													csp::services::ApiResponseHandlerBase* ResponseHandler,
-													csp::common::CancellationToken& CancellationToken
-													= csp::common::CancellationToken::Dummy()) const;
+	void tenantsTenantNameTierAssignmentDelete(const utility::string_t& tenantName,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -322,9 +320,9 @@ public:
 	/// GET /api/v1/groups/tier-assignments
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1GroupsTierAssignmentsGet(const std::optional<std::vector<utility::string_t>>& groupIds,
-									   csp::services::ApiResponseHandlerBase* ResponseHandler,
-									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void groupsTierAssignmentsGet(const std::optional<std::vector<utility::string_t>>& groupIds,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 
