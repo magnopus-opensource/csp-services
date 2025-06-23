@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CSP/Common/CancellationToken.h"
+#include "Common/Web/HttpPayload.h"
 #include "Dto.h"
 #include "Services/ApiBase/ApiBase.h"
-#include "Web/HttpPayload.h"
 
 #include <optional>
 #include <string>
@@ -498,22 +498,6 @@ public:
 	/// Sends email with a link to accept request to join a group with existing account or signup and join
 	/// </summary>
 	/// <remarks>
-	/// POST /api/v1/groups/{groupId}/email-invite
-	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
-	/// </remarks>
-	[[deprecated("'POST /api/v1/groups/{groupId}/email-invite' is deprecated!")]]
-	void groupsGroupIdEmailInvitePost(const utility::string_t& groupId,
-									  const std::optional<bool>& resendInvite,
-									  const std::shared_ptr<GroupInviteDto>& RequestBody,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
-
-
-
-	/// <summary>
-	/// Sends email with a link to accept request to join a group with existing account or signup and join
-	/// </summary>
-	/// <remarks>
 	/// POST /api/v1/groups/{groupId}/email-invites
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
@@ -728,7 +712,7 @@ public:
 
 	/// <summary>
 	/// Used to set whether a Group is archived or not. Archived Groups
-	/// cannot be modified and they cannot be viewed by anyone but their owner.
+	/// cannot be modified, and they cannot be viewed by anyone but their owner.
 	/// </summary>
 	/// <remarks>
 	/// PUT /api/v1/groups/archived

@@ -3,8 +3,8 @@
 #include "Api.h"
 
 #include "CSP/CSPFoundation.h"
-#include "Web/HttpAuth.h"
-#include "Web/HttpPayload.h"
+#include "Common/Web/HttpAuth.h"
+#include "Common/Web/HttpPayload.h"
 
 #include <fmt/format.h>
 #include <string>
@@ -47,6 +47,7 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextPut(const
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void ApplicationSettingsApi::applicationsApplicationNameSettingsContextGet(const utility::string_t& applicationName,
 																		   const utility::string_t& context,
 																		   const std::optional<std::vector<utility::string_t>>& keys,
@@ -73,6 +74,7 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextGet(const
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void ApplicationSettingsApi::applicationsApplicationNameSettingsContextDelete(const utility::string_t& applicationName,
 																			  const utility::string_t& context,
@@ -141,6 +143,7 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsGet(const utilit
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void ApplicationSettingsApi::applicationsApplicationNameSettingsDelete(const utility::string_t& applicationName,
 																	   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -335,6 +338,7 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdGet(const utility::string_t& userId,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void AvatarsApi::usersUserIdAvatarsAvatarIdPut(const utility::string_t& userId,
 											   const utility::string_t& avatarId,
 											   const std::shared_ptr<AvatarManifestDto>& RequestBody,
@@ -354,6 +358,7 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdPut(const utility::string_t& userId,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void AvatarsApi::usersUserIdAvatarsAvatarIdDelete(const utility::string_t& userId,
 												  const utility::string_t& avatarId,
@@ -476,6 +481,7 @@ void GroupApi::groupsPost(const std::shared_ptr<GroupDto>& RequestBody,
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void GroupApi::groupsPut(const std::shared_ptr<GroupDto>& RequestBody,
 						 csp::services::ApiResponseHandlerBase* ResponseHandler,
 						 csp::common::CancellationToken& CancellationToken) const
@@ -490,6 +496,7 @@ void GroupApi::groupsPut(const std::shared_ptr<GroupDto>& RequestBody,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void GroupApi::groupsDelete(const std::optional<std::vector<utility::string_t>>& groupIds,
 							csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -510,6 +517,7 @@ void GroupApi::groupsDelete(const std::optional<std::vector<utility::string_t>>&
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void GroupApi::groupsGet(const std::optional<std::vector<utility::string_t>>& ids,
 						 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -590,6 +598,7 @@ void GroupApi::groupsGroupIdBannedUsersUserIdPut(const utility::string_t& groupI
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void GroupApi::groupsGroupIdBannedUsersUserIdDelete(const utility::string_t& groupId,
 													const utility::string_t& userId,
 													csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -624,6 +633,7 @@ void GroupApi::groupsGroupIdDelete(const utility::string_t& groupId,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void GroupApi::groupsGroupIdGet(const utility::string_t& groupId,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -703,33 +713,6 @@ void GroupApi::groupsSummariesGet(const std::optional<utility::string_t>& groupC
 
 
 
-void GroupApi::groupsGroupIdEmailInvitePost(const utility::string_t& groupId,
-											const std::optional<bool>& resendInvite,
-											const std::shared_ptr<GroupInviteDto>& RequestBody,
-											csp::services::ApiResponseHandlerBase* ResponseHandler,
-											csp::common::CancellationToken& CancellationToken) const
-{
-	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/email-invite").c_str(),
-		{groupId});
-
-
-	if (resendInvite.has_value())
-	{
-		Uri.AddQueryParams("resendInvite", resendInvite.value());
-	}
-
-	csp::web::HttpPayload Payload;
-	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
-	Payload.SetBearerToken();
-
-	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
-}
-
-
-
 void GroupApi::groupsGroupIdEmailInvitesPost(const utility::string_t& groupId,
 											 const std::optional<bool>& resendInvite,
 											 const std::optional<utility::string_t>& emailLinkUrl,
@@ -768,6 +751,7 @@ void GroupApi::groupsGroupIdEmailInvitesPost(const utility::string_t& groupId,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void GroupApi::groupsGroupIdEmailInvitesGet(const utility::string_t& groupId,
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -846,6 +830,7 @@ void GroupApi::groupsGroupIdLitePut(const utility::string_t& groupId,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void GroupApi::groupsGroupIdLiteGet(const utility::string_t& groupId,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -945,6 +930,7 @@ void GroupApi::groupsGroupIdModeratorsUserIdPut(const utility::string_t& groupId
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void GroupApi::groupsGroupIdModeratorsUserIdDelete(const utility::string_t& groupId,
 												   const utility::string_t& userId,
@@ -1104,6 +1090,7 @@ void GroupApi::groupsLiteGet(const std::optional<std::vector<utility::string_t>>
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void GroupApi::groupsLitePost(const std::optional<int32_t>& Skip,
 							  const std::optional<int32_t>& Limit,
@@ -1325,6 +1312,7 @@ void InventoryApi::usersUserIdInventoryItemsGet(const utility::string_t& userId,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void InventoryApi::usersUserIdInventoryItemsPost(const utility::string_t& userId,
 												 const std::optional<bool>& notify,
@@ -1654,6 +1642,7 @@ void InventoryApi::usersUserIdInventoryItemsIdGet(const utility::string_t& userI
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void InventoryApi::usersUserIdInventoryItemsIdDelete(const utility::string_t& userId,
 													 const utility::string_t& id,
 													 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1671,6 +1660,7 @@ void InventoryApi::usersUserIdInventoryItemsIdDelete(const utility::string_t& us
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void InventoryApi::usersUserIdInventoryItemsIdPut(const utility::string_t& userId,
 												  const utility::string_t& id,
@@ -1785,6 +1775,7 @@ void OrganizationApi::organizationsOrganizationIdGet(const utility::string_t& or
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void OrganizationApi::organizationsOrganizationIdPut(const utility::string_t& organizationId,
 													 const std::shared_ptr<OrganizationDto>& RequestBody,
 													 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1802,6 +1793,7 @@ void OrganizationApi::organizationsOrganizationIdPut(const utility::string_t& or
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void OrganizationApi::organizationsOrganizationIdDelete(const utility::string_t& organizationId,
 														csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1862,6 +1854,7 @@ void OrganizationApi::organizationsOrganizationIdMembershipInvitesPost(const uti
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void OrganizationApi::organizationsOrganizationIdMembershipInvitesGet(const utility::string_t& organizationId,
 																	  csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -2047,6 +2040,7 @@ void ProfileApi::usersPost(const std::shared_ptr<CreateUserRequest>& RequestBody
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void ProfileApi::usersGet(const std::optional<utility::string_t>& GuestDeviceId,
 						  const std::optional<utility::string_t>& PartialGuestDeviceId,
 						  const std::optional<utility::string_t>& Email,
@@ -2219,6 +2213,7 @@ void ProfileApi::usersUserIdDelete(const utility::string_t& userId,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void ProfileApi::usersUserIdGet(const utility::string_t& userId,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -2483,6 +2478,7 @@ void ProfileApi::usersUserIdMetagamePut(const utility::string_t& userId,
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void ProfileApi::usersUserIdMetagameGet(const utility::string_t& userId,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken) const
@@ -2649,6 +2645,7 @@ void SettingsApi::usersUserIdSettingsContextPut(const utility::string_t& userId,
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void SettingsApi::usersUserIdSettingsContextGet(const utility::string_t& userId,
 												const utility::string_t& context,
 												const std::optional<std::vector<utility::string_t>>& keys,
@@ -2673,6 +2670,7 @@ void SettingsApi::usersUserIdSettingsContextGet(const utility::string_t& userId,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void SettingsApi::usersUserIdSettingsContextDelete(const utility::string_t& userId,
 												   const utility::string_t& context,
@@ -2894,6 +2892,7 @@ void TenantApi::tenantsNamesTenantNamePut(const utility::string_t& tenantName,
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void TenantApi::tenantsNamesTenantNameGet(const utility::string_t& tenantName,
 										  csp::services::ApiResponseHandlerBase* ResponseHandler,
 										  csp::common::CancellationToken& CancellationToken) const
@@ -2977,6 +2976,7 @@ void UserRolesApi::usersUserIdRolesGet(const utility::string_t& userId,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void UserRolesApi::usersUserIdRolesPut(const utility::string_t& userId,
 									   const std::shared_ptr<UserRolesDto>& RequestBody,

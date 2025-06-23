@@ -3,8 +3,8 @@
 #include "Api.h"
 
 #include "CSP/CSPFoundation.h"
-#include "Web/HttpAuth.h"
-#include "Web/HttpPayload.h"
+#include "Common/Web/HttpAuth.h"
+#include "Common/Web/HttpPayload.h"
 
 #include <fmt/format.h>
 #include <string>
@@ -329,6 +329,7 @@ void QuotaManagementApi::tiersTierNameFeaturesFeatureNameQuotaGet(const utility:
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void QuotaManagementApi::tiersTierNameFeaturesFeatureNameQuotaPut(const utility::string_t& tierName,
 																  const utility::string_t& featureName,
 																  const std::shared_ptr<QuotaFeatureTierDto>& RequestBody,
@@ -350,6 +351,7 @@ void QuotaManagementApi::tiersTierNameFeaturesFeatureNameQuotaPut(const utility:
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void QuotaManagementApi::tiersTierNameFeaturesFeatureNameQuotaDelete(const utility::string_t& tierName,
 																	 const utility::string_t& featureName,
@@ -418,6 +420,7 @@ void QuotaTierAssignmentApi::usersUserIdTierAssignmentGet(const utility::string_
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void QuotaTierAssignmentApi::usersUserIdTierAssignmentPut(const utility::string_t& userId,
 														  const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody,
 														  csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -435,6 +438,7 @@ void QuotaTierAssignmentApi::usersUserIdTierAssignmentPut(const utility::string_
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void QuotaTierAssignmentApi::usersUserIdTierAssignmentDelete(const utility::string_t& userId,
 															 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -471,6 +475,7 @@ void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentGet(const utility::s
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentPut(const utility::string_t& tenantName,
 																const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody,
 																csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -489,6 +494,7 @@ void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentPut(const utility::s
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentDelete(const utility::string_t& tenantName,
 																   csp::services::ApiResponseHandlerBase* ResponseHandler,

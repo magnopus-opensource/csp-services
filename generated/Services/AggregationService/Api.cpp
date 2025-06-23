@@ -3,8 +3,8 @@
 #include "Api.h"
 
 #include "CSP/CSPFoundation.h"
-#include "Web/HttpAuth.h"
-#include "Web/HttpPayload.h"
+#include "Common/Web/HttpAuth.h"
+#include "Common/Web/HttpPayload.h"
 
 #include <fmt/format.h>
 #include <string>
@@ -228,6 +228,7 @@ void CacheApi::cacheKeysGet(const std::optional<utility::string_t>& pattern,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void CacheApi::cacheKeysDelete(const std::optional<utility::string_t>& pattern,
 							   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -490,6 +491,7 @@ void SequenceApi::sequencesGet(const std::optional<std::vector<utility::string_t
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void SequenceApi::sequencesPut(const std::optional<utility::string_t>& newKey,
 							   const std::shared_ptr<SequenceDto>& RequestBody,
 							   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -529,6 +531,7 @@ void SequenceApi::sequencesKeysKeyGet(const utility::string_t& key,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void SequenceApi::sequencesKeysKeyDelete(const utility::string_t& key,
 										 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -792,6 +795,7 @@ void ShopifyApi::spacesSpaceIdVendorsShopifyCartsCartIdGet(const utility::string
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void ShopifyApi::spacesSpaceIdVendorsShopifyCartsCartIdPut(const utility::string_t& spaceId,
 														   const utility::string_t& cartId,

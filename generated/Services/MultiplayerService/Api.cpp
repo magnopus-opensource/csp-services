@@ -3,8 +3,8 @@
 #include "Api.h"
 
 #include "CSP/CSPFoundation.h"
-#include "Web/HttpAuth.h"
-#include "Web/HttpPayload.h"
+#include "Common/Web/HttpAuth.h"
+#include "Common/Web/HttpPayload.h"
 
 #include <fmt/format.h>
 #include <string>
@@ -336,6 +336,7 @@ void ObjectMessageApi::objectsPost(const std::shared_ptr<ObjectMessageDto>& Requ
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void ObjectMessageApi::objectsGet(const std::optional<std::vector<int32_t>>& Ids,
 								  const std::optional<std::vector<utility::string_t>>& ObjectMessageDocumentIds,
 								  const std::optional<std::vector<utility::string_t>>& ScopeIds,
@@ -453,6 +454,7 @@ void ObjectMessageApi::objectsGet(const std::optional<std::vector<int32_t>>& Ids
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void ObjectMessageApi::objectsDelete(const std::optional<std::vector<int32_t>>& ids,
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -574,6 +576,7 @@ void ObjectMessageApi::objectsIdGet(const int32_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void ObjectMessageApi::objectsIdPut(const int32_t& id,
 									const std::shared_ptr<ObjectMessageDto>& RequestBody,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -590,6 +593,7 @@ void ObjectMessageApi::objectsIdPut(const int32_t& id,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void ObjectMessageApi::objectsIdDelete(const int32_t& id,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -730,6 +734,7 @@ void ScopesApi::scopesPost(const std::shared_ptr<ScopeDto>& RequestBody,
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void ScopesApi::scopesPut(const std::shared_ptr<ScopeDto>& RequestBody,
 						  csp::services::ApiResponseHandlerBase* ResponseHandler,
 						  csp::common::CancellationToken& CancellationToken) const
@@ -744,6 +749,7 @@ void ScopesApi::scopesPut(const std::shared_ptr<ScopeDto>& RequestBody,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void ScopesApi::scopesGet(const std::optional<std::vector<utility::string_t>>& Ids,
 						  const std::optional<std::vector<utility::string_t>>& ReferenceIds,
@@ -824,6 +830,7 @@ void ScopesApi::scopesIdGet(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void ScopesApi::scopesIdDelete(const utility::string_t& id,
 							   csp::services::ApiResponseHandlerBase* ResponseHandler,
 							   csp::common::CancellationToken& CancellationToken) const
@@ -838,6 +845,7 @@ void ScopesApi::scopesIdDelete(const utility::string_t& id,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void ScopesApi::scopesIdPut(const utility::string_t& id,
 							const std::shared_ptr<ScopeDto>& RequestBody,
@@ -877,6 +885,7 @@ void ScopesApi::scopesReferenceTypeReferenceTypeReferenceIdReferenceIdGet(const 
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void ScopesApi::scopesReferenceTypeReferenceTypeReferenceIdReferenceIdDelete(const utility::string_t& referenceId,
 																			 const utility::string_t& referenceType,
