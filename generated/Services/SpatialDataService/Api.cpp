@@ -3,8 +3,8 @@
 #include "Api.h"
 
 #include "CSP/CSPFoundation.h"
-#include "Web/HttpAuth.h"
-#include "Web/HttpPayload.h"
+#include "Common/Web/HttpAuth.h"
+#include "Common/Web/HttpPayload.h"
 
 #include <fmt/format.h>
 #include <string>
@@ -39,6 +39,7 @@ void AnchorsApi::anchorsIdGet(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void AnchorsApi::anchorsIdPut(const utility::string_t& id,
 							  const std::shared_ptr<AnchorDto>& RequestBody,
 							  csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -55,6 +56,7 @@ void AnchorsApi::anchorsIdPut(const utility::string_t& id,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void AnchorsApi::anchorsIdDelete(const utility::string_t& id,
 								 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -88,6 +90,7 @@ void AnchorsApi::anchorsPost(const std::shared_ptr<AnchorDto>& RequestBody,
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void AnchorsApi::anchorsDelete(const std::optional<std::vector<utility::string_t>>& ids,
 							   csp::services::ApiResponseHandlerBase* ResponseHandler,
 							   csp::common::CancellationToken& CancellationToken) const
@@ -107,6 +110,7 @@ void AnchorsApi::anchorsDelete(const std::optional<std::vector<utility::string_t
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void AnchorsApi::anchorsGet(const std::optional<std::vector<utility::string_t>>& Keys,
 							const std::optional<std::vector<utility::string_t>>& Values,
@@ -230,6 +234,7 @@ void AnchorsApi::anchorResolutionsPost(const std::shared_ptr<AnchorResolutionDto
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void AnchorsApi::anchorResolutionsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
 									  const std::optional<std::vector<utility::string_t>>& Tags,
@@ -458,6 +463,7 @@ void PersonalPointOfInterestApi::usersUserIdPoiPoiIdPut(const utility::string_t&
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void PersonalPointOfInterestApi::usersUserIdPoiPoiIdDelete(const utility::string_t& userId,
 														   const utility::string_t& poiId,
 														   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -524,6 +530,7 @@ void PointOfInterestApi::poiIdGet(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void PointOfInterestApi::poiIdPut(const utility::string_t& id,
 								  const std::shared_ptr<PointOfInterestDto>& RequestBody,
 								  csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -539,6 +546,7 @@ void PointOfInterestApi::poiIdPut(const utility::string_t& id,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void PointOfInterestApi::poiIdDelete(const utility::string_t& id,
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1124,6 +1132,7 @@ void PointOfInterestApi::poiGet(const std::optional<utility::string_t>& ppoiUser
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void PointOfInterestApi::poiPost(const std::shared_ptr<PointOfInterestDto>& RequestBody,
 								 csp::services::ApiResponseHandlerBase* ResponseHandler,
 								 csp::common::CancellationToken& CancellationToken) const
@@ -1138,6 +1147,7 @@ void PointOfInterestApi::poiPost(const std::shared_ptr<PointOfInterestDto>& Requ
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void PointOfInterestApi::poiDelete(const std::optional<std::vector<utility::string_t>>& ids,
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1306,6 +1316,7 @@ void PositionApi::usersUserIdPositionsGet(const utility::string_t& userId,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void PositionApi::usersUserIdPositionsPost(const utility::string_t& userId,
 										   const std::shared_ptr<PositionDto>& RequestBody,
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1456,6 +1467,7 @@ void PositionApi::usersUserIdPositionsPositionIdGet(const utility::string_t& use
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void PositionApi::usersUserIdPositionsPositionIdDelete(const utility::string_t& userId,
 													   const utility::string_t& positionId,
@@ -1663,6 +1675,7 @@ void PositionSpoofingApi::usersUserIdPositionsSpoofPost(const utility::string_t&
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void PositionSpoofingApi::usersUserIdPositionsSpoofGet(const utility::string_t& userId,
 													   csp::services::ApiResponseHandlerBase* ResponseHandler,
 													   csp::common::CancellationToken& CancellationToken) const
@@ -1678,6 +1691,7 @@ void PositionSpoofingApi::usersUserIdPositionsSpoofGet(const utility::string_t& 
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void PositionSpoofingApi::usersUserIdPositionsSpoofDelete(const utility::string_t& userId,
 														  csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1741,6 +1755,7 @@ void SpaceTimeApi::usersUserIdSpacetimeIdGet(const utility::string_t& userId,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void SpaceTimeApi::usersUserIdSpacetimeIdDelete(const utility::string_t& userId,
 												const utility::string_t& id,
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1757,6 +1772,7 @@ void SpaceTimeApi::usersUserIdSpacetimeIdDelete(const utility::string_t& userId,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void SpaceTimeApi::usersUserIdSpacetimeIdPut(const utility::string_t& userId,
 											 const utility::string_t& id,

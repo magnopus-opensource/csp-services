@@ -3,8 +3,8 @@
 #include "Api.h"
 
 #include "CSP/CSPFoundation.h"
-#include "Web/HttpAuth.h"
-#include "Web/HttpPayload.h"
+#include "Common/Web/HttpAuth.h"
+#include "Common/Web/HttpPayload.h"
 
 #include <fmt/format.h>
 #include <string>
@@ -42,6 +42,7 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsPost(const utility::string
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void AssetDetailApi::prototypesPrototypeIdAssetDetailsGet(const utility::string_t& prototypeId,
 														  const std::optional<std::vector<utility::string_t>>& Ids,
@@ -189,6 +190,7 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdGet(const uti
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdPut(const utility::string_t& prototypeId,
 																	   const utility::string_t& assetDetailId,
 																	   const std::shared_ptr<AssetDetailDto>& RequestBody,
@@ -210,6 +212,7 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdPut(const uti
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdDelete(const utility::string_t& prototypeId,
 																		  const utility::string_t& assetDetailId,
@@ -411,6 +414,7 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAd
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdDelete(
 	const utility::string_t& prototypeId,
 	const utility::string_t& assetDetailId,
@@ -456,6 +460,7 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableTh
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableThirdPartyReferenceIdDelete(
 	const utility::string_t& prototypeId,
@@ -605,6 +610,7 @@ void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipeline
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void AssetDetailApi::prototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelPut(const utility::string_t& prototypeId,
 																						 const utility::string_t& assetDetailId,
 																						 const std::shared_ptr<AssetPipelineModelDto>& RequestBody,
@@ -753,6 +759,7 @@ void PrototypeApi::prototypesPost(const std::shared_ptr<PrototypeDto>& RequestBo
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void PrototypeApi::prototypesGet(const std::optional<std::vector<utility::string_t>>& Tags,
 								 const std::optional<std::vector<utility::string_t>>& ExcludedTags,
@@ -920,6 +927,7 @@ void PrototypeApi::prototypesGet(const std::optional<std::vector<utility::string
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void PrototypeApi::prototypesDelete(const std::optional<std::vector<utility::string_t>>& ids,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1641,6 +1649,7 @@ void PrototypeApi::prototypesIdGet(const utility::string_t& id,
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
+
 void PrototypeApi::prototypesIdPut(const utility::string_t& id,
 								   const std::shared_ptr<PrototypeDto>& RequestBody,
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1657,6 +1666,7 @@ void PrototypeApi::prototypesIdPut(const utility::string_t& id,
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void PrototypeApi::prototypesIdDelete(const utility::string_t& id,
 									  csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1710,6 +1720,7 @@ void PrototypeApi::prototypesPrototypeIdStatePut(const utility::string_t& protot
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
+
 
 void PrototypeApi::prototypesPrototypeIdStateGet(const utility::string_t& prototypeId,
 												 const std::optional<std::vector<utility::string_t>>& keys,
