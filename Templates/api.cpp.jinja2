@@ -6,11 +6,14 @@
 
 #include "Api.h"
 
+#include <string>
+#include <fmt/format.h>
+
 
 namespace csp::services::generated::{{ service_name | lower }} {
 
 {% for tag, routes in tags.items() %}
-    {{ tag }}Api::{{ tag }}Api(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, &csp::CSPFoundation::GetEndpoints().{{ service_name }}URI)
+    {{ tag }}Api::{{ tag }}Api(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().{{ service_name }})
     {
 
     }
@@ -22,13 +25,21 @@ namespace csp::services::generated::{{ service_name | lower }} {
 
     {% for route_path, route in routes.items() %}
         {% for method_name, method in route.items() %}
-            void {{ tag }}Api::{{ route_path | camelcase }}{{ method_name | capitalize }}(
+            {# Converts a file path to a camelCase function name with version information removed. #}
+            void {{ tag }}Api::{%- if route_path[:6] == '/api/v' -%} {{ route_path[7:] | camelcase }} {%- else -%} {{ route_path | camelcase }} {%- endif -%}{{ method_name | capitalize }}(
                 {{ print_method_parameters(method, false) }}
             ) const
             {
                 csp::web::Uri Uri;
                 Uri.SetWithParams(
-                    *RootUri + "{{ route_path }}",
+                    {#- Check if the path contains version information in the format 'api/v{version}'. -#}
+                    {%- if route_path[:6] == '/api/v' -%} 
+                        {# Builds the versioned RESTful URL by combining base URI, API version, and a cleaned route path. #}
+                        fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "{{ route_path[7:] }}").c_str()
+                    {%- else -%} 
+                        {# Builds the root RESTful URL by appending the route path to the service base URI. #}
+                        fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "{{ route_path }}").c_str()
+                    {%- endif -%},
                     {
                         {%- for parameter in method.parameters | selectattr('in', 'equalto', 'path') -%}
                             {%- if parameter.schema.type == 'string' -%}

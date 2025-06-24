@@ -8,6 +8,7 @@
 #include "Services/ApiBase/ApiBase.h"
 
 #include <optional>
+#include <string>
 
 
 namespace csp::services::generated::prototypeservice
@@ -29,11 +30,10 @@ public:
 	/// POST /api/v1/prototypes/{prototypeId}/asset-details
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesPrototypeIdAssetDetailsPost(const utility::string_t& prototypeId,
-													const std::shared_ptr<AssetDetailDto>& RequestBody,
-													csp::services::ApiResponseHandlerBase* ResponseHandler,
-													csp::common::CancellationToken& CancellationToken
-													= csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsPost(const utility::string_t& prototypeId,
+											   const std::shared_ptr<AssetDetailDto>& RequestBody,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -43,21 +43,21 @@ public:
 	/// GET /api/v1/prototypes/{prototypeId}/asset-details
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesPrototypeIdAssetDetailsGet(const utility::string_t& prototypeId,
-												   const std::optional<std::vector<utility::string_t>>& Ids,
-												   const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
-												   const std::optional<std::vector<utility::string_t>>& AssetTypes,
-												   const std::optional<std::vector<utility::string_t>>& Styles,
-												   const std::optional<std::vector<utility::string_t>>& Names,
-												   const std::optional<utility::string_t>& CreatedAfter,
-												   const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-												   const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-												   const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
-												   const std::optional<std::vector<utility::string_t>>& Tags,
-												   const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-												   const std::optional<bool>& TagsAll,
-												   csp::services::ApiResponseHandlerBase* ResponseHandler,
-												   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsGet(const utility::string_t& prototypeId,
+											  const std::optional<std::vector<utility::string_t>>& Ids,
+											  const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
+											  const std::optional<std::vector<utility::string_t>>& AssetTypes,
+											  const std::optional<std::vector<utility::string_t>>& Styles,
+											  const std::optional<std::vector<utility::string_t>>& Names,
+											  const std::optional<utility::string_t>& CreatedAfter,
+											  const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+											  const std::optional<std::vector<utility::string_t>>& PrototypeNames,
+											  const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
+											  const std::optional<std::vector<utility::string_t>>& Tags,
+											  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+											  const std::optional<bool>& TagsAll,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -68,11 +68,10 @@ public:
 	/// PUT /api/v1/prototypes/{prototypeId}/asset-details/bulk
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesPrototypeIdAssetDetailsBulkPut(const utility::string_t& prototypeId,
-													   const std::vector<std::shared_ptr<BulkUpsertAssetDetailDto>>& RequestBody,
-													   csp::services::ApiResponseHandlerBase* ResponseHandler,
-													   csp::common::CancellationToken& CancellationToken
-													   = csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsBulkPut(const utility::string_t& prototypeId,
+												  const std::vector<std::shared_ptr<BulkUpsertAssetDetailDto>>& RequestBody,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -83,11 +82,11 @@ public:
 	/// GET /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdGet(const utility::string_t& prototypeId,
-																const utility::string_t& assetDetailId,
-																csp::services::ApiResponseHandlerBase* ResponseHandler,
-																csp::common::CancellationToken& CancellationToken
-																= csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsAssetDetailIdGet(const utility::string_t& prototypeId,
+														   const utility::string_t& assetDetailId,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken
+														   = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -98,12 +97,12 @@ public:
 	/// PUT /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdPut(const utility::string_t& prototypeId,
-																const utility::string_t& assetDetailId,
-																const std::shared_ptr<AssetDetailDto>& RequestBody,
-																csp::services::ApiResponseHandlerBase* ResponseHandler,
-																csp::common::CancellationToken& CancellationToken
-																= csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsAssetDetailIdPut(const utility::string_t& prototypeId,
+														   const utility::string_t& assetDetailId,
+														   const std::shared_ptr<AssetDetailDto>& RequestBody,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken
+														   = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -114,11 +113,11 @@ public:
 	/// DELETE /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdDelete(const utility::string_t& prototypeId,
-																   const utility::string_t& assetDetailId,
-																   csp::services::ApiResponseHandlerBase* ResponseHandler,
-																   csp::common::CancellationToken& CancellationToken
-																   = csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsAssetDetailIdDelete(const utility::string_t& prototypeId,
+															  const utility::string_t& assetDetailId,
+															  csp::services::ApiResponseHandlerBase* ResponseHandler,
+															  csp::common::CancellationToken& CancellationToken
+															  = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -129,20 +128,20 @@ public:
 	/// GET /api/v1/prototypes/asset-details
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesAssetDetailsGet(const std::optional<std::vector<utility::string_t>>& Ids,
-										const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
-										const std::optional<std::vector<utility::string_t>>& AssetTypes,
-										const std::optional<std::vector<utility::string_t>>& Styles,
-										const std::optional<std::vector<utility::string_t>>& Names,
-										const std::optional<utility::string_t>& CreatedAfter,
-										const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-										const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-										const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
-										const std::optional<std::vector<utility::string_t>>& Tags,
-										const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-										const std::optional<bool>& TagsAll,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void prototypesAssetDetailsGet(const std::optional<std::vector<utility::string_t>>& Ids,
+								   const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
+								   const std::optional<std::vector<utility::string_t>>& AssetTypes,
+								   const std::optional<std::vector<utility::string_t>>& Styles,
+								   const std::optional<std::vector<utility::string_t>>& Names,
+								   const std::optional<utility::string_t>& CreatedAfter,
+								   const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+								   const std::optional<std::vector<utility::string_t>>& PrototypeNames,
+								   const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
+								   const std::optional<std::vector<utility::string_t>>& Tags,
+								   const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+								   const std::optional<bool>& TagsAll,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -153,13 +152,13 @@ public:
 	/// POST /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/blob
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdBlobPost(const utility::string_t& prototypeId,
-																	 const utility::string_t& assetDetailId,
-																	 const std::optional<bool>& skipAssetPipeline,
-																	 const std::shared_ptr<csp::web::HttpPayload>& FormFile,
-																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	 csp::common::CancellationToken& CancellationToken
-																	 = csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsAssetDetailIdBlobPost(const utility::string_t& prototypeId,
+																const utility::string_t& assetDetailId,
+																const std::optional<bool>& skipAssetPipeline,
+																const std::shared_ptr<csp::web::HttpPayload>& FormFile,
+																csp::services::ApiResponseHandlerBase* ResponseHandler,
+																csp::common::CancellationToken& CancellationToken
+																= csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -170,12 +169,12 @@ public:
 	/// POST /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/internal-copy
 	/// Authorization: internal-service
 	/// </remarks>
-	void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdInternalCopyPost(const utility::string_t& prototypeId,
-																			 const utility::string_t& assetDetailId,
-																			 const std::shared_ptr<InternalFileCopyRequest>& RequestBody,
-																			 csp::services::ApiResponseHandlerBase* ResponseHandler,
-																			 csp::common::CancellationToken& CancellationToken
-																			 = csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsAssetDetailIdInternalCopyPost(const utility::string_t& prototypeId,
+																		const utility::string_t& assetDetailId,
+																		const std::shared_ptr<InternalFileCopyRequest>& RequestBody,
+																		csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		csp::common::CancellationToken& CancellationToken
+																		= csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -187,12 +186,12 @@ public:
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
 	[[deprecated("'PUT /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}' is deprecated!")]]
-	void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdPut(const utility::string_t& prototypeId,
-																						const utility::string_t& assetDetailId,
-																						const utility::string_t& addressableId,
-																						csp::services::ApiResponseHandlerBase* ResponseHandler,
-																						csp::common::CancellationToken& CancellationToken
-																						= csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdPut(const utility::string_t& prototypeId,
+																				   const utility::string_t& assetDetailId,
+																				   const utility::string_t& addressableId,
+																				   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																				   csp::common::CancellationToken& CancellationToken
+																				   = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -203,12 +202,12 @@ public:
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
 	[[deprecated("'DELETE /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{addressableId}' is deprecated!")]]
-	void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdDelete(const utility::string_t& prototypeId,
-																						   const utility::string_t& assetDetailId,
-																						   const utility::string_t& addressableId,
-																						   csp::services::ApiResponseHandlerBase* ResponseHandler,
-																						   csp::common::CancellationToken& CancellationToken
-																						   = csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableAddressableIdDelete(const utility::string_t& prototypeId,
+																					  const utility::string_t& assetDetailId,
+																					  const utility::string_t& addressableId,
+																					  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																					  csp::common::CancellationToken& CancellationToken
+																					  = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -219,13 +218,12 @@ public:
 	/// PUT /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{thirdPartyReferenceId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void
-		apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableThirdPartyReferenceIdPut(const utility::string_t& prototypeId,
-																							   const utility::string_t& assetDetailId,
-																							   const utility::string_t& thirdPartyReferenceId,
-																							   csp::services::ApiResponseHandlerBase* ResponseHandler,
-																							   csp::common::CancellationToken& CancellationToken
-																							   = csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableThirdPartyReferenceIdPut(const utility::string_t& prototypeId,
+																						   const utility::string_t& assetDetailId,
+																						   const utility::string_t& thirdPartyReferenceId,
+																						   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																						   csp::common::CancellationToken& CancellationToken
+																						   = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -235,12 +233,12 @@ public:
 	/// DELETE /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/addressable/{thirdPartyReferenceId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAddressableThirdPartyReferenceIdDelete(
-		const utility::string_t& prototypeId,
-		const utility::string_t& assetDetailId,
-		const utility::string_t& thirdPartyReferenceId,
-		csp::services::ApiResponseHandlerBase* ResponseHandler,
-		csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsAssetDetailIdAddressableThirdPartyReferenceIdDelete(const utility::string_t& prototypeId,
+																							  const utility::string_t& assetDetailId,
+																							  const utility::string_t& thirdPartyReferenceId,
+																							  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																							  csp::common::CancellationToken& CancellationToken
+																							  = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -251,21 +249,21 @@ public:
 	/// GET /api/v1/prototypes/asset-details/asset-pipeline-model
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesAssetDetailsAssetPipelineModelGet(const std::optional<std::vector<utility::string_t>>& Ids,
-														  const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
-														  const std::optional<std::vector<utility::string_t>>& AssetTypes,
-														  const std::optional<std::vector<utility::string_t>>& Styles,
-														  const std::optional<std::vector<utility::string_t>>& Names,
-														  const std::optional<utility::string_t>& CreatedAfter,
-														  const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-														  const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-														  const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
-														  const std::optional<std::vector<utility::string_t>>& Tags,
-														  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-														  const std::optional<bool>& TagsAll,
-														  csp::services::ApiResponseHandlerBase* ResponseHandler,
-														  csp::common::CancellationToken& CancellationToken
-														  = csp::common::CancellationToken::Dummy()) const;
+	void prototypesAssetDetailsAssetPipelineModelGet(const std::optional<std::vector<utility::string_t>>& Ids,
+													 const std::optional<std::vector<utility::string_t>>& SupportedPlatforms,
+													 const std::optional<std::vector<utility::string_t>>& AssetTypes,
+													 const std::optional<std::vector<utility::string_t>>& Styles,
+													 const std::optional<std::vector<utility::string_t>>& Names,
+													 const std::optional<utility::string_t>& CreatedAfter,
+													 const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+													 const std::optional<std::vector<utility::string_t>>& PrototypeNames,
+													 const std::optional<std::vector<utility::string_t>>& PrototypeParentNames,
+													 const std::optional<std::vector<utility::string_t>>& Tags,
+													 const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+													 const std::optional<bool>& TagsAll,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken
+													 = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -276,11 +274,11 @@ public:
 	/// GET /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/asset-pipeline-model
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelGet(const utility::string_t& prototypeId,
-																				  const utility::string_t& assetDetailId,
-																				  csp::services::ApiResponseHandlerBase* ResponseHandler,
-																				  csp::common::CancellationToken& CancellationToken
-																				  = csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelGet(const utility::string_t& prototypeId,
+																			 const utility::string_t& assetDetailId,
+																			 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																			 csp::common::CancellationToken& CancellationToken
+																			 = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -292,12 +290,12 @@ public:
 	/// PUT /api/v1/prototypes/{prototypeId}/asset-details/{assetDetailId}/asset-pipeline-model
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelPut(const utility::string_t& prototypeId,
-																				  const utility::string_t& assetDetailId,
-																				  const std::shared_ptr<AssetPipelineModelDto>& RequestBody,
-																				  csp::services::ApiResponseHandlerBase* ResponseHandler,
-																				  csp::common::CancellationToken& CancellationToken
-																				  = csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdAssetDetailsAssetDetailIdAssetPipelineModelPut(const utility::string_t& prototypeId,
+																			 const utility::string_t& assetDetailId,
+																			 const std::shared_ptr<AssetPipelineModelDto>& RequestBody,
+																			 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																			 csp::common::CancellationToken& CancellationToken
+																			 = csp::common::CancellationToken::Dummy()) const;
 };
 
 class ConfigurationApi final : public csp::services::ApiBase
@@ -381,9 +379,9 @@ public:
 	/// POST /api/v1/prototypes
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesPost(const std::shared_ptr<PrototypeDto>& RequestBody,
-							 csp::services::ApiResponseHandlerBase* ResponseHandler,
-							 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void prototypesPost(const std::shared_ptr<PrototypeDto>& RequestBody,
+						csp::services::ApiResponseHandlerBase* ResponseHandler,
+						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -394,7 +392,189 @@ public:
 	/// GET /api/v1/prototypes
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesGet(const std::optional<std::vector<utility::string_t>>& Tags,
+	void prototypesGet(const std::optional<std::vector<utility::string_t>>& Tags,
+					   const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+					   const std::optional<bool>& TagsAll,
+					   const std::optional<std::vector<utility::string_t>>& Ids,
+					   const std::optional<std::vector<utility::string_t>>& Names,
+					   const std::optional<std::vector<utility::string_t>>& PartialNames,
+					   const std::optional<std::vector<utility::string_t>>& ExcludedIds,
+					   const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
+					   const std::optional<utility::string_t>& ParentId,
+					   const std::optional<std::vector<utility::string_t>>& GroupIds,
+					   const std::optional<std::vector<utility::string_t>>& Types,
+					   const std::optional<bool>& HasGroup,
+					   const std::optional<utility::string_t>& CreatedBy,
+					   const std::optional<utility::string_t>& CreatedAfter,
+					   const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
+					   const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
+					   const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+					   const std::optional<std::vector<utility::string_t>>& OrganizationIds,
+					   const std::optional<int32_t>& Skip,
+					   const std::optional<int32_t>& Limit,
+					   const std::optional<utility::string_t>& SortBy,
+					   const std::optional<std::shared_ptr<SortDirection>>& SortDirection,
+					   csp::services::ApiResponseHandlerBase* ResponseHandler,
+					   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+	/// <summary>
+	/// Locates all prototypes by their unique identifier(s) ids
+	/// and deletes them from the data store.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/prototypes
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void prototypesDelete(const std::optional<std::vector<utility::string_t>>& ids,
+						  csp::services::ApiResponseHandlerBase* ResponseHandler,
+						  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Duplicates prototype(s) to a new group by filters
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/prototypes/group-owned/{originalGroupId}/duplicate/{newGroupId}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void prototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPost(const std::optional<std::vector<utility::string_t>>& Tags,
+																	const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+																	const std::optional<bool>& TagsAll,
+																	const std::optional<std::vector<utility::string_t>>& Ids,
+																	const std::optional<std::vector<utility::string_t>>& Names,
+																	const std::optional<std::vector<utility::string_t>>& PartialNames,
+																	const std::optional<std::vector<utility::string_t>>& ExcludedIds,
+																	const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
+																	const std::optional<utility::string_t>& ParentId,
+																	const std::optional<std::vector<utility::string_t>>& GroupIds,
+																	const std::optional<std::vector<utility::string_t>>& Types,
+																	const std::optional<bool>& HasGroup,
+																	const std::optional<utility::string_t>& CreatedBy,
+																	const std::optional<utility::string_t>& CreatedAfter,
+																	const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
+																	const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
+																	const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+																	const std::optional<std::vector<utility::string_t>>& OrganizationIds,
+																	const utility::string_t& originalGroupId,
+																	const utility::string_t& newGroupId,
+																	const std::optional<bool>& shallowCopy,
+																	const std::optional<bool>& asyncCall,
+																	const std::optional<utility::string_t>& onBehalfOf,
+																	csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	csp::common::CancellationToken& CancellationToken
+																	= csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Create and return new prototype(s) that have not been saved to the database
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/prototypes/group-owned/{originalGroupId}/exports/{exportId}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void prototypesGroupOwnedOriginalGroupIdExportsExportIdPost(const utility::string_t& originalGroupId,
+																const utility::string_t& exportId,
+																const std::optional<std::vector<utility::string_t>>& Tags,
+																const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+																const std::optional<bool>& TagsAll,
+																const std::optional<std::vector<utility::string_t>>& Ids,
+																const std::optional<std::vector<utility::string_t>>& Names,
+																const std::optional<std::vector<utility::string_t>>& PartialNames,
+																const std::optional<std::vector<utility::string_t>>& ExcludedIds,
+																const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
+																const std::optional<utility::string_t>& ParentId,
+																const std::optional<std::vector<utility::string_t>>& GroupIds,
+																const std::optional<std::vector<utility::string_t>>& Types,
+																const std::optional<bool>& HasGroup,
+																const std::optional<utility::string_t>& CreatedBy,
+																const std::optional<utility::string_t>& CreatedAfter,
+																const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
+																const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
+																const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+																const std::optional<std::vector<utility::string_t>>& OrganizationIds,
+																const std::optional<bool>& asyncCall,
+																const std::optional<utility::string_t>& onBehalfOf,
+																csp::services::ApiResponseHandlerBase* ResponseHandler,
+																csp::common::CancellationToken& CancellationToken
+																= csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Imports a set of prototypes and assigns them to a space
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/prototypes/group-owned/{newGroupId}/exports/{exportId}/import
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void prototypesGroupOwnedNewGroupIdExportsExportIdImportPost(const utility::string_t& exportId,
+																 const utility::string_t& newGroupId,
+																 const std::optional<bool>& asyncCall,
+																 const std::optional<utility::string_t>& onBehalfOf,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken
+																 = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Bulk upsert operation for prototypes
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/prototypes/bulk
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void prototypesBulkPut(const std::vector<std::shared_ptr<BulkUpsertPrototypeDto>>& RequestBody,
+						   csp::services::ApiResponseHandlerBase* ResponseHandler,
+						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Search across the prototypes for those that match the search criteria and returns the id's
+	/// or an empty list if none found
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/prototypes/ids
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void prototypesIdsGet(const std::optional<std::vector<utility::string_t>>& Tags,
+						  const std::optional<std::vector<utility::string_t>>& ExcludedTags,
+						  const std::optional<bool>& TagsAll,
+						  const std::optional<std::vector<utility::string_t>>& Ids,
+						  const std::optional<std::vector<utility::string_t>>& Names,
+						  const std::optional<std::vector<utility::string_t>>& PartialNames,
+						  const std::optional<std::vector<utility::string_t>>& ExcludedIds,
+						  const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
+						  const std::optional<utility::string_t>& ParentId,
+						  const std::optional<std::vector<utility::string_t>>& GroupIds,
+						  const std::optional<std::vector<utility::string_t>>& Types,
+						  const std::optional<bool>& HasGroup,
+						  const std::optional<utility::string_t>& CreatedBy,
+						  const std::optional<utility::string_t>& CreatedAfter,
+						  const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
+						  const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
+						  const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
+						  const std::optional<std::vector<utility::string_t>>& OrganizationIds,
+						  const std::optional<int32_t>& Skip,
+						  const std::optional<int32_t>& Limit,
+						  csp::services::ApiResponseHandlerBase* ResponseHandler,
+						  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+
+
+
+	/// <summary>
+	/// Search across all of the prototypes for those that match the search criteria
+	/// and return the count of those that match.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/prototypes/count
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void prototypesCountGet(const std::optional<std::vector<utility::string_t>>& Tags,
 							const std::optional<std::vector<utility::string_t>>& ExcludedTags,
 							const std::optional<bool>& TagsAll,
 							const std::optional<std::vector<utility::string_t>>& Ids,
@@ -412,190 +592,8 @@ public:
 							const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
 							const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
 							const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-							const std::optional<int32_t>& Skip,
-							const std::optional<int32_t>& Limit,
-							const std::optional<utility::string_t>& SortBy,
-							const std::optional<std::shared_ptr<SortDirection>>& SortDirection,
 							csp::services::ApiResponseHandlerBase* ResponseHandler,
 							csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
-
-
-	/// <summary>
-	/// Locates all prototypes by their unique identifier(s) ids
-	/// and deletes them from the data store.
-	/// </summary>
-	/// <remarks>
-	/// DELETE /api/v1/prototypes
-	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
-	/// </remarks>
-	void apiV1PrototypesDelete(const std::optional<std::vector<utility::string_t>>& ids,
-							   csp::services::ApiResponseHandlerBase* ResponseHandler,
-							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
-
-
-
-	/// <summary>
-	/// Duplicates prototype(s) to a new group by filters
-	/// </summary>
-	/// <remarks>
-	/// POST /api/v1/prototypes/group-owned/{originalGroupId}/duplicate/{newGroupId}
-	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
-	/// </remarks>
-	void apiV1PrototypesGroupOwnedOriginalGroupIdDuplicateNewGroupIdPost(const std::optional<std::vector<utility::string_t>>& Tags,
-																		 const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-																		 const std::optional<bool>& TagsAll,
-																		 const std::optional<std::vector<utility::string_t>>& Ids,
-																		 const std::optional<std::vector<utility::string_t>>& Names,
-																		 const std::optional<std::vector<utility::string_t>>& PartialNames,
-																		 const std::optional<std::vector<utility::string_t>>& ExcludedIds,
-																		 const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
-																		 const std::optional<utility::string_t>& ParentId,
-																		 const std::optional<std::vector<utility::string_t>>& GroupIds,
-																		 const std::optional<std::vector<utility::string_t>>& Types,
-																		 const std::optional<bool>& HasGroup,
-																		 const std::optional<utility::string_t>& CreatedBy,
-																		 const std::optional<utility::string_t>& CreatedAfter,
-																		 const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
-																		 const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
-																		 const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
-																		 const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-																		 const utility::string_t& originalGroupId,
-																		 const utility::string_t& newGroupId,
-																		 const std::optional<bool>& shallowCopy,
-																		 const std::optional<bool>& asyncCall,
-																		 const std::optional<utility::string_t>& onBehalfOf,
-																		 csp::services::ApiResponseHandlerBase* ResponseHandler,
-																		 csp::common::CancellationToken& CancellationToken
-																		 = csp::common::CancellationToken::Dummy()) const;
-
-
-
-	/// <summary>
-	/// Create and return new prototype(s) that have not been saved to the database
-	/// </summary>
-	/// <remarks>
-	/// POST /api/v1/prototypes/group-owned/{originalGroupId}/exports/{exportId}
-	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
-	/// </remarks>
-	void apiV1PrototypesGroupOwnedOriginalGroupIdExportsExportIdPost(const utility::string_t& originalGroupId,
-																	 const utility::string_t& exportId,
-																	 const std::optional<std::vector<utility::string_t>>& Tags,
-																	 const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-																	 const std::optional<bool>& TagsAll,
-																	 const std::optional<std::vector<utility::string_t>>& Ids,
-																	 const std::optional<std::vector<utility::string_t>>& Names,
-																	 const std::optional<std::vector<utility::string_t>>& PartialNames,
-																	 const std::optional<std::vector<utility::string_t>>& ExcludedIds,
-																	 const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
-																	 const std::optional<utility::string_t>& ParentId,
-																	 const std::optional<std::vector<utility::string_t>>& GroupIds,
-																	 const std::optional<std::vector<utility::string_t>>& Types,
-																	 const std::optional<bool>& HasGroup,
-																	 const std::optional<utility::string_t>& CreatedBy,
-																	 const std::optional<utility::string_t>& CreatedAfter,
-																	 const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
-																	 const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
-																	 const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
-																	 const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-																	 const std::optional<bool>& asyncCall,
-																	 const std::optional<utility::string_t>& onBehalfOf,
-																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	 csp::common::CancellationToken& CancellationToken
-																	 = csp::common::CancellationToken::Dummy()) const;
-
-
-
-	/// <summary>
-	/// Imports a set of prototypes and assigns them to a space
-	/// </summary>
-	/// <remarks>
-	/// POST /api/v1/prototypes/group-owned/{newGroupId}/exports/{exportId}/import
-	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
-	/// </remarks>
-	void apiV1PrototypesGroupOwnedNewGroupIdExportsExportIdImportPost(const utility::string_t& exportId,
-																	  const utility::string_t& newGroupId,
-																	  const std::optional<bool>& asyncCall,
-																	  const std::optional<utility::string_t>& onBehalfOf,
-																	  csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	  csp::common::CancellationToken& CancellationToken
-																	  = csp::common::CancellationToken::Dummy()) const;
-
-
-
-	/// <summary>
-	/// Bulk upsert operation for prototypes
-	/// </summary>
-	/// <remarks>
-	/// PUT /api/v1/prototypes/bulk
-	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
-	/// </remarks>
-	void apiV1PrototypesBulkPut(const std::vector<std::shared_ptr<BulkUpsertPrototypeDto>>& RequestBody,
-								csp::services::ApiResponseHandlerBase* ResponseHandler,
-								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
-
-
-
-	/// <summary>
-	/// Search across the prototypes for those that match the search criteria and returns the id's
-	/// or an empty list if none found
-	/// </summary>
-	/// <remarks>
-	/// GET /api/v1/prototypes/ids
-	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
-	/// </remarks>
-	void apiV1PrototypesIdsGet(const std::optional<std::vector<utility::string_t>>& Tags,
-							   const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-							   const std::optional<bool>& TagsAll,
-							   const std::optional<std::vector<utility::string_t>>& Ids,
-							   const std::optional<std::vector<utility::string_t>>& Names,
-							   const std::optional<std::vector<utility::string_t>>& PartialNames,
-							   const std::optional<std::vector<utility::string_t>>& ExcludedIds,
-							   const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
-							   const std::optional<utility::string_t>& ParentId,
-							   const std::optional<std::vector<utility::string_t>>& GroupIds,
-							   const std::optional<std::vector<utility::string_t>>& Types,
-							   const std::optional<bool>& HasGroup,
-							   const std::optional<utility::string_t>& CreatedBy,
-							   const std::optional<utility::string_t>& CreatedAfter,
-							   const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
-							   const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
-							   const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
-							   const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-							   const std::optional<int32_t>& Skip,
-							   const std::optional<int32_t>& Limit,
-							   csp::services::ApiResponseHandlerBase* ResponseHandler,
-							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
-
-
-
-	/// <summary>
-	/// Search across all of the prototypes for those that match the search criteria
-	/// and return the count of those that match.
-	/// </summary>
-	/// <remarks>
-	/// GET /api/v1/prototypes/count
-	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
-	/// </remarks>
-	void apiV1PrototypesCountGet(const std::optional<std::vector<utility::string_t>>& Tags,
-								 const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-								 const std::optional<bool>& TagsAll,
-								 const std::optional<std::vector<utility::string_t>>& Ids,
-								 const std::optional<std::vector<utility::string_t>>& Names,
-								 const std::optional<std::vector<utility::string_t>>& PartialNames,
-								 const std::optional<std::vector<utility::string_t>>& ExcludedIds,
-								 const std::optional<std::vector<utility::string_t>>& PointOfInterestIds,
-								 const std::optional<utility::string_t>& ParentId,
-								 const std::optional<std::vector<utility::string_t>>& GroupIds,
-								 const std::optional<std::vector<utility::string_t>>& Types,
-								 const std::optional<bool>& HasGroup,
-								 const std::optional<utility::string_t>& CreatedBy,
-								 const std::optional<utility::string_t>& CreatedAfter,
-								 const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds,
-								 const std::optional<std::vector<utility::string_t>>& ReadAccessFilters,
-								 const std::optional<std::vector<utility::string_t>>& WriteAccessFilters,
-								 const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-								 csp::services::ApiResponseHandlerBase* ResponseHandler,
-								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -606,9 +604,9 @@ public:
 	/// GET /api/v1/prototypes/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesIdGet(const utility::string_t& id,
-							  csp::services::ApiResponseHandlerBase* ResponseHandler,
-							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void prototypesIdGet(const utility::string_t& id,
+						 csp::services::ApiResponseHandlerBase* ResponseHandler,
+						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -619,10 +617,10 @@ public:
 	/// PUT /api/v1/prototypes/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesIdPut(const utility::string_t& id,
-							  const std::shared_ptr<PrototypeDto>& RequestBody,
-							  csp::services::ApiResponseHandlerBase* ResponseHandler,
-							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void prototypesIdPut(const utility::string_t& id,
+						 const std::shared_ptr<PrototypeDto>& RequestBody,
+						 csp::services::ApiResponseHandlerBase* ResponseHandler,
+						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -633,9 +631,9 @@ public:
 	/// DELETE /api/v1/prototypes/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesIdDelete(const utility::string_t& id,
-								 csp::services::ApiResponseHandlerBase* ResponseHandler,
-								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void prototypesIdDelete(const utility::string_t& id,
+							csp::services::ApiResponseHandlerBase* ResponseHandler,
+							csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -646,9 +644,9 @@ public:
 	/// GET /api/v1/prototypes/name/{name}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesNameNameGet(const utility::string_t& name,
-									csp::services::ApiResponseHandlerBase* ResponseHandler,
-									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void prototypesNameNameGet(const utility::string_t& name,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -660,10 +658,10 @@ public:
 	/// PUT /api/v1/prototypes/{prototypeId}/state
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesPrototypeIdStatePut(const utility::string_t& prototypeId,
-											const std::map<utility::string_t, utility::string_t>& RequestBody,
-											csp::services::ApiResponseHandlerBase* ResponseHandler,
-											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdStatePut(const utility::string_t& prototypeId,
+									   const std::map<utility::string_t, utility::string_t>& RequestBody,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -674,10 +672,10 @@ public:
 	/// GET /api/v1/prototypes/{prototypeId}/state
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PrototypesPrototypeIdStateGet(const utility::string_t& prototypeId,
-											const std::optional<std::vector<utility::string_t>>& keys,
-											csp::services::ApiResponseHandlerBase* ResponseHandler,
-											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void prototypesPrototypeIdStateGet(const utility::string_t& prototypeId,
+									   const std::optional<std::vector<utility::string_t>>& keys,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 

@@ -8,6 +8,7 @@
 #include "Services/ApiBase/ApiBase.h"
 
 #include <optional>
+#include <string>
 
 
 namespace csp::services::generated::spatialdataservice
@@ -29,9 +30,9 @@ public:
 	/// GET /api/v1/anchors/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1AnchorsIdGet(const utility::string_t& id,
-						   csp::services::ApiResponseHandlerBase* ResponseHandler,
-						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void anchorsIdGet(const utility::string_t& id,
+					  csp::services::ApiResponseHandlerBase* ResponseHandler,
+					  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -42,10 +43,10 @@ public:
 	/// PUT /api/v1/anchors/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1AnchorsIdPut(const utility::string_t& id,
-						   const std::shared_ptr<AnchorDto>& RequestBody,
-						   csp::services::ApiResponseHandlerBase* ResponseHandler,
-						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void anchorsIdPut(const utility::string_t& id,
+					  const std::shared_ptr<AnchorDto>& RequestBody,
+					  csp::services::ApiResponseHandlerBase* ResponseHandler,
+					  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -55,9 +56,9 @@ public:
 	/// DELETE /api/v1/anchors/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1AnchorsIdDelete(const utility::string_t& id,
-							  csp::services::ApiResponseHandlerBase* ResponseHandler,
-							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void anchorsIdDelete(const utility::string_t& id,
+						 csp::services::ApiResponseHandlerBase* ResponseHandler,
+						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -68,9 +69,9 @@ public:
 	/// POST /api/v1/anchors
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1AnchorsPost(const std::shared_ptr<AnchorDto>& RequestBody,
-						  csp::services::ApiResponseHandlerBase* ResponseHandler,
-						  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void anchorsPost(const std::shared_ptr<AnchorDto>& RequestBody,
+					 csp::services::ApiResponseHandlerBase* ResponseHandler,
+					 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -80,9 +81,9 @@ public:
 	/// DELETE /api/v1/anchors
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1AnchorsDelete(const std::optional<std::vector<utility::string_t>>& ids,
-							csp::services::ApiResponseHandlerBase* ResponseHandler,
-							csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void anchorsDelete(const std::optional<std::vector<utility::string_t>>& ids,
+					   csp::services::ApiResponseHandlerBase* ResponseHandler,
+					   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -92,21 +93,21 @@ public:
 	/// GET /api/v1/anchors
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1AnchorsGet(const std::optional<std::vector<utility::string_t>>& Keys,
-						 const std::optional<std::vector<utility::string_t>>& Values,
-						 const std::optional<double>& Coordinate_Longitude,
-						 const std::optional<double>& Coordinate_Latitude,
-						 const std::optional<double>& Coordinate_Radius,
-						 const std::optional<std::vector<utility::string_t>>& Tags,
-						 const std::optional<bool>& TagsAll,
-						 const std::optional<std::vector<utility::string_t>>& ThirdPartyProviderNames,
-						 const std::optional<std::vector<utility::string_t>>& ThirdPartyAnchorIds,
-						 const std::optional<std::vector<utility::string_t>>& ReferenceIds,
-						 const std::optional<std::vector<utility::string_t>>& AnchoredObjectIds,
-						 const std::optional<int32_t>& Skip,
-						 const std::optional<int32_t>& Limit,
-						 csp::services::ApiResponseHandlerBase* ResponseHandler,
-						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void anchorsGet(const std::optional<std::vector<utility::string_t>>& Keys,
+					const std::optional<std::vector<utility::string_t>>& Values,
+					const std::optional<double>& Coordinate_Longitude,
+					const std::optional<double>& Coordinate_Latitude,
+					const std::optional<double>& Coordinate_Radius,
+					const std::optional<std::vector<utility::string_t>>& Tags,
+					const std::optional<bool>& TagsAll,
+					const std::optional<std::vector<utility::string_t>>& ThirdPartyProviderNames,
+					const std::optional<std::vector<utility::string_t>>& ThirdPartyAnchorIds,
+					const std::optional<std::vector<utility::string_t>>& ReferenceIds,
+					const std::optional<std::vector<utility::string_t>>& AnchoredObjectIds,
+					const std::optional<int32_t>& Skip,
+					const std::optional<int32_t>& Limit,
+					csp::services::ApiResponseHandlerBase* ResponseHandler,
+					csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -117,9 +118,9 @@ public:
 	/// POST /api/v1/anchor-resolutions
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1AnchorResolutionsPost(const std::shared_ptr<AnchorResolutionDto>& RequestBody,
-									csp::services::ApiResponseHandlerBase* ResponseHandler,
-									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void anchorResolutionsPost(const std::shared_ptr<AnchorResolutionDto>& RequestBody,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -129,14 +130,14 @@ public:
 	/// GET /api/v1/anchor-resolutions
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void apiV1AnchorResolutionsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
-								   const std::optional<std::vector<utility::string_t>>& Tags,
-								   const std::optional<bool>& TagsAll,
-								   const std::optional<bool>& SuccessfullyResolved,
-								   const std::optional<int32_t>& Skip,
-								   const std::optional<int32_t>& Limit,
-								   csp::services::ApiResponseHandlerBase* ResponseHandler,
-								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void anchorResolutionsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
+							  const std::optional<std::vector<utility::string_t>>& Tags,
+							  const std::optional<bool>& TagsAll,
+							  const std::optional<bool>& SuccessfullyResolved,
+							  const std::optional<int32_t>& Skip,
+							  const std::optional<int32_t>& Limit,
+							  csp::services::ApiResponseHandlerBase* ResponseHandler,
+							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -147,12 +148,12 @@ public:
 	/// GET /api/v1/anchor-resolutions/stats
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void apiV1AnchorResolutionsStatsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
-										const std::optional<std::vector<utility::string_t>>& Tags,
-										const std::optional<bool>& TagsAll,
-										const std::optional<bool>& SuccessfullyResolved,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void anchorResolutionsStatsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
+								   const std::optional<std::vector<utility::string_t>>& Tags,
+								   const std::optional<bool>& TagsAll,
+								   const std::optional<bool>& SuccessfullyResolved,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class ConfigurationApi final : public csp::services::ApiBase
@@ -220,9 +221,9 @@ public:
 	/// GET /api/v1/users/{userId}/poi
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdPoiGet(const utility::string_t& userId,
-								csp::services::ApiResponseHandlerBase* ResponseHandler,
-								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdPoiGet(const utility::string_t& userId,
+						   csp::services::ApiResponseHandlerBase* ResponseHandler,
+						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -233,10 +234,10 @@ public:
 	/// PUT /api/v1/users/{userId}/poi/{poiId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdPoiPoiIdPut(const utility::string_t& userId,
-									 const utility::string_t& poiId,
-									 csp::services::ApiResponseHandlerBase* ResponseHandler,
-									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdPoiPoiIdPut(const utility::string_t& userId,
+								const utility::string_t& poiId,
+								csp::services::ApiResponseHandlerBase* ResponseHandler,
+								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -246,10 +247,10 @@ public:
 	/// DELETE /api/v1/users/{userId}/poi/{poiId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdPoiPoiIdDelete(const utility::string_t& userId,
-										const utility::string_t& poiId,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdPoiPoiIdDelete(const utility::string_t& userId,
+								   const utility::string_t& poiId,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class PingApi final : public csp::services::ApiBase
@@ -283,9 +284,9 @@ public:
 	/// GET /api/v1/poi/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PoiIdGet(const utility::string_t& id,
-					   csp::services::ApiResponseHandlerBase* ResponseHandler,
-					   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void poiIdGet(const utility::string_t& id,
+				  csp::services::ApiResponseHandlerBase* ResponseHandler,
+				  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -296,10 +297,10 @@ public:
 	/// PUT /api/v1/poi/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,creator,limited-creator
 	/// </remarks>
-	void apiV1PoiIdPut(const utility::string_t& id,
-					   const std::shared_ptr<PointOfInterestDto>& RequestBody,
-					   csp::services::ApiResponseHandlerBase* ResponseHandler,
-					   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void poiIdPut(const utility::string_t& id,
+				  const std::shared_ptr<PointOfInterestDto>& RequestBody,
+				  csp::services::ApiResponseHandlerBase* ResponseHandler,
+				  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -310,9 +311,9 @@ public:
 	/// DELETE /api/v1/poi/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,creator,limited-creator
 	/// </remarks>
-	void apiV1PoiIdDelete(const utility::string_t& id,
-						  csp::services::ApiResponseHandlerBase* ResponseHandler,
-						  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void poiIdDelete(const utility::string_t& id,
+					 csp::services::ApiResponseHandlerBase* ResponseHandler,
+					 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -324,33 +325,33 @@ public:
 	/// GET /api/v1/poi-lite
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PoiLiteGet(const std::optional<utility::string_t>& ppoiUserId,
-						 const std::optional<std::vector<utility::string_t>>& Ids,
-						 const std::optional<utility::string_t>& Type,
-						 const std::optional<std::vector<utility::string_t>>& Types,
-						 const std::optional<std::vector<utility::string_t>>& Tags,
-						 const std::optional<bool>& TagsAll,
-						 const std::optional<double>& Coordinate_Longitude,
-						 const std::optional<double>& Coordinate_Latitude,
-						 const std::optional<double>& Coordinate_Radius,
-						 const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
-						 const std::optional<utility::string_t>& Name,
-						 const std::optional<std::vector<utility::string_t>>& Names,
-						 const std::optional<utility::string_t>& Title,
-						 const std::optional<int32_t>& ZoomLevel,
-						 const std::optional<utility::string_t>& EventStartTime,
-						 const std::optional<utility::string_t>& EventEndTime,
-						 const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
-						 const std::optional<bool>& IncludeHidden,
-						 const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
-						 const std::optional<bool>& HasSchedule,
-						 const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-						 const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-						 const std::optional<std::vector<utility::string_t>>& GroupIds,
-						 const std::optional<int32_t>& Skip,
-						 const std::optional<int32_t>& Limit,
-						 csp::services::ApiResponseHandlerBase* ResponseHandler,
-						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void poiLiteGet(const std::optional<utility::string_t>& ppoiUserId,
+					const std::optional<std::vector<utility::string_t>>& Ids,
+					const std::optional<utility::string_t>& Type,
+					const std::optional<std::vector<utility::string_t>>& Types,
+					const std::optional<std::vector<utility::string_t>>& Tags,
+					const std::optional<bool>& TagsAll,
+					const std::optional<double>& Coordinate_Longitude,
+					const std::optional<double>& Coordinate_Latitude,
+					const std::optional<double>& Coordinate_Radius,
+					const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
+					const std::optional<utility::string_t>& Name,
+					const std::optional<std::vector<utility::string_t>>& Names,
+					const std::optional<utility::string_t>& Title,
+					const std::optional<int32_t>& ZoomLevel,
+					const std::optional<utility::string_t>& EventStartTime,
+					const std::optional<utility::string_t>& EventEndTime,
+					const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
+					const std::optional<bool>& IncludeHidden,
+					const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
+					const std::optional<bool>& HasSchedule,
+					const std::optional<std::vector<utility::string_t>>& PrototypeNames,
+					const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+					const std::optional<std::vector<utility::string_t>>& GroupIds,
+					const std::optional<int32_t>& Skip,
+					const std::optional<int32_t>& Limit,
+					csp::services::ApiResponseHandlerBase* ResponseHandler,
+					csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -362,33 +363,33 @@ public:
 	/// GET /api/v1/poi-id
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PoiIdGet(const std::optional<utility::string_t>& ppoiUserId,
-					   const std::optional<std::vector<utility::string_t>>& Ids,
-					   const std::optional<utility::string_t>& Type,
-					   const std::optional<std::vector<utility::string_t>>& Types,
-					   const std::optional<std::vector<utility::string_t>>& Tags,
-					   const std::optional<bool>& TagsAll,
-					   const std::optional<double>& Coordinate_Longitude,
-					   const std::optional<double>& Coordinate_Latitude,
-					   const std::optional<double>& Coordinate_Radius,
-					   const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
-					   const std::optional<utility::string_t>& Name,
-					   const std::optional<std::vector<utility::string_t>>& Names,
-					   const std::optional<utility::string_t>& Title,
-					   const std::optional<int32_t>& ZoomLevel,
-					   const std::optional<utility::string_t>& EventStartTime,
-					   const std::optional<utility::string_t>& EventEndTime,
-					   const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
-					   const std::optional<bool>& IncludeHidden,
-					   const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
-					   const std::optional<bool>& HasSchedule,
-					   const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-					   const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-					   const std::optional<std::vector<utility::string_t>>& GroupIds,
-					   const std::optional<int32_t>& Skip,
-					   const std::optional<int32_t>& Limit,
-					   csp::services::ApiResponseHandlerBase* ResponseHandler,
-					   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void poiIdGet(const std::optional<utility::string_t>& ppoiUserId,
+				  const std::optional<std::vector<utility::string_t>>& Ids,
+				  const std::optional<utility::string_t>& Type,
+				  const std::optional<std::vector<utility::string_t>>& Types,
+				  const std::optional<std::vector<utility::string_t>>& Tags,
+				  const std::optional<bool>& TagsAll,
+				  const std::optional<double>& Coordinate_Longitude,
+				  const std::optional<double>& Coordinate_Latitude,
+				  const std::optional<double>& Coordinate_Radius,
+				  const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
+				  const std::optional<utility::string_t>& Name,
+				  const std::optional<std::vector<utility::string_t>>& Names,
+				  const std::optional<utility::string_t>& Title,
+				  const std::optional<int32_t>& ZoomLevel,
+				  const std::optional<utility::string_t>& EventStartTime,
+				  const std::optional<utility::string_t>& EventEndTime,
+				  const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
+				  const std::optional<bool>& IncludeHidden,
+				  const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
+				  const std::optional<bool>& HasSchedule,
+				  const std::optional<std::vector<utility::string_t>>& PrototypeNames,
+				  const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+				  const std::optional<std::vector<utility::string_t>>& GroupIds,
+				  const std::optional<int32_t>& Skip,
+				  const std::optional<int32_t>& Limit,
+				  csp::services::ApiResponseHandlerBase* ResponseHandler,
+				  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -400,33 +401,33 @@ public:
 	/// GET /api/v1/poi
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PoiGet(const std::optional<utility::string_t>& ppoiUserId,
-					 const std::optional<std::vector<utility::string_t>>& Ids,
-					 const std::optional<utility::string_t>& Type,
-					 const std::optional<std::vector<utility::string_t>>& Types,
-					 const std::optional<std::vector<utility::string_t>>& Tags,
-					 const std::optional<bool>& TagsAll,
-					 const std::optional<double>& Coordinate_Longitude,
-					 const std::optional<double>& Coordinate_Latitude,
-					 const std::optional<double>& Coordinate_Radius,
-					 const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
-					 const std::optional<utility::string_t>& Name,
-					 const std::optional<std::vector<utility::string_t>>& Names,
-					 const std::optional<utility::string_t>& Title,
-					 const std::optional<int32_t>& ZoomLevel,
-					 const std::optional<utility::string_t>& EventStartTime,
-					 const std::optional<utility::string_t>& EventEndTime,
-					 const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
-					 const std::optional<bool>& IncludeHidden,
-					 const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
-					 const std::optional<bool>& HasSchedule,
-					 const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-					 const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-					 const std::optional<std::vector<utility::string_t>>& GroupIds,
-					 const std::optional<int32_t>& Skip,
-					 const std::optional<int32_t>& Limit,
-					 csp::services::ApiResponseHandlerBase* ResponseHandler,
-					 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void poiGet(const std::optional<utility::string_t>& ppoiUserId,
+				const std::optional<std::vector<utility::string_t>>& Ids,
+				const std::optional<utility::string_t>& Type,
+				const std::optional<std::vector<utility::string_t>>& Types,
+				const std::optional<std::vector<utility::string_t>>& Tags,
+				const std::optional<bool>& TagsAll,
+				const std::optional<double>& Coordinate_Longitude,
+				const std::optional<double>& Coordinate_Latitude,
+				const std::optional<double>& Coordinate_Radius,
+				const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
+				const std::optional<utility::string_t>& Name,
+				const std::optional<std::vector<utility::string_t>>& Names,
+				const std::optional<utility::string_t>& Title,
+				const std::optional<int32_t>& ZoomLevel,
+				const std::optional<utility::string_t>& EventStartTime,
+				const std::optional<utility::string_t>& EventEndTime,
+				const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
+				const std::optional<bool>& IncludeHidden,
+				const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
+				const std::optional<bool>& HasSchedule,
+				const std::optional<std::vector<utility::string_t>>& PrototypeNames,
+				const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+				const std::optional<std::vector<utility::string_t>>& GroupIds,
+				const std::optional<int32_t>& Skip,
+				const std::optional<int32_t>& Limit,
+				csp::services::ApiResponseHandlerBase* ResponseHandler,
+				csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -436,9 +437,9 @@ public:
 	/// POST /api/v1/poi
 	/// Authorization: magnopus-admin,admin,support,internal-service,creator,limited-creator
 	/// </remarks>
-	void apiV1PoiPost(const std::shared_ptr<PointOfInterestDto>& RequestBody,
-					  csp::services::ApiResponseHandlerBase* ResponseHandler,
-					  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void poiPost(const std::shared_ptr<PointOfInterestDto>& RequestBody,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -449,9 +450,9 @@ public:
 	/// DELETE /api/v1/poi
 	/// Authorization: magnopus-admin,admin,support,internal-service,creator,limited-creator
 	/// </remarks>
-	void apiV1PoiDelete(const std::optional<std::vector<utility::string_t>>& ids,
-						csp::services::ApiResponseHandlerBase* ResponseHandler,
-						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void poiDelete(const std::optional<std::vector<utility::string_t>>& ids,
+				   csp::services::ApiResponseHandlerBase* ResponseHandler,
+				   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -463,10 +464,10 @@ public:
 	/// PUT /api/v1/poi/{id}/partial-update
 	/// Authorization: magnopus-admin,admin,support,internal-service,creator,limited-creator
 	/// </remarks>
-	void apiV1PoiIdPartialUpdatePut(const utility::string_t& id,
-									const std::shared_ptr<PoiPartialUpdate>& RequestBody,
-									csp::services::ApiResponseHandlerBase* ResponseHandler,
-									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void poiIdPartialUpdatePut(const utility::string_t& id,
+							   const std::shared_ptr<PoiPartialUpdate>& RequestBody,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -477,9 +478,9 @@ public:
 	/// GET /api/v1/poi/tags
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1PoiTagsGet(const std::optional<utility::string_t>& tagNameWith,
-						 csp::services::ApiResponseHandlerBase* ResponseHandler,
-						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void poiTagsGet(const std::optional<utility::string_t>& tagNameWith,
+					csp::services::ApiResponseHandlerBase* ResponseHandler,
+					csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class PositionApi final : public csp::services::ApiBase
@@ -497,20 +498,20 @@ public:
 	/// GET /api/v1/users/{userId}/positions
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdPositionsGet(const utility::string_t& userId,
-									  const std::optional<std::vector<utility::string_t>>& UserIds,
-									  const std::optional<std::vector<utility::string_t>>& DeviceIds,
-									  const std::optional<std::vector<utility::string_t>>& PositionIds,
-									  const std::optional<utility::string_t>& StartTimestamp,
-									  const std::optional<utility::string_t>& EndTimestamp,
-									  const std::optional<double>& Coordinate_Longitude,
-									  const std::optional<double>& Coordinate_Latitude,
-									  const std::optional<double>& Coordinate_Radius,
-									  const std::optional<bool>& FindUsersOutsideGeoSphere,
-									  const std::optional<int32_t>& Skip,
-									  const std::optional<int32_t>& Limit,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdPositionsGet(const utility::string_t& userId,
+								 const std::optional<std::vector<utility::string_t>>& UserIds,
+								 const std::optional<std::vector<utility::string_t>>& DeviceIds,
+								 const std::optional<std::vector<utility::string_t>>& PositionIds,
+								 const std::optional<utility::string_t>& StartTimestamp,
+								 const std::optional<utility::string_t>& EndTimestamp,
+								 const std::optional<double>& Coordinate_Longitude,
+								 const std::optional<double>& Coordinate_Latitude,
+								 const std::optional<double>& Coordinate_Radius,
+								 const std::optional<bool>& FindUsersOutsideGeoSphere,
+								 const std::optional<int32_t>& Skip,
+								 const std::optional<int32_t>& Limit,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -520,10 +521,10 @@ public:
 	/// POST /api/v1/users/{userId}/positions
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdPositionsPost(const utility::string_t& userId,
-									   const std::shared_ptr<PositionDto>& RequestBody,
-									   csp::services::ApiResponseHandlerBase* ResponseHandler,
-									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdPositionsPost(const utility::string_t& userId,
+								  const std::shared_ptr<PositionDto>& RequestBody,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -534,19 +535,19 @@ public:
 	/// GET /api/v1/users/positions/latest
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersPositionsLatestGet(const std::optional<std::vector<utility::string_t>>& UserIds,
-									  const std::optional<std::vector<utility::string_t>>& DeviceIds,
-									  const std::optional<std::vector<utility::string_t>>& PositionIds,
-									  const std::optional<utility::string_t>& StartTimestamp,
-									  const std::optional<utility::string_t>& EndTimestamp,
-									  const std::optional<double>& Coordinate_Longitude,
-									  const std::optional<double>& Coordinate_Latitude,
-									  const std::optional<double>& Coordinate_Radius,
-									  const std::optional<bool>& FindUsersOutsideGeoSphere,
-									  const std::optional<int32_t>& Skip,
-									  const std::optional<int32_t>& Limit,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersPositionsLatestGet(const std::optional<std::vector<utility::string_t>>& UserIds,
+								 const std::optional<std::vector<utility::string_t>>& DeviceIds,
+								 const std::optional<std::vector<utility::string_t>>& PositionIds,
+								 const std::optional<utility::string_t>& StartTimestamp,
+								 const std::optional<utility::string_t>& EndTimestamp,
+								 const std::optional<double>& Coordinate_Longitude,
+								 const std::optional<double>& Coordinate_Latitude,
+								 const std::optional<double>& Coordinate_Radius,
+								 const std::optional<bool>& FindUsersOutsideGeoSphere,
+								 const std::optional<int32_t>& Skip,
+								 const std::optional<int32_t>& Limit,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -557,9 +558,9 @@ public:
 	/// GET /api/v1/users/{userId}/positions/latest
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdPositionsLatestGet(const utility::string_t& userId,
-											csp::services::ApiResponseHandlerBase* ResponseHandler,
-											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdPositionsLatestGet(const utility::string_t& userId,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -570,10 +571,10 @@ public:
 	/// GET /api/v1/users/{userId}/positions/{positionId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdPositionsPositionIdGet(const utility::string_t& userId,
-												const utility::string_t& positionId,
-												csp::services::ApiResponseHandlerBase* ResponseHandler,
-												csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdPositionsPositionIdGet(const utility::string_t& userId,
+										   const utility::string_t& positionId,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -583,10 +584,10 @@ public:
 	/// DELETE /api/v1/users/{userId}/positions/{positionId}
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void apiV1UsersUserIdPositionsPositionIdDelete(const utility::string_t& userId,
-												   const utility::string_t& positionId,
-												   csp::services::ApiResponseHandlerBase* ResponseHandler,
-												   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdPositionsPositionIdDelete(const utility::string_t& userId,
+											  const utility::string_t& positionId,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -597,10 +598,10 @@ public:
 	/// GET /api/v1/groups/{groupId}/positions/latest
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1GroupsGroupIdPositionsLatestGet(const utility::string_t& groupId,
-											  const std::optional<std::vector<utility::string_t>>& UserIds,
-											  csp::services::ApiResponseHandlerBase* ResponseHandler,
-											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void groupsGroupIdPositionsLatestGet(const utility::string_t& groupId,
+										 const std::optional<std::vector<utility::string_t>>& UserIds,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -611,10 +612,10 @@ public:
 	/// GET /api/v1/groups/positions/latest
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1GroupsPositionsLatestGet(const std::optional<std::vector<utility::string_t>>& groupIds,
-									   const std::optional<std::vector<utility::string_t>>& UserIds,
-									   csp::services::ApiResponseHandlerBase* ResponseHandler,
-									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void groupsPositionsLatestGet(const std::optional<std::vector<utility::string_t>>& groupIds,
+								  const std::optional<std::vector<utility::string_t>>& UserIds,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -625,19 +626,19 @@ public:
 	/// GET /api/v1/users/positions
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersPositionsGet(const std::optional<std::vector<utility::string_t>>& userIds,
-								const std::optional<std::vector<utility::string_t>>& UserIds,
-								const std::optional<std::vector<utility::string_t>>& DeviceIds,
-								const std::optional<std::vector<utility::string_t>>& PositionIds,
-								const std::optional<utility::string_t>& StartTimestamp,
-								const std::optional<utility::string_t>& EndTimestamp,
-								const std::optional<double>& Coordinate_Longitude,
-								const std::optional<double>& Coordinate_Latitude,
-								const std::optional<double>& Coordinate_Radius,
-								const std::optional<bool>& FindUsersOutsideGeoSphere,
-								const std::optional<bool>& onlyLatestPosition,
-								csp::services::ApiResponseHandlerBase* ResponseHandler,
-								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersPositionsGet(const std::optional<std::vector<utility::string_t>>& userIds,
+						   const std::optional<std::vector<utility::string_t>>& UserIds,
+						   const std::optional<std::vector<utility::string_t>>& DeviceIds,
+						   const std::optional<std::vector<utility::string_t>>& PositionIds,
+						   const std::optional<utility::string_t>& StartTimestamp,
+						   const std::optional<utility::string_t>& EndTimestamp,
+						   const std::optional<double>& Coordinate_Longitude,
+						   const std::optional<double>& Coordinate_Latitude,
+						   const std::optional<double>& Coordinate_Radius,
+						   const std::optional<bool>& FindUsersOutsideGeoSphere,
+						   const std::optional<bool>& onlyLatestPosition,
+						   csp::services::ApiResponseHandlerBase* ResponseHandler,
+						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class PositionSpoofingApi final : public csp::services::ApiBase
@@ -655,11 +656,11 @@ public:
 	/// POST /api/v1/users/{userId}/positions/spoof
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdPositionsSpoofPost(const utility::string_t& userId,
-											const std::optional<utility::string_t>& duration,
-											const std::shared_ptr<PositionDto>& RequestBody,
-											csp::services::ApiResponseHandlerBase* ResponseHandler,
-											csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdPositionsSpoofPost(const utility::string_t& userId,
+									   const std::optional<utility::string_t>& duration,
+									   const std::shared_ptr<PositionDto>& RequestBody,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -669,9 +670,9 @@ public:
 	/// GET /api/v1/users/{userId}/positions/spoof
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdPositionsSpoofGet(const utility::string_t& userId,
-										   csp::services::ApiResponseHandlerBase* ResponseHandler,
-										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdPositionsSpoofGet(const utility::string_t& userId,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -681,9 +682,9 @@ public:
 	/// DELETE /api/v1/users/{userId}/positions/spoof
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdPositionsSpoofDelete(const utility::string_t& userId,
-											  csp::services::ApiResponseHandlerBase* ResponseHandler,
-											  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdPositionsSpoofDelete(const utility::string_t& userId,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -694,8 +695,8 @@ public:
 	/// GET /api/v1/positions/spoof/users
 	/// Authorization: admin,tester
 	/// </remarks>
-	void apiV1PositionsSpoofUsersGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
-									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void positionsSpoofUsersGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
+								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 class SpaceTimeApi final : public csp::services::ApiBase
@@ -713,10 +714,10 @@ public:
 	/// GET /api/v1/users/{userId}/spacetime/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdSpacetimeIdGet(const utility::string_t& userId,
-										const utility::string_t& id,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdSpacetimeIdGet(const utility::string_t& userId,
+								   const utility::string_t& id,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -727,10 +728,10 @@ public:
 	/// DELETE /api/v1/users/{userId}/spacetime/{id}
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void apiV1UsersUserIdSpacetimeIdDelete(const utility::string_t& userId,
-										   const utility::string_t& id,
-										   csp::services::ApiResponseHandlerBase* ResponseHandler,
-										   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdSpacetimeIdDelete(const utility::string_t& userId,
+									  const utility::string_t& id,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 	/// <summary>
@@ -741,11 +742,11 @@ public:
 	/// PUT /api/v1/users/{userId}/spacetime/{id}
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void apiV1UsersUserIdSpacetimeIdPut(const utility::string_t& userId,
-										const utility::string_t& id,
-										const std::shared_ptr<SpaceTimeDto>& RequestBody,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdSpacetimeIdPut(const utility::string_t& userId,
+								   const utility::string_t& id,
+								   const std::shared_ptr<SpaceTimeDto>& RequestBody,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -756,10 +757,10 @@ public:
 	/// POST /api/v1/users/{userId}/spacetime
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1UsersUserIdSpacetimePost(const utility::string_t& userId,
-									   const std::shared_ptr<SpaceTimeDto>& RequestBody,
-									   csp::services::ApiResponseHandlerBase* ResponseHandler,
-									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void usersUserIdSpacetimePost(const utility::string_t& userId,
+								  const std::shared_ptr<SpaceTimeDto>& RequestBody,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 
 
 
@@ -771,19 +772,19 @@ public:
 	/// GET /api/v1/spacetime
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void apiV1SpacetimeGet(const std::optional<std::vector<utility::string_t>>& UserIds,
-						   const std::optional<utility::string_t>& StartTimestamp,
-						   const std::optional<utility::string_t>& EndTimestamp,
-						   const std::optional<std::vector<utility::string_t>>& GroupIds,
-						   const std::optional<double>& Coordinate_Longitude,
-						   const std::optional<double>& Coordinate_Latitude,
-						   const std::optional<double>& Coordinate_Radius,
-						   const std::optional<std::vector<utility::string_t>>& PoiIds,
-						   const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-						   const std::optional<int32_t>& Skip,
-						   const std::optional<int32_t>& Limit,
-						   csp::services::ApiResponseHandlerBase* ResponseHandler,
-						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void spacetimeGet(const std::optional<std::vector<utility::string_t>>& UserIds,
+					  const std::optional<utility::string_t>& StartTimestamp,
+					  const std::optional<utility::string_t>& EndTimestamp,
+					  const std::optional<std::vector<utility::string_t>>& GroupIds,
+					  const std::optional<double>& Coordinate_Longitude,
+					  const std::optional<double>& Coordinate_Latitude,
+					  const std::optional<double>& Coordinate_Radius,
+					  const std::optional<std::vector<utility::string_t>>& PoiIds,
+					  const std::optional<std::vector<utility::string_t>>& PrototypeIds,
+					  const std::optional<int32_t>& Skip,
+					  const std::optional<int32_t>& Limit,
+					  csp::services::ApiResponseHandlerBase* ResponseHandler,
+					  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
 };
 
 
