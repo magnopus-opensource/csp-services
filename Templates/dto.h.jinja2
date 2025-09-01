@@ -17,7 +17,7 @@ namespace csp::services::generated::{{ service_name | lower }}
 {% for schema_name, schema in schemas.items() %}
     {% if 'description' in schema -%}
         /// <summary>
-        {% for line in schema.description.split('\r\n') -%}
+        {% for line in schema.description | split_by_newline -%}
             /// {{ line }}
         {% endfor -%}
         /// </summary>
@@ -58,7 +58,7 @@ namespace csp::services::generated::{{ service_name | lower }}
             {% for property_name, property in schema.properties.items() %}
                 {% if 'description' in property -%}
                     /// <summary>
-                    {% for line in property.description.split('\r\n') -%}
+                    {% for line in property.description | split_by_newline -%}
                         /// {{ line }}
                     {% endfor -%}
                     /// </summary>
