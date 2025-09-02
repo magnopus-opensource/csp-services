@@ -47,47 +47,8 @@ def make_pascal_case(value: str) -> str:
     return ''.join(words)
 
 
-def has_api_version_prefix(route_path: str) -> bool:
-    """
-    Determines whether the given route path starts with an API version prefix.
-
-    This function checks if the provided `route_path` begins with the string '/api/v',
-    which is commonly used to indicate a versioned API route (e.g., '/api/v1').
-
-    Args:
-        route_path (str): The route path to check.
-
-    Returns:
-        bool: True if the route path starts with '/api/v', False otherwise.
-    """
-    return route_path[:6] == '/api/v'
-
-
-def remove_api_version_prefix(route_path: str) -> str:
-    """
-    Removes the version prefix from an API route path if present.
-
-    Specifically, if the route path starts with the pattern '/api/v' followed by a version number
-    (e.g. '/api/v1/users'), this function strips the '/api/vX' portion and returns the remainder
-    of the path. If the path does not start with '/api/v', it is returned unchanged.
-
-    Args:
-        route_path (str): The original API route path.
-
-    Returns:
-        str: The route path without the version prefix, if it was present.
-    
-    Examples:
-        >>> remove_api_version_prefix('/api/v1/users')
-        '/users'
-        
-        >>> remove_api_version_prefix('/ping')
-        '/ping'
-    """
-    if has_api_version_prefix(route_path):
-        return route_path[7:]
-    
-    return route_path
+def split_by_newline(value: str) -> list[str]:
+    return re.split(r'[\r\n]+', value)
 
 
 def split_by_newline(value: str) -> list[str]:
@@ -114,9 +75,8 @@ def main():
     env.filters['camelcase'] = make_camel_case
     env.filters['pascalcase'] = make_pascal_case
     env.filters['identifier'] = make_identifier
-    
-    env.filters['has_api_version_prefix'] = has_api_version_prefix
-    env.filters['remove_api_version_prefix'] = remove_api_version_prefix
+
+    env.filters['split_by_newline'] = split_by_newline
 
     env.filters['split_by_newline'] = split_by_newline
 
@@ -130,6 +90,8 @@ def main():
     # Render source files
     model_header_template = env.get_template("dto.h.jinja2")
     model_source_template = env.get_template("dto.cpp.jinja2")
+    api_interface_template = env.get_template("api.h.interface.jinja2")
+    api_mock_template = env.get_template("api.h.mock.jinja2")
     api_header_template = env.get_template("api.h.jinja2")
     api_source_template = env.get_template("api.cpp.jinja2")
 
@@ -166,6 +128,14 @@ def main():
                 
                 grouped_routes[tag][route_path][method_name] = method
         
+        # Render API interface
+        with open(f"generated/Services/{ service_name }/I{ service_name }ApiBase.h", 'w') as f:
+            f.write(api_interface_template.render(service_name=service_name, tags=grouped_routes))
+
+        # Render API mock
+        with open(f"generated/Services/{ service_name }/{ service_name }ApiMock.h", 'w') as f:
+            f.write(api_mock_template.render(service_name=service_name, tags=grouped_routes))
+
         # Render API header
         with open(f"generated/Services/{ service_name }/Api.h", 'w') as f:
             f.write(api_header_template.render(service_name=service_name, tags=grouped_routes))
