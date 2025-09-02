@@ -1,0 +1,63 @@
+{% from 'helpers.jinja2' import print_type, print_mock_signature %}
+
+#pragma once
+
+#include "CSP/Common/CancellationToken.h"
+#include "Services/ApiBase/ApiBase.h"
+#include "Common/Web/HttpPayload.h"
+#include "Dto.h"
+
+#include <string>
+#include <optional>
+
+
+namespace csp::services::generated::{{ service_name | lower }}
+{
+
+{% for tag, routes in tags.items() %}
+    class I{{ tag }}ApiBase : public csp::services::ApiBase
+    {
+    public:
+        I{{ tag }}ApiBase(csp::web::WebClient* InWebClient) 
+            : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().{{ service_name }})
+            {}
+
+        {% for route_path, route in routes.items() %}
+            {% for method_name, method in route.items() %}
+                struct {% if route_path[:6] == '/api/v' -%} {{ route_path[7:] | camelcase }} {%- else -%} {{ route_path | camelcase }} {%- endif -%}{{ method_name | capitalize }}Params {
+                    {% if route_path[:6] == '/api/v' -%} {{ route_path[7:] | camelcase }} {%- else -%} {{ route_path | camelcase }} {%- endif -%}{{ method_name | capitalize }}Params() = default;
+
+                    {{ print_mock_signature(method) }}
+                };
+                
+                {% if 'summary' in method %}
+                    /// <summary>
+                    {% for line in method.summary | split_by_newline -%}
+                        /// {{ line }}
+                    {% endfor -%}
+                    /// </summary>
+                {% endif -%}
+                /// <remarks>
+                /// {{ method_name | upper }} {{ route_path }}
+                {% for line in method.description | split_by_newline -%}
+                    /// {{ line }}
+                {% endfor -%}
+                /// </remarks>
+                {% if method.deprecated -%}
+                    [[deprecated("'{{ method_name | upper }} {{ route_path }}' is deprecated!")]]
+                {% endif -%}
+                {# Converts a file path to a camelCase function name with version information removed. -#}
+                virtual void {% if route_path[:6] == '/api/v' -%} {{ route_path[7:] | camelcase }} {%- else -%} {{ route_path | camelcase }} {%- endif -%}{{ method_name | capitalize }}(
+                    const {% if route_path[:6] == '/api/v' -%} {{ route_path[7:] | camelcase }} {%- else -%} {{ route_path | camelcase }} {%- endif -%}{{ method_name | capitalize }}Params& Params,
+                    csp::services::ApiResponseHandlerBase* ResponseHandler,
+                    csp::common::CancellationToken& CancellationToken
+                ) const = 0;
+            {% endfor %}
+        {% endfor %}
+
+    protected:
+        virtual ~I{{ tag }}ApiBase() = default;
+    };
+    {% endfor %}
+
+} // namespace csp::services::{{ service_name | lower }}

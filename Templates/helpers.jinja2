@@ -61,3 +61,23 @@
     csp::services::ApiResponseHandlerBase* ResponseHandler,
     csp::common::CancellationToken& CancellationToken{{ '= csp::common::CancellationToken::Dummy()' if include_default_values }}
 {%- endmacro -%}
+
+{%- macro print_mock_signature(method, include_default_values = true) -%}
+    {%- for parameter in method.parameters -%}
+        {%- if 'required' in parameter and parameter.required -%}
+            const {{ print_type(parameter.schema) }}& {{ parameter.name | identifier }};
+        {%- else -%}
+            const std::optional<{{ print_type(parameter.schema) }}>&
+                {{ parameter.name | identifier }};
+        {%- endif -%}
+    {%- endfor -%}
+    {%- if 'requestBody' in method -%}
+        {%- if 'multipart/form-data' in method.requestBody.content -%}
+            {%- for property_name in method.requestBody.content['multipart/form-data'].schema.properties -%}
+                const std::shared_ptr<csp::web::HttpPayload>& {{ property_name | pascalcase }};
+            {%- endfor -%}
+        {%- else -%}
+            const {{ print_type(method.requestBody.content['application/json'].schema) }}& RequestBody;
+        {%- endif -%}
+    {%- endif -%}
+{%- endmacro -%}
