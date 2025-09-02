@@ -25,14 +25,14 @@ namespace csp::services::generated::{{ service_name | lower }}
             {% for method_name, method in route.items() %}
                 {% if 'summary' in method %}
                     /// <summary>
-                    {% for line in method.summary.split('\r\n') -%}
+                    {% for line in method.summary | split_by_newline -%}
                         /// {{ line }}
                     {% endfor -%}
                     /// </summary>
                 {% endif -%}
                 /// <remarks>
                 /// {{ method_name | upper }} {{ route_path }}
-                {% for line in method.description.split('\r\n') -%}
+                {% for line in method.description | split_by_newline -%}
                     /// {{ line }}
                 {% endfor -%}
                 /// </remarks>

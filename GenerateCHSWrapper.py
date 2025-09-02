@@ -6,6 +6,7 @@ import json
 import os
 import subprocess
 import shutil
+import re
 
 from jinja2 import Environment, FileSystemLoader
 from typing import Dict
@@ -89,6 +90,10 @@ def remove_api_version_prefix(route_path: str) -> str:
     return route_path
 
 
+def split_by_newline(value: str) -> list[str]:
+    return re.split(r'[\r\n]+', value)
+
+
 def main():
     # Ensure our current working directory is always this script's directory
     os.chdir(os.path.abspath(os.path.dirname(__file__)))
@@ -112,6 +117,8 @@ def main():
     
     env.filters['has_api_version_prefix'] = has_api_version_prefix
     env.filters['remove_api_version_prefix'] = remove_api_version_prefix
+
+    env.filters['split_by_newline'] = split_by_newline
 
     services: Dict[str, SwaggerFile] = {}
 
