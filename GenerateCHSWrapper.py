@@ -51,10 +51,6 @@ def split_by_newline(value: str) -> list[str]:
     return re.split(r'[\r\n]+', value)
 
 
-def split_by_newline(value: str) -> list[str]:
-    return re.split(r'[\r\n]+', value)
-
-
 def main():
     # Ensure our current working directory is always this script's directory
     os.chdir(os.path.abspath(os.path.dirname(__file__)))
@@ -75,8 +71,6 @@ def main():
     env.filters['camelcase'] = make_camel_case
     env.filters['pascalcase'] = make_pascal_case
     env.filters['identifier'] = make_identifier
-
-    env.filters['split_by_newline'] = split_by_newline
 
     env.filters['split_by_newline'] = split_by_newline
 
