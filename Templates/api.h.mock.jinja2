@@ -14,6 +14,8 @@ namespace csp::services::generated::{{ service_name | lower }}
     class {{ tag }}ApiMock final : public I{{ tag }}ApiBase
     {
     public:
+        {{ tag }}ApiMock() : I{{ tag }}ApiBase(nullptr) {}
+
         {% for route_path, route in routes.items() -%}
             {% for method_name, method in route.items() -%}
                 {# Converts a file path to a camelCase function name with version information removed. -#}
