@@ -24,9 +24,13 @@ def make_identifier(value: str) -> str:
     return value.replace('/', '_').replace('-', '_').replace('.', '_').replace('{', '').replace('}', '')
 
 
+def make_definition(value: str) -> str:
+    return value.replace('/', '#').replace('-', '_').replace('.', '#').replace('{', '').replace('}', '')
+
+
 def make_camel_case(value: str) -> str:
-    value = make_identifier(value)
-    words = [x for x in value.split('_') if x]
+    value = make_definition(value)
+    words = [x for x in value.split('#') if x]
 
     for i, word in enumerate(words):
         if i == 0:
@@ -38,8 +42,8 @@ def make_camel_case(value: str) -> str:
 
 
 def make_pascal_case(value: str) -> str:
-    value = make_identifier(value)
-    words = [x for x in value.split('_') if x]
+    value = make_definition(value)
+    words = [x for x in value.split('#') if x]
 
     for i, word in enumerate(words):
         words[i] = word[0].upper() + word[1:]

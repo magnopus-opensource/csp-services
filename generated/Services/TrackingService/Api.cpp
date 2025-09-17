@@ -57,9 +57,9 @@ void AnalyticsApi::analyticsStreamPost([[maybe_unused]] const analyticsStreamPos
 
 
 
-void AnalyticsApi::analyticsStreamUrlPost([[maybe_unused]] const analyticsStreamUrlPostParams& Params,
-										  csp::services::ApiResponseHandlerBase* ResponseHandler,
-										  csp::common::CancellationToken& CancellationToken) const
+void AnalyticsApi::analyticsStream_urlPost([[maybe_unused]] const analyticsStream_urlPostParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/analytics/stream-url").c_str(), {});
@@ -191,9 +191,9 @@ QuotaActivityApi::~QuotaActivityApi()
 
 
 
-void QuotaActivityApi::usersUserIdQuotaProgressGet([[maybe_unused]] const usersUserIdQuotaProgressGetParams& Params,
-												   csp::services::ApiResponseHandlerBase* ResponseHandler,
-												   csp::common::CancellationToken& CancellationToken) const
+void QuotaActivityApi::usersUserIdQuota_progressGet([[maybe_unused]] const usersUserIdQuota_progressGetParams& Params,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -215,9 +215,9 @@ void QuotaActivityApi::usersUserIdQuotaProgressGet([[maybe_unused]] const usersU
 
 
 
-void QuotaActivityApi::groupsGroupIdQuotaProgressGet([[maybe_unused]] const groupsGroupIdQuotaProgressGetParams& Params,
-													 csp::services::ApiResponseHandlerBase* ResponseHandler,
-													 csp::common::CancellationToken& CancellationToken) const
+void QuotaActivityApi::groupsGroupIdQuota_progressGet([[maybe_unused]] const groupsGroupIdQuota_progressGetParams& Params,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -240,9 +240,9 @@ void QuotaActivityApi::groupsGroupIdQuotaProgressGet([[maybe_unused]] const grou
 
 
 
-void QuotaActivityApi::userUserIdQuotaActivityGet([[maybe_unused]] const userUserIdQuotaActivityGetParams& Params,
-												  csp::services::ApiResponseHandlerBase* ResponseHandler,
-												  csp::common::CancellationToken& CancellationToken) const
+void QuotaActivityApi::userUserIdQuota_activityGet([[maybe_unused]] const userUserIdQuota_activityGetParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -288,9 +288,9 @@ void QuotaActivityApi::userUserIdQuotaActivityGet([[maybe_unused]] const userUse
 
 
 
-void QuotaActivityApi::groupGroupIdQuotaActivityGet([[maybe_unused]] const groupGroupIdQuotaActivityGetParams& Params,
-													csp::services::ApiResponseHandlerBase* ResponseHandler,
-													csp::common::CancellationToken& CancellationToken) const
+void QuotaActivityApi::groupGroupIdQuota_activityGet([[maybe_unused]] const groupGroupIdQuota_activityGetParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -436,9 +436,9 @@ QuotaTierAssignmentApi::~QuotaTierAssignmentApi()
 
 
 
-void QuotaTierAssignmentApi::tierAssignmentsIdGet([[maybe_unused]] const tierAssignmentsIdGetParams& Params,
-												  csp::services::ApiResponseHandlerBase* ResponseHandler,
-												  csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::tier_assignmentsIdGet([[maybe_unused]] const tier_assignmentsIdGetParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -454,9 +454,9 @@ void QuotaTierAssignmentApi::tierAssignmentsIdGet([[maybe_unused]] const tierAss
 
 
 
-void QuotaTierAssignmentApi::usersUserIdTierAssignmentGet([[maybe_unused]] const usersUserIdTierAssignmentGetParams& Params,
-														  csp::services::ApiResponseHandlerBase* ResponseHandler,
-														  csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::usersUserIdTier_assignmentGet([[maybe_unused]] const usersUserIdTier_assignmentGetParams& Params,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -471,9 +471,9 @@ void QuotaTierAssignmentApi::usersUserIdTierAssignmentGet([[maybe_unused]] const
 }
 
 
-void QuotaTierAssignmentApi::usersUserIdTierAssignmentPut([[maybe_unused]] const usersUserIdTierAssignmentPutParams& Params,
-														  csp::services::ApiResponseHandlerBase* ResponseHandler,
-														  csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::usersUserIdTier_assignmentPut([[maybe_unused]] const usersUserIdTier_assignmentPutParams& Params,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -489,9 +489,9 @@ void QuotaTierAssignmentApi::usersUserIdTierAssignmentPut([[maybe_unused]] const
 }
 
 
-void QuotaTierAssignmentApi::usersUserIdTierAssignmentDelete([[maybe_unused]] const usersUserIdTierAssignmentDeleteParams& Params,
-															 csp::services::ApiResponseHandlerBase* ResponseHandler,
-															 csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::usersUserIdTier_assignmentDelete([[maybe_unused]] const usersUserIdTier_assignmentDeleteParams& Params,
+															  csp::services::ApiResponseHandlerBase* ResponseHandler,
+															  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -507,9 +507,9 @@ void QuotaTierAssignmentApi::usersUserIdTierAssignmentDelete([[maybe_unused]] co
 
 
 
-void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentGet([[maybe_unused]] const tenantsTenantNameTierAssignmentGetParams& Params,
-																csp::services::ApiResponseHandlerBase* ResponseHandler,
-																csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::tenantsTenantNameTier_assignmentGet([[maybe_unused]] const tenantsTenantNameTier_assignmentGetParams& Params,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -525,9 +525,9 @@ void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentGet([[maybe_unused]]
 }
 
 
-void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentPut([[maybe_unused]] const tenantsTenantNameTierAssignmentPutParams& Params,
-																csp::services::ApiResponseHandlerBase* ResponseHandler,
-																csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::tenantsTenantNameTier_assignmentPut([[maybe_unused]] const tenantsTenantNameTier_assignmentPutParams& Params,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -544,9 +544,9 @@ void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentPut([[maybe_unused]]
 }
 
 
-void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentDelete([[maybe_unused]] const tenantsTenantNameTierAssignmentDeleteParams& Params,
-																   csp::services::ApiResponseHandlerBase* ResponseHandler,
-																   csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::tenantsTenantNameTier_assignmentDelete([[maybe_unused]] const tenantsTenantNameTier_assignmentDeleteParams& Params,
+																	csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -563,9 +563,9 @@ void QuotaTierAssignmentApi::tenantsTenantNameTierAssignmentDelete([[maybe_unuse
 
 
 
-void QuotaTierAssignmentApi::groupsTierAssignmentsGet([[maybe_unused]] const groupsTierAssignmentsGetParams& Params,
-													  csp::services::ApiResponseHandlerBase* ResponseHandler,
-													  csp::common::CancellationToken& CancellationToken) const
+void QuotaTierAssignmentApi::groupsTier_assignmentsGet([[maybe_unused]] const groupsTier_assignmentsGetParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(

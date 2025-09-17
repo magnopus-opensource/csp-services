@@ -58,9 +58,9 @@ public:
 	/// POST /analytics/stream-url
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void analyticsStreamUrlPost(const analyticsStreamUrlPostParams& Params,
-								csp::services::ApiResponseHandlerBase* ResponseHandler,
-								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+	void analyticsStream_urlPost(const analyticsStream_urlPostParams& Params,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class ConfigurationApi final : public IConfigurationApiBase
@@ -149,9 +149,9 @@ public:
 	/// GET /api/v1/users/{userId}/quota-progress
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void usersUserIdQuotaProgressGet(const usersUserIdQuotaProgressGetParams& Params,
-									 csp::services::ApiResponseHandlerBase* ResponseHandler,
-									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+	void usersUserIdQuota_progressGet(const usersUserIdQuota_progressGetParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -162,9 +162,9 @@ public:
 	/// GET /api/v1/groups/{groupId}/quota-progress
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void groupsGroupIdQuotaProgressGet(const groupsGroupIdQuotaProgressGetParams& Params,
-									   csp::services::ApiResponseHandlerBase* ResponseHandler,
-									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+	void groupsGroupIdQuota_progressGet(const groupsGroupIdQuota_progressGetParams& Params,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -175,9 +175,9 @@ public:
 	/// GET /api/v1/user/{userId}/quota-activity
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void userUserIdQuotaActivityGet(const userUserIdQuotaActivityGetParams& Params,
-									csp::services::ApiResponseHandlerBase* ResponseHandler,
-									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+	void userUserIdQuota_activityGet(const userUserIdQuota_activityGetParams& Params,
+									 csp::services::ApiResponseHandlerBase* ResponseHandler,
+									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -188,9 +188,9 @@ public:
 	/// GET /api/v1/group/{groupId}/quota-activity
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void groupGroupIdQuotaActivityGet(const groupGroupIdQuotaActivityGetParams& Params,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+	void groupGroupIdQuota_activityGet(const groupGroupIdQuota_activityGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class QuotaManagementApi final : public IQuotaManagementApiBase
@@ -270,9 +270,9 @@ public:
 	/// GET /api/v1/tier-assignments/{id}
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void tierAssignmentsIdGet(const tierAssignmentsIdGetParams& Params,
-							  csp::services::ApiResponseHandlerBase* ResponseHandler,
-							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+	void tier_assignmentsIdGet(const tier_assignmentsIdGetParams& Params,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -283,9 +283,9 @@ public:
 	/// GET /api/v1/users/{userId}/tier-assignment
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void usersUserIdTierAssignmentGet(const usersUserIdTierAssignmentGetParams& Params,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+	void usersUserIdTier_assignmentGet(const usersUserIdTier_assignmentGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 	/// <summary>
@@ -295,9 +295,9 @@ public:
 	/// PUT /api/v1/users/{userId}/tier-assignment
 	/// Authorization: magnopus-admin,internal-service
 	/// </remarks>
-	void usersUserIdTierAssignmentPut(const usersUserIdTierAssignmentPutParams& Params,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+	void usersUserIdTier_assignmentPut(const usersUserIdTier_assignmentPutParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 	/// <summary>
@@ -307,9 +307,9 @@ public:
 	/// DELETE /api/v1/users/{userId}/tier-assignment
 	/// IMPORTANT NOTE: This does NOT leave the user's tier as unassigned.  This reverts the user to the default tier.
 	/// </remarks>
-	void usersUserIdTierAssignmentDelete(const usersUserIdTierAssignmentDeleteParams& Params,
-										 csp::services::ApiResponseHandlerBase* ResponseHandler,
-										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+	void usersUserIdTier_assignmentDelete(const usersUserIdTier_assignmentDeleteParams& Params,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -320,10 +320,10 @@ public:
 	/// GET /api/v1/tenants/{tenantName}/tier-assignment
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void tenantsTenantNameTierAssignmentGet(const tenantsTenantNameTierAssignmentGetParams& Params,
-											csp::services::ApiResponseHandlerBase* ResponseHandler,
-											csp::common::CancellationToken& CancellationToken
-											= csp::common::CancellationToken::Dummy()) const override;
+	void tenantsTenantNameTier_assignmentGet(const tenantsTenantNameTier_assignmentGetParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken
+											 = csp::common::CancellationToken::Dummy()) const override;
 
 
 	/// <summary>
@@ -333,10 +333,10 @@ public:
 	/// PUT /api/v1/tenants/{tenantName}/tier-assignment
 	/// Authorization: magnopus-admin,internal-service
 	/// </remarks>
-	void tenantsTenantNameTierAssignmentPut(const tenantsTenantNameTierAssignmentPutParams& Params,
-											csp::services::ApiResponseHandlerBase* ResponseHandler,
-											csp::common::CancellationToken& CancellationToken
-											= csp::common::CancellationToken::Dummy()) const override;
+	void tenantsTenantNameTier_assignmentPut(const tenantsTenantNameTier_assignmentPutParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken
+											 = csp::common::CancellationToken::Dummy()) const override;
 
 
 	/// <summary>
@@ -346,10 +346,10 @@ public:
 	/// DELETE /api/v1/tenants/{tenantName}/tier-assignment
 	/// IMPORTANT NOTE: This does NOT leave the tenant's tier as unassigned.  This reverts the tenant to the default tier.
 	/// </remarks>
-	void tenantsTenantNameTierAssignmentDelete(const tenantsTenantNameTierAssignmentDeleteParams& Params,
-											   csp::services::ApiResponseHandlerBase* ResponseHandler,
-											   csp::common::CancellationToken& CancellationToken
-											   = csp::common::CancellationToken::Dummy()) const override;
+	void tenantsTenantNameTier_assignmentDelete(const tenantsTenantNameTier_assignmentDeleteParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken
+												= csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -360,9 +360,9 @@ public:
 	/// GET /api/v1/groups/tier-assignments
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void groupsTierAssignmentsGet(const groupsTierAssignmentsGetParams& Params,
-								  csp::services::ApiResponseHandlerBase* ResponseHandler,
-								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+	void groupsTier_assignmentsGet(const groupsTier_assignmentsGetParams& Params,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class VersionsApi final : public IVersionsApiBase

@@ -14,7 +14,7 @@ namespace csp::services::generated::userservice
 {
 
 
-AnalyticsApi::AnalyticsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+AnalyticsApi::AnalyticsApi(csp::web::WebClient* InWebClient) : IAnalyticsApiBase(InWebClient)
 {
 }
 
@@ -24,7 +24,7 @@ AnalyticsApi::~AnalyticsApi()
 
 
 
-void AnalyticsApi::analyticsBulkPost(const std::vector<std::shared_ptr<AnalyticsRecord>>& RequestBody,
+void AnalyticsApi::analyticsBulkPost([[maybe_unused]] const analyticsBulkPostParams& Params,
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
 									 csp::common::CancellationToken& CancellationToken) const
 {
@@ -33,7 +33,7 @@ void AnalyticsApi::analyticsBulkPost(const std::vector<std::shared_ptr<Analytics
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -41,7 +41,8 @@ void AnalyticsApi::analyticsBulkPost(const std::vector<std::shared_ptr<Analytics
 
 
 
-void AnalyticsApi::analyticsStreamPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
+void AnalyticsApi::analyticsStreamPost([[maybe_unused]] const analyticsStreamPostParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
@@ -56,8 +57,9 @@ void AnalyticsApi::analyticsStreamPost(csp::services::ApiResponseHandlerBase* Re
 
 
 
-void AnalyticsApi::analyticsStreamUrlPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
-										  csp::common::CancellationToken& CancellationToken) const
+void AnalyticsApi::analyticsStream_urlPost([[maybe_unused]] const analyticsStream_urlPostParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/analytics/stream-url").c_str(), {});
@@ -71,8 +73,7 @@ void AnalyticsApi::analyticsStreamUrlPost(csp::services::ApiResponseHandlerBase*
 
 
 
-ApplicationSettingsApi::ApplicationSettingsApi(csp::web::WebClient* InWebClient)
-	: ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+ApplicationSettingsApi::ApplicationSettingsApi(csp::web::WebClient* InWebClient) : IApplicationSettingsApiBase(InWebClient)
 {
 }
 
@@ -82,11 +83,10 @@ ApplicationSettingsApi::~ApplicationSettingsApi()
 
 
 
-void ApplicationSettingsApi::applicationsApplicationNameSettingsContextPut(const utility::string_t& applicationName,
-																		   const utility::string_t& context,
-																		   const std::shared_ptr<ApplicationSettingsDto>& RequestBody,
-																		   csp::services::ApiResponseHandlerBase* ResponseHandler,
-																		   csp::common::CancellationToken& CancellationToken) const
+void ApplicationSettingsApi::applicationsApplicationNameSettingsContextPut(
+	[[maybe_unused]] const applicationsApplicationNameSettingsContextPutParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -94,22 +94,21 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextPut(const
 								  ServiceDefinition.GetVersion(),
 								  "/applications/{applicationName}/settings/{context}")
 						  .c_str(),
-					  {applicationName, context});
+					  {Params.applicationName, Params.context});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void ApplicationSettingsApi::applicationsApplicationNameSettingsContextGet(const utility::string_t& applicationName,
-																		   const utility::string_t& context,
-																		   const std::optional<std::vector<utility::string_t>>& keys,
-																		   csp::services::ApiResponseHandlerBase* ResponseHandler,
-																		   csp::common::CancellationToken& CancellationToken) const
+void ApplicationSettingsApi::applicationsApplicationNameSettingsContextGet(
+	[[maybe_unused]] const applicationsApplicationNameSettingsContextGetParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -117,12 +116,12 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextGet(const
 								  ServiceDefinition.GetVersion(),
 								  "/applications/{applicationName}/settings/{context}")
 						  .c_str(),
-					  {applicationName, context});
+					  {Params.applicationName, Params.context});
 
 
-	if (keys.has_value())
+	if (Params.keys.has_value())
 	{
-		Uri.AddQueryParams("keys", keys.value());
+		Uri.AddQueryParams("keys", Params.keys.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -133,10 +132,10 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextGet(const
 }
 
 
-void ApplicationSettingsApi::applicationsApplicationNameSettingsContextDelete(const utility::string_t& applicationName,
-																			  const utility::string_t& context,
-																			  csp::services::ApiResponseHandlerBase* ResponseHandler,
-																			  csp::common::CancellationToken& CancellationToken) const
+void ApplicationSettingsApi::applicationsApplicationNameSettingsContextDelete(
+	[[maybe_unused]] const applicationsApplicationNameSettingsContextDeleteParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -144,7 +143,7 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextDelete(co
 								  ServiceDefinition.GetVersion(),
 								  "/applications/{applicationName}/settings/{context}")
 						  .c_str(),
-					  {applicationName, context});
+					  {Params.applicationName, Params.context});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -155,12 +154,10 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextDelete(co
 
 
 
-void ApplicationSettingsApi::tenantsTenantApplicationsApplicationNameSettingsContextGet(const utility::string_t& tenant,
-																						const utility::string_t& applicationName,
-																						const utility::string_t& context,
-																						const std::optional<std::vector<utility::string_t>>& keys,
-																						csp::services::ApiResponseHandlerBase* ResponseHandler,
-																						csp::common::CancellationToken& CancellationToken) const
+void ApplicationSettingsApi::tenantsTenantApplicationsApplicationNameSettingsContextGet(
+	[[maybe_unused]] const tenantsTenantApplicationsApplicationNameSettingsContextGetParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -168,12 +165,12 @@ void ApplicationSettingsApi::tenantsTenantApplicationsApplicationNameSettingsCon
 								  ServiceDefinition.GetVersion(),
 								  "/tenants/{tenant}/applications/{applicationName}/settings/{context}")
 						  .c_str(),
-					  {tenant, applicationName, context});
+					  {Params.tenant, Params.applicationName, Params.context});
 
 
-	if (keys.has_value())
+	if (Params.keys.has_value())
 	{
-		Uri.AddQueryParams("keys", keys.value());
+		Uri.AddQueryParams("keys", Params.keys.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -184,7 +181,7 @@ void ApplicationSettingsApi::tenantsTenantApplicationsApplicationNameSettingsCon
 
 
 
-void ApplicationSettingsApi::applicationsApplicationNameSettingsGet(const utility::string_t& applicationName,
+void ApplicationSettingsApi::applicationsApplicationNameSettingsGet([[maybe_unused]] const applicationsApplicationNameSettingsGetParams& Params,
 																	csp::services::ApiResponseHandlerBase* ResponseHandler,
 																	csp::common::CancellationToken& CancellationToken) const
 {
@@ -192,7 +189,7 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsGet(const utilit
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/applications/{applicationName}/settings")
 			.c_str(),
-		{applicationName});
+		{Params.applicationName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -202,7 +199,7 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsGet(const utilit
 }
 
 
-void ApplicationSettingsApi::applicationsApplicationNameSettingsDelete(const utility::string_t& applicationName,
+void ApplicationSettingsApi::applicationsApplicationNameSettingsDelete([[maybe_unused]] const applicationsApplicationNameSettingsDeleteParams& Params,
 																	   csp::services::ApiResponseHandlerBase* ResponseHandler,
 																	   csp::common::CancellationToken& CancellationToken) const
 {
@@ -210,7 +207,7 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsDelete(const uti
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/applications/{applicationName}/settings")
 			.c_str(),
-		{applicationName});
+		{Params.applicationName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -221,11 +218,10 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsDelete(const uti
 
 
 
-void ApplicationSettingsApi::applicationsApplicationNameSettingsContextKeynameDelete(const utility::string_t& applicationName,
-																					 const utility::string_t& context,
-																					 const utility::string_t& keyname,
-																					 csp::services::ApiResponseHandlerBase* ResponseHandler,
-																					 csp::common::CancellationToken& CancellationToken) const
+void ApplicationSettingsApi::applicationsApplicationNameSettingsContextKeynameDelete(
+	[[maybe_unused]] const applicationsApplicationNameSettingsContextKeynameDeleteParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -233,7 +229,7 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextKeynameDe
 								  ServiceDefinition.GetVersion(),
 								  "/applications/{applicationName}/settings/{context}/{keyname}")
 						  .c_str(),
-					  {applicationName, context, keyname});
+					  {Params.applicationName, Params.context, Params.keyname});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -244,7 +240,7 @@ void ApplicationSettingsApi::applicationsApplicationNameSettingsContextKeynameDe
 
 
 
-AuthenticationApi::AuthenticationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+AuthenticationApi::AuthenticationApi(csp::web::WebClient* InWebClient) : IAuthenticationApiBase(InWebClient)
 {
 }
 
@@ -254,7 +250,7 @@ AuthenticationApi::~AuthenticationApi()
 
 
 
-void AuthenticationApi::usersLoginPost(const std::shared_ptr<LoginRequest>& RequestBody,
+void AuthenticationApi::usersLoginPost([[maybe_unused]] const usersLoginPostParams& Params,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken) const
 {
@@ -263,16 +259,16 @@ void AuthenticationApi::usersLoginPost(const std::shared_ptr<LoginRequest>& Requ
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
 
-void AuthenticationApi::usersLoginGuestPost(const std::shared_ptr<LoginGuestRequest>& RequestBody,
-											csp::services::ApiResponseHandlerBase* ResponseHandler,
-											csp::common::CancellationToken& CancellationToken) const
+void AuthenticationApi::usersLogin_guestPost([[maybe_unused]] const usersLogin_guestPostParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -281,16 +277,16 @@ void AuthenticationApi::usersLoginGuestPost(const std::shared_ptr<LoginGuestRequ
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
 
-void AuthenticationApi::usersLoginSocialPost(const std::shared_ptr<LoginSocialRequest>& RequestBody,
-											 csp::services::ApiResponseHandlerBase* ResponseHandler,
-											 csp::common::CancellationToken& CancellationToken) const
+void AuthenticationApi::usersLogin_socialPost([[maybe_unused]] const usersLogin_socialPostParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -299,27 +295,26 @@ void AuthenticationApi::usersLoginSocialPost(const std::shared_ptr<LoginSocialRe
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
 
-void AuthenticationApi::socialProvidersProviderGet(const utility::string_t& provider,
-												   const std::optional<utility::string_t>& tenant,
-												   csp::services::ApiResponseHandlerBase* ResponseHandler,
-												   csp::common::CancellationToken& CancellationToken) const
+void AuthenticationApi::social_providersProviderGet([[maybe_unused]] const social_providersProviderGetParams& Params,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/social-providers/{provider}").c_str(),
-		{provider});
+		{Params.provider});
 
 
-	if (tenant.has_value())
+	if (Params.tenant.has_value())
 	{
-		Uri.AddQueryParams("tenant", tenant.value());
+		Uri.AddQueryParams("tenant", Params.tenant.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -330,7 +325,7 @@ void AuthenticationApi::socialProvidersProviderGet(const utility::string_t& prov
 
 
 
-void AuthenticationApi::usersLogoutPost(const std::shared_ptr<LogoutRequest>& RequestBody,
+void AuthenticationApi::usersLogoutPost([[maybe_unused]] const usersLogoutPostParams& Params,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken) const
 {
@@ -340,7 +335,7 @@ void AuthenticationApi::usersLogoutPost(const std::shared_ptr<LogoutRequest>& Re
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -348,7 +343,7 @@ void AuthenticationApi::usersLogoutPost(const std::shared_ptr<LogoutRequest>& Re
 
 
 
-void AuthenticationApi::usersRefreshPost(const std::shared_ptr<RefreshRequest>& RequestBody,
+void AuthenticationApi::usersRefreshPost([[maybe_unused]] const usersRefreshPostParams& Params,
 										 csp::services::ApiResponseHandlerBase* ResponseHandler,
 										 csp::common::CancellationToken& CancellationToken) const
 {
@@ -358,14 +353,14 @@ void AuthenticationApi::usersRefreshPost(const std::shared_ptr<RefreshRequest>& 
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
 
-AvatarsApi::AvatarsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+AvatarsApi::AvatarsApi(csp::web::WebClient* InWebClient) : IAvatarsApiBase(InWebClient)
 {
 }
 
@@ -375,19 +370,18 @@ AvatarsApi::~AvatarsApi()
 
 
 
-void AvatarsApi::usersUserIdAvatarsPost(const utility::string_t& userId,
-										const std::shared_ptr<AvatarManifestDto>& RequestBody,
+void AvatarsApi::usersUserIdAvatarsPost([[maybe_unused]] const usersUserIdAvatarsPostParams& Params,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/avatars").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -395,8 +389,7 @@ void AvatarsApi::usersUserIdAvatarsPost(const utility::string_t& userId,
 
 
 
-void AvatarsApi::usersUserIdAvatarsAvatarIdGet(const utility::string_t& userId,
-											   const utility::string_t& avatarId,
+void AvatarsApi::usersUserIdAvatarsAvatarIdGet([[maybe_unused]] const usersUserIdAvatarsAvatarIdGetParams& Params,
 											   csp::services::ApiResponseHandlerBase* ResponseHandler,
 											   csp::common::CancellationToken& CancellationToken) const
 {
@@ -404,7 +397,7 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdGet(const utility::string_t& userId,
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/avatars/{avatarId}")
 			.c_str(),
-		{userId, avatarId});
+		{Params.userId, Params.avatarId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -414,9 +407,7 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdGet(const utility::string_t& userId,
 }
 
 
-void AvatarsApi::usersUserIdAvatarsAvatarIdPut(const utility::string_t& userId,
-											   const utility::string_t& avatarId,
-											   const std::shared_ptr<AvatarManifestDto>& RequestBody,
+void AvatarsApi::usersUserIdAvatarsAvatarIdPut([[maybe_unused]] const usersUserIdAvatarsAvatarIdPutParams& Params,
 											   csp::services::ApiResponseHandlerBase* ResponseHandler,
 											   csp::common::CancellationToken& CancellationToken) const
 {
@@ -424,19 +415,18 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdPut(const utility::string_t& userId,
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/avatars/{avatarId}")
 			.c_str(),
-		{userId, avatarId});
+		{Params.userId, Params.avatarId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void AvatarsApi::usersUserIdAvatarsAvatarIdDelete(const utility::string_t& userId,
-												  const utility::string_t& avatarId,
+void AvatarsApi::usersUserIdAvatarsAvatarIdDelete([[maybe_unused]] const usersUserIdAvatarsAvatarIdDeleteParams& Params,
 												  csp::services::ApiResponseHandlerBase* ResponseHandler,
 												  csp::common::CancellationToken& CancellationToken) const
 {
@@ -444,7 +434,7 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdDelete(const utility::string_t& userI
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/avatars/{avatarId}")
 			.c_str(),
-		{userId, avatarId});
+		{Params.userId, Params.avatarId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -455,8 +445,7 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdDelete(const utility::string_t& userI
 
 
 
-void AvatarsApi::usersUserIdAvatarsAvatarIdExistsGet(const utility::string_t& userId,
-													 const utility::string_t& avatarId,
+void AvatarsApi::usersUserIdAvatarsAvatarIdExistsGet([[maybe_unused]] const usersUserIdAvatarsAvatarIdExistsGetParams& Params,
 													 csp::services::ApiResponseHandlerBase* ResponseHandler,
 													 csp::common::CancellationToken& CancellationToken) const
 {
@@ -466,7 +455,7 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdExistsGet(const utility::string_t& us
 								  ServiceDefinition.GetVersion(),
 								  "/users/{userId}/avatars/{avatarId}/exists")
 						  .c_str(),
-					  {userId, avatarId});
+					  {Params.userId, Params.avatarId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -477,7 +466,7 @@ void AvatarsApi::usersUserIdAvatarsAvatarIdExistsGet(const utility::string_t& us
 
 
 
-ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : IConfigurationApiBase(InWebClient)
 {
 }
 
@@ -487,7 +476,9 @@ ConfigurationApi::~ConfigurationApi()
 
 
 
-void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
+void ConfigurationApi::appsettingsGet([[maybe_unused]] const appsettingsGetParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/appsettings").c_str(), {});
@@ -501,7 +492,8 @@ void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* Res
 
 
 
-void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
+void ConfigurationApi::appsettingsReloadPost([[maybe_unused]] const appsettingsReloadPostParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
@@ -516,7 +508,8 @@ void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBa
 
 
 
-void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
+void ConfigurationApi::featureflagsGet([[maybe_unused]] const featureflagsGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
@@ -531,7 +524,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 
 
 
-GroupApi::GroupApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+GroupApi::GroupApi(csp::web::WebClient* InWebClient) : IGroupApiBase(InWebClient)
 {
 }
 
@@ -541,7 +534,7 @@ GroupApi::~GroupApi()
 
 
 
-void GroupApi::groupsPost(const std::shared_ptr<GroupDto>& RequestBody,
+void GroupApi::groupsPost([[maybe_unused]] const groupsPostParams& Params,
 						  csp::services::ApiResponseHandlerBase* ResponseHandler,
 						  csp::common::CancellationToken& CancellationToken) const
 {
@@ -550,14 +543,14 @@ void GroupApi::groupsPost(const std::shared_ptr<GroupDto>& RequestBody,
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void GroupApi::groupsPut(const std::shared_ptr<GroupDto>& RequestBody,
+void GroupApi::groupsPut([[maybe_unused]] const groupsPutParams& Params,
 						 csp::services::ApiResponseHandlerBase* ResponseHandler,
 						 csp::common::CancellationToken& CancellationToken) const
 {
@@ -566,14 +559,14 @@ void GroupApi::groupsPut(const std::shared_ptr<GroupDto>& RequestBody,
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void GroupApi::groupsDelete(const std::optional<std::vector<utility::string_t>>& groupIds,
+void GroupApi::groupsDelete([[maybe_unused]] const groupsDeleteParams& Params,
 							csp::services::ApiResponseHandlerBase* ResponseHandler,
 							csp::common::CancellationToken& CancellationToken) const
 {
@@ -581,9 +574,9 @@ void GroupApi::groupsDelete(const std::optional<std::vector<utility::string_t>>&
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups").c_str(), {});
 
 
-	if (groupIds.has_value())
+	if (Params.groupIds.has_value())
 	{
-		Uri.AddQueryParams("groupIds", groupIds.value());
+		Uri.AddQueryParams("groupIds", Params.groupIds.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -594,7 +587,7 @@ void GroupApi::groupsDelete(const std::optional<std::vector<utility::string_t>>&
 }
 
 
-void GroupApi::groupsGet(const std::optional<std::vector<utility::string_t>>& ids,
+void GroupApi::groupsGet([[maybe_unused]] const groupsGetParams& Params,
 						 csp::services::ApiResponseHandlerBase* ResponseHandler,
 						 csp::common::CancellationToken& CancellationToken) const
 {
@@ -602,9 +595,9 @@ void GroupApi::groupsGet(const std::optional<std::vector<utility::string_t>>& id
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups").c_str(), {});
 
 
-	if (ids.has_value())
+	if (Params.ids.has_value())
 	{
-		Uri.AddQueryParams("ids", ids.value());
+		Uri.AddQueryParams("ids", Params.ids.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -616,16 +609,15 @@ void GroupApi::groupsGet(const std::optional<std::vector<utility::string_t>>& id
 
 
 
-void GroupApi::groupCodesGroupCodeUsersUserIdPut(const utility::string_t& groupCode,
-												 const utility::string_t& userId,
-												 csp::services::ApiResponseHandlerBase* ResponseHandler,
-												 csp::common::CancellationToken& CancellationToken) const
+void GroupApi::group_codesGroupCodeUsersUserIdPut([[maybe_unused]] const group_codesGroupCodeUsersUserIdPutParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/group-codes/{groupCode}/users/{userId}")
 			.c_str(),
-		{groupCode, userId});
+		{Params.groupCode, Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -636,15 +628,15 @@ void GroupApi::groupCodesGroupCodeUsersUserIdPut(const utility::string_t& groupC
 
 
 
-void GroupApi::groupsGroupIdGroupCodeResetPost(const utility::string_t& groupId,
-											   csp::services::ApiResponseHandlerBase* ResponseHandler,
-											   csp::common::CancellationToken& CancellationToken) const
+void GroupApi::groupsGroupIdGroup_code_resetPost([[maybe_unused]] const groupsGroupIdGroup_code_resetPostParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/group-code-reset")
 			.c_str(),
-		{groupId});
+		{Params.groupId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -655,16 +647,15 @@ void GroupApi::groupsGroupIdGroupCodeResetPost(const utility::string_t& groupId,
 
 
 
-void GroupApi::groupsGroupIdBannedUsersUserIdPut(const utility::string_t& groupId,
-												 const utility::string_t& userId,
-												 csp::services::ApiResponseHandlerBase* ResponseHandler,
-												 csp::common::CancellationToken& CancellationToken) const
+void GroupApi::groupsGroupIdBanned_usersUserIdPut([[maybe_unused]] const groupsGroupIdBanned_usersUserIdPutParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/banned-users/{userId}")
 			.c_str(),
-		{groupId, userId});
+		{Params.groupId, Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -674,16 +665,15 @@ void GroupApi::groupsGroupIdBannedUsersUserIdPut(const utility::string_t& groupI
 }
 
 
-void GroupApi::groupsGroupIdBannedUsersUserIdDelete(const utility::string_t& groupId,
-													const utility::string_t& userId,
-													csp::services::ApiResponseHandlerBase* ResponseHandler,
-													csp::common::CancellationToken& CancellationToken) const
+void GroupApi::groupsGroupIdBanned_usersUserIdDelete([[maybe_unused]] const groupsGroupIdBanned_usersUserIdDeleteParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/banned-users/{userId}")
 			.c_str(),
-		{groupId, userId});
+		{Params.groupId, Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -694,13 +684,13 @@ void GroupApi::groupsGroupIdBannedUsersUserIdDelete(const utility::string_t& gro
 
 
 
-void GroupApi::groupsGroupIdDelete(const utility::string_t& groupId,
+void GroupApi::groupsGroupIdDelete([[maybe_unused]] const groupsGroupIdDeleteParams& Params,
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
 								   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}").c_str(),
-					  {groupId});
+					  {Params.groupId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -710,13 +700,13 @@ void GroupApi::groupsGroupIdDelete(const utility::string_t& groupId,
 }
 
 
-void GroupApi::groupsGroupIdGet(const utility::string_t& groupId,
+void GroupApi::groupsGroupIdGet([[maybe_unused]] const groupsGroupIdGetParams& Params,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
 								csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}").c_str(),
-					  {groupId});
+					  {Params.groupId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -727,14 +717,14 @@ void GroupApi::groupsGroupIdGet(const utility::string_t& groupId,
 
 
 
-void GroupApi::usersUserIdGroupsGet(const utility::string_t& userId,
+void GroupApi::usersUserIdGroupsGet([[maybe_unused]] const usersUserIdGroupsGetParams& Params,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
 									csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/groups").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -745,8 +735,7 @@ void GroupApi::usersUserIdGroupsGet(const utility::string_t& userId,
 
 
 
-void GroupApi::groupsGroupIdUsersUserIdDelete(const utility::string_t& groupId,
-											  const utility::string_t& userId,
+void GroupApi::groupsGroupIdUsersUserIdDelete([[maybe_unused]] const groupsGroupIdUsersUserIdDeleteParams& Params,
 											  csp::services::ApiResponseHandlerBase* ResponseHandler,
 											  csp::common::CancellationToken& CancellationToken) const
 {
@@ -754,7 +743,7 @@ void GroupApi::groupsGroupIdUsersUserIdDelete(const utility::string_t& groupId,
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/users/{userId}")
 			.c_str(),
-		{groupId, userId});
+		{Params.groupId, Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -765,18 +754,18 @@ void GroupApi::groupsGroupIdUsersUserIdDelete(const utility::string_t& groupId,
 
 
 
-void GroupApi::groupsSummariesGet(const std::optional<utility::string_t>& groupCode,
-								  csp::services::ApiResponseHandlerBase* ResponseHandler,
-								  csp::common::CancellationToken& CancellationToken) const
+void GroupApi::groups_summariesGet([[maybe_unused]] const groups_summariesGetParams& Params,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups-summaries").c_str(),
 					  {});
 
 
-	if (groupCode.has_value())
+	if (Params.groupCode.has_value())
 	{
-		Uri.AddQueryParams("groupCode", groupCode.value());
+		Uri.AddQueryParams("groupCode", Params.groupCode.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -788,54 +777,50 @@ void GroupApi::groupsSummariesGet(const std::optional<utility::string_t>& groupC
 
 
 
-void GroupApi::groupsGroupIdEmailInvitesPost(const utility::string_t& groupId,
-											 const std::optional<bool>& resendInvite,
-											 const std::optional<utility::string_t>& emailLinkUrl,
-											 const std::optional<utility::string_t>& signupUrl,
-											 const std::shared_ptr<GroupInviteDto>& RequestBody,
+void GroupApi::groupsGroupIdEmail_invitesPost([[maybe_unused]] const groupsGroupIdEmail_invitesPostParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/email-invites").c_str(),
+		{Params.groupId});
+
+
+	if (Params.resendInvite.has_value())
+	{
+		Uri.AddQueryParams("resendInvite", Params.resendInvite.value());
+	}
+
+
+	if (Params.emailLinkUrl.has_value())
+	{
+		Uri.AddQueryParams("emailLinkUrl", Params.emailLinkUrl.value());
+	}
+
+
+	if (Params.signupUrl.has_value())
+	{
+		Uri.AddQueryParams("signupUrl", Params.signupUrl.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void GroupApi::groupsGroupIdEmail_invitesGet([[maybe_unused]] const groupsGroupIdEmail_invitesGetParams& Params,
 											 csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/email-invites").c_str(),
-		{groupId});
-
-
-	if (resendInvite.has_value())
-	{
-		Uri.AddQueryParams("resendInvite", resendInvite.value());
-	}
-
-
-	if (emailLinkUrl.has_value())
-	{
-		Uri.AddQueryParams("emailLinkUrl", emailLinkUrl.value());
-	}
-
-
-	if (signupUrl.has_value())
-	{
-		Uri.AddQueryParams("signupUrl", signupUrl.value());
-	}
-
-	csp::web::HttpPayload Payload;
-	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
-	Payload.SetBearerToken();
-
-	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
-}
-
-
-void GroupApi::groupsGroupIdEmailInvitesGet(const utility::string_t& groupId,
-											csp::services::ApiResponseHandlerBase* ResponseHandler,
-											csp::common::CancellationToken& CancellationToken) const
-{
-	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/email-invites").c_str(),
-		{groupId});
+		{Params.groupId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -846,41 +831,37 @@ void GroupApi::groupsGroupIdEmailInvitesGet(const utility::string_t& groupId,
 
 
 
-void GroupApi::groupsGroupIdEmailInvitesBulkPost(const utility::string_t& groupId,
-												 const std::optional<bool>& resendInvite,
-												 const std::optional<utility::string_t>& emailLinkUrl,
-												 const std::optional<utility::string_t>& signupUrl,
-												 const std::vector<std::shared_ptr<GroupInviteDto>>& RequestBody,
-												 csp::services::ApiResponseHandlerBase* ResponseHandler,
-												 csp::common::CancellationToken& CancellationToken) const
+void GroupApi::groupsGroupIdEmail_invitesBulkPost([[maybe_unused]] const groupsGroupIdEmail_invitesBulkPostParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/email-invites/bulk")
 			.c_str(),
-		{groupId});
+		{Params.groupId});
 
 
-	if (resendInvite.has_value())
+	if (Params.resendInvite.has_value())
 	{
-		Uri.AddQueryParams("resendInvite", resendInvite.value());
+		Uri.AddQueryParams("resendInvite", Params.resendInvite.value());
 	}
 
 
-	if (emailLinkUrl.has_value())
+	if (Params.emailLinkUrl.has_value())
 	{
-		Uri.AddQueryParams("emailLinkUrl", emailLinkUrl.value());
+		Uri.AddQueryParams("emailLinkUrl", Params.emailLinkUrl.value());
 	}
 
 
-	if (signupUrl.has_value())
+	if (Params.signupUrl.has_value())
 	{
-		Uri.AddQueryParams("signupUrl", signupUrl.value());
+		Uri.AddQueryParams("signupUrl", Params.signupUrl.value());
 	}
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -888,33 +869,32 @@ void GroupApi::groupsGroupIdEmailInvitesBulkPost(const utility::string_t& groupI
 
 
 
-void GroupApi::groupsGroupIdLitePut(const utility::string_t& groupId,
-									const std::shared_ptr<GroupLiteDto>& RequestBody,
+void GroupApi::groupsGroupIdLitePut([[maybe_unused]] const groupsGroupIdLitePutParams& Params,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
 									csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/lite").c_str(),
-		{groupId});
+		{Params.groupId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void GroupApi::groupsGroupIdLiteGet(const utility::string_t& groupId,
+void GroupApi::groupsGroupIdLiteGet([[maybe_unused]] const groupsGroupIdLiteGetParams& Params,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
 									csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/lite").c_str(),
-		{groupId});
+		{Params.groupId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -925,8 +905,7 @@ void GroupApi::groupsGroupIdLiteGet(const utility::string_t& groupId,
 
 
 
-void GroupApi::groupsGroupIdOwnerNewGroupOwnerIdPut(const utility::string_t& groupId,
-													const utility::string_t& newGroupOwnerId,
+void GroupApi::groupsGroupIdOwnerNewGroupOwnerIdPut([[maybe_unused]] const groupsGroupIdOwnerNewGroupOwnerIdPutParams& Params,
 													csp::services::ApiResponseHandlerBase* ResponseHandler,
 													csp::common::CancellationToken& CancellationToken) const
 {
@@ -936,7 +915,7 @@ void GroupApi::groupsGroupIdOwnerNewGroupOwnerIdPut(const utility::string_t& gro
 								  ServiceDefinition.GetVersion(),
 								  "/groups/{groupId}/owner/{newGroupOwnerId}")
 						  .c_str(),
-					  {groupId, newGroupOwnerId});
+					  {Params.groupId, Params.newGroupOwnerId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -947,15 +926,15 @@ void GroupApi::groupsGroupIdOwnerNewGroupOwnerIdPut(const utility::string_t& gro
 
 
 
-void GroupApi::groupsGroupIdEmailInvitesAcceptedGet(const utility::string_t& groupId,
-													csp::services::ApiResponseHandlerBase* ResponseHandler,
-													csp::common::CancellationToken& CancellationToken) const
+void GroupApi::groupsGroupIdEmail_invitesAcceptedGet([[maybe_unused]] const groupsGroupIdEmail_invitesAcceptedGetParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/email-invites/accepted")
 			.c_str(),
-		{groupId});
+		{Params.groupId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -966,10 +945,9 @@ void GroupApi::groupsGroupIdEmailInvitesAcceptedGet(const utility::string_t& gro
 
 
 
-void GroupApi::groupsGroupIdEmailInvitesEmailInviteIdDelete(const utility::string_t& groupId,
-															const utility::string_t& emailInviteId,
-															csp::services::ApiResponseHandlerBase* ResponseHandler,
-															csp::common::CancellationToken& CancellationToken) const
+void GroupApi::groupsGroupIdEmail_invitesEmailInviteIdDelete([[maybe_unused]] const groupsGroupIdEmail_invitesEmailInviteIdDeleteParams& Params,
+															 csp::services::ApiResponseHandlerBase* ResponseHandler,
+															 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -977,7 +955,7 @@ void GroupApi::groupsGroupIdEmailInvitesEmailInviteIdDelete(const utility::strin
 								  ServiceDefinition.GetVersion(),
 								  "/groups/{groupId}/email-invites/{emailInviteId}")
 						  .c_str(),
-					  {groupId, emailInviteId});
+					  {Params.groupId, Params.emailInviteId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -988,8 +966,7 @@ void GroupApi::groupsGroupIdEmailInvitesEmailInviteIdDelete(const utility::strin
 
 
 
-void GroupApi::groupsGroupIdModeratorsUserIdPut(const utility::string_t& groupId,
-												const utility::string_t& userId,
+void GroupApi::groupsGroupIdModeratorsUserIdPut([[maybe_unused]] const groupsGroupIdModeratorsUserIdPutParams& Params,
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken) const
 {
@@ -997,7 +974,7 @@ void GroupApi::groupsGroupIdModeratorsUserIdPut(const utility::string_t& groupId
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/moderators/{userId}")
 			.c_str(),
-		{groupId, userId});
+		{Params.groupId, Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1007,8 +984,7 @@ void GroupApi::groupsGroupIdModeratorsUserIdPut(const utility::string_t& groupId
 }
 
 
-void GroupApi::groupsGroupIdModeratorsUserIdDelete(const utility::string_t& groupId,
-												   const utility::string_t& userId,
+void GroupApi::groupsGroupIdModeratorsUserIdDelete([[maybe_unused]] const groupsGroupIdModeratorsUserIdDeleteParams& Params,
 												   csp::services::ApiResponseHandlerBase* ResponseHandler,
 												   csp::common::CancellationToken& CancellationToken) const
 {
@@ -1016,7 +992,7 @@ void GroupApi::groupsGroupIdModeratorsUserIdDelete(const utility::string_t& grou
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/moderators/{userId}")
 			.c_str(),
-		{groupId, userId});
+		{Params.groupId, Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1027,24 +1003,7 @@ void GroupApi::groupsGroupIdModeratorsUserIdDelete(const utility::string_t& grou
 
 
 
-void GroupApi::groupsLiteGet(const std::optional<std::vector<utility::string_t>>& Ids,
-							 const std::optional<std::vector<utility::string_t>>& GroupTypes,
-							 const std::optional<std::vector<utility::string_t>>& Names,
-							 const std::optional<utility::string_t>& PartialName,
-							 const std::optional<std::vector<utility::string_t>>& GroupOwnerIds,
-							 const std::optional<std::vector<utility::string_t>>& ExcludeGroupOwnerIds,
-							 const std::optional<std::vector<utility::string_t>>& ExcludeIds,
-							 const std::optional<std::vector<utility::string_t>>& Users,
-							 const std::optional<bool>& Discoverable,
-							 const std::optional<bool>& AutoModerator,
-							 const std::optional<bool>& RequiresInvite,
-							 const std::optional<bool>& Archived,
-							 const std::optional<std::vector<utility::string_t>>& OrganizationIds,
-							 const std::optional<std::vector<utility::string_t>>& Tags,
-							 const std::optional<std::vector<utility::string_t>>& ExcludedTags,
-							 const std::optional<bool>& TagsAll,
-							 const std::optional<int32_t>& Skip,
-							 const std::optional<int32_t>& Limit,
+void GroupApi::groupsLiteGet([[maybe_unused]] const groupsLiteGetParams& Params,
 							 csp::services::ApiResponseHandlerBase* ResponseHandler,
 							 csp::common::CancellationToken& CancellationToken) const
 {
@@ -1052,111 +1011,111 @@ void GroupApi::groupsLiteGet(const std::optional<std::vector<utility::string_t>>
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/lite").c_str(), {});
 
 
-	if (Ids.has_value())
+	if (Params.Ids.has_value())
 	{
-		Uri.AddQueryParams("Ids", Ids.value());
+		Uri.AddQueryParams("Ids", Params.Ids.value());
 	}
 
 
-	if (GroupTypes.has_value())
+	if (Params.GroupTypes.has_value())
 	{
-		Uri.AddQueryParams("GroupTypes", GroupTypes.value());
+		Uri.AddQueryParams("GroupTypes", Params.GroupTypes.value());
 	}
 
 
-	if (Names.has_value())
+	if (Params.Names.has_value())
 	{
-		Uri.AddQueryParams("Names", Names.value());
+		Uri.AddQueryParams("Names", Params.Names.value());
 	}
 
 
-	if (PartialName.has_value())
+	if (Params.PartialName.has_value())
 	{
-		Uri.AddQueryParams("PartialName", PartialName.value());
+		Uri.AddQueryParams("PartialName", Params.PartialName.value());
 	}
 
 
-	if (GroupOwnerIds.has_value())
+	if (Params.GroupOwnerIds.has_value())
 	{
-		Uri.AddQueryParams("GroupOwnerIds", GroupOwnerIds.value());
+		Uri.AddQueryParams("GroupOwnerIds", Params.GroupOwnerIds.value());
 	}
 
 
-	if (ExcludeGroupOwnerIds.has_value())
+	if (Params.ExcludeGroupOwnerIds.has_value())
 	{
-		Uri.AddQueryParams("ExcludeGroupOwnerIds", ExcludeGroupOwnerIds.value());
+		Uri.AddQueryParams("ExcludeGroupOwnerIds", Params.ExcludeGroupOwnerIds.value());
 	}
 
 
-	if (ExcludeIds.has_value())
+	if (Params.ExcludeIds.has_value())
 	{
-		Uri.AddQueryParams("ExcludeIds", ExcludeIds.value());
+		Uri.AddQueryParams("ExcludeIds", Params.ExcludeIds.value());
 	}
 
 
-	if (Users.has_value())
+	if (Params.Users.has_value())
 	{
-		Uri.AddQueryParams("Users", Users.value());
+		Uri.AddQueryParams("Users", Params.Users.value());
 	}
 
 
-	if (Discoverable.has_value())
+	if (Params.Discoverable.has_value())
 	{
-		Uri.AddQueryParams("Discoverable", Discoverable.value());
+		Uri.AddQueryParams("Discoverable", Params.Discoverable.value());
 	}
 
 
-	if (AutoModerator.has_value())
+	if (Params.AutoModerator.has_value())
 	{
-		Uri.AddQueryParams("AutoModerator", AutoModerator.value());
+		Uri.AddQueryParams("AutoModerator", Params.AutoModerator.value());
 	}
 
 
-	if (RequiresInvite.has_value())
+	if (Params.RequiresInvite.has_value())
 	{
-		Uri.AddQueryParams("RequiresInvite", RequiresInvite.value());
+		Uri.AddQueryParams("RequiresInvite", Params.RequiresInvite.value());
 	}
 
 
-	if (Archived.has_value())
+	if (Params.Archived.has_value())
 	{
-		Uri.AddQueryParams("Archived", Archived.value());
+		Uri.AddQueryParams("Archived", Params.Archived.value());
 	}
 
 
-	if (OrganizationIds.has_value())
+	if (Params.OrganizationIds.has_value())
 	{
-		Uri.AddQueryParams("OrganizationIds", OrganizationIds.value());
+		Uri.AddQueryParams("OrganizationIds", Params.OrganizationIds.value());
 	}
 
 
-	if (Tags.has_value())
+	if (Params.Tags.has_value())
 	{
-		Uri.AddQueryParams("Tags", Tags.value());
+		Uri.AddQueryParams("Tags", Params.Tags.value());
 	}
 
 
-	if (ExcludedTags.has_value())
+	if (Params.ExcludedTags.has_value())
 	{
-		Uri.AddQueryParams("ExcludedTags", ExcludedTags.value());
+		Uri.AddQueryParams("ExcludedTags", Params.ExcludedTags.value());
 	}
 
 
-	if (TagsAll.has_value())
+	if (Params.TagsAll.has_value())
 	{
-		Uri.AddQueryParams("TagsAll", TagsAll.value());
+		Uri.AddQueryParams("TagsAll", Params.TagsAll.value());
 	}
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1167,9 +1126,7 @@ void GroupApi::groupsLiteGet(const std::optional<std::vector<utility::string_t>>
 }
 
 
-void GroupApi::groupsLitePost(const std::optional<int32_t>& Skip,
-							  const std::optional<int32_t>& Limit,
-							  const std::shared_ptr<GroupFilters>& RequestBody,
+void GroupApi::groupsLitePost([[maybe_unused]] const groupsLitePostParams& Params,
 							  csp::services::ApiResponseHandlerBase* ResponseHandler,
 							  csp::common::CancellationToken& CancellationToken) const
 {
@@ -1177,20 +1134,20 @@ void GroupApi::groupsLitePost(const std::optional<int32_t>& Skip,
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/lite").c_str(), {});
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -1198,15 +1155,15 @@ void GroupApi::groupsLitePost(const std::optional<int32_t>& Skip,
 
 
 
-void GroupApi::groupsUsersUserIdEmailInvitesGet(const utility::string_t& userId,
-												csp::services::ApiResponseHandlerBase* ResponseHandler,
-												csp::common::CancellationToken& CancellationToken) const
+void GroupApi::groupsUsersUserIdEmail_invitesGet([[maybe_unused]] const groupsUsersUserIdEmail_invitesGetParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/users/{userId}/email-invites")
 			.c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1217,11 +1174,10 @@ void GroupApi::groupsUsersUserIdEmailInvitesGet(const utility::string_t& userId,
 
 
 
-void GroupApi::groupsGroupIdUsersUserIdEmailInvitesEmailInviteIdAcceptPost(const utility::string_t& groupId,
-																		   const utility::string_t& userId,
-																		   const utility::string_t& emailInviteId,
-																		   csp::services::ApiResponseHandlerBase* ResponseHandler,
-																		   csp::common::CancellationToken& CancellationToken) const
+void GroupApi::groupsGroupIdUsersUserIdEmail_invitesEmailInviteIdAcceptPost(
+	[[maybe_unused]] const groupsGroupIdUsersUserIdEmail_invitesEmailInviteIdAcceptPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -1229,7 +1185,7 @@ void GroupApi::groupsGroupIdUsersUserIdEmailInvitesEmailInviteIdAcceptPost(const
 								  ServiceDefinition.GetVersion(),
 								  "/groups/{groupId}/users/{userId}/email-invites/{emailInviteId}/accept")
 						  .c_str(),
-					  {groupId, userId, emailInviteId});
+					  {Params.groupId, Params.userId, Params.emailInviteId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1240,9 +1196,7 @@ void GroupApi::groupsGroupIdUsersUserIdEmailInvitesEmailInviteIdAcceptPost(const
 
 
 
-void GroupApi::groupsArchivedPut(const utility::string_t& groupOwnerId,
-								 const std::optional<std::vector<utility::string_t>>& groupIds,
-								 const bool& archived,
+void GroupApi::groupsArchivedPut([[maybe_unused]] const groupsArchivedPutParams& Params,
 								 csp::services::ApiResponseHandlerBase* ResponseHandler,
 								 csp::common::CancellationToken& CancellationToken) const
 {
@@ -1251,16 +1205,16 @@ void GroupApi::groupsArchivedPut(const utility::string_t& groupOwnerId,
 					  {});
 
 
-	Uri.AddQueryParams("groupOwnerId", groupOwnerId);
+	Uri.AddQueryParams("groupOwnerId", Params.groupOwnerId);
 
 
-	if (groupIds.has_value())
+	if (Params.groupIds.has_value())
 	{
-		Uri.AddQueryParams("groupIds", groupIds.value());
+		Uri.AddQueryParams("groupIds", Params.groupIds.value());
 	}
 
 
-	Uri.AddQueryParams("archived", archived);
+	Uri.AddQueryParams("archived", Params.archived);
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1271,7 +1225,7 @@ void GroupApi::groupsArchivedPut(const utility::string_t& groupOwnerId,
 
 
 
-InventoryApi::InventoryApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+InventoryApi::InventoryApi(csp::web::WebClient* InWebClient) : IInventoryApiBase(InWebClient)
 {
 }
 
@@ -1281,104 +1235,91 @@ InventoryApi::~InventoryApi()
 
 
 
-void InventoryApi::usersUserIdInventoryItemsGet(const utility::string_t& userId,
-												const std::optional<std::vector<utility::string_t>>& Ids,
-												const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-												const std::optional<bool>& Exchangeable,
-												const std::optional<bool>& IsGift,
-												const std::optional<std::vector<utility::string_t>>& Tags,
-												const std::optional<bool>& TagsAll,
-												const std::optional<std::vector<utility::string_t>>& UserIds,
-												const std::optional<std::map<utility::string_t, utility::string_t>>& State,
-												const std::optional<std::vector<utility::string_t>>& ItemTypes,
-												const std::optional<utility::string_t>& CreatedAfter,
-												const std::optional<utility::string_t>& CreatedBefore,
-												const std::optional<int32_t>& Skip,
-												const std::optional<int32_t>& Limit,
-												csp::services::ApiResponseHandlerBase* ResponseHandler,
-												csp::common::CancellationToken& CancellationToken) const
+void InventoryApi::usersUserIdInventory_itemsGet([[maybe_unused]] const usersUserIdInventory_itemsGetParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/inventory-items").c_str(),
-		{userId});
+		{Params.userId});
 
 
-	if (Ids.has_value())
+	if (Params.Ids.has_value())
 	{
-		Uri.AddQueryParams("Ids", Ids.value());
+		Uri.AddQueryParams("Ids", Params.Ids.value());
 	}
 
 
-	if (PrototypeIds.has_value())
+	if (Params.PrototypeIds.has_value())
 	{
-		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
+		Uri.AddQueryParams("PrototypeIds", Params.PrototypeIds.value());
 	}
 
 
-	if (Exchangeable.has_value())
+	if (Params.Exchangeable.has_value())
 	{
-		Uri.AddQueryParams("Exchangeable", Exchangeable.value());
+		Uri.AddQueryParams("Exchangeable", Params.Exchangeable.value());
 	}
 
 
-	if (IsGift.has_value())
+	if (Params.IsGift.has_value())
 	{
-		Uri.AddQueryParams("IsGift", IsGift.value());
+		Uri.AddQueryParams("IsGift", Params.IsGift.value());
 	}
 
 
-	if (Tags.has_value())
+	if (Params.Tags.has_value())
 	{
-		Uri.AddQueryParams("Tags", Tags.value());
+		Uri.AddQueryParams("Tags", Params.Tags.value());
 	}
 
 
-	if (TagsAll.has_value())
+	if (Params.TagsAll.has_value())
 	{
-		Uri.AddQueryParams("TagsAll", TagsAll.value());
+		Uri.AddQueryParams("TagsAll", Params.TagsAll.value());
 	}
 
 
-	if (UserIds.has_value())
+	if (Params.UserIds.has_value())
 	{
-		Uri.AddQueryParams("UserIds", UserIds.value());
+		Uri.AddQueryParams("UserIds", Params.UserIds.value());
 	}
 
 
-	if (State.has_value())
+	if (Params.State.has_value())
 	{
-		Uri.AddQueryParams("State", State.value());
+		Uri.AddQueryParams("State", Params.State.value());
 	}
 
 
-	if (ItemTypes.has_value())
+	if (Params.ItemTypes.has_value())
 	{
-		Uri.AddQueryParams("ItemTypes", ItemTypes.value());
+		Uri.AddQueryParams("ItemTypes", Params.ItemTypes.value());
 	}
 
 
-	if (CreatedAfter.has_value())
+	if (Params.CreatedAfter.has_value())
 	{
-		Uri.AddQueryParams("CreatedAfter", CreatedAfter.value());
+		Uri.AddQueryParams("CreatedAfter", Params.CreatedAfter.value());
 	}
 
 
-	if (CreatedBefore.has_value())
+	if (Params.CreatedBefore.has_value())
 	{
-		Uri.AddQueryParams("CreatedBefore", CreatedBefore.value());
+		Uri.AddQueryParams("CreatedBefore", Params.CreatedBefore.value());
 	}
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1389,26 +1330,24 @@ void InventoryApi::usersUserIdInventoryItemsGet(const utility::string_t& userId,
 }
 
 
-void InventoryApi::usersUserIdInventoryItemsPost(const utility::string_t& userId,
-												 const std::optional<bool>& notify,
-												 const std::shared_ptr<InventoryItemDto>& RequestBody,
-												 csp::services::ApiResponseHandlerBase* ResponseHandler,
-												 csp::common::CancellationToken& CancellationToken) const
+void InventoryApi::usersUserIdInventory_itemsPost([[maybe_unused]] const usersUserIdInventory_itemsPostParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/inventory-items").c_str(),
-		{userId});
+		{Params.userId});
 
 
-	if (notify.has_value())
+	if (Params.notify.has_value())
 	{
-		Uri.AddQueryParams("notify", notify.value());
+		Uri.AddQueryParams("notify", Params.notify.value());
 	}
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -1416,90 +1355,79 @@ void InventoryApi::usersUserIdInventoryItemsPost(const utility::string_t& userId
 
 
 
-void InventoryApi::usersUserIdInventoryIdsGet(const utility::string_t& userId,
-											  const std::optional<std::vector<utility::string_t>>& Ids,
-											  const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-											  const std::optional<bool>& Exchangeable,
-											  const std::optional<bool>& IsGift,
-											  const std::optional<std::vector<utility::string_t>>& Tags,
-											  const std::optional<bool>& TagsAll,
-											  const std::optional<std::vector<utility::string_t>>& UserIds,
-											  const std::optional<std::map<utility::string_t, utility::string_t>>& State,
-											  const std::optional<std::vector<utility::string_t>>& ItemTypes,
-											  const std::optional<utility::string_t>& CreatedAfter,
-											  const std::optional<utility::string_t>& CreatedBefore,
-											  csp::services::ApiResponseHandlerBase* ResponseHandler,
-											  csp::common::CancellationToken& CancellationToken) const
+void InventoryApi::usersUserIdInventory_idsGet([[maybe_unused]] const usersUserIdInventory_idsGetParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/inventory-ids").c_str(),
-		{userId});
+		{Params.userId});
 
 
-	if (Ids.has_value())
+	if (Params.Ids.has_value())
 	{
-		Uri.AddQueryParams("Ids", Ids.value());
+		Uri.AddQueryParams("Ids", Params.Ids.value());
 	}
 
 
-	if (PrototypeIds.has_value())
+	if (Params.PrototypeIds.has_value())
 	{
-		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
+		Uri.AddQueryParams("PrototypeIds", Params.PrototypeIds.value());
 	}
 
 
-	if (Exchangeable.has_value())
+	if (Params.Exchangeable.has_value())
 	{
-		Uri.AddQueryParams("Exchangeable", Exchangeable.value());
+		Uri.AddQueryParams("Exchangeable", Params.Exchangeable.value());
 	}
 
 
-	if (IsGift.has_value())
+	if (Params.IsGift.has_value())
 	{
-		Uri.AddQueryParams("IsGift", IsGift.value());
+		Uri.AddQueryParams("IsGift", Params.IsGift.value());
 	}
 
 
-	if (Tags.has_value())
+	if (Params.Tags.has_value())
 	{
-		Uri.AddQueryParams("Tags", Tags.value());
+		Uri.AddQueryParams("Tags", Params.Tags.value());
 	}
 
 
-	if (TagsAll.has_value())
+	if (Params.TagsAll.has_value())
 	{
-		Uri.AddQueryParams("TagsAll", TagsAll.value());
+		Uri.AddQueryParams("TagsAll", Params.TagsAll.value());
 	}
 
 
-	if (UserIds.has_value())
+	if (Params.UserIds.has_value())
 	{
-		Uri.AddQueryParams("UserIds", UserIds.value());
+		Uri.AddQueryParams("UserIds", Params.UserIds.value());
 	}
 
 
-	if (State.has_value())
+	if (Params.State.has_value())
 	{
-		Uri.AddQueryParams("State", State.value());
+		Uri.AddQueryParams("State", Params.State.value());
 	}
 
 
-	if (ItemTypes.has_value())
+	if (Params.ItemTypes.has_value())
 	{
-		Uri.AddQueryParams("ItemTypes", ItemTypes.value());
+		Uri.AddQueryParams("ItemTypes", Params.ItemTypes.value());
 	}
 
 
-	if (CreatedAfter.has_value())
+	if (Params.CreatedAfter.has_value())
 	{
-		Uri.AddQueryParams("CreatedAfter", CreatedAfter.value());
+		Uri.AddQueryParams("CreatedAfter", Params.CreatedAfter.value());
 	}
 
 
-	if (CreatedBefore.has_value())
+	if (Params.CreatedBefore.has_value())
 	{
-		Uri.AddQueryParams("CreatedBefore", CreatedBefore.value());
+		Uri.AddQueryParams("CreatedBefore", Params.CreatedBefore.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1511,19 +1439,9 @@ void InventoryApi::usersUserIdInventoryIdsGet(const utility::string_t& userId,
 
 
 
-void InventoryApi::usersInventoryItemsOwnersGet(const std::optional<std::vector<utility::string_t>>& Ids,
-												const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-												const std::optional<bool>& Exchangeable,
-												const std::optional<bool>& IsGift,
-												const std::optional<std::vector<utility::string_t>>& Tags,
-												const std::optional<bool>& TagsAll,
-												const std::optional<std::vector<utility::string_t>>& UserIds,
-												const std::optional<std::map<utility::string_t, utility::string_t>>& State,
-												const std::optional<std::vector<utility::string_t>>& ItemTypes,
-												const std::optional<utility::string_t>& CreatedAfter,
-												const std::optional<utility::string_t>& CreatedBefore,
-												csp::services::ApiResponseHandlerBase* ResponseHandler,
-												csp::common::CancellationToken& CancellationToken) const
+void InventoryApi::usersInventory_itemsOwnersGet([[maybe_unused]] const usersInventory_itemsOwnersGetParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -1531,69 +1449,69 @@ void InventoryApi::usersInventoryItemsOwnersGet(const std::optional<std::vector<
 		{});
 
 
-	if (Ids.has_value())
+	if (Params.Ids.has_value())
 	{
-		Uri.AddQueryParams("Ids", Ids.value());
+		Uri.AddQueryParams("Ids", Params.Ids.value());
 	}
 
 
-	if (PrototypeIds.has_value())
+	if (Params.PrototypeIds.has_value())
 	{
-		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
+		Uri.AddQueryParams("PrototypeIds", Params.PrototypeIds.value());
 	}
 
 
-	if (Exchangeable.has_value())
+	if (Params.Exchangeable.has_value())
 	{
-		Uri.AddQueryParams("Exchangeable", Exchangeable.value());
+		Uri.AddQueryParams("Exchangeable", Params.Exchangeable.value());
 	}
 
 
-	if (IsGift.has_value())
+	if (Params.IsGift.has_value())
 	{
-		Uri.AddQueryParams("IsGift", IsGift.value());
+		Uri.AddQueryParams("IsGift", Params.IsGift.value());
 	}
 
 
-	if (Tags.has_value())
+	if (Params.Tags.has_value())
 	{
-		Uri.AddQueryParams("Tags", Tags.value());
+		Uri.AddQueryParams("Tags", Params.Tags.value());
 	}
 
 
-	if (TagsAll.has_value())
+	if (Params.TagsAll.has_value())
 	{
-		Uri.AddQueryParams("TagsAll", TagsAll.value());
+		Uri.AddQueryParams("TagsAll", Params.TagsAll.value());
 	}
 
 
-	if (UserIds.has_value())
+	if (Params.UserIds.has_value())
 	{
-		Uri.AddQueryParams("UserIds", UserIds.value());
+		Uri.AddQueryParams("UserIds", Params.UserIds.value());
 	}
 
 
-	if (State.has_value())
+	if (Params.State.has_value())
 	{
-		Uri.AddQueryParams("State", State.value());
+		Uri.AddQueryParams("State", Params.State.value());
 	}
 
 
-	if (ItemTypes.has_value())
+	if (Params.ItemTypes.has_value())
 	{
-		Uri.AddQueryParams("ItemTypes", ItemTypes.value());
+		Uri.AddQueryParams("ItemTypes", Params.ItemTypes.value());
 	}
 
 
-	if (CreatedAfter.has_value())
+	if (Params.CreatedAfter.has_value())
 	{
-		Uri.AddQueryParams("CreatedAfter", CreatedAfter.value());
+		Uri.AddQueryParams("CreatedAfter", Params.CreatedAfter.value());
 	}
 
 
-	if (CreatedBefore.has_value())
+	if (Params.CreatedBefore.has_value())
 	{
-		Uri.AddQueryParams("CreatedBefore", CreatedBefore.value());
+		Uri.AddQueryParams("CreatedBefore", Params.CreatedBefore.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1605,19 +1523,9 @@ void InventoryApi::usersInventoryItemsOwnersGet(const std::optional<std::vector<
 
 
 
-void InventoryApi::usersInventoryCountGet(const std::optional<std::vector<utility::string_t>>& Ids,
-										  const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-										  const std::optional<bool>& Exchangeable,
-										  const std::optional<bool>& IsGift,
-										  const std::optional<std::vector<utility::string_t>>& Tags,
-										  const std::optional<bool>& TagsAll,
-										  const std::optional<std::vector<utility::string_t>>& UserIds,
-										  const std::optional<std::map<utility::string_t, utility::string_t>>& State,
-										  const std::optional<std::vector<utility::string_t>>& ItemTypes,
-										  const std::optional<utility::string_t>& CreatedAfter,
-										  const std::optional<utility::string_t>& CreatedBefore,
-										  csp::services::ApiResponseHandlerBase* ResponseHandler,
-										  csp::common::CancellationToken& CancellationToken) const
+void InventoryApi::usersInventory_countGet([[maybe_unused]] const usersInventory_countGetParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -1625,69 +1533,69 @@ void InventoryApi::usersInventoryCountGet(const std::optional<std::vector<utilit
 		{});
 
 
-	if (Ids.has_value())
+	if (Params.Ids.has_value())
 	{
-		Uri.AddQueryParams("Ids", Ids.value());
+		Uri.AddQueryParams("Ids", Params.Ids.value());
 	}
 
 
-	if (PrototypeIds.has_value())
+	if (Params.PrototypeIds.has_value())
 	{
-		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
+		Uri.AddQueryParams("PrototypeIds", Params.PrototypeIds.value());
 	}
 
 
-	if (Exchangeable.has_value())
+	if (Params.Exchangeable.has_value())
 	{
-		Uri.AddQueryParams("Exchangeable", Exchangeable.value());
+		Uri.AddQueryParams("Exchangeable", Params.Exchangeable.value());
 	}
 
 
-	if (IsGift.has_value())
+	if (Params.IsGift.has_value())
 	{
-		Uri.AddQueryParams("IsGift", IsGift.value());
+		Uri.AddQueryParams("IsGift", Params.IsGift.value());
 	}
 
 
-	if (Tags.has_value())
+	if (Params.Tags.has_value())
 	{
-		Uri.AddQueryParams("Tags", Tags.value());
+		Uri.AddQueryParams("Tags", Params.Tags.value());
 	}
 
 
-	if (TagsAll.has_value())
+	if (Params.TagsAll.has_value())
 	{
-		Uri.AddQueryParams("TagsAll", TagsAll.value());
+		Uri.AddQueryParams("TagsAll", Params.TagsAll.value());
 	}
 
 
-	if (UserIds.has_value())
+	if (Params.UserIds.has_value())
 	{
-		Uri.AddQueryParams("UserIds", UserIds.value());
+		Uri.AddQueryParams("UserIds", Params.UserIds.value());
 	}
 
 
-	if (State.has_value())
+	if (Params.State.has_value())
 	{
-		Uri.AddQueryParams("State", State.value());
+		Uri.AddQueryParams("State", Params.State.value());
 	}
 
 
-	if (ItemTypes.has_value())
+	if (Params.ItemTypes.has_value())
 	{
-		Uri.AddQueryParams("ItemTypes", ItemTypes.value());
+		Uri.AddQueryParams("ItemTypes", Params.ItemTypes.value());
 	}
 
 
-	if (CreatedAfter.has_value())
+	if (Params.CreatedAfter.has_value())
 	{
-		Uri.AddQueryParams("CreatedAfter", CreatedAfter.value());
+		Uri.AddQueryParams("CreatedAfter", Params.CreatedAfter.value());
 	}
 
 
-	if (CreatedBefore.has_value())
+	if (Params.CreatedBefore.has_value())
 	{
-		Uri.AddQueryParams("CreatedBefore", CreatedBefore.value());
+		Uri.AddQueryParams("CreatedBefore", Params.CreatedBefore.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1699,16 +1607,15 @@ void InventoryApi::usersInventoryCountGet(const std::optional<std::vector<utilit
 
 
 
-void InventoryApi::usersUserIdInventoryItemsIdGet(const utility::string_t& userId,
-												  const utility::string_t& id,
-												  csp::services::ApiResponseHandlerBase* ResponseHandler,
-												  csp::common::CancellationToken& CancellationToken) const
+void InventoryApi::usersUserIdInventory_itemsIdGet([[maybe_unused]] const usersUserIdInventory_itemsIdGetParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/inventory-items/{id}")
 			.c_str(),
-		{userId, id});
+		{Params.userId, Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1718,16 +1625,15 @@ void InventoryApi::usersUserIdInventoryItemsIdGet(const utility::string_t& userI
 }
 
 
-void InventoryApi::usersUserIdInventoryItemsIdDelete(const utility::string_t& userId,
-													 const utility::string_t& id,
-													 csp::services::ApiResponseHandlerBase* ResponseHandler,
-													 csp::common::CancellationToken& CancellationToken) const
+void InventoryApi::usersUserIdInventory_itemsIdDelete([[maybe_unused]] const usersUserIdInventory_itemsIdDeleteParams& Params,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/inventory-items/{id}")
 			.c_str(),
-		{userId, id});
+		{Params.userId, Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1737,21 +1643,19 @@ void InventoryApi::usersUserIdInventoryItemsIdDelete(const utility::string_t& us
 }
 
 
-void InventoryApi::usersUserIdInventoryItemsIdPut(const utility::string_t& userId,
-												  const utility::string_t& id,
-												  const std::shared_ptr<InventoryItemDto>& RequestBody,
-												  csp::services::ApiResponseHandlerBase* ResponseHandler,
-												  csp::common::CancellationToken& CancellationToken) const
+void InventoryApi::usersUserIdInventory_itemsIdPut([[maybe_unused]] const usersUserIdInventory_itemsIdPutParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/inventory-items/{id}")
 			.c_str(),
-		{userId, id});
+		{Params.userId, Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
@@ -1759,11 +1663,9 @@ void InventoryApi::usersUserIdInventoryItemsIdPut(const utility::string_t& userI
 
 
 
-void InventoryApi::usersUserIdInventoryItemsIdEquipPut(const utility::string_t& userId,
-													   const utility::string_t& id,
-													   const std::shared_ptr<EquipItemDto>& RequestBody,
-													   csp::services::ApiResponseHandlerBase* ResponseHandler,
-													   csp::common::CancellationToken& CancellationToken) const
+void InventoryApi::usersUserIdInventory_itemsIdEquipPut([[maybe_unused]] const usersUserIdInventory_itemsIdEquipPutParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -1771,11 +1673,11 @@ void InventoryApi::usersUserIdInventoryItemsIdEquipPut(const utility::string_t& 
 								  ServiceDefinition.GetVersion(),
 								  "/users/{userId}/inventory-items/{id}/equip")
 						  .c_str(),
-					  {userId, id});
+					  {Params.userId, Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
@@ -1783,7 +1685,7 @@ void InventoryApi::usersUserIdInventoryItemsIdEquipPut(const utility::string_t& 
 
 
 
-NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+NtpApi::NtpApi(csp::web::WebClient* InWebClient) : INtpApiBase(InWebClient)
 {
 }
 
@@ -1793,7 +1695,9 @@ NtpApi::~NtpApi()
 
 
 
-void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
+void NtpApi::datetimeGet([[maybe_unused]] const datetimeGetParams& Params,
+						 csp::services::ApiResponseHandlerBase* ResponseHandler,
+						 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/datetime").c_str(), {});
@@ -1806,7 +1710,7 @@ void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 
 
 
-OrganizationApi::OrganizationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+OrganizationApi::OrganizationApi(csp::web::WebClient* InWebClient) : IOrganizationApiBase(InWebClient)
 {
 }
 
@@ -1816,7 +1720,7 @@ OrganizationApi::~OrganizationApi()
 
 
 
-void OrganizationApi::organizationsPost(const std::shared_ptr<OrganizationDto>& RequestBody,
+void OrganizationApi::organizationsPost([[maybe_unused]] const organizationsPostParams& Params,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken) const
 {
@@ -1826,7 +1730,7 @@ void OrganizationApi::organizationsPost(const std::shared_ptr<OrganizationDto>& 
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -1834,14 +1738,14 @@ void OrganizationApi::organizationsPost(const std::shared_ptr<OrganizationDto>& 
 
 
 
-void OrganizationApi::organizationsOrganizationIdGet(const utility::string_t& organizationId,
+void OrganizationApi::organizationsOrganizationIdGet([[maybe_unused]] const organizationsOrganizationIdGetParams& Params,
 													 csp::services::ApiResponseHandlerBase* ResponseHandler,
 													 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/organizations/{organizationId}").c_str(),
-		{organizationId});
+		{Params.organizationId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1851,33 +1755,32 @@ void OrganizationApi::organizationsOrganizationIdGet(const utility::string_t& or
 }
 
 
-void OrganizationApi::organizationsOrganizationIdPut(const utility::string_t& organizationId,
-													 const std::shared_ptr<OrganizationDto>& RequestBody,
+void OrganizationApi::organizationsOrganizationIdPut([[maybe_unused]] const organizationsOrganizationIdPutParams& Params,
 													 csp::services::ApiResponseHandlerBase* ResponseHandler,
 													 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/organizations/{organizationId}").c_str(),
-		{organizationId});
+		{Params.organizationId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void OrganizationApi::organizationsOrganizationIdDelete(const utility::string_t& organizationId,
+void OrganizationApi::organizationsOrganizationIdDelete([[maybe_unused]] const organizationsOrganizationIdDeleteParams& Params,
 														csp::services::ApiResponseHandlerBase* ResponseHandler,
 														csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/organizations/{organizationId}").c_str(),
-		{organizationId});
+		{Params.organizationId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1888,13 +1791,10 @@ void OrganizationApi::organizationsOrganizationIdDelete(const utility::string_t&
 
 
 
-void OrganizationApi::organizationsOrganizationIdMembershipInvitesPost(const utility::string_t& organizationId,
-																	   const std::optional<bool>& resendInvite,
-																	   const std::optional<utility::string_t>& emailLinkUrl,
-																	   const std::optional<utility::string_t>& signupUrl,
-																	   const std::shared_ptr<OrganizationInviteDto>& RequestBody,
-																	   csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	   csp::common::CancellationToken& CancellationToken) const
+void OrganizationApi::organizationsOrganizationIdMembership_invitesPost(
+	[[maybe_unused]] const organizationsOrganizationIdMembership_invitesPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -1902,38 +1802,39 @@ void OrganizationApi::organizationsOrganizationIdMembershipInvitesPost(const uti
 								  ServiceDefinition.GetVersion(),
 								  "/organizations/{organizationId}/membership-invites")
 						  .c_str(),
-					  {organizationId});
+					  {Params.organizationId});
 
 
-	if (resendInvite.has_value())
+	if (Params.resendInvite.has_value())
 	{
-		Uri.AddQueryParams("resendInvite", resendInvite.value());
+		Uri.AddQueryParams("resendInvite", Params.resendInvite.value());
 	}
 
 
-	if (emailLinkUrl.has_value())
+	if (Params.emailLinkUrl.has_value())
 	{
-		Uri.AddQueryParams("emailLinkUrl", emailLinkUrl.value());
+		Uri.AddQueryParams("emailLinkUrl", Params.emailLinkUrl.value());
 	}
 
 
-	if (signupUrl.has_value())
+	if (Params.signupUrl.has_value())
 	{
-		Uri.AddQueryParams("signupUrl", signupUrl.value());
+		Uri.AddQueryParams("signupUrl", Params.signupUrl.value());
 	}
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void OrganizationApi::organizationsOrganizationIdMembershipInvitesGet(const utility::string_t& organizationId,
-																	  csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	  csp::common::CancellationToken& CancellationToken) const
+void OrganizationApi::organizationsOrganizationIdMembership_invitesGet(
+	[[maybe_unused]] const organizationsOrganizationIdMembership_invitesGetParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -1941,7 +1842,7 @@ void OrganizationApi::organizationsOrganizationIdMembershipInvitesGet(const util
 								  ServiceDefinition.GetVersion(),
 								  "/organizations/{organizationId}/membership-invites")
 						  .c_str(),
-					  {organizationId});
+					  {Params.organizationId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1952,13 +1853,10 @@ void OrganizationApi::organizationsOrganizationIdMembershipInvitesGet(const util
 
 
 
-void OrganizationApi::organizationsOrganizationIdMembershipInvitesBulkPost(const utility::string_t& organizationId,
-																		   const std::optional<bool>& resendInvite,
-																		   const std::optional<utility::string_t>& emailLinkUrl,
-																		   const std::optional<utility::string_t>& signupUrl,
-																		   const std::vector<std::shared_ptr<OrganizationInviteDto>>& RequestBody,
-																		   csp::services::ApiResponseHandlerBase* ResponseHandler,
-																		   csp::common::CancellationToken& CancellationToken) const
+void OrganizationApi::organizationsOrganizationIdMembership_invitesBulkPost(
+	[[maybe_unused]] const organizationsOrganizationIdMembership_invitesBulkPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -1966,29 +1864,29 @@ void OrganizationApi::organizationsOrganizationIdMembershipInvitesBulkPost(const
 								  ServiceDefinition.GetVersion(),
 								  "/organizations/{organizationId}/membership-invites/bulk")
 						  .c_str(),
-					  {organizationId});
+					  {Params.organizationId});
 
 
-	if (resendInvite.has_value())
+	if (Params.resendInvite.has_value())
 	{
-		Uri.AddQueryParams("resendInvite", resendInvite.value());
+		Uri.AddQueryParams("resendInvite", Params.resendInvite.value());
 	}
 
 
-	if (emailLinkUrl.has_value())
+	if (Params.emailLinkUrl.has_value())
 	{
-		Uri.AddQueryParams("emailLinkUrl", emailLinkUrl.value());
+		Uri.AddQueryParams("emailLinkUrl", Params.emailLinkUrl.value());
 	}
 
 
-	if (signupUrl.has_value())
+	if (Params.signupUrl.has_value())
 	{
-		Uri.AddQueryParams("signupUrl", signupUrl.value());
+		Uri.AddQueryParams("signupUrl", Params.signupUrl.value());
 	}
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -1996,8 +1894,7 @@ void OrganizationApi::organizationsOrganizationIdMembershipInvitesBulkPost(const
 
 
 
-void OrganizationApi::organizationsOrganizationIdUsersUserIdDelete(const utility::string_t& organizationId,
-																   const utility::string_t& userId,
+void OrganizationApi::organizationsOrganizationIdUsersUserIdDelete([[maybe_unused]] const organizationsOrganizationIdUsersUserIdDeleteParams& Params,
 																   csp::services::ApiResponseHandlerBase* ResponseHandler,
 																   csp::common::CancellationToken& CancellationToken) const
 {
@@ -2007,7 +1904,7 @@ void OrganizationApi::organizationsOrganizationIdUsersUserIdDelete(const utility
 								  ServiceDefinition.GetVersion(),
 								  "/organizations/{organizationId}/users/{userId}")
 						  .c_str(),
-					  {organizationId, userId});
+					  {Params.organizationId, Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2018,8 +1915,7 @@ void OrganizationApi::organizationsOrganizationIdUsersUserIdDelete(const utility
 
 
 
-void OrganizationApi::organizationsOrganizationIdRolesGet(const utility::string_t& organizationId,
-														  const std::optional<std::vector<utility::string_t>>& userIds,
+void OrganizationApi::organizationsOrganizationIdRolesGet([[maybe_unused]] const organizationsOrganizationIdRolesGetParams& Params,
 														  csp::services::ApiResponseHandlerBase* ResponseHandler,
 														  csp::common::CancellationToken& CancellationToken) const
 {
@@ -2027,12 +1923,12 @@ void OrganizationApi::organizationsOrganizationIdRolesGet(const utility::string_
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/organizations/{organizationId}/roles")
 			.c_str(),
-		{organizationId});
+		{Params.organizationId});
 
 
-	if (userIds.has_value())
+	if (Params.userIds.has_value())
 	{
-		Uri.AddQueryParams("userIds", userIds.value());
+		Uri.AddQueryParams("userIds", Params.userIds.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -2044,11 +1940,10 @@ void OrganizationApi::organizationsOrganizationIdRolesGet(const utility::string_
 
 
 
-void OrganizationApi::organizationsOrganizationIdUsersUserIdRolesPut(const utility::string_t& organizationId,
-																	 const utility::string_t& userId,
-																	 const std::vector<utility::string_t>& RequestBody,
-																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	 csp::common::CancellationToken& CancellationToken) const
+void OrganizationApi::organizationsOrganizationIdUsersUserIdRolesPut(
+	[[maybe_unused]] const organizationsOrganizationIdUsersUserIdRolesPutParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -2056,11 +1951,11 @@ void OrganizationApi::organizationsOrganizationIdUsersUserIdRolesPut(const utili
 								  ServiceDefinition.GetVersion(),
 								  "/organizations/{organizationId}/users/{userId}/roles")
 						  .c_str(),
-					  {organizationId, userId});
+					  {Params.organizationId, Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
@@ -2068,7 +1963,7 @@ void OrganizationApi::organizationsOrganizationIdUsersUserIdRolesPut(const utili
 
 
 
-PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+PingApi::PingApi(csp::web::WebClient* InWebClient) : IPingApiBase(InWebClient)
 {
 }
 
@@ -2078,7 +1973,9 @@ PingApi::~PingApi()
 
 
 
-void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
+void PingApi::pingGet([[maybe_unused]] const pingGetParams& Params,
+					  csp::services::ApiResponseHandlerBase* ResponseHandler,
+					  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/ping").c_str(), {});
@@ -2091,7 +1988,7 @@ void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, cs
 
 
 
-ProfileApi::ProfileApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+ProfileApi::ProfileApi(csp::web::WebClient* InWebClient) : IProfileApiBase(InWebClient)
 {
 }
 
@@ -2101,7 +1998,7 @@ ProfileApi::~ProfileApi()
 
 
 
-void ProfileApi::usersPost(const std::shared_ptr<CreateUserRequest>& RequestBody,
+void ProfileApi::usersPost([[maybe_unused]] const usersPostParams& Params,
 						   csp::services::ApiResponseHandlerBase* ResponseHandler,
 						   csp::common::CancellationToken& CancellationToken) const
 {
@@ -2110,24 +2007,13 @@ void ProfileApi::usersPost(const std::shared_ptr<CreateUserRequest>& RequestBody
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void ProfileApi::usersGet(const std::optional<utility::string_t>& GuestDeviceId,
-						  const std::optional<utility::string_t>& PartialGuestDeviceId,
-						  const std::optional<utility::string_t>& Email,
-						  const std::optional<utility::string_t>& UserName,
-						  const std::optional<utility::string_t>& LastDeviceId,
-						  const std::optional<bool>& SearchPartialEmails,
-						  const std::optional<std::vector<utility::string_t>>& GuestDeviceIds,
-						  const std::optional<std::vector<utility::string_t>>& EmailAddresses,
-						  const std::optional<std::vector<utility::string_t>>& UserNames,
-						  const std::optional<std::vector<utility::string_t>>& LastDeviceIds,
-						  const std::optional<int32_t>& Skip,
-						  const std::optional<int32_t>& Limit,
+void ProfileApi::usersGet([[maybe_unused]] const usersGetParams& Params,
 						  csp::services::ApiResponseHandlerBase* ResponseHandler,
 						  csp::common::CancellationToken& CancellationToken) const
 {
@@ -2135,75 +2021,75 @@ void ProfileApi::usersGet(const std::optional<utility::string_t>& GuestDeviceId,
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users").c_str(), {});
 
 
-	if (GuestDeviceId.has_value())
+	if (Params.GuestDeviceId.has_value())
 	{
-		Uri.AddQueryParams("GuestDeviceId", GuestDeviceId.value());
+		Uri.AddQueryParams("GuestDeviceId", Params.GuestDeviceId.value());
 	}
 
 
-	if (PartialGuestDeviceId.has_value())
+	if (Params.PartialGuestDeviceId.has_value())
 	{
-		Uri.AddQueryParams("PartialGuestDeviceId", PartialGuestDeviceId.value());
+		Uri.AddQueryParams("PartialGuestDeviceId", Params.PartialGuestDeviceId.value());
 	}
 
 
-	if (Email.has_value())
+	if (Params.Email.has_value())
 	{
-		Uri.AddQueryParams("Email", Email.value());
+		Uri.AddQueryParams("Email", Params.Email.value());
 	}
 
 
-	if (UserName.has_value())
+	if (Params.UserName.has_value())
 	{
-		Uri.AddQueryParams("UserName", UserName.value());
+		Uri.AddQueryParams("UserName", Params.UserName.value());
 	}
 
 
-	if (LastDeviceId.has_value())
+	if (Params.LastDeviceId.has_value())
 	{
-		Uri.AddQueryParams("LastDeviceId", LastDeviceId.value());
+		Uri.AddQueryParams("LastDeviceId", Params.LastDeviceId.value());
 	}
 
 
-	if (SearchPartialEmails.has_value())
+	if (Params.SearchPartialEmails.has_value())
 	{
-		Uri.AddQueryParams("SearchPartialEmails", SearchPartialEmails.value());
+		Uri.AddQueryParams("SearchPartialEmails", Params.SearchPartialEmails.value());
 	}
 
 
-	if (GuestDeviceIds.has_value())
+	if (Params.GuestDeviceIds.has_value())
 	{
-		Uri.AddQueryParams("GuestDeviceIds", GuestDeviceIds.value());
+		Uri.AddQueryParams("GuestDeviceIds", Params.GuestDeviceIds.value());
 	}
 
 
-	if (EmailAddresses.has_value())
+	if (Params.EmailAddresses.has_value())
 	{
-		Uri.AddQueryParams("EmailAddresses", EmailAddresses.value());
+		Uri.AddQueryParams("EmailAddresses", Params.EmailAddresses.value());
 	}
 
 
-	if (UserNames.has_value())
+	if (Params.UserNames.has_value())
 	{
-		Uri.AddQueryParams("UserNames", UserNames.value());
+		Uri.AddQueryParams("UserNames", Params.UserNames.value());
 	}
 
 
-	if (LastDeviceIds.has_value())
+	if (Params.LastDeviceIds.has_value())
 	{
-		Uri.AddQueryParams("LastDeviceIds", LastDeviceIds.value());
+		Uri.AddQueryParams("LastDeviceIds", Params.LastDeviceIds.value());
 	}
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -2215,9 +2101,9 @@ void ProfileApi::usersGet(const std::optional<utility::string_t>& GuestDeviceId,
 
 
 
-void ProfileApi::usersCreateSocialPost(const std::shared_ptr<CreateUserSocialRequest>& RequestBody,
-									   csp::services::ApiResponseHandlerBase* ResponseHandler,
-									   csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersCreate_socialPost([[maybe_unused]] const usersCreate_socialPostParams& Params,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -2226,26 +2112,25 @@ void ProfileApi::usersCreateSocialPost(const std::shared_ptr<CreateUserSocialReq
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
 
-void ProfileApi::usersUserIdUpgradeGuestPost(const utility::string_t& userId,
-											 const std::shared_ptr<UpgradeGuestRequest>& RequestBody,
-											 csp::services::ApiResponseHandlerBase* ResponseHandler,
-											 csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersUserIdUpgrade_guestPost([[maybe_unused]] const usersUserIdUpgrade_guestPostParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/upgrade-guest").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -2253,20 +2138,19 @@ void ProfileApi::usersUserIdUpgradeGuestPost(const utility::string_t& userId,
 
 
 
-void ProfileApi::usersUserIdUpgradeGuestSocialPost(const utility::string_t& userId,
-												   const std::shared_ptr<UpgradeGuestSocialRequest>& RequestBody,
-												   csp::services::ApiResponseHandlerBase* ResponseHandler,
-												   csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersUserIdUpgrade_guest_socialPost([[maybe_unused]] const usersUserIdUpgrade_guest_socialPostParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/upgrade-guest-social")
 			.c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -2274,13 +2158,13 @@ void ProfileApi::usersUserIdUpgradeGuestSocialPost(const utility::string_t& user
 
 
 
-void ProfileApi::usersUserIdDelete(const utility::string_t& userId,
+void ProfileApi::usersUserIdDelete([[maybe_unused]] const usersUserIdDeleteParams& Params,
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
 								   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}").c_str(),
-					  {userId});
+					  {Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2290,13 +2174,13 @@ void ProfileApi::usersUserIdDelete(const utility::string_t& userId,
 }
 
 
-void ProfileApi::usersUserIdGet(const utility::string_t& userId,
+void ProfileApi::usersUserIdGet([[maybe_unused]] const usersUserIdGetParams& Params,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
 								csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}").c_str(),
-					  {userId});
+					  {Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2307,14 +2191,14 @@ void ProfileApi::usersUserIdGet(const utility::string_t& userId,
 
 
 
-void ProfileApi::usersUserIdHardDeleteDelete(const utility::string_t& userId,
-											 csp::services::ApiResponseHandlerBase* ResponseHandler,
-											 csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersUserIdHard_deleteDelete([[maybe_unused]] const usersUserIdHard_deleteDeleteParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/hard-delete").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2325,9 +2209,9 @@ void ProfileApi::usersUserIdHardDeleteDelete(const utility::string_t& userId,
 
 
 
-void ProfileApi::usersHardDeleteDelete(const std::optional<std::vector<utility::string_t>>& ids,
-									   csp::services::ApiResponseHandlerBase* ResponseHandler,
-									   csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersHard_deleteDelete([[maybe_unused]] const usersHard_deleteDeleteParams& Params,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -2335,9 +2219,9 @@ void ProfileApi::usersHardDeleteDelete(const std::optional<std::vector<utility::
 		{});
 
 
-	if (ids.has_value())
+	if (Params.ids.has_value())
 	{
-		Uri.AddQueryParams("ids", ids.value());
+		Uri.AddQueryParams("ids", Params.ids.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -2349,11 +2233,9 @@ void ProfileApi::usersHardDeleteDelete(const std::optional<std::vector<utility::
 
 
 
-void ProfileApi::usersProfileIdsPost(const std::optional<int32_t>& Skip,
-									 const std::optional<int32_t>& Limit,
-									 const std::shared_ptr<UserQuery>& RequestBody,
-									 csp::services::ApiResponseHandlerBase* ResponseHandler,
-									 csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersProfile_idsPost([[maybe_unused]] const usersProfile_idsPostParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -2361,20 +2243,20 @@ void ProfileApi::usersProfileIdsPost(const std::optional<int32_t>& Skip,
 		{});
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -2382,34 +2264,31 @@ void ProfileApi::usersProfileIdsPost(const std::optional<int32_t>& Skip,
 
 
 
-void ProfileApi::usersTenantsTenantProfileIdsPost(const utility::string_t& tenant,
-												  const std::optional<int32_t>& Skip,
-												  const std::optional<int32_t>& Limit,
-												  const std::shared_ptr<UserQuery>& RequestBody,
-												  csp::services::ApiResponseHandlerBase* ResponseHandler,
-												  csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersTenantsTenantProfile_idsPost([[maybe_unused]] const usersTenantsTenantProfile_idsPostParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/tenants/{tenant}/profile-ids")
 			.c_str(),
-		{tenant});
+		{Params.tenant});
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -2417,32 +2296,28 @@ void ProfileApi::usersTenantsTenantProfileIdsPost(const utility::string_t& tenan
 
 
 
-void ProfileApi::usersUserIdTokenChangePasswordPost(const utility::string_t& userId,
-													const std::shared_ptr<TokenResetPasswordRequest>& RequestBody,
-													csp::services::ApiResponseHandlerBase* ResponseHandler,
-													csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersUserIdToken_change_passwordPost([[maybe_unused]] const usersUserIdToken_change_passwordPostParams& Params,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/token-change-password")
 			.c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
 
-void ProfileApi::usersForgotPasswordPost(const std::optional<utility::string_t>& redirect,
-										 const std::optional<bool>& useTokenChangePasswordUrl,
-										 const std::optional<utility::string_t>& emailLinkUrl,
-										 const std::shared_ptr<ForgotPasswordRequest>& RequestBody,
-										 csp::services::ApiResponseHandlerBase* ResponseHandler,
-										 csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersForgot_passwordPost([[maybe_unused]] const usersForgot_passwordPostParams& Params,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -2450,46 +2325,45 @@ void ProfileApi::usersForgotPasswordPost(const std::optional<utility::string_t>&
 		{});
 
 
-	if (redirect.has_value())
+	if (Params.redirect.has_value())
 	{
-		Uri.AddQueryParams("redirect", redirect.value());
+		Uri.AddQueryParams("redirect", Params.redirect.value());
 	}
 
 
-	if (useTokenChangePasswordUrl.has_value())
+	if (Params.useTokenChangePasswordUrl.has_value())
 	{
-		Uri.AddQueryParams("useTokenChangePasswordUrl", useTokenChangePasswordUrl.value());
+		Uri.AddQueryParams("useTokenChangePasswordUrl", Params.useTokenChangePasswordUrl.value());
 	}
 
 
-	if (emailLinkUrl.has_value())
+	if (Params.emailLinkUrl.has_value())
 	{
-		Uri.AddQueryParams("emailLinkUrl", emailLinkUrl.value());
+		Uri.AddQueryParams("emailLinkUrl", Params.emailLinkUrl.value());
 	}
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
 
-void ProfileApi::usersUserIdConfirmEmailPost(const utility::string_t& userId,
-											 const std::optional<utility::string_t>& redirect,
-											 csp::services::ApiResponseHandlerBase* ResponseHandler,
-											 csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersUserIdConfirm_emailPost([[maybe_unused]] const usersUserIdConfirm_emailPostParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/confirm-email").c_str(),
-		{userId});
+		{Params.userId});
 
 
-	if (redirect.has_value())
+	if (Params.redirect.has_value())
 	{
-		Uri.AddQueryParams("redirect", redirect.value());
+		Uri.AddQueryParams("redirect", Params.redirect.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -2501,11 +2375,9 @@ void ProfileApi::usersUserIdConfirmEmailPost(const utility::string_t& userId,
 
 
 
-void ProfileApi::usersEmailsEmailConfirmEmailReSendPost(const utility::string_t& email,
-														const std::optional<utility::string_t>& tenant,
-														const std::optional<utility::string_t>& redirect,
-														csp::services::ApiResponseHandlerBase* ResponseHandler,
-														csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersEmailsEmailConfirm_emailRe_sendPost([[maybe_unused]] const usersEmailsEmailConfirm_emailRe_sendPostParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -2513,18 +2385,18 @@ void ProfileApi::usersEmailsEmailConfirmEmailReSendPost(const utility::string_t&
 								  ServiceDefinition.GetVersion(),
 								  "/users/emails/{email}/confirm-email/re-send")
 						  .c_str(),
-					  {email});
+					  {Params.email});
 
 
-	if (tenant.has_value())
+	if (Params.tenant.has_value())
 	{
-		Uri.AddQueryParams("tenant", tenant.value());
+		Uri.AddQueryParams("tenant", Params.tenant.value());
 	}
 
 
-	if (redirect.has_value())
+	if (Params.redirect.has_value())
 	{
-		Uri.AddQueryParams("redirect", redirect.value());
+		Uri.AddQueryParams("redirect", Params.redirect.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -2535,33 +2407,32 @@ void ProfileApi::usersEmailsEmailConfirmEmailReSendPost(const utility::string_t&
 
 
 
-void ProfileApi::usersUserIdMetagamePut(const utility::string_t& userId,
-										const std::shared_ptr<MetagameUpdate>& RequestBody,
+void ProfileApi::usersUserIdMetagamePut([[maybe_unused]] const usersUserIdMetagamePutParams& Params,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/metagame").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void ProfileApi::usersUserIdMetagameGet(const utility::string_t& userId,
+void ProfileApi::usersUserIdMetagameGet([[maybe_unused]] const usersUserIdMetagameGetParams& Params,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/metagame").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2572,16 +2443,15 @@ void ProfileApi::usersUserIdMetagameGet(const utility::string_t& userId,
 
 
 
-void ProfileApi::usersUserIdFirstNameFirstNamePut(const utility::string_t& userId,
-												  const utility::string_t& firstName,
-												  csp::services::ApiResponseHandlerBase* ResponseHandler,
-												  csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersUserIdFirst_nameFirstNamePut([[maybe_unused]] const usersUserIdFirst_nameFirstNamePutParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/first-name/{firstName}")
 			.c_str(),
-		{userId, firstName});
+		{Params.userId, Params.firstName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2592,18 +2462,17 @@ void ProfileApi::usersUserIdFirstNameFirstNamePut(const utility::string_t& userI
 
 
 
-void ProfileApi::usersUserIdDisplayNamePut(const utility::string_t& userId,
-										   const utility::string_t& displayName,
-										   csp::services::ApiResponseHandlerBase* ResponseHandler,
-										   csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersUserIdDisplay_namePut([[maybe_unused]] const usersUserIdDisplay_namePutParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/display-name").c_str(),
-		{userId});
+		{Params.userId});
 
 
-	Uri.AddQueryParams("displayName", displayName);
+	Uri.AddQueryParams("displayName", Params.displayName);
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2614,14 +2483,14 @@ void ProfileApi::usersUserIdDisplayNamePut(const utility::string_t& userId,
 
 
 
-void ProfileApi::usersUserIdLiteGet(const utility::string_t& userId,
+void ProfileApi::usersUserIdLiteGet([[maybe_unused]] const usersUserIdLiteGetParams& Params,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
 									csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/lite").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2632,7 +2501,7 @@ void ProfileApi::usersUserIdLiteGet(const utility::string_t& userId,
 
 
 
-void ProfileApi::usersLiteGet(const std::optional<std::vector<utility::string_t>>& ids,
+void ProfileApi::usersLiteGet([[maybe_unused]] const usersLiteGetParams& Params,
 							  csp::services::ApiResponseHandlerBase* ResponseHandler,
 							  csp::common::CancellationToken& CancellationToken) const
 {
@@ -2640,9 +2509,9 @@ void ProfileApi::usersLiteGet(const std::optional<std::vector<utility::string_t>
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/lite").c_str(), {});
 
 
-	if (ids.has_value())
+	if (Params.ids.has_value())
 	{
-		Uri.AddQueryParams("ids", ids.value());
+		Uri.AddQueryParams("ids", Params.ids.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -2654,14 +2523,14 @@ void ProfileApi::usersLiteGet(const std::optional<std::vector<utility::string_t>
 
 
 
-void ProfileApi::usersUserIdLockAccountPut(const utility::string_t& userId,
-										   csp::services::ApiResponseHandlerBase* ResponseHandler,
-										   csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersUserIdLock_accountPut([[maybe_unused]] const usersUserIdLock_accountPutParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/lock-account").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2672,14 +2541,14 @@ void ProfileApi::usersUserIdLockAccountPut(const utility::string_t& userId,
 
 
 
-void ProfileApi::usersUserIdUnlockAccountPut(const utility::string_t& userId,
-											 csp::services::ApiResponseHandlerBase* ResponseHandler,
-											 csp::common::CancellationToken& CancellationToken) const
+void ProfileApi::usersUserIdUnlock_accountPut([[maybe_unused]] const usersUserIdUnlock_accountPutParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/unlock-account").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2690,7 +2559,7 @@ void ProfileApi::usersUserIdUnlockAccountPut(const utility::string_t& userId,
 
 
 
-SettingsApi::SettingsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+SettingsApi::SettingsApi(csp::web::WebClient* InWebClient) : ISettingsApiBase(InWebClient)
 {
 }
 
@@ -2700,9 +2569,7 @@ SettingsApi::~SettingsApi()
 
 
 
-void SettingsApi::usersUserIdSettingsContextPut(const utility::string_t& userId,
-												const utility::string_t& context,
-												const std::shared_ptr<SettingsDto>& RequestBody,
+void SettingsApi::usersUserIdSettingsContextPut([[maybe_unused]] const usersUserIdSettingsContextPutParams& Params,
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken) const
 {
@@ -2710,20 +2577,18 @@ void SettingsApi::usersUserIdSettingsContextPut(const utility::string_t& userId,
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/settings/{context}")
 			.c_str(),
-		{userId, context});
+		{Params.userId, Params.context});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void SettingsApi::usersUserIdSettingsContextGet(const utility::string_t& userId,
-												const utility::string_t& context,
-												const std::optional<std::vector<utility::string_t>>& keys,
+void SettingsApi::usersUserIdSettingsContextGet([[maybe_unused]] const usersUserIdSettingsContextGetParams& Params,
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken) const
 {
@@ -2731,12 +2596,12 @@ void SettingsApi::usersUserIdSettingsContextGet(const utility::string_t& userId,
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/settings/{context}")
 			.c_str(),
-		{userId, context});
+		{Params.userId, Params.context});
 
 
-	if (keys.has_value())
+	if (Params.keys.has_value())
 	{
-		Uri.AddQueryParams("keys", keys.value());
+		Uri.AddQueryParams("keys", Params.keys.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -2747,8 +2612,7 @@ void SettingsApi::usersUserIdSettingsContextGet(const utility::string_t& userId,
 }
 
 
-void SettingsApi::usersUserIdSettingsContextDelete(const utility::string_t& userId,
-												   const utility::string_t& context,
+void SettingsApi::usersUserIdSettingsContextDelete([[maybe_unused]] const usersUserIdSettingsContextDeleteParams& Params,
 												   csp::services::ApiResponseHandlerBase* ResponseHandler,
 												   csp::common::CancellationToken& CancellationToken) const
 {
@@ -2756,7 +2620,7 @@ void SettingsApi::usersUserIdSettingsContextDelete(const utility::string_t& user
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/settings/{context}")
 			.c_str(),
-		{userId, context});
+		{Params.userId, Params.context});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2767,27 +2631,25 @@ void SettingsApi::usersUserIdSettingsContextDelete(const utility::string_t& user
 
 
 
-void SettingsApi::usersSettingsContextGet(const utility::string_t& context,
-										  const std::optional<std::vector<utility::string_t>>& userIds,
-										  const std::optional<std::vector<utility::string_t>>& keys,
+void SettingsApi::usersSettingsContextGet([[maybe_unused]] const usersSettingsContextGetParams& Params,
 										  csp::services::ApiResponseHandlerBase* ResponseHandler,
 										  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/settings/{context}").c_str(),
-		{context});
+		{Params.context});
 
 
-	if (userIds.has_value())
+	if (Params.userIds.has_value())
 	{
-		Uri.AddQueryParams("userIds", userIds.value());
+		Uri.AddQueryParams("userIds", Params.userIds.value());
 	}
 
 
-	if (keys.has_value())
+	if (Params.keys.has_value())
 	{
-		Uri.AddQueryParams("keys", keys.value());
+		Uri.AddQueryParams("keys", Params.keys.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -2799,14 +2661,14 @@ void SettingsApi::usersSettingsContextGet(const utility::string_t& context,
 
 
 
-void SettingsApi::usersUserIdSettingsGet(const utility::string_t& userId,
+void SettingsApi::usersUserIdSettingsGet([[maybe_unused]] const usersUserIdSettingsGetParams& Params,
 										 csp::services::ApiResponseHandlerBase* ResponseHandler,
 										 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/settings").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2817,9 +2679,7 @@ void SettingsApi::usersUserIdSettingsGet(const utility::string_t& userId,
 
 
 
-void SettingsApi::usersUserIdSettingsContextKeynameDelete(const utility::string_t& userId,
-														  const utility::string_t& context,
-														  const utility::string_t& keyname,
+void SettingsApi::usersUserIdSettingsContextKeynameDelete([[maybe_unused]] const usersUserIdSettingsContextKeynameDeleteParams& Params,
 														  csp::services::ApiResponseHandlerBase* ResponseHandler,
 														  csp::common::CancellationToken& CancellationToken) const
 {
@@ -2829,7 +2689,7 @@ void SettingsApi::usersUserIdSettingsContextKeynameDelete(const utility::string_
 								  ServiceDefinition.GetVersion(),
 								  "/users/{userId}/settings/{context}/{keyname}")
 						  .c_str(),
-					  {userId, context, keyname});
+					  {Params.userId, Params.context, Params.keyname});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2840,7 +2700,7 @@ void SettingsApi::usersUserIdSettingsContextKeynameDelete(const utility::string_
 
 
 
-StripeApi::StripeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+StripeApi::StripeApi(csp::web::WebClient* InWebClient) : IStripeApiBase(InWebClient)
 {
 }
 
@@ -2850,8 +2710,7 @@ StripeApi::~StripeApi()
 
 
 
-void StripeApi::vendorsStripeWebhookPost(const std::optional<utility::string_t>& tenant,
-										 const std::optional<utility::string_t>& environmentAlias,
+void StripeApi::vendorsStripeWebhookPost([[maybe_unused]] const vendorsStripeWebhookPostParams& Params,
 										 csp::services::ApiResponseHandlerBase* ResponseHandler,
 										 csp::common::CancellationToken& CancellationToken) const
 {
@@ -2861,15 +2720,15 @@ void StripeApi::vendorsStripeWebhookPost(const std::optional<utility::string_t>&
 		{});
 
 
-	if (tenant.has_value())
+	if (Params.tenant.has_value())
 	{
-		Uri.AddQueryParams("tenant", tenant.value());
+		Uri.AddQueryParams("tenant", Params.tenant.value());
 	}
 
 
-	if (environmentAlias.has_value())
+	if (Params.environmentAlias.has_value())
 	{
-		Uri.AddQueryParams("environmentAlias", environmentAlias.value());
+		Uri.AddQueryParams("environmentAlias", Params.environmentAlias.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -2880,9 +2739,9 @@ void StripeApi::vendorsStripeWebhookPost(const std::optional<utility::string_t>&
 
 
 
-void StripeApi::vendorsStripeCheckoutSessionsPost(const std::shared_ptr<StripeCheckoutRequest>& RequestBody,
-												  csp::services::ApiResponseHandlerBase* ResponseHandler,
-												  csp::common::CancellationToken& CancellationToken) const
+void StripeApi::vendorsStripeCheckout_sessionsPost([[maybe_unused]] const vendorsStripeCheckout_sessionsPostParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -2892,14 +2751,14 @@ void StripeApi::vendorsStripeCheckoutSessionsPost(const std::shared_ptr<StripeCh
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
 
-void StripeApi::vendorsStripeCustomersUserIdGet(const utility::string_t& userId,
+void StripeApi::vendorsStripeCustomersUserIdGet([[maybe_unused]] const vendorsStripeCustomersUserIdGetParams& Params,
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken) const
 {
@@ -2907,7 +2766,7 @@ void StripeApi::vendorsStripeCustomersUserIdGet(const utility::string_t& userId,
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/vendors/stripe/customers/{userId}")
 			.c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2918,9 +2777,9 @@ void StripeApi::vendorsStripeCustomersUserIdGet(const utility::string_t& userId,
 
 
 
-void StripeApi::vendorsStripeCustomerPortalsUserIdGet(const utility::string_t& userId,
-													  csp::services::ApiResponseHandlerBase* ResponseHandler,
-													  csp::common::CancellationToken& CancellationToken) const
+void StripeApi::vendorsStripeCustomer_portalsUserIdGet([[maybe_unused]] const vendorsStripeCustomer_portalsUserIdGetParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
@@ -2928,7 +2787,7 @@ void StripeApi::vendorsStripeCustomerPortalsUserIdGet(const utility::string_t& u
 								  ServiceDefinition.GetVersion(),
 								  "/vendors/stripe/customer-portals/{userId}")
 						  .c_str(),
-					  {userId});
+					  {Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2939,7 +2798,7 @@ void StripeApi::vendorsStripeCustomerPortalsUserIdGet(const utility::string_t& u
 
 
 
-TenantApi::TenantApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+TenantApi::TenantApi(csp::web::WebClient* InWebClient) : ITenantApiBase(InWebClient)
 {
 }
 
@@ -2949,33 +2808,32 @@ TenantApi::~TenantApi()
 
 
 
-void TenantApi::tenantsNamesTenantNamePut(const utility::string_t& tenantName,
-										  const std::shared_ptr<TenantDto>& RequestBody,
+void TenantApi::tenantsNamesTenantNamePut([[maybe_unused]] const tenantsNamesTenantNamePutParams& Params,
 										  csp::services::ApiResponseHandlerBase* ResponseHandler,
 										  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/names/{tenantName}").c_str(),
-		{tenantName});
+		{Params.tenantName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void TenantApi::tenantsNamesTenantNameGet(const utility::string_t& tenantName,
+void TenantApi::tenantsNamesTenantNameGet([[maybe_unused]] const tenantsNamesTenantNameGetParams& Params,
 										  csp::services::ApiResponseHandlerBase* ResponseHandler,
 										  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/names/{tenantName}").c_str(),
-		{tenantName});
+		{Params.tenantName});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -2986,7 +2844,7 @@ void TenantApi::tenantsNamesTenantNameGet(const utility::string_t& tenantName,
 
 
 
-void TenantApi::tenantsPendingDelete(const int32_t& tenantAgeInDays,
+void TenantApi::tenantsPendingDelete([[maybe_unused]] const tenantsPendingDeleteParams& Params,
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
 									 csp::common::CancellationToken& CancellationToken) const
 {
@@ -2995,7 +2853,7 @@ void TenantApi::tenantsPendingDelete(const int32_t& tenantAgeInDays,
 					  {});
 
 
-	Uri.AddQueryParams("tenantAgeInDays", tenantAgeInDays);
+	Uri.AddQueryParams("tenantAgeInDays", Params.tenantAgeInDays);
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -3006,19 +2864,18 @@ void TenantApi::tenantsPendingDelete(const int32_t& tenantAgeInDays,
 
 
 
-void TenantApi::tenantsNamesNameDelete(const utility::string_t& name,
-									   const std::shared_ptr<TenantCleanupFilters>& RequestBody,
+void TenantApi::tenantsNamesNameDelete([[maybe_unused]] const tenantsNamesNameDeleteParams& Params,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/names/{name}").c_str(),
-		{name});
+		{Params.name});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
@@ -3026,7 +2883,7 @@ void TenantApi::tenantsNamesNameDelete(const utility::string_t& name,
 
 
 
-UserRolesApi::UserRolesApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+UserRolesApi::UserRolesApi(csp::web::WebClient* InWebClient) : IUserRolesApiBase(InWebClient)
 {
 }
 
@@ -3036,14 +2893,14 @@ UserRolesApi::~UserRolesApi()
 
 
 
-void UserRolesApi::usersUserIdRolesGet(const utility::string_t& userId,
+void UserRolesApi::usersUserIdRolesGet([[maybe_unused]] const usersUserIdRolesGetParams& Params,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/roles").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -3053,19 +2910,18 @@ void UserRolesApi::usersUserIdRolesGet(const utility::string_t& userId,
 }
 
 
-void UserRolesApi::usersUserIdRolesPut(const utility::string_t& userId,
-									   const std::shared_ptr<UserRolesDto>& RequestBody,
+void UserRolesApi::usersUserIdRolesPut([[maybe_unused]] const usersUserIdRolesPutParams& Params,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/roles").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
@@ -3073,7 +2929,7 @@ void UserRolesApi::usersUserIdRolesPut(const utility::string_t& userId,
 
 
 
-VersionsApi::VersionsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+VersionsApi::VersionsApi(csp::web::WebClient* InWebClient) : IVersionsApiBase(InWebClient)
 {
 }
 
@@ -3083,7 +2939,9 @@ VersionsApi::~VersionsApi()
 
 
 
-void VersionsApi::rsionsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
+void VersionsApi::rsionsGet([[maybe_unused]] const rsionsGetParams& Params,
+							csp::services::ApiResponseHandlerBase* ResponseHandler,
+							csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "rsions").c_str(), {});

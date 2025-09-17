@@ -14,6 +14,10 @@ namespace csp::services::generated::trackingservice
 class AnalyticsApiMock final : public IAnalyticsApiBase
 {
 public:
+	AnalyticsApiMock() : IAnalyticsApiBase(nullptr)
+	{
+	}
+
 	MOCK_METHOD(void,
 				analyticsBulkPost,
 				(const analyticsBulkPostParams&,
@@ -27,8 +31,8 @@ public:
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
-				analyticsStreamUrlPost,
-				(const analyticsStreamUrlPostParams&,
+				analyticsStream_urlPost,
+				(const analyticsStream_urlPostParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
@@ -37,6 +41,10 @@ public:
 class ConfigurationApiMock final : public IConfigurationApiBase
 {
 public:
+	ConfigurationApiMock() : IConfigurationApiBase(nullptr)
+	{
+	}
+
 	MOCK_METHOD(void,
 				appsettingsGet,
 				(const appsettingsGetParams&,
@@ -60,6 +68,10 @@ public:
 class NtpApiMock final : public INtpApiBase
 {
 public:
+	NtpApiMock() : INtpApiBase(nullptr)
+	{
+	}
+
 	MOCK_METHOD(void,
 				datetimeGet,
 				(const datetimeGetParams&, csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken),
@@ -69,6 +81,10 @@ public:
 class PingApiMock final : public IPingApiBase
 {
 public:
+	PingApiMock() : IPingApiBase(nullptr)
+	{
+	}
+
 	MOCK_METHOD(void,
 				pingGet,
 				(const pingGetParams&, csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken),
@@ -78,27 +94,31 @@ public:
 class QuotaActivityApiMock final : public IQuotaActivityApiBase
 {
 public:
+	QuotaActivityApiMock() : IQuotaActivityApiBase(nullptr)
+	{
+	}
+
 	MOCK_METHOD(void,
-				usersUserIdQuotaProgressGet,
-				(const usersUserIdQuotaProgressGetParams&,
+				usersUserIdQuota_progressGet,
+				(const usersUserIdQuota_progressGetParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
-				groupsGroupIdQuotaProgressGet,
-				(const groupsGroupIdQuotaProgressGetParams&,
+				groupsGroupIdQuota_progressGet,
+				(const groupsGroupIdQuota_progressGetParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
-				userUserIdQuotaActivityGet,
-				(const userUserIdQuotaActivityGetParams&,
+				userUserIdQuota_activityGet,
+				(const userUserIdQuota_activityGetParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
-				groupGroupIdQuotaActivityGet,
-				(const groupGroupIdQuotaActivityGetParams&,
+				groupGroupIdQuota_activityGet,
+				(const groupGroupIdQuota_activityGetParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
@@ -107,6 +127,10 @@ public:
 class QuotaManagementApiMock final : public IQuotaManagementApiBase
 {
 public:
+	QuotaManagementApiMock() : IQuotaManagementApiBase(nullptr)
+	{
+	}
+
 	MOCK_METHOD(void,
 				tiersTierNameQuotasGet,
 				(const tiersTierNameQuotasGetParams&,
@@ -136,51 +160,55 @@ public:
 class QuotaTierAssignmentApiMock final : public IQuotaTierAssignmentApiBase
 {
 public:
+	QuotaTierAssignmentApiMock() : IQuotaTierAssignmentApiBase(nullptr)
+	{
+	}
+
 	MOCK_METHOD(void,
-				tierAssignmentsIdGet,
-				(const tierAssignmentsIdGetParams&,
+				tier_assignmentsIdGet,
+				(const tier_assignmentsIdGetParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
-				usersUserIdTierAssignmentGet,
-				(const usersUserIdTierAssignmentGetParams&,
+				usersUserIdTier_assignmentGet,
+				(const usersUserIdTier_assignmentGetParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
-				usersUserIdTierAssignmentPut,
-				(const usersUserIdTierAssignmentPutParams&,
+				usersUserIdTier_assignmentPut,
+				(const usersUserIdTier_assignmentPutParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
-				usersUserIdTierAssignmentDelete,
-				(const usersUserIdTierAssignmentDeleteParams&,
+				usersUserIdTier_assignmentDelete,
+				(const usersUserIdTier_assignmentDeleteParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
-				tenantsTenantNameTierAssignmentGet,
-				(const tenantsTenantNameTierAssignmentGetParams&,
+				tenantsTenantNameTier_assignmentGet,
+				(const tenantsTenantNameTier_assignmentGetParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
-				tenantsTenantNameTierAssignmentPut,
-				(const tenantsTenantNameTierAssignmentPutParams&,
+				tenantsTenantNameTier_assignmentPut,
+				(const tenantsTenantNameTier_assignmentPutParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
-				tenantsTenantNameTierAssignmentDelete,
-				(const tenantsTenantNameTierAssignmentDeleteParams&,
+				tenantsTenantNameTier_assignmentDelete,
+				(const tenantsTenantNameTier_assignmentDeleteParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
-				groupsTierAssignmentsGet,
-				(const groupsTierAssignmentsGetParams&,
+				groupsTier_assignmentsGet,
+				(const groupsTier_assignmentsGetParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
@@ -189,6 +217,10 @@ public:
 class VersionsApiMock final : public IVersionsApiBase
 {
 public:
+	VersionsApiMock() : IVersionsApiBase(nullptr)
+	{
+	}
+
 	MOCK_METHOD(void,
 				rsionsGet,
 				(const rsionsGetParams&, csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken),

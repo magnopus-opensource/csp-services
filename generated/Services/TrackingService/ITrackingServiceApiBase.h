@@ -67,9 +67,9 @@ public:
 
 
 
-	struct analyticsStreamUrlPostParams
+	struct analyticsStream_urlPostParams
 	{
-		analyticsStreamUrlPostParams() = default;
+		analyticsStream_urlPostParams() = default;
 	};
 
 
@@ -81,9 +81,9 @@ public:
 	/// POST /analytics/stream-url
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	virtual void analyticsStreamUrlPost(const analyticsStreamUrlPostParams& Params,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken) const
+	virtual void analyticsStream_urlPost(const analyticsStream_urlPostParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
@@ -220,9 +220,9 @@ public:
 
 
 
-	struct usersUserIdQuotaProgressGetParams
+	struct usersUserIdQuota_progressGetParams
 	{
-		usersUserIdQuotaProgressGetParams() = default;
+		usersUserIdQuota_progressGetParams() = default;
 
 		const utility::string_t& userId;
 		const std::optional<std::vector<utility::string_t>>& features;
@@ -236,16 +236,16 @@ public:
 	/// GET /api/v1/users/{userId}/quota-progress
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	virtual void usersUserIdQuotaProgressGet(const usersUserIdQuotaProgressGetParams& Params,
-											 csp::services::ApiResponseHandlerBase* ResponseHandler,
-											 csp::common::CancellationToken& CancellationToken) const
+	virtual void usersUserIdQuota_progressGet(const usersUserIdQuota_progressGetParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
 
-	struct groupsGroupIdQuotaProgressGetParams
+	struct groupsGroupIdQuota_progressGetParams
 	{
-		groupsGroupIdQuotaProgressGetParams() = default;
+		groupsGroupIdQuota_progressGetParams() = default;
 
 		const utility::string_t& groupId;
 		const std::optional<std::vector<utility::string_t>>& features;
@@ -259,16 +259,16 @@ public:
 	/// GET /api/v1/groups/{groupId}/quota-progress
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	virtual void groupsGroupIdQuotaProgressGet(const groupsGroupIdQuotaProgressGetParams& Params,
-											   csp::services::ApiResponseHandlerBase* ResponseHandler,
-											   csp::common::CancellationToken& CancellationToken) const
+	virtual void groupsGroupIdQuota_progressGet(const groupsGroupIdQuota_progressGetParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
 
-	struct userUserIdQuotaActivityGetParams
+	struct userUserIdQuota_activityGetParams
 	{
-		userUserIdQuotaActivityGetParams() = default;
+		userUserIdQuota_activityGetParams() = default;
 
 		const utility::string_t& userId;
 		const std::optional<std::vector<utility::string_t>>& Features;
@@ -286,16 +286,16 @@ public:
 	/// GET /api/v1/user/{userId}/quota-activity
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	virtual void userUserIdQuotaActivityGet(const userUserIdQuotaActivityGetParams& Params,
-											csp::services::ApiResponseHandlerBase* ResponseHandler,
-											csp::common::CancellationToken& CancellationToken) const
+	virtual void userUserIdQuota_activityGet(const userUserIdQuota_activityGetParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
 
-	struct groupGroupIdQuotaActivityGetParams
+	struct groupGroupIdQuota_activityGetParams
 	{
-		groupGroupIdQuotaActivityGetParams() = default;
+		groupGroupIdQuota_activityGetParams() = default;
 
 		const utility::string_t& groupId;
 		const std::optional<std::vector<utility::string_t>>& Features;
@@ -313,9 +313,9 @@ public:
 	/// GET /api/v1/group/{groupId}/quota-activity
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	virtual void groupGroupIdQuotaActivityGet(const groupGroupIdQuotaActivityGetParams& Params,
-											  csp::services::ApiResponseHandlerBase* ResponseHandler,
-											  csp::common::CancellationToken& CancellationToken) const
+	virtual void groupGroupIdQuota_activityGet(const groupGroupIdQuota_activityGetParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
@@ -438,9 +438,9 @@ public:
 
 
 
-	struct tierAssignmentsIdGetParams
+	struct tier_assignmentsIdGetParams
 	{
-		tierAssignmentsIdGetParams() = default;
+		tier_assignmentsIdGetParams() = default;
 
 		const utility::string_t& id;
 	};
@@ -453,16 +453,16 @@ public:
 	/// GET /api/v1/tier-assignments/{id}
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	virtual void tierAssignmentsIdGet(const tierAssignmentsIdGetParams& Params,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken) const
+	virtual void tier_assignmentsIdGet(const tier_assignmentsIdGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
 
-	struct usersUserIdTierAssignmentGetParams
+	struct usersUserIdTier_assignmentGetParams
 	{
-		usersUserIdTierAssignmentGetParams() = default;
+		usersUserIdTier_assignmentGetParams() = default;
 
 		const utility::string_t& userId;
 	};
@@ -475,14 +475,14 @@ public:
 	/// GET /api/v1/users/{userId}/tier-assignment
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	virtual void usersUserIdTierAssignmentGet(const usersUserIdTierAssignmentGetParams& Params,
-											  csp::services::ApiResponseHandlerBase* ResponseHandler,
-											  csp::common::CancellationToken& CancellationToken) const
+	virtual void usersUserIdTier_assignmentGet(const usersUserIdTier_assignmentGetParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
-	struct usersUserIdTierAssignmentPutParams
+	struct usersUserIdTier_assignmentPutParams
 	{
-		usersUserIdTierAssignmentPutParams() = default;
+		usersUserIdTier_assignmentPutParams() = default;
 
 		const utility::string_t& userId;
 		const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody;
@@ -496,14 +496,14 @@ public:
 	/// PUT /api/v1/users/{userId}/tier-assignment
 	/// Authorization: magnopus-admin,internal-service
 	/// </remarks>
-	virtual void usersUserIdTierAssignmentPut(const usersUserIdTierAssignmentPutParams& Params,
-											  csp::services::ApiResponseHandlerBase* ResponseHandler,
-											  csp::common::CancellationToken& CancellationToken) const
+	virtual void usersUserIdTier_assignmentPut(const usersUserIdTier_assignmentPutParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
-	struct usersUserIdTierAssignmentDeleteParams
+	struct usersUserIdTier_assignmentDeleteParams
 	{
-		usersUserIdTierAssignmentDeleteParams() = default;
+		usersUserIdTier_assignmentDeleteParams() = default;
 
 		const utility::string_t& userId;
 	};
@@ -516,16 +516,16 @@ public:
 	/// DELETE /api/v1/users/{userId}/tier-assignment
 	/// IMPORTANT NOTE: This does NOT leave the user's tier as unassigned.  This reverts the user to the default tier.
 	/// </remarks>
-	virtual void usersUserIdTierAssignmentDelete(const usersUserIdTierAssignmentDeleteParams& Params,
-												 csp::services::ApiResponseHandlerBase* ResponseHandler,
-												 csp::common::CancellationToken& CancellationToken) const
+	virtual void usersUserIdTier_assignmentDelete(const usersUserIdTier_assignmentDeleteParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
 
-	struct tenantsTenantNameTierAssignmentGetParams
+	struct tenantsTenantNameTier_assignmentGetParams
 	{
-		tenantsTenantNameTierAssignmentGetParams() = default;
+		tenantsTenantNameTier_assignmentGetParams() = default;
 
 		const utility::string_t& tenantName;
 	};
@@ -538,14 +538,14 @@ public:
 	/// GET /api/v1/tenants/{tenantName}/tier-assignment
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	virtual void tenantsTenantNameTierAssignmentGet(const tenantsTenantNameTierAssignmentGetParams& Params,
-													csp::services::ApiResponseHandlerBase* ResponseHandler,
-													csp::common::CancellationToken& CancellationToken) const
+	virtual void tenantsTenantNameTier_assignmentGet(const tenantsTenantNameTier_assignmentGetParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
-	struct tenantsTenantNameTierAssignmentPutParams
+	struct tenantsTenantNameTier_assignmentPutParams
 	{
-		tenantsTenantNameTierAssignmentPutParams() = default;
+		tenantsTenantNameTier_assignmentPutParams() = default;
 
 		const utility::string_t& tenantName;
 		const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody;
@@ -559,14 +559,14 @@ public:
 	/// PUT /api/v1/tenants/{tenantName}/tier-assignment
 	/// Authorization: magnopus-admin,internal-service
 	/// </remarks>
-	virtual void tenantsTenantNameTierAssignmentPut(const tenantsTenantNameTierAssignmentPutParams& Params,
-													csp::services::ApiResponseHandlerBase* ResponseHandler,
-													csp::common::CancellationToken& CancellationToken) const
+	virtual void tenantsTenantNameTier_assignmentPut(const tenantsTenantNameTier_assignmentPutParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
-	struct tenantsTenantNameTierAssignmentDeleteParams
+	struct tenantsTenantNameTier_assignmentDeleteParams
 	{
-		tenantsTenantNameTierAssignmentDeleteParams() = default;
+		tenantsTenantNameTier_assignmentDeleteParams() = default;
 
 		const utility::string_t& tenantName;
 	};
@@ -579,16 +579,16 @@ public:
 	/// DELETE /api/v1/tenants/{tenantName}/tier-assignment
 	/// IMPORTANT NOTE: This does NOT leave the tenant's tier as unassigned.  This reverts the tenant to the default tier.
 	/// </remarks>
-	virtual void tenantsTenantNameTierAssignmentDelete(const tenantsTenantNameTierAssignmentDeleteParams& Params,
-													   csp::services::ApiResponseHandlerBase* ResponseHandler,
-													   csp::common::CancellationToken& CancellationToken) const
+	virtual void tenantsTenantNameTier_assignmentDelete(const tenantsTenantNameTier_assignmentDeleteParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
 
-	struct groupsTierAssignmentsGetParams
+	struct groupsTier_assignmentsGetParams
 	{
-		groupsTierAssignmentsGetParams() = default;
+		groupsTier_assignmentsGetParams() = default;
 
 		const std::optional<std::vector<utility::string_t>>& groupIds;
 	};
@@ -601,9 +601,9 @@ public:
 	/// GET /api/v1/groups/tier-assignments
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	virtual void groupsTierAssignmentsGet(const groupsTierAssignmentsGetParams& Params,
-										  csp::services::ApiResponseHandlerBase* ResponseHandler,
-										  csp::common::CancellationToken& CancellationToken) const
+	virtual void groupsTier_assignmentsGet(const groupsTier_assignmentsGetParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
