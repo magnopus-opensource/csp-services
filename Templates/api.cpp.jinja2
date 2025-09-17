@@ -70,7 +70,7 @@ namespace csp::services::generated::{{ service_name | lower }} {
                 {%- if 'requestBody' in method %}
                     {%- if 'multipart/form-data' in method.requestBody.content -%}
                         {%- for property_name in method.requestBody.content['multipart/form-data'].schema.properties -%}
-                            Payload.AddFormParam("{{ property_name }}", {{ property_name | pascalcase }});
+                            Payload.AddFormParam("{{ property_name }}", Params.{{ property_name | pascalcase }});
                         {%- endfor -%}
                     {%- else -%}
                         Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
