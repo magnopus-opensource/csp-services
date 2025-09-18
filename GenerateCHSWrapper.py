@@ -25,6 +25,12 @@ def make_identifier(value: str) -> str:
 
 
 def make_definition(value: str) -> str:
+    '''
+    Replaces a subset of non-supported c++ characters in string with common delimiter.
+
+    Currently we also migrate the use '-' to '_' due to duplicated signature definitions when used in generation
+    E.g. 'GET api/v1/poi/{id}' and 'GET api/v1/poi-id' would resolve as poiIdGet.
+    '''
     return value.replace('/', '#').replace('-', '_').replace('.', '#').replace('{', '').replace('}', '')
 
 
