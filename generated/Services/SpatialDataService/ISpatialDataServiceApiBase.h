@@ -26,8 +26,6 @@ public:
 
 	struct analyticsBulkPostParams
 	{
-		analyticsBulkPostParams() = default;
-
 		const std::vector<std::shared_ptr<AnalyticsRecord>>& RequestBody;
 	};
 
@@ -49,7 +47,6 @@ public:
 
 	struct analyticsStreamPostParams
 	{
-		analyticsStreamPostParams() = default;
 	};
 
 
@@ -69,7 +66,6 @@ public:
 
 	struct analyticsStream_urlPostParams
 	{
-		analyticsStream_urlPostParams() = default;
 	};
 
 
@@ -103,8 +99,6 @@ public:
 
 	struct anchorsIdGetParams
 	{
-		anchorsIdGetParams() = default;
-
 		const utility::string_t& id;
 	};
 
@@ -123,8 +117,6 @@ public:
 
 	struct anchorsIdPutParams
 	{
-		anchorsIdPutParams() = default;
-
 		const utility::string_t& id;
 		const std::shared_ptr<AnchorDto>& RequestBody;
 	};
@@ -145,8 +137,6 @@ public:
 
 	struct anchorsIdDeleteParams
 	{
-		anchorsIdDeleteParams() = default;
-
 		const utility::string_t& id;
 	};
 
@@ -167,8 +157,6 @@ public:
 
 	struct anchorsPostParams
 	{
-		anchorsPostParams() = default;
-
 		const std::shared_ptr<AnchorDto>& RequestBody;
 	};
 
@@ -187,8 +175,6 @@ public:
 
 	struct anchorsDeleteParams
 	{
-		anchorsDeleteParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& ids;
 	};
 
@@ -207,8 +193,6 @@ public:
 
 	struct anchorsGetParams
 	{
-		anchorsGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& Keys;
 		const std::optional<std::vector<utility::string_t>>& Values;
 		const std::optional<double>& Coordinate_Longitude;
@@ -241,8 +225,6 @@ public:
 
 	struct anchor_resolutionsPostParams
 	{
-		anchor_resolutionsPostParams() = default;
-
 		const std::shared_ptr<AnchorResolutionDto>& RequestBody;
 	};
 
@@ -261,8 +243,6 @@ public:
 
 	struct anchor_resolutionsGetParams
 	{
-		anchor_resolutionsGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& AnchorIds;
 		const std::optional<std::vector<utility::string_t>>& Tags;
 		const std::optional<bool>& TagsAll;
@@ -288,8 +268,6 @@ public:
 
 	struct anchor_resolutionsStatsGetParams
 	{
-		anchor_resolutionsStatsGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& AnchorIds;
 		const std::optional<std::vector<utility::string_t>>& Tags;
 		const std::optional<bool>& TagsAll;
@@ -327,7 +305,6 @@ public:
 
 	struct appsettingsGetParams
 	{
-		appsettingsGetParams() = default;
 	};
 
 	/// <remarks>
@@ -343,7 +320,6 @@ public:
 
 	struct appsettingsReloadPostParams
 	{
-		appsettingsReloadPostParams() = default;
 	};
 
 	/// <remarks>
@@ -359,7 +335,6 @@ public:
 
 	struct featureflagsGetParams
 	{
-		featureflagsGetParams() = default;
 	};
 
 	/// <remarks>
@@ -388,7 +363,6 @@ public:
 
 	struct datetimeGetParams
 	{
-		datetimeGetParams() = default;
 	};
 
 	/// <remarks>
@@ -418,8 +392,6 @@ public:
 
 	struct usersUserIdPoiGetParams
 	{
-		usersUserIdPoiGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -440,8 +412,6 @@ public:
 
 	struct usersUserIdPoiPoiIdPutParams
 	{
-		usersUserIdPoiPoiIdPutParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& poiId;
 	};
@@ -461,8 +431,6 @@ public:
 
 	struct usersUserIdPoiPoiIdDeleteParams
 	{
-		usersUserIdPoiPoiIdDeleteParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& poiId;
 	};
@@ -497,7 +465,6 @@ public:
 
 	struct pingGetParams
 	{
-		pingGetParams() = default;
 	};
 
 	/// <remarks>
@@ -527,8 +494,6 @@ public:
 
 	struct poiIdGetParams
 	{
-		poiIdGetParams() = default;
-
 		const utility::string_t& id;
 	};
 
@@ -547,8 +512,6 @@ public:
 
 	struct poiIdPutParams
 	{
-		poiIdPutParams() = default;
-
 		const utility::string_t& id;
 		const std::shared_ptr<PointOfInterestDto>& RequestBody;
 	};
@@ -569,8 +532,6 @@ public:
 
 	struct poiIdDeleteParams
 	{
-		poiIdDeleteParams() = default;
-
 		const utility::string_t& id;
 	};
 
@@ -592,8 +553,6 @@ public:
 
 	struct poi_liteGetParams
 	{
-		poi_liteGetParams() = default;
-
 		const std::optional<utility::string_t>& ppoiUserId;
 		const std::optional<std::vector<utility::string_t>>& Ids;
 		const std::optional<utility::string_t>& Type;
@@ -639,8 +598,6 @@ public:
 
 	struct poi_idGetParams
 	{
-		poi_idGetParams() = default;
-
 		const std::optional<utility::string_t>& ppoiUserId;
 		const std::optional<std::vector<utility::string_t>>& Ids;
 		const std::optional<utility::string_t>& Type;
@@ -686,8 +643,6 @@ public:
 
 	struct poiGetParams
 	{
-		poiGetParams() = default;
-
 		const std::optional<utility::string_t>& ppoiUserId;
 		const std::optional<std::vector<utility::string_t>>& Ids;
 		const std::optional<utility::string_t>& Type;
@@ -731,8 +686,6 @@ public:
 
 	struct poiPostParams
 	{
-		poiPostParams() = default;
-
 		const std::shared_ptr<PointOfInterestDto>& RequestBody;
 	};
 
@@ -751,8 +704,6 @@ public:
 
 	struct poiPutParams
 	{
-		poiPutParams() = default;
-
 		const std::shared_ptr<PointOfInterestDto>& RequestBody;
 	};
 
@@ -771,8 +722,6 @@ public:
 
 	struct poiDeleteParams
 	{
-		poiDeleteParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& ids;
 	};
 
@@ -794,8 +743,6 @@ public:
 
 	struct poiBulkPutParams
 	{
-		poiBulkPutParams() = default;
-
 		const std::vector<std::shared_ptr<BulkUpsertPointOfInterestDto>>& RequestBody;
 	};
 
@@ -816,8 +763,6 @@ public:
 
 	struct poiIdPartial_updatePutParams
 	{
-		poiIdPartial_updatePutParams() = default;
-
 		const utility::string_t& id;
 		const std::shared_ptr<PoiPartialUpdate>& RequestBody;
 	};
@@ -840,8 +785,6 @@ public:
 
 	struct poiTagsGetParams
 	{
-		poiTagsGetParams() = default;
-
 		const std::optional<utility::string_t>& tagNameWith;
 	};
 
@@ -875,8 +818,6 @@ public:
 
 	struct usersUserIdPositionsGetParams
 	{
-		usersUserIdPositionsGetParams() = default;
-
 		const utility::string_t& userId;
 		const std::optional<std::vector<utility::string_t>>& UserIds;
 		const std::optional<std::vector<utility::string_t>>& DeviceIds;
@@ -906,8 +847,6 @@ public:
 
 	struct usersUserIdPositionsPostParams
 	{
-		usersUserIdPositionsPostParams() = default;
-
 		const utility::string_t& userId;
 		const std::shared_ptr<PositionDto>& RequestBody;
 	};
@@ -929,8 +868,6 @@ public:
 
 	struct usersPositionsLatestGetParams
 	{
-		usersPositionsLatestGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& UserIds;
 		const std::optional<std::vector<utility::string_t>>& DeviceIds;
 		const std::optional<std::vector<utility::string_t>>& PositionIds;
@@ -961,8 +898,6 @@ public:
 
 	struct usersUserIdPositionsLatestGetParams
 	{
-		usersUserIdPositionsLatestGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -983,8 +918,6 @@ public:
 
 	struct usersUserIdPositionsPositionIdGetParams
 	{
-		usersUserIdPositionsPositionIdGetParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& positionId;
 	};
@@ -1004,8 +937,6 @@ public:
 
 	struct usersUserIdPositionsPositionIdDeleteParams
 	{
-		usersUserIdPositionsPositionIdDeleteParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& positionId;
 	};
@@ -1027,8 +958,6 @@ public:
 
 	struct groupsGroupIdPositionsLatestGetParams
 	{
-		groupsGroupIdPositionsLatestGetParams() = default;
-
 		const utility::string_t& groupId;
 		const std::optional<std::vector<utility::string_t>>& UserIds;
 	};
@@ -1050,8 +979,6 @@ public:
 
 	struct groupsPositionsLatestGetParams
 	{
-		groupsPositionsLatestGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& groupIds;
 		const std::optional<std::vector<utility::string_t>>& UserIds;
 	};
@@ -1073,8 +1000,6 @@ public:
 
 	struct usersPositionsGetParams
 	{
-		usersPositionsGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& userIds;
 		const std::optional<std::vector<utility::string_t>>& UserIds;
 		const std::optional<std::vector<utility::string_t>>& DeviceIds;
@@ -1119,8 +1044,6 @@ public:
 
 	struct usersUserIdPositionsSpoofPostParams
 	{
-		usersUserIdPositionsSpoofPostParams() = default;
-
 		const utility::string_t& userId;
 		const std::optional<utility::string_t>& duration;
 		const std::shared_ptr<PositionDto>& RequestBody;
@@ -1141,8 +1064,6 @@ public:
 
 	struct usersUserIdPositionsSpoofGetParams
 	{
-		usersUserIdPositionsSpoofGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -1161,8 +1082,6 @@ public:
 
 	struct usersUserIdPositionsSpoofDeleteParams
 	{
-		usersUserIdPositionsSpoofDeleteParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -1183,7 +1102,6 @@ public:
 
 	struct positionsSpoofUsersGetParams
 	{
-		positionsSpoofUsersGetParams() = default;
 	};
 
 
@@ -1216,8 +1134,6 @@ public:
 
 	struct usersUserIdSpacetimeIdGetParams
 	{
-		usersUserIdSpacetimeIdGetParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& id;
 	};
@@ -1237,8 +1153,6 @@ public:
 
 	struct usersUserIdSpacetimeIdDeleteParams
 	{
-		usersUserIdSpacetimeIdDeleteParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& id;
 	};
@@ -1259,8 +1173,6 @@ public:
 
 	struct usersUserIdSpacetimeIdPutParams
 	{
-		usersUserIdSpacetimeIdPutParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& id;
 		const std::shared_ptr<SpaceTimeDto>& RequestBody;
@@ -1284,8 +1196,6 @@ public:
 
 	struct usersUserIdSpacetimePostParams
 	{
-		usersUserIdSpacetimePostParams() = default;
-
 		const utility::string_t& userId;
 		const std::shared_ptr<SpaceTimeDto>& RequestBody;
 	};
@@ -1307,8 +1217,6 @@ public:
 
 	struct spacetimeGetParams
 	{
-		spacetimeGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& UserIds;
 		const std::optional<utility::string_t>& StartTimestamp;
 		const std::optional<utility::string_t>& EndTimestamp;
@@ -1353,7 +1261,6 @@ public:
 
 	struct rsionsGetParams
 	{
-		rsionsGetParams() = default;
 	};
 
 

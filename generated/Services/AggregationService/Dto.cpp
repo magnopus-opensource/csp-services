@@ -485,6 +485,10 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 		{
 			JsonValueToType(CategoryValue, m_Category);
 		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member category is null!");
+		}
 	}
 
 	if (JsonDoc.HasMember("subCategory"))

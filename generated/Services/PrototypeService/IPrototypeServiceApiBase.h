@@ -26,8 +26,6 @@ public:
 
 	struct analyticsBulkPostParams
 	{
-		analyticsBulkPostParams() = default;
-
 		const std::vector<std::shared_ptr<AnalyticsRecord>>& RequestBody;
 	};
 
@@ -49,7 +47,6 @@ public:
 
 	struct analyticsStreamPostParams
 	{
-		analyticsStreamPostParams() = default;
 	};
 
 
@@ -69,7 +66,6 @@ public:
 
 	struct analyticsStream_urlPostParams
 	{
-		analyticsStream_urlPostParams() = default;
 	};
 
 
@@ -103,8 +99,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsPostParams
 	{
-		prototypesPrototypeIdAsset_detailsPostParams() = default;
-
 		const utility::string_t& prototypeId;
 		const std::shared_ptr<AssetDetailDto>& RequestBody;
 	};
@@ -124,8 +118,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsGetParams
 	{
-		prototypesPrototypeIdAsset_detailsGetParams() = default;
-
 		const utility::string_t& prototypeId;
 		const std::optional<std::vector<utility::string_t>>& Ids;
 		const std::optional<std::vector<utility::string_t>>& SupportedPlatforms;
@@ -158,8 +150,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsBulkPutParams
 	{
-		prototypesPrototypeIdAsset_detailsBulkPutParams() = default;
-
 		const utility::string_t& prototypeId;
 		const std::vector<std::shared_ptr<BulkUpsertAssetDetailDto>>& RequestBody;
 	};
@@ -181,8 +171,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsAssetDetailIdGetParams
 	{
-		prototypesPrototypeIdAsset_detailsAssetDetailIdGetParams() = default;
-
 		const utility::string_t& prototypeId;
 		const utility::string_t& assetDetailId;
 	};
@@ -202,8 +190,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsAssetDetailIdPutParams
 	{
-		prototypesPrototypeIdAsset_detailsAssetDetailIdPutParams() = default;
-
 		const utility::string_t& prototypeId;
 		const utility::string_t& assetDetailId;
 		const std::shared_ptr<AssetDetailDto>& RequestBody;
@@ -225,8 +211,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsAssetDetailIdDeleteParams
 	{
-		prototypesPrototypeIdAsset_detailsAssetDetailIdDeleteParams() = default;
-
 		const utility::string_t& prototypeId;
 		const utility::string_t& assetDetailId;
 	};
@@ -249,8 +233,6 @@ public:
 
 	struct prototypesAsset_detailsGetParams
 	{
-		prototypesAsset_detailsGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& Ids;
 		const std::optional<std::vector<utility::string_t>>& SupportedPlatforms;
 		const std::optional<std::vector<utility::string_t>>& AssetTypes;
@@ -282,8 +264,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsAssetDetailIdBlobPostParams
 	{
-		prototypesPrototypeIdAsset_detailsAssetDetailIdBlobPostParams() = default;
-
 		const utility::string_t& prototypeId;
 		const utility::string_t& assetDetailId;
 		const std::optional<bool>& skipAssetPipeline;
@@ -307,8 +287,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsAssetDetailIdInternal_copyPostParams
 	{
-		prototypesPrototypeIdAsset_detailsAssetDetailIdInternal_copyPostParams() = default;
-
 		const utility::string_t& prototypeId;
 		const utility::string_t& assetDetailId;
 		const std::shared_ptr<InternalFileCopyRequest>& RequestBody;
@@ -332,8 +310,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsAssetDetailIdAddressableAddressableIdPutParams
 	{
-		prototypesPrototypeIdAsset_detailsAssetDetailIdAddressableAddressableIdPutParams() = default;
-
 		const utility::string_t& prototypeId;
 		const utility::string_t& assetDetailId;
 		const utility::string_t& addressableId;
@@ -356,8 +332,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsAssetDetailIdAddressableAddressableIdDeleteParams
 	{
-		prototypesPrototypeIdAsset_detailsAssetDetailIdAddressableAddressableIdDeleteParams() = default;
-
 		const utility::string_t& prototypeId;
 		const utility::string_t& assetDetailId;
 		const utility::string_t& addressableId;
@@ -382,8 +356,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsAssetDetailIdAddressableThirdPartyReferenceIdPutParams
 	{
-		prototypesPrototypeIdAsset_detailsAssetDetailIdAddressableThirdPartyReferenceIdPutParams() = default;
-
 		const utility::string_t& prototypeId;
 		const utility::string_t& assetDetailId;
 		const utility::string_t& thirdPartyReferenceId;
@@ -405,8 +377,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsAssetDetailIdAddressableThirdPartyReferenceIdDeleteParams
 	{
-		prototypesPrototypeIdAsset_detailsAssetDetailIdAddressableThirdPartyReferenceIdDeleteParams() = default;
-
 		const utility::string_t& prototypeId;
 		const utility::string_t& assetDetailId;
 		const utility::string_t& thirdPartyReferenceId;
@@ -430,8 +400,6 @@ public:
 
 	struct prototypesAsset_detailsAsset_pipeline_modelGetParams
 	{
-		prototypesAsset_detailsAsset_pipeline_modelGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& Ids;
 		const std::optional<std::vector<utility::string_t>>& SupportedPlatforms;
 		const std::optional<std::vector<utility::string_t>>& AssetTypes;
@@ -463,8 +431,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsAssetDetailIdAsset_pipeline_modelGetParams
 	{
-		prototypesPrototypeIdAsset_detailsAssetDetailIdAsset_pipeline_modelGetParams() = default;
-
 		const utility::string_t& prototypeId;
 		const utility::string_t& assetDetailId;
 	};
@@ -485,8 +451,6 @@ public:
 
 	struct prototypesPrototypeIdAsset_detailsAssetDetailIdAsset_pipeline_modelPutParams
 	{
-		prototypesPrototypeIdAsset_detailsAssetDetailIdAsset_pipeline_modelPutParams() = default;
-
 		const utility::string_t& prototypeId;
 		const utility::string_t& assetDetailId;
 		const std::shared_ptr<AssetPipelineModelDto>& RequestBody;
@@ -526,7 +490,6 @@ public:
 
 	struct appsettingsGetParams
 	{
-		appsettingsGetParams() = default;
 	};
 
 	/// <remarks>
@@ -542,7 +505,6 @@ public:
 
 	struct appsettingsReloadPostParams
 	{
-		appsettingsReloadPostParams() = default;
 	};
 
 	/// <remarks>
@@ -558,7 +520,6 @@ public:
 
 	struct featureflagsGetParams
 	{
-		featureflagsGetParams() = default;
 	};
 
 	/// <remarks>
@@ -587,7 +548,6 @@ public:
 
 	struct datetimeGetParams
 	{
-		datetimeGetParams() = default;
 	};
 
 	/// <remarks>
@@ -616,7 +576,6 @@ public:
 
 	struct pingGetParams
 	{
-		pingGetParams() = default;
 	};
 
 	/// <remarks>
@@ -645,8 +604,6 @@ public:
 
 	struct prototypesPostParams
 	{
-		prototypesPostParams() = default;
-
 		const std::shared_ptr<PrototypeDto>& RequestBody;
 	};
 
@@ -665,8 +622,6 @@ public:
 
 	struct prototypesGetParams
 	{
-		prototypesGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& Tags;
 		const std::optional<std::vector<utility::string_t>>& ExcludedTags;
 		const std::optional<bool>& TagsAll;
@@ -707,8 +662,6 @@ public:
 
 	struct prototypesDeleteParams
 	{
-		prototypesDeleteParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& ids;
 	};
 
@@ -730,8 +683,6 @@ public:
 
 	struct prototypesGroup_ownedOriginalGroupIdDuplicateNewGroupIdPostParams
 	{
-		prototypesGroup_ownedOriginalGroupIdDuplicateNewGroupIdPostParams() = default;
-
 		const utility::string_t& originalGroupId;
 		const utility::string_t& newGroupId;
 		const std::shared_ptr<DuplicateGroupPrototypesOptions>& RequestBody;
@@ -755,8 +706,6 @@ public:
 
 	struct prototypesGroup_ownedOriginalGroupIdExportsExportIdPostParams
 	{
-		prototypesGroup_ownedOriginalGroupIdExportsExportIdPostParams() = default;
-
 		const utility::string_t& originalGroupId;
 		const utility::string_t& exportId;
 		const std::shared_ptr<ExportGroupPrototypesOptions>& RequestBody;
@@ -779,8 +728,6 @@ public:
 
 	struct prototypesGroup_ownedNewGroupIdExportsExportIdImportPostParams
 	{
-		prototypesGroup_ownedNewGroupIdExportsExportIdImportPostParams() = default;
-
 		const utility::string_t& exportId;
 		const utility::string_t& newGroupId;
 		const std::shared_ptr<ImportGroupPrototypesOptions>& RequestBody;
@@ -804,8 +751,6 @@ public:
 
 	struct prototypesBulkPutParams
 	{
-		prototypesBulkPutParams() = default;
-
 		const std::vector<std::shared_ptr<BulkUpsertPrototypeDto>>& RequestBody;
 	};
 
@@ -826,8 +771,6 @@ public:
 
 	struct prototypesIdsGetParams
 	{
-		prototypesIdsGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& Tags;
 		const std::optional<std::vector<utility::string_t>>& ExcludedTags;
 		const std::optional<bool>& TagsAll;
@@ -868,8 +811,6 @@ public:
 
 	struct prototypesCountGetParams
 	{
-		prototypesCountGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& Tags;
 		const std::optional<std::vector<utility::string_t>>& ExcludedTags;
 		const std::optional<bool>& TagsAll;
@@ -908,8 +849,6 @@ public:
 
 	struct prototypesIdGetParams
 	{
-		prototypesIdGetParams() = default;
-
 		const utility::string_t& id;
 	};
 
@@ -928,8 +867,6 @@ public:
 
 	struct prototypesIdPutParams
 	{
-		prototypesIdPutParams() = default;
-
 		const utility::string_t& id;
 		const std::shared_ptr<PrototypeDto>& RequestBody;
 	};
@@ -950,8 +887,6 @@ public:
 
 	struct prototypesIdDeleteParams
 	{
-		prototypesIdDeleteParams() = default;
-
 		const utility::string_t& id;
 	};
 
@@ -973,8 +908,6 @@ public:
 
 	struct prototypesNameNameGetParams
 	{
-		prototypesNameNameGetParams() = default;
-
 		const utility::string_t& name;
 	};
 
@@ -995,8 +928,6 @@ public:
 
 	struct prototypesPrototypeIdStatePutParams
 	{
-		prototypesPrototypeIdStatePutParams() = default;
-
 		const utility::string_t& prototypeId;
 		const std::map<utility::string_t, utility::string_t>& RequestBody;
 	};
@@ -1017,8 +948,6 @@ public:
 
 	struct prototypesPrototypeIdStateGetParams
 	{
-		prototypesPrototypeIdStateGetParams() = default;
-
 		const utility::string_t& prototypeId;
 		const std::optional<std::vector<utility::string_t>>& keys;
 	};
@@ -1054,7 +983,6 @@ public:
 
 	struct rsionsGetParams
 	{
-		rsionsGetParams() = default;
 	};
 
 

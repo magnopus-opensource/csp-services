@@ -26,8 +26,6 @@ public:
 
 	struct aloHarmonizePostParams
 	{
-		aloHarmonizePostParams() = default;
-
 		const std::shared_ptr<HarmonizeAloRequest>& RequestBody;
 	};
 
@@ -48,7 +46,6 @@ public:
 
 	struct aloVersions_matrixPostParams
 	{
-		aloVersions_matrixPostParams() = default;
 	};
 
 
@@ -68,8 +65,6 @@ public:
 
 	struct aloUserIdClassesClassDefinitionIdCompletedPostParams
 	{
-		aloUserIdClassesClassDefinitionIdCompletedPostParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& classDefinitionId;
 		const std::shared_ptr<AloClassCompletedRequest>& RequestBody;
@@ -92,8 +87,6 @@ public:
 
 	struct aloQaUserIdBadge_expressionsPostParams
 	{
-		aloQaUserIdBadge_expressionsPostParams() = default;
-
 		const utility::string_t& userId;
 		const std::optional<utility::string_t>& classDefinitionId;
 		const std::optional<utility::string_t>& expression;
@@ -191,8 +184,6 @@ public:
 
 	struct aloUserIdClassesRecommendationsGetParams
 	{
-		aloUserIdClassesRecommendationsGetParams() = default;
-
 		const utility::string_t& userId;
 		const std::optional<int32_t>& Skip;
 		const std::optional<int32_t>& Limit;
@@ -216,7 +207,6 @@ public:
 
 	struct aloQaSyncClass_dataPutParams
 	{
-		aloQaSyncClass_dataPutParams() = default;
 	};
 
 
@@ -249,8 +239,6 @@ public:
 
 	struct analyticsBulkPostParams
 	{
-		analyticsBulkPostParams() = default;
-
 		const std::vector<std::shared_ptr<AnalyticsRecord>>& RequestBody;
 	};
 
@@ -272,7 +260,6 @@ public:
 
 	struct analyticsStreamPostParams
 	{
-		analyticsStreamPostParams() = default;
 	};
 
 
@@ -292,7 +279,6 @@ public:
 
 	struct analyticsStream_urlPostParams
 	{
-		analyticsStream_urlPostParams() = default;
 	};
 
 
@@ -326,8 +312,6 @@ public:
 
 	struct cache_keysGetParams
 	{
-		cache_keysGetParams() = default;
-
 		const std::optional<utility::string_t>& pattern;
 		const std::optional<int32_t>& Skip;
 		const std::optional<int32_t>& Limit;
@@ -348,8 +332,6 @@ public:
 
 	struct cache_keysDeleteParams
 	{
-		cache_keysDeleteParams() = default;
-
 		const std::optional<utility::string_t>& pattern;
 	};
 
@@ -383,8 +365,6 @@ public:
 
 	struct coalescenceIdPostParams
 	{
-		coalescenceIdPostParams() = default;
-
 		const utility::string_t& id;
 	};
 
@@ -419,7 +399,6 @@ public:
 
 	struct appsettingsGetParams
 	{
-		appsettingsGetParams() = default;
 	};
 
 	/// <remarks>
@@ -435,7 +414,6 @@ public:
 
 	struct appsettingsReloadPostParams
 	{
-		appsettingsReloadPostParams() = default;
 	};
 
 	/// <remarks>
@@ -451,7 +429,6 @@ public:
 
 	struct featureflagsGetParams
 	{
-		featureflagsGetParams() = default;
 	};
 
 	/// <remarks>
@@ -481,8 +458,6 @@ public:
 
 	struct service_proxyPostParams
 	{
-		service_proxyPostParams() = default;
-
 		const std::shared_ptr<ServiceRequest>& RequestBody;
 	};
 
@@ -516,8 +491,6 @@ public:
 
 	struct usersUserIdGroupsGroupIdRolesPutParams
 	{
-		usersUserIdGroupsGroupIdRolesPutParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& groupId;
 		const std::shared_ptr<GroupRoleDto>& RequestBody;
@@ -553,7 +526,6 @@ public:
 
 	struct datetimeGetParams
 	{
-		datetimeGetParams() = default;
 	};
 
 	/// <remarks>
@@ -582,7 +554,6 @@ public:
 
 	struct pingGetParams
 	{
-		pingGetParams() = default;
 	};
 
 	/// <remarks>
@@ -611,8 +582,6 @@ public:
 
 	struct sequencesGetParams
 	{
-		sequencesGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& Keys;
 		const std::optional<utility::string_t>& KeyLikeRegex;
 		const std::optional<utility::string_t>& ReferenceType;
@@ -656,8 +625,6 @@ public:
 
 	struct sequencesPutParams
 	{
-		sequencesPutParams() = default;
-
 		const std::optional<utility::string_t>& newKey;
 		const std::shared_ptr<SequenceDto>& RequestBody;
 	};
@@ -706,8 +673,6 @@ public:
 
 	struct sequencesKeysKeyGetParams
 	{
-		sequencesKeysKeyGetParams() = default;
-
 		const utility::string_t& key;
 	};
 
@@ -732,8 +697,6 @@ public:
 
 	struct sequencesKeysKeyDeleteParams
 	{
-		sequencesKeysKeyDeleteParams() = default;
-
 		const utility::string_t& key;
 	};
 
@@ -762,8 +725,6 @@ public:
 
 	struct sequencesKeysOldKeyKeyPutParams
 	{
-		sequencesKeysOldKeyKeyPutParams() = default;
-
 		const utility::string_t& oldKey;
 		const utility::string_t& newKey;
 	};
@@ -796,8 +757,6 @@ public:
 
 	struct sequencesKeysDeleteParams
 	{
-		sequencesKeysDeleteParams() = default;
-
 		const std::vector<utility::string_t>& keys;
 	};
 
@@ -826,8 +785,6 @@ public:
 
 	struct sequencesReference_typeReferenceTypeReference_idReferenceIdDeleteParams
 	{
-		sequencesReference_typeReferenceTypeReference_idReferenceIdDeleteParams() = default;
-
 		const utility::string_t& referenceType;
 		const utility::string_t& referenceId;
 	};
@@ -871,8 +828,6 @@ public:
 
 	struct spacesSpaceIdVendorsShopifyProductsProductIdGetParams
 	{
-		spacesSpaceIdVendorsShopifyProductsProductIdGetParams() = default;
-
 		const utility::string_t& spaceId;
 		const utility::string_t& productId;
 	};
@@ -894,8 +849,6 @@ public:
 
 	struct spacesSpaceIdVendorsShopifyProductsVariantsGetParams
 	{
-		spacesSpaceIdVendorsShopifyProductsVariantsGetParams() = default;
-
 		const utility::string_t& spaceId;
 		const std::optional<std::vector<utility::string_t>>& ids;
 	};
@@ -917,8 +870,6 @@ public:
 
 	struct spacesSpaceIdVendorsShopifyPutParams
 	{
-		spacesSpaceIdVendorsShopifyPutParams() = default;
-
 		const utility::string_t& spaceId;
 		const std::shared_ptr<ShopifyStorefrontDto>& RequestBody;
 	};
@@ -940,8 +891,6 @@ public:
 
 	struct vendorsShopifyValidatePutParams
 	{
-		vendorsShopifyValidatePutParams() = default;
-
 		const std::shared_ptr<ShopifyStorefrontValidationRequest>& RequestBody;
 	};
 
@@ -962,8 +911,6 @@ public:
 
 	struct vendorsShopifyUsersUserIdStorefrontsGetParams
 	{
-		vendorsShopifyUsersUserIdStorefrontsGetParams() = default;
-
 		const utility::string_t& userId;
 		const std::optional<bool>& active;
 		const std::optional<int32_t>& Skip;
@@ -987,8 +934,6 @@ public:
 
 	struct spacesSpaceIdVendorsShopifyCartsPostParams
 	{
-		spacesSpaceIdVendorsShopifyCartsPostParams() = default;
-
 		const utility::string_t& spaceId;
 	};
 
@@ -1009,8 +954,6 @@ public:
 
 	struct spacesSpaceIdVendorsShopifyCartsCartIdGetParams
 	{
-		spacesSpaceIdVendorsShopifyCartsCartIdGetParams() = default;
-
 		const utility::string_t& spaceId;
 		const utility::string_t& cartId;
 	};
@@ -1030,8 +973,6 @@ public:
 
 	struct spacesSpaceIdVendorsShopifyCartsCartIdPutParams
 	{
-		spacesSpaceIdVendorsShopifyCartsCartIdPutParams() = default;
-
 		const utility::string_t& spaceId;
 		const utility::string_t& cartId;
 		const std::shared_ptr<ShopifyCartUpdateDto>& RequestBody;
@@ -1054,8 +995,6 @@ public:
 
 	struct spacesSpaceIdVendorsShopifyCartsCartIdCheckout_infoGetParams
 	{
-		spacesSpaceIdVendorsShopifyCartsCartIdCheckout_infoGetParams() = default;
-
 		const utility::string_t& spaceId;
 		const utility::string_t& cartId;
 	};
@@ -1090,8 +1029,6 @@ public:
 
 	struct spacesSpaceIdDeleteParams
 	{
-		spacesSpaceIdDeleteParams() = default;
-
 		const utility::string_t& spaceId;
 	};
 
@@ -1114,8 +1051,6 @@ public:
 
 	struct spacesDeleteParams
 	{
-		spacesDeleteParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& spaceIds;
 		const std::optional<bool>& asyncCall;
 	};
@@ -1139,8 +1074,6 @@ public:
 
 	struct spacesSpaceIdMultiplayer_objectsKmlGetParams
 	{
-		spacesSpaceIdMultiplayer_objectsKmlGetParams() = default;
-
 		const utility::string_t& spaceId;
 	};
 
@@ -1162,8 +1095,6 @@ public:
 
 	struct spacesSpaceIdDuplicatePostParams
 	{
-		spacesSpaceIdDuplicatePostParams() = default;
-
 		const utility::string_t& spaceId;
 		const std::optional<bool>& asyncCall;
 		const std::shared_ptr<DuplicateSpaceOptions>& RequestBody;
@@ -1186,8 +1117,6 @@ public:
 
 	struct spacesSpaceIdExportPostParams
 	{
-		spacesSpaceIdExportPostParams() = default;
-
 		const utility::string_t& spaceId;
 		const std::optional<bool>& asyncCall;
 		const std::optional<bool>& includeMusubi;
@@ -1211,8 +1140,6 @@ public:
 
 	struct spacesExportsExportIdImportPostParams
 	{
-		spacesExportsExportIdImportPostParams() = default;
-
 		const utility::string_t& exportId;
 		const std::optional<bool>& asyncCall;
 		const std::shared_ptr<ImportSpaceOptions>& RequestBody;
@@ -1236,8 +1163,6 @@ public:
 
 	struct spacesSpaceIdCheckpointsPostParams
 	{
-		spacesSpaceIdCheckpointsPostParams() = default;
-
 		const utility::string_t& spaceId;
 		const std::shared_ptr<SpaceCheckpointOptions>& RequestBody;
 	};
@@ -1273,8 +1198,6 @@ public:
 
 	struct spacesSpaceIdEventsPostParams
 	{
-		spacesSpaceIdEventsPostParams() = default;
-
 		const utility::string_t& spaceId;
 		const std::shared_ptr<SpaceEventDto>& RequestBody;
 	};
@@ -1296,8 +1219,6 @@ public:
 
 	struct spacesSpaceIdEventsEventIdPutParams
 	{
-		spacesSpaceIdEventsEventIdPutParams() = default;
-
 		const utility::string_t& spaceId;
 		const utility::string_t& eventId;
 		const std::shared_ptr<SpaceEventDto>& RequestBody;
@@ -1320,8 +1241,6 @@ public:
 
 	struct spacesEventsGetParams
 	{
-		spacesEventsGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& VendorEventIds;
 		const std::optional<utility::string_t>& VendorName;
 		const std::optional<std::vector<utility::string_t>>& SpaceIds;
@@ -1349,8 +1268,6 @@ public:
 
 	struct spacesSpaceIdVendorsVendorNameEventsVendorEventIdTicketsVendorTicketIdPutParams
 	{
-		spacesSpaceIdVendorsVendorNameEventsVendorEventIdTicketsVendorTicketIdPutParams() = default;
-
 		const utility::string_t& spaceId;
 		const utility::string_t& vendorName;
 		const utility::string_t& vendorEventId;
@@ -1376,8 +1293,6 @@ public:
 
 	struct spacesTicketedGetParams
 	{
-		spacesTicketedGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& spaceIds;
 	};
 
@@ -1398,8 +1313,6 @@ public:
 
 	struct vendorsVendorNameOauthGetParams
 	{
-		vendorsVendorNameOauthGetParams() = default;
-
 		const utility::string_t& vendorName;
 		const std::optional<utility::string_t>& code;
 		const std::optional<utility::string_t>& userId;
@@ -1425,8 +1338,6 @@ public:
 
 	struct vendorsVendorNameUsersUserIdProvider_infoGetParams
 	{
-		vendorsVendorNameUsersUserIdProvider_infoGetParams() = default;
-
 		const utility::string_t& vendorName;
 		const utility::string_t& userId;
 		const std::optional<utility::string_t>& tenant;
@@ -1463,8 +1374,6 @@ public:
 
 	struct usersSustained_activityGetParams
 	{
-		usersSustained_activityGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& tenants;
 		const std::optional<utility::string_t>& start;
 		const std::optional<utility::string_t>& end;
@@ -1500,7 +1409,6 @@ public:
 
 	struct rsionsGetParams
 	{
-		rsionsGetParams() = default;
 	};
 
 
@@ -1534,7 +1442,6 @@ public:
 
 	struct rsions_aggregatedGetParams
 	{
-		rsions_aggregatedGetParams() = default;
 	};
 
 

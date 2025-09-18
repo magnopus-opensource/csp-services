@@ -26,8 +26,6 @@ public:
 
 	struct analyticsBulkPostParams
 	{
-		analyticsBulkPostParams() = default;
-
 		const std::vector<std::shared_ptr<AnalyticsRecord>>& RequestBody;
 	};
 
@@ -49,7 +47,6 @@ public:
 
 	struct analyticsStreamPostParams
 	{
-		analyticsStreamPostParams() = default;
 	};
 
 
@@ -69,7 +66,6 @@ public:
 
 	struct analyticsStream_urlPostParams
 	{
-		analyticsStream_urlPostParams() = default;
 	};
 
 
@@ -104,8 +100,6 @@ public:
 
 	struct applicationsApplicationNameSettingsContextPutParams
 	{
-		applicationsApplicationNameSettingsContextPutParams() = default;
-
 		const utility::string_t& applicationName;
 		const utility::string_t& context;
 		const std::shared_ptr<ApplicationSettingsDto>& RequestBody;
@@ -127,8 +121,6 @@ public:
 
 	struct applicationsApplicationNameSettingsContextGetParams
 	{
-		applicationsApplicationNameSettingsContextGetParams() = default;
-
 		const utility::string_t& applicationName;
 		const utility::string_t& context;
 		const std::optional<std::vector<utility::string_t>>& keys;
@@ -150,8 +142,6 @@ public:
 
 	struct applicationsApplicationNameSettingsContextDeleteParams
 	{
-		applicationsApplicationNameSettingsContextDeleteParams() = default;
-
 		const utility::string_t& applicationName;
 		const utility::string_t& context;
 	};
@@ -173,8 +163,6 @@ public:
 
 	struct tenantsTenantApplicationsApplicationNameSettingsContextGetParams
 	{
-		tenantsTenantApplicationsApplicationNameSettingsContextGetParams() = default;
-
 		const utility::string_t& tenant;
 		const utility::string_t& applicationName;
 		const utility::string_t& context;
@@ -200,8 +188,6 @@ public:
 
 	struct applicationsApplicationNameSettingsGetParams
 	{
-		applicationsApplicationNameSettingsGetParams() = default;
-
 		const utility::string_t& applicationName;
 	};
 
@@ -220,8 +206,6 @@ public:
 
 	struct applicationsApplicationNameSettingsDeleteParams
 	{
-		applicationsApplicationNameSettingsDeleteParams() = default;
-
 		const utility::string_t& applicationName;
 	};
 
@@ -242,8 +226,6 @@ public:
 
 	struct applicationsApplicationNameSettingsContextKeynameDeleteParams
 	{
-		applicationsApplicationNameSettingsContextKeynameDeleteParams() = default;
-
 		const utility::string_t& applicationName;
 		const utility::string_t& context;
 		const utility::string_t& keyname;
@@ -279,8 +261,6 @@ public:
 
 	struct usersLoginPostParams
 	{
-		usersLoginPostParams() = default;
-
 		const std::shared_ptr<LoginRequest>& RequestBody;
 	};
 
@@ -301,8 +281,6 @@ public:
 
 	struct usersLogin_guestPostParams
 	{
-		usersLogin_guestPostParams() = default;
-
 		const std::shared_ptr<LoginGuestRequest>& RequestBody;
 	};
 
@@ -323,8 +301,6 @@ public:
 
 	struct usersLogin_socialPostParams
 	{
-		usersLogin_socialPostParams() = default;
-
 		const std::shared_ptr<LoginSocialRequest>& RequestBody;
 	};
 
@@ -347,8 +323,6 @@ public:
 
 	struct social_providersProviderGetParams
 	{
-		social_providersProviderGetParams() = default;
-
 		const utility::string_t& provider;
 		const std::optional<utility::string_t>& tenant;
 	};
@@ -371,8 +345,6 @@ public:
 
 	struct usersLogoutPostParams
 	{
-		usersLogoutPostParams() = default;
-
 		const std::shared_ptr<LogoutRequest>& RequestBody;
 	};
 
@@ -393,8 +365,6 @@ public:
 
 	struct usersRefreshPostParams
 	{
-		usersRefreshPostParams() = default;
-
 		const std::shared_ptr<RefreshRequest>& RequestBody;
 	};
 
@@ -428,8 +398,6 @@ public:
 
 	struct usersUserIdAvatarsPostParams
 	{
-		usersUserIdAvatarsPostParams() = default;
-
 		const utility::string_t& userId;
 		const std::shared_ptr<AvatarManifestDto>& RequestBody;
 	};
@@ -451,8 +419,6 @@ public:
 
 	struct usersUserIdAvatarsAvatarIdGetParams
 	{
-		usersUserIdAvatarsAvatarIdGetParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& avatarId;
 	};
@@ -472,8 +438,6 @@ public:
 
 	struct usersUserIdAvatarsAvatarIdPutParams
 	{
-		usersUserIdAvatarsAvatarIdPutParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& avatarId;
 		const std::shared_ptr<AvatarManifestDto>& RequestBody;
@@ -495,8 +459,6 @@ public:
 
 	struct usersUserIdAvatarsAvatarIdDeleteParams
 	{
-		usersUserIdAvatarsAvatarIdDeleteParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& avatarId;
 	};
@@ -519,8 +481,6 @@ public:
 
 	struct usersUserIdAvatarsAvatarIdExistsGetParams
 	{
-		usersUserIdAvatarsAvatarIdExistsGetParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& avatarId;
 	};
@@ -555,7 +515,6 @@ public:
 
 	struct appsettingsGetParams
 	{
-		appsettingsGetParams() = default;
 	};
 
 	/// <remarks>
@@ -571,7 +530,6 @@ public:
 
 	struct appsettingsReloadPostParams
 	{
-		appsettingsReloadPostParams() = default;
 	};
 
 	/// <remarks>
@@ -587,7 +545,6 @@ public:
 
 	struct featureflagsGetParams
 	{
-		featureflagsGetParams() = default;
 	};
 
 	/// <remarks>
@@ -616,8 +573,6 @@ public:
 
 	struct groupsPostParams
 	{
-		groupsPostParams() = default;
-
 		const std::shared_ptr<GroupDto>& RequestBody;
 	};
 
@@ -636,8 +591,6 @@ public:
 
 	struct groupsPutParams
 	{
-		groupsPutParams() = default;
-
 		const std::shared_ptr<GroupDto>& RequestBody;
 	};
 
@@ -656,8 +609,6 @@ public:
 
 	struct groupsDeleteParams
 	{
-		groupsDeleteParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& groupIds;
 	};
 
@@ -677,8 +628,6 @@ public:
 
 	struct groupsGetParams
 	{
-		groupsGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& ids;
 	};
 
@@ -699,8 +648,6 @@ public:
 
 	struct group_codesGroupCodeUsersUserIdPutParams
 	{
-		group_codesGroupCodeUsersUserIdPutParams() = default;
-
 		const utility::string_t& groupCode;
 		const utility::string_t& userId;
 	};
@@ -722,8 +669,6 @@ public:
 
 	struct groupsGroupIdGroup_code_resetPostParams
 	{
-		groupsGroupIdGroup_code_resetPostParams() = default;
-
 		const utility::string_t& groupId;
 	};
 
@@ -744,8 +689,6 @@ public:
 
 	struct groupsGroupIdBanned_usersUserIdPutParams
 	{
-		groupsGroupIdBanned_usersUserIdPutParams() = default;
-
 		const utility::string_t& groupId;
 		const utility::string_t& userId;
 	};
@@ -765,8 +708,6 @@ public:
 
 	struct groupsGroupIdBanned_usersUserIdDeleteParams
 	{
-		groupsGroupIdBanned_usersUserIdDeleteParams() = default;
-
 		const utility::string_t& groupId;
 		const utility::string_t& userId;
 	};
@@ -788,8 +729,6 @@ public:
 
 	struct groupsGroupIdDeleteParams
 	{
-		groupsGroupIdDeleteParams() = default;
-
 		const utility::string_t& groupId;
 	};
 
@@ -809,8 +748,6 @@ public:
 
 	struct groupsGroupIdGetParams
 	{
-		groupsGroupIdGetParams() = default;
-
 		const utility::string_t& groupId;
 	};
 
@@ -831,8 +768,6 @@ public:
 
 	struct usersUserIdGroupsGetParams
 	{
-		usersUserIdGroupsGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -853,8 +788,6 @@ public:
 
 	struct groupsGroupIdUsersUserIdDeleteParams
 	{
-		groupsGroupIdUsersUserIdDeleteParams() = default;
-
 		const utility::string_t& groupId;
 		const utility::string_t& userId;
 	};
@@ -876,8 +809,6 @@ public:
 
 	struct groups_summariesGetParams
 	{
-		groups_summariesGetParams() = default;
-
 		const std::optional<utility::string_t>& groupCode;
 	};
 
@@ -898,8 +829,6 @@ public:
 
 	struct groupsGroupIdEmail_invitesPostParams
 	{
-		groupsGroupIdEmail_invitesPostParams() = default;
-
 		const utility::string_t& groupId;
 		const std::optional<bool>& resendInvite;
 		const std::optional<utility::string_t>& emailLinkUrl;
@@ -922,8 +851,6 @@ public:
 
 	struct groupsGroupIdEmail_invitesGetParams
 	{
-		groupsGroupIdEmail_invitesGetParams() = default;
-
 		const utility::string_t& groupId;
 	};
 
@@ -944,8 +871,6 @@ public:
 
 	struct groupsGroupIdEmail_invitesBulkPostParams
 	{
-		groupsGroupIdEmail_invitesBulkPostParams() = default;
-
 		const utility::string_t& groupId;
 		const std::optional<bool>& resendInvite;
 		const std::optional<utility::string_t>& emailLinkUrl;
@@ -970,8 +895,6 @@ public:
 
 	struct groupsGroupIdLitePutParams
 	{
-		groupsGroupIdLitePutParams() = default;
-
 		const utility::string_t& groupId;
 		const std::shared_ptr<GroupLiteDto>& RequestBody;
 	};
@@ -991,8 +914,6 @@ public:
 
 	struct groupsGroupIdLiteGetParams
 	{
-		groupsGroupIdLiteGetParams() = default;
-
 		const utility::string_t& groupId;
 	};
 
@@ -1013,8 +934,6 @@ public:
 
 	struct groupsGroupIdOwnerNewGroupOwnerIdPutParams
 	{
-		groupsGroupIdOwnerNewGroupOwnerIdPutParams() = default;
-
 		const utility::string_t& groupId;
 		const utility::string_t& newGroupOwnerId;
 	};
@@ -1036,8 +955,6 @@ public:
 
 	struct groupsGroupIdEmail_invitesAcceptedGetParams
 	{
-		groupsGroupIdEmail_invitesAcceptedGetParams() = default;
-
 		const utility::string_t& groupId;
 	};
 
@@ -1058,8 +975,6 @@ public:
 
 	struct groupsGroupIdEmail_invitesEmailInviteIdDeleteParams
 	{
-		groupsGroupIdEmail_invitesEmailInviteIdDeleteParams() = default;
-
 		const utility::string_t& groupId;
 		const utility::string_t& emailInviteId;
 	};
@@ -1081,8 +996,6 @@ public:
 
 	struct groupsGroupIdModeratorsUserIdPutParams
 	{
-		groupsGroupIdModeratorsUserIdPutParams() = default;
-
 		const utility::string_t& groupId;
 		const utility::string_t& userId;
 	};
@@ -1102,8 +1015,6 @@ public:
 
 	struct groupsGroupIdModeratorsUserIdDeleteParams
 	{
-		groupsGroupIdModeratorsUserIdDeleteParams() = default;
-
 		const utility::string_t& groupId;
 		const utility::string_t& userId;
 	};
@@ -1125,8 +1036,6 @@ public:
 
 	struct groupsLiteGetParams
 	{
-		groupsLiteGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& Ids;
 		const std::optional<std::vector<utility::string_t>>& GroupTypes;
 		const std::optional<std::vector<utility::string_t>>& Names;
@@ -1163,8 +1072,6 @@ public:
 
 	struct groupsLitePostParams
 	{
-		groupsLitePostParams() = default;
-
 		const std::optional<int32_t>& Skip;
 		const std::optional<int32_t>& Limit;
 		const std::shared_ptr<GroupFilters>& RequestBody;
@@ -1188,8 +1095,6 @@ public:
 
 	struct groupsUsersUserIdEmail_invitesGetParams
 	{
-		groupsUsersUserIdEmail_invitesGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -1210,8 +1115,6 @@ public:
 
 	struct groupsGroupIdUsersUserIdEmail_invitesEmailInviteIdAcceptPostParams
 	{
-		groupsGroupIdUsersUserIdEmail_invitesEmailInviteIdAcceptPostParams() = default;
-
 		const utility::string_t& groupId;
 		const utility::string_t& userId;
 		const utility::string_t& emailInviteId;
@@ -1235,8 +1138,6 @@ public:
 
 	struct groupsArchivedPutParams
 	{
-		groupsArchivedPutParams() = default;
-
 		const utility::string_t& groupOwnerId;
 		const std::optional<std::vector<utility::string_t>>& groupIds;
 		const bool& archived;
@@ -1273,8 +1174,6 @@ public:
 
 	struct usersUserIdInventory_itemsGetParams
 	{
-		usersUserIdInventory_itemsGetParams() = default;
-
 		const utility::string_t& userId;
 		const std::optional<std::vector<utility::string_t>>& Ids;
 		const std::optional<std::vector<utility::string_t>>& PrototypeIds;
@@ -1307,8 +1206,6 @@ public:
 
 	struct usersUserIdInventory_itemsPostParams
 	{
-		usersUserIdInventory_itemsPostParams() = default;
-
 		const utility::string_t& userId;
 		const std::optional<bool>& notify;
 		const std::shared_ptr<InventoryItemDto>& RequestBody;
@@ -1331,8 +1228,6 @@ public:
 
 	struct usersUserIdInventory_idsGetParams
 	{
-		usersUserIdInventory_idsGetParams() = default;
-
 		const utility::string_t& userId;
 		const std::optional<std::vector<utility::string_t>>& Ids;
 		const std::optional<std::vector<utility::string_t>>& PrototypeIds;
@@ -1365,8 +1260,6 @@ public:
 
 	struct usersInventory_itemsOwnersGetParams
 	{
-		usersInventory_itemsOwnersGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& Ids;
 		const std::optional<std::vector<utility::string_t>>& PrototypeIds;
 		const std::optional<bool>& Exchangeable;
@@ -1398,8 +1291,6 @@ public:
 
 	struct usersInventory_countGetParams
 	{
-		usersInventory_countGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& Ids;
 		const std::optional<std::vector<utility::string_t>>& PrototypeIds;
 		const std::optional<bool>& Exchangeable;
@@ -1430,8 +1321,6 @@ public:
 
 	struct usersUserIdInventory_itemsIdGetParams
 	{
-		usersUserIdInventory_itemsIdGetParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& id;
 	};
@@ -1451,8 +1340,6 @@ public:
 
 	struct usersUserIdInventory_itemsIdDeleteParams
 	{
-		usersUserIdInventory_itemsIdDeleteParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& id;
 	};
@@ -1474,8 +1361,6 @@ public:
 
 	struct usersUserIdInventory_itemsIdPutParams
 	{
-		usersUserIdInventory_itemsIdPutParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& id;
 		const std::shared_ptr<InventoryItemDto>& RequestBody;
@@ -1499,8 +1384,6 @@ public:
 
 	struct usersUserIdInventory_itemsIdEquipPutParams
 	{
-		usersUserIdInventory_itemsIdEquipPutParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& id;
 		const std::shared_ptr<EquipItemDto>& RequestBody;
@@ -1536,7 +1419,6 @@ public:
 
 	struct datetimeGetParams
 	{
-		datetimeGetParams() = default;
 	};
 
 	/// <remarks>
@@ -1565,8 +1447,6 @@ public:
 
 	struct organizationsPostParams
 	{
-		organizationsPostParams() = default;
-
 		const std::shared_ptr<OrganizationDto>& RequestBody;
 	};
 
@@ -1587,8 +1467,6 @@ public:
 
 	struct organizationsOrganizationIdGetParams
 	{
-		organizationsOrganizationIdGetParams() = default;
-
 		const utility::string_t& organizationId;
 	};
 
@@ -1607,8 +1485,6 @@ public:
 
 	struct organizationsOrganizationIdPutParams
 	{
-		organizationsOrganizationIdPutParams() = default;
-
 		const utility::string_t& organizationId;
 		const std::shared_ptr<OrganizationDto>& RequestBody;
 	};
@@ -1629,8 +1505,6 @@ public:
 
 	struct organizationsOrganizationIdDeleteParams
 	{
-		organizationsOrganizationIdDeleteParams() = default;
-
 		const utility::string_t& organizationId;
 	};
 
@@ -1652,8 +1526,6 @@ public:
 
 	struct organizationsOrganizationIdMembership_invitesPostParams
 	{
-		organizationsOrganizationIdMembership_invitesPostParams() = default;
-
 		const utility::string_t& organizationId;
 		const std::optional<bool>& resendInvite;
 		const std::optional<utility::string_t>& emailLinkUrl;
@@ -1676,8 +1548,6 @@ public:
 
 	struct organizationsOrganizationIdMembership_invitesGetParams
 	{
-		organizationsOrganizationIdMembership_invitesGetParams() = default;
-
 		const utility::string_t& organizationId;
 	};
 
@@ -1698,8 +1568,6 @@ public:
 
 	struct organizationsOrganizationIdMembership_invitesBulkPostParams
 	{
-		organizationsOrganizationIdMembership_invitesBulkPostParams() = default;
-
 		const utility::string_t& organizationId;
 		const std::optional<bool>& resendInvite;
 		const std::optional<utility::string_t>& emailLinkUrl;
@@ -1724,8 +1592,6 @@ public:
 
 	struct organizationsOrganizationIdUsersUserIdDeleteParams
 	{
-		organizationsOrganizationIdUsersUserIdDeleteParams() = default;
-
 		const utility::string_t& organizationId;
 		const utility::string_t& userId;
 	};
@@ -1747,8 +1613,6 @@ public:
 
 	struct organizationsOrganizationIdRolesGetParams
 	{
-		organizationsOrganizationIdRolesGetParams() = default;
-
 		const utility::string_t& organizationId;
 		const std::optional<std::vector<utility::string_t>>& userIds;
 	};
@@ -1770,8 +1634,6 @@ public:
 
 	struct organizationsOrganizationIdUsersUserIdRolesPutParams
 	{
-		organizationsOrganizationIdUsersUserIdRolesPutParams() = default;
-
 		const utility::string_t& organizationId;
 		const utility::string_t& userId;
 		const std::vector<utility::string_t>& RequestBody;
@@ -1808,7 +1670,6 @@ public:
 
 	struct pingGetParams
 	{
-		pingGetParams() = default;
 	};
 
 	/// <remarks>
@@ -1837,8 +1698,6 @@ public:
 
 	struct usersPostParams
 	{
-		usersPostParams() = default;
-
 		const std::shared_ptr<CreateUserRequest>& RequestBody;
 	};
 
@@ -1857,8 +1716,6 @@ public:
 
 	struct usersGetParams
 	{
-		usersGetParams() = default;
-
 		const std::optional<utility::string_t>& GuestDeviceId;
 		const std::optional<utility::string_t>& PartialGuestDeviceId;
 		const std::optional<utility::string_t>& Email;
@@ -1891,8 +1748,6 @@ public:
 
 	struct usersCreate_socialPostParams
 	{
-		usersCreate_socialPostParams() = default;
-
 		const std::shared_ptr<CreateUserSocialRequest>& RequestBody;
 	};
 
@@ -1913,8 +1768,6 @@ public:
 
 	struct usersUserIdUpgrade_guestPostParams
 	{
-		usersUserIdUpgrade_guestPostParams() = default;
-
 		const utility::string_t& userId;
 		const std::shared_ptr<UpgradeGuestRequest>& RequestBody;
 	};
@@ -1938,8 +1791,6 @@ public:
 
 	struct usersUserIdUpgrade_guest_socialPostParams
 	{
-		usersUserIdUpgrade_guest_socialPostParams() = default;
-
 		const utility::string_t& userId;
 		const std::shared_ptr<UpgradeGuestSocialRequest>& RequestBody;
 	};
@@ -1962,8 +1813,6 @@ public:
 
 	struct usersUserIdDeleteParams
 	{
-		usersUserIdDeleteParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -1983,8 +1832,6 @@ public:
 
 	struct usersUserIdGetParams
 	{
-		usersUserIdGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -2005,8 +1852,6 @@ public:
 
 	struct usersUserIdHard_deleteDeleteParams
 	{
-		usersUserIdHard_deleteDeleteParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -2028,8 +1873,6 @@ public:
 
 	struct usersHard_deleteDeleteParams
 	{
-		usersHard_deleteDeleteParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& ids;
 	};
 
@@ -2051,8 +1894,6 @@ public:
 
 	struct usersProfile_idsPostParams
 	{
-		usersProfile_idsPostParams() = default;
-
 		const std::optional<int32_t>& Skip;
 		const std::optional<int32_t>& Limit;
 		const std::shared_ptr<UserQuery>& RequestBody;
@@ -2076,8 +1917,6 @@ public:
 
 	struct usersTenantsTenantProfile_idsPostParams
 	{
-		usersTenantsTenantProfile_idsPostParams() = default;
-
 		const utility::string_t& tenant;
 		const std::optional<int32_t>& Skip;
 		const std::optional<int32_t>& Limit;
@@ -2102,8 +1941,6 @@ public:
 
 	struct usersUserIdToken_change_passwordPostParams
 	{
-		usersUserIdToken_change_passwordPostParams() = default;
-
 		const utility::string_t& userId;
 		const std::shared_ptr<TokenResetPasswordRequest>& RequestBody;
 	};
@@ -2125,8 +1962,6 @@ public:
 
 	struct usersForgot_passwordPostParams
 	{
-		usersForgot_passwordPostParams() = default;
-
 		const std::optional<utility::string_t>& redirect;
 		const std::optional<bool>& useTokenChangePasswordUrl;
 		const std::optional<utility::string_t>& emailLinkUrl;
@@ -2150,8 +1985,6 @@ public:
 
 	struct usersUserIdConfirm_emailPostParams
 	{
-		usersUserIdConfirm_emailPostParams() = default;
-
 		const utility::string_t& userId;
 		const std::optional<utility::string_t>& redirect;
 	};
@@ -2173,8 +2006,6 @@ public:
 
 	struct usersEmailsEmailConfirm_emailRe_sendPostParams
 	{
-		usersEmailsEmailConfirm_emailRe_sendPostParams() = default;
-
 		const utility::string_t& email;
 		const std::optional<utility::string_t>& tenant;
 		const std::optional<utility::string_t>& redirect;
@@ -2197,8 +2028,6 @@ public:
 
 	struct usersUserIdMetagamePutParams
 	{
-		usersUserIdMetagamePutParams() = default;
-
 		const utility::string_t& userId;
 		const std::shared_ptr<MetagameUpdate>& RequestBody;
 	};
@@ -2219,8 +2048,6 @@ public:
 
 	struct usersUserIdMetagameGetParams
 	{
-		usersUserIdMetagameGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -2241,8 +2068,6 @@ public:
 
 	struct usersUserIdFirst_nameFirstNamePutParams
 	{
-		usersUserIdFirst_nameFirstNamePutParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& firstName;
 	};
@@ -2264,8 +2089,6 @@ public:
 
 	struct usersUserIdDisplay_namePutParams
 	{
-		usersUserIdDisplay_namePutParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& displayName;
 	};
@@ -2287,8 +2110,6 @@ public:
 
 	struct usersUserIdLiteGetParams
 	{
-		usersUserIdLiteGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -2309,8 +2130,6 @@ public:
 
 	struct usersLiteGetParams
 	{
-		usersLiteGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& ids;
 	};
 
@@ -2331,8 +2150,6 @@ public:
 
 	struct usersUserIdLock_accountPutParams
 	{
-		usersUserIdLock_accountPutParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -2353,8 +2170,6 @@ public:
 
 	struct usersUserIdUnlock_accountPutParams
 	{
-		usersUserIdUnlock_accountPutParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -2388,8 +2203,6 @@ public:
 
 	struct usersUserIdSettingsContextPutParams
 	{
-		usersUserIdSettingsContextPutParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& context;
 		const std::shared_ptr<SettingsDto>& RequestBody;
@@ -2411,8 +2224,6 @@ public:
 
 	struct usersUserIdSettingsContextGetParams
 	{
-		usersUserIdSettingsContextGetParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& context;
 		const std::optional<std::vector<utility::string_t>>& keys;
@@ -2434,8 +2245,6 @@ public:
 
 	struct usersUserIdSettingsContextDeleteParams
 	{
-		usersUserIdSettingsContextDeleteParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& context;
 	};
@@ -2457,8 +2266,6 @@ public:
 
 	struct usersSettingsContextGetParams
 	{
-		usersSettingsContextGetParams() = default;
-
 		const utility::string_t& context;
 		const std::optional<std::vector<utility::string_t>>& userIds;
 		const std::optional<std::vector<utility::string_t>>& keys;
@@ -2482,8 +2289,6 @@ public:
 
 	struct usersUserIdSettingsGetParams
 	{
-		usersUserIdSettingsGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -2504,8 +2309,6 @@ public:
 
 	struct usersUserIdSettingsContextKeynameDeleteParams
 	{
-		usersUserIdSettingsContextKeynameDeleteParams() = default;
-
 		const utility::string_t& userId;
 		const utility::string_t& context;
 		const utility::string_t& keyname;
@@ -2541,8 +2344,6 @@ public:
 
 	struct vendorsStripeWebhookPostParams
 	{
-		vendorsStripeWebhookPostParams() = default;
-
 		const std::optional<utility::string_t>& tenant;
 		const std::optional<utility::string_t>& environmentAlias;
 	};
@@ -2564,8 +2365,6 @@ public:
 
 	struct vendorsStripeCheckout_sessionsPostParams
 	{
-		vendorsStripeCheckout_sessionsPostParams() = default;
-
 		const std::shared_ptr<StripeCheckoutRequest>& RequestBody;
 	};
 
@@ -2586,8 +2385,6 @@ public:
 
 	struct vendorsStripeCustomersUserIdGetParams
 	{
-		vendorsStripeCustomersUserIdGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -2608,8 +2405,6 @@ public:
 
 	struct vendorsStripeCustomer_portalsUserIdGetParams
 	{
-		vendorsStripeCustomer_portalsUserIdGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -2643,8 +2438,6 @@ public:
 
 	struct tenantsNamesTenantNamePutParams
 	{
-		tenantsNamesTenantNamePutParams() = default;
-
 		const utility::string_t& tenantName;
 		const std::shared_ptr<TenantDto>& RequestBody;
 	};
@@ -2664,8 +2457,6 @@ public:
 
 	struct tenantsNamesTenantNameGetParams
 	{
-		tenantsNamesTenantNameGetParams() = default;
-
 		const utility::string_t& tenantName;
 	};
 
@@ -2686,8 +2477,6 @@ public:
 
 	struct tenantsPendingDeleteParams
 	{
-		tenantsPendingDeleteParams() = default;
-
 		const int32_t& tenantAgeInDays;
 	};
 
@@ -2708,8 +2497,6 @@ public:
 
 	struct tenantsNamesNameDeleteParams
 	{
-		tenantsNamesNameDeleteParams() = default;
-
 		const utility::string_t& name;
 		const std::shared_ptr<TenantCleanupFilters>& RequestBody;
 	};
@@ -2748,8 +2535,6 @@ public:
 
 	struct usersUserIdRolesGetParams
 	{
-		usersUserIdRolesGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -2768,8 +2553,6 @@ public:
 
 	struct usersUserIdRolesPutParams
 	{
-		usersUserIdRolesPutParams() = default;
-
 		const utility::string_t& userId;
 		const std::shared_ptr<UserRolesDto>& RequestBody;
 	};
@@ -2804,7 +2587,6 @@ public:
 
 	struct rsionsGetParams
 	{
-		rsionsGetParams() = default;
 	};
 
 

@@ -26,8 +26,6 @@ public:
 
 	struct analyticsBulkPostParams
 	{
-		analyticsBulkPostParams() = default;
-
 		const std::vector<std::shared_ptr<AnalyticsRecord>>& RequestBody;
 	};
 
@@ -49,7 +47,6 @@ public:
 
 	struct analyticsStreamPostParams
 	{
-		analyticsStreamPostParams() = default;
 	};
 
 
@@ -69,7 +66,6 @@ public:
 
 	struct analyticsStream_urlPostParams
 	{
-		analyticsStream_urlPostParams() = default;
 	};
 
 
@@ -104,8 +100,6 @@ public:
 
 	struct area_of_interestUserIdResetPutParams
 	{
-		area_of_interestUserIdResetPutParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -126,8 +120,6 @@ public:
 
 	struct area_of_interestUserIdGetParams
 	{
-		area_of_interestUserIdGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -162,8 +154,6 @@ public:
 
 	struct client_connectionsGetParams
 	{
-		client_connectionsGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& UserIds;
 		const std::optional<std::vector<utility::string_t>>& ScopeIds;
 		const std::optional<std::vector<utility::string_t>>& Scopes;
@@ -191,8 +181,6 @@ public:
 
 	struct client_connectionsRequest_to_disconnectPostParams
 	{
-		client_connectionsRequest_to_disconnectPostParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& UserIds;
 		const std::optional<std::vector<utility::string_t>>& ScopeIds;
 		const std::optional<std::vector<utility::string_t>>& Scopes;
@@ -232,7 +220,6 @@ public:
 
 	struct appsettingsGetParams
 	{
-		appsettingsGetParams() = default;
 	};
 
 	/// <remarks>
@@ -248,7 +235,6 @@ public:
 
 	struct appsettingsReloadPostParams
 	{
-		appsettingsReloadPostParams() = default;
 	};
 
 	/// <remarks>
@@ -264,7 +250,6 @@ public:
 
 	struct featureflagsGetParams
 	{
-		featureflagsGetParams() = default;
 	};
 
 	/// <remarks>
@@ -294,8 +279,6 @@ public:
 
 	struct eventsPostParams
 	{
-		eventsPostParams() = default;
-
 		const std::shared_ptr<EventMessageDto>& RequestBody;
 	};
 
@@ -329,7 +312,6 @@ public:
 
 	struct datetimeGetParams
 	{
-		datetimeGetParams() = default;
 	};
 
 	/// <remarks>
@@ -359,8 +341,6 @@ public:
 
 	struct objectsPostParams
 	{
-		objectsPostParams() = default;
-
 		const std::shared_ptr<ObjectMessageDto>& RequestBody;
 	};
 
@@ -379,8 +359,6 @@ public:
 
 	struct objectsGetParams
 	{
-		objectsGetParams() = default;
-
 		const std::optional<std::vector<int32_t>>& Ids;
 		const std::optional<std::vector<utility::string_t>>& ObjectMessageDocumentIds;
 		const std::optional<std::vector<utility::string_t>>& ScopeIds;
@@ -413,8 +391,6 @@ public:
 
 	struct objectsDeleteParams
 	{
-		objectsDeleteParams() = default;
-
 		const std::optional<std::vector<int32_t>>& ids;
 	};
 
@@ -435,8 +411,6 @@ public:
 
 	struct objectsBatchPostParams
 	{
-		objectsBatchPostParams() = default;
-
 		const std::vector<std::shared_ptr<ObjectMessageDto>>& RequestBody;
 	};
 
@@ -457,8 +431,6 @@ public:
 
 	struct objectsOwnersUserIdBatchPostParams
 	{
-		objectsOwnersUserIdBatchPostParams() = default;
-
 		const utility::string_t& userId;
 		const std::vector<std::shared_ptr<ObjectMessageDto>>& RequestBody;
 	};
@@ -481,8 +453,6 @@ public:
 
 	struct object_documentsGetParams
 	{
-		object_documentsGetParams() = default;
-
 		const std::optional<std::vector<int32_t>>& Ids;
 		const std::optional<std::vector<utility::string_t>>& ObjectMessageDocumentIds;
 		const std::optional<std::vector<utility::string_t>>& ScopeIds;
@@ -517,8 +487,6 @@ public:
 
 	struct objectsImportExportIdPostParams
 	{
-		objectsImportExportIdPostParams() = default;
-
 		const utility::string_t& exportId;
 		const std::optional<utility::string_t>& ownerId;
 	};
@@ -540,8 +508,6 @@ public:
 
 	struct objectsIdGetParams
 	{
-		objectsIdGetParams() = default;
-
 		const int32_t& id;
 	};
 
@@ -560,8 +526,6 @@ public:
 
 	struct objectsIdPutParams
 	{
-		objectsIdPutParams() = default;
-
 		const int32_t& id;
 		const std::shared_ptr<ObjectMessageDto>& RequestBody;
 	};
@@ -582,8 +546,6 @@ public:
 
 	struct objectsIdDeleteParams
 	{
-		objectsIdDeleteParams() = default;
-
 		const int32_t& id;
 	};
 
@@ -604,8 +566,6 @@ public:
 
 	struct objectsIdPartial_updatePutParams
 	{
-		objectsIdPartial_updatePutParams() = default;
-
 		const int32_t& id;
 		const std::shared_ptr<ObjectMessagePatchDto>& RequestBody;
 	};
@@ -645,7 +605,6 @@ public:
 
 	struct pingGetParams
 	{
-		pingGetParams() = default;
 	};
 
 	/// <remarks>
@@ -674,8 +633,6 @@ public:
 
 	struct scopesScopeIdLeaderGetParams
 	{
-		scopesScopeIdLeaderGetParams() = default;
-
 		const utility::string_t& scopeId;
 	};
 
@@ -696,8 +653,6 @@ public:
 
 	struct scopesScopeIdLeader_electionPostParams
 	{
-		scopesScopeIdLeader_electionPostParams() = default;
-
 		const utility::string_t& scopeId;
 		const std::optional<std::vector<utility::string_t>>& userIdsToExclude;
 	};
@@ -733,8 +688,6 @@ public:
 
 	struct scopesPostParams
 	{
-		scopesPostParams() = default;
-
 		const std::shared_ptr<ScopeDto>& RequestBody;
 	};
 
@@ -753,8 +706,6 @@ public:
 
 	struct scopesPutParams
 	{
-		scopesPutParams() = default;
-
 		const std::shared_ptr<ScopeDto>& RequestBody;
 	};
 
@@ -773,8 +724,6 @@ public:
 
 	struct scopesGetParams
 	{
-		scopesGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& Ids;
 		const std::optional<std::vector<utility::string_t>>& ReferenceIds;
 		const std::optional<utility::string_t>& ReferenceType;
@@ -802,8 +751,6 @@ public:
 
 	struct scopesIdGetParams
 	{
-		scopesIdGetParams() = default;
-
 		const utility::string_t& id;
 	};
 
@@ -822,8 +769,6 @@ public:
 
 	struct scopesIdDeleteParams
 	{
-		scopesIdDeleteParams() = default;
-
 		const utility::string_t& id;
 	};
 
@@ -843,8 +788,6 @@ public:
 
 	struct scopesIdPutParams
 	{
-		scopesIdPutParams() = default;
-
 		const utility::string_t& id;
 		const std::shared_ptr<ScopeDto>& RequestBody;
 	};
@@ -867,8 +810,6 @@ public:
 
 	struct scopesReferenceTypeReferenceTypeReferenceIdReferenceIdGetParams
 	{
-		scopesReferenceTypeReferenceTypeReferenceIdReferenceIdGetParams() = default;
-
 		const utility::string_t& referenceId;
 		const utility::string_t& referenceType;
 	};
@@ -889,8 +830,6 @@ public:
 
 	struct scopesReferenceTypeReferenceTypeReferenceIdReferenceIdDeleteParams
 	{
-		scopesReferenceTypeReferenceTypeReferenceIdReferenceIdDeleteParams() = default;
-
 		const utility::string_t& referenceId;
 		const utility::string_t& referenceType;
 	};
@@ -927,7 +866,6 @@ public:
 
 	struct rsionsGetParams
 	{
-		rsionsGetParams() = default;
 	};
 
 

@@ -26,8 +26,6 @@ public:
 
 	struct analyticsBulkPostParams
 	{
-		analyticsBulkPostParams() = default;
-
 		const std::vector<std::shared_ptr<AnalyticsRecord>>& RequestBody;
 	};
 
@@ -49,7 +47,6 @@ public:
 
 	struct analyticsStreamPostParams
 	{
-		analyticsStreamPostParams() = default;
 	};
 
 
@@ -69,7 +66,6 @@ public:
 
 	struct analyticsStream_urlPostParams
 	{
-		analyticsStream_urlPostParams() = default;
 	};
 
 
@@ -103,7 +99,6 @@ public:
 
 	struct appsettingsGetParams
 	{
-		appsettingsGetParams() = default;
 	};
 
 	/// <remarks>
@@ -119,7 +114,6 @@ public:
 
 	struct appsettingsReloadPostParams
 	{
-		appsettingsReloadPostParams() = default;
 	};
 
 	/// <remarks>
@@ -135,7 +129,6 @@ public:
 
 	struct featureflagsGetParams
 	{
-		featureflagsGetParams() = default;
 	};
 
 	/// <remarks>
@@ -164,7 +157,6 @@ public:
 
 	struct datetimeGetParams
 	{
-		datetimeGetParams() = default;
 	};
 
 	/// <remarks>
@@ -193,7 +185,6 @@ public:
 
 	struct pingGetParams
 	{
-		pingGetParams() = default;
 	};
 
 	/// <remarks>
@@ -222,8 +213,6 @@ public:
 
 	struct usersUserIdQuota_progressGetParams
 	{
-		usersUserIdQuota_progressGetParams() = default;
-
 		const utility::string_t& userId;
 		const std::optional<std::vector<utility::string_t>>& features;
 	};
@@ -245,8 +234,6 @@ public:
 
 	struct groupsGroupIdQuota_progressGetParams
 	{
-		groupsGroupIdQuota_progressGetParams() = default;
-
 		const utility::string_t& groupId;
 		const std::optional<std::vector<utility::string_t>>& features;
 	};
@@ -268,8 +255,6 @@ public:
 
 	struct userUserIdQuota_activityGetParams
 	{
-		userUserIdQuota_activityGetParams() = default;
-
 		const utility::string_t& userId;
 		const std::optional<std::vector<utility::string_t>>& Features;
 		const std::optional<utility::string_t>& StartDateTime;
@@ -295,8 +280,6 @@ public:
 
 	struct groupGroupIdQuota_activityGetParams
 	{
-		groupGroupIdQuota_activityGetParams() = default;
-
 		const utility::string_t& groupId;
 		const std::optional<std::vector<utility::string_t>>& Features;
 		const std::optional<utility::string_t>& StartDateTime;
@@ -336,8 +319,6 @@ public:
 
 	struct tiersTierNameQuotasGetParams
 	{
-		tiersTierNameQuotasGetParams() = default;
-
 		const utility::string_t& tierName;
 	};
 
@@ -358,8 +339,6 @@ public:
 
 	struct tiersTierNameFeaturesFeatureNameQuotaGetParams
 	{
-		tiersTierNameFeaturesFeatureNameQuotaGetParams() = default;
-
 		const utility::string_t& tierName;
 		const utility::string_t& featureName;
 	};
@@ -379,8 +358,6 @@ public:
 
 	struct tiersTierNameFeaturesFeatureNameQuotaPutParams
 	{
-		tiersTierNameFeaturesFeatureNameQuotaPutParams() = default;
-
 		const utility::string_t& tierName;
 		const utility::string_t& featureName;
 		const std::shared_ptr<QuotaFeatureTierDto>& RequestBody;
@@ -401,8 +378,6 @@ public:
 
 	struct tiersTierNameFeaturesFeatureNameQuotaDeleteParams
 	{
-		tiersTierNameFeaturesFeatureNameQuotaDeleteParams() = default;
-
 		const utility::string_t& tierName;
 		const utility::string_t& featureName;
 	};
@@ -440,8 +415,6 @@ public:
 
 	struct tier_assignmentsIdGetParams
 	{
-		tier_assignmentsIdGetParams() = default;
-
 		const utility::string_t& id;
 	};
 
@@ -462,8 +435,6 @@ public:
 
 	struct usersUserIdTier_assignmentGetParams
 	{
-		usersUserIdTier_assignmentGetParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -482,8 +453,6 @@ public:
 
 	struct usersUserIdTier_assignmentPutParams
 	{
-		usersUserIdTier_assignmentPutParams() = default;
-
 		const utility::string_t& userId;
 		const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody;
 	};
@@ -503,8 +472,6 @@ public:
 
 	struct usersUserIdTier_assignmentDeleteParams
 	{
-		usersUserIdTier_assignmentDeleteParams() = default;
-
 		const utility::string_t& userId;
 	};
 
@@ -525,8 +492,6 @@ public:
 
 	struct tenantsTenantNameTier_assignmentGetParams
 	{
-		tenantsTenantNameTier_assignmentGetParams() = default;
-
 		const utility::string_t& tenantName;
 	};
 
@@ -545,8 +510,6 @@ public:
 
 	struct tenantsTenantNameTier_assignmentPutParams
 	{
-		tenantsTenantNameTier_assignmentPutParams() = default;
-
 		const utility::string_t& tenantName;
 		const std::shared_ptr<QuotaTierAssignmentDto>& RequestBody;
 	};
@@ -566,8 +529,6 @@ public:
 
 	struct tenantsTenantNameTier_assignmentDeleteParams
 	{
-		tenantsTenantNameTier_assignmentDeleteParams() = default;
-
 		const utility::string_t& tenantName;
 	};
 
@@ -588,8 +549,6 @@ public:
 
 	struct groupsTier_assignmentsGetParams
 	{
-		groupsTier_assignmentsGetParams() = default;
-
 		const std::optional<std::vector<utility::string_t>>& groupIds;
 	};
 
@@ -623,7 +582,6 @@ public:
 
 	struct rsionsGetParams
 	{
-		rsionsGetParams() = default;
 	};
 
 
