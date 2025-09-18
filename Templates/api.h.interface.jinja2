@@ -25,8 +25,6 @@ namespace csp::services::generated::{{ service_name | lower }}
         {% for route_path, route in routes.items() %}
             {% for method_name, method in route.items() %}
                 struct {{ print_method_name(route_path, method_name) }}Params {
-                    {{ print_method_name(route_path, method_name) }}Params() = default;
-
                     {{ print_mock_signature(method) }}
                 };
                 
