@@ -18,7 +18,6 @@ namespace csp::services::generated::{{ service_name | lower }}
 
         {% for route_path, route in routes.items() -%}
             {% for method_name, method in route.items() -%}
-                {# Converts a file path to a camelCase function name with version information removed. -#}
                 MOCK_METHOD(void, {{ print_method_name(route_path, method_name) }},
                     (const {{ print_method_name(route_path, method_name) }}Params&,
                     csp::services::ApiResponseHandlerBase* ResponseHandler,

@@ -44,7 +44,6 @@ namespace csp::services::generated::{{ service_name | lower }}
                 {% if method.deprecated -%}
                     [[deprecated("'{{ method_name | upper }} {{ route_path }}' is deprecated!")]]
                 {% endif -%}
-                {# Converts a file path to a camelCase function name with version information removed. -#}
                 virtual void {{ print_method_name(route_path, method_name) }}(
                     const {{ print_method_name(route_path, method_name) }}Params& Params,
                     csp::services::ApiResponseHandlerBase* ResponseHandler,
