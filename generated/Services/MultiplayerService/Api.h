@@ -5,7 +5,7 @@
 #include "CSP/Common/CancellationToken.h"
 #include "Common/Web/HttpPayload.h"
 #include "Dto.h"
-#include "Services/ApiBase/ApiBase.h"
+#include "IMultiplayerServiceApiBase.h"
 
 #include <optional>
 #include <string>
@@ -15,7 +15,7 @@ namespace csp::services::generated::multiplayerservice
 {
 
 
-class AnalyticsApi final : public csp::services::ApiBase
+class AnalyticsApi final : public IAnalyticsApiBase
 {
 public:
 	AnalyticsApi(csp::web::WebClient* InWebClient);
@@ -31,9 +31,9 @@ public:
 	/// POST /analytics/bulk
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void analyticsBulkPost(const std::vector<std::shared_ptr<AnalyticsRecord>>& RequestBody,
+	void analyticsBulkPost(const analyticsBulkPostParams& Params,
 						   csp::services::ApiResponseHandlerBase* ResponseHandler,
-						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -44,8 +44,9 @@ public:
 	/// POST /analytics/stream
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void analyticsStreamPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
-							 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void analyticsStreamPost(const analyticsStreamPostParams& Params,
+							 csp::services::ApiResponseHandlerBase* ResponseHandler,
+							 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -57,11 +58,12 @@ public:
 	/// POST /analytics/stream-url
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void analyticsStreamUrlPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
-								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void analyticsStream_urlPost(const analyticsStream_urlPostParams& Params,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
-class AreaOfInterestApi final : public csp::services::ApiBase
+class AreaOfInterestApi final : public IAreaOfInterestApiBase
 {
 public:
 	AreaOfInterestApi(csp::web::WebClient* InWebClient);
@@ -76,9 +78,9 @@ public:
 	/// PUT /api/v1/area-of-interest/{userId}/reset
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void areaOfInterestUserIdResetPut(const utility::string_t& userId,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void area_of_interestUserIdResetPut(const area_of_interestUserIdResetPutParams& Params,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -89,12 +91,12 @@ public:
 	/// GET /api/v1/area-of-interest/{userId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void areaOfInterestUserIdGet(const utility::string_t& userId,
-								 csp::services::ApiResponseHandlerBase* ResponseHandler,
-								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void area_of_interestUserIdGet(const area_of_interestUserIdGetParams& Params,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
-class ClientConnectionApi final : public csp::services::ApiBase
+class ClientConnectionApi final : public IClientConnectionApiBase
 {
 public:
 	ClientConnectionApi(csp::web::WebClient* InWebClient);
@@ -109,16 +111,9 @@ public:
 	/// GET /api/v1/client-connections
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void clientConnectionsGet(const std::optional<std::vector<utility::string_t>>& UserIds,
-							  const std::optional<std::vector<utility::string_t>>& ScopeIds,
-							  const std::optional<std::vector<utility::string_t>>& Scopes,
-							  const std::optional<std::vector<utility::string_t>>& ScopeReferenceIds,
-							  const std::optional<utility::string_t>& ScopeReferenceType,
-							  const std::optional<std::shared_ptr<ClientConnectionStatus>>& ConnectionStatus,
-							  const std::optional<int32_t>& Skip,
-							  const std::optional<int32_t>& Limit,
-							  csp::services::ApiResponseHandlerBase* ResponseHandler,
-							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void client_connectionsGet(const client_connectionsGetParams& Params,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -129,17 +124,13 @@ public:
 	/// POST /api/v1/client-connections/request-to-disconnect
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void clientConnectionsRequestToDisconnectPost(const std::optional<std::vector<utility::string_t>>& UserIds,
-												  const std::optional<std::vector<utility::string_t>>& ScopeIds,
-												  const std::optional<std::vector<utility::string_t>>& Scopes,
-												  const std::optional<std::vector<utility::string_t>>& ScopeReferenceIds,
-												  const std::optional<utility::string_t>& ScopeReferenceType,
-												  const std::optional<std::shared_ptr<ClientConnectionStatus>>& ConnectionStatus,
-												  csp::services::ApiResponseHandlerBase* ResponseHandler,
-												  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void client_connectionsRequest_to_disconnectPost(const client_connectionsRequest_to_disconnectPostParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken
+													 = csp::common::CancellationToken::Dummy()) const override;
 };
 
-class ConfigurationApi final : public csp::services::ApiBase
+class ConfigurationApi final : public IConfigurationApiBase
 {
 public:
 	ConfigurationApi(csp::web::WebClient* InWebClient);
@@ -151,8 +142,9 @@ public:
 	/// GET /appsettings
 	/// Authorization: magnopus-admin
 	/// </remarks>
-	void appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
-						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void appsettingsGet(const appsettingsGetParams& Params,
+						csp::services::ApiResponseHandlerBase* ResponseHandler,
+						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -160,8 +152,9 @@ public:
 	/// POST /appsettings/reload
 	/// Authorization: magnopus-admin
 	/// </remarks>
-	void appsettingsReloadPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
-							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void appsettingsReloadPost(const appsettingsReloadPostParams& Params,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -169,11 +162,12 @@ public:
 	/// GET /featureflags
 	/// Authorization: magnopus-admin
 	/// </remarks>
-	void featureflagsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
-						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void featureflagsGet(const featureflagsGetParams& Params,
+						 csp::services::ApiResponseHandlerBase* ResponseHandler,
+						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
-class EventMessageApi final : public csp::services::ApiBase
+class EventMessageApi final : public IEventMessageApiBase
 {
 public:
 	EventMessageApi(csp::web::WebClient* InWebClient);
@@ -188,12 +182,12 @@ public:
 	/// POST /api/v1/events
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void eventsPost(const std::shared_ptr<EventMessageDto>& RequestBody,
+	void eventsPost(const eventsPostParams& Params,
 					csp::services::ApiResponseHandlerBase* ResponseHandler,
-					csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+					csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
-class NtpApi final : public csp::services::ApiBase
+class NtpApi final : public INtpApiBase
 {
 public:
 	NtpApi(csp::web::WebClient* InWebClient);
@@ -205,11 +199,12 @@ public:
 	/// GET /datetime
 	/// Authorization: Anonymous
 	/// </remarks>
-	void datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
-					 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void datetimeGet(const datetimeGetParams& Params,
+					 csp::services::ApiResponseHandlerBase* ResponseHandler,
+					 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
-class ObjectMessageApi final : public csp::services::ApiBase
+class ObjectMessageApi final : public IObjectMessageApiBase
 {
 public:
 	ObjectMessageApi(csp::web::WebClient* InWebClient);
@@ -224,9 +219,9 @@ public:
 	/// POST /api/v1/objects
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,limited-creator,creator
 	/// </remarks>
-	void objectsPost(const std::shared_ptr<ObjectMessageDto>& RequestBody,
+	void objectsPost(const objectsPostParams& Params,
 					 csp::services::ApiResponseHandlerBase* ResponseHandler,
-					 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+					 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 	/// <summary>
@@ -236,23 +231,9 @@ public:
 	/// GET /api/v1/objects
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void objectsGet(const std::optional<std::vector<int32_t>>& Ids,
-					const std::optional<std::vector<utility::string_t>>& ObjectMessageDocumentIds,
-					const std::optional<std::vector<utility::string_t>>& ScopeIds,
-					const std::optional<std::vector<utility::string_t>>& ScopeReferenceIds,
-					const std::optional<utility::string_t>& ScopeReferenceType,
-					const std::optional<std::vector<utility::string_t>>& ExcludeScopes,
-					const std::optional<std::vector<utility::string_t>>& OwnerUserIds,
-					const std::optional<std::vector<utility::string_t>>& ExcludeOwnerUserIds,
-					const std::optional<int32_t>& PrefabId,
-					const std::optional<bool>& IsPersistent,
-					const std::optional<bool>& IncludeClientOwnedPersistentObjects,
-					const std::optional<std::vector<utility::string_t>>& RootParentIds,
-					const std::optional<std::vector<utility::string_t>>& RootObjectDocumentIdsAndChildren,
-					const std::optional<int32_t>& Skip,
-					const std::optional<int32_t>& Limit,
+	void objectsGet(const objectsGetParams& Params,
 					csp::services::ApiResponseHandlerBase* ResponseHandler,
-					csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+					csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 	/// <summary>
@@ -262,9 +243,9 @@ public:
 	/// DELETE /api/v1/objects
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,limited-creator,creator
 	/// </remarks>
-	void objectsDelete(const std::optional<std::vector<int32_t>>& ids,
+	void objectsDelete(const objectsDeleteParams& Params,
 					   csp::services::ApiResponseHandlerBase* ResponseHandler,
-					   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+					   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -275,9 +256,9 @@ public:
 	/// POST /api/v1/objects/batch
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,limited-creator,creator
 	/// </remarks>
-	void objectsBatchPost(const std::vector<std::shared_ptr<ObjectMessageDto>>& RequestBody,
+	void objectsBatchPost(const objectsBatchPostParams& Params,
 						  csp::services::ApiResponseHandlerBase* ResponseHandler,
-						  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+						  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -289,10 +270,9 @@ public:
 	/// POST /api/v1/objects/owners/{userId}/batch
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void objectsOwnersUserIdBatchPost(const utility::string_t& userId,
-									  const std::vector<std::shared_ptr<ObjectMessageDto>>& RequestBody,
+	void objectsOwnersUserIdBatchPost(const objectsOwnersUserIdBatchPostParams& Params,
 									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -303,23 +283,9 @@ public:
 	/// GET /api/v1/object-documents
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void objectDocumentsGet(const std::optional<std::vector<int32_t>>& Ids,
-							const std::optional<std::vector<utility::string_t>>& ObjectMessageDocumentIds,
-							const std::optional<std::vector<utility::string_t>>& ScopeIds,
-							const std::optional<std::vector<utility::string_t>>& ScopeReferenceIds,
-							const std::optional<utility::string_t>& ScopeReferenceType,
-							const std::optional<std::vector<utility::string_t>>& ExcludeScopes,
-							const std::optional<std::vector<utility::string_t>>& OwnerUserIds,
-							const std::optional<std::vector<utility::string_t>>& ExcludeOwnerUserIds,
-							const std::optional<int32_t>& PrefabId,
-							const std::optional<bool>& IsPersistent,
-							const std::optional<bool>& IncludeClientOwnedPersistentObjects,
-							const std::optional<std::vector<utility::string_t>>& RootParentIds,
-							const std::optional<std::vector<utility::string_t>>& RootObjectDocumentIdsAndChildren,
-							const std::optional<int32_t>& Skip,
-							const std::optional<int32_t>& Limit,
-							csp::services::ApiResponseHandlerBase* ResponseHandler,
-							csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void object_documentsGet(const object_documentsGetParams& Params,
+							 csp::services::ApiResponseHandlerBase* ResponseHandler,
+							 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -330,10 +296,9 @@ public:
 	/// POST /api/v1/objects/import/{exportId}
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
-	void objectsImportExportIdPost(const utility::string_t& exportId,
-								   const std::optional<utility::string_t>& ownerId,
+	void objectsImportExportIdPost(const objectsImportExportIdPostParams& Params,
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
-								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -344,9 +309,9 @@ public:
 	/// GET /api/v1/objects/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void objectsIdGet(const int32_t& id,
+	void objectsIdGet(const objectsIdGetParams& Params,
 					  csp::services::ApiResponseHandlerBase* ResponseHandler,
-					  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+					  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 	/// <summary>
@@ -357,10 +322,9 @@ public:
 	/// PUT /api/v1/objects/{id}
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,limited-creator,creator
 	/// </remarks>
-	void objectsIdPut(const int32_t& id,
-					  const std::shared_ptr<ObjectMessageDto>& RequestBody,
+	void objectsIdPut(const objectsIdPutParams& Params,
 					  csp::services::ApiResponseHandlerBase* ResponseHandler,
-					  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+					  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 	/// <summary>
@@ -370,9 +334,9 @@ public:
 	/// DELETE /api/v1/objects/{id}
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,limited-creator,creator
 	/// </remarks>
-	void objectsIdDelete(const int32_t& id,
+	void objectsIdDelete(const objectsIdDeleteParams& Params,
 						 csp::services::ApiResponseHandlerBase* ResponseHandler,
-						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -388,13 +352,12 @@ public:
 	/// - Components: add, update or delete component. To delete a component, set the component value to type
 	/// Magnopus.Service.Multiplayer.Messages.Components.DeleteComponent in the Components dictionary
 	/// </remarks>
-	void objectsIdPartialUpdatePut(const int32_t& id,
-								   const std::shared_ptr<ObjectMessagePatchDto>& RequestBody,
-								   csp::services::ApiResponseHandlerBase* ResponseHandler,
-								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void objectsIdPartial_updatePut(const objectsIdPartial_updatePutParams& Params,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
-class PingApi final : public csp::services::ApiBase
+class PingApi final : public IPingApiBase
 {
 public:
 	PingApi(csp::web::WebClient* InWebClient);
@@ -406,11 +369,12 @@ public:
 	/// GET /ping
 	/// Authorization: Anonymous
 	/// </remarks>
-	void pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
-				 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void pingGet(const pingGetParams& Params,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
-class ScopeLeaderApi final : public csp::services::ApiBase
+class ScopeLeaderApi final : public IScopeLeaderApiBase
 {
 public:
 	ScopeLeaderApi(csp::web::WebClient* InWebClient);
@@ -425,9 +389,9 @@ public:
 	/// GET /api/v1/scopes/{scopeId}/leader
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void scopesScopeIdLeaderGet(const utility::string_t& scopeId,
+	void scopesScopeIdLeaderGet(const scopesScopeIdLeaderGetParams& Params,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
-								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -439,13 +403,12 @@ public:
 	/// POST /api/v1/scopes/{scopeId}/leader-election
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void scopesScopeIdLeaderElectionPost(const utility::string_t& scopeId,
-										 const std::optional<std::vector<utility::string_t>>& userIdsToExclude,
-										 csp::services::ApiResponseHandlerBase* ResponseHandler,
-										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void scopesScopeIdLeader_electionPost(const scopesScopeIdLeader_electionPostParams& Params,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
-class ScopesApi final : public csp::services::ApiBase
+class ScopesApi final : public IScopesApiBase
 {
 public:
 	ScopesApi(csp::web::WebClient* InWebClient);
@@ -460,9 +423,9 @@ public:
 	/// POST /api/v1/scopes
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void scopesPost(const std::shared_ptr<ScopeDto>& RequestBody,
+	void scopesPost(const scopesPostParams& Params,
 					csp::services::ApiResponseHandlerBase* ResponseHandler,
-					csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+					csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 	/// <summary>
@@ -472,9 +435,9 @@ public:
 	/// PUT /api/v1/scopes
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void scopesPut(const std::shared_ptr<ScopeDto>& RequestBody,
+	void scopesPut(const scopesPutParams& Params,
 				   csp::services::ApiResponseHandlerBase* ResponseHandler,
-				   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+				   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 	/// <summary>
@@ -485,15 +448,9 @@ public:
 	/// GET /api/v1/scopes
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void scopesGet(const std::optional<std::vector<utility::string_t>>& Ids,
-				   const std::optional<std::vector<utility::string_t>>& ReferenceIds,
-				   const std::optional<utility::string_t>& ReferenceType,
-				   const std::optional<std::shared_ptr<PubSubModel>>& PubSubModel,
-				   const std::optional<std::vector<utility::string_t>>& Names,
-				   const std::optional<int32_t>& Skip,
-				   const std::optional<int32_t>& Limit,
+	void scopesGet(const scopesGetParams& Params,
 				   csp::services::ApiResponseHandlerBase* ResponseHandler,
-				   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+				   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -504,9 +461,9 @@ public:
 	/// GET /api/v1/scopes/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void scopesIdGet(const utility::string_t& id,
+	void scopesIdGet(const scopesIdGetParams& Params,
 					 csp::services::ApiResponseHandlerBase* ResponseHandler,
-					 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+					 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 	/// <summary>
@@ -517,9 +474,9 @@ public:
 	/// DELETE /api/v1/scopes/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void scopesIdDelete(const utility::string_t& id,
+	void scopesIdDelete(const scopesIdDeleteParams& Params,
 						csp::services::ApiResponseHandlerBase* ResponseHandler,
-						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 	/// <summary>
@@ -530,10 +487,9 @@ public:
 	/// PUT /api/v1/scopes/{id}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void scopesIdPut(const utility::string_t& id,
-					 const std::shared_ptr<ScopeDto>& RequestBody,
+	void scopesIdPut(const scopesIdPutParams& Params,
 					 csp::services::ApiResponseHandlerBase* ResponseHandler,
-					 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+					 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -544,11 +500,10 @@ public:
 	/// GET /api/v1/scopes/referenceType/{referenceType}/referenceId/{referenceId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void scopesReferenceTypeReferenceTypeReferenceIdReferenceIdGet(const utility::string_t& referenceId,
-																   const utility::string_t& referenceType,
+	void scopesReferenceTypeReferenceTypeReferenceIdReferenceIdGet(const scopesReferenceTypeReferenceTypeReferenceIdReferenceIdGetParams& Params,
 																   csp::services::ApiResponseHandlerBase* ResponseHandler,
 																   csp::common::CancellationToken& CancellationToken
-																   = csp::common::CancellationToken::Dummy()) const;
+																   = csp::common::CancellationToken::Dummy()) const override;
 
 
 	/// <summary>
@@ -559,14 +514,14 @@ public:
 	/// DELETE /api/v1/scopes/referenceType/{referenceType}/referenceId/{referenceId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
-	void scopesReferenceTypeReferenceTypeReferenceIdReferenceIdDelete(const utility::string_t& referenceId,
-																	  const utility::string_t& referenceType,
-																	  csp::services::ApiResponseHandlerBase* ResponseHandler,
-																	  csp::common::CancellationToken& CancellationToken
-																	  = csp::common::CancellationToken::Dummy()) const;
+	void
+		scopesReferenceTypeReferenceTypeReferenceIdReferenceIdDelete(const scopesReferenceTypeReferenceTypeReferenceIdReferenceIdDeleteParams& Params,
+																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	 csp::common::CancellationToken& CancellationToken
+																	 = csp::common::CancellationToken::Dummy()) const override;
 };
 
-class VersionsApi final : public csp::services::ApiBase
+class VersionsApi final : public IVersionsApiBase
 {
 public:
 	VersionsApi(csp::web::WebClient* InWebClient);
@@ -581,8 +536,9 @@ public:
 	/// GET /api/versions
 	/// Authorization: Anonymous
 	/// </remarks>
-	void rsionsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
-				   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const;
+	void rsionsGet(const rsionsGetParams& Params,
+				   csp::services::ApiResponseHandlerBase* ResponseHandler,
+				   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 

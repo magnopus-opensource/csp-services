@@ -1,0 +1,31 @@
+{% from 'helpers.jinja2' import print_type, print_method_name %}
+
+#pragma once
+
+#include "Services/{{ service_name }}/I{{ service_name }}ApiBase.h"
+#include "Services/{{ service_name }}/Dto.h"
+
+#include <gmock/gmock.h>
+
+namespace csp::services::generated::{{ service_name | lower }}
+{
+
+{% for tag, routes in tags.items() %}
+    class {{ tag }}ApiMock final : public I{{ tag }}ApiBase
+    {
+    public:
+        {{ tag }}ApiMock() : I{{ tag }}ApiBase(nullptr) {}
+
+        {% for route_path, route in routes.items() -%}
+            {% for method_name, method in route.items() -%}
+                MOCK_METHOD(void, {{ print_method_name(route_path, method_name) }},
+                    (const {{ print_method_name(route_path, method_name) }}Params&,
+                    csp::services::ApiResponseHandlerBase* ResponseHandler,
+                    csp::common::CancellationToken& CancellationToken)
+                , (const, override));
+            {% endfor -%}
+        {% endfor %}
+    };
+{% endfor %}
+
+} // namespace csp::services::{{ service_name | lower }}

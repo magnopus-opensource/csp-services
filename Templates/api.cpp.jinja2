@@ -1,4 +1,4 @@
-{% from 'helpers.jinja2' import print_type, print_method_parameters %}
+{% from 'helpers.jinja2' import print_type, print_method_name, print_method_parameters %}
 
 #include "Common/Web/HttpPayload.h"
 #include "Common/Web/HttpAuth.h"
@@ -13,7 +13,7 @@
 namespace csp::services::generated::{{ service_name | lower }} {
 
 {% for tag, routes in tags.items() %}
-    {{ tag }}Api::{{ tag }}Api(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().{{ service_name }})
+    {{ tag }}Api::{{ tag }}Api(csp::web::WebClient* InWebClient) : I{{ tag }}ApiBase(InWebClient)
     {
 
     }
@@ -26,8 +26,10 @@ namespace csp::services::generated::{{ service_name | lower }} {
     {% for route_path, route in routes.items() %}
         {% for method_name, method in route.items() %}
             {# Converts a file path to a camelCase function name with version information removed. #}
-            void {{ tag }}Api::{%- if route_path[:6] == '/api/v' -%} {{ route_path[7:] | camelcase }} {%- else -%} {{ route_path | camelcase }} {%- endif -%}{{ method_name | capitalize }}(
-                {{ print_method_parameters(method, false) }}
+            void {{ tag }}Api::{{ print_method_name(route_path, method_name) }}(
+                [[maybe_unused]] const {{ print_method_name(route_path, method_name) }}Params& Params,
+                csp::services::ApiResponseHandlerBase* ResponseHandler,
+                csp::common::CancellationToken& CancellationToken
             ) const
             {
                 csp::web::Uri Uri;
@@ -43,9 +45,9 @@ namespace csp::services::generated::{{ service_name | lower }} {
                     {
                         {%- for parameter in method.parameters | selectattr('in', 'equalto', 'path') -%}
                             {%- if parameter.schema.type == 'string' -%}
-                                {{ parameter.name | identifier }}
+                                Params.{{ parameter.name | identifier }}
                             {%- else -%}
-                                std::to_string({{ parameter.name | identifier }}).c_str()
+                                std::to_string(Params.{{ parameter.name | identifier }}).c_str()
                             {%- endif -%}{{ ',' if not loop.last }}
                         {%- endfor -%}
                     }
@@ -53,11 +55,11 @@ namespace csp::services::generated::{{ service_name | lower }} {
 
                 {% for parameter in method.parameters | selectattr('in', 'equalto', 'query') -%}
                     {% if 'required' in parameter and parameter.required %}
-                        Uri.AddQueryParams("{{ parameter.name }}", {{ parameter.name | identifier }});
+                        Uri.AddQueryParams("{{ parameter.name }}", Params.{{ parameter.name | identifier }});
                     {% else %}
-                        if ({{ parameter.name | identifier }}.has_value())
+                        if (Params.{{ parameter.name | identifier }}.has_value())
                         {
-                            Uri.AddQueryParams("{{ parameter.name }}", {{ parameter.name | identifier }}.value());
+                            Uri.AddQueryParams("{{ parameter.name }}", Params.{{ parameter.name | identifier }}.value());
                         }
                     {% endif %}
                 {% endfor -%}
@@ -68,10 +70,10 @@ namespace csp::services::generated::{{ service_name | lower }} {
                 {%- if 'requestBody' in method %}
                     {%- if 'multipart/form-data' in method.requestBody.content -%}
                         {%- for property_name in method.requestBody.content['multipart/form-data'].schema.properties -%}
-                            Payload.AddFormParam("{{ property_name }}", {{ property_name | pascalcase }});
+                            Payload.AddFormParam("{{ property_name }}", Params.{{ property_name | pascalcase }});
                         {%- endfor -%}
                     {%- else -%}
-                        Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+                        Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
                     {%- endif -%}
                 {%- endif %}
 

@@ -14,7 +14,7 @@ namespace csp::services::generated::spatialdataservice
 {
 
 
-AnalyticsApi::AnalyticsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+AnalyticsApi::AnalyticsApi(csp::web::WebClient* InWebClient) : IAnalyticsApiBase(InWebClient)
 {
 }
 
@@ -24,7 +24,7 @@ AnalyticsApi::~AnalyticsApi()
 
 
 
-void AnalyticsApi::analyticsBulkPost(const std::vector<std::shared_ptr<AnalyticsRecord>>& RequestBody,
+void AnalyticsApi::analyticsBulkPost([[maybe_unused]] const analyticsBulkPostParams& Params,
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
 									 csp::common::CancellationToken& CancellationToken) const
 {
@@ -33,7 +33,7 @@ void AnalyticsApi::analyticsBulkPost(const std::vector<std::shared_ptr<Analytics
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -41,7 +41,8 @@ void AnalyticsApi::analyticsBulkPost(const std::vector<std::shared_ptr<Analytics
 
 
 
-void AnalyticsApi::analyticsStreamPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
+void AnalyticsApi::analyticsStreamPost([[maybe_unused]] const analyticsStreamPostParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
@@ -56,8 +57,9 @@ void AnalyticsApi::analyticsStreamPost(csp::services::ApiResponseHandlerBase* Re
 
 
 
-void AnalyticsApi::analyticsStreamUrlPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
-										  csp::common::CancellationToken& CancellationToken) const
+void AnalyticsApi::analyticsStream_urlPost([[maybe_unused]] const analyticsStream_urlPostParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/analytics/stream-url").c_str(), {});
@@ -71,7 +73,7 @@ void AnalyticsApi::analyticsStreamUrlPost(csp::services::ApiResponseHandlerBase*
 
 
 
-AnchorsApi::AnchorsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+AnchorsApi::AnchorsApi(csp::web::WebClient* InWebClient) : IAnchorsApiBase(InWebClient)
 {
 }
 
@@ -81,13 +83,13 @@ AnchorsApi::~AnchorsApi()
 
 
 
-void AnchorsApi::anchorsIdGet(const utility::string_t& id,
+void AnchorsApi::anchorsIdGet([[maybe_unused]] const anchorsIdGetParams& Params,
 							  csp::services::ApiResponseHandlerBase* ResponseHandler,
 							  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/anchors/{id}").c_str(),
-					  {id});
+					  {Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -97,31 +99,30 @@ void AnchorsApi::anchorsIdGet(const utility::string_t& id,
 }
 
 
-void AnchorsApi::anchorsIdPut(const utility::string_t& id,
-							  const std::shared_ptr<AnchorDto>& RequestBody,
+void AnchorsApi::anchorsIdPut([[maybe_unused]] const anchorsIdPutParams& Params,
 							  csp::services::ApiResponseHandlerBase* ResponseHandler,
 							  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/anchors/{id}").c_str(),
-					  {id});
+					  {Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void AnchorsApi::anchorsIdDelete(const utility::string_t& id,
+void AnchorsApi::anchorsIdDelete([[maybe_unused]] const anchorsIdDeleteParams& Params,
 								 csp::services::ApiResponseHandlerBase* ResponseHandler,
 								 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/anchors/{id}").c_str(),
-					  {id});
+					  {Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -132,7 +133,7 @@ void AnchorsApi::anchorsIdDelete(const utility::string_t& id,
 
 
 
-void AnchorsApi::anchorsPost(const std::shared_ptr<AnchorDto>& RequestBody,
+void AnchorsApi::anchorsPost([[maybe_unused]] const anchorsPostParams& Params,
 							 csp::services::ApiResponseHandlerBase* ResponseHandler,
 							 csp::common::CancellationToken& CancellationToken) const
 {
@@ -141,14 +142,14 @@ void AnchorsApi::anchorsPost(const std::shared_ptr<AnchorDto>& RequestBody,
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void AnchorsApi::anchorsDelete(const std::optional<std::vector<utility::string_t>>& ids,
+void AnchorsApi::anchorsDelete([[maybe_unused]] const anchorsDeleteParams& Params,
 							   csp::services::ApiResponseHandlerBase* ResponseHandler,
 							   csp::common::CancellationToken& CancellationToken) const
 {
@@ -156,9 +157,9 @@ void AnchorsApi::anchorsDelete(const std::optional<std::vector<utility::string_t
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/anchors").c_str(), {});
 
 
-	if (ids.has_value())
+	if (Params.ids.has_value())
 	{
-		Uri.AddQueryParams("ids", ids.value());
+		Uri.AddQueryParams("ids", Params.ids.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -169,19 +170,7 @@ void AnchorsApi::anchorsDelete(const std::optional<std::vector<utility::string_t
 }
 
 
-void AnchorsApi::anchorsGet(const std::optional<std::vector<utility::string_t>>& Keys,
-							const std::optional<std::vector<utility::string_t>>& Values,
-							const std::optional<double>& Coordinate_Longitude,
-							const std::optional<double>& Coordinate_Latitude,
-							const std::optional<double>& Coordinate_Radius,
-							const std::optional<std::vector<utility::string_t>>& Tags,
-							const std::optional<bool>& TagsAll,
-							const std::optional<std::vector<utility::string_t>>& ThirdPartyProviderNames,
-							const std::optional<std::vector<utility::string_t>>& ThirdPartyAnchorIds,
-							const std::optional<std::vector<utility::string_t>>& ReferenceIds,
-							const std::optional<std::vector<utility::string_t>>& AnchoredObjectIds,
-							const std::optional<int32_t>& Skip,
-							const std::optional<int32_t>& Limit,
+void AnchorsApi::anchorsGet([[maybe_unused]] const anchorsGetParams& Params,
 							csp::services::ApiResponseHandlerBase* ResponseHandler,
 							csp::common::CancellationToken& CancellationToken) const
 {
@@ -189,81 +178,81 @@ void AnchorsApi::anchorsGet(const std::optional<std::vector<utility::string_t>>&
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/anchors").c_str(), {});
 
 
-	if (Keys.has_value())
+	if (Params.Keys.has_value())
 	{
-		Uri.AddQueryParams("Keys", Keys.value());
+		Uri.AddQueryParams("Keys", Params.Keys.value());
 	}
 
 
-	if (Values.has_value())
+	if (Params.Values.has_value())
 	{
-		Uri.AddQueryParams("Values", Values.value());
+		Uri.AddQueryParams("Values", Params.Values.value());
 	}
 
 
-	if (Coordinate_Longitude.has_value())
+	if (Params.Coordinate_Longitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
+		Uri.AddQueryParams("Coordinate.Longitude", Params.Coordinate_Longitude.value());
 	}
 
 
-	if (Coordinate_Latitude.has_value())
+	if (Params.Coordinate_Latitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
+		Uri.AddQueryParams("Coordinate.Latitude", Params.Coordinate_Latitude.value());
 	}
 
 
-	if (Coordinate_Radius.has_value())
+	if (Params.Coordinate_Radius.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
+		Uri.AddQueryParams("Coordinate.Radius", Params.Coordinate_Radius.value());
 	}
 
 
-	if (Tags.has_value())
+	if (Params.Tags.has_value())
 	{
-		Uri.AddQueryParams("Tags", Tags.value());
+		Uri.AddQueryParams("Tags", Params.Tags.value());
 	}
 
 
-	if (TagsAll.has_value())
+	if (Params.TagsAll.has_value())
 	{
-		Uri.AddQueryParams("TagsAll", TagsAll.value());
+		Uri.AddQueryParams("TagsAll", Params.TagsAll.value());
 	}
 
 
-	if (ThirdPartyProviderNames.has_value())
+	if (Params.ThirdPartyProviderNames.has_value())
 	{
-		Uri.AddQueryParams("ThirdPartyProviderNames", ThirdPartyProviderNames.value());
+		Uri.AddQueryParams("ThirdPartyProviderNames", Params.ThirdPartyProviderNames.value());
 	}
 
 
-	if (ThirdPartyAnchorIds.has_value())
+	if (Params.ThirdPartyAnchorIds.has_value())
 	{
-		Uri.AddQueryParams("ThirdPartyAnchorIds", ThirdPartyAnchorIds.value());
+		Uri.AddQueryParams("ThirdPartyAnchorIds", Params.ThirdPartyAnchorIds.value());
 	}
 
 
-	if (ReferenceIds.has_value())
+	if (Params.ReferenceIds.has_value())
 	{
-		Uri.AddQueryParams("ReferenceIds", ReferenceIds.value());
+		Uri.AddQueryParams("ReferenceIds", Params.ReferenceIds.value());
 	}
 
 
-	if (AnchoredObjectIds.has_value())
+	if (Params.AnchoredObjectIds.has_value())
 	{
-		Uri.AddQueryParams("AnchoredObjectIds", AnchoredObjectIds.value());
+		Uri.AddQueryParams("AnchoredObjectIds", Params.AnchoredObjectIds.value());
 	}
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -275,7 +264,25 @@ void AnchorsApi::anchorsGet(const std::optional<std::vector<utility::string_t>>&
 
 
 
-void AnchorsApi::anchorResolutionsPost(const std::shared_ptr<AnchorResolutionDto>& RequestBody,
+void AnchorsApi::anchor_resolutionsPost([[maybe_unused]] const anchor_resolutionsPostParams& Params,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/anchor-resolutions").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void AnchorsApi::anchor_resolutionsGet([[maybe_unused]] const anchor_resolutionsGetParams& Params,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken) const
 {
@@ -284,63 +291,40 @@ void AnchorsApi::anchorResolutionsPost(const std::shared_ptr<AnchorResolutionDto
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/anchor-resolutions").c_str(),
 		{});
 
-	csp::web::HttpPayload Payload;
-	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
-	Payload.SetBearerToken();
 
-	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
-}
-
-
-void AnchorsApi::anchorResolutionsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
-									  const std::optional<std::vector<utility::string_t>>& Tags,
-									  const std::optional<bool>& TagsAll,
-									  const std::optional<bool>& SuccessfullyResolved,
-									  const std::optional<int32_t>& Skip,
-									  const std::optional<int32_t>& Limit,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken) const
-{
-	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/anchor-resolutions").c_str(),
-		{});
-
-
-	if (AnchorIds.has_value())
+	if (Params.AnchorIds.has_value())
 	{
-		Uri.AddQueryParams("AnchorIds", AnchorIds.value());
+		Uri.AddQueryParams("AnchorIds", Params.AnchorIds.value());
 	}
 
 
-	if (Tags.has_value())
+	if (Params.Tags.has_value())
 	{
-		Uri.AddQueryParams("Tags", Tags.value());
+		Uri.AddQueryParams("Tags", Params.Tags.value());
 	}
 
 
-	if (TagsAll.has_value())
+	if (Params.TagsAll.has_value())
 	{
-		Uri.AddQueryParams("TagsAll", TagsAll.value());
+		Uri.AddQueryParams("TagsAll", Params.TagsAll.value());
 	}
 
 
-	if (SuccessfullyResolved.has_value())
+	if (Params.SuccessfullyResolved.has_value())
 	{
-		Uri.AddQueryParams("SuccessfullyResolved", SuccessfullyResolved.value());
+		Uri.AddQueryParams("SuccessfullyResolved", Params.SuccessfullyResolved.value());
 	}
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -352,12 +336,9 @@ void AnchorsApi::anchorResolutionsGet(const std::optional<std::vector<utility::s
 
 
 
-void AnchorsApi::anchorResolutionsStatsGet(const std::optional<std::vector<utility::string_t>>& AnchorIds,
-										   const std::optional<std::vector<utility::string_t>>& Tags,
-										   const std::optional<bool>& TagsAll,
-										   const std::optional<bool>& SuccessfullyResolved,
-										   csp::services::ApiResponseHandlerBase* ResponseHandler,
-										   csp::common::CancellationToken& CancellationToken) const
+void AnchorsApi::anchor_resolutionsStatsGet([[maybe_unused]] const anchor_resolutionsStatsGetParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
@@ -365,27 +346,27 @@ void AnchorsApi::anchorResolutionsStatsGet(const std::optional<std::vector<utili
 		{});
 
 
-	if (AnchorIds.has_value())
+	if (Params.AnchorIds.has_value())
 	{
-		Uri.AddQueryParams("AnchorIds", AnchorIds.value());
+		Uri.AddQueryParams("AnchorIds", Params.AnchorIds.value());
 	}
 
 
-	if (Tags.has_value())
+	if (Params.Tags.has_value())
 	{
-		Uri.AddQueryParams("Tags", Tags.value());
+		Uri.AddQueryParams("Tags", Params.Tags.value());
 	}
 
 
-	if (TagsAll.has_value())
+	if (Params.TagsAll.has_value())
 	{
-		Uri.AddQueryParams("TagsAll", TagsAll.value());
+		Uri.AddQueryParams("TagsAll", Params.TagsAll.value());
 	}
 
 
-	if (SuccessfullyResolved.has_value())
+	if (Params.SuccessfullyResolved.has_value())
 	{
-		Uri.AddQueryParams("SuccessfullyResolved", SuccessfullyResolved.value());
+		Uri.AddQueryParams("SuccessfullyResolved", Params.SuccessfullyResolved.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -397,7 +378,7 @@ void AnchorsApi::anchorResolutionsStatsGet(const std::optional<std::vector<utili
 
 
 
-ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : IConfigurationApiBase(InWebClient)
 {
 }
 
@@ -407,7 +388,9 @@ ConfigurationApi::~ConfigurationApi()
 
 
 
-void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
+void ConfigurationApi::appsettingsGet([[maybe_unused]] const appsettingsGetParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/appsettings").c_str(), {});
@@ -421,7 +404,8 @@ void ConfigurationApi::appsettingsGet(csp::services::ApiResponseHandlerBase* Res
 
 
 
-void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBase* ResponseHandler,
+void ConfigurationApi::appsettingsReloadPost([[maybe_unused]] const appsettingsReloadPostParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
@@ -436,7 +420,8 @@ void ConfigurationApi::appsettingsReloadPost(csp::services::ApiResponseHandlerBa
 
 
 
-void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
+void ConfigurationApi::featureflagsGet([[maybe_unused]] const featureflagsGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
@@ -451,7 +436,7 @@ void ConfigurationApi::featureflagsGet(csp::services::ApiResponseHandlerBase* Re
 
 
 
-NtpApi::NtpApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+NtpApi::NtpApi(csp::web::WebClient* InWebClient) : INtpApiBase(InWebClient)
 {
 }
 
@@ -461,7 +446,9 @@ NtpApi::~NtpApi()
 
 
 
-void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
+void NtpApi::datetimeGet([[maybe_unused]] const datetimeGetParams& Params,
+						 csp::services::ApiResponseHandlerBase* ResponseHandler,
+						 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/datetime").c_str(), {});
@@ -474,8 +461,7 @@ void NtpApi::datetimeGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
 
 
 
-PersonalPointOfInterestApi::PersonalPointOfInterestApi(csp::web::WebClient* InWebClient)
-	: ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+PersonalPointOfInterestApi::PersonalPointOfInterestApi(csp::web::WebClient* InWebClient) : IPersonalPointOfInterestApiBase(InWebClient)
 {
 }
 
@@ -485,14 +471,14 @@ PersonalPointOfInterestApi::~PersonalPointOfInterestApi()
 
 
 
-void PersonalPointOfInterestApi::usersUserIdPoiGet(const utility::string_t& userId,
+void PersonalPointOfInterestApi::usersUserIdPoiGet([[maybe_unused]] const usersUserIdPoiGetParams& Params,
 												   csp::services::ApiResponseHandlerBase* ResponseHandler,
 												   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/poi").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -503,15 +489,14 @@ void PersonalPointOfInterestApi::usersUserIdPoiGet(const utility::string_t& user
 
 
 
-void PersonalPointOfInterestApi::usersUserIdPoiPoiIdPut(const utility::string_t& userId,
-														const utility::string_t& poiId,
+void PersonalPointOfInterestApi::usersUserIdPoiPoiIdPut([[maybe_unused]] const usersUserIdPoiPoiIdPutParams& Params,
 														csp::services::ApiResponseHandlerBase* ResponseHandler,
 														csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/poi/{poiId}").c_str(),
-		{userId, poiId});
+		{Params.userId, Params.poiId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -521,15 +506,14 @@ void PersonalPointOfInterestApi::usersUserIdPoiPoiIdPut(const utility::string_t&
 }
 
 
-void PersonalPointOfInterestApi::usersUserIdPoiPoiIdDelete(const utility::string_t& userId,
-														   const utility::string_t& poiId,
+void PersonalPointOfInterestApi::usersUserIdPoiPoiIdDelete([[maybe_unused]] const usersUserIdPoiPoiIdDeleteParams& Params,
 														   csp::services::ApiResponseHandlerBase* ResponseHandler,
 														   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/poi/{poiId}").c_str(),
-		{userId, poiId});
+		{Params.userId, Params.poiId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -540,7 +524,7 @@ void PersonalPointOfInterestApi::usersUserIdPoiPoiIdDelete(const utility::string
 
 
 
-PingApi::PingApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+PingApi::PingApi(csp::web::WebClient* InWebClient) : IPingApiBase(InWebClient)
 {
 }
 
@@ -550,7 +534,9 @@ PingApi::~PingApi()
 
 
 
-void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
+void PingApi::pingGet([[maybe_unused]] const pingGetParams& Params,
+					  csp::services::ApiResponseHandlerBase* ResponseHandler,
+					  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/ping").c_str(), {});
@@ -563,7 +549,7 @@ void PingApi::pingGet(csp::services::ApiResponseHandlerBase* ResponseHandler, cs
 
 
 
-PointOfInterestApi::PointOfInterestApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+PointOfInterestApi::PointOfInterestApi(csp::web::WebClient* InWebClient) : IPointOfInterestApiBase(InWebClient)
 {
 }
 
@@ -573,12 +559,13 @@ PointOfInterestApi::~PointOfInterestApi()
 
 
 
-void PointOfInterestApi::poiIdGet(const utility::string_t& id,
+void PointOfInterestApi::poiIdGet([[maybe_unused]] const poiIdGetParams& Params,
 								  csp::services::ApiResponseHandlerBase* ResponseHandler,
 								  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/poi/{id}").c_str(), {id});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/poi/{id}").c_str(),
+					  {Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -588,29 +575,30 @@ void PointOfInterestApi::poiIdGet(const utility::string_t& id,
 }
 
 
-void PointOfInterestApi::poiIdPut(const utility::string_t& id,
-								  const std::shared_ptr<PointOfInterestDto>& RequestBody,
+void PointOfInterestApi::poiIdPut([[maybe_unused]] const poiIdPutParams& Params,
 								  csp::services::ApiResponseHandlerBase* ResponseHandler,
 								  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/poi/{id}").c_str(), {id});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/poi/{id}").c_str(),
+					  {Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void PointOfInterestApi::poiIdDelete(const utility::string_t& id,
+void PointOfInterestApi::poiIdDelete([[maybe_unused]] const poiIdDeleteParams& Params,
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
 									 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/poi/{id}").c_str(), {id});
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/poi/{id}").c_str(),
+					  {Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -621,185 +609,161 @@ void PointOfInterestApi::poiIdDelete(const utility::string_t& id,
 
 
 
-void PointOfInterestApi::poiLiteGet(const std::optional<utility::string_t>& ppoiUserId,
-									const std::optional<std::vector<utility::string_t>>& Ids,
-									const std::optional<utility::string_t>& Type,
-									const std::optional<std::vector<utility::string_t>>& Types,
-									const std::optional<std::vector<utility::string_t>>& Tags,
-									const std::optional<bool>& TagsAll,
-									const std::optional<double>& Coordinate_Longitude,
-									const std::optional<double>& Coordinate_Latitude,
-									const std::optional<double>& Coordinate_Radius,
-									const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
-									const std::optional<utility::string_t>& Name,
-									const std::optional<std::vector<utility::string_t>>& Names,
-									const std::optional<utility::string_t>& Title,
-									const std::optional<int32_t>& ZoomLevel,
-									const std::optional<utility::string_t>& EventStartTime,
-									const std::optional<utility::string_t>& EventEndTime,
-									const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
-									const std::optional<bool>& IncludeHidden,
-									const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
-									const std::optional<bool>& HasSchedule,
-									const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-									const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-									const std::optional<std::vector<utility::string_t>>& GroupIds,
-									const std::optional<int32_t>& Skip,
-									const std::optional<int32_t>& Limit,
-									csp::services::ApiResponseHandlerBase* ResponseHandler,
-									csp::common::CancellationToken& CancellationToken) const
+void PointOfInterestApi::poi_liteGet([[maybe_unused]] const poi_liteGetParams& Params,
+									 csp::services::ApiResponseHandlerBase* ResponseHandler,
+									 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/poi-lite").c_str(), {});
 
 
-	if (ppoiUserId.has_value())
+	if (Params.ppoiUserId.has_value())
 	{
-		Uri.AddQueryParams("ppoiUserId", ppoiUserId.value());
+		Uri.AddQueryParams("ppoiUserId", Params.ppoiUserId.value());
 	}
 
 
-	if (Ids.has_value())
+	if (Params.Ids.has_value())
 	{
-		Uri.AddQueryParams("Ids", Ids.value());
+		Uri.AddQueryParams("Ids", Params.Ids.value());
 	}
 
 
-	if (Type.has_value())
+	if (Params.Type.has_value())
 	{
-		Uri.AddQueryParams("Type", Type.value());
+		Uri.AddQueryParams("Type", Params.Type.value());
 	}
 
 
-	if (Types.has_value())
+	if (Params.Types.has_value())
 	{
-		Uri.AddQueryParams("Types", Types.value());
+		Uri.AddQueryParams("Types", Params.Types.value());
 	}
 
 
-	if (Tags.has_value())
+	if (Params.Tags.has_value())
 	{
-		Uri.AddQueryParams("Tags", Tags.value());
+		Uri.AddQueryParams("Tags", Params.Tags.value());
 	}
 
 
-	if (TagsAll.has_value())
+	if (Params.TagsAll.has_value())
 	{
-		Uri.AddQueryParams("TagsAll", TagsAll.value());
+		Uri.AddQueryParams("TagsAll", Params.TagsAll.value());
 	}
 
 
-	if (Coordinate_Longitude.has_value())
+	if (Params.Coordinate_Longitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
+		Uri.AddQueryParams("Coordinate.Longitude", Params.Coordinate_Longitude.value());
 	}
 
 
-	if (Coordinate_Latitude.has_value())
+	if (Params.Coordinate_Latitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
+		Uri.AddQueryParams("Coordinate.Latitude", Params.Coordinate_Latitude.value());
 	}
 
 
-	if (Coordinate_Radius.has_value())
+	if (Params.Coordinate_Radius.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
+		Uri.AddQueryParams("Coordinate.Radius", Params.Coordinate_Radius.value());
 	}
 
 
-	if (Geofence.has_value())
+	if (Params.Geofence.has_value())
 	{
-		Uri.AddQueryParams("Geofence", Geofence.value());
+		Uri.AddQueryParams("Geofence", Params.Geofence.value());
 	}
 
 
-	if (Name.has_value())
+	if (Params.Name.has_value())
 	{
-		Uri.AddQueryParams("Name", Name.value());
+		Uri.AddQueryParams("Name", Params.Name.value());
 	}
 
 
-	if (Names.has_value())
+	if (Params.Names.has_value())
 	{
-		Uri.AddQueryParams("Names", Names.value());
+		Uri.AddQueryParams("Names", Params.Names.value());
 	}
 
 
-	if (Title.has_value())
+	if (Params.Title.has_value())
 	{
-		Uri.AddQueryParams("Title", Title.value());
+		Uri.AddQueryParams("Title", Params.Title.value());
 	}
 
 
-	if (ZoomLevel.has_value())
+	if (Params.ZoomLevel.has_value())
 	{
-		Uri.AddQueryParams("ZoomLevel", ZoomLevel.value());
+		Uri.AddQueryParams("ZoomLevel", Params.ZoomLevel.value());
 	}
 
 
-	if (EventStartTime.has_value())
+	if (Params.EventStartTime.has_value())
 	{
-		Uri.AddQueryParams("EventStartTime", EventStartTime.value());
+		Uri.AddQueryParams("EventStartTime", Params.EventStartTime.value());
 	}
 
 
-	if (EventEndTime.has_value())
+	if (Params.EventEndTime.has_value())
 	{
-		Uri.AddQueryParams("EventEndTime", EventEndTime.value());
+		Uri.AddQueryParams("EventEndTime", Params.EventEndTime.value());
 	}
 
 
-	if (ReferenceLookups.has_value())
+	if (Params.ReferenceLookups.has_value())
 	{
-		Uri.AddQueryParams("ReferenceLookups", ReferenceLookups.value());
+		Uri.AddQueryParams("ReferenceLookups", Params.ReferenceLookups.value());
 	}
 
 
-	if (IncludeHidden.has_value())
+	if (Params.IncludeHidden.has_value())
 	{
-		Uri.AddQueryParams("IncludeHidden", IncludeHidden.value());
+		Uri.AddQueryParams("IncludeHidden", Params.IncludeHidden.value());
 	}
 
 
-	if (MediaTypes.has_value())
+	if (Params.MediaTypes.has_value())
 	{
-		Uri.AddQueryParams("MediaTypes", MediaTypes.value());
+		Uri.AddQueryParams("MediaTypes", Params.MediaTypes.value());
 	}
 
 
-	if (HasSchedule.has_value())
+	if (Params.HasSchedule.has_value())
 	{
-		Uri.AddQueryParams("HasSchedule", HasSchedule.value());
+		Uri.AddQueryParams("HasSchedule", Params.HasSchedule.value());
 	}
 
 
-	if (PrototypeNames.has_value())
+	if (Params.PrototypeNames.has_value())
 	{
-		Uri.AddQueryParams("PrototypeNames", PrototypeNames.value());
+		Uri.AddQueryParams("PrototypeNames", Params.PrototypeNames.value());
 	}
 
 
-	if (PrototypeIds.has_value())
+	if (Params.PrototypeIds.has_value())
 	{
-		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
+		Uri.AddQueryParams("PrototypeIds", Params.PrototypeIds.value());
 	}
 
 
-	if (GroupIds.has_value())
+	if (Params.GroupIds.has_value())
 	{
-		Uri.AddQueryParams("GroupIds", GroupIds.value());
+		Uri.AddQueryParams("GroupIds", Params.GroupIds.value());
 	}
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -811,185 +775,161 @@ void PointOfInterestApi::poiLiteGet(const std::optional<utility::string_t>& ppoi
 
 
 
-void PointOfInterestApi::poiIdGet(const std::optional<utility::string_t>& ppoiUserId,
-								  const std::optional<std::vector<utility::string_t>>& Ids,
-								  const std::optional<utility::string_t>& Type,
-								  const std::optional<std::vector<utility::string_t>>& Types,
-								  const std::optional<std::vector<utility::string_t>>& Tags,
-								  const std::optional<bool>& TagsAll,
-								  const std::optional<double>& Coordinate_Longitude,
-								  const std::optional<double>& Coordinate_Latitude,
-								  const std::optional<double>& Coordinate_Radius,
-								  const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
-								  const std::optional<utility::string_t>& Name,
-								  const std::optional<std::vector<utility::string_t>>& Names,
-								  const std::optional<utility::string_t>& Title,
-								  const std::optional<int32_t>& ZoomLevel,
-								  const std::optional<utility::string_t>& EventStartTime,
-								  const std::optional<utility::string_t>& EventEndTime,
-								  const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
-								  const std::optional<bool>& IncludeHidden,
-								  const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
-								  const std::optional<bool>& HasSchedule,
-								  const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-								  const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-								  const std::optional<std::vector<utility::string_t>>& GroupIds,
-								  const std::optional<int32_t>& Skip,
-								  const std::optional<int32_t>& Limit,
-								  csp::services::ApiResponseHandlerBase* ResponseHandler,
-								  csp::common::CancellationToken& CancellationToken) const
+void PointOfInterestApi::poi_idGet([[maybe_unused]] const poi_idGetParams& Params,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/poi-id").c_str(), {});
 
 
-	if (ppoiUserId.has_value())
+	if (Params.ppoiUserId.has_value())
 	{
-		Uri.AddQueryParams("ppoiUserId", ppoiUserId.value());
+		Uri.AddQueryParams("ppoiUserId", Params.ppoiUserId.value());
 	}
 
 
-	if (Ids.has_value())
+	if (Params.Ids.has_value())
 	{
-		Uri.AddQueryParams("Ids", Ids.value());
+		Uri.AddQueryParams("Ids", Params.Ids.value());
 	}
 
 
-	if (Type.has_value())
+	if (Params.Type.has_value())
 	{
-		Uri.AddQueryParams("Type", Type.value());
+		Uri.AddQueryParams("Type", Params.Type.value());
 	}
 
 
-	if (Types.has_value())
+	if (Params.Types.has_value())
 	{
-		Uri.AddQueryParams("Types", Types.value());
+		Uri.AddQueryParams("Types", Params.Types.value());
 	}
 
 
-	if (Tags.has_value())
+	if (Params.Tags.has_value())
 	{
-		Uri.AddQueryParams("Tags", Tags.value());
+		Uri.AddQueryParams("Tags", Params.Tags.value());
 	}
 
 
-	if (TagsAll.has_value())
+	if (Params.TagsAll.has_value())
 	{
-		Uri.AddQueryParams("TagsAll", TagsAll.value());
+		Uri.AddQueryParams("TagsAll", Params.TagsAll.value());
 	}
 
 
-	if (Coordinate_Longitude.has_value())
+	if (Params.Coordinate_Longitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
+		Uri.AddQueryParams("Coordinate.Longitude", Params.Coordinate_Longitude.value());
 	}
 
 
-	if (Coordinate_Latitude.has_value())
+	if (Params.Coordinate_Latitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
+		Uri.AddQueryParams("Coordinate.Latitude", Params.Coordinate_Latitude.value());
 	}
 
 
-	if (Coordinate_Radius.has_value())
+	if (Params.Coordinate_Radius.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
+		Uri.AddQueryParams("Coordinate.Radius", Params.Coordinate_Radius.value());
 	}
 
 
-	if (Geofence.has_value())
+	if (Params.Geofence.has_value())
 	{
-		Uri.AddQueryParams("Geofence", Geofence.value());
+		Uri.AddQueryParams("Geofence", Params.Geofence.value());
 	}
 
 
-	if (Name.has_value())
+	if (Params.Name.has_value())
 	{
-		Uri.AddQueryParams("Name", Name.value());
+		Uri.AddQueryParams("Name", Params.Name.value());
 	}
 
 
-	if (Names.has_value())
+	if (Params.Names.has_value())
 	{
-		Uri.AddQueryParams("Names", Names.value());
+		Uri.AddQueryParams("Names", Params.Names.value());
 	}
 
 
-	if (Title.has_value())
+	if (Params.Title.has_value())
 	{
-		Uri.AddQueryParams("Title", Title.value());
+		Uri.AddQueryParams("Title", Params.Title.value());
 	}
 
 
-	if (ZoomLevel.has_value())
+	if (Params.ZoomLevel.has_value())
 	{
-		Uri.AddQueryParams("ZoomLevel", ZoomLevel.value());
+		Uri.AddQueryParams("ZoomLevel", Params.ZoomLevel.value());
 	}
 
 
-	if (EventStartTime.has_value())
+	if (Params.EventStartTime.has_value())
 	{
-		Uri.AddQueryParams("EventStartTime", EventStartTime.value());
+		Uri.AddQueryParams("EventStartTime", Params.EventStartTime.value());
 	}
 
 
-	if (EventEndTime.has_value())
+	if (Params.EventEndTime.has_value())
 	{
-		Uri.AddQueryParams("EventEndTime", EventEndTime.value());
+		Uri.AddQueryParams("EventEndTime", Params.EventEndTime.value());
 	}
 
 
-	if (ReferenceLookups.has_value())
+	if (Params.ReferenceLookups.has_value())
 	{
-		Uri.AddQueryParams("ReferenceLookups", ReferenceLookups.value());
+		Uri.AddQueryParams("ReferenceLookups", Params.ReferenceLookups.value());
 	}
 
 
-	if (IncludeHidden.has_value())
+	if (Params.IncludeHidden.has_value())
 	{
-		Uri.AddQueryParams("IncludeHidden", IncludeHidden.value());
+		Uri.AddQueryParams("IncludeHidden", Params.IncludeHidden.value());
 	}
 
 
-	if (MediaTypes.has_value())
+	if (Params.MediaTypes.has_value())
 	{
-		Uri.AddQueryParams("MediaTypes", MediaTypes.value());
+		Uri.AddQueryParams("MediaTypes", Params.MediaTypes.value());
 	}
 
 
-	if (HasSchedule.has_value())
+	if (Params.HasSchedule.has_value())
 	{
-		Uri.AddQueryParams("HasSchedule", HasSchedule.value());
+		Uri.AddQueryParams("HasSchedule", Params.HasSchedule.value());
 	}
 
 
-	if (PrototypeNames.has_value())
+	if (Params.PrototypeNames.has_value())
 	{
-		Uri.AddQueryParams("PrototypeNames", PrototypeNames.value());
+		Uri.AddQueryParams("PrototypeNames", Params.PrototypeNames.value());
 	}
 
 
-	if (PrototypeIds.has_value())
+	if (Params.PrototypeIds.has_value())
 	{
-		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
+		Uri.AddQueryParams("PrototypeIds", Params.PrototypeIds.value());
 	}
 
 
-	if (GroupIds.has_value())
+	if (Params.GroupIds.has_value())
 	{
-		Uri.AddQueryParams("GroupIds", GroupIds.value());
+		Uri.AddQueryParams("GroupIds", Params.GroupIds.value());
 	}
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1001,31 +941,7 @@ void PointOfInterestApi::poiIdGet(const std::optional<utility::string_t>& ppoiUs
 
 
 
-void PointOfInterestApi::poiGet(const std::optional<utility::string_t>& ppoiUserId,
-								const std::optional<std::vector<utility::string_t>>& Ids,
-								const std::optional<utility::string_t>& Type,
-								const std::optional<std::vector<utility::string_t>>& Types,
-								const std::optional<std::vector<utility::string_t>>& Tags,
-								const std::optional<bool>& TagsAll,
-								const std::optional<double>& Coordinate_Longitude,
-								const std::optional<double>& Coordinate_Latitude,
-								const std::optional<double>& Coordinate_Radius,
-								const std::optional<std::vector<std::shared_ptr<GeoCoord>>>& Geofence,
-								const std::optional<utility::string_t>& Name,
-								const std::optional<std::vector<utility::string_t>>& Names,
-								const std::optional<utility::string_t>& Title,
-								const std::optional<int32_t>& ZoomLevel,
-								const std::optional<utility::string_t>& EventStartTime,
-								const std::optional<utility::string_t>& EventEndTime,
-								const std::optional<std::vector<utility::string_t>>& ReferenceLookups,
-								const std::optional<bool>& IncludeHidden,
-								const std::optional<std::vector<std::shared_ptr<MediaType>>>& MediaTypes,
-								const std::optional<bool>& HasSchedule,
-								const std::optional<std::vector<utility::string_t>>& PrototypeNames,
-								const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-								const std::optional<std::vector<utility::string_t>>& GroupIds,
-								const std::optional<int32_t>& Skip,
-								const std::optional<int32_t>& Limit,
+void PointOfInterestApi::poiGet([[maybe_unused]] const poiGetParams& Params,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
 								csp::common::CancellationToken& CancellationToken) const
 {
@@ -1033,153 +949,153 @@ void PointOfInterestApi::poiGet(const std::optional<utility::string_t>& ppoiUser
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/poi").c_str(), {});
 
 
-	if (ppoiUserId.has_value())
+	if (Params.ppoiUserId.has_value())
 	{
-		Uri.AddQueryParams("ppoiUserId", ppoiUserId.value());
+		Uri.AddQueryParams("ppoiUserId", Params.ppoiUserId.value());
 	}
 
 
-	if (Ids.has_value())
+	if (Params.Ids.has_value())
 	{
-		Uri.AddQueryParams("Ids", Ids.value());
+		Uri.AddQueryParams("Ids", Params.Ids.value());
 	}
 
 
-	if (Type.has_value())
+	if (Params.Type.has_value())
 	{
-		Uri.AddQueryParams("Type", Type.value());
+		Uri.AddQueryParams("Type", Params.Type.value());
 	}
 
 
-	if (Types.has_value())
+	if (Params.Types.has_value())
 	{
-		Uri.AddQueryParams("Types", Types.value());
+		Uri.AddQueryParams("Types", Params.Types.value());
 	}
 
 
-	if (Tags.has_value())
+	if (Params.Tags.has_value())
 	{
-		Uri.AddQueryParams("Tags", Tags.value());
+		Uri.AddQueryParams("Tags", Params.Tags.value());
 	}
 
 
-	if (TagsAll.has_value())
+	if (Params.TagsAll.has_value())
 	{
-		Uri.AddQueryParams("TagsAll", TagsAll.value());
+		Uri.AddQueryParams("TagsAll", Params.TagsAll.value());
 	}
 
 
-	if (Coordinate_Longitude.has_value())
+	if (Params.Coordinate_Longitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
+		Uri.AddQueryParams("Coordinate.Longitude", Params.Coordinate_Longitude.value());
 	}
 
 
-	if (Coordinate_Latitude.has_value())
+	if (Params.Coordinate_Latitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
+		Uri.AddQueryParams("Coordinate.Latitude", Params.Coordinate_Latitude.value());
 	}
 
 
-	if (Coordinate_Radius.has_value())
+	if (Params.Coordinate_Radius.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
+		Uri.AddQueryParams("Coordinate.Radius", Params.Coordinate_Radius.value());
 	}
 
 
-	if (Geofence.has_value())
+	if (Params.Geofence.has_value())
 	{
-		Uri.AddQueryParams("Geofence", Geofence.value());
+		Uri.AddQueryParams("Geofence", Params.Geofence.value());
 	}
 
 
-	if (Name.has_value())
+	if (Params.Name.has_value())
 	{
-		Uri.AddQueryParams("Name", Name.value());
+		Uri.AddQueryParams("Name", Params.Name.value());
 	}
 
 
-	if (Names.has_value())
+	if (Params.Names.has_value())
 	{
-		Uri.AddQueryParams("Names", Names.value());
+		Uri.AddQueryParams("Names", Params.Names.value());
 	}
 
 
-	if (Title.has_value())
+	if (Params.Title.has_value())
 	{
-		Uri.AddQueryParams("Title", Title.value());
+		Uri.AddQueryParams("Title", Params.Title.value());
 	}
 
 
-	if (ZoomLevel.has_value())
+	if (Params.ZoomLevel.has_value())
 	{
-		Uri.AddQueryParams("ZoomLevel", ZoomLevel.value());
+		Uri.AddQueryParams("ZoomLevel", Params.ZoomLevel.value());
 	}
 
 
-	if (EventStartTime.has_value())
+	if (Params.EventStartTime.has_value())
 	{
-		Uri.AddQueryParams("EventStartTime", EventStartTime.value());
+		Uri.AddQueryParams("EventStartTime", Params.EventStartTime.value());
 	}
 
 
-	if (EventEndTime.has_value())
+	if (Params.EventEndTime.has_value())
 	{
-		Uri.AddQueryParams("EventEndTime", EventEndTime.value());
+		Uri.AddQueryParams("EventEndTime", Params.EventEndTime.value());
 	}
 
 
-	if (ReferenceLookups.has_value())
+	if (Params.ReferenceLookups.has_value())
 	{
-		Uri.AddQueryParams("ReferenceLookups", ReferenceLookups.value());
+		Uri.AddQueryParams("ReferenceLookups", Params.ReferenceLookups.value());
 	}
 
 
-	if (IncludeHidden.has_value())
+	if (Params.IncludeHidden.has_value())
 	{
-		Uri.AddQueryParams("IncludeHidden", IncludeHidden.value());
+		Uri.AddQueryParams("IncludeHidden", Params.IncludeHidden.value());
 	}
 
 
-	if (MediaTypes.has_value())
+	if (Params.MediaTypes.has_value())
 	{
-		Uri.AddQueryParams("MediaTypes", MediaTypes.value());
+		Uri.AddQueryParams("MediaTypes", Params.MediaTypes.value());
 	}
 
 
-	if (HasSchedule.has_value())
+	if (Params.HasSchedule.has_value())
 	{
-		Uri.AddQueryParams("HasSchedule", HasSchedule.value());
+		Uri.AddQueryParams("HasSchedule", Params.HasSchedule.value());
 	}
 
 
-	if (PrototypeNames.has_value())
+	if (Params.PrototypeNames.has_value())
 	{
-		Uri.AddQueryParams("PrototypeNames", PrototypeNames.value());
+		Uri.AddQueryParams("PrototypeNames", Params.PrototypeNames.value());
 	}
 
 
-	if (PrototypeIds.has_value())
+	if (Params.PrototypeIds.has_value())
 	{
-		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
+		Uri.AddQueryParams("PrototypeIds", Params.PrototypeIds.value());
 	}
 
 
-	if (GroupIds.has_value())
+	if (Params.GroupIds.has_value())
 	{
-		Uri.AddQueryParams("GroupIds", GroupIds.value());
+		Uri.AddQueryParams("GroupIds", Params.GroupIds.value());
 	}
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1190,7 +1106,7 @@ void PointOfInterestApi::poiGet(const std::optional<utility::string_t>& ppoiUser
 }
 
 
-void PointOfInterestApi::poiPost(const std::shared_ptr<PointOfInterestDto>& RequestBody,
+void PointOfInterestApi::poiPost([[maybe_unused]] const poiPostParams& Params,
 								 csp::services::ApiResponseHandlerBase* ResponseHandler,
 								 csp::common::CancellationToken& CancellationToken) const
 {
@@ -1199,14 +1115,14 @@ void PointOfInterestApi::poiPost(const std::shared_ptr<PointOfInterestDto>& Requ
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void PointOfInterestApi::poiPut(const std::shared_ptr<PointOfInterestDto>& RequestBody,
+void PointOfInterestApi::poiPut([[maybe_unused]] const poiPutParams& Params,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
 								csp::common::CancellationToken& CancellationToken) const
 {
@@ -1215,14 +1131,14 @@ void PointOfInterestApi::poiPut(const std::shared_ptr<PointOfInterestDto>& Reque
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void PointOfInterestApi::poiDelete(const std::optional<std::vector<utility::string_t>>& ids,
+void PointOfInterestApi::poiDelete([[maybe_unused]] const poiDeleteParams& Params,
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
 								   csp::common::CancellationToken& CancellationToken) const
 {
@@ -1230,9 +1146,9 @@ void PointOfInterestApi::poiDelete(const std::optional<std::vector<utility::stri
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/poi").c_str(), {});
 
 
-	if (ids.has_value())
+	if (Params.ids.has_value())
 	{
-		Uri.AddQueryParams("ids", ids.value());
+		Uri.AddQueryParams("ids", Params.ids.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1244,7 +1160,7 @@ void PointOfInterestApi::poiDelete(const std::optional<std::vector<utility::stri
 
 
 
-void PointOfInterestApi::poiBulkPut(const std::vector<std::shared_ptr<BulkUpsertPointOfInterestDto>>& RequestBody,
+void PointOfInterestApi::poiBulkPut([[maybe_unused]] const poiBulkPutParams& Params,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
 									csp::common::CancellationToken& CancellationToken) const
 {
@@ -1253,7 +1169,7 @@ void PointOfInterestApi::poiBulkPut(const std::vector<std::shared_ptr<BulkUpsert
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
@@ -1261,19 +1177,18 @@ void PointOfInterestApi::poiBulkPut(const std::vector<std::shared_ptr<BulkUpsert
 
 
 
-void PointOfInterestApi::poiIdPartialUpdatePut(const utility::string_t& id,
-											   const std::shared_ptr<PoiPartialUpdate>& RequestBody,
-											   csp::services::ApiResponseHandlerBase* ResponseHandler,
-											   csp::common::CancellationToken& CancellationToken) const
+void PointOfInterestApi::poiIdPartial_updatePut([[maybe_unused]] const poiIdPartial_updatePutParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/poi/{id}/partial-update").c_str(),
-		{id});
+		{Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
@@ -1281,7 +1196,7 @@ void PointOfInterestApi::poiIdPartialUpdatePut(const utility::string_t& id,
 
 
 
-void PointOfInterestApi::poiTagsGet(const std::optional<utility::string_t>& tagNameWith,
+void PointOfInterestApi::poiTagsGet([[maybe_unused]] const poiTagsGetParams& Params,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
 									csp::common::CancellationToken& CancellationToken) const
 {
@@ -1289,9 +1204,9 @@ void PointOfInterestApi::poiTagsGet(const std::optional<utility::string_t>& tagN
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/poi/tags").c_str(), {});
 
 
-	if (tagNameWith.has_value())
+	if (Params.tagNameWith.has_value())
 	{
-		Uri.AddQueryParams("tagNameWith", tagNameWith.value());
+		Uri.AddQueryParams("tagNameWith", Params.tagNameWith.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1303,7 +1218,7 @@ void PointOfInterestApi::poiTagsGet(const std::optional<utility::string_t>& tagN
 
 
 
-PositionApi::PositionApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+PositionApi::PositionApi(csp::web::WebClient* InWebClient) : IPositionApiBase(InWebClient)
 {
 }
 
@@ -1313,90 +1228,79 @@ PositionApi::~PositionApi()
 
 
 
-void PositionApi::usersUserIdPositionsGet(const utility::string_t& userId,
-										  const std::optional<std::vector<utility::string_t>>& UserIds,
-										  const std::optional<std::vector<utility::string_t>>& DeviceIds,
-										  const std::optional<std::vector<utility::string_t>>& PositionIds,
-										  const std::optional<utility::string_t>& StartTimestamp,
-										  const std::optional<utility::string_t>& EndTimestamp,
-										  const std::optional<double>& Coordinate_Longitude,
-										  const std::optional<double>& Coordinate_Latitude,
-										  const std::optional<double>& Coordinate_Radius,
-										  const std::optional<bool>& FindUsersOutsideGeoSphere,
-										  const std::optional<int32_t>& Skip,
-										  const std::optional<int32_t>& Limit,
+void PositionApi::usersUserIdPositionsGet([[maybe_unused]] const usersUserIdPositionsGetParams& Params,
 										  csp::services::ApiResponseHandlerBase* ResponseHandler,
 										  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/positions").c_str(),
-		{userId});
+		{Params.userId});
 
 
-	if (UserIds.has_value())
+	if (Params.UserIds.has_value())
 	{
-		Uri.AddQueryParams("UserIds", UserIds.value());
+		Uri.AddQueryParams("UserIds", Params.UserIds.value());
 	}
 
 
-	if (DeviceIds.has_value())
+	if (Params.DeviceIds.has_value())
 	{
-		Uri.AddQueryParams("DeviceIds", DeviceIds.value());
+		Uri.AddQueryParams("DeviceIds", Params.DeviceIds.value());
 	}
 
 
-	if (PositionIds.has_value())
+	if (Params.PositionIds.has_value())
 	{
-		Uri.AddQueryParams("PositionIds", PositionIds.value());
+		Uri.AddQueryParams("PositionIds", Params.PositionIds.value());
 	}
 
 
-	if (StartTimestamp.has_value())
+	if (Params.StartTimestamp.has_value())
 	{
-		Uri.AddQueryParams("StartTimestamp", StartTimestamp.value());
+		Uri.AddQueryParams("StartTimestamp", Params.StartTimestamp.value());
 	}
 
 
-	if (EndTimestamp.has_value())
+	if (Params.EndTimestamp.has_value())
 	{
-		Uri.AddQueryParams("EndTimestamp", EndTimestamp.value());
+		Uri.AddQueryParams("EndTimestamp", Params.EndTimestamp.value());
 	}
 
 
-	if (Coordinate_Longitude.has_value())
+	if (Params.Coordinate_Longitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
+		Uri.AddQueryParams("Coordinate.Longitude", Params.Coordinate_Longitude.value());
 	}
 
 
-	if (Coordinate_Latitude.has_value())
+	if (Params.Coordinate_Latitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
+		Uri.AddQueryParams("Coordinate.Latitude", Params.Coordinate_Latitude.value());
 	}
 
 
-	if (Coordinate_Radius.has_value())
+	if (Params.Coordinate_Radius.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
+		Uri.AddQueryParams("Coordinate.Radius", Params.Coordinate_Radius.value());
 	}
 
 
-	if (FindUsersOutsideGeoSphere.has_value())
+	if (Params.FindUsersOutsideGeoSphere.has_value())
 	{
-		Uri.AddQueryParams("FindUsersOutsideGeoSphere", FindUsersOutsideGeoSphere.value());
+		Uri.AddQueryParams("FindUsersOutsideGeoSphere", Params.FindUsersOutsideGeoSphere.value());
 	}
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1407,19 +1311,18 @@ void PositionApi::usersUserIdPositionsGet(const utility::string_t& userId,
 }
 
 
-void PositionApi::usersUserIdPositionsPost(const utility::string_t& userId,
-										   const std::shared_ptr<PositionDto>& RequestBody,
+void PositionApi::usersUserIdPositionsPost([[maybe_unused]] const usersUserIdPositionsPostParams& Params,
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/positions").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -1427,17 +1330,7 @@ void PositionApi::usersUserIdPositionsPost(const utility::string_t& userId,
 
 
 
-void PositionApi::usersPositionsLatestGet(const std::optional<std::vector<utility::string_t>>& UserIds,
-										  const std::optional<std::vector<utility::string_t>>& DeviceIds,
-										  const std::optional<std::vector<utility::string_t>>& PositionIds,
-										  const std::optional<utility::string_t>& StartTimestamp,
-										  const std::optional<utility::string_t>& EndTimestamp,
-										  const std::optional<double>& Coordinate_Longitude,
-										  const std::optional<double>& Coordinate_Latitude,
-										  const std::optional<double>& Coordinate_Radius,
-										  const std::optional<bool>& FindUsersOutsideGeoSphere,
-										  const std::optional<int32_t>& Skip,
-										  const std::optional<int32_t>& Limit,
+void PositionApi::usersPositionsLatestGet([[maybe_unused]] const usersPositionsLatestGetParams& Params,
 										  csp::services::ApiResponseHandlerBase* ResponseHandler,
 										  csp::common::CancellationToken& CancellationToken) const
 {
@@ -1447,69 +1340,69 @@ void PositionApi::usersPositionsLatestGet(const std::optional<std::vector<utilit
 		{});
 
 
-	if (UserIds.has_value())
+	if (Params.UserIds.has_value())
 	{
-		Uri.AddQueryParams("UserIds", UserIds.value());
+		Uri.AddQueryParams("UserIds", Params.UserIds.value());
 	}
 
 
-	if (DeviceIds.has_value())
+	if (Params.DeviceIds.has_value())
 	{
-		Uri.AddQueryParams("DeviceIds", DeviceIds.value());
+		Uri.AddQueryParams("DeviceIds", Params.DeviceIds.value());
 	}
 
 
-	if (PositionIds.has_value())
+	if (Params.PositionIds.has_value())
 	{
-		Uri.AddQueryParams("PositionIds", PositionIds.value());
+		Uri.AddQueryParams("PositionIds", Params.PositionIds.value());
 	}
 
 
-	if (StartTimestamp.has_value())
+	if (Params.StartTimestamp.has_value())
 	{
-		Uri.AddQueryParams("StartTimestamp", StartTimestamp.value());
+		Uri.AddQueryParams("StartTimestamp", Params.StartTimestamp.value());
 	}
 
 
-	if (EndTimestamp.has_value())
+	if (Params.EndTimestamp.has_value())
 	{
-		Uri.AddQueryParams("EndTimestamp", EndTimestamp.value());
+		Uri.AddQueryParams("EndTimestamp", Params.EndTimestamp.value());
 	}
 
 
-	if (Coordinate_Longitude.has_value())
+	if (Params.Coordinate_Longitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
+		Uri.AddQueryParams("Coordinate.Longitude", Params.Coordinate_Longitude.value());
 	}
 
 
-	if (Coordinate_Latitude.has_value())
+	if (Params.Coordinate_Latitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
+		Uri.AddQueryParams("Coordinate.Latitude", Params.Coordinate_Latitude.value());
 	}
 
 
-	if (Coordinate_Radius.has_value())
+	if (Params.Coordinate_Radius.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
+		Uri.AddQueryParams("Coordinate.Radius", Params.Coordinate_Radius.value());
 	}
 
 
-	if (FindUsersOutsideGeoSphere.has_value())
+	if (Params.FindUsersOutsideGeoSphere.has_value())
 	{
-		Uri.AddQueryParams("FindUsersOutsideGeoSphere", FindUsersOutsideGeoSphere.value());
+		Uri.AddQueryParams("FindUsersOutsideGeoSphere", Params.FindUsersOutsideGeoSphere.value());
 	}
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1521,7 +1414,7 @@ void PositionApi::usersPositionsLatestGet(const std::optional<std::vector<utilit
 
 
 
-void PositionApi::usersUserIdPositionsLatestGet(const utility::string_t& userId,
+void PositionApi::usersUserIdPositionsLatestGet([[maybe_unused]] const usersUserIdPositionsLatestGetParams& Params,
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken) const
 {
@@ -1529,7 +1422,7 @@ void PositionApi::usersUserIdPositionsLatestGet(const utility::string_t& userId,
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/positions/latest")
 			.c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1540,8 +1433,7 @@ void PositionApi::usersUserIdPositionsLatestGet(const utility::string_t& userId,
 
 
 
-void PositionApi::usersUserIdPositionsPositionIdGet(const utility::string_t& userId,
-													const utility::string_t& positionId,
+void PositionApi::usersUserIdPositionsPositionIdGet([[maybe_unused]] const usersUserIdPositionsPositionIdGetParams& Params,
 													csp::services::ApiResponseHandlerBase* ResponseHandler,
 													csp::common::CancellationToken& CancellationToken) const
 {
@@ -1549,7 +1441,7 @@ void PositionApi::usersUserIdPositionsPositionIdGet(const utility::string_t& use
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/positions/{positionId}")
 			.c_str(),
-		{userId, positionId});
+		{Params.userId, Params.positionId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1559,8 +1451,7 @@ void PositionApi::usersUserIdPositionsPositionIdGet(const utility::string_t& use
 }
 
 
-void PositionApi::usersUserIdPositionsPositionIdDelete(const utility::string_t& userId,
-													   const utility::string_t& positionId,
+void PositionApi::usersUserIdPositionsPositionIdDelete([[maybe_unused]] const usersUserIdPositionsPositionIdDeleteParams& Params,
 													   csp::services::ApiResponseHandlerBase* ResponseHandler,
 													   csp::common::CancellationToken& CancellationToken) const
 {
@@ -1568,7 +1459,7 @@ void PositionApi::usersUserIdPositionsPositionIdDelete(const utility::string_t& 
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/positions/{positionId}")
 			.c_str(),
-		{userId, positionId});
+		{Params.userId, Params.positionId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1579,8 +1470,7 @@ void PositionApi::usersUserIdPositionsPositionIdDelete(const utility::string_t& 
 
 
 
-void PositionApi::groupsGroupIdPositionsLatestGet(const utility::string_t& groupId,
-												  const std::optional<std::vector<utility::string_t>>& UserIds,
+void PositionApi::groupsGroupIdPositionsLatestGet([[maybe_unused]] const groupsGroupIdPositionsLatestGetParams& Params,
 												  csp::services::ApiResponseHandlerBase* ResponseHandler,
 												  csp::common::CancellationToken& CancellationToken) const
 {
@@ -1588,12 +1478,12 @@ void PositionApi::groupsGroupIdPositionsLatestGet(const utility::string_t& group
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/groups/{groupId}/positions/latest")
 			.c_str(),
-		{groupId});
+		{Params.groupId});
 
 
-	if (UserIds.has_value())
+	if (Params.UserIds.has_value())
 	{
-		Uri.AddQueryParams("UserIds", UserIds.value());
+		Uri.AddQueryParams("UserIds", Params.UserIds.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1605,8 +1495,7 @@ void PositionApi::groupsGroupIdPositionsLatestGet(const utility::string_t& group
 
 
 
-void PositionApi::groupsPositionsLatestGet(const std::optional<std::vector<utility::string_t>>& groupIds,
-										   const std::optional<std::vector<utility::string_t>>& UserIds,
+void PositionApi::groupsPositionsLatestGet([[maybe_unused]] const groupsPositionsLatestGetParams& Params,
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken) const
 {
@@ -1616,15 +1505,15 @@ void PositionApi::groupsPositionsLatestGet(const std::optional<std::vector<utili
 		{});
 
 
-	if (groupIds.has_value())
+	if (Params.groupIds.has_value())
 	{
-		Uri.AddQueryParams("groupIds", groupIds.value());
+		Uri.AddQueryParams("groupIds", Params.groupIds.value());
 	}
 
 
-	if (UserIds.has_value())
+	if (Params.UserIds.has_value())
 	{
-		Uri.AddQueryParams("UserIds", UserIds.value());
+		Uri.AddQueryParams("UserIds", Params.UserIds.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1636,17 +1525,7 @@ void PositionApi::groupsPositionsLatestGet(const std::optional<std::vector<utili
 
 
 
-void PositionApi::usersPositionsGet(const std::optional<std::vector<utility::string_t>>& userIds,
-									const std::optional<std::vector<utility::string_t>>& UserIds,
-									const std::optional<std::vector<utility::string_t>>& DeviceIds,
-									const std::optional<std::vector<utility::string_t>>& PositionIds,
-									const std::optional<utility::string_t>& StartTimestamp,
-									const std::optional<utility::string_t>& EndTimestamp,
-									const std::optional<double>& Coordinate_Longitude,
-									const std::optional<double>& Coordinate_Latitude,
-									const std::optional<double>& Coordinate_Radius,
-									const std::optional<bool>& FindUsersOutsideGeoSphere,
-									const std::optional<bool>& onlyLatestPosition,
+void PositionApi::usersPositionsGet([[maybe_unused]] const usersPositionsGetParams& Params,
 									csp::services::ApiResponseHandlerBase* ResponseHandler,
 									csp::common::CancellationToken& CancellationToken) const
 {
@@ -1655,69 +1534,69 @@ void PositionApi::usersPositionsGet(const std::optional<std::vector<utility::str
 					  {});
 
 
-	if (userIds.has_value())
+	if (Params.userIds.has_value())
 	{
-		Uri.AddQueryParams("userIds", userIds.value());
+		Uri.AddQueryParams("userIds", Params.userIds.value());
 	}
 
 
-	if (UserIds.has_value())
+	if (Params.UserIds.has_value())
 	{
-		Uri.AddQueryParams("UserIds", UserIds.value());
+		Uri.AddQueryParams("UserIds", Params.UserIds.value());
 	}
 
 
-	if (DeviceIds.has_value())
+	if (Params.DeviceIds.has_value())
 	{
-		Uri.AddQueryParams("DeviceIds", DeviceIds.value());
+		Uri.AddQueryParams("DeviceIds", Params.DeviceIds.value());
 	}
 
 
-	if (PositionIds.has_value())
+	if (Params.PositionIds.has_value())
 	{
-		Uri.AddQueryParams("PositionIds", PositionIds.value());
+		Uri.AddQueryParams("PositionIds", Params.PositionIds.value());
 	}
 
 
-	if (StartTimestamp.has_value())
+	if (Params.StartTimestamp.has_value())
 	{
-		Uri.AddQueryParams("StartTimestamp", StartTimestamp.value());
+		Uri.AddQueryParams("StartTimestamp", Params.StartTimestamp.value());
 	}
 
 
-	if (EndTimestamp.has_value())
+	if (Params.EndTimestamp.has_value())
 	{
-		Uri.AddQueryParams("EndTimestamp", EndTimestamp.value());
+		Uri.AddQueryParams("EndTimestamp", Params.EndTimestamp.value());
 	}
 
 
-	if (Coordinate_Longitude.has_value())
+	if (Params.Coordinate_Longitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
+		Uri.AddQueryParams("Coordinate.Longitude", Params.Coordinate_Longitude.value());
 	}
 
 
-	if (Coordinate_Latitude.has_value())
+	if (Params.Coordinate_Latitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
+		Uri.AddQueryParams("Coordinate.Latitude", Params.Coordinate_Latitude.value());
 	}
 
 
-	if (Coordinate_Radius.has_value())
+	if (Params.Coordinate_Radius.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
+		Uri.AddQueryParams("Coordinate.Radius", Params.Coordinate_Radius.value());
 	}
 
 
-	if (FindUsersOutsideGeoSphere.has_value())
+	if (Params.FindUsersOutsideGeoSphere.has_value())
 	{
-		Uri.AddQueryParams("FindUsersOutsideGeoSphere", FindUsersOutsideGeoSphere.value());
+		Uri.AddQueryParams("FindUsersOutsideGeoSphere", Params.FindUsersOutsideGeoSphere.value());
 	}
 
 
-	if (onlyLatestPosition.has_value())
+	if (Params.onlyLatestPosition.has_value())
 	{
-		Uri.AddQueryParams("onlyLatestPosition", onlyLatestPosition.value());
+		Uri.AddQueryParams("onlyLatestPosition", Params.onlyLatestPosition.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1729,8 +1608,7 @@ void PositionApi::usersPositionsGet(const std::optional<std::vector<utility::str
 
 
 
-PositionSpoofingApi::PositionSpoofingApi(csp::web::WebClient* InWebClient)
-	: ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+PositionSpoofingApi::PositionSpoofingApi(csp::web::WebClient* InWebClient) : IPositionSpoofingApiBase(InWebClient)
 {
 }
 
@@ -1740,40 +1618,38 @@ PositionSpoofingApi::~PositionSpoofingApi()
 
 
 
-void PositionSpoofingApi::usersUserIdPositionsSpoofPost(const utility::string_t& userId,
-														const std::optional<utility::string_t>& duration,
-														const std::shared_ptr<PositionDto>& RequestBody,
+void PositionSpoofingApi::usersUserIdPositionsSpoofPost([[maybe_unused]] const usersUserIdPositionsSpoofPostParams& Params,
 														csp::services::ApiResponseHandlerBase* ResponseHandler,
 														csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/positions/spoof").c_str(),
-		{userId});
+		{Params.userId});
 
 
-	if (duration.has_value())
+	if (Params.duration.has_value())
 	{
-		Uri.AddQueryParams("duration", duration.value());
+		Uri.AddQueryParams("duration", Params.duration.value());
 	}
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
-void PositionSpoofingApi::usersUserIdPositionsSpoofGet(const utility::string_t& userId,
+void PositionSpoofingApi::usersUserIdPositionsSpoofGet([[maybe_unused]] const usersUserIdPositionsSpoofGetParams& Params,
 													   csp::services::ApiResponseHandlerBase* ResponseHandler,
 													   csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/positions/spoof").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1783,14 +1659,14 @@ void PositionSpoofingApi::usersUserIdPositionsSpoofGet(const utility::string_t& 
 }
 
 
-void PositionSpoofingApi::usersUserIdPositionsSpoofDelete(const utility::string_t& userId,
+void PositionSpoofingApi::usersUserIdPositionsSpoofDelete([[maybe_unused]] const usersUserIdPositionsSpoofDeleteParams& Params,
 														  csp::services::ApiResponseHandlerBase* ResponseHandler,
 														  csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/positions/spoof").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1801,7 +1677,8 @@ void PositionSpoofingApi::usersUserIdPositionsSpoofDelete(const utility::string_
 
 
 
-void PositionSpoofingApi::positionsSpoofUsersGet(csp::services::ApiResponseHandlerBase* ResponseHandler,
+void PositionSpoofingApi::positionsSpoofUsersGet([[maybe_unused]] const positionsSpoofUsersGetParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
 												 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
@@ -1818,7 +1695,7 @@ void PositionSpoofingApi::positionsSpoofUsersGet(csp::services::ApiResponseHandl
 
 
 
-SpaceTimeApi::SpaceTimeApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+SpaceTimeApi::SpaceTimeApi(csp::web::WebClient* InWebClient) : ISpaceTimeApiBase(InWebClient)
 {
 }
 
@@ -1828,15 +1705,14 @@ SpaceTimeApi::~SpaceTimeApi()
 
 
 
-void SpaceTimeApi::usersUserIdSpacetimeIdGet(const utility::string_t& userId,
-											 const utility::string_t& id,
+void SpaceTimeApi::usersUserIdSpacetimeIdGet([[maybe_unused]] const usersUserIdSpacetimeIdGetParams& Params,
 											 csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/spacetime/{id}").c_str(),
-		{userId, id});
+		{Params.userId, Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1846,15 +1722,14 @@ void SpaceTimeApi::usersUserIdSpacetimeIdGet(const utility::string_t& userId,
 }
 
 
-void SpaceTimeApi::usersUserIdSpacetimeIdDelete(const utility::string_t& userId,
-												const utility::string_t& id,
+void SpaceTimeApi::usersUserIdSpacetimeIdDelete([[maybe_unused]] const usersUserIdSpacetimeIdDeleteParams& Params,
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/spacetime/{id}").c_str(),
-		{userId, id});
+		{Params.userId, Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -1864,20 +1739,18 @@ void SpaceTimeApi::usersUserIdSpacetimeIdDelete(const utility::string_t& userId,
 }
 
 
-void SpaceTimeApi::usersUserIdSpacetimeIdPut(const utility::string_t& userId,
-											 const utility::string_t& id,
-											 const std::shared_ptr<SpaceTimeDto>& RequestBody,
+void SpaceTimeApi::usersUserIdSpacetimeIdPut([[maybe_unused]] const usersUserIdSpacetimeIdPutParams& Params,
 											 csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/spacetime/{id}").c_str(),
-		{userId, id});
+		{Params.userId, Params.id});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
@@ -1885,19 +1758,18 @@ void SpaceTimeApi::usersUserIdSpacetimeIdPut(const utility::string_t& userId,
 
 
 
-void SpaceTimeApi::usersUserIdSpacetimePost(const utility::string_t& userId,
-											const std::shared_ptr<SpaceTimeDto>& RequestBody,
+void SpaceTimeApi::usersUserIdSpacetimePost([[maybe_unused]] const usersUserIdSpacetimePostParams& Params,
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/spacetime").c_str(),
-		{userId});
+		{Params.userId});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-	Payload.AddContent(csp::web::TypeToJsonString(RequestBody));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
@@ -1905,17 +1777,7 @@ void SpaceTimeApi::usersUserIdSpacetimePost(const utility::string_t& userId,
 
 
 
-void SpaceTimeApi::spacetimeGet(const std::optional<std::vector<utility::string_t>>& UserIds,
-								const std::optional<utility::string_t>& StartTimestamp,
-								const std::optional<utility::string_t>& EndTimestamp,
-								const std::optional<std::vector<utility::string_t>>& GroupIds,
-								const std::optional<double>& Coordinate_Longitude,
-								const std::optional<double>& Coordinate_Latitude,
-								const std::optional<double>& Coordinate_Radius,
-								const std::optional<std::vector<utility::string_t>>& PoiIds,
-								const std::optional<std::vector<utility::string_t>>& PrototypeIds,
-								const std::optional<int32_t>& Skip,
-								const std::optional<int32_t>& Limit,
+void SpaceTimeApi::spacetimeGet([[maybe_unused]] const spacetimeGetParams& Params,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
 								csp::common::CancellationToken& CancellationToken) const
 {
@@ -1923,69 +1785,69 @@ void SpaceTimeApi::spacetimeGet(const std::optional<std::vector<utility::string_
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/spacetime").c_str(), {});
 
 
-	if (UserIds.has_value())
+	if (Params.UserIds.has_value())
 	{
-		Uri.AddQueryParams("UserIds", UserIds.value());
+		Uri.AddQueryParams("UserIds", Params.UserIds.value());
 	}
 
 
-	if (StartTimestamp.has_value())
+	if (Params.StartTimestamp.has_value())
 	{
-		Uri.AddQueryParams("StartTimestamp", StartTimestamp.value());
+		Uri.AddQueryParams("StartTimestamp", Params.StartTimestamp.value());
 	}
 
 
-	if (EndTimestamp.has_value())
+	if (Params.EndTimestamp.has_value())
 	{
-		Uri.AddQueryParams("EndTimestamp", EndTimestamp.value());
+		Uri.AddQueryParams("EndTimestamp", Params.EndTimestamp.value());
 	}
 
 
-	if (GroupIds.has_value())
+	if (Params.GroupIds.has_value())
 	{
-		Uri.AddQueryParams("GroupIds", GroupIds.value());
+		Uri.AddQueryParams("GroupIds", Params.GroupIds.value());
 	}
 
 
-	if (Coordinate_Longitude.has_value())
+	if (Params.Coordinate_Longitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Longitude", Coordinate_Longitude.value());
+		Uri.AddQueryParams("Coordinate.Longitude", Params.Coordinate_Longitude.value());
 	}
 
 
-	if (Coordinate_Latitude.has_value())
+	if (Params.Coordinate_Latitude.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Latitude", Coordinate_Latitude.value());
+		Uri.AddQueryParams("Coordinate.Latitude", Params.Coordinate_Latitude.value());
 	}
 
 
-	if (Coordinate_Radius.has_value())
+	if (Params.Coordinate_Radius.has_value())
 	{
-		Uri.AddQueryParams("Coordinate.Radius", Coordinate_Radius.value());
+		Uri.AddQueryParams("Coordinate.Radius", Params.Coordinate_Radius.value());
 	}
 
 
-	if (PoiIds.has_value())
+	if (Params.PoiIds.has_value())
 	{
-		Uri.AddQueryParams("PoiIds", PoiIds.value());
+		Uri.AddQueryParams("PoiIds", Params.PoiIds.value());
 	}
 
 
-	if (PrototypeIds.has_value())
+	if (Params.PrototypeIds.has_value())
 	{
-		Uri.AddQueryParams("PrototypeIds", PrototypeIds.value());
+		Uri.AddQueryParams("PrototypeIds", Params.PrototypeIds.value());
 	}
 
 
-	if (Skip.has_value())
+	if (Params.Skip.has_value())
 	{
-		Uri.AddQueryParams("Skip", Skip.value());
+		Uri.AddQueryParams("Skip", Params.Skip.value());
 	}
 
 
-	if (Limit.has_value())
+	if (Params.Limit.has_value())
 	{
-		Uri.AddQueryParams("Limit", Limit.value());
+		Uri.AddQueryParams("Limit", Params.Limit.value());
 	}
 
 	csp::web::HttpPayload Payload;
@@ -1997,7 +1859,7 @@ void SpaceTimeApi::spacetimeGet(const std::optional<std::vector<utility::string_
 
 
 
-VersionsApi::VersionsApi(csp::web::WebClient* InWebClient) : ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+VersionsApi::VersionsApi(csp::web::WebClient* InWebClient) : IVersionsApiBase(InWebClient)
 {
 }
 
@@ -2007,7 +1869,9 @@ VersionsApi::~VersionsApi()
 
 
 
-void VersionsApi::rsionsGet(csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken) const
+void VersionsApi::rsionsGet([[maybe_unused]] const rsionsGetParams& Params,
+							csp::services::ApiResponseHandlerBase* ResponseHandler,
+							csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
 	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "rsions").c_str(), {});
