@@ -59,6 +59,27 @@ public:
 				(const, override));
 };
 
+class CacheApiMock final : public ICacheApiBase
+{
+public:
+	CacheApiMock() : ICacheApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				cache_keysGet,
+				(const cache_keysGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				cache_keysDelete,
+				(const cache_keysDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
 class ClientConnectionApiMock final : public IClientConnectionApiBase
 {
 public:

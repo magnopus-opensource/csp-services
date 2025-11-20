@@ -486,6 +486,124 @@ void AnalyticsRecord::SetServiceName(const utility::string_t& Value)
 	m_ServiceName = Value;
 }
 
+ApiVersion::ApiVersion()
+{
+}
+ApiVersion::~ApiVersion()
+{
+}
+
+utility::string_t ApiVersion::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Version.has_value())
+	{
+		rapidjson::Value VersionValue(TypeToJsonValue(m_Version, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("version", VersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DeprecationDatetime.has_value())
+	{
+		rapidjson::Value DeprecationDatetimeValue(TypeToJsonValue(m_DeprecationDatetime, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("deprecationDatetime", DeprecationDatetimeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EndOfLifeDatetime.has_value())
+	{
+		rapidjson::Value EndOfLifeDatetimeValue(TypeToJsonValue(m_EndOfLifeDatetime, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("endOfLifeDatetime", EndOfLifeDatetimeValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ApiVersion::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("version"))
+	{
+		const rapidjson::Value& VersionValue = JsonDoc["version"];
+
+		if (VersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(VersionValue, m_Version);
+		}
+	}
+
+	if (JsonDoc.HasMember("deprecationDatetime"))
+	{
+		const rapidjson::Value& DeprecationDatetimeValue = JsonDoc["deprecationDatetime"];
+
+		if (DeprecationDatetimeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DeprecationDatetimeValue, m_DeprecationDatetime);
+		}
+	}
+
+	if (JsonDoc.HasMember("endOfLifeDatetime"))
+	{
+		const rapidjson::Value& EndOfLifeDatetimeValue = JsonDoc["endOfLifeDatetime"];
+
+		if (EndOfLifeDatetimeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EndOfLifeDatetimeValue, m_EndOfLifeDatetime);
+		}
+	}
+}
+
+
+utility::string_t ApiVersion::GetVersion() const
+{
+	return m_Version.value();
+}
+
+bool ApiVersion::HasVersion() const
+{
+	return m_Version.has_value();
+}
+void ApiVersion::SetVersion(const utility::string_t& Value)
+{
+	m_Version = Value;
+}
+utility::string_t ApiVersion::GetDeprecationDatetime() const
+{
+	return m_DeprecationDatetime.value();
+}
+
+bool ApiVersion::HasDeprecationDatetime() const
+{
+	return m_DeprecationDatetime.has_value();
+}
+void ApiVersion::SetDeprecationDatetime(const utility::string_t& Value)
+{
+	m_DeprecationDatetime = Value;
+}
+utility::string_t ApiVersion::GetEndOfLifeDatetime() const
+{
+	return m_EndOfLifeDatetime.value();
+}
+
+bool ApiVersion::HasEndOfLifeDatetime() const
+{
+	return m_EndOfLifeDatetime.has_value();
+}
+void ApiVersion::SetEndOfLifeDatetime(const utility::string_t& Value)
+{
+	m_EndOfLifeDatetime = Value;
+}
+
 AssetDetailDto::AssetDetailDto()
 {
 }
@@ -610,6 +728,30 @@ utility::string_t AssetDetailDto::ToJson() const
 	{
 		rapidjson::Value SizeInBytesValue(TypeToJsonValue(m_SizeInBytes, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("sizeInBytes", SizeInBytesValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedBy.has_value())
+	{
+		rapidjson::Value CreatedByValue(TypeToJsonValue(m_CreatedBy, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdBy", CreatedByValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UpdatedAt.has_value())
+	{
+		rapidjson::Value UpdatedAtValue(TypeToJsonValue(m_UpdatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("updatedAt", UpdatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UpdatedBy.has_value())
+	{
+		rapidjson::Value UpdatedByValue(TypeToJsonValue(m_UpdatedBy, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("updatedBy", UpdatedByValue, JsonDoc.GetAllocator());
 	}
 
 
@@ -837,6 +979,46 @@ void AssetDetailDto::FromJson(const utility::string_t& Val)
 			CSP_LOG_ERROR_MSG("Error: Non-nullable member sizeInBytes is null!");
 		}
 	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt);
+		}
+	}
+
+	if (JsonDoc.HasMember("createdBy"))
+	{
+		const rapidjson::Value& CreatedByValue = JsonDoc["createdBy"];
+
+		if (CreatedByValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedByValue, m_CreatedBy);
+		}
+	}
+
+	if (JsonDoc.HasMember("updatedAt"))
+	{
+		const rapidjson::Value& UpdatedAtValue = JsonDoc["updatedAt"];
+
+		if (UpdatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+		}
+	}
+
+	if (JsonDoc.HasMember("updatedBy"))
+	{
+		const rapidjson::Value& UpdatedByValue = JsonDoc["updatedBy"];
+
+		if (UpdatedByValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UpdatedByValue, m_UpdatedBy);
+		}
+	}
 }
 
 
@@ -1054,6 +1236,42 @@ int64_t AssetDetailDto::GetSizeInBytes() const
 bool AssetDetailDto::HasSizeInBytes() const
 {
 	return m_SizeInBytes.has_value();
+}
+utility::string_t AssetDetailDto::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool AssetDetailDto::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
+}
+utility::string_t AssetDetailDto::GetCreatedBy() const
+{
+	return m_CreatedBy.value();
+}
+
+bool AssetDetailDto::HasCreatedBy() const
+{
+	return m_CreatedBy.has_value();
+}
+utility::string_t AssetDetailDto::GetUpdatedAt() const
+{
+	return m_UpdatedAt.value();
+}
+
+bool AssetDetailDto::HasUpdatedAt() const
+{
+	return m_UpdatedAt.has_value();
+}
+utility::string_t AssetDetailDto::GetUpdatedBy() const
+{
+	return m_UpdatedBy.value();
+}
+
+bool AssetDetailDto::HasUpdatedBy() const
+{
+	return m_UpdatedBy.has_value();
 }
 
 AssetPipelineModelDto::AssetPipelineModelDto()
@@ -1983,6 +2201,30 @@ utility::string_t BulkUpsertAssetDetailDto::ToJson() const
 		JsonDoc.AddMember("sizeInBytes", SizeInBytesValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedBy.has_value())
+	{
+		rapidjson::Value CreatedByValue(TypeToJsonValue(m_CreatedBy, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdBy", CreatedByValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UpdatedAt.has_value())
+	{
+		rapidjson::Value UpdatedAtValue(TypeToJsonValue(m_UpdatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("updatedAt", UpdatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UpdatedBy.has_value())
+	{
+		rapidjson::Value UpdatedByValue(TypeToJsonValue(m_UpdatedBy, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("updatedBy", UpdatedByValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -2208,6 +2450,46 @@ void BulkUpsertAssetDetailDto::FromJson(const utility::string_t& Val)
 			CSP_LOG_ERROR_MSG("Error: Non-nullable member sizeInBytes is null!");
 		}
 	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt);
+		}
+	}
+
+	if (JsonDoc.HasMember("createdBy"))
+	{
+		const rapidjson::Value& CreatedByValue = JsonDoc["createdBy"];
+
+		if (CreatedByValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedByValue, m_CreatedBy);
+		}
+	}
+
+	if (JsonDoc.HasMember("updatedAt"))
+	{
+		const rapidjson::Value& UpdatedAtValue = JsonDoc["updatedAt"];
+
+		if (UpdatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+		}
+	}
+
+	if (JsonDoc.HasMember("updatedBy"))
+	{
+		const rapidjson::Value& UpdatedByValue = JsonDoc["updatedBy"];
+
+		if (UpdatedByValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UpdatedByValue, m_UpdatedBy);
+		}
+	}
 }
 
 
@@ -2429,6 +2711,42 @@ int64_t BulkUpsertAssetDetailDto::GetSizeInBytes() const
 bool BulkUpsertAssetDetailDto::HasSizeInBytes() const
 {
 	return m_SizeInBytes.has_value();
+}
+utility::string_t BulkUpsertAssetDetailDto::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool BulkUpsertAssetDetailDto::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
+}
+utility::string_t BulkUpsertAssetDetailDto::GetCreatedBy() const
+{
+	return m_CreatedBy.value();
+}
+
+bool BulkUpsertAssetDetailDto::HasCreatedBy() const
+{
+	return m_CreatedBy.has_value();
+}
+utility::string_t BulkUpsertAssetDetailDto::GetUpdatedAt() const
+{
+	return m_UpdatedAt.value();
+}
+
+bool BulkUpsertAssetDetailDto::HasUpdatedAt() const
+{
+	return m_UpdatedAt.has_value();
+}
+utility::string_t BulkUpsertAssetDetailDto::GetUpdatedBy() const
+{
+	return m_UpdatedBy.value();
+}
+
+bool BulkUpsertAssetDetailDto::HasUpdatedBy() const
+{
+	return m_UpdatedBy.has_value();
 }
 
 BulkUpsertPrototypeDto::BulkUpsertPrototypeDto()
@@ -3026,6 +3344,153 @@ void BulkUpsertPrototypeDto::SetWriteAccess(const std::vector<utility::string_t>
 	m_WriteAccess = Value;
 }
 
+ControllerVersions::ControllerVersions()
+{
+}
+ControllerVersions::~ControllerVersions()
+{
+}
+
+utility::string_t ControllerVersions::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_ReverseProxy.has_value())
+	{
+		rapidjson::Value ReverseProxyValue(TypeToJsonValue(m_ReverseProxy, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("reverseProxy", ReverseProxyValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Name.has_value())
+	{
+		rapidjson::Value NameValue(TypeToJsonValue(m_Name, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("name", NameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ApiVersions.has_value())
+	{
+		rapidjson::Value ApiVersionsValue(TypeToJsonValue(m_ApiVersions, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("apiVersions", ApiVersionsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CurrentApiVersion.has_value())
+	{
+		rapidjson::Value CurrentApiVersionValue(TypeToJsonValue(m_CurrentApiVersion, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("currentApiVersion", CurrentApiVersionValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ControllerVersions::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("reverseProxy"))
+	{
+		const rapidjson::Value& ReverseProxyValue = JsonDoc["reverseProxy"];
+
+		if (ReverseProxyValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ReverseProxyValue, m_ReverseProxy);
+		}
+	}
+
+	if (JsonDoc.HasMember("name"))
+	{
+		const rapidjson::Value& NameValue = JsonDoc["name"];
+
+		if (NameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NameValue, m_Name);
+		}
+	}
+
+	if (JsonDoc.HasMember("apiVersions"))
+	{
+		const rapidjson::Value& ApiVersionsValue = JsonDoc["apiVersions"];
+
+		if (ApiVersionsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ApiVersionsValue, m_ApiVersions);
+		}
+	}
+
+	if (JsonDoc.HasMember("currentApiVersion"))
+	{
+		const rapidjson::Value& CurrentApiVersionValue = JsonDoc["currentApiVersion"];
+
+		if (CurrentApiVersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CurrentApiVersionValue, m_CurrentApiVersion);
+		}
+	}
+}
+
+
+utility::string_t ControllerVersions::GetReverseProxy() const
+{
+	return m_ReverseProxy.value();
+}
+
+bool ControllerVersions::HasReverseProxy() const
+{
+	return m_ReverseProxy.has_value();
+}
+void ControllerVersions::SetReverseProxy(const utility::string_t& Value)
+{
+	m_ReverseProxy = Value;
+}
+utility::string_t ControllerVersions::GetName() const
+{
+	return m_Name.value();
+}
+
+bool ControllerVersions::HasName() const
+{
+	return m_Name.has_value();
+}
+void ControllerVersions::SetName(const utility::string_t& Value)
+{
+	m_Name = Value;
+}
+const std::vector<std::shared_ptr<ApiVersion>>& ControllerVersions::GetApiVersions() const
+{
+	return m_ApiVersions.value();
+}
+
+bool ControllerVersions::HasApiVersions() const
+{
+	return m_ApiVersions.has_value();
+}
+void ControllerVersions::SetApiVersions(const std::vector<std::shared_ptr<ApiVersion>>& Value)
+{
+	m_ApiVersions = Value;
+}
+utility::string_t ControllerVersions::GetCurrentApiVersion() const
+{
+	return m_CurrentApiVersion.value();
+}
+
+bool ControllerVersions::HasCurrentApiVersion() const
+{
+	return m_CurrentApiVersion.has_value();
+}
+void ControllerVersions::SetCurrentApiVersion(const utility::string_t& Value)
+{
+	m_CurrentApiVersion = Value;
+}
+
 CopiedAssetDetailDto::CopiedAssetDetailDto()
 {
 }
@@ -3162,6 +3627,30 @@ utility::string_t CopiedAssetDetailDto::ToJson() const
 	{
 		rapidjson::Value SizeInBytesValue(TypeToJsonValue(m_SizeInBytes, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("sizeInBytes", SizeInBytesValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedBy.has_value())
+	{
+		rapidjson::Value CreatedByValue(TypeToJsonValue(m_CreatedBy, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdBy", CreatedByValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UpdatedAt.has_value())
+	{
+		rapidjson::Value UpdatedAtValue(TypeToJsonValue(m_UpdatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("updatedAt", UpdatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UpdatedBy.has_value())
+	{
+		rapidjson::Value UpdatedByValue(TypeToJsonValue(m_UpdatedBy, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("updatedBy", UpdatedByValue, JsonDoc.GetAllocator());
 	}
 
 
@@ -3409,6 +3898,46 @@ void CopiedAssetDetailDto::FromJson(const utility::string_t& Val)
 			CSP_LOG_ERROR_MSG("Error: Non-nullable member sizeInBytes is null!");
 		}
 	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt);
+		}
+	}
+
+	if (JsonDoc.HasMember("createdBy"))
+	{
+		const rapidjson::Value& CreatedByValue = JsonDoc["createdBy"];
+
+		if (CreatedByValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedByValue, m_CreatedBy);
+		}
+	}
+
+	if (JsonDoc.HasMember("updatedAt"))
+	{
+		const rapidjson::Value& UpdatedAtValue = JsonDoc["updatedAt"];
+
+		if (UpdatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+		}
+	}
+
+	if (JsonDoc.HasMember("updatedBy"))
+	{
+		const rapidjson::Value& UpdatedByValue = JsonDoc["updatedBy"];
+
+		if (UpdatedByValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UpdatedByValue, m_UpdatedBy);
+		}
+	}
 }
 
 
@@ -3644,6 +4173,42 @@ int64_t CopiedAssetDetailDto::GetSizeInBytes() const
 bool CopiedAssetDetailDto::HasSizeInBytes() const
 {
 	return m_SizeInBytes.has_value();
+}
+utility::string_t CopiedAssetDetailDto::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool CopiedAssetDetailDto::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
+}
+utility::string_t CopiedAssetDetailDto::GetCreatedBy() const
+{
+	return m_CreatedBy.value();
+}
+
+bool CopiedAssetDetailDto::HasCreatedBy() const
+{
+	return m_CreatedBy.has_value();
+}
+utility::string_t CopiedAssetDetailDto::GetUpdatedAt() const
+{
+	return m_UpdatedAt.value();
+}
+
+bool CopiedAssetDetailDto::HasUpdatedAt() const
+{
+	return m_UpdatedAt.has_value();
+}
+utility::string_t CopiedAssetDetailDto::GetUpdatedBy() const
+{
+	return m_UpdatedBy.value();
+}
+
+bool CopiedAssetDetailDto::HasUpdatedBy() const
+{
+	return m_UpdatedBy.has_value();
 }
 
 CopiedPrototypeDto::CopiedPrototypeDto()
@@ -5662,6 +6227,124 @@ void MusubiFileInfo::SetMimeType(const utility::string_t& Value)
 	m_MimeType = Value;
 }
 
+NamedFunction::NamedFunction()
+{
+}
+NamedFunction::~NamedFunction()
+{
+}
+
+utility::string_t NamedFunction::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_FunctionName.has_value())
+	{
+		rapidjson::Value FunctionNameValue(TypeToJsonValue(m_FunctionName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("functionName", FunctionNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DeprecationDatetime.has_value())
+	{
+		rapidjson::Value DeprecationDatetimeValue(TypeToJsonValue(m_DeprecationDatetime, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("deprecationDatetime", DeprecationDatetimeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EndOfLifeDatetime.has_value())
+	{
+		rapidjson::Value EndOfLifeDatetimeValue(TypeToJsonValue(m_EndOfLifeDatetime, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("endOfLifeDatetime", EndOfLifeDatetimeValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void NamedFunction::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("functionName"))
+	{
+		const rapidjson::Value& FunctionNameValue = JsonDoc["functionName"];
+
+		if (FunctionNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FunctionNameValue, m_FunctionName);
+		}
+	}
+
+	if (JsonDoc.HasMember("deprecationDatetime"))
+	{
+		const rapidjson::Value& DeprecationDatetimeValue = JsonDoc["deprecationDatetime"];
+
+		if (DeprecationDatetimeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DeprecationDatetimeValue, m_DeprecationDatetime);
+		}
+	}
+
+	if (JsonDoc.HasMember("endOfLifeDatetime"))
+	{
+		const rapidjson::Value& EndOfLifeDatetimeValue = JsonDoc["endOfLifeDatetime"];
+
+		if (EndOfLifeDatetimeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EndOfLifeDatetimeValue, m_EndOfLifeDatetime);
+		}
+	}
+}
+
+
+utility::string_t NamedFunction::GetFunctionName() const
+{
+	return m_FunctionName.value();
+}
+
+bool NamedFunction::HasFunctionName() const
+{
+	return m_FunctionName.has_value();
+}
+void NamedFunction::SetFunctionName(const utility::string_t& Value)
+{
+	m_FunctionName = Value;
+}
+utility::string_t NamedFunction::GetDeprecationDatetime() const
+{
+	return m_DeprecationDatetime.value();
+}
+
+bool NamedFunction::HasDeprecationDatetime() const
+{
+	return m_DeprecationDatetime.has_value();
+}
+void NamedFunction::SetDeprecationDatetime(const utility::string_t& Value)
+{
+	m_DeprecationDatetime = Value;
+}
+utility::string_t NamedFunction::GetEndOfLifeDatetime() const
+{
+	return m_EndOfLifeDatetime.value();
+}
+
+bool NamedFunction::HasEndOfLifeDatetime() const
+{
+	return m_EndOfLifeDatetime.has_value();
+}
+void NamedFunction::SetEndOfLifeDatetime(const utility::string_t& Value)
+{
+	m_EndOfLifeDatetime = Value;
+}
+
 PrototypeDto::PrototypeDto()
 {
 }
@@ -6561,6 +7244,12 @@ utility::string_t PrototypeFilters::ToJson() const
 		JsonDoc.AddMember("organizationIds", OrganizationIdsValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_ExcludedTypes.has_value())
+	{
+		rapidjson::Value ExcludedTypesValue(TypeToJsonValue(m_ExcludedTypes, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("excludedTypes", ExcludedTypesValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -6754,6 +7443,16 @@ void PrototypeFilters::FromJson(const utility::string_t& Val)
 		if (OrganizationIdsValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(OrganizationIdsValue, m_OrganizationIds);
+		}
+	}
+
+	if (JsonDoc.HasMember("excludedTypes"))
+	{
+		const rapidjson::Value& ExcludedTypesValue = JsonDoc["excludedTypes"];
+
+		if (ExcludedTypesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExcludedTypesValue, m_ExcludedTypes);
 		}
 	}
 }
@@ -6992,6 +7691,195 @@ bool PrototypeFilters::HasOrganizationIds() const
 void PrototypeFilters::SetOrganizationIds(const std::vector<utility::string_t>& Value)
 {
 	m_OrganizationIds = Value;
+}
+const std::vector<utility::string_t>& PrototypeFilters::GetExcludedTypes() const
+{
+	return m_ExcludedTypes.value();
+}
+
+bool PrototypeFilters::HasExcludedTypes() const
+{
+	return m_ExcludedTypes.has_value();
+}
+void PrototypeFilters::SetExcludedTypes(const std::vector<utility::string_t>& Value)
+{
+	m_ExcludedTypes = Value;
+}
+
+ServiceVersionInfo::ServiceVersionInfo()
+{
+}
+ServiceVersionInfo::~ServiceVersionInfo()
+{
+}
+
+utility::string_t ServiceVersionInfo::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_ContainerVersion.has_value())
+	{
+		rapidjson::Value ContainerVersionValue(TypeToJsonValue(m_ContainerVersion, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("containerVersion", ContainerVersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ServiceName.has_value())
+	{
+		rapidjson::Value ServiceNameValue(TypeToJsonValue(m_ServiceName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("serviceName", ServiceNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ReverseProxy.has_value())
+	{
+		rapidjson::Value ReverseProxyValue(TypeToJsonValue(m_ReverseProxy, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("reverseProxy", ReverseProxyValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_VersionedServices.has_value())
+	{
+		rapidjson::Value VersionedServicesValue(TypeToJsonValue(m_VersionedServices, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("versionedServices", VersionedServicesValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_VersionedFunctions.has_value())
+	{
+		rapidjson::Value VersionedFunctionsValue(TypeToJsonValue(m_VersionedFunctions, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("versionedFunctions", VersionedFunctionsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ServiceVersionInfo::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	JsonDoc.Parse(Val.c_str());
+
+
+	if (JsonDoc.HasMember("containerVersion"))
+	{
+		const rapidjson::Value& ContainerVersionValue = JsonDoc["containerVersion"];
+
+		if (ContainerVersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ContainerVersionValue, m_ContainerVersion);
+		}
+	}
+
+	if (JsonDoc.HasMember("serviceName"))
+	{
+		const rapidjson::Value& ServiceNameValue = JsonDoc["serviceName"];
+
+		if (ServiceNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ServiceNameValue, m_ServiceName);
+		}
+	}
+
+	if (JsonDoc.HasMember("reverseProxy"))
+	{
+		const rapidjson::Value& ReverseProxyValue = JsonDoc["reverseProxy"];
+
+		if (ReverseProxyValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ReverseProxyValue, m_ReverseProxy);
+		}
+	}
+
+	if (JsonDoc.HasMember("versionedServices"))
+	{
+		const rapidjson::Value& VersionedServicesValue = JsonDoc["versionedServices"];
+
+		if (VersionedServicesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(VersionedServicesValue, m_VersionedServices);
+		}
+	}
+
+	if (JsonDoc.HasMember("versionedFunctions"))
+	{
+		const rapidjson::Value& VersionedFunctionsValue = JsonDoc["versionedFunctions"];
+
+		if (VersionedFunctionsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(VersionedFunctionsValue, m_VersionedFunctions);
+		}
+	}
+}
+
+
+utility::string_t ServiceVersionInfo::GetContainerVersion() const
+{
+	return m_ContainerVersion.value();
+}
+
+bool ServiceVersionInfo::HasContainerVersion() const
+{
+	return m_ContainerVersion.has_value();
+}
+void ServiceVersionInfo::SetContainerVersion(const utility::string_t& Value)
+{
+	m_ContainerVersion = Value;
+}
+utility::string_t ServiceVersionInfo::GetServiceName() const
+{
+	return m_ServiceName.value();
+}
+
+bool ServiceVersionInfo::HasServiceName() const
+{
+	return m_ServiceName.has_value();
+}
+void ServiceVersionInfo::SetServiceName(const utility::string_t& Value)
+{
+	m_ServiceName = Value;
+}
+utility::string_t ServiceVersionInfo::GetReverseProxy() const
+{
+	return m_ReverseProxy.value();
+}
+
+bool ServiceVersionInfo::HasReverseProxy() const
+{
+	return m_ReverseProxy.has_value();
+}
+void ServiceVersionInfo::SetReverseProxy(const utility::string_t& Value)
+{
+	m_ReverseProxy = Value;
+}
+const std::vector<std::shared_ptr<ControllerVersions>>& ServiceVersionInfo::GetVersionedServices() const
+{
+	return m_VersionedServices.value();
+}
+
+bool ServiceVersionInfo::HasVersionedServices() const
+{
+	return m_VersionedServices.has_value();
+}
+void ServiceVersionInfo::SetVersionedServices(const std::vector<std::shared_ptr<ControllerVersions>>& Value)
+{
+	m_VersionedServices = Value;
+}
+const std::vector<std::shared_ptr<NamedFunction>>& ServiceVersionInfo::GetVersionedFunctions() const
+{
+	return m_VersionedFunctions.value();
+}
+
+bool ServiceVersionInfo::HasVersionedFunctions() const
+{
+	return m_VersionedFunctions.has_value();
+}
+void ServiceVersionInfo::SetVersionedFunctions(const std::vector<std::shared_ptr<NamedFunction>>& Value)
+{
+	m_VersionedFunctions = Value;
 }
 
 SortDirection::SortDirection()

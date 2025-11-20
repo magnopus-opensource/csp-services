@@ -293,6 +293,59 @@ protected:
 	virtual ~IAnchorsApiBase() = default;
 };
 
+class ICacheApiBase : public csp::services::ApiBase
+{
+public:
+	ICacheApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	{
+	}
+
+
+
+	struct cache_keysGetParams
+	{
+		const std::optional<utility::string_t>& pattern;
+		const std::optional<int32_t>& Skip;
+		const std::optional<int32_t>& Limit;
+	};
+
+
+	/// <summary>
+	/// Gets the distributed cache keys that match the pattern (use * for wildcard)
+	/// </summary>
+	/// <remarks>
+	/// GET /cache-keys
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void cache_keysGet(const cache_keysGetParams& Params,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct cache_keysDeleteParams
+	{
+		const std::optional<utility::string_t>& pattern;
+	};
+
+
+	/// <summary>
+	/// Deletes the distributed cache keys that match the pattern (use * for wildcard)
+	/// </summary>
+	/// <remarks>
+	/// DELETE /cache-keys
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void cache_keysDelete(const cache_keysDeleteParams& Params,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~ICacheApiBase() = default;
+};
+
 class IConfigurationApiBase : public csp::services::ApiBase
 {
 public:

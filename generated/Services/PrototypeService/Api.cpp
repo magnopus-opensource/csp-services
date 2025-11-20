@@ -646,6 +646,71 @@ void AssetDetailApi::prototypesPrototypeIdAsset_detailsAssetDetailIdAsset_pipeli
 
 
 
+CacheApi::CacheApi(csp::web::WebClient* InWebClient) : ICacheApiBase(InWebClient)
+{
+}
+
+CacheApi::~CacheApi()
+{
+}
+
+
+
+void CacheApi::cache_keysGet([[maybe_unused]] const cache_keysGetParams& Params,
+							 csp::services::ApiResponseHandlerBase* ResponseHandler,
+							 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/cache-keys").c_str(), {});
+
+
+	if (Params.pattern.has_value())
+	{
+		Uri.AddQueryParams("pattern", Params.pattern.value());
+	}
+
+
+	if (Params.Skip.has_value())
+	{
+		Uri.AddQueryParams("Skip", Params.Skip.value());
+	}
+
+
+	if (Params.Limit.has_value())
+	{
+		Uri.AddQueryParams("Limit", Params.Limit.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void CacheApi::cache_keysDelete([[maybe_unused]] const cache_keysDeleteParams& Params,
+								csp::services::ApiResponseHandlerBase* ResponseHandler,
+								csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/cache-keys").c_str(), {});
+
+
+	if (Params.pattern.has_value())
+	{
+		Uri.AddQueryParams("pattern", Params.pattern.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : IConfigurationApiBase(InWebClient)
 {
 }
@@ -893,6 +958,12 @@ void PrototypeApi::prototypesGet([[maybe_unused]] const prototypesGetParams& Par
 	if (Params.OrganizationIds.has_value())
 	{
 		Uri.AddQueryParams("OrganizationIds", Params.OrganizationIds.value());
+	}
+
+
+	if (Params.ExcludedTypes.has_value())
+	{
+		Uri.AddQueryParams("ExcludedTypes", Params.ExcludedTypes.value());
 	}
 
 
@@ -1153,6 +1224,12 @@ void PrototypeApi::prototypesIdsGet([[maybe_unused]] const prototypesIdsGetParam
 	}
 
 
+	if (Params.ExcludedTypes.has_value())
+	{
+		Uri.AddQueryParams("ExcludedTypes", Params.ExcludedTypes.value());
+	}
+
+
 	if (Params.Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Params.Skip.value());
@@ -1287,6 +1364,12 @@ void PrototypeApi::prototypesCountGet([[maybe_unused]] const prototypesCountGetP
 	if (Params.OrganizationIds.has_value())
 	{
 		Uri.AddQueryParams("OrganizationIds", Params.OrganizationIds.value());
+	}
+
+
+	if (Params.ExcludedTypes.has_value())
+	{
+		Uri.AddQueryParams("ExcludedTypes", Params.ExcludedTypes.value());
 	}
 
 	csp::web::HttpPayload Payload;

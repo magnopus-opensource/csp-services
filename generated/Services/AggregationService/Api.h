@@ -235,7 +235,7 @@ public:
 	/// Gets the distributed cache keys that match the pattern (use * for wildcard)
 	/// </summary>
 	/// <remarks>
-	/// GET /api/v1/cache-keys
+	/// GET /cache-keys
 	/// Authorization: magnopus-admin
 	/// </remarks>
 	void cache_keysGet(const cache_keysGetParams& Params,
@@ -247,7 +247,7 @@ public:
 	/// Deletes the distributed cache keys that match the pattern (use * for wildcard)
 	/// </summary>
 	/// <remarks>
-	/// DELETE /api/v1/cache-keys
+	/// DELETE /cache-keys
 	/// Authorization: magnopus-admin
 	/// </remarks>
 	void cache_keysDelete(const cache_keysDeleteParams& Params,

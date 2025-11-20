@@ -11,14 +11,17 @@ namespace csp::services::generated::multiplayerservice
 {
 
 class AnalyticsRecord;
+class ApiVersion;
 class AreaOfInterestDto;
 class BooleanUInt32NullableTuple;
 class ClientConnectionDto;
 class ClientConnectionDtoDataPage;
 class ClientConnectionStatus;
+class ControllerVersions;
 class EventMessageDto;
 class GeoCoord;
 class IComponentData;
+class NamedFunction;
 class ObjectMessageDocumentDto;
 class ObjectMessageDocumentDtoDataPage;
 class ObjectMessageDto;
@@ -28,6 +31,8 @@ class PubSubModel;
 class ScopeDto;
 class ScopeDtoDataPage;
 class ScopeLeaderDto;
+class ServiceVersionInfo;
+class StringDataPage;
 
 
 
@@ -114,6 +119,47 @@ protected:
 	std::optional<utility::string_t> m_InteractionType;
 	std::optional<std::map<utility::string_t, utility::string_t>> m_Metadata;
 	std::optional<utility::string_t> m_ServiceName;
+};
+
+/// <summary>
+/// Version of an API
+/// </summary>
+class ApiVersion : public csp::services::DtoBase
+{
+public:
+	ApiVersion();
+	virtual ~ApiVersion();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// the version
+	/// </summary>
+	utility::string_t GetVersion() const;
+	void SetVersion(const utility::string_t& Value);
+	bool HasVersion() const;
+
+	/// <summary>
+	/// when the version was deprecated, if known
+	/// </summary>
+	utility::string_t GetDeprecationDatetime() const;
+	void SetDeprecationDatetime(const utility::string_t& Value);
+	bool HasDeprecationDatetime() const;
+
+	/// <summary>
+	/// when the version will no longer be available, if determined
+	/// </summary>
+	utility::string_t GetEndOfLifeDatetime() const;
+	void SetEndOfLifeDatetime(const utility::string_t& Value);
+	bool HasEndOfLifeDatetime() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Version;
+	std::optional<utility::string_t> m_DeprecationDatetime;
+	std::optional<utility::string_t> m_EndOfLifeDatetime;
 };
 
 /// <summary>
@@ -363,6 +409,55 @@ protected:
 };
 
 /// <summary>
+/// Versions of a specific controller
+/// </summary>
+class ControllerVersions : public csp::services::DtoBase
+{
+public:
+	ControllerVersions();
+	virtual ~ControllerVersions();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Reverse proxy of the service
+	/// </summary>
+	utility::string_t GetReverseProxy() const;
+	void SetReverseProxy(const utility::string_t& Value);
+	bool HasReverseProxy() const;
+
+	/// <summary>
+	/// Name of the controller
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+	/// <summary>
+	/// supported versions
+	/// </summary>
+	const std::vector<std::shared_ptr<ApiVersion>>& GetApiVersions() const;
+	void SetApiVersions(const std::vector<std::shared_ptr<ApiVersion>>& Value);
+	bool HasApiVersions() const;
+
+	/// <summary>
+	/// currently adopted version
+	/// </summary>
+	utility::string_t GetCurrentApiVersion() const;
+	void SetCurrentApiVersion(const utility::string_t& Value);
+	bool HasCurrentApiVersion() const;
+
+
+protected:
+	std::optional<utility::string_t> m_ReverseProxy;
+	std::optional<utility::string_t> m_Name;
+	std::optional<std::vector<std::shared_ptr<ApiVersion>>> m_ApiVersions;
+	std::optional<utility::string_t> m_CurrentApiVersion;
+};
+
+/// <summary>
 /// Represents a multiplayer event to send
 /// </summary>
 class EventMessageDto : public csp::services::DtoBase
@@ -471,6 +566,47 @@ public:
 
 
 protected:
+};
+
+/// <summary>
+/// Versioned function by name
+/// </summary>
+class NamedFunction : public csp::services::DtoBase
+{
+public:
+	NamedFunction();
+	virtual ~NamedFunction();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Name of the function that serves as its version
+	/// </summary>
+	utility::string_t GetFunctionName() const;
+	void SetFunctionName(const utility::string_t& Value);
+	bool HasFunctionName() const;
+
+	/// <summary>
+	/// date of deprecation, if known
+	/// </summary>
+	utility::string_t GetDeprecationDatetime() const;
+	void SetDeprecationDatetime(const utility::string_t& Value);
+	bool HasDeprecationDatetime() const;
+
+	/// <summary>
+	/// when the version will no longer be available, if determined
+	/// </summary>
+	utility::string_t GetEndOfLifeDatetime() const;
+	void SetEndOfLifeDatetime(const utility::string_t& Value);
+	bool HasEndOfLifeDatetime() const;
+
+
+protected:
+	std::optional<utility::string_t> m_FunctionName;
+	std::optional<utility::string_t> m_DeprecationDatetime;
+	std::optional<utility::string_t> m_EndOfLifeDatetime;
 };
 
 /// <summary>
@@ -863,6 +999,7 @@ public:
 	/// The id of the scope
 	/// </summary>
 	utility::string_t GetId() const;
+	void SetId(const utility::string_t& Value);
 	bool HasId() const;
 
 	/// <summary>
@@ -982,6 +1119,13 @@ public:
 	bool HasLeaderUserId() const;
 
 	/// <summary>
+	/// Client Id of the currently leader
+	/// </summary>
+	int32_t GetLeaderClientId() const;
+	void SetLeaderClientId(int32_t Value);
+	bool HasLeaderClientId() const;
+
+	/// <summary>
 	/// Set to true while an election is being actively managed
 	/// </summary>
 	bool GetElectionInProgress() const;
@@ -992,7 +1136,104 @@ public:
 protected:
 	std::optional<utility::string_t> m_ScopeId;
 	std::optional<utility::string_t> m_LeaderUserId;
+	std::optional<int32_t> m_LeaderClientId;
 	std::optional<bool> m_ElectionInProgress;
+};
+
+/// <summary>
+/// Wrapper for versioned API in the Service
+/// </summary>
+class ServiceVersionInfo : public csp::services::DtoBase
+{
+public:
+	ServiceVersionInfo();
+	virtual ~ServiceVersionInfo();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Version of the service container
+	/// </summary>
+	utility::string_t GetContainerVersion() const;
+	void SetContainerVersion(const utility::string_t& Value);
+	bool HasContainerVersion() const;
+
+	/// <summary>
+	/// Name of the service
+	/// </summary>
+	utility::string_t GetServiceName() const;
+	void SetServiceName(const utility::string_t& Value);
+	bool HasServiceName() const;
+
+	/// <summary>
+	/// The associated reverse proxy for the service
+	/// </summary>
+	utility::string_t GetReverseProxy() const;
+	void SetReverseProxy(const utility::string_t& Value);
+	bool HasReverseProxy() const;
+
+	/// <summary>
+	/// Services that are versioned (eg ASP.NET Controllers)
+	/// </summary>
+	const std::vector<std::shared_ptr<ControllerVersions>>& GetVersionedServices() const;
+	void SetVersionedServices(const std::vector<std::shared_ptr<ControllerVersions>>& Value);
+	bool HasVersionedServices() const;
+
+	/// <summary>
+	/// Named Functions that are versioned (eg Multiplayer SignalR Hub)
+	/// </summary>
+	const std::vector<std::shared_ptr<NamedFunction>>& GetVersionedFunctions() const;
+	void SetVersionedFunctions(const std::vector<std::shared_ptr<NamedFunction>>& Value);
+	bool HasVersionedFunctions() const;
+
+
+protected:
+	std::optional<utility::string_t> m_ContainerVersion;
+	std::optional<utility::string_t> m_ServiceName;
+	std::optional<utility::string_t> m_ReverseProxy;
+	std::optional<std::vector<std::shared_ptr<ControllerVersions>>> m_VersionedServices;
+	std::optional<std::vector<std::shared_ptr<NamedFunction>>> m_VersionedFunctions;
+};
+
+class StringDataPage : public csp::services::DtoBase
+{
+public:
+	StringDataPage();
+	virtual ~StringDataPage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	const std::vector<utility::string_t>& GetItems() const;
+	void SetItems(const std::vector<utility::string_t>& Value);
+	bool HasItems() const;
+
+	int32_t GetSkip() const;
+	void SetSkip(int32_t Value);
+	bool HasSkip() const;
+
+	int32_t GetLimit() const;
+	void SetLimit(int32_t Value);
+	bool HasLimit() const;
+
+	int32_t GetItemCount() const;
+	void SetItemCount(int32_t Value);
+	bool HasItemCount() const;
+
+	int64_t GetItemTotalCount() const;
+	void SetItemTotalCount(int64_t Value);
+	bool HasItemTotalCount() const;
+
+
+protected:
+	std::optional<std::vector<utility::string_t>> m_Items;
+	std::optional<int32_t> m_Skip;
+	std::optional<int32_t> m_Limit;
+	std::optional<int32_t> m_ItemCount;
+	std::optional<int64_t> m_ItemTotalCount;
 };
 
 

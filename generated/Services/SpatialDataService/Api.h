@@ -183,6 +183,38 @@ public:
 									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
+class CacheApi final : public ICacheApiBase
+{
+public:
+	CacheApi(csp::web::WebClient* InWebClient);
+	virtual ~CacheApi();
+
+
+
+	/// <summary>
+	/// Gets the distributed cache keys that match the pattern (use * for wildcard)
+	/// </summary>
+	/// <remarks>
+	/// GET /cache-keys
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void cache_keysGet(const cache_keysGetParams& Params,
+					   csp::services::ApiResponseHandlerBase* ResponseHandler,
+					   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Deletes the distributed cache keys that match the pattern (use * for wildcard)
+	/// </summary>
+	/// <remarks>
+	/// DELETE /cache-keys
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void cache_keysDelete(const cache_keysDeleteParams& Params,
+						  csp::services::ApiResponseHandlerBase* ResponseHandler,
+						  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+};
+
 class ConfigurationApi final : public IConfigurationApiBase
 {
 public:

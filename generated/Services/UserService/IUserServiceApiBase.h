@@ -286,7 +286,13 @@ public:
 
 
 	/// <summary>
-	/// Provides ability to login auto-register/login by unique identifier.
+	/// Provides ability to login auto-register/login by unique identifier. The behavior on this endpoint is very specific.
+	/// This endpoint should and can only be used in certain circumstances.  In fact, it's protected by a feature flag that
+	/// is off for most environments.  The impact of this endpoint is to defer the creation of the user's profile if this
+	/// is the users' first login.  This means that while the response will contain a UserId - that UserId may not be valid
+	/// for several minutes until a bulk write process is triggered and completes. Any other endpoints that requires a userId
+	/// should not be expected to be capable of returning valid results about this login session for an undetermined amount
+	/// of time after using this method. If your application requires those endpoints, you should use the full login.
 	/// </summary>
 	/// <remarks>
 	/// POST /api/v1/users/login-guest
@@ -502,6 +508,59 @@ public:
 
 protected:
 	virtual ~IAvatarsApiBase() = default;
+};
+
+class ICacheApiBase : public csp::services::ApiBase
+{
+public:
+	ICacheApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	{
+	}
+
+
+
+	struct cache_keysGetParams
+	{
+		const std::optional<utility::string_t>& pattern;
+		const std::optional<int32_t>& Skip;
+		const std::optional<int32_t>& Limit;
+	};
+
+
+	/// <summary>
+	/// Gets the distributed cache keys that match the pattern (use * for wildcard)
+	/// </summary>
+	/// <remarks>
+	/// GET /cache-keys
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void cache_keysGet(const cache_keysGetParams& Params,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct cache_keysDeleteParams
+	{
+		const std::optional<utility::string_t>& pattern;
+	};
+
+
+	/// <summary>
+	/// Deletes the distributed cache keys that match the pattern (use * for wildcard)
+	/// </summary>
+	/// <remarks>
+	/// DELETE /cache-keys
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void cache_keysDelete(const cache_keysDeleteParams& Params,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~ICacheApiBase() = default;
 };
 
 class IConfigurationApiBase : public csp::services::ApiBase

@@ -14,12 +14,14 @@ class AloClassCompletedRequest;
 class AloClassCompletedResponse;
 class AltitudeMode;
 class AnalyticsRecord;
+class ApiVersion;
 class ApplicationSettingsDto;
 class AssetDetailDto;
 class AuthDto;
 class CheckpointStats;
 class CoalescenceState;
 class CoalescingFanOutDocument;
+class ControllerVersions;
 class DefaultSettings;
 class DuplicateSpaceOptions;
 class GroupRoleDto;
@@ -37,6 +39,7 @@ class ModelLink;
 class ModelLocation;
 class ModelOrientation;
 class ModelScale;
+class NamedFunction;
 class Placemark;
 class Point;
 class PositionKml;
@@ -47,6 +50,7 @@ class SequenceDto;
 class SequenceDtoDataPage;
 class ServiceRequest;
 class ServiceResponse;
+class ServiceVersionInfo;
 class SettingsDto;
 class ShopifyCartDto;
 class ShopifyCartLineDto;
@@ -256,6 +260,47 @@ protected:
 };
 
 /// <summary>
+/// Version of an API
+/// </summary>
+class ApiVersion : public csp::services::DtoBase
+{
+public:
+	ApiVersion();
+	virtual ~ApiVersion();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// the version
+	/// </summary>
+	utility::string_t GetVersion() const;
+	void SetVersion(const utility::string_t& Value);
+	bool HasVersion() const;
+
+	/// <summary>
+	/// when the version was deprecated, if known
+	/// </summary>
+	utility::string_t GetDeprecationDatetime() const;
+	void SetDeprecationDatetime(const utility::string_t& Value);
+	bool HasDeprecationDatetime() const;
+
+	/// <summary>
+	/// when the version will no longer be available, if determined
+	/// </summary>
+	utility::string_t GetEndOfLifeDatetime() const;
+	void SetEndOfLifeDatetime(const utility::string_t& Value);
+	bool HasEndOfLifeDatetime() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Version;
+	std::optional<utility::string_t> m_DeprecationDatetime;
+	std::optional<utility::string_t> m_EndOfLifeDatetime;
+};
+
+/// <summary>
 /// Application Settings data transfer object
 /// </summary>
 class ApplicationSettingsDto : public csp::services::DtoBase
@@ -449,6 +494,30 @@ public:
 	int64_t GetSizeInBytes() const;
 	bool HasSizeInBytes() const;
 
+	/// <summary>
+	/// The date and time this asset detail was created
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	bool HasCreatedAt() const;
+
+	/// <summary>
+	/// The userId that created this asset detail
+	/// </summary>
+	utility::string_t GetCreatedBy() const;
+	bool HasCreatedBy() const;
+
+	/// <summary>
+	/// The date and time this asset detail was updated
+	/// </summary>
+	utility::string_t GetUpdatedAt() const;
+	bool HasUpdatedAt() const;
+
+	/// <summary>
+	/// The userId that updated this asset detail
+	/// </summary>
+	utility::string_t GetUpdatedBy() const;
+	bool HasUpdatedBy() const;
+
 
 protected:
 	std::optional<utility::string_t> m_PrototypeId;
@@ -470,6 +539,10 @@ protected:
 	std::optional<utility::string_t> m_OriginalAssetUri;
 	std::optional<std::vector<utility::string_t>> m_Tags;
 	std::optional<int64_t> m_SizeInBytes;
+	std::optional<utility::string_t> m_CreatedAt;
+	std::optional<utility::string_t> m_CreatedBy;
+	std::optional<utility::string_t> m_UpdatedAt;
+	std::optional<utility::string_t> m_UpdatedBy;
 };
 
 /// <summary>
@@ -737,6 +810,55 @@ protected:
 	std::optional<bool> m_IsSeeded;
 	std::optional<utility::string_t> m_TenantName;
 	std::optional<utility::string_t> m_Id;
+};
+
+/// <summary>
+/// Versions of a specific controller
+/// </summary>
+class ControllerVersions : public csp::services::DtoBase
+{
+public:
+	ControllerVersions();
+	virtual ~ControllerVersions();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Reverse proxy of the service
+	/// </summary>
+	utility::string_t GetReverseProxy() const;
+	void SetReverseProxy(const utility::string_t& Value);
+	bool HasReverseProxy() const;
+
+	/// <summary>
+	/// Name of the controller
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+	/// <summary>
+	/// supported versions
+	/// </summary>
+	const std::vector<std::shared_ptr<ApiVersion>>& GetApiVersions() const;
+	void SetApiVersions(const std::vector<std::shared_ptr<ApiVersion>>& Value);
+	bool HasApiVersions() const;
+
+	/// <summary>
+	/// currently adopted version
+	/// </summary>
+	utility::string_t GetCurrentApiVersion() const;
+	void SetCurrentApiVersion(const utility::string_t& Value);
+	bool HasCurrentApiVersion() const;
+
+
+protected:
+	std::optional<utility::string_t> m_ReverseProxy;
+	std::optional<utility::string_t> m_Name;
+	std::optional<std::vector<std::shared_ptr<ApiVersion>>> m_ApiVersions;
+	std::optional<utility::string_t> m_CurrentApiVersion;
 };
 
 /// <summary>
@@ -1483,6 +1605,47 @@ protected:
 };
 
 /// <summary>
+/// Versioned function by name
+/// </summary>
+class NamedFunction : public csp::services::DtoBase
+{
+public:
+	NamedFunction();
+	virtual ~NamedFunction();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Name of the function that serves as its version
+	/// </summary>
+	utility::string_t GetFunctionName() const;
+	void SetFunctionName(const utility::string_t& Value);
+	bool HasFunctionName() const;
+
+	/// <summary>
+	/// date of deprecation, if known
+	/// </summary>
+	utility::string_t GetDeprecationDatetime() const;
+	void SetDeprecationDatetime(const utility::string_t& Value);
+	bool HasDeprecationDatetime() const;
+
+	/// <summary>
+	/// when the version will no longer be available, if determined
+	/// </summary>
+	utility::string_t GetEndOfLifeDatetime() const;
+	void SetEndOfLifeDatetime(const utility::string_t& Value);
+	bool HasEndOfLifeDatetime() const;
+
+
+protected:
+	std::optional<utility::string_t> m_FunctionName;
+	std::optional<utility::string_t> m_DeprecationDatetime;
+	std::optional<utility::string_t> m_EndOfLifeDatetime;
+};
+
+/// <summary>
 /// Definition for a Placemark Inside a Kml Document
 /// </summary>
 class Placemark : public csp::services::DtoBase
@@ -2120,6 +2283,63 @@ protected:
 	std::optional<utility::string_t> m_StatusReason;
 	std::optional<utility::string_t> m_ErrorCode;
 	std::optional<std::shared_ptr<rapidjson::Document>> m_OperationResult;
+};
+
+/// <summary>
+/// Wrapper for versioned API in the Service
+/// </summary>
+class ServiceVersionInfo : public csp::services::DtoBase
+{
+public:
+	ServiceVersionInfo();
+	virtual ~ServiceVersionInfo();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Version of the service container
+	/// </summary>
+	utility::string_t GetContainerVersion() const;
+	void SetContainerVersion(const utility::string_t& Value);
+	bool HasContainerVersion() const;
+
+	/// <summary>
+	/// Name of the service
+	/// </summary>
+	utility::string_t GetServiceName() const;
+	void SetServiceName(const utility::string_t& Value);
+	bool HasServiceName() const;
+
+	/// <summary>
+	/// The associated reverse proxy for the service
+	/// </summary>
+	utility::string_t GetReverseProxy() const;
+	void SetReverseProxy(const utility::string_t& Value);
+	bool HasReverseProxy() const;
+
+	/// <summary>
+	/// Services that are versioned (eg ASP.NET Controllers)
+	/// </summary>
+	const std::vector<std::shared_ptr<ControllerVersions>>& GetVersionedServices() const;
+	void SetVersionedServices(const std::vector<std::shared_ptr<ControllerVersions>>& Value);
+	bool HasVersionedServices() const;
+
+	/// <summary>
+	/// Named Functions that are versioned (eg Multiplayer SignalR Hub)
+	/// </summary>
+	const std::vector<std::shared_ptr<NamedFunction>>& GetVersionedFunctions() const;
+	void SetVersionedFunctions(const std::vector<std::shared_ptr<NamedFunction>>& Value);
+	bool HasVersionedFunctions() const;
+
+
+protected:
+	std::optional<utility::string_t> m_ContainerVersion;
+	std::optional<utility::string_t> m_ServiceName;
+	std::optional<utility::string_t> m_ReverseProxy;
+	std::optional<std::vector<std::shared_ptr<ControllerVersions>>> m_VersionedServices;
+	std::optional<std::vector<std::shared_ptr<NamedFunction>>> m_VersionedFunctions;
 };
 
 /// <summary>

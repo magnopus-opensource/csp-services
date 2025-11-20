@@ -252,7 +252,7 @@ void CacheApi::cache_keysGet([[maybe_unused]] const cache_keysGetParams& Params,
 							 csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/cache-keys").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/cache-keys").c_str(), {});
 
 
 	if (Params.pattern.has_value())
@@ -285,7 +285,7 @@ void CacheApi::cache_keysDelete([[maybe_unused]] const cache_keysDeleteParams& P
 								csp::common::CancellationToken& CancellationToken) const
 {
 	csp::web::Uri Uri;
-	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/cache-keys").c_str(), {});
+	Uri.SetWithParams(fmt::format("{0}{1}", ServiceDefinition.GetURI().c_str(), "/cache-keys").c_str(), {});
 
 
 	if (Params.pattern.has_value())
