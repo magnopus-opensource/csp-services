@@ -3,6 +3,7 @@
 #include "Common/Web/Json.h"
 #include "Common/Web/Json_HttpPayload.h"
 #include "Debug/Logging.h"
+#include "Json/JsonParseHelper.h"
 
 #include "Dto.h"
 
@@ -83,7 +84,11 @@ namespace csp::services::generated::{{ service_name | lower }}
                 return;
             }
 
-            JsonDoc.Parse(Val.c_str());
+            rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "{{ schema_name }}::FromJson");
+            if (!ok)
+            {
+                return;
+            }
 
             {% for property_name, property in schema.properties.items() %}
                 if (JsonDoc.HasMember("{{ property_name }}"))
