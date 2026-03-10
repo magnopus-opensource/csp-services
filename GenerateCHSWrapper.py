@@ -91,6 +91,10 @@ def main():
         with request.urlopen(entry['url']) as data:
             services[entry['service']] = json.load(data)
 
+    excluded_route_paths = [
+        "/api/v1/prototypes/most-referenced",
+    ]
+
     # Render source files
     model_header_template = env.get_template("dto.h.jinja2")
     model_source_template = env.get_template("dto.cpp.jinja2")
@@ -121,6 +125,9 @@ def main():
         grouped_routes: Dict[str, Dict[str, OpenApi.Path]] = {}
 
         for route_path, route in service['paths'].items():
+            if route_path in excluded_route_paths:
+                continue
+
             for method_name, method in route.items():
                 tag = method['tags'][0]
 
