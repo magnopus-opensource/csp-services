@@ -20,6 +20,7 @@ class CreateUserRequest;
 class CreateUserSocialRequest;
 class DefaultSessionSettingsDto;
 class DefaultSettings;
+class EncryptedValueDto;
 class EquipItemDto;
 class ForgotPasswordRequest;
 class Gender;
@@ -42,11 +43,13 @@ class NamedFunction;
 class OrganizationDto;
 class OrganizationInviteDto;
 class OrganizationMember;
+class ProblemDetails;
 class ProfileDto;
 class ProfileDtoDataPage;
 class ProfileLiteDto;
 class RefreshRequest;
 class ServiceVersionInfo;
+class SetEncryptedValueRequest;
 class SettingsDto;
 class SocialProviderInfo;
 class StringDataPage;
@@ -708,6 +711,39 @@ public:
 protected:
 	std::optional<std::vector<std::shared_ptr<ApplicationSettingsDto>>> m_DefaultApplicationSettings;
 	std::optional<std::vector<std::shared_ptr<SettingsDto>>> m_DefaultUserSettings;
+};
+
+/// <summary>
+/// Data transfer object for an encrypted value (decrypted for authorized callers)
+/// </summary>
+class EncryptedValueDto : public csp::services::DtoBase
+{
+public:
+	EncryptedValueDto();
+	virtual ~EncryptedValueDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The key name (ThirdPartyName)
+	/// </summary>
+	utility::string_t GetKeyName() const;
+	void SetKeyName(const utility::string_t& Value);
+	bool HasKeyName() const;
+
+	/// <summary>
+	/// The decrypted value
+	/// </summary>
+	utility::string_t GetValue() const;
+	void SetValue(const utility::string_t& Value);
+	bool HasValue() const;
+
+
+protected:
+	std::optional<utility::string_t> m_KeyName;
+	std::optional<utility::string_t> m_Value;
 };
 
 /// <summary>
@@ -1787,6 +1823,14 @@ public:
 	bool HasProvider() const;
 
 	/// <summary>
+	/// The name of the client, if applicable for the provider (e.g. "Unity" or "Unreal" if the provider has different requirements for different
+	/// clients)
+	/// </summary>
+	utility::string_t GetClient() const;
+	void SetClient(const utility::string_t& Value);
+	bool HasClient() const;
+
+	/// <summary>
 	/// The current identity token from the provider
 	/// (must be a valid token that is not expired)
 	/// </summary>
@@ -1830,6 +1874,7 @@ public:
 protected:
 	std::optional<utility::string_t> m_Tenant;
 	std::optional<utility::string_t> m_Provider;
+	std::optional<utility::string_t> m_Client;
 	std::optional<utility::string_t> m_Token;
 	std::optional<utility::string_t> m_DeviceId;
 	std::optional<utility::string_t> m_OAuthRedirectUri;
@@ -2140,6 +2185,50 @@ public:
 protected:
 	std::optional<utility::string_t> m_UserId;
 	std::optional<std::vector<utility::string_t>> m_Roles;
+};
+
+class ProblemDetails : public csp::services::DtoBase
+{
+public:
+	ProblemDetails();
+	virtual ~ProblemDetails();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	utility::string_t GetType() const;
+	void SetType(const utility::string_t& Value);
+	bool HasType() const;
+
+	utility::string_t GetTitle() const;
+	void SetTitle(const utility::string_t& Value);
+	bool HasTitle() const;
+
+	int32_t GetStatus() const;
+	void SetStatus(int32_t Value);
+	bool HasStatus() const;
+
+	utility::string_t GetDetail() const;
+	void SetDetail(const utility::string_t& Value);
+	bool HasDetail() const;
+
+	utility::string_t GetInstance() const;
+	void SetInstance(const utility::string_t& Value);
+	bool HasInstance() const;
+
+	const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& GetExtensions() const;
+	void SetExtensions(const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& Value);
+	bool HasExtensions() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Type;
+	std::optional<utility::string_t> m_Title;
+	std::optional<int32_t> m_Status;
+	std::optional<utility::string_t> m_Detail;
+	std::optional<utility::string_t> m_Instance;
+	std::optional<std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>> m_Extensions;
 };
 
 /// <summary>
@@ -2504,6 +2593,31 @@ protected:
 	std::optional<utility::string_t> m_ReverseProxy;
 	std::optional<std::vector<std::shared_ptr<ControllerVersions>>> m_VersionedServices;
 	std::optional<std::vector<std::shared_ptr<NamedFunction>>> m_VersionedFunctions;
+};
+
+/// <summary>
+/// Request object for setting an encrypted value
+/// </summary>
+class SetEncryptedValueRequest : public csp::services::DtoBase
+{
+public:
+	SetEncryptedValueRequest();
+	virtual ~SetEncryptedValueRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The value to encrypt and store
+	/// </summary>
+	utility::string_t GetValue() const;
+	void SetValue(const utility::string_t& Value);
+	bool HasValue() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Value;
 };
 
 /// <summary>
@@ -2956,6 +3070,14 @@ public:
 	void SetDefaultSessionSettings(const std::shared_ptr<DefaultSessionSettingsDto>& Value);
 	bool HasDefaultSessionSettings() const;
 
+	/// <summary>
+	/// Hostnames that map to this tenant for auto-detection from request Origin/Referer headers.
+	/// Example: ["nodey.magnopus.cloud", "app.client.com"]
+	/// </summary>
+	const std::vector<utility::string_t>& GetMappedHostnames() const;
+	void SetMappedHostnames(const std::vector<utility::string_t>& Value);
+	bool HasMappedHostnames() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Name;
@@ -2972,6 +3094,7 @@ protected:
 	std::optional<bool> m_EnableMusubi;
 	std::optional<std::shared_ptr<TenantAdminAccount>> m_AdminCredentials;
 	std::optional<std::shared_ptr<DefaultSessionSettingsDto>> m_DefaultSessionSettings;
+	std::optional<std::vector<utility::string_t>> m_MappedHostnames;
 };
 
 /// <summary>
@@ -3015,12 +3138,21 @@ public:
 	void SetEnableEmailAutoConfirm(const bool& Value);
 	bool HasEnableEmailAutoConfirm() const;
 
+	/// <summary>
+	/// Specific email addresses allowed to register.
+	/// Plus-addressing is supported: user+tag@domain.com matches user@domain.com in the allowlist.
+	/// </summary>
+	const std::vector<utility::string_t>& GetAllowedEmailAddresses() const;
+	void SetAllowedEmailAddresses(const std::vector<utility::string_t>& Value);
+	bool HasAllowedEmailAddresses() const;
+
 
 protected:
 	std::optional<std::vector<utility::string_t>> m_AllowedEmailDomains;
 	std::optional<std::vector<utility::string_t>> m_AllowedEmailUserNameSuffixes;
 	std::optional<bool> m_DisableEmailSender;
 	std::optional<bool> m_EnableEmailAutoConfirm;
+	std::optional<std::vector<utility::string_t>> m_AllowedEmailAddresses;
 };
 
 /// <summary>

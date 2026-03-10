@@ -6,6 +6,7 @@
 #include "Common/Web/Json_HttpPayload.h"
 #include "Debug/Logging.h"
 
+#include "Json/JsonParseHelper.h"
 #include <optional>
 
 
@@ -131,7 +132,11 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AnalyticsRecord::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -529,7 +534,11 @@ void ApiVersion::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApiVersion::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("version"))
@@ -767,7 +776,11 @@ void AssetDetailDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AssetDetailDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("prototypeId"))
@@ -1335,7 +1348,11 @@ void AssetPipelineModelDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AssetPipelineModelDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("prototypeId"))
@@ -1562,7 +1579,11 @@ void AssetPipelineModelLodLevelDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AssetPipelineModelLodLevelDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("prototypeId"))
@@ -1931,7 +1952,11 @@ void AssetPipelineThumbnailDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AssetPipelineThumbnailDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("prototypeId"))
@@ -2238,7 +2263,11 @@ void BulkUpsertAssetDetailDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BulkUpsertAssetDetailDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -2894,7 +2923,11 @@ void BulkUpsertPrototypeDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BulkUpsertPrototypeDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -3393,7 +3426,11 @@ void ControllerVersions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ControllerVersions::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("reverseProxy"))
@@ -3666,7 +3703,11 @@ void CopiedAssetDetailDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CopiedAssetDetailDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("originalAssetDetailId"))
@@ -4368,7 +4409,11 @@ void CopiedPrototypeDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CopiedPrototypeDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("originalPrototypeId"))
@@ -4901,7 +4946,11 @@ void CopyPrototypesResult::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CopyPrototypesResult::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("prototypes"))
@@ -5057,6 +5106,12 @@ utility::string_t DuplicateGroupPrototypesOptions::ToJson() const
 		JsonDoc.AddMember("includeMusubiGeneratedAssets", IncludeMusubiGeneratedAssetsValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_CoalescenceId.has_value())
+	{
+		rapidjson::Value CoalescenceIdValue(TypeToJsonValue(m_CoalescenceId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("coalescenceId", CoalescenceIdValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -5070,7 +5125,11 @@ void DuplicateGroupPrototypesOptions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DuplicateGroupPrototypesOptions::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("originalGroupId"))
@@ -5144,6 +5203,16 @@ void DuplicateGroupPrototypesOptions::FromJson(const utility::string_t& Val)
 		if (IncludeMusubiGeneratedAssetsValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(IncludeMusubiGeneratedAssetsValue, m_IncludeMusubiGeneratedAssets);
+		}
+	}
+
+	if (JsonDoc.HasMember("coalescenceId"))
+	{
+		const rapidjson::Value& CoalescenceIdValue = JsonDoc["coalescenceId"];
+
+		if (CoalescenceIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CoalescenceIdValue, m_CoalescenceId);
 		}
 	}
 }
@@ -5240,6 +5309,19 @@ void DuplicateGroupPrototypesOptions::SetIncludeMusubiGeneratedAssets(const bool
 {
 	m_IncludeMusubiGeneratedAssets = Value;
 }
+utility::string_t DuplicateGroupPrototypesOptions::GetCoalescenceId() const
+{
+	return m_CoalescenceId.value();
+}
+
+bool DuplicateGroupPrototypesOptions::HasCoalescenceId() const
+{
+	return m_CoalescenceId.has_value();
+}
+void DuplicateGroupPrototypesOptions::SetCoalescenceId(const utility::string_t& Value)
+{
+	m_CoalescenceId = Value;
+}
 
 ExportGroupPrototypesOptions::ExportGroupPrototypesOptions()
 {
@@ -5308,7 +5390,11 @@ void ExportGroupPrototypesOptions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ExportGroupPrototypesOptions::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("exportId"))
@@ -5589,7 +5675,11 @@ void ImportGroupPrototypesOptions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ImportGroupPrototypesOptions::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("exportId"))
@@ -5770,7 +5860,11 @@ void InternalFileCopyRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "InternalFileCopyRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("sourceFileInfo"))
@@ -5867,7 +5961,11 @@ void LocalizedString::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LocalizedString::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("languageCode"))
@@ -5998,7 +6096,11 @@ void MusubiFileInfo::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MusubiFileInfo::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("source"))
@@ -6270,7 +6372,11 @@ void NamedFunction::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "NamedFunction::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("functionName"))
@@ -6490,7 +6596,11 @@ void PrototypeDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PrototypeDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -6991,7 +7101,11 @@ void PrototypeDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PrototypeDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -7263,7 +7377,11 @@ void PrototypeFilters::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PrototypeFilters::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("tags"))
@@ -7761,7 +7879,11 @@ void ServiceVersionInfo::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ServiceVersionInfo::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("containerVersion"))
@@ -7980,7 +8102,11 @@ void StringDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StringDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))

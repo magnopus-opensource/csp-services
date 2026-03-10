@@ -331,6 +331,7 @@ public:
 	{
 		const utility::string_t& provider;
 		const std::optional<utility::string_t>& tenant;
+		const std::optional<utility::string_t>& client;
 	};
 
 
@@ -619,6 +620,64 @@ public:
 
 protected:
 	virtual ~IConfigurationApiBase() = default;
+};
+
+class IEncryptedValueApiBase : public csp::services::ApiBase
+{
+public:
+	IEncryptedValueApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	{
+	}
+
+
+
+	struct encrypted_valuesTenantGetParams
+	{
+		const std::vector<utility::string_t>& keys;
+		const std::optional<bool>& withUserOverrides;
+	};
+
+
+	/// <summary>
+	/// Bulk retrieve tenant-owned encrypted values by key names.
+	/// Returns decrypted values for authorized callers.
+	/// Optionally includes user overrides where user keys take precedence over tenant keys.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/encrypted-values/tenant
+	/// Authorization: tenant-secrets,admin,magnopus-admin
+	/// </remarks>
+	virtual void encrypted_valuesTenantGet(const encrypted_valuesTenantGetParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct encrypted_valuesTenantKeyNamePutParams
+	{
+		const utility::string_t& keyName;
+		const std::shared_ptr<SetEncryptedValueRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Create or update a tenant-owned encrypted value.
+	/// If the key already exists, it will be updated; otherwise, a new key will be created.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/encrypted-values/tenant/{keyName}
+	/// Authorization: admin,magnopus-admin
+	/// </remarks>
+	virtual void encrypted_valuesTenantKeyNamePut(const encrypted_valuesTenantKeyNamePutParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IEncryptedValueApiBase() = default;
 };
 
 class IGroupApiBase : public csp::services::ApiBase

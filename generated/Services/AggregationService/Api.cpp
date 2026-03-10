@@ -178,6 +178,30 @@ void AloMovesApi::aloQaSyncClass_dataPut([[maybe_unused]] const aloQaSyncClass_d
 
 
 
+void AloMovesApi::aloClassesMost_visitedGet([[maybe_unused]] const aloClassesMost_visitedGetParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/alo/classes/most-visited").c_str(),
+		{});
+
+
+	if (Params.maxResults.has_value())
+	{
+		Uri.AddQueryParams("maxResults", Params.maxResults.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 AnalyticsApi::AnalyticsApi(csp::web::WebClient* InWebClient) : IAnalyticsApiBase(InWebClient)
 {
 }

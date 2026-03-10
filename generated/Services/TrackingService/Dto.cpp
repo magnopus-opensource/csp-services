@@ -6,6 +6,7 @@
 #include "Common/Web/Json_HttpPayload.h"
 #include "Debug/Logging.h"
 
+#include "Json/JsonParseHelper.h"
 #include <optional>
 
 
@@ -131,7 +132,11 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AnalyticsRecord::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -529,7 +534,11 @@ void ApiVersion::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApiVersion::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("version"))
@@ -653,7 +662,11 @@ void ControllerVersions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ControllerVersions::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("reverseProxy"))
@@ -794,7 +807,11 @@ void NamedFunction::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "NamedFunction::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("functionName"))
@@ -942,7 +959,11 @@ void QuotaFeatureActivityDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "QuotaFeatureActivityDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("featureName"))
@@ -1163,7 +1184,11 @@ void QuotaFeatureActivityDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "QuotaFeatureActivityDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -1339,7 +1364,11 @@ void QuotaFeatureLimitProgressDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "QuotaFeatureLimitProgressDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("featureName"))
@@ -1457,7 +1486,11 @@ void QuotaFeatureTierDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "QuotaFeatureTierDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("featureName"))
@@ -1682,7 +1715,11 @@ void QuotaTierAssignmentDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "QuotaTierAssignmentDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("assignedToType"))
@@ -1858,7 +1895,11 @@ void ServiceVersionInfo::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ServiceVersionInfo::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("containerVersion"))
@@ -2034,7 +2075,11 @@ void StringDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StringDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))

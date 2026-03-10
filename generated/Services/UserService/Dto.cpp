@@ -6,6 +6,7 @@
 #include "Common/Web/Json_HttpPayload.h"
 #include "Debug/Logging.h"
 
+#include "Json/JsonParseHelper.h"
 #include <optional>
 
 
@@ -131,7 +132,11 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AnalyticsRecord::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -529,7 +534,11 @@ void ApiVersion::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApiVersion::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("version"))
@@ -653,7 +662,11 @@ void ApplicationSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApplicationSettingsDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("applicationName"))
@@ -820,7 +833,11 @@ void AuthDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AuthDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("userId"))
@@ -1063,7 +1080,11 @@ void AvatarManifestDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AvatarManifestDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -1206,7 +1227,11 @@ void ControllerVersions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ControllerVersions::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("reverseProxy"))
@@ -1395,7 +1420,11 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateUserRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("tenant"))
@@ -1757,7 +1786,11 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateUserSocialRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("tenant"))
@@ -2113,7 +2146,11 @@ void DefaultSessionSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DefaultSessionSettingsDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("applicationName"))
@@ -2225,7 +2262,11 @@ void DefaultSettings::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DefaultSettings::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("defaultApplicationSettings"))
@@ -2277,6 +2318,107 @@ void DefaultSettings::SetDefaultUserSettings(const std::vector<std::shared_ptr<S
 	m_DefaultUserSettings = Value;
 }
 
+EncryptedValueDto::EncryptedValueDto()
+{
+}
+EncryptedValueDto::~EncryptedValueDto()
+{
+}
+
+utility::string_t EncryptedValueDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_KeyName.has_value())
+	{
+		rapidjson::Value KeyNameValue(TypeToJsonValue(m_KeyName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("keyName", KeyNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Value.has_value())
+	{
+		rapidjson::Value ValueValue(TypeToJsonValue(m_Value, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("value", ValueValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void EncryptedValueDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EncryptedValueDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("keyName"))
+	{
+		const rapidjson::Value& KeyNameValue = JsonDoc["keyName"];
+
+		if (KeyNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(KeyNameValue, m_KeyName);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member keyName is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("value"))
+	{
+		const rapidjson::Value& ValueValue = JsonDoc["value"];
+
+		if (ValueValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ValueValue, m_Value);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
+		}
+	}
+}
+
+
+utility::string_t EncryptedValueDto::GetKeyName() const
+{
+	return m_KeyName.value();
+}
+
+bool EncryptedValueDto::HasKeyName() const
+{
+	return m_KeyName.has_value();
+}
+void EncryptedValueDto::SetKeyName(const utility::string_t& Value)
+{
+	m_KeyName = Value;
+}
+utility::string_t EncryptedValueDto::GetValue() const
+{
+	return m_Value.value();
+}
+
+bool EncryptedValueDto::HasValue() const
+{
+	return m_Value.has_value();
+}
+void EncryptedValueDto::SetValue(const utility::string_t& Value)
+{
+	m_Value = Value;
+}
+
 EquipItemDto::EquipItemDto()
 {
 }
@@ -2308,7 +2450,11 @@ void EquipItemDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EquipItemDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("isEquipped"))
@@ -2378,7 +2524,11 @@ void ForgotPasswordRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ForgotPasswordRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("tenant"))
@@ -2634,7 +2784,11 @@ void GroupDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -3232,7 +3386,11 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupFilters::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("ids"))
@@ -3703,7 +3861,11 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupInviteDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -4086,7 +4248,11 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupLiteDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -4495,7 +4661,11 @@ void GroupLiteDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupLiteDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -4671,7 +4841,11 @@ void GroupSummaryDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupSummaryDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("groupId"))
@@ -4789,7 +4963,11 @@ void InitialSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "InitialSettingsDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("context"))
@@ -4977,7 +5155,11 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "InventoryItemDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -5352,7 +5534,11 @@ void InventoryItemDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "InventoryItemDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -5534,7 +5720,11 @@ void LoginGuestRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LoginGuestRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("tenant"))
@@ -5711,7 +5901,11 @@ void LoginRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LoginRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("tenant"))
@@ -5910,6 +6104,12 @@ utility::string_t LoginSocialRequest::ToJson() const
 		JsonDoc.AddMember("provider", ProviderValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_Client.has_value())
+	{
+		rapidjson::Value ClientValue(TypeToJsonValue(m_Client, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("client", ClientValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_Token.has_value())
 	{
 		rapidjson::Value TokenValue(TypeToJsonValue(m_Token, JsonDoc.GetAllocator()));
@@ -5959,7 +6159,11 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LoginSocialRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("tenant"))
@@ -5983,6 +6187,16 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 		else
 		{
 			CSP_LOG_ERROR_MSG("Error: Non-nullable member provider is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("client"))
+	{
+		const rapidjson::Value& ClientValue = JsonDoc["client"];
+
+		if (ClientValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ClientValue, m_Client);
 		}
 	}
 
@@ -6085,6 +6299,19 @@ bool LoginSocialRequest::HasProvider() const
 void LoginSocialRequest::SetProvider(const utility::string_t& Value)
 {
 	m_Provider = Value;
+}
+utility::string_t LoginSocialRequest::GetClient() const
+{
+	return m_Client.value();
+}
+
+bool LoginSocialRequest::HasClient() const
+{
+	return m_Client.has_value();
+}
+void LoginSocialRequest::SetClient(const utility::string_t& Value)
+{
+	m_Client = Value;
 }
 utility::string_t LoginSocialRequest::GetToken() const
 {
@@ -6202,7 +6429,11 @@ void LogoutRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LogoutRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("userId"))
@@ -6301,7 +6532,11 @@ void MetagameProgressDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MetagameProgressDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("userId"))
@@ -6417,7 +6652,11 @@ void MetagameUpdate::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MetagameUpdate::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("percentDeltaAsTotal"))
@@ -6520,7 +6759,11 @@ void NamedFunction::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "NamedFunction::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("functionName"))
@@ -6650,7 +6893,11 @@ void OrganizationDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -6838,7 +7085,11 @@ void OrganizationInviteDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationInviteDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -7030,7 +7281,11 @@ void OrganizationMember::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationMember::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("userId"))
@@ -7080,6 +7335,215 @@ bool OrganizationMember::HasRoles() const
 void OrganizationMember::SetRoles(const std::vector<utility::string_t>& Value)
 {
 	m_Roles = Value;
+}
+
+ProblemDetails::ProblemDetails()
+{
+}
+ProblemDetails::~ProblemDetails()
+{
+}
+
+utility::string_t ProblemDetails::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Type.has_value())
+	{
+		rapidjson::Value TypeValue(TypeToJsonValue(m_Type, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("type", TypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Title.has_value())
+	{
+		rapidjson::Value TitleValue(TypeToJsonValue(m_Title, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("title", TitleValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Status.has_value())
+	{
+		rapidjson::Value StatusValue(TypeToJsonValue(m_Status, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("status", StatusValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Detail.has_value())
+	{
+		rapidjson::Value DetailValue(TypeToJsonValue(m_Detail, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("detail", DetailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Instance.has_value())
+	{
+		rapidjson::Value InstanceValue(TypeToJsonValue(m_Instance, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("instance", InstanceValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Extensions.has_value())
+	{
+		rapidjson::Value ExtensionsValue(TypeToJsonValue(m_Extensions, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("extensions", ExtensionsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ProblemDetails::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProblemDetails::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("type"))
+	{
+		const rapidjson::Value& TypeValue = JsonDoc["type"];
+
+		if (TypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TypeValue, m_Type);
+		}
+	}
+
+	if (JsonDoc.HasMember("title"))
+	{
+		const rapidjson::Value& TitleValue = JsonDoc["title"];
+
+		if (TitleValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TitleValue, m_Title);
+		}
+	}
+
+	if (JsonDoc.HasMember("status"))
+	{
+		const rapidjson::Value& StatusValue = JsonDoc["status"];
+
+		if (StatusValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StatusValue, m_Status);
+		}
+	}
+
+	if (JsonDoc.HasMember("detail"))
+	{
+		const rapidjson::Value& DetailValue = JsonDoc["detail"];
+
+		if (DetailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DetailValue, m_Detail);
+		}
+	}
+
+	if (JsonDoc.HasMember("instance"))
+	{
+		const rapidjson::Value& InstanceValue = JsonDoc["instance"];
+
+		if (InstanceValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(InstanceValue, m_Instance);
+		}
+	}
+
+	if (JsonDoc.HasMember("extensions"))
+	{
+		const rapidjson::Value& ExtensionsValue = JsonDoc["extensions"];
+
+		if (ExtensionsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExtensionsValue, m_Extensions);
+		}
+	}
+}
+
+
+utility::string_t ProblemDetails::GetType() const
+{
+	return m_Type.value();
+}
+
+bool ProblemDetails::HasType() const
+{
+	return m_Type.has_value();
+}
+void ProblemDetails::SetType(const utility::string_t& Value)
+{
+	m_Type = Value;
+}
+utility::string_t ProblemDetails::GetTitle() const
+{
+	return m_Title.value();
+}
+
+bool ProblemDetails::HasTitle() const
+{
+	return m_Title.has_value();
+}
+void ProblemDetails::SetTitle(const utility::string_t& Value)
+{
+	m_Title = Value;
+}
+int32_t ProblemDetails::GetStatus() const
+{
+	return m_Status.value();
+}
+
+bool ProblemDetails::HasStatus() const
+{
+	return m_Status.has_value();
+}
+void ProblemDetails::SetStatus(int32_t Value)
+{
+	m_Status = Value;
+}
+utility::string_t ProblemDetails::GetDetail() const
+{
+	return m_Detail.value();
+}
+
+bool ProblemDetails::HasDetail() const
+{
+	return m_Detail.has_value();
+}
+void ProblemDetails::SetDetail(const utility::string_t& Value)
+{
+	m_Detail = Value;
+}
+utility::string_t ProblemDetails::GetInstance() const
+{
+	return m_Instance.value();
+}
+
+bool ProblemDetails::HasInstance() const
+{
+	return m_Instance.has_value();
+}
+void ProblemDetails::SetInstance(const utility::string_t& Value)
+{
+	m_Instance = Value;
+}
+const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& ProblemDetails::GetExtensions() const
+{
+	return m_Extensions.value();
+}
+
+bool ProblemDetails::HasExtensions() const
+{
+	return m_Extensions.has_value();
+}
+void ProblemDetails::SetExtensions(const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& Value)
+{
+	m_Extensions = Value;
 }
 
 ProfileDto::ProfileDto()
@@ -7233,7 +7697,11 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProfileDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -7709,7 +8177,11 @@ void ProfileDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProfileDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -7897,7 +8369,11 @@ void ProfileLiteDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProfileLiteDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -8047,7 +8523,11 @@ void RefreshRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RefreshRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("userId"))
@@ -8216,7 +8696,11 @@ void ServiceVersionInfo::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ServiceVersionInfo::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("containerVersion"))
@@ -8337,6 +8821,74 @@ void ServiceVersionInfo::SetVersionedFunctions(const std::vector<std::shared_ptr
 	m_VersionedFunctions = Value;
 }
 
+SetEncryptedValueRequest::SetEncryptedValueRequest()
+{
+}
+SetEncryptedValueRequest::~SetEncryptedValueRequest()
+{
+}
+
+utility::string_t SetEncryptedValueRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Value.has_value())
+	{
+		rapidjson::Value ValueValue(TypeToJsonValue(m_Value, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("value", ValueValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void SetEncryptedValueRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SetEncryptedValueRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("value"))
+	{
+		const rapidjson::Value& ValueValue = JsonDoc["value"];
+
+		if (ValueValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ValueValue, m_Value);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
+		}
+	}
+}
+
+
+utility::string_t SetEncryptedValueRequest::GetValue() const
+{
+	return m_Value.value();
+}
+
+bool SetEncryptedValueRequest::HasValue() const
+{
+	return m_Value.has_value();
+}
+void SetEncryptedValueRequest::SetValue(const utility::string_t& Value)
+{
+	m_Value = Value;
+}
+
 SettingsDto::SettingsDto()
 {
 }
@@ -8380,7 +8932,11 @@ void SettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SettingsDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("userId"))
@@ -8500,7 +9056,11 @@ void SocialProviderInfo::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SocialProviderInfo::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("providerName"))
@@ -8653,7 +9213,11 @@ void StringDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StringDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -8817,7 +9381,11 @@ void StripeCheckoutRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StripeCheckoutRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("lookupKey"))
@@ -8881,7 +9449,11 @@ void StripeCheckoutSessionDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StripeCheckoutSessionDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("checkoutUrl"))
@@ -8949,7 +9521,11 @@ void StripeCustomerDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StripeCustomerDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("stripeCustomerId"))
@@ -9043,7 +9619,11 @@ void StripeCustomerPortalDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StripeCustomerPortalDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("customerPortalUrl"))
@@ -9111,7 +9691,11 @@ void TenantAdminAccount::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantAdminAccount::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("emailAddress"))
@@ -9257,7 +9841,11 @@ void TenantCleanupFilters::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantCleanupFilters::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("deleteTenant"))
@@ -9520,6 +10108,12 @@ utility::string_t TenantDto::ToJson() const
 		JsonDoc.AddMember("defaultSessionSettings", DefaultSessionSettingsValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_MappedHostnames.has_value())
+	{
+		rapidjson::Value MappedHostnamesValue(TypeToJsonValue(m_MappedHostnames, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("mappedHostnames", MappedHostnamesValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -9533,7 +10127,11 @@ void TenantDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("name"))
@@ -9697,6 +10295,16 @@ void TenantDto::FromJson(const utility::string_t& Val)
 		else
 		{
 			CSP_LOG_ERROR_MSG("Error: Non-nullable member defaultSessionSettings is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("mappedHostnames"))
+	{
+		const rapidjson::Value& MappedHostnamesValue = JsonDoc["mappedHostnames"];
+
+		if (MappedHostnamesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MappedHostnamesValue, m_MappedHostnames);
 		}
 	}
 }
@@ -9872,6 +10480,19 @@ void TenantDto::SetDefaultSessionSettings(const std::shared_ptr<DefaultSessionSe
 {
 	m_DefaultSessionSettings = Value;
 }
+const std::vector<utility::string_t>& TenantDto::GetMappedHostnames() const
+{
+	return m_MappedHostnames.value();
+}
+
+bool TenantDto::HasMappedHostnames() const
+{
+	return m_MappedHostnames.has_value();
+}
+void TenantDto::SetMappedHostnames(const std::vector<utility::string_t>& Value)
+{
+	m_MappedHostnames = Value;
+}
 
 TenantEmailSettingsDto::TenantEmailSettingsDto()
 {
@@ -9909,6 +10530,12 @@ utility::string_t TenantEmailSettingsDto::ToJson() const
 		JsonDoc.AddMember("enableEmailAutoConfirm", EnableEmailAutoConfirmValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_AllowedEmailAddresses.has_value())
+	{
+		rapidjson::Value AllowedEmailAddressesValue(TypeToJsonValue(m_AllowedEmailAddresses, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowedEmailAddresses", AllowedEmailAddressesValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -9922,7 +10549,11 @@ void TenantEmailSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantEmailSettingsDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("allowedEmailDomains"))
@@ -9970,6 +10601,16 @@ void TenantEmailSettingsDto::FromJson(const utility::string_t& Val)
 		else
 		{
 			CSP_LOG_ERROR_MSG("Error: Non-nullable member enableEmailAutoConfirm is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("allowedEmailAddresses"))
+	{
+		const rapidjson::Value& AllowedEmailAddressesValue = JsonDoc["allowedEmailAddresses"];
+
+		if (AllowedEmailAddressesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowedEmailAddressesValue, m_AllowedEmailAddresses);
 		}
 	}
 }
@@ -10026,6 +10667,19 @@ bool TenantEmailSettingsDto::HasEnableEmailAutoConfirm() const
 void TenantEmailSettingsDto::SetEnableEmailAutoConfirm(const bool& Value)
 {
 	m_EnableEmailAutoConfirm = Value;
+}
+const std::vector<utility::string_t>& TenantEmailSettingsDto::GetAllowedEmailAddresses() const
+{
+	return m_AllowedEmailAddresses.value();
+}
+
+bool TenantEmailSettingsDto::HasAllowedEmailAddresses() const
+{
+	return m_AllowedEmailAddresses.has_value();
+}
+void TenantEmailSettingsDto::SetAllowedEmailAddresses(const std::vector<utility::string_t>& Value)
+{
+	m_AllowedEmailAddresses = Value;
 }
 
 TenantEmailTemplateSettingsDto::TenantEmailTemplateSettingsDto()
@@ -10107,7 +10761,11 @@ void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantEmailTemplateSettingsDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("type"))
@@ -10369,7 +11027,11 @@ void TokenOptions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TokenOptions::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("expiryLength"))
@@ -10458,7 +11120,11 @@ void TokenResetPasswordRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TokenResetPasswordRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("token"))
@@ -10597,7 +11263,11 @@ void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpgradeGuestRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("email"))
@@ -10901,7 +11571,11 @@ void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpgradeGuestSocialRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("provider"))
@@ -11211,7 +11885,11 @@ void UserQuery::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UserQuery::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("guestDeviceId"))
@@ -11484,7 +12162,11 @@ void UserRolesDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UserRolesDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("userId"))

@@ -54,6 +54,12 @@ public:
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
+	MOCK_METHOD(void,
+				aloClassesMost_visitedGet,
+				(const aloClassesMost_visitedGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
 };
 
 class AnalyticsApiMock final : public IAnalyticsApiBase

@@ -6,6 +6,7 @@
 #include "Common/Web/Json_HttpPayload.h"
 #include "Debug/Logging.h"
 
+#include "Json/JsonParseHelper.h"
 #include <optional>
 
 
@@ -131,7 +132,11 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AnalyticsRecord::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -529,7 +534,11 @@ void ApiVersion::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApiVersion::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("version"))
@@ -707,7 +716,11 @@ void AreaOfInterestDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AreaOfInterestDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -1025,7 +1038,11 @@ void BooleanUInt32NullableTuple::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BooleanUInt32NullableTuple::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("item1"))
@@ -1136,7 +1153,11 @@ void ClientConnectionDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ClientConnectionDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -1304,7 +1325,11 @@ void ClientConnectionDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ClientConnectionDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -1529,7 +1554,11 @@ void ControllerVersions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ControllerVersions::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("reverseProxy"))
@@ -1682,7 +1711,11 @@ void EventMessageDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EventMessageDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("eventType"))
@@ -1844,7 +1877,11 @@ void GeoCoord::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GeoCoord::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("longitude"))
@@ -1929,7 +1966,11 @@ void IComponentData::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "IComponentData::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 }
 
 
@@ -1977,7 +2018,11 @@ void NamedFunction::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "NamedFunction::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("functionName"))
@@ -2143,7 +2188,11 @@ void ObjectMessageDocumentDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ObjectMessageDocumentDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -2465,7 +2514,11 @@ void ObjectMessageDocumentDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ObjectMessageDocumentDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -2701,7 +2754,11 @@ void ObjectMessageDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ObjectMessageDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -3089,7 +3146,11 @@ void ObjectMessageDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ObjectMessageDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -3265,7 +3326,11 @@ void ObjectMessagePatchDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ObjectMessagePatchDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("ownerUserId"))
@@ -3454,7 +3519,11 @@ void ScopeDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ScopeDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -3692,7 +3761,11 @@ void ScopeDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ScopeDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -3874,7 +3947,11 @@ void ScopeLeaderDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ScopeLeaderDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("scopeId"))
@@ -4027,7 +4104,11 @@ void ServiceVersionInfo::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ServiceVersionInfo::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("containerVersion"))
@@ -4203,7 +4284,11 @@ void StringDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StringDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))

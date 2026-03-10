@@ -317,6 +317,12 @@ void AuthenticationApi::social_providersProviderGet([[maybe_unused]] const socia
 		Uri.AddQueryParams("tenant", Params.tenant.value());
 	}
 
+
+	if (Params.client.has_value())
+	{
+		Uri.AddQueryParams("client", Params.client.value());
+	}
+
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
 
@@ -585,6 +591,63 @@ void ConfigurationApi::featureflagsGet([[maybe_unused]] const featureflagsGetPar
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+EncryptedValueApi::EncryptedValueApi(csp::web::WebClient* InWebClient) : IEncryptedValueApiBase(InWebClient)
+{
+}
+
+EncryptedValueApi::~EncryptedValueApi()
+{
+}
+
+
+
+void EncryptedValueApi::encrypted_valuesTenantGet([[maybe_unused]] const encrypted_valuesTenantGetParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/encrypted-values/tenant").c_str(),
+		{});
+
+
+	Uri.AddQueryParams("keys", Params.keys);
+
+
+	if (Params.withUserOverrides.has_value())
+	{
+		Uri.AddQueryParams("withUserOverrides", Params.withUserOverrides.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void EncryptedValueApi::encrypted_valuesTenantKeyNamePut([[maybe_unused]] const encrypted_valuesTenantKeyNamePutParams& Params,
+														 csp::services::ApiResponseHandlerBase* ResponseHandler,
+														 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/encrypted-values/tenant/{keyName}")
+			.c_str(),
+		{Params.keyName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 

@@ -921,6 +921,12 @@ public:
 	bool HasSpaceId() const;
 
 	/// <summary>
+	/// The id of the coalescence to duplicate
+	/// </summary>
+	utility::string_t GetCoalescingId() const;
+	bool HasCoalescingId() const;
+
+	/// <summary>
 	/// The ownerId (userId) that this new space will be assigned to
 	/// </summary>
 	utility::string_t GetNewGroupOwnerId() const;
@@ -979,6 +985,7 @@ public:
 protected:
 	std::optional<utility::string_t> m_TenantName;
 	std::optional<utility::string_t> m_SpaceId;
+	std::optional<utility::string_t> m_CoalescingId;
 	std::optional<utility::string_t> m_NewGroupOwnerId;
 	std::optional<std::vector<utility::string_t>> m_MemberGroupIds;
 	std::optional<utility::string_t> m_RequestUserId;

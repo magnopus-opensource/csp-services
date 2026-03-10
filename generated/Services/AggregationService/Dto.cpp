@@ -6,6 +6,7 @@
 #include "Common/Web/Json_HttpPayload.h"
 #include "Debug/Logging.h"
 
+#include "Json/JsonParseHelper.h"
 #include <optional>
 
 
@@ -59,7 +60,11 @@ void AloClassCompletedRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AloClassCompletedRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("userId"))
@@ -157,7 +162,11 @@ void AloClassCompletedResponse::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AloClassCompletedResponse::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("badgeIdsEarned"))
@@ -362,7 +371,11 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AnalyticsRecord::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -760,7 +773,11 @@ void ApiVersion::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApiVersion::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("version"))
@@ -884,7 +901,11 @@ void ApplicationSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApplicationSettingsDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("applicationName"))
@@ -1141,7 +1162,11 @@ void AssetDetailDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AssetDetailDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("prototypeId"))
@@ -1721,7 +1746,11 @@ void AuthDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AuthDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("userId"))
@@ -1964,7 +1993,11 @@ void CheckpointStats::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CheckpointStats::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("checkpointSizeInKilobytes"))
@@ -2264,7 +2297,11 @@ void CoalescingFanOutDocument::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CoalescingFanOutDocument::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("type"))
@@ -2663,7 +2700,11 @@ void ControllerVersions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ControllerVersions::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("reverseProxy"))
@@ -2798,7 +2839,11 @@ void DefaultSettings::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DefaultSettings::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("defaultApplicationSettings"))
@@ -2874,6 +2919,12 @@ utility::string_t DuplicateSpaceOptions::ToJson() const
 		JsonDoc.AddMember("spaceId", SpaceIdValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_CoalescingId.has_value())
+	{
+		rapidjson::Value CoalescingIdValue(TypeToJsonValue(m_CoalescingId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("coalescingId", CoalescingIdValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_NewGroupOwnerId.has_value())
 	{
 		rapidjson::Value NewGroupOwnerIdValue(TypeToJsonValue(m_NewGroupOwnerId, JsonDoc.GetAllocator()));
@@ -2935,7 +2986,11 @@ void DuplicateSpaceOptions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DuplicateSpaceOptions::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("tenantName"))
@@ -2955,6 +3010,16 @@ void DuplicateSpaceOptions::FromJson(const utility::string_t& Val)
 		if (SpaceIdValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(SpaceIdValue, m_SpaceId);
+		}
+	}
+
+	if (JsonDoc.HasMember("coalescingId"))
+	{
+		const rapidjson::Value& CoalescingIdValue = JsonDoc["coalescingId"];
+
+		if (CoalescingIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CoalescingIdValue, m_CoalescingId);
 		}
 	}
 
@@ -3081,6 +3146,15 @@ bool DuplicateSpaceOptions::HasSpaceId() const
 void DuplicateSpaceOptions::SetSpaceId(const utility::string_t& Value)
 {
 	m_SpaceId = Value;
+}
+utility::string_t DuplicateSpaceOptions::GetCoalescingId() const
+{
+	return m_CoalescingId.value();
+}
+
+bool DuplicateSpaceOptions::HasCoalescingId() const
+{
+	return m_CoalescingId.has_value();
 }
 utility::string_t DuplicateSpaceOptions::GetNewGroupOwnerId() const
 {
@@ -3226,7 +3300,11 @@ void GroupRoleDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupRoleDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("userId"))
@@ -3350,7 +3428,11 @@ void HarmonizeAloRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "HarmonizeAloRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("nonce"))
@@ -3441,7 +3523,11 @@ void HarmonizeAloResponse::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "HarmonizeAloResponse::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("auth"))
@@ -3505,7 +3591,11 @@ void Icon::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "Icon::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("href"))
@@ -3589,7 +3679,11 @@ void IconStyle::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "IconStyle::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -3797,7 +3891,11 @@ void ImportSpaceOptions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ImportSpaceOptions::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("tenantName"))
@@ -4037,7 +4135,11 @@ void Kml::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "Kml::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("document"))
@@ -4119,7 +4221,11 @@ void LineString::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LineString::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("extrude"))
@@ -4266,7 +4372,11 @@ void LocalizedString::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LocalizedString::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("languageCode"))
@@ -4379,7 +4489,11 @@ void LookAt::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LookAt::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("longitude"))
@@ -4608,7 +4722,11 @@ void Model::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "Model::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -4803,7 +4921,11 @@ void ModelLink::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ModelLink::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("href"))
@@ -4875,7 +4997,11 @@ void ModelLocation::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ModelLocation::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("longitude"))
@@ -5005,7 +5131,11 @@ void ModelOrientation::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ModelOrientation::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("heading"))
@@ -5135,7 +5265,11 @@ void ModelScale::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ModelScale::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("x"))
@@ -5265,7 +5399,11 @@ void NamedFunction::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "NamedFunction::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("functionName"))
@@ -5413,7 +5551,11 @@ void Placemark::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "Placemark::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -5662,7 +5804,11 @@ void Point::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "Point::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("tessellate"))
@@ -5800,7 +5946,11 @@ void PositionKml::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PositionKml::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("name"))
@@ -5990,7 +6140,11 @@ void ProblemDetails::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProblemDetails::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("type"))
@@ -6279,7 +6433,11 @@ void PrototypeDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PrototypeDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -6780,7 +6938,11 @@ void PrototypeDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PrototypeDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -6974,7 +7136,11 @@ void SequenceDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SequenceDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -7185,7 +7351,11 @@ void SequenceDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SequenceDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -7367,7 +7537,11 @@ void ServiceRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ServiceRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("serviceName"))
@@ -7528,7 +7702,11 @@ void ServiceResponse::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ServiceResponse::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("success"))
@@ -7708,7 +7886,11 @@ void ServiceVersionInfo::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ServiceVersionInfo::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("containerVersion"))
@@ -7872,7 +8054,11 @@ void SettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SettingsDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("userId"))
@@ -7992,7 +8178,11 @@ void ShopifyCartDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ShopifyCartDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("spaceId"))
@@ -8125,7 +8315,11 @@ void ShopifyCartLineDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ShopifyCartLineDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("shopifyCartLineId"))
@@ -8255,7 +8449,11 @@ void ShopifyCartUpdateDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ShopifyCartUpdateDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("spaceId"))
@@ -8405,7 +8603,11 @@ void ShopifyCheckoutDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ShopifyCheckoutDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("storeUrl"))
@@ -8486,7 +8688,11 @@ void ShopifyMoney::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ShopifyMoney::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("amount"))
@@ -8597,7 +8803,11 @@ void ShopifyProductDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ShopifyProductDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("createdAt"))
@@ -8791,7 +9001,11 @@ void ShopifyProductMedia::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ShopifyProductMedia::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("mediaContentType"))
@@ -8959,7 +9173,11 @@ void ShopifyProductVariants::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ShopifyProductVariants::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -9179,7 +9397,11 @@ void ShopifyStorefrontDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ShopifyStorefrontDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -9370,7 +9592,11 @@ void ShopifyStorefrontDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ShopifyStorefrontDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -9540,7 +9766,11 @@ void ShopifyStorefrontValidationRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ShopifyStorefrontValidationRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("storeName"))
@@ -9637,7 +9867,11 @@ void ShopifyVariantOption::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ShopifyVariantOption::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("optionName"))
@@ -9712,7 +9946,11 @@ void SliceCompatibility::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SliceCompatibility::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("minimumVersion"))
@@ -9796,7 +10034,11 @@ void SpaceCheckpointOptions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SpaceCheckpointOptions::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("spaceId"))
@@ -9972,7 +10214,11 @@ void SpaceCheckpointResponse::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SpaceCheckpointResponse::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("spaceId"))
@@ -10172,7 +10418,11 @@ void SpaceEventDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SpaceEventDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -10386,7 +10636,11 @@ void SpaceEventDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SpaceEventDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -10598,7 +10852,11 @@ void SpaceExportDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SpaceExportDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("exportId"))
@@ -10866,7 +11124,11 @@ void SpaceImportDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SpaceImportDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("exportId"))
@@ -11060,7 +11322,11 @@ void SpaceOptions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SpaceOptions::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("requiresInvite"))
@@ -11220,7 +11486,11 @@ void SpaceTicketDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SpaceTicketDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -11441,7 +11711,11 @@ void StringDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StringDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("items"))
@@ -11611,7 +11885,11 @@ void Style::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "Style::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("id"))
@@ -11759,7 +12037,11 @@ void VendorProviderInfo::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "VendorProviderInfo::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("vendorName"))
@@ -11886,7 +12168,11 @@ void VersionMatrix::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	JsonDoc.Parse(Val.c_str());
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "VersionMatrix::FromJson");
+	if (!ok)
+	{
+		return;
+	}
 
 
 	if (JsonDoc.HasMember("serviceVersion"))

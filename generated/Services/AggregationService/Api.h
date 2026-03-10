@@ -173,6 +173,19 @@ public:
 	void aloQaSyncClass_dataPut(const aloQaSyncClass_dataPutParams& Params,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
 								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets the X most visited class definitions
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/alo/classes/most-visited
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void aloClassesMost_visitedGet(const aloClassesMost_visitedGetParams& Params,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class AnalyticsApi final : public IAnalyticsApiBase
@@ -716,6 +729,7 @@ public:
 	/// DELETE /api/v1/spaces/{spaceId}
 	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
 	/// </remarks>
+	[[deprecated("'DELETE /api/v1/spaces/{spaceId}' is deprecated!")]]
 	void spacesSpaceIdDelete(const spacesSpaceIdDeleteParams& Params,
 							 csp::services::ApiResponseHandlerBase* ResponseHandler,
 							 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;

@@ -221,6 +221,27 @@ public:
 				(const, override));
 };
 
+class EncryptedValueApiMock final : public IEncryptedValueApiBase
+{
+public:
+	EncryptedValueApiMock() : IEncryptedValueApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				encrypted_valuesTenantGet,
+				(const encrypted_valuesTenantGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				encrypted_valuesTenantKeyNamePut,
+				(const encrypted_valuesTenantKeyNamePutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
 class GroupApiMock final : public IGroupApiBase
 {
 public:

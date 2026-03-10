@@ -303,6 +303,12 @@ public:
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
+				prototypesDeletePost,
+				(const prototypesDeletePostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
 				prototypesPrototypeIdStatePut,
 				(const prototypesPrototypeIdStatePutParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -311,6 +317,12 @@ public:
 	MOCK_METHOD(void,
 				prototypesPrototypeIdStateGet,
 				(const prototypesPrototypeIdStateGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				prototypesMost_referencedGet,
+				(const prototypesMost_referencedGetParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));

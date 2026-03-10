@@ -580,6 +580,20 @@ public:
 
 
 	/// <summary>
+	/// Locates all prototypes by their unique identifier(s) ids
+	/// POST Endpoint so that we can send large lists of ids in the body
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/prototypes/delete
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void prototypesDeletePost(const prototypesDeletePostParams& Params,
+							  csp::services::ApiResponseHandlerBase* ResponseHandler,
+							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
 	/// Creates state key value pairs or updates existing - any previously existing state
 	/// not referenced in the call are left unchanged.
 	/// </summary>
@@ -603,6 +617,21 @@ public:
 	void prototypesPrototypeIdStateGet(const prototypesPrototypeIdStateGetParams& Params,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Returns the top X parent Prototypes referenced by a given type of child Prototype. It uses Mongo aggregation to
+	/// count up the number of child prototypes matching the 'childPrototypeFilters' per ParentId,
+	/// and then returns the X highest matching parent Prototypes found within the 'parentPrototypeFilters'.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/prototypes/most-referenced
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void prototypesMost_referencedGet(const prototypesMost_referencedGetParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class VersionsApi final : public IVersionsApiBase

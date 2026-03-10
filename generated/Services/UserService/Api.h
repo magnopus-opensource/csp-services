@@ -404,6 +404,42 @@ public:
 						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
+class EncryptedValueApi final : public IEncryptedValueApiBase
+{
+public:
+	EncryptedValueApi(csp::web::WebClient* InWebClient);
+	virtual ~EncryptedValueApi();
+
+
+
+	/// <summary>
+	/// Bulk retrieve tenant-owned encrypted values by key names.
+	/// Returns decrypted values for authorized callers.
+	/// Optionally includes user overrides where user keys take precedence over tenant keys.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/encrypted-values/tenant
+	/// Authorization: tenant-secrets,admin,magnopus-admin
+	/// </remarks>
+	void encrypted_valuesTenantGet(const encrypted_valuesTenantGetParams& Params,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Create or update a tenant-owned encrypted value.
+	/// If the key already exists, it will be updated; otherwise, a new key will be created.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/encrypted-values/tenant/{keyName}
+	/// Authorization: admin,magnopus-admin
+	/// </remarks>
+	void encrypted_valuesTenantKeyNamePut(const encrypted_valuesTenantKeyNamePutParams& Params,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+};
+
 class GroupApi final : public IGroupApiBase
 {
 public:

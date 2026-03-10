@@ -1571,6 +1571,13 @@ public:
 	void SetIncludeMusubiGeneratedAssets(const bool& Value);
 	bool HasIncludeMusubiGeneratedAssets() const;
 
+	/// <summary>
+	/// The id of the overall distributed operation
+	/// </summary>
+	utility::string_t GetCoalescenceId() const;
+	void SetCoalescenceId(const utility::string_t& Value);
+	bool HasCoalescenceId() const;
+
 
 protected:
 	std::optional<utility::string_t> m_OriginalGroupId;
@@ -1580,6 +1587,7 @@ protected:
 	std::optional<utility::string_t> m_OnBehalfOf;
 	std::optional<bool> m_ShallowCopy;
 	std::optional<bool> m_IncludeMusubiGeneratedAssets;
+	std::optional<utility::string_t> m_CoalescenceId;
 };
 
 /// <summary>
