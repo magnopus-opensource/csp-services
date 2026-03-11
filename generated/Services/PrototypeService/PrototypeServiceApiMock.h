@@ -320,12 +320,6 @@ public:
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
-	MOCK_METHOD(void,
-				prototypesMost_referencedGet,
-				(const prototypesMost_referencedGetParams&,
-				 csp::services::ApiResponseHandlerBase* ResponseHandler,
-				 csp::common::CancellationToken& CancellationToken),
-				(const, override));
 };
 
 class VersionsApiMock final : public IVersionsApiBase

@@ -2972,6 +2972,23 @@ void TenantApi::tenantsNamesTenantNameGet([[maybe_unused]] const tenantsNamesTen
 
 
 
+void TenantApi::tenantsInferred_nameGet([[maybe_unused]] const tenantsInferred_nameGetParams& Params,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/inferred-name").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 void TenantApi::tenantsPendingDelete([[maybe_unused]] const tenantsPendingDeleteParams& Params,
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
 									 csp::common::CancellationToken& CancellationToken) const

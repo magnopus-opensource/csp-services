@@ -617,21 +617,6 @@ public:
 	void prototypesPrototypeIdStateGet(const prototypesPrototypeIdStateGetParams& Params,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
-
-
-
-	/// <summary>
-	/// Returns the top X parent Prototypes referenced by a given type of child Prototype. It uses Mongo aggregation to
-	/// count up the number of child prototypes matching the 'childPrototypeFilters' per ParentId,
-	/// and then returns the X highest matching parent Prototypes found within the 'parentPrototypeFilters'.
-	/// </summary>
-	/// <remarks>
-	/// GET /api/v1/prototypes/most-referenced
-	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
-	/// </remarks>
-	void prototypesMost_referencedGet(const prototypesMost_referencedGetParams& Params,
-									  csp::services::ApiResponseHandlerBase* ResponseHandler,
-									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class VersionsApi final : public IVersionsApiBase

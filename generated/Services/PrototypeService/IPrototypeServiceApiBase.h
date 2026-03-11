@@ -1045,66 +1045,6 @@ public:
 
 
 
-	struct prototypesMost_referencedGetParams
-	{
-		const std::optional<std::vector<utility::string_t>>& Tags;
-		const std::optional<std::vector<utility::string_t>>& ExcludedTags;
-		const std::optional<bool>& TagsAll;
-		const std::optional<std::vector<utility::string_t>>& Ids;
-		const std::optional<std::vector<utility::string_t>>& Names;
-		const std::optional<std::vector<utility::string_t>>& PartialNames;
-		const std::optional<std::vector<utility::string_t>>& ExcludedIds;
-		const std::optional<std::vector<utility::string_t>>& PointOfInterestIds;
-		const std::optional<utility::string_t>& ParentId;
-		const std::optional<std::vector<utility::string_t>>& GroupIds;
-		const std::optional<std::vector<utility::string_t>>& Types;
-		const std::optional<bool>& HasGroup;
-		const std::optional<utility::string_t>& CreatedBy;
-		const std::optional<utility::string_t>& CreatedAfter;
-		const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds;
-		const std::optional<std::vector<utility::string_t>>& ReadAccessFilters;
-		const std::optional<std::vector<utility::string_t>>& WriteAccessFilters;
-		const std::optional<std::vector<utility::string_t>>& OrganizationIds;
-		const std::optional<std::vector<utility::string_t>>& ExcludedTypes;
-		const std::optional<std::vector<utility::string_t>>& Tags;
-		const std::optional<std::vector<utility::string_t>>& ExcludedTags;
-		const std::optional<bool>& TagsAll;
-		const std::optional<std::vector<utility::string_t>>& Ids;
-		const std::optional<std::vector<utility::string_t>>& Names;
-		const std::optional<std::vector<utility::string_t>>& PartialNames;
-		const std::optional<std::vector<utility::string_t>>& ExcludedIds;
-		const std::optional<std::vector<utility::string_t>>& PointOfInterestIds;
-		const std::optional<utility::string_t>& ParentId;
-		const std::optional<std::vector<utility::string_t>>& GroupIds;
-		const std::optional<std::vector<utility::string_t>>& Types;
-		const std::optional<bool>& HasGroup;
-		const std::optional<utility::string_t>& CreatedBy;
-		const std::optional<utility::string_t>& CreatedAfter;
-		const std::optional<std::vector<utility::string_t>>& PrototypeOwnerIds;
-		const std::optional<std::vector<utility::string_t>>& ReadAccessFilters;
-		const std::optional<std::vector<utility::string_t>>& WriteAccessFilters;
-		const std::optional<std::vector<utility::string_t>>& OrganizationIds;
-		const std::optional<std::vector<utility::string_t>>& ExcludedTypes;
-		const std::optional<int32_t>& maxResults;
-	};
-
-
-	/// <summary>
-	/// Returns the top X parent Prototypes referenced by a given type of child Prototype. It uses Mongo aggregation to
-	/// count up the number of child prototypes matching the 'childPrototypeFilters' per ParentId,
-	/// and then returns the X highest matching parent Prototypes found within the 'parentPrototypeFilters'.
-	/// </summary>
-	/// <remarks>
-	/// GET /api/v1/prototypes/most-referenced
-	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
-	/// </remarks>
-	virtual void prototypesMost_referencedGet(const prototypesMost_referencedGetParams& Params,
-											  csp::services::ApiResponseHandlerBase* ResponseHandler,
-											  csp::common::CancellationToken& CancellationToken) const
-		= 0;
-
-
-
 protected:
 	virtual ~IPrototypeApiBase() = default;
 };

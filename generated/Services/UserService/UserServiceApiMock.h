@@ -812,6 +812,12 @@ public:
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
+				tenantsInferred_nameGet,
+				(const tenantsInferred_nameGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
 				tenantsPendingDelete,
 				(const tenantsPendingDeleteParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,

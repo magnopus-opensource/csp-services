@@ -2593,6 +2593,26 @@ public:
 
 
 
+	struct tenantsInferred_nameGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// Returns the inferred tenant name based on the request Origin/Referer headers.
+	/// Allows clients to discover their tenant before authentication.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenants/inferred-name
+	/// Authorization: Anonymous
+	/// </remarks>
+	virtual void tenantsInferred_nameGet(const tenantsInferred_nameGetParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
 	struct tenantsPendingDeleteParams
 	{
 		const int32_t& tenantAgeInDays;
