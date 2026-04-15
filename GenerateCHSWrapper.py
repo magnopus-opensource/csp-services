@@ -114,11 +114,11 @@ def main():
                 schema['properties'] = {}
 
         # Render data models header
-        with open(f"generated/Services/{ service_name }/Dto.h", 'w') as f:
+        with open(f"generated/Services/{ service_name }/Dto.h", 'w', encoding="utf-8") as f:
             f.write(model_header_template.render(service_name=service_name, schemas=service['components']['schemas']))
             
         # Render data models source
-        with open(f"generated/Services/{ service_name }/Dto.cpp", 'w') as f:
+        with open(f"generated/Services/{ service_name }/Dto.cpp", 'w', encoding="utf-8") as f:
             f.write(model_source_template.render(service_name=service_name, schemas=service['components']['schemas']))
         
         # Group routes by tag
@@ -140,19 +140,19 @@ def main():
                 grouped_routes[tag][route_path][method_name] = method
         
         # Render API interface
-        with open(f"generated/Services/{ service_name }/I{ service_name }ApiBase.h", 'w') as f:
+        with open(f"generated/Services/{ service_name }/I{ service_name }ApiBase.h", 'w', encoding="utf-8") as f:
             f.write(api_interface_template.render(service_name=service_name, tags=grouped_routes))
 
         # Render API mock
-        with open(f"generated/Services/{ service_name }/{ service_name }ApiMock.h", 'w') as f:
+        with open(f"generated/Services/{ service_name }/{ service_name }ApiMock.h", 'w', encoding="utf-8") as f:
             f.write(api_mock_template.render(service_name=service_name, tags=grouped_routes))
 
         # Render API header
-        with open(f"generated/Services/{ service_name }/Api.h", 'w') as f:
+        with open(f"generated/Services/{ service_name }/Api.h", 'w', encoding="utf-8") as f:
             f.write(api_header_template.render(service_name=service_name, tags=grouped_routes))
         
         # Render API source
-        with open(f"generated/Services/{ service_name }/Api.cpp", 'w') as f:
+        with open(f"generated/Services/{ service_name }/Api.cpp", 'w', encoding="utf-8") as f:
             f.write(api_source_template.render(service_name=service_name, tags=grouped_routes))
     
         # Format output with clang-format
