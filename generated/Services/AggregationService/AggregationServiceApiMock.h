@@ -182,6 +182,261 @@ public:
 				(const, override));
 };
 
+class InspectorApiMock final : public IInspectorApiBase
+{
+public:
+	InspectorApiMock() : IInspectorApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				inspectorExecutionsGet,
+				(const inspectorExecutionsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorExecutionsExecutionIdGet,
+				(const inspectorExecutionsExecutionIdGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorExecutionsExecutionIdStateGet,
+				(const inspectorExecutionsExecutionIdStateGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorExecutionsExecutionIdGraphGet,
+				(const inspectorExecutionsExecutionIdGraphGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorExecutionsExecutionIdLogsGet,
+				(const inspectorExecutionsExecutionIdLogsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorStatsGet,
+				(const inspectorStatsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorExecutionsRunningGet,
+				(const inspectorExecutionsRunningGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorObserveExecutionIdPost,
+				(const inspectorObserveExecutionIdPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorQueue_healthGet,
+				(const inspectorQueue_healthGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorQueue_healthQueueNameDlqRedrivePost,
+				(const inspectorQueue_healthQueueNameDlqRedrivePostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorQueue_healthQueueNameDlqRedrive_tasksGet,
+				(const inspectorQueue_healthQueueNameDlqRedrive_tasksGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorQueue_healthQueueNameDlqRedriveTaskHandleCancelPost,
+				(const inspectorQueue_healthQueueNameDlqRedriveTaskHandleCancelPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorQueue_healthQueueNameDlqPurgePost,
+				(const inspectorQueue_healthQueueNameDlqPurgePostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorChaosQueueNameActivatePost,
+				(const inspectorChaosQueueNameActivatePostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorChaosQueueNameDeactivatePost,
+				(const inspectorChaosQueueNameDeactivatePostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorChaosGet,
+				(const inspectorChaosGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorUsageExecutions_per_dayGet,
+				(const inspectorUsageExecutions_per_dayGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorUsageQueues_per_dayGet,
+				(const inspectorUsageQueues_per_dayGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorUsageNode_types_per_dayGet,
+				(const inspectorUsageNode_types_per_dayGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorUsageKey_usage_per_dayGet,
+				(const inspectorUsageKey_usage_per_dayGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorUsageProcessing_timeGet,
+				(const inspectorUsageProcessing_timeGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorUsageQueue_wait_summaryGet,
+				(const inspectorUsageQueue_wait_summaryGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorUsageUser_sparklinesGet,
+				(const inspectorUsageUser_sparklinesGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorUsageSustained_activity_per_dayGet,
+				(const inspectorUsageSustained_activity_per_dayGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorUsageTenant_activity_sparklinesGet,
+				(const inspectorUsageTenant_activity_sparklinesGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorValidate_gacPost,
+				(const inspectorValidate_gacPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorSave_validated_gacPost,
+				(const inspectorSave_validated_gacPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorGac_validation_metadataGet,
+				(const inspectorGac_validation_metadataGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class InspectorBugReportApiMock final : public IInspectorBugReportApiBase
+{
+public:
+	InspectorBugReportApiMock() : IInspectorBugReportApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				inspectorBug_reportsPost,
+				(const inspectorBug_reportsPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorBug_reportsGet,
+				(const inspectorBug_reportsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorBug_reportsIdGet,
+				(const inspectorBug_reportsIdGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorBug_reportsIdStatusPatch,
+				(const inspectorBug_reportsIdStatusPatchParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorBug_reportsIdAssignmentPatch,
+				(const inspectorBug_reportsIdAssignmentPatchParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorBug_reportsIdScreenshotGet,
+				(const inspectorBug_reportsIdScreenshotGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class MusubiGraphApiMock final : public IMusubiGraphApiBase
+{
+public:
+	MusubiGraphApiMock() : IMusubiGraphApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				musubiExecute_graphPost,
+				(const musubiExecute_graphPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				musubiExecute_graphExecutionIdStatusGet,
+				(const musubiExecute_graphExecutionIdStatusGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				musubiExecute_graphExecutionIdStatusPost,
+				(const musubiExecute_graphExecutionIdStatusPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				musubiChaosQueueNameActiveGet,
+				(const musubiChaosQueueNameActiveGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
 class NtpApiMock final : public INtpApiBase
 {
 public:

@@ -12,17 +12,24 @@ namespace csp::services::generated::userservice
 
 class AnalyticsRecord;
 class ApiVersion;
+class ApplicationSecretDto;
 class ApplicationSettingsDto;
 class AuthDto;
 class AvatarManifestDto;
+class BucketPermissionRuleDto;
 class ControllerVersions;
+class CreateApplicationSecretRequest;
+class CreateHostnameRequest;
 class CreateUserRequest;
 class CreateUserSocialRequest;
+class CrossTenantSettingsDto;
 class DefaultSessionSettingsDto;
 class DefaultSettings;
 class EncryptedValueDto;
 class EquipItemDto;
+class ExchangeTenancyRequest;
 class ForgotPasswordRequest;
+class GacValidationConfigDto;
 class Gender;
 class GroupDto;
 class GroupFilters;
@@ -57,13 +64,21 @@ class StripeCheckoutRequest;
 class StripeCheckoutSessionDto;
 class StripeCustomerDto;
 class StripeCustomerPortalDto;
+class TenancyLiteDto;
 class TenantAdminAccount;
 class TenantCleanupFilters;
 class TenantDto;
+class TenantDtoDataPage;
 class TenantEmailSettingsDto;
 class TenantEmailTemplateSettingsDto;
+class TenantSelfDto;
 class TokenOptions;
 class TokenResetPasswordRequest;
+class TypedHostname;
+class UpdateApplicationSecretRequest;
+class UpdateEmailSettingsRequest;
+class UpdateRolesRequest;
+class UpdateTenantLiteRequest;
 class UpgradeGuestRequest;
 class UpgradeGuestSocialRequest;
 class UserQuery;
@@ -195,6 +210,103 @@ protected:
 	std::optional<utility::string_t> m_Version;
 	std::optional<utility::string_t> m_DeprecationDatetime;
 	std::optional<utility::string_t> m_EndOfLifeDatetime;
+};
+
+/// <summary>
+/// Data transfer object for an application secret definition.
+/// </summary>
+class ApplicationSecretDto : public csp::services::DtoBase
+{
+public:
+	ApplicationSecretDto();
+	virtual ~ApplicationSecretDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Unique identifier.
+	/// </summary>
+	utility::string_t GetId() const;
+	bool HasId() const;
+
+	/// <summary>
+	/// Application name (e.g., "Nodey").
+	/// </summary>
+	utility::string_t GetApplicationName() const;
+	bool HasApplicationName() const;
+
+	/// <summary>
+	/// Human-readable name (e.g., "Meshy API Key").
+	/// </summary>
+	utility::string_t GetDisplayName() const;
+	void SetDisplayName(const utility::string_t& Value);
+	bool HasDisplayName() const;
+
+	/// <summary>
+	/// Environment variable / secret key name (e.g., "MESHY_API_KEY").
+	/// </summary>
+	utility::string_t GetEnvVarName() const;
+	bool HasEnvVarName() const;
+
+	/// <summary>
+	/// Description of what this secret is used for.
+	/// </summary>
+	utility::string_t GetDescription() const;
+	void SetDescription(const utility::string_t& Value);
+	bool HasDescription() const;
+
+	/// <summary>
+	/// Grouping category.
+	/// </summary>
+	utility::string_t GetCategory() const;
+	void SetCategory(const utility::string_t& Value);
+	bool HasCategory() const;
+
+	/// <summary>
+	/// Display ordering within category.
+	/// </summary>
+	int32_t GetSortOrder() const;
+	void SetSortOrder(int32_t Value);
+	bool HasSortOrder() const;
+
+	/// <summary>
+	/// Type of secret: "api_key" (default) or "gac" (GCP Service Account JSON).
+	/// </summary>
+	utility::string_t GetSecretType() const;
+	void SetSecretType(const utility::string_t& Value);
+	bool HasSecretType() const;
+
+	std::shared_ptr<GacValidationConfigDto> GetValidationConfig() const;
+	void SetValidationConfig(const std::shared_ptr<GacValidationConfigDto>& Value);
+	bool HasValidationConfig() const;
+
+	/// <summary>
+	/// When the definition was created.
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	bool HasCreatedAt() const;
+
+	/// <summary>
+	/// When the definition was last updated.
+	/// </summary>
+	utility::string_t GetUpdatedAt() const;
+	bool HasUpdatedAt() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_ApplicationName;
+	std::optional<utility::string_t> m_DisplayName;
+	std::optional<utility::string_t> m_EnvVarName;
+	std::optional<utility::string_t> m_Description;
+	std::optional<utility::string_t> m_Category;
+	std::optional<int32_t> m_SortOrder;
+	std::optional<utility::string_t> m_SecretType;
+	std::optional<std::shared_ptr<GacValidationConfigDto>> m_ValidationConfig;
+	std::optional<utility::string_t> m_CreatedAt;
+	std::optional<utility::string_t> m_UpdatedAt;
 };
 
 /// <summary>
@@ -367,6 +479,39 @@ protected:
 };
 
 /// <summary>
+/// DTO for a bucket permission rule.
+/// </summary>
+class BucketPermissionRuleDto : public csp::services::DtoBase
+{
+public:
+	BucketPermissionRuleDto();
+	virtual ~BucketPermissionRuleDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// GCS bucket name. Supports {env} token for environment substitution.
+	/// </summary>
+	utility::string_t GetBucketName() const;
+	void SetBucketName(const utility::string_t& Value);
+	bool HasBucketName() const;
+
+	/// <summary>
+	/// Required IAM permissions (e.g., "storage.objects.get").
+	/// </summary>
+	const std::vector<utility::string_t>& GetPermissions() const;
+	void SetPermissions(const std::vector<utility::string_t>& Value);
+	bool HasPermissions() const;
+
+
+protected:
+	std::optional<utility::string_t> m_BucketName;
+	std::optional<std::vector<utility::string_t>> m_Permissions;
+};
+
+/// <summary>
 /// Versions of a specific controller
 /// </summary>
 class ControllerVersions : public csp::services::DtoBase
@@ -413,6 +558,109 @@ protected:
 	std::optional<utility::string_t> m_Name;
 	std::optional<std::vector<std::shared_ptr<ApiVersion>>> m_ApiVersions;
 	std::optional<utility::string_t> m_CurrentApiVersion;
+};
+
+/// <summary>
+/// Request to create a new application secret definition.
+/// </summary>
+class CreateApplicationSecretRequest : public csp::services::DtoBase
+{
+public:
+	CreateApplicationSecretRequest();
+	virtual ~CreateApplicationSecretRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Human-readable name (e.g., "Meshy API Key").
+	/// </summary>
+	utility::string_t GetDisplayName() const;
+	void SetDisplayName(const utility::string_t& Value);
+	bool HasDisplayName() const;
+
+	/// <summary>
+	/// Environment variable / secret key name (e.g., "MESHY_API_KEY").
+	/// </summary>
+	utility::string_t GetEnvVarName() const;
+	void SetEnvVarName(const utility::string_t& Value);
+	bool HasEnvVarName() const;
+
+	/// <summary>
+	/// Description of what this secret is used for.
+	/// </summary>
+	utility::string_t GetDescription() const;
+	void SetDescription(const utility::string_t& Value);
+	bool HasDescription() const;
+
+	/// <summary>
+	/// Grouping category (e.g., "Google Cloud", "3D Generation").
+	/// </summary>
+	utility::string_t GetCategory() const;
+	void SetCategory(const utility::string_t& Value);
+	bool HasCategory() const;
+
+	/// <summary>
+	/// Display ordering within category.
+	/// </summary>
+	int32_t GetSortOrder() const;
+	void SetSortOrder(int32_t Value);
+	bool HasSortOrder() const;
+
+	/// <summary>
+	/// Type of secret: "api_key" (default) or "gac".
+	/// </summary>
+	utility::string_t GetSecretType() const;
+	void SetSecretType(const utility::string_t& Value);
+	bool HasSecretType() const;
+
+	std::shared_ptr<GacValidationConfigDto> GetValidationConfig() const;
+	void SetValidationConfig(const std::shared_ptr<GacValidationConfigDto>& Value);
+	bool HasValidationConfig() const;
+
+
+protected:
+	std::optional<utility::string_t> m_DisplayName;
+	std::optional<utility::string_t> m_EnvVarName;
+	std::optional<utility::string_t> m_Description;
+	std::optional<utility::string_t> m_Category;
+	std::optional<int32_t> m_SortOrder;
+	std::optional<utility::string_t> m_SecretType;
+	std::optional<std::shared_ptr<GacValidationConfigDto>> m_ValidationConfig;
+};
+
+/// <summary>
+/// Request body for creating a hostname.
+/// </summary>
+class CreateHostnameRequest : public csp::services::DtoBase
+{
+public:
+	CreateHostnameRequest();
+	virtual ~CreateHostnameRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The fully-qualified hostname to create
+	/// </summary>
+	utility::string_t GetHostname() const;
+	void SetHostname(const utility::string_t& Value);
+	bool HasHostname() const;
+
+	/// <summary>
+	/// The type of service ("nodey" or "oko")
+	/// </summary>
+	utility::string_t GetType() const;
+	void SetType(const utility::string_t& Value);
+	bool HasType() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Hostname;
+	std::optional<utility::string_t> m_Type;
 };
 
 /// <summary>
@@ -640,6 +888,45 @@ protected:
 };
 
 /// <summary>
+/// Cross-tenant user settings data transfer object
+/// </summary>
+class CrossTenantSettingsDto : public csp::services::DtoBase
+{
+public:
+	CrossTenantSettingsDto();
+	virtual ~CrossTenantSettingsDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Email address of the user these settings belong to
+	/// </summary>
+	utility::string_t GetEmail() const;
+	bool HasEmail() const;
+
+	/// <summary>
+	/// Context namespace of the settings
+	/// </summary>
+	utility::string_t GetContext() const;
+	bool HasContext() const;
+
+	/// <summary>
+	/// Key-value settings dictionary
+	/// </summary>
+	const std::map<utility::string_t, utility::string_t>& GetSettings() const;
+	void SetSettings(const std::map<utility::string_t, utility::string_t>& Value);
+	bool HasSettings() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Email;
+	std::optional<utility::string_t> m_Context;
+	std::optional<std::map<utility::string_t, utility::string_t>> m_Settings;
+};
+
+/// <summary>
 /// Tenant-specific default session settings
 /// </summary>
 class DefaultSessionSettingsDto : public csp::services::DtoBase
@@ -772,6 +1059,48 @@ protected:
 };
 
 /// <summary>
+/// Request body for exchanging a refresh token for auth tokens in a different tenant.
+/// The server derives the user's email from the refresh token claims — no userId or email is required.
+/// </summary>
+class ExchangeTenancyRequest : public csp::services::DtoBase
+{
+public:
+	ExchangeTenancyRequest();
+	virtual ~ExchangeTenancyRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The current refresh token (proves the caller's identity).
+	/// </summary>
+	utility::string_t GetRefreshToken() const;
+	void SetRefreshToken(const utility::string_t& Value);
+	bool HasRefreshToken() const;
+
+	/// <summary>
+	/// The tenant to switch to.
+	/// </summary>
+	utility::string_t GetTargetTenantName() const;
+	void SetTargetTenantName(const utility::string_t& Value);
+	bool HasTargetTenantName() const;
+
+	/// <summary>
+	/// The device identifier (used for session tracking).
+	/// </summary>
+	utility::string_t GetDeviceId() const;
+	void SetDeviceId(const utility::string_t& Value);
+	bool HasDeviceId() const;
+
+
+protected:
+	std::optional<utility::string_t> m_RefreshToken;
+	std::optional<utility::string_t> m_TargetTenantName;
+	std::optional<utility::string_t> m_DeviceId;
+};
+
+/// <summary>
 /// Object containing those properties necessary to reset a password via email address.
 /// </summary>
 class ForgotPasswordRequest : public csp::services::DtoBase
@@ -802,6 +1131,47 @@ public:
 protected:
 	std::optional<utility::string_t> m_Tenant;
 	std::optional<utility::string_t> m_Email;
+};
+
+/// <summary>
+/// DTO for GAC validation configuration.
+/// </summary>
+class GacValidationConfigDto : public csp::services::DtoBase
+{
+public:
+	GacValidationConfigDto();
+	virtual ~GacValidationConfigDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Whether to probe Vertex AI with a lightweight generateContent call.
+	/// </summary>
+	bool GetCheckVertexAi() const;
+	void SetCheckVertexAi(const bool& Value);
+	bool HasCheckVertexAi() const;
+
+	/// <summary>
+	/// Buckets and required permissions to verify.
+	/// </summary>
+	const std::vector<std::shared_ptr<BucketPermissionRuleDto>>& GetRequiredBuckets() const;
+	void SetRequiredBuckets(const std::vector<std::shared_ptr<BucketPermissionRuleDto>>& Value);
+	bool HasRequiredBuckets() const;
+
+	/// <summary>
+	/// Project-level IAM permissions to verify.
+	/// </summary>
+	const std::vector<utility::string_t>& GetRequiredProjectPermissions() const;
+	void SetRequiredProjectPermissions(const std::vector<utility::string_t>& Value);
+	bool HasRequiredProjectPermissions() const;
+
+
+protected:
+	std::optional<bool> m_CheckVertexAi;
+	std::optional<std::vector<std::shared_ptr<BucketPermissionRuleDto>>> m_RequiredBuckets;
+	std::optional<std::vector<utility::string_t>> m_RequiredProjectPermissions;
 };
 
 /// <summary>
@@ -2700,12 +3070,20 @@ public:
 	void SetAuthorizeEndpoint(const utility::string_t& Value);
 	bool HasAuthorizeEndpoint() const;
 
+	/// <summary>
+	/// Uri of the social provider token endpoint we use to initiate the authorization code flow
+	/// </summary>
+	utility::string_t GetRedirectUri() const;
+	void SetRedirectUri(const utility::string_t& Value);
+	bool HasRedirectUri() const;
+
 
 protected:
 	std::optional<utility::string_t> m_ProviderName;
 	std::optional<utility::string_t> m_ClientId;
 	std::optional<std::vector<utility::string_t>> m_Scopes;
 	std::optional<utility::string_t> m_AuthorizeEndpoint;
+	std::optional<utility::string_t> m_RedirectUri;
 };
 
 class StringDataPage : public csp::services::DtoBase
@@ -2856,6 +3234,57 @@ public:
 
 protected:
 	std::optional<utility::string_t> m_CustomerPortalUrl;
+};
+
+/// <summary>
+/// Lightweight tenancy info for the accounts dropdown.
+/// One entry per tenant where the user's email has a profile.
+/// </summary>
+class TenancyLiteDto : public csp::services::DtoBase
+{
+public:
+	TenancyLiteDto();
+	virtual ~TenancyLiteDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The tenant's system name (used for API calls and token exchange).
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// Human-friendly tenant display name (shown in the dropdown).
+	/// </summary>
+	utility::string_t GetTenantDisplayName() const;
+	void SetTenantDisplayName(const utility::string_t& Value);
+	bool HasTenantDisplayName() const;
+
+	/// <summary>
+	/// The user's display name within this tenant.
+	/// </summary>
+	utility::string_t GetUserDisplayName() const;
+	void SetUserDisplayName(const utility::string_t& Value);
+	bool HasUserDisplayName() const;
+
+	/// <summary>
+	/// Whether the user's email is confirmed in this tenant.
+	/// Unconfirmed accounts cannot be switched to.
+	/// </summary>
+	bool GetIsEmailConfirmed() const;
+	void SetIsEmailConfirmed(const bool& Value);
+	bool HasIsEmailConfirmed() const;
+
+
+protected:
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<utility::string_t> m_TenantDisplayName;
+	std::optional<utility::string_t> m_UserDisplayName;
+	std::optional<bool> m_IsEmailConfirmed;
 };
 
 /// <summary>
@@ -3078,6 +3507,40 @@ public:
 	void SetMappedHostnames(const std::vector<utility::string_t>& Value);
 	bool HasMappedHostnames() const;
 
+	/// <summary>
+	/// Human-friendly display name for this tenant.
+	/// </summary>
+	utility::string_t GetDisplayName() const;
+	void SetDisplayName(const utility::string_t& Value);
+	bool HasDisplayName() const;
+
+	/// <summary>
+	/// Typed hostnames with DNS status tracking. Managed via Super Admin Console.
+	/// </summary>
+	const std::vector<std::shared_ptr<TypedHostname>>& GetTypedHostnames() const;
+	bool HasTypedHostnames() const;
+
+	/// <summary>
+	/// List of allowed redirect uris for SSO login flows. This is used to validate the redirect_uri parameter in the authorization request for SSO
+	/// logins.
+	/// </summary>
+	const std::vector<utility::string_t>& GetAllowedSsoRedirectUris() const;
+	void SetAllowedSsoRedirectUris(const std::vector<utility::string_t>& Value);
+	bool HasAllowedSsoRedirectUris() const;
+
+	/// <summary>
+	/// Whether guest login is allowed for this tenant. Defaults to false.
+	/// </summary>
+	bool GetAllowGuestLogin() const;
+	void SetAllowGuestLogin(const bool& Value);
+	bool HasAllowGuestLogin() const;
+
+	/// <summary>
+	/// When the tenant was created
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	bool HasCreatedAt() const;
+
 
 protected:
 	std::optional<utility::string_t> m_Name;
@@ -3095,6 +3558,50 @@ protected:
 	std::optional<std::shared_ptr<TenantAdminAccount>> m_AdminCredentials;
 	std::optional<std::shared_ptr<DefaultSessionSettingsDto>> m_DefaultSessionSettings;
 	std::optional<std::vector<utility::string_t>> m_MappedHostnames;
+	std::optional<utility::string_t> m_DisplayName;
+	std::optional<std::vector<std::shared_ptr<TypedHostname>>> m_TypedHostnames;
+	std::optional<std::vector<utility::string_t>> m_AllowedSsoRedirectUris;
+	std::optional<bool> m_AllowGuestLogin;
+	std::optional<utility::string_t> m_CreatedAt;
+};
+
+class TenantDtoDataPage : public csp::services::DtoBase
+{
+public:
+	TenantDtoDataPage();
+	virtual ~TenantDtoDataPage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	const std::vector<std::shared_ptr<TenantDto>>& GetItems() const;
+	void SetItems(const std::vector<std::shared_ptr<TenantDto>>& Value);
+	bool HasItems() const;
+
+	int32_t GetSkip() const;
+	void SetSkip(int32_t Value);
+	bool HasSkip() const;
+
+	int32_t GetLimit() const;
+	void SetLimit(int32_t Value);
+	bool HasLimit() const;
+
+	int32_t GetItemCount() const;
+	void SetItemCount(int32_t Value);
+	bool HasItemCount() const;
+
+	int64_t GetItemTotalCount() const;
+	void SetItemTotalCount(int64_t Value);
+	bool HasItemTotalCount() const;
+
+
+protected:
+	std::optional<std::vector<std::shared_ptr<TenantDto>>> m_Items;
+	std::optional<int32_t> m_Skip;
+	std::optional<int32_t> m_Limit;
+	std::optional<int32_t> m_ItemCount;
+	std::optional<int64_t> m_ItemTotalCount;
 };
 
 /// <summary>
@@ -3245,6 +3752,68 @@ protected:
 };
 
 /// <summary>
+/// Scoped tenant data transfer object for tenant admin portal.
+/// Exposes only the fields relevant to self-service admin operations.
+/// </summary>
+class TenantSelfDto : public csp::services::DtoBase
+{
+public:
+	TenantSelfDto();
+	virtual ~TenantSelfDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Name of the tenant
+	/// </summary>
+	utility::string_t GetName() const;
+	bool HasName() const;
+
+	/// <summary>
+	/// The Company Name associated with this Tenant
+	/// </summary>
+	utility::string_t GetCompanyName() const;
+	bool HasCompanyName() const;
+
+	/// <summary>
+	/// The linked account that acts as the tenant admin
+	/// </summary>
+	utility::string_t GetAdminUserId() const;
+	bool HasAdminUserId() const;
+
+	/// <summary>
+	/// Allowed email addresses for registration
+	/// </summary>
+	const std::vector<utility::string_t>& GetAllowedEmailAddresses() const;
+	void SetAllowedEmailAddresses(const std::vector<utility::string_t>& Value);
+	bool HasAllowedEmailAddresses() const;
+
+	/// <summary>
+	/// Allowed email domains for registration
+	/// </summary>
+	const std::vector<utility::string_t>& GetAllowedEmailDomains() const;
+	void SetAllowedEmailDomains(const std::vector<utility::string_t>& Value);
+	bool HasAllowedEmailDomains() const;
+
+	/// <summary>
+	/// Hostnames that map to this tenant for auto-detection
+	/// </summary>
+	const std::vector<utility::string_t>& GetMappedHostnames() const;
+	bool HasMappedHostnames() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Name;
+	std::optional<utility::string_t> m_CompanyName;
+	std::optional<utility::string_t> m_AdminUserId;
+	std::optional<std::vector<utility::string_t>> m_AllowedEmailAddresses;
+	std::optional<std::vector<utility::string_t>> m_AllowedEmailDomains;
+	std::optional<std::vector<utility::string_t>> m_MappedHostnames;
+};
+
+/// <summary>
 /// Options for the token
 /// </summary>
 class TokenOptions : public csp::services::DtoBase
@@ -3317,6 +3886,243 @@ public:
 protected:
 	std::optional<utility::string_t> m_Token;
 	std::optional<utility::string_t> m_NewPassword;
+};
+
+/// <summary>
+/// Represents a typed hostname mapping with DNS status tracking.
+/// </summary>
+class TypedHostname : public csp::services::DtoBase
+{
+public:
+	TypedHostname();
+	virtual ~TypedHostname();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The fully-qualified hostname (e.g. "nodey.tenantx.magnopus.cloud")
+	/// </summary>
+	utility::string_t GetHostname() const;
+	void SetHostname(const utility::string_t& Value);
+	bool HasHostname() const;
+
+	/// <summary>
+	/// The type of service this hostname points to ("nodey" or "oko")
+	/// </summary>
+	utility::string_t GetType() const;
+	void SetType(const utility::string_t& Value);
+	bool HasType() const;
+
+	/// <summary>
+	/// The Route53 change ID from the CNAME creation request
+	/// </summary>
+	utility::string_t GetRoute53ChangeId() const;
+	void SetRoute53ChangeId(const utility::string_t& Value);
+	bool HasRoute53ChangeId() const;
+
+	/// <summary>
+	/// Current DNS status: "queued", "cert_pending", "cert_issued", "deploying",
+	/// "dns_pending", "insync", "verified", or "error"
+	/// </summary>
+	utility::string_t GetDnsStatus() const;
+	void SetDnsStatus(const utility::string_t& Value);
+	bool HasDnsStatus() const;
+
+	/// <summary>
+	/// When this hostname was created
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	void SetCreatedAt(const utility::string_t& Value);
+	bool HasCreatedAt() const;
+
+	/// <summary>
+	/// The ARN of the ACM certificate that covers this hostname (oko type only)
+	/// </summary>
+	utility::string_t GetAcmCertificateArn() const;
+	void SetAcmCertificateArn(const utility::string_t& Value);
+	bool HasAcmCertificateArn() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Hostname;
+	std::optional<utility::string_t> m_Type;
+	std::optional<utility::string_t> m_Route53ChangeId;
+	std::optional<utility::string_t> m_DnsStatus;
+	std::optional<utility::string_t> m_CreatedAt;
+	std::optional<utility::string_t> m_AcmCertificateArn;
+};
+
+/// <summary>
+/// Request to update an existing application secret definition.
+/// </summary>
+class UpdateApplicationSecretRequest : public csp::services::DtoBase
+{
+public:
+	UpdateApplicationSecretRequest();
+	virtual ~UpdateApplicationSecretRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Human-readable name.
+	/// </summary>
+	utility::string_t GetDisplayName() const;
+	void SetDisplayName(const utility::string_t& Value);
+	bool HasDisplayName() const;
+
+	/// <summary>
+	/// Description of what this secret is used for.
+	/// </summary>
+	utility::string_t GetDescription() const;
+	void SetDescription(const utility::string_t& Value);
+	bool HasDescription() const;
+
+	/// <summary>
+	/// Grouping category.
+	/// </summary>
+	utility::string_t GetCategory() const;
+	void SetCategory(const utility::string_t& Value);
+	bool HasCategory() const;
+
+	/// <summary>
+	/// Display ordering within category.
+	/// </summary>
+	int32_t GetSortOrder() const;
+	void SetSortOrder(int32_t Value);
+	bool HasSortOrder() const;
+
+	/// <summary>
+	/// Type of secret: "api_key" (default) or "gac".
+	/// </summary>
+	utility::string_t GetSecretType() const;
+	void SetSecretType(const utility::string_t& Value);
+	bool HasSecretType() const;
+
+	std::shared_ptr<GacValidationConfigDto> GetValidationConfig() const;
+	void SetValidationConfig(const std::shared_ptr<GacValidationConfigDto>& Value);
+	bool HasValidationConfig() const;
+
+
+protected:
+	std::optional<utility::string_t> m_DisplayName;
+	std::optional<utility::string_t> m_Description;
+	std::optional<utility::string_t> m_Category;
+	std::optional<int32_t> m_SortOrder;
+	std::optional<utility::string_t> m_SecretType;
+	std::optional<std::shared_ptr<GacValidationConfigDto>> m_ValidationConfig;
+};
+
+/// <summary>
+/// Request object for updating tenant email allow-list settings.
+/// Only allows modification of AllowedEmailAddresses and AllowedEmailDomains.
+/// </summary>
+class UpdateEmailSettingsRequest : public csp::services::DtoBase
+{
+public:
+	UpdateEmailSettingsRequest();
+	virtual ~UpdateEmailSettingsRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Specific email addresses allowed to register
+	/// </summary>
+	const std::vector<utility::string_t>& GetAllowedEmailAddresses() const;
+	void SetAllowedEmailAddresses(const std::vector<utility::string_t>& Value);
+	bool HasAllowedEmailAddresses() const;
+
+	/// <summary>
+	/// Email domains allowed to register
+	/// </summary>
+	const std::vector<utility::string_t>& GetAllowedEmailDomains() const;
+	void SetAllowedEmailDomains(const std::vector<utility::string_t>& Value);
+	bool HasAllowedEmailDomains() const;
+
+
+protected:
+	std::optional<std::vector<utility::string_t>> m_AllowedEmailAddresses;
+	std::optional<std::vector<utility::string_t>> m_AllowedEmailDomains;
+};
+
+/// <summary>
+/// Request body for updating user roles.
+/// </summary>
+class UpdateRolesRequest : public csp::services::DtoBase
+{
+public:
+	UpdateRolesRequest();
+	virtual ~UpdateRolesRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The roles to assign to the user
+	/// </summary>
+	const std::vector<utility::string_t>& GetRoles() const;
+	void SetRoles(const std::vector<utility::string_t>& Value);
+	bool HasRoles() const;
+
+
+protected:
+	std::optional<std::vector<utility::string_t>> m_Roles;
+};
+
+/// <summary>
+/// Request object for tenant admin "lite" updates.
+/// Only allows modification of the four fields editable by tenant admins.
+/// </summary>
+class UpdateTenantLiteRequest : public csp::services::DtoBase
+{
+public:
+	UpdateTenantLiteRequest();
+	virtual ~UpdateTenantLiteRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Specific email addresses allowed to register
+	/// </summary>
+	const std::vector<utility::string_t>& GetAllowedEmailAddresses() const;
+	void SetAllowedEmailAddresses(const std::vector<utility::string_t>& Value);
+	bool HasAllowedEmailAddresses() const;
+
+	/// <summary>
+	/// Email domains allowed to register
+	/// </summary>
+	const std::vector<utility::string_t>& GetAllowedEmailDomains() const;
+	void SetAllowedEmailDomains(const std::vector<utility::string_t>& Value);
+	bool HasAllowedEmailDomains() const;
+
+	/// <summary>
+	/// Company name
+	/// </summary>
+	utility::string_t GetCompanyName() const;
+	void SetCompanyName(const utility::string_t& Value);
+	bool HasCompanyName() const;
+
+	/// <summary>
+	/// Human-friendly display name for the tenant
+	/// </summary>
+	utility::string_t GetDisplayName() const;
+	void SetDisplayName(const utility::string_t& Value);
+	bool HasDisplayName() const;
+
+
+protected:
+	std::optional<std::vector<utility::string_t>> m_AllowedEmailAddresses;
+	std::optional<std::vector<utility::string_t>> m_AllowedEmailDomains;
+	std::optional<utility::string_t> m_CompanyName;
+	std::optional<utility::string_t> m_DisplayName;
 };
 
 /// <summary>
@@ -3589,6 +4395,38 @@ public:
 	void SetLastDeviceIds(const std::vector<utility::string_t>& Value);
 	bool HasLastDeviceIds() const;
 
+	/// <summary>
+	/// Partial text to match against either Email or DisplayName (case-insensitive OR).
+	/// When set, overrides the Email + SearchPartialEmails parameters.
+	/// </summary>
+	utility::string_t GetEmailOrDisplayNameFragment() const;
+	void SetEmailOrDisplayNameFragment(const utility::string_t& Value);
+	bool HasEmailOrDisplayNameFragment() const;
+
+	/// <summary>
+	/// Field to sort by: "name", "email", "status", "lastLogin".
+	/// Defaults to "lastLogin" descending (UpdatedAt) when null.
+	/// </summary>
+	utility::string_t GetSortBy() const;
+	void SetSortBy(const utility::string_t& Value);
+	bool HasSortBy() const;
+
+	/// <summary>
+	/// Sort direction: "asc" or "desc". Defaults to "desc".
+	/// </summary>
+	utility::string_t GetSortDirection() const;
+	void SetSortDirection(const utility::string_t& Value);
+	bool HasSortDirection() const;
+
+	/// <summary>
+	/// Partial text to match against Email, DisplayName, or UserId (case-insensitive OR).
+	/// When set, overrides all other text-based search parameters.
+	/// UserId matching requires at least 4 hex characters and uses prefix matching.
+	/// </summary>
+	utility::string_t GetEmailDisplayNameUserIdCombinedTerm() const;
+	void SetEmailDisplayNameUserIdCombinedTerm(const utility::string_t& Value);
+	bool HasEmailDisplayNameUserIdCombinedTerm() const;
+
 
 protected:
 	std::optional<utility::string_t> m_GuestDeviceId;
@@ -3601,6 +4439,10 @@ protected:
 	std::optional<std::vector<utility::string_t>> m_EmailAddresses;
 	std::optional<std::vector<utility::string_t>> m_UserNames;
 	std::optional<std::vector<utility::string_t>> m_LastDeviceIds;
+	std::optional<utility::string_t> m_EmailOrDisplayNameFragment;
+	std::optional<utility::string_t> m_SortBy;
+	std::optional<utility::string_t> m_SortDirection;
+	std::optional<utility::string_t> m_EmailDisplayNameUserIdCombinedTerm;
 };
 
 /// <summary>

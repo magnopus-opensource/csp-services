@@ -99,6 +99,12 @@ public:
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
+	MOCK_METHOD(void,
+				client_connectionsMeCleanupDelete,
+				(const client_connectionsMeCleanupDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
 };
 
 class ConfigurationApiMock final : public IConfigurationApiBase

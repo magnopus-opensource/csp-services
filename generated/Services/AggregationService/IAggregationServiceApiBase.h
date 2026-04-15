@@ -104,7 +104,7 @@ public:
 	/// ```markdown
 	/// ### Badge Creation DSL Documentation
 	///
-	/// This guide explains how to use the Badge Creation DSL to simulate class completions and test badge awarding in our application.You�ll use
+	/// This guide explains how to use the Badge Creation DSL to simulate class completions and test badge awarding in our application.You’ll use
 	/// these expressions in Swagger to automate the creation of class records.
 	///
 	/// #### DSL Format
@@ -533,6 +533,870 @@ public:
 
 protected:
 	virtual ~IGroupRolesApiBase() = default;
+};
+
+class IInspectorApiBase : public csp::services::ApiBase
+{
+public:
+	IInspectorApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().AggregationService)
+	{
+	}
+
+
+
+	struct inspectorExecutionsGetParams
+	{
+		const std::optional<utility::string_t>& tenant;
+		const std::optional<utility::string_t>& status;
+		const std::optional<utility::string_t>& userId;
+		const std::optional<utility::string_t>& graphHash;
+		const std::optional<utility::string_t>& graphName;
+		const std::optional<utility::string_t>& createdAfter;
+		const std::optional<utility::string_t>& createdBefore;
+		const std::optional<int64_t>& minDurationMs;
+		const std::optional<int64_t>& maxDurationMs;
+		const std::optional<int64_t>& modifiedSince;
+		const std::optional<int32_t>& skip;
+		const std::optional<int32_t>& limit;
+	};
+
+
+	/// <summary>
+	/// List graph executions with optional filters and pagination.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/executions
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorExecutionsGet(const inspectorExecutionsGetParams& Params,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorExecutionsExecutionIdGetParams
+	{
+		const utility::string_t& executionId;
+	};
+
+
+	/// <summary>
+	/// Get details of a specific execution by execution ID.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/executions/{executionId}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorExecutionsExecutionIdGet(const inspectorExecutionsExecutionIdGetParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorExecutionsExecutionIdStateGetParams
+	{
+		const utility::string_t& executionId;
+	};
+
+
+	/// <summary>
+	/// Get real-time state from S3 for an execution.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/executions/{executionId}/state
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorExecutionsExecutionIdStateGet(const inspectorExecutionsExecutionIdStateGetParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorExecutionsExecutionIdGraphGetParams
+	{
+		const utility::string_t& executionId;
+	};
+
+
+	/// <summary>
+	/// Get the graph definition from S3 for an execution.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/executions/{executionId}/graph
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorExecutionsExecutionIdGraphGet(const inspectorExecutionsExecutionIdGraphGetParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorExecutionsExecutionIdLogsGetParams
+	{
+		const utility::string_t& executionId;
+	};
+
+
+	/// <summary>
+	/// Get all logs for an execution from S3.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/executions/{executionId}/logs
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorExecutionsExecutionIdLogsGet(const inspectorExecutionsExecutionIdLogsGetParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorStatsGetParams
+	{
+		const std::optional<utility::string_t>& tenant;
+		const std::optional<int32_t>& sinceDays;
+	};
+
+
+	/// <summary>
+	/// Get execution statistics summary.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/stats
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	virtual void inspectorStatsGet(const inspectorStatsGetParams& Params,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorExecutionsRunningGetParams
+	{
+		const std::optional<utility::string_t>& tenant;
+	};
+
+
+	/// <summary>
+	/// Get currently running executions.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/executions/running
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorExecutionsRunningGet(const inspectorExecutionsRunningGetParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorObserveExecutionIdPostParams
+	{
+		const utility::string_t& executionId;
+		const std::shared_ptr<StartObserveRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Start observing an execution's logs in real-time.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/observe/{executionId}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorObserveExecutionIdPost(const inspectorObserveExecutionIdPostParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorQueue_healthGetParams
+	{
+		const std::optional<int64_t>& modifiedSince;
+	};
+
+
+	/// <summary>
+	/// Returns a snapshot of queue health data for all discovered SQS queues.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/queue-health
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	virtual void inspectorQueue_healthGet(const inspectorQueue_healthGetParams& Params,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorQueue_healthQueueNameDlqRedrivePostParams
+	{
+		const utility::string_t& queueName;
+		const std::shared_ptr<StartRedriveRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Start a redrive to move messages from a queue's DLQ back to the source queue.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/queue-health/{queueName}/dlq/redrive
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void inspectorQueue_healthQueueNameDlqRedrivePost(const inspectorQueue_healthQueueNameDlqRedrivePostParams& Params,
+															  csp::services::ApiResponseHandlerBase* ResponseHandler,
+															  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorQueue_healthQueueNameDlqRedrive_tasksGetParams
+	{
+		const utility::string_t& queueName;
+	};
+
+
+	/// <summary>
+	/// List recent redrive tasks for a queue's DLQ.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/queue-health/{queueName}/dlq/redrive-tasks
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void inspectorQueue_healthQueueNameDlqRedrive_tasksGet(const inspectorQueue_healthQueueNameDlqRedrive_tasksGetParams& Params,
+																   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorQueue_healthQueueNameDlqRedriveTaskHandleCancelPostParams
+	{
+		const utility::string_t& queueName;
+		const utility::string_t& taskHandle;
+	};
+
+
+	/// <summary>
+	/// Cancel a running redrive task.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/queue-health/{queueName}/dlq/redrive/{taskHandle}/cancel
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void
+		inspectorQueue_healthQueueNameDlqRedriveTaskHandleCancelPost(const inspectorQueue_healthQueueNameDlqRedriveTaskHandleCancelPostParams& Params,
+																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorQueue_healthQueueNameDlqPurgePostParams
+	{
+		const utility::string_t& queueName;
+	};
+
+
+	/// <summary>
+	/// Purge all messages from a queue's DLQ.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/queue-health/{queueName}/dlq/purge
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void inspectorQueue_healthQueueNameDlqPurgePost(const inspectorQueue_healthQueueNameDlqPurgePostParams& Params,
+															csp::services::ApiResponseHandlerBase* ResponseHandler,
+															csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorChaosQueueNameActivatePostParams
+	{
+		const utility::string_t& queueName;
+		const std::shared_ptr<ActivateChaosRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Activate the chaos monkey for a queue.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/chaos/{queueName}/activate
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void inspectorChaosQueueNameActivatePost(const inspectorChaosQueueNameActivatePostParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorChaosQueueNameDeactivatePostParams
+	{
+		const utility::string_t& queueName;
+	};
+
+
+	/// <summary>
+	/// Deactivate the chaos monkey for a queue.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/chaos/{queueName}/deactivate
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void inspectorChaosQueueNameDeactivatePost(const inspectorChaosQueueNameDeactivatePostParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorChaosGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// Get all active chaos monkey configs across all known queues.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/chaos
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void inspectorChaosGet(const inspectorChaosGetParams& Params,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorUsageExecutions_per_dayGetParams
+	{
+		const std::optional<utility::string_t>& tenantName;
+		const std::optional<utility::string_t>& userId;
+		const std::optional<std::vector<utility::string_t>>& userIds;
+		const std::optional<utility::string_t>& from;
+		const std::optional<utility::string_t>& to;
+		const std::optional<utility::string_t>& tz;
+	};
+
+
+	/// <summary>
+	/// Get daily execution counts for usage charts.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/executions-per-day
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorUsageExecutions_per_dayGet(const inspectorUsageExecutions_per_dayGetParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorUsageQueues_per_dayGetParams
+	{
+		const std::optional<utility::string_t>& tenantName;
+		const std::optional<utility::string_t>& userId;
+		const std::optional<std::vector<utility::string_t>>& userIds;
+		const std::optional<utility::string_t>& from;
+		const std::optional<utility::string_t>& to;
+		const std::optional<utility::string_t>& tz;
+	};
+
+
+	/// <summary>
+	/// Get daily distributed queue usage counts for usage charts.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/queues-per-day
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorUsageQueues_per_dayGet(const inspectorUsageQueues_per_dayGetParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorUsageNode_types_per_dayGetParams
+	{
+		const std::optional<utility::string_t>& tenantName;
+		const std::optional<utility::string_t>& userId;
+		const std::optional<std::vector<utility::string_t>>& userIds;
+		const std::optional<utility::string_t>& from;
+		const std::optional<utility::string_t>& to;
+		const std::optional<utility::string_t>& tz;
+	};
+
+
+	/// <summary>
+	/// Get daily node type usage counts for usage charts.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/node-types-per-day
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorUsageNode_types_per_dayGet(const inspectorUsageNode_types_per_dayGetParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorUsageKey_usage_per_dayGetParams
+	{
+		const std::optional<std::vector<utility::string_t>>& tenantNames;
+		const std::optional<utility::string_t>& userId;
+		const std::optional<std::vector<utility::string_t>>& userIds;
+		const std::optional<utility::string_t>& from;
+		const std::optional<utility::string_t>& to;
+		const std::optional<utility::string_t>& tz;
+	};
+
+
+	/// <summary>
+	/// Get daily key usage counts (tenant-aware).
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/key-usage-per-day
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorUsageKey_usage_per_dayGet(const inspectorUsageKey_usage_per_dayGetParams& Params,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorUsageProcessing_timeGetParams
+	{
+		const std::optional<utility::string_t>& groupBy;
+		const std::optional<utility::string_t>& metric;
+		const std::optional<utility::string_t>& tenantName;
+		const std::optional<utility::string_t>& userId;
+		const std::optional<std::vector<utility::string_t>>& userIds;
+		const std::optional<utility::string_t>& from;
+		const std::optional<utility::string_t>& to;
+		const std::optional<utility::string_t>& tz;
+	};
+
+
+	/// <summary>
+	/// Get processing time breakdown grouped by day, queue, or node type.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/processing-time
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorUsageProcessing_timeGet(const inspectorUsageProcessing_timeGetParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorUsageQueue_wait_summaryGetParams
+	{
+		const std::optional<utility::string_t>& tenantName;
+		const std::optional<utility::string_t>& userId;
+		const std::optional<std::vector<utility::string_t>>& userIds;
+		const std::optional<utility::string_t>& from;
+		const std::optional<utility::string_t>& to;
+		const std::optional<utility::string_t>& tz;
+	};
+
+
+	/// <summary>
+	/// Get queue wait summary with percentiles and per-queue breakdown.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/queue-wait-summary
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorUsageQueue_wait_summaryGet(const inspectorUsageQueue_wait_summaryGetParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorUsageUser_sparklinesGetParams
+	{
+		const std::optional<utility::string_t>& userIds;
+		const std::optional<int32_t>& days;
+	};
+
+
+	/// <summary>
+	/// Get 7-day execution sparkline data for multiple users (batch endpoint).
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/user-sparklines
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	virtual void inspectorUsageUser_sparklinesGet(const inspectorUsageUser_sparklinesGetParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorUsageSustained_activity_per_dayGetParams
+	{
+		const std::optional<std::vector<utility::string_t>>& tenantNames;
+		const std::optional<utility::string_t>& from;
+		const std::optional<utility::string_t>& to;
+		const std::optional<utility::string_t>& tz;
+	};
+
+
+	/// <summary>
+	/// Get daily sustained activity hours for one or more tenants.
+	/// Returns a dictionary of tenant name to daily hour entries.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/sustained-activity-per-day
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorUsageSustained_activity_per_dayGet(const inspectorUsageSustained_activity_per_dayGetParams& Params,
+															 csp::services::ApiResponseHandlerBase* ResponseHandler,
+															 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorUsageTenant_activity_sparklinesGetParams
+	{
+		const std::optional<utility::string_t>& tenantNames;
+		const std::optional<int32_t>& days;
+	};
+
+
+	/// <summary>
+	/// Get 7-day sustained activity sparkline data for multiple tenants (batch endpoint).
+	/// Returns a dictionary of tenant name to an array of daily hours (zero-filled, length = days).
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/tenant-activity-sparklines
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorUsageTenant_activity_sparklinesGet(const inspectorUsageTenant_activity_sparklinesGetParams& Params,
+															 csp::services::ApiResponseHandlerBase* ResponseHandler,
+															 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorValidate_gacPostParams
+	{
+		const std::shared_ptr<GacValidationRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Validate a GAC (GCP Service Account JSON) credential against configured checks.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/validate-gac
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	virtual void inspectorValidate_gacPost(const inspectorValidate_gacPostParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorSave_validated_gacPostParams
+	{
+		const std::shared_ptr<SaveValidatedGacRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Save a GAC credential that has already been validated, persisting both the
+	/// value and the validation result to metadata.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/save-validated-gac
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	virtual void inspectorSave_validated_gacPost(const inspectorSave_validated_gacPostParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorGac_validation_metadataGetParams
+	{
+		const std::optional<utility::string_t>& tenantName;
+	};
+
+
+	/// <summary>
+	/// Returns persisted GAC validation metadata for a tenant's secrets.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/gac-validation-metadata
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	virtual void inspectorGac_validation_metadataGet(const inspectorGac_validation_metadataGetParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IInspectorApiBase() = default;
+};
+
+class IInspectorBugReportApiBase : public csp::services::ApiBase
+{
+public:
+	IInspectorBugReportApiBase(csp::web::WebClient* InWebClient)
+		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().AggregationService)
+	{
+	}
+
+
+
+	struct inspectorBug_reportsPostParams
+	{
+		const std::shared_ptr<BugReportCreateRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Create a new bug report. Any authenticated user.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/bug-reports
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorBug_reportsPost(const inspectorBug_reportsPostParams& Params,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct inspectorBug_reportsGetParams
+	{
+		const std::optional<utility::string_t>& status;
+		const std::optional<utility::string_t>& tenantName;
+		const std::optional<utility::string_t>& search;
+		const std::optional<utility::string_t>& assignedTo;
+		const std::optional<bool>& unassigned;
+		const std::optional<utility::string_t>& type;
+		const std::optional<int32_t>& skip;
+		const std::optional<int32_t>& limit;
+	};
+
+
+	/// <summary>
+	/// List bug reports with optional filters. Magnopus-admin/magnopus-support only.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/bug-reports
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorBug_reportsGet(const inspectorBug_reportsGetParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorBug_reportsIdGetParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// Get a single bug report by ID. Magnopus-admin/magnopus-support only.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/bug-reports/{id}
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorBug_reportsIdGet(const inspectorBug_reportsIdGetParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorBug_reportsIdStatusPatchParams
+	{
+		const utility::string_t& id;
+		const std::shared_ptr<BugReportStatusUpdateRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Update the status of a bug report (Open → Acknowledged → Resolved).
+	/// </summary>
+	/// <remarks>
+	/// PATCH /api/v1/inspector/bug-reports/{id}/status
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorBug_reportsIdStatusPatch(const inspectorBug_reportsIdStatusPatchParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorBug_reportsIdAssignmentPatchParams
+	{
+		const utility::string_t& id;
+		const std::shared_ptr<BugReportAssignRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Assign or unassign a bug report. Null/empty AssignTo = unassign.
+	/// </summary>
+	/// <remarks>
+	/// PATCH /api/v1/inspector/bug-reports/{id}/assignment
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorBug_reportsIdAssignmentPatch(const inspectorBug_reportsIdAssignmentPatchParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorBug_reportsIdScreenshotGetParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// Get the screenshot for a bug report. Returns image/jpeg bytes.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/bug-reports/{id}/screenshot
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorBug_reportsIdScreenshotGet(const inspectorBug_reportsIdScreenshotGetParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IInspectorBugReportApiBase() = default;
+};
+
+class IMusubiGraphApiBase : public csp::services::ApiBase
+{
+public:
+	IMusubiGraphApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().AggregationService)
+	{
+	}
+
+
+
+	struct musubiExecute_graphPostParams
+	{
+		const std::shared_ptr<GraphExecutionRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Submits a graph for execution via Musubi pipeline.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/musubi/execute-graph
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void musubiExecute_graphPost(const musubiExecute_graphPostParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct musubiExecute_graphExecutionIdStatusGetParams
+	{
+		const utility::string_t& executionId;
+	};
+
+
+	/// <summary>
+	/// Gets the status of a graph execution
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/musubi/execute-graph/{executionId}/status
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void musubiExecute_graphExecutionIdStatusGet(const musubiExecute_graphExecutionIdStatusGetParams& Params,
+														 csp::services::ApiResponseHandlerBase* ResponseHandler,
+														 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct musubiExecute_graphExecutionIdStatusPostParams
+	{
+		const utility::string_t& executionId;
+		const std::shared_ptr<ExecutionStatusUpdateRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Updates the status of a graph execution. Called by the Graph Execution Runner.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/musubi/execute-graph/{executionId}/status
+	/// Authorization: graph-status-update
+	/// </remarks>
+	virtual void musubiExecute_graphExecutionIdStatusPost(const musubiExecute_graphExecutionIdStatusPostParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct musubiChaosQueueNameActiveGetParams
+	{
+		const utility::string_t& queueName;
+	};
+
+
+	/// <summary>
+	/// Checks if the chaos monkey is still active for a given queue.
+	/// Called once per graph execution by the runner to verify stale signals.
+	/// Uses the same scoped callback JWT as UpdateExecutionStatus.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/musubi/chaos/{queueName}/active
+	/// Authorization: graph-status-update
+	/// </remarks>
+	virtual void musubiChaosQueueNameActiveGet(const musubiChaosQueueNameActiveGetParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IMusubiGraphApiBase() = default;
 };
 
 class INtpApiBase : public csp::services::ApiBase

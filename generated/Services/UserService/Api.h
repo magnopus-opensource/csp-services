@@ -63,6 +63,86 @@ public:
 								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
+class ApplicationSecretsApi final : public IApplicationSecretsApiBase
+{
+public:
+	ApplicationSecretsApi(csp::web::WebClient* InWebClient);
+	virtual ~ApplicationSecretsApi();
+
+
+
+	/// <summary>
+	/// List all secret definitions for an application.
+	/// Any authenticated user can read definitions (they need to know what keys exist).
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/application-secrets/{applicationName}
+	/// !AUTHORIZATION REQUIREMENTS NOT SET!
+	/// </remarks>
+	void application_secretsApplicationNameGet(const application_secretsApplicationNameGetParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken
+											   = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Create a new secret definition for an application.
+	/// Magnopus-admin only.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/application-secrets/{applicationName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void application_secretsApplicationNamePost(const application_secretsApplicationNamePostParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken
+												= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Update an existing secret definition.
+	/// Magnopus-admin only.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/application-secrets/{applicationName}/{envVarName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void application_secretsApplicationNameEnvVarNamePut(const application_secretsApplicationNameEnvVarNamePutParams& Params,
+														 csp::services::ApiResponseHandlerBase* ResponseHandler,
+														 csp::common::CancellationToken& CancellationToken
+														 = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Delete a secret definition.
+	/// Magnopus-admin only.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/application-secrets/{applicationName}/{envVarName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void application_secretsApplicationNameEnvVarNameDelete(const application_secretsApplicationNameEnvVarNameDeleteParams& Params,
+															csp::services::ApiResponseHandlerBase* ResponseHandler,
+															csp::common::CancellationToken& CancellationToken
+															= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// List distinct application names that have secret definitions.
+	/// Magnopus-admin only.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/application-secrets/applications
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void application_secretsApplicationsGet(const application_secretsApplicationsGetParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken
+											= csp::common::CancellationToken::Dummy()) const override;
+};
+
 class ApplicationSettingsApi final : public IApplicationSettingsApiBase
 {
 public:
@@ -260,6 +340,20 @@ public:
 	void usersRefreshPost(const usersRefreshPostParams& Params,
 						  csp::services::ApiResponseHandlerBase* ResponseHandler,
 						  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Exchanges a valid refresh token for new auth tokens in a different tenant.
+	/// The caller's identity is proved via the refresh token in the body (not the bearer header).
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/users/exchange-tenancy
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void usersExchange_tenancyPost(const usersExchange_tenancyPostParams& Params,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class AvatarsApi final : public IAvatarsApiBase
@@ -404,6 +498,82 @@ public:
 						 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
+class CrossTenantSettingsApi final : public ICrossTenantSettingsApiBase
+{
+public:
+	CrossTenantSettingsApi(csp::web::WebClient* InWebClient);
+	virtual ~CrossTenantSettingsApi();
+
+
+
+	/// <summary>
+	/// Creates or updates cross-tenant settings for the authenticated user at the given context.
+	/// Any previously existing settings stored in the context not referenced in the call are left unchanged.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/users/me/cross-tenant-settings/{context}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void usersMeCross_tenant_settingsContextPut(const usersMeCross_tenant_settingsContextPutParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken
+												= csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Gets the cross-tenant settings for the authenticated user by context.
+	/// If keys are provided then only values for those keys will be returned.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/users/me/cross-tenant-settings/{context}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void usersMeCross_tenant_settingsContextGet(const usersMeCross_tenant_settingsContextGetParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken
+												= csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Deletes all cross-tenant settings related to a context for the authenticated user.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/users/me/cross-tenant-settings/{context}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void usersMeCross_tenant_settingsContextDelete(const usersMeCross_tenant_settingsContextDeleteParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken
+												   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets all the contexts for which the authenticated user has cross-tenant settings
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/users/me/cross-tenant-settings
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void usersMeCross_tenant_settingsGet(const usersMeCross_tenant_settingsGetParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Deletes a specific key from cross-tenant settings at a context for the authenticated user.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/users/me/cross-tenant-settings/{context}/{keyname}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void usersMeCross_tenant_settingsContextKeynameDelete(const usersMeCross_tenant_settingsContextKeynameDeleteParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken
+														  = csp::common::CancellationToken::Dummy()) const override;
+};
+
 class EncryptedValueApi final : public IEncryptedValueApiBase
 {
 public:
@@ -428,6 +598,21 @@ public:
 
 
 	/// <summary>
+	/// Returns all key names for tenant-owned encrypted values, without decrypted values.
+	/// Useful for populating a key management UI.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/encrypted-values/tenant/key-names
+	/// Authorization: tenant-secrets,admin,magnopus-admin
+	/// </remarks>
+	void encrypted_valuesTenantKey_namesGet(const encrypted_valuesTenantKey_namesGetParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken
+											= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
 	/// Create or update a tenant-owned encrypted value.
 	/// If the key already exists, it will be updated; otherwise, a new key will be created.
 	/// </summary>
@@ -438,6 +623,19 @@ public:
 	void encrypted_valuesTenantKeyNamePut(const encrypted_valuesTenantKeyNamePutParams& Params,
 										  csp::services::ApiResponseHandlerBase* ResponseHandler,
 										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Delete a tenant-owned encrypted value by key name.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/encrypted-values/tenant/{keyName}
+	/// Authorization: admin,magnopus-admin
+	/// </remarks>
+	void encrypted_valuesTenantKeyNameDelete(const encrypted_valuesTenantKeyNameDeleteParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken
+											 = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class GroupApi final : public IGroupApiBase
@@ -1258,6 +1456,20 @@ public:
 
 
 	/// <summary>
+	/// Returns all tenants where the specified user's email has a profile.
+	/// The caller must be the same user or a super-admin.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/users/{userId}/tenancies
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void usersUserIdTenanciesGet(const usersUserIdTenanciesGetParams& Params,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
 	/// Search across all the Users for those that match the search criteria and returns a list of profile id's
 	/// or an empty list if none found
 	/// </summary>
@@ -1592,11 +1804,292 @@ public:
 												= csp::common::CancellationToken::Dummy()) const override;
 };
 
+class SuperAdminTenantApi final : public ISuperAdminTenantApiBase
+{
+public:
+	SuperAdminTenantApi(csp::web::WebClient* InWebClient);
+	virtual ~SuperAdminTenantApi();
+
+
+
+	/// <summary>
+	/// Lists all tenants with optional filtering and pagination.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsGet(const super_adminTenantsGetParams& Params,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets a single tenant by name.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants/{tenantName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameGet(const super_adminTenantsTenantNameGetParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Lists users for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants/{tenantName}/users
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameUsersGet(const super_adminTenantsTenantNameUsersGetParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken
+											  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Locks a user account in the specified tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/super-admin/tenants/{tenantName}/users/{userId}/lock-account
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameUsersUserIdLock_accountPut(const super_adminTenantsTenantNameUsersUserIdLock_accountPutParams& Params,
+																csp::services::ApiResponseHandlerBase* ResponseHandler,
+																csp::common::CancellationToken& CancellationToken
+																= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Unlocks a user account in the specified tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/super-admin/tenants/{tenantName}/users/{userId}/unlock-account
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameUsersUserIdUnlock_accountPut(const super_adminTenantsTenantNameUsersUserIdUnlock_accountPutParams& Params,
+																  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																  csp::common::CancellationToken& CancellationToken
+																  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Soft-deletes (anonymizes) a user account in the specified tenant.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/super-admin/tenants/{tenantName}/users/{userId}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameUsersUserIdDelete(const super_adminTenantsTenantNameUsersUserIdDeleteParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken
+													   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Updates roles for a user in the specified tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/super-admin/tenants/{tenantName}/users/{userId}/roles
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameUsersUserIdRolesPut(const super_adminTenantsTenantNameUsersUserIdRolesPutParams& Params,
+														 csp::services::ApiResponseHandlerBase* ResponseHandler,
+														 csp::common::CancellationToken& CancellationToken
+														 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets email settings (including allow-list) for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants/{tenantName}/email-settings
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameEmail_settingsGet(const super_adminTenantsTenantNameEmail_settingsGetParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken
+													   = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Updates email settings (including allow-list) for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/super-admin/tenants/{tenantName}/email-settings
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameEmail_settingsPut(const super_adminTenantsTenantNameEmail_settingsPutParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken
+													   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets all secret key names for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants/{tenantName}/secrets/key-names
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameSecretsKey_namesGet(const super_adminTenantsTenantNameSecretsKey_namesGetParams& Params,
+														 csp::services::ApiResponseHandlerBase* ResponseHandler,
+														 csp::common::CancellationToken& CancellationToken
+														 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets decrypted secret values for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants/{tenantName}/secrets
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameSecretsGet(const super_adminTenantsTenantNameSecretsGetParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken
+												= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Sets a secret value for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/super-admin/tenants/{tenantName}/secrets/{keyName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameSecretsKeyNamePut(const super_adminTenantsTenantNameSecretsKeyNamePutParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken
+													   = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Deletes a secret for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/super-admin/tenants/{tenantName}/secrets/{keyName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameSecretsKeyNameDelete(const super_adminTenantsTenantNameSecretsKeyNameDeleteParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken
+														  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Returns DNS configuration for the hostname management UI.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/dns-settings
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminDns_settingsGet(const super_adminDns_settingsGetParams& Params,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Creates a CNAME hostname record for a tenant.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/super-admin/tenants/{tenantName}/hostnames
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameHostnamesPost(const super_adminTenantsTenantNameHostnamesPostParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken
+												   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Deletes a hostname CNAME record for a tenant.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/super-admin/tenants/{tenantName}/hostnames/{hostname}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameHostnamesHostnameDelete(const super_adminTenantsTenantNameHostnamesHostnameDeleteParams& Params,
+															 csp::services::ApiResponseHandlerBase* ResponseHandler,
+															 csp::common::CancellationToken& CancellationToken
+															 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Checks DNS propagation and resolution status for a hostname.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants/{tenantName}/hostnames/{hostname}/dns-status
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameHostnamesHostnameDns_statusGet(const super_adminTenantsTenantNameHostnamesHostnameDns_statusGetParams& Params,
+																	csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	csp::common::CancellationToken& CancellationToken
+																	= csp::common::CancellationToken::Dummy()) const override;
+};
+
 class TenantApi final : public ITenantApiBase
 {
 public:
 	TenantApi(csp::web::WebClient* InWebClient);
 	virtual ~TenantApi();
+
+
+
+	/// <summary>
+	/// Returns the current user's tenant data, scoped to fields relevant for the admin portal.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenants/self
+	/// Authorization: admin,magnopus-admin
+	/// </remarks>
+	void tenantsSelfGet(const tenantsSelfGetParams& Params,
+						csp::services::ApiResponseHandlerBase* ResponseHandler,
+						csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Returns the inferred tenant name based on the request Origin/Referer headers.
+	/// Allows clients to discover their tenant before authentication.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenants/inferred-name
+	/// Authorization: Anonymous
+	/// </remarks>
+	void tenantsInferred_nameGet(const tenantsInferred_nameGetParams& Params,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Updates only the email allow-list fields on the current tenant.
+	/// Restricted to AllowedEmailAddresses and AllowedEmailDomains.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenants/self/email-settings
+	/// Authorization: admin,magnopus-admin
+	/// </remarks>
+	void tenantsSelfEmail_settingsPut(const tenantsSelfEmail_settingsPutParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -1622,20 +2115,6 @@ public:
 	void tenantsNamesTenantNameGet(const tenantsNamesTenantNameGetParams& Params,
 								   csp::services::ApiResponseHandlerBase* ResponseHandler,
 								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
-
-
-
-	/// <summary>
-	/// Returns the inferred tenant name based on the request Origin/Referer headers.
-	/// Allows clients to discover their tenant before authentication.
-	/// </summary>
-	/// <remarks>
-	/// GET /api/v1/tenants/inferred-name
-	/// Authorization: Anonymous
-	/// </remarks>
-	void tenantsInferred_nameGet(const tenantsInferred_nameGetParams& Params,
-								 csp::services::ApiResponseHandlerBase* ResponseHandler,
-								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 
@@ -1666,6 +2145,170 @@ public:
 	void tenantsNamesNameDelete(const tenantsNamesNameDeleteParams& Params,
 								csp::services::ApiResponseHandlerBase* ResponseHandler,
 								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+};
+
+class TenantAdminApi final : public ITenantAdminApiBase
+{
+public:
+	TenantAdminApi(csp::web::WebClient* InWebClient);
+	virtual ~TenantAdminApi();
+
+
+
+	/// <summary>
+	/// Gets the caller's own tenant details.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenant-admin/tenant
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void tenant_adminTenantGet(const tenant_adminTenantGetParams& Params,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Updates the four tenant-admin-editable fields on the caller's own tenant:
+	/// AllowedEmailAddresses, AllowedEmailDomains, CompanyName, DisplayName.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenant-admin/tenant
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void tenant_adminTenantPut(const tenant_adminTenantPutParams& Params,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Lists users in the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenant-admin/users
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void tenant_adminUsersGet(const tenant_adminUsersGetParams& Params,
+							  csp::services::ApiResponseHandlerBase* ResponseHandler,
+							  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Locks a user account in the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenant-admin/users/{userId}/lock-account
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void tenant_adminUsersUserIdLock_accountPut(const tenant_adminUsersUserIdLock_accountPutParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken
+												= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Unlocks a user account in the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenant-admin/users/{userId}/unlock-account
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void tenant_adminUsersUserIdUnlock_accountPut(const tenant_adminUsersUserIdUnlock_accountPutParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken
+												  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Updates roles for a user in the caller's own tenant.
+	/// Role escalation guard: cannot grant magnopus-admin or magnopus-support.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenant-admin/users/{userId}/roles
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void tenant_adminUsersUserIdRolesPut(const tenant_adminUsersUserIdRolesPutParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets email settings for the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenant-admin/email-settings
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void tenant_adminEmail_settingsGet(const tenant_adminEmail_settingsGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Updates email settings for the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenant-admin/email-settings
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void tenant_adminEmail_settingsPut(const tenant_adminEmail_settingsPutParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets all secret key names for the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenant-admin/secrets/key-names
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void tenant_adminSecretsKey_namesGet(const tenant_adminSecretsKey_namesGetParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets decrypted secret values for the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenant-admin/secrets
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void tenant_adminSecretsGet(const tenant_adminSecretsGetParams& Params,
+								csp::services::ApiResponseHandlerBase* ResponseHandler,
+								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Sets a secret value for the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenant-admin/secrets/{keyName}
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void tenant_adminSecretsKeyNamePut(const tenant_adminSecretsKeyNamePutParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Deletes a secret for the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/tenant-admin/secrets/{keyName}
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void tenant_adminSecretsKeyNameDelete(const tenant_adminSecretsKeyNameDeleteParams& Params,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class UserRolesApi final : public IUserRolesApiBase

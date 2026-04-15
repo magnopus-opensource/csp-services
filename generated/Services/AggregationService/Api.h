@@ -72,7 +72,7 @@ public:
 	/// ```markdown
 	/// ### Badge Creation DSL Documentation
 	///
-	/// This guide explains how to use the Badge Creation DSL to simulate class completions and test badge awarding in our application.You�ll use
+	/// This guide explains how to use the Badge Creation DSL to simulate class completions and test badge awarding in our application.You’ll use
 	/// these expressions in Swagger to automate the creation of class records.
 	///
 	/// #### DSL Format
@@ -363,6 +363,547 @@ public:
 	void usersUserIdGroupsGroupIdRolesPut(const usersUserIdGroupsGroupIdRolesPutParams& Params,
 										  csp::services::ApiResponseHandlerBase* ResponseHandler,
 										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+};
+
+class InspectorApi final : public IInspectorApiBase
+{
+public:
+	InspectorApi(csp::web::WebClient* InWebClient);
+	virtual ~InspectorApi();
+
+
+
+	/// <summary>
+	/// List graph executions with optional filters and pagination.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/executions
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorExecutionsGet(const inspectorExecutionsGetParams& Params,
+								csp::services::ApiResponseHandlerBase* ResponseHandler,
+								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get details of a specific execution by execution ID.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/executions/{executionId}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorExecutionsExecutionIdGet(const inspectorExecutionsExecutionIdGetParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken
+										   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get real-time state from S3 for an execution.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/executions/{executionId}/state
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorExecutionsExecutionIdStateGet(const inspectorExecutionsExecutionIdStateGetParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken
+												= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get the graph definition from S3 for an execution.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/executions/{executionId}/graph
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorExecutionsExecutionIdGraphGet(const inspectorExecutionsExecutionIdGraphGetParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken
+												= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get all logs for an execution from S3.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/executions/{executionId}/logs
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorExecutionsExecutionIdLogsGet(const inspectorExecutionsExecutionIdLogsGetParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken
+											   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get execution statistics summary.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/stats
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorStatsGet(const inspectorStatsGetParams& Params,
+						   csp::services::ApiResponseHandlerBase* ResponseHandler,
+						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get currently running executions.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/executions/running
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorExecutionsRunningGet(const inspectorExecutionsRunningGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Start observing an execution's logs in real-time.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/observe/{executionId}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorObserveExecutionIdPost(const inspectorObserveExecutionIdPostParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Returns a snapshot of queue health data for all discovered SQS queues.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/queue-health
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorQueue_healthGet(const inspectorQueue_healthGetParams& Params,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Start a redrive to move messages from a queue's DLQ back to the source queue.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/queue-health/{queueName}/dlq/redrive
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void inspectorQueue_healthQueueNameDlqRedrivePost(const inspectorQueue_healthQueueNameDlqRedrivePostParams& Params,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken
+													  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// List recent redrive tasks for a queue's DLQ.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/queue-health/{queueName}/dlq/redrive-tasks
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void inspectorQueue_healthQueueNameDlqRedrive_tasksGet(const inspectorQueue_healthQueueNameDlqRedrive_tasksGetParams& Params,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken
+														   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Cancel a running redrive task.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/queue-health/{queueName}/dlq/redrive/{taskHandle}/cancel
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void
+		inspectorQueue_healthQueueNameDlqRedriveTaskHandleCancelPost(const inspectorQueue_healthQueueNameDlqRedriveTaskHandleCancelPostParams& Params,
+																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	 csp::common::CancellationToken& CancellationToken
+																	 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Purge all messages from a queue's DLQ.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/queue-health/{queueName}/dlq/purge
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void inspectorQueue_healthQueueNameDlqPurgePost(const inspectorQueue_healthQueueNameDlqPurgePostParams& Params,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken
+													= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Activate the chaos monkey for a queue.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/chaos/{queueName}/activate
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void inspectorChaosQueueNameActivatePost(const inspectorChaosQueueNameActivatePostParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken
+											 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Deactivate the chaos monkey for a queue.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/chaos/{queueName}/deactivate
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void inspectorChaosQueueNameDeactivatePost(const inspectorChaosQueueNameDeactivatePostParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken
+											   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get all active chaos monkey configs across all known queues.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/chaos
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void inspectorChaosGet(const inspectorChaosGetParams& Params,
+						   csp::services::ApiResponseHandlerBase* ResponseHandler,
+						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get daily execution counts for usage charts.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/executions-per-day
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorUsageExecutions_per_dayGet(const inspectorUsageExecutions_per_dayGetParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken
+											 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get daily distributed queue usage counts for usage charts.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/queues-per-day
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorUsageQueues_per_dayGet(const inspectorUsageQueues_per_dayGetParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get daily node type usage counts for usage charts.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/node-types-per-day
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorUsageNode_types_per_dayGet(const inspectorUsageNode_types_per_dayGetParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken
+											 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get daily key usage counts (tenant-aware).
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/key-usage-per-day
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorUsageKey_usage_per_dayGet(const inspectorUsageKey_usage_per_dayGetParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken
+											= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get processing time breakdown grouped by day, queue, or node type.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/processing-time
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorUsageProcessing_timeGet(const inspectorUsageProcessing_timeGetParams& Params,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get queue wait summary with percentiles and per-queue breakdown.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/queue-wait-summary
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorUsageQueue_wait_summaryGet(const inspectorUsageQueue_wait_summaryGetParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken
+											 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get 7-day execution sparkline data for multiple users (batch endpoint).
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/user-sparklines
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorUsageUser_sparklinesGet(const inspectorUsageUser_sparklinesGetParams& Params,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get daily sustained activity hours for one or more tenants.
+	/// Returns a dictionary of tenant name to daily hour entries.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/sustained-activity-per-day
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void inspectorUsageSustained_activity_per_dayGet(const inspectorUsageSustained_activity_per_dayGetParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken
+													 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get 7-day sustained activity sparkline data for multiple tenants (batch endpoint).
+	/// Returns a dictionary of tenant name to an array of daily hours (zero-filled, length = days).
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/usage/tenant-activity-sparklines
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void inspectorUsageTenant_activity_sparklinesGet(const inspectorUsageTenant_activity_sparklinesGetParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken
+													 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Validate a GAC (GCP Service Account JSON) credential against configured checks.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/validate-gac
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorValidate_gacPost(const inspectorValidate_gacPostParams& Params,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Save a GAC credential that has already been validated, persisting both the
+	/// value and the validation result to metadata.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/save-validated-gac
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorSave_validated_gacPost(const inspectorSave_validated_gacPostParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Returns persisted GAC validation metadata for a tenant's secrets.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/gac-validation-metadata
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorGac_validation_metadataGet(const inspectorGac_validation_metadataGetParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken
+											 = csp::common::CancellationToken::Dummy()) const override;
+};
+
+class InspectorBugReportApi final : public IInspectorBugReportApiBase
+{
+public:
+	InspectorBugReportApi(csp::web::WebClient* InWebClient);
+	virtual ~InspectorBugReportApi();
+
+
+
+	/// <summary>
+	/// Create a new bug report. Any authenticated user.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/bug-reports
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorBug_reportsPost(const inspectorBug_reportsPostParams& Params,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// List bug reports with optional filters. Magnopus-admin/magnopus-support only.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/bug-reports
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void inspectorBug_reportsGet(const inspectorBug_reportsGetParams& Params,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get a single bug report by ID. Magnopus-admin/magnopus-support only.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/bug-reports/{id}
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void inspectorBug_reportsIdGet(const inspectorBug_reportsIdGetParams& Params,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Update the status of a bug report (Open → Acknowledged → Resolved).
+	/// </summary>
+	/// <remarks>
+	/// PATCH /api/v1/inspector/bug-reports/{id}/status
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void inspectorBug_reportsIdStatusPatch(const inspectorBug_reportsIdStatusPatchParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken
+										   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Assign or unassign a bug report. Null/empty AssignTo = unassign.
+	/// </summary>
+	/// <remarks>
+	/// PATCH /api/v1/inspector/bug-reports/{id}/assignment
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void inspectorBug_reportsIdAssignmentPatch(const inspectorBug_reportsIdAssignmentPatchParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken
+											   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get the screenshot for a bug report. Returns image/jpeg bytes.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/bug-reports/{id}/screenshot
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void inspectorBug_reportsIdScreenshotGet(const inspectorBug_reportsIdScreenshotGetParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken
+											 = csp::common::CancellationToken::Dummy()) const override;
+};
+
+class MusubiGraphApi final : public IMusubiGraphApiBase
+{
+public:
+	MusubiGraphApi(csp::web::WebClient* InWebClient);
+	virtual ~MusubiGraphApi();
+
+
+
+	/// <summary>
+	/// Submits a graph for execution via Musubi pipeline.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/musubi/execute-graph
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void musubiExecute_graphPost(const musubiExecute_graphPostParams& Params,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets the status of a graph execution
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/musubi/execute-graph/{executionId}/status
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void musubiExecute_graphExecutionIdStatusGet(const musubiExecute_graphExecutionIdStatusGetParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken
+												 = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Updates the status of a graph execution. Called by the Graph Execution Runner.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/musubi/execute-graph/{executionId}/status
+	/// Authorization: graph-status-update
+	/// </remarks>
+	void musubiExecute_graphExecutionIdStatusPost(const musubiExecute_graphExecutionIdStatusPostParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken
+												  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Checks if the chaos monkey is still active for a given queue.
+	/// Called once per graph execution by the runner to verify stale signals.
+	/// Uses the same scoped callback JWT as UpdateExecutionStatus.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/musubi/chaos/{queueName}/active
+	/// Authorization: graph-status-update
+	/// </remarks>
+	void musubiChaosQueueNameActiveGet(const musubiChaosQueueNameActiveGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class NtpApi final : public INtpApiBase

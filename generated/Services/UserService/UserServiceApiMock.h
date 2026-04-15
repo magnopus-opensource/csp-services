@@ -38,6 +38,45 @@ public:
 				(const, override));
 };
 
+class ApplicationSecretsApiMock final : public IApplicationSecretsApiBase
+{
+public:
+	ApplicationSecretsApiMock() : IApplicationSecretsApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				application_secretsApplicationNameGet,
+				(const application_secretsApplicationNameGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				application_secretsApplicationNamePost,
+				(const application_secretsApplicationNamePostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				application_secretsApplicationNameEnvVarNamePut,
+				(const application_secretsApplicationNameEnvVarNamePutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				application_secretsApplicationNameEnvVarNameDelete,
+				(const application_secretsApplicationNameEnvVarNameDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				application_secretsApplicationsGet,
+				(const application_secretsApplicationsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
 class ApplicationSettingsApiMock final : public IApplicationSettingsApiBase
 {
 public:
@@ -132,6 +171,12 @@ public:
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
+	MOCK_METHOD(void,
+				usersExchange_tenancyPost,
+				(const usersExchange_tenancyPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
 };
 
 class AvatarsApiMock final : public IAvatarsApiBase
@@ -221,6 +266,45 @@ public:
 				(const, override));
 };
 
+class CrossTenantSettingsApiMock final : public ICrossTenantSettingsApiBase
+{
+public:
+	CrossTenantSettingsApiMock() : ICrossTenantSettingsApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				usersMeCross_tenant_settingsContextPut,
+				(const usersMeCross_tenant_settingsContextPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				usersMeCross_tenant_settingsContextGet,
+				(const usersMeCross_tenant_settingsContextGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				usersMeCross_tenant_settingsContextDelete,
+				(const usersMeCross_tenant_settingsContextDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				usersMeCross_tenant_settingsGet,
+				(const usersMeCross_tenant_settingsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				usersMeCross_tenant_settingsContextKeynameDelete,
+				(const usersMeCross_tenant_settingsContextKeynameDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
 class EncryptedValueApiMock final : public IEncryptedValueApiBase
 {
 public:
@@ -235,8 +319,20 @@ public:
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
+				encrypted_valuesTenantKey_namesGet,
+				(const encrypted_valuesTenantKey_namesGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
 				encrypted_valuesTenantKeyNamePut,
 				(const encrypted_valuesTenantKeyNamePutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				encrypted_valuesTenantKeyNameDelete,
+				(const encrypted_valuesTenantKeyNameDeleteParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
@@ -629,6 +725,12 @@ public:
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
+				usersUserIdTenanciesGet,
+				(const usersUserIdTenanciesGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
 				usersProfile_idsPost,
 				(const usersProfile_idsPostParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -792,6 +894,117 @@ public:
 				(const, override));
 };
 
+class SuperAdminTenantApiMock final : public ISuperAdminTenantApiBase
+{
+public:
+	SuperAdminTenantApiMock() : ISuperAdminTenantApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				super_adminTenantsGet,
+				(const super_adminTenantsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameGet,
+				(const super_adminTenantsTenantNameGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameUsersGet,
+				(const super_adminTenantsTenantNameUsersGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameUsersUserIdLock_accountPut,
+				(const super_adminTenantsTenantNameUsersUserIdLock_accountPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameUsersUserIdUnlock_accountPut,
+				(const super_adminTenantsTenantNameUsersUserIdUnlock_accountPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameUsersUserIdDelete,
+				(const super_adminTenantsTenantNameUsersUserIdDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameUsersUserIdRolesPut,
+				(const super_adminTenantsTenantNameUsersUserIdRolesPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameEmail_settingsGet,
+				(const super_adminTenantsTenantNameEmail_settingsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameEmail_settingsPut,
+				(const super_adminTenantsTenantNameEmail_settingsPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameSecretsKey_namesGet,
+				(const super_adminTenantsTenantNameSecretsKey_namesGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameSecretsGet,
+				(const super_adminTenantsTenantNameSecretsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameSecretsKeyNamePut,
+				(const super_adminTenantsTenantNameSecretsKeyNamePutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameSecretsKeyNameDelete,
+				(const super_adminTenantsTenantNameSecretsKeyNameDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminDns_settingsGet,
+				(const super_adminDns_settingsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameHostnamesPost,
+				(const super_adminTenantsTenantNameHostnamesPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameHostnamesHostnameDelete,
+				(const super_adminTenantsTenantNameHostnamesHostnameDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameHostnamesHostnameDns_statusGet,
+				(const super_adminTenantsTenantNameHostnamesHostnameDns_statusGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
 class TenantApiMock final : public ITenantApiBase
 {
 public:
@@ -799,6 +1012,24 @@ public:
 	{
 	}
 
+	MOCK_METHOD(void,
+				tenantsSelfGet,
+				(const tenantsSelfGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tenantsInferred_nameGet,
+				(const tenantsInferred_nameGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tenantsSelfEmail_settingsPut,
+				(const tenantsSelfEmail_settingsPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
 	MOCK_METHOD(void,
 				tenantsNamesTenantNamePut,
 				(const tenantsNamesTenantNamePutParams&,
@@ -812,12 +1043,6 @@ public:
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
-				tenantsInferred_nameGet,
-				(const tenantsInferred_nameGetParams&,
-				 csp::services::ApiResponseHandlerBase* ResponseHandler,
-				 csp::common::CancellationToken& CancellationToken),
-				(const, override));
-	MOCK_METHOD(void,
 				tenantsPendingDelete,
 				(const tenantsPendingDeleteParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -826,6 +1051,87 @@ public:
 	MOCK_METHOD(void,
 				tenantsNamesNameDelete,
 				(const tenantsNamesNameDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class TenantAdminApiMock final : public ITenantAdminApiBase
+{
+public:
+	TenantAdminApiMock() : ITenantAdminApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				tenant_adminTenantGet,
+				(const tenant_adminTenantGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tenant_adminTenantPut,
+				(const tenant_adminTenantPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tenant_adminUsersGet,
+				(const tenant_adminUsersGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tenant_adminUsersUserIdLock_accountPut,
+				(const tenant_adminUsersUserIdLock_accountPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tenant_adminUsersUserIdUnlock_accountPut,
+				(const tenant_adminUsersUserIdUnlock_accountPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tenant_adminUsersUserIdRolesPut,
+				(const tenant_adminUsersUserIdRolesPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tenant_adminEmail_settingsGet,
+				(const tenant_adminEmail_settingsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tenant_adminEmail_settingsPut,
+				(const tenant_adminEmail_settingsPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tenant_adminSecretsKey_namesGet,
+				(const tenant_adminSecretsKey_namesGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tenant_adminSecretsGet,
+				(const tenant_adminSecretsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tenant_adminSecretsKeyNamePut,
+				(const tenant_adminSecretsKeyNamePutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tenant_adminSecretsKeyNameDelete,
+				(const tenant_adminSecretsKeyNameDeleteParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));

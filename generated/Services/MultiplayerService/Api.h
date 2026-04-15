@@ -160,6 +160,22 @@ public:
 													 csp::services::ApiResponseHandlerBase* ResponseHandler,
 													 csp::common::CancellationToken& CancellationToken
 													 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Cleans up stale AreaOfInterest and ClientConnection documents for the requesting user
+	/// across all tenants. Used to resolve cross-tenant duplicate key conflicts that occur
+	/// when a user switches between tenants.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/client-connections/me/cleanup
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void client_connectionsMeCleanupDelete(const client_connectionsMeCleanupDeleteParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken
+										   = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class ConfigurationApi final : public IConfigurationApiBase
@@ -415,7 +431,7 @@ public:
 
 
 	/// <summary>
-	/// Get's related scope leader information for a scope
+	/// Gets related scope leader information for a scope
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/scopes/{scopeId}/leader

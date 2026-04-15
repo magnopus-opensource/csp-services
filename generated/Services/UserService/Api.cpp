@@ -73,6 +73,116 @@ void AnalyticsApi::analyticsStream_urlPost([[maybe_unused]] const analyticsStrea
 
 
 
+ApplicationSecretsApi::ApplicationSecretsApi(csp::web::WebClient* InWebClient) : IApplicationSecretsApiBase(InWebClient)
+{
+}
+
+ApplicationSecretsApi::~ApplicationSecretsApi()
+{
+}
+
+
+
+void ApplicationSecretsApi::application_secretsApplicationNameGet([[maybe_unused]] const application_secretsApplicationNameGetParams& Params,
+																  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/application-secrets/{applicationName}")
+			.c_str(),
+		{Params.applicationName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void ApplicationSecretsApi::application_secretsApplicationNamePost([[maybe_unused]] const application_secretsApplicationNamePostParams& Params,
+																   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/application-secrets/{applicationName}")
+			.c_str(),
+		{Params.applicationName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ApplicationSecretsApi::application_secretsApplicationNameEnvVarNamePut(
+	[[maybe_unused]] const application_secretsApplicationNameEnvVarNamePutParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/application-secrets/{applicationName}/{envVarName}")
+						  .c_str(),
+					  {Params.applicationName, Params.envVarName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void ApplicationSecretsApi::application_secretsApplicationNameEnvVarNameDelete(
+	[[maybe_unused]] const application_secretsApplicationNameEnvVarNameDeleteParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/application-secrets/{applicationName}/{envVarName}")
+						  .c_str(),
+					  {Params.applicationName, Params.envVarName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ApplicationSecretsApi::application_secretsApplicationsGet([[maybe_unused]] const application_secretsApplicationsGetParams& Params,
+															   csp::services::ApiResponseHandlerBase* ResponseHandler,
+															   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/application-secrets/applications")
+			.c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 ApplicationSettingsApi::ApplicationSettingsApi(csp::web::WebClient* InWebClient) : IApplicationSettingsApiBase(InWebClient)
 {
 }
@@ -312,6 +422,12 @@ void AuthenticationApi::social_providersProviderGet([[maybe_unused]] const socia
 		{Params.provider});
 
 
+	if (Params.redirectUrl.has_value())
+	{
+		Uri.AddQueryParams("redirectUrl", Params.redirectUrl.value());
+	}
+
+
 	if (Params.tenant.has_value())
 	{
 		Uri.AddQueryParams("tenant", Params.tenant.value());
@@ -360,6 +476,25 @@ void AuthenticationApi::usersRefreshPost([[maybe_unused]] const usersRefreshPost
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
 	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void AuthenticationApi::usersExchange_tenancyPost([[maybe_unused]] const usersExchange_tenancyPostParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/exchange-tenancy").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
@@ -595,6 +730,124 @@ void ConfigurationApi::featureflagsGet([[maybe_unused]] const featureflagsGetPar
 
 
 
+CrossTenantSettingsApi::CrossTenantSettingsApi(csp::web::WebClient* InWebClient) : ICrossTenantSettingsApiBase(InWebClient)
+{
+}
+
+CrossTenantSettingsApi::~CrossTenantSettingsApi()
+{
+}
+
+
+
+void CrossTenantSettingsApi::usersMeCross_tenant_settingsContextPut([[maybe_unused]] const usersMeCross_tenant_settingsContextPutParams& Params,
+																	csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/users/me/cross-tenant-settings/{context}")
+						  .c_str(),
+					  {Params.context});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void CrossTenantSettingsApi::usersMeCross_tenant_settingsContextGet([[maybe_unused]] const usersMeCross_tenant_settingsContextGetParams& Params,
+																	csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/users/me/cross-tenant-settings/{context}")
+						  .c_str(),
+					  {Params.context});
+
+
+	if (Params.keys.has_value())
+	{
+		Uri.AddQueryParams("keys", Params.keys.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void CrossTenantSettingsApi::usersMeCross_tenant_settingsContextDelete([[maybe_unused]] const usersMeCross_tenant_settingsContextDeleteParams& Params,
+																	   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/users/me/cross-tenant-settings/{context}")
+						  .c_str(),
+					  {Params.context});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void CrossTenantSettingsApi::usersMeCross_tenant_settingsGet([[maybe_unused]] const usersMeCross_tenant_settingsGetParams& Params,
+															 csp::services::ApiResponseHandlerBase* ResponseHandler,
+															 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/me/cross-tenant-settings").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void CrossTenantSettingsApi::usersMeCross_tenant_settingsContextKeynameDelete(
+	[[maybe_unused]] const usersMeCross_tenant_settingsContextKeynameDeleteParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/users/me/cross-tenant-settings/{context}/{keyname}")
+						  .c_str(),
+					  {Params.context, Params.keyname});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 EncryptedValueApi::EncryptedValueApi(csp::web::WebClient* InWebClient) : IEncryptedValueApiBase(InWebClient)
 {
 }
@@ -632,6 +885,25 @@ void EncryptedValueApi::encrypted_valuesTenantGet([[maybe_unused]] const encrypt
 
 
 
+void EncryptedValueApi::encrypted_valuesTenantKey_namesGet([[maybe_unused]] const encrypted_valuesTenantKey_namesGetParams& Params,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/encrypted-values/tenant/key-names")
+			.c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 void EncryptedValueApi::encrypted_valuesTenantKeyNamePut([[maybe_unused]] const encrypted_valuesTenantKeyNamePutParams& Params,
 														 csp::services::ApiResponseHandlerBase* ResponseHandler,
 														 csp::common::CancellationToken& CancellationToken) const
@@ -648,6 +920,24 @@ void EncryptedValueApi::encrypted_valuesTenantKeyNamePut([[maybe_unused]] const 
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void EncryptedValueApi::encrypted_valuesTenantKeyNameDelete([[maybe_unused]] const encrypted_valuesTenantKeyNameDeleteParams& Params,
+															csp::services::ApiResponseHandlerBase* ResponseHandler,
+															csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/encrypted-values/tenant/{keyName}")
+			.c_str(),
+		{Params.keyName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
@@ -2209,6 +2499,30 @@ void ProfileApi::usersGet([[maybe_unused]] const usersGetParams& Params,
 	}
 
 
+	if (Params.EmailOrDisplayNameFragment.has_value())
+	{
+		Uri.AddQueryParams("EmailOrDisplayNameFragment", Params.EmailOrDisplayNameFragment.value());
+	}
+
+
+	if (Params.SortBy.has_value())
+	{
+		Uri.AddQueryParams("SortBy", Params.SortBy.value());
+	}
+
+
+	if (Params.SortDirection.has_value())
+	{
+		Uri.AddQueryParams("SortDirection", Params.SortDirection.value());
+	}
+
+
+	if (Params.EmailDisplayNameUserIdCombinedTerm.has_value())
+	{
+		Uri.AddQueryParams("EmailDisplayNameUserIdCombinedTerm", Params.EmailDisplayNameUserIdCombinedTerm.value());
+	}
+
+
 	if (Params.Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Params.Skip.value());
@@ -2357,6 +2671,24 @@ void ProfileApi::usersHard_deleteDelete([[maybe_unused]] const usersHard_deleteD
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ProfileApi::usersUserIdTenanciesGet([[maybe_unused]] const usersUserIdTenanciesGetParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/{userId}/tenancies").c_str(),
+		{Params.userId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
@@ -2926,12 +3258,504 @@ void StripeApi::vendorsStripeCustomer_portalsUserIdGet([[maybe_unused]] const ve
 
 
 
+SuperAdminTenantApi::SuperAdminTenantApi(csp::web::WebClient* InWebClient) : ISuperAdminTenantApiBase(InWebClient)
+{
+}
+
+SuperAdminTenantApi::~SuperAdminTenantApi()
+{
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsGet([[maybe_unused]] const super_adminTenantsGetParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/super-admin/tenants").c_str(),
+		{});
+
+
+	if (Params.skip.has_value())
+	{
+		Uri.AddQueryParams("skip", Params.skip.value());
+	}
+
+
+	if (Params.limit.has_value())
+	{
+		Uri.AddQueryParams("limit", Params.limit.value());
+	}
+
+
+	if (Params.search.has_value())
+	{
+		Uri.AddQueryParams("search", Params.search.value());
+	}
+
+
+	if (Params.pendingAdmin.has_value())
+	{
+		Uri.AddQueryParams("pendingAdmin", Params.pendingAdmin.value());
+	}
+
+
+	if (Params.sortBy.has_value())
+	{
+		Uri.AddQueryParams("sortBy", Params.sortBy.value());
+	}
+
+
+	if (Params.sortDirection.has_value())
+	{
+		Uri.AddQueryParams("sortDirection", Params.sortDirection.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameGet([[maybe_unused]] const super_adminTenantsTenantNameGetParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/super-admin/tenants/{tenantName}")
+			.c_str(),
+		{Params.tenantName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameUsersGet([[maybe_unused]] const super_adminTenantsTenantNameUsersGetParams& Params,
+															   csp::services::ApiResponseHandlerBase* ResponseHandler,
+															   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/super-admin/tenants/{tenantName}/users")
+			.c_str(),
+		{Params.tenantName});
+
+
+	if (Params.skip.has_value())
+	{
+		Uri.AddQueryParams("skip", Params.skip.value());
+	}
+
+
+	if (Params.limit.has_value())
+	{
+		Uri.AddQueryParams("limit", Params.limit.value());
+	}
+
+
+	if (Params.search.has_value())
+	{
+		Uri.AddQueryParams("search", Params.search.value());
+	}
+
+
+	if (Params.sortBy.has_value())
+	{
+		Uri.AddQueryParams("sortBy", Params.sortBy.value());
+	}
+
+
+	if (Params.sortDirection.has_value())
+	{
+		Uri.AddQueryParams("sortDirection", Params.sortDirection.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameUsersUserIdLock_accountPut(
+	[[maybe_unused]] const super_adminTenantsTenantNameUsersUserIdLock_accountPutParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/users/{userId}/lock-account")
+						  .c_str(),
+					  {Params.tenantName, Params.userId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameUsersUserIdUnlock_accountPut(
+	[[maybe_unused]] const super_adminTenantsTenantNameUsersUserIdUnlock_accountPutParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/users/{userId}/unlock-account")
+						  .c_str(),
+					  {Params.tenantName, Params.userId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameUsersUserIdDelete(
+	[[maybe_unused]] const super_adminTenantsTenantNameUsersUserIdDeleteParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/users/{userId}")
+						  .c_str(),
+					  {Params.tenantName, Params.userId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameUsersUserIdRolesPut(
+	[[maybe_unused]] const super_adminTenantsTenantNameUsersUserIdRolesPutParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/users/{userId}/roles")
+						  .c_str(),
+					  {Params.tenantName, Params.userId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameEmail_settingsGet(
+	[[maybe_unused]] const super_adminTenantsTenantNameEmail_settingsGetParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/email-settings")
+						  .c_str(),
+					  {Params.tenantName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameEmail_settingsPut(
+	[[maybe_unused]] const super_adminTenantsTenantNameEmail_settingsPutParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/email-settings")
+						  .c_str(),
+					  {Params.tenantName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameSecretsKey_namesGet(
+	[[maybe_unused]] const super_adminTenantsTenantNameSecretsKey_namesGetParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/secrets/key-names")
+						  .c_str(),
+					  {Params.tenantName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameSecretsGet([[maybe_unused]] const super_adminTenantsTenantNameSecretsGetParams& Params,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/secrets")
+						  .c_str(),
+					  {Params.tenantName});
+
+
+	Uri.AddQueryParams("keys", Params.keys);
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameSecretsKeyNamePut(
+	[[maybe_unused]] const super_adminTenantsTenantNameSecretsKeyNamePutParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/secrets/{keyName}")
+						  .c_str(),
+					  {Params.tenantName, Params.keyName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameSecretsKeyNameDelete(
+	[[maybe_unused]] const super_adminTenantsTenantNameSecretsKeyNameDeleteParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/secrets/{keyName}")
+						  .c_str(),
+					  {Params.tenantName, Params.keyName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminDns_settingsGet([[maybe_unused]] const super_adminDns_settingsGetParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/super-admin/dns-settings").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameHostnamesPost([[maybe_unused]] const super_adminTenantsTenantNameHostnamesPostParams& Params,
+																	csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/hostnames")
+						  .c_str(),
+					  {Params.tenantName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameHostnamesHostnameDelete(
+	[[maybe_unused]] const super_adminTenantsTenantNameHostnamesHostnameDeleteParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/hostnames/{hostname}")
+						  .c_str(),
+					  {Params.tenantName, Params.hostname});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameHostnamesHostnameDns_statusGet(
+	[[maybe_unused]] const super_adminTenantsTenantNameHostnamesHostnameDns_statusGetParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/hostnames/{hostname}/dns-status")
+						  .c_str(),
+					  {Params.tenantName, Params.hostname});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 TenantApi::TenantApi(csp::web::WebClient* InWebClient) : ITenantApiBase(InWebClient)
 {
 }
 
 TenantApi::~TenantApi()
 {
+}
+
+
+
+void TenantApi::tenantsSelfGet([[maybe_unused]] const tenantsSelfGetParams& Params,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/self").c_str(),
+					  {});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void TenantApi::tenantsInferred_nameGet([[maybe_unused]] const tenantsInferred_nameGetParams& Params,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/inferred-name").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void TenantApi::tenantsSelfEmail_settingsPut([[maybe_unused]] const tenantsSelfEmail_settingsPutParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/self/email-settings").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
@@ -2972,23 +3796,6 @@ void TenantApi::tenantsNamesTenantNameGet([[maybe_unused]] const tenantsNamesTen
 
 
 
-void TenantApi::tenantsInferred_nameGet([[maybe_unused]] const tenantsInferred_nameGetParams& Params,
-										csp::services::ApiResponseHandlerBase* ResponseHandler,
-										csp::common::CancellationToken& CancellationToken) const
-{
-	csp::web::Uri Uri;
-	Uri.SetWithParams(
-		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenants/inferred-name").c_str(),
-		{});
-
-	csp::web::HttpPayload Payload;
-	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
-
-	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
-}
-
-
-
 void TenantApi::tenantsPendingDelete([[maybe_unused]] const tenantsPendingDeleteParams& Params,
 									 csp::services::ApiResponseHandlerBase* ResponseHandler,
 									 csp::common::CancellationToken& CancellationToken) const
@@ -3021,6 +3828,273 @@ void TenantApi::tenantsNamesNameDelete([[maybe_unused]] const tenantsNamesNameDe
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
 	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+TenantAdminApi::TenantAdminApi(csp::web::WebClient* InWebClient) : ITenantAdminApiBase(InWebClient)
+{
+}
+
+TenantAdminApi::~TenantAdminApi()
+{
+}
+
+
+
+void TenantAdminApi::tenant_adminTenantGet([[maybe_unused]] const tenant_adminTenantGetParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenant-admin/tenant").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void TenantAdminApi::tenant_adminTenantPut([[maybe_unused]] const tenant_adminTenantPutParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenant-admin/tenant").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void TenantAdminApi::tenant_adminUsersGet([[maybe_unused]] const tenant_adminUsersGetParams& Params,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenant-admin/users").c_str(),
+		{});
+
+
+	if (Params.skip.has_value())
+	{
+		Uri.AddQueryParams("skip", Params.skip.value());
+	}
+
+
+	if (Params.limit.has_value())
+	{
+		Uri.AddQueryParams("limit", Params.limit.value());
+	}
+
+
+	if (Params.search.has_value())
+	{
+		Uri.AddQueryParams("search", Params.search.value());
+	}
+
+
+	if (Params.sortBy.has_value())
+	{
+		Uri.AddQueryParams("sortBy", Params.sortBy.value());
+	}
+
+
+	if (Params.sortDirection.has_value())
+	{
+		Uri.AddQueryParams("sortDirection", Params.sortDirection.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void TenantAdminApi::tenant_adminUsersUserIdLock_accountPut([[maybe_unused]] const tenant_adminUsersUserIdLock_accountPutParams& Params,
+															csp::services::ApiResponseHandlerBase* ResponseHandler,
+															csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/tenant-admin/users/{userId}/lock-account")
+						  .c_str(),
+					  {Params.userId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void TenantAdminApi::tenant_adminUsersUserIdUnlock_accountPut([[maybe_unused]] const tenant_adminUsersUserIdUnlock_accountPutParams& Params,
+															  csp::services::ApiResponseHandlerBase* ResponseHandler,
+															  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/tenant-admin/users/{userId}/unlock-account")
+						  .c_str(),
+					  {Params.userId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void TenantAdminApi::tenant_adminUsersUserIdRolesPut([[maybe_unused]] const tenant_adminUsersUserIdRolesPutParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenant-admin/users/{userId}/roles")
+			.c_str(),
+		{Params.userId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void TenantAdminApi::tenant_adminEmail_settingsGet([[maybe_unused]] const tenant_adminEmail_settingsGetParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenant-admin/email-settings").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void TenantAdminApi::tenant_adminEmail_settingsPut([[maybe_unused]] const tenant_adminEmail_settingsPutParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenant-admin/email-settings").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void TenantAdminApi::tenant_adminSecretsKey_namesGet([[maybe_unused]] const tenant_adminSecretsKey_namesGetParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenant-admin/secrets/key-names").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void TenantAdminApi::tenant_adminSecretsGet([[maybe_unused]] const tenant_adminSecretsGetParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenant-admin/secrets").c_str(),
+		{});
+
+
+	Uri.AddQueryParams("keys", Params.keys);
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void TenantAdminApi::tenant_adminSecretsKeyNamePut([[maybe_unused]] const tenant_adminSecretsKeyNamePutParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenant-admin/secrets/{keyName}").c_str(),
+		{Params.keyName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void TenantAdminApi::tenant_adminSecretsKeyNameDelete([[maybe_unused]] const tenant_adminSecretsKeyNameDeleteParams& Params,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tenant-admin/secrets/{keyName}").c_str(),
+		{Params.keyName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);

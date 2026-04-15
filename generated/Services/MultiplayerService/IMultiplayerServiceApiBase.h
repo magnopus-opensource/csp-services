@@ -213,6 +213,7 @@ public:
 		const std::optional<std::vector<utility::string_t>>& ScopeReferenceIds;
 		const std::optional<utility::string_t>& ScopeReferenceType;
 		const std::optional<std::shared_ptr<ClientConnectionStatus>>& ConnectionStatus;
+		const std::optional<std::vector<utility::string_t>>& ExcludedConnectionIds;
 		const std::optional<int32_t>& Skip;
 		const std::optional<int32_t>& Limit;
 	};
@@ -240,6 +241,7 @@ public:
 		const std::optional<std::vector<utility::string_t>>& ScopeReferenceIds;
 		const std::optional<utility::string_t>& ScopeReferenceType;
 		const std::optional<std::shared_ptr<ClientConnectionStatus>>& ConnectionStatus;
+		const std::optional<std::vector<utility::string_t>>& ExcludedConnectionIds;
 	};
 
 
@@ -253,6 +255,27 @@ public:
 	virtual void client_connectionsRequest_to_disconnectPost(const client_connectionsRequest_to_disconnectPostParams& Params,
 															 csp::services::ApiResponseHandlerBase* ResponseHandler,
 															 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct client_connectionsMeCleanupDeleteParams
+	{
+	};
+
+
+	/// <summary>
+	/// Cleans up stale AreaOfInterest and ClientConnection documents for the requesting user
+	/// across all tenants. Used to resolve cross-tenant duplicate key conflicts that occur
+	/// when a user switches between tenants.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/client-connections/me/cleanup
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void client_connectionsMeCleanupDelete(const client_connectionsMeCleanupDeleteParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
@@ -485,6 +508,7 @@ public:
 	struct objectsOwnersUserIdBatchPostParams
 	{
 		const utility::string_t& userId;
+		const std::optional<utility::string_t>& fileName;
 		const std::vector<std::shared_ptr<ObjectMessageDto>>& RequestBody;
 	};
 
@@ -691,7 +715,7 @@ public:
 
 
 	/// <summary>
-	/// Get's related scope leader information for a scope
+	/// Gets related scope leader information for a scope
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/scopes/{scopeId}/leader

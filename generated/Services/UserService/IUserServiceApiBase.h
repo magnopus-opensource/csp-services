@@ -88,6 +88,123 @@ protected:
 	virtual ~IAnalyticsApiBase() = default;
 };
 
+class IApplicationSecretsApiBase : public csp::services::ApiBase
+{
+public:
+	IApplicationSecretsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	{
+	}
+
+
+
+	struct application_secretsApplicationNameGetParams
+	{
+		const utility::string_t& applicationName;
+	};
+
+
+	/// <summary>
+	/// List all secret definitions for an application.
+	/// Any authenticated user can read definitions (they need to know what keys exist).
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/application-secrets/{applicationName}
+	/// !AUTHORIZATION REQUIREMENTS NOT SET!
+	/// </remarks>
+	virtual void application_secretsApplicationNameGet(const application_secretsApplicationNameGetParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct application_secretsApplicationNamePostParams
+	{
+		const utility::string_t& applicationName;
+		const std::shared_ptr<CreateApplicationSecretRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Create a new secret definition for an application.
+	/// Magnopus-admin only.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/application-secrets/{applicationName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void application_secretsApplicationNamePost(const application_secretsApplicationNamePostParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct application_secretsApplicationNameEnvVarNamePutParams
+	{
+		const utility::string_t& applicationName;
+		const utility::string_t& envVarName;
+		const std::shared_ptr<UpdateApplicationSecretRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Update an existing secret definition.
+	/// Magnopus-admin only.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/application-secrets/{applicationName}/{envVarName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void application_secretsApplicationNameEnvVarNamePut(const application_secretsApplicationNameEnvVarNamePutParams& Params,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct application_secretsApplicationNameEnvVarNameDeleteParams
+	{
+		const utility::string_t& applicationName;
+		const utility::string_t& envVarName;
+	};
+
+
+	/// <summary>
+	/// Delete a secret definition.
+	/// Magnopus-admin only.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/application-secrets/{applicationName}/{envVarName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void application_secretsApplicationNameEnvVarNameDelete(const application_secretsApplicationNameEnvVarNameDeleteParams& Params,
+																	csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct application_secretsApplicationsGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// List distinct application names that have secret definitions.
+	/// Magnopus-admin only.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/application-secrets/applications
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void application_secretsApplicationsGet(const application_secretsApplicationsGetParams& Params,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IApplicationSecretsApiBase() = default;
+};
+
 class IApplicationSettingsApiBase : public csp::services::ApiBase
 {
 public:
@@ -330,6 +447,7 @@ public:
 	struct social_providersProviderGetParams
 	{
 		const utility::string_t& provider;
+		const std::optional<utility::string_t>& redirectUrl;
 		const std::optional<utility::string_t>& tenant;
 		const std::optional<utility::string_t>& client;
 	};
@@ -386,6 +504,27 @@ public:
 	virtual void usersRefreshPost(const usersRefreshPostParams& Params,
 								  csp::services::ApiResponseHandlerBase* ResponseHandler,
 								  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct usersExchange_tenancyPostParams
+	{
+		const std::shared_ptr<ExchangeTenancyRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Exchanges a valid refresh token for new auth tokens in a different tenant.
+	/// The caller's identity is proved via the refresh token in the body (not the bearer header).
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/users/exchange-tenancy
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void usersExchange_tenancyPost(const usersExchange_tenancyPostParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
@@ -622,6 +761,120 @@ protected:
 	virtual ~IConfigurationApiBase() = default;
 };
 
+class ICrossTenantSettingsApiBase : public csp::services::ApiBase
+{
+public:
+	ICrossTenantSettingsApiBase(csp::web::WebClient* InWebClient)
+		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	{
+	}
+
+
+
+	struct usersMeCross_tenant_settingsContextPutParams
+	{
+		const utility::string_t& context;
+		const std::shared_ptr<CrossTenantSettingsDto>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Creates or updates cross-tenant settings for the authenticated user at the given context.
+	/// Any previously existing settings stored in the context not referenced in the call are left unchanged.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/users/me/cross-tenant-settings/{context}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void usersMeCross_tenant_settingsContextPut(const usersMeCross_tenant_settingsContextPutParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct usersMeCross_tenant_settingsContextGetParams
+	{
+		const utility::string_t& context;
+		const std::optional<std::vector<utility::string_t>>& keys;
+	};
+
+
+	/// <summary>
+	/// Gets the cross-tenant settings for the authenticated user by context.
+	/// If keys are provided then only values for those keys will be returned.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/users/me/cross-tenant-settings/{context}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void usersMeCross_tenant_settingsContextGet(const usersMeCross_tenant_settingsContextGetParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct usersMeCross_tenant_settingsContextDeleteParams
+	{
+		const utility::string_t& context;
+	};
+
+
+	/// <summary>
+	/// Deletes all cross-tenant settings related to a context for the authenticated user.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/users/me/cross-tenant-settings/{context}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void usersMeCross_tenant_settingsContextDelete(const usersMeCross_tenant_settingsContextDeleteParams& Params,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct usersMeCross_tenant_settingsGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// Gets all the contexts for which the authenticated user has cross-tenant settings
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/users/me/cross-tenant-settings
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void usersMeCross_tenant_settingsGet(const usersMeCross_tenant_settingsGetParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct usersMeCross_tenant_settingsContextKeynameDeleteParams
+	{
+		const utility::string_t& context;
+		const utility::string_t& keyname;
+	};
+
+
+	/// <summary>
+	/// Deletes a specific key from cross-tenant settings at a context for the authenticated user.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/users/me/cross-tenant-settings/{context}/{keyname}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void usersMeCross_tenant_settingsContextKeynameDelete(const usersMeCross_tenant_settingsContextKeynameDeleteParams& Params,
+																  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~ICrossTenantSettingsApiBase() = default;
+};
+
 class IEncryptedValueApiBase : public csp::services::ApiBase
 {
 public:
@@ -654,6 +907,26 @@ public:
 
 
 
+	struct encrypted_valuesTenantKey_namesGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// Returns all key names for tenant-owned encrypted values, without decrypted values.
+	/// Useful for populating a key management UI.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/encrypted-values/tenant/key-names
+	/// Authorization: tenant-secrets,admin,magnopus-admin
+	/// </remarks>
+	virtual void encrypted_valuesTenantKey_namesGet(const encrypted_valuesTenantKey_namesGetParams& Params,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
 	struct encrypted_valuesTenantKeyNamePutParams
 	{
 		const utility::string_t& keyName;
@@ -672,6 +945,24 @@ public:
 	virtual void encrypted_valuesTenantKeyNamePut(const encrypted_valuesTenantKeyNamePutParams& Params,
 												  csp::services::ApiResponseHandlerBase* ResponseHandler,
 												  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct encrypted_valuesTenantKeyNameDeleteParams
+	{
+		const utility::string_t& keyName;
+	};
+
+
+	/// <summary>
+	/// Delete a tenant-owned encrypted value by key name.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/encrypted-values/tenant/{keyName}
+	/// Authorization: admin,magnopus-admin
+	/// </remarks>
+	virtual void encrypted_valuesTenantKeyNameDelete(const encrypted_valuesTenantKeyNameDeleteParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
@@ -1844,6 +2135,10 @@ public:
 		const std::optional<std::vector<utility::string_t>>& EmailAddresses;
 		const std::optional<std::vector<utility::string_t>>& UserNames;
 		const std::optional<std::vector<utility::string_t>>& LastDeviceIds;
+		const std::optional<utility::string_t>& EmailOrDisplayNameFragment;
+		const std::optional<utility::string_t>& SortBy;
+		const std::optional<utility::string_t>& SortDirection;
+		const std::optional<utility::string_t>& EmailDisplayNameUserIdCombinedTerm;
 		const std::optional<int32_t>& Skip;
 		const std::optional<int32_t>& Limit;
 	};
@@ -2006,6 +2301,27 @@ public:
 	virtual void usersHard_deleteDelete(const usersHard_deleteDeleteParams& Params,
 										csp::services::ApiResponseHandlerBase* ResponseHandler,
 										csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct usersUserIdTenanciesGetParams
+	{
+		const utility::string_t& userId;
+	};
+
+
+	/// <summary>
+	/// Returns all tenants where the specified user's email has a profile.
+	/// The caller must be the same user or a super-admin.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/users/{userId}/tenancies
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void usersUserIdTenanciesGet(const usersUserIdTenanciesGetParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
@@ -2545,12 +2861,445 @@ protected:
 	virtual ~IStripeApiBase() = default;
 };
 
+class ISuperAdminTenantApiBase : public csp::services::ApiBase
+{
+public:
+	ISuperAdminTenantApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	{
+	}
+
+
+
+	struct super_adminTenantsGetParams
+	{
+		const std::optional<int32_t>& skip;
+		const std::optional<int32_t>& limit;
+		const std::optional<utility::string_t>& search;
+		const std::optional<bool>& pendingAdmin;
+		const std::optional<utility::string_t>& sortBy;
+		const std::optional<utility::string_t>& sortDirection;
+	};
+
+
+	/// <summary>
+	/// Lists all tenants with optional filtering and pagination.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsGet(const super_adminTenantsGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameGetParams
+	{
+		const utility::string_t& tenantName;
+	};
+
+
+	/// <summary>
+	/// Gets a single tenant by name.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants/{tenantName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameGet(const super_adminTenantsTenantNameGetParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameUsersGetParams
+	{
+		const utility::string_t& tenantName;
+		const std::optional<int32_t>& skip;
+		const std::optional<int32_t>& limit;
+		const std::optional<utility::string_t>& search;
+		const std::optional<utility::string_t>& sortBy;
+		const std::optional<utility::string_t>& sortDirection;
+	};
+
+
+	/// <summary>
+	/// Lists users for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants/{tenantName}/users
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameUsersGet(const super_adminTenantsTenantNameUsersGetParams& Params,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameUsersUserIdLock_accountPutParams
+	{
+		const utility::string_t& tenantName;
+		const utility::string_t& userId;
+	};
+
+
+	/// <summary>
+	/// Locks a user account in the specified tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/super-admin/tenants/{tenantName}/users/{userId}/lock-account
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameUsersUserIdLock_accountPut(const super_adminTenantsTenantNameUsersUserIdLock_accountPutParams& Params,
+																		csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameUsersUserIdUnlock_accountPutParams
+	{
+		const utility::string_t& tenantName;
+		const utility::string_t& userId;
+	};
+
+
+	/// <summary>
+	/// Unlocks a user account in the specified tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/super-admin/tenants/{tenantName}/users/{userId}/unlock-account
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void
+		super_adminTenantsTenantNameUsersUserIdUnlock_accountPut(const super_adminTenantsTenantNameUsersUserIdUnlock_accountPutParams& Params,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameUsersUserIdDeleteParams
+	{
+		const utility::string_t& tenantName;
+		const utility::string_t& userId;
+	};
+
+
+	/// <summary>
+	/// Soft-deletes (anonymizes) a user account in the specified tenant.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/super-admin/tenants/{tenantName}/users/{userId}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameUsersUserIdDelete(const super_adminTenantsTenantNameUsersUserIdDeleteParams& Params,
+															   csp::services::ApiResponseHandlerBase* ResponseHandler,
+															   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameUsersUserIdRolesPutParams
+	{
+		const utility::string_t& tenantName;
+		const utility::string_t& userId;
+		const std::shared_ptr<UpdateRolesRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Updates roles for a user in the specified tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/super-admin/tenants/{tenantName}/users/{userId}/roles
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameUsersUserIdRolesPut(const super_adminTenantsTenantNameUsersUserIdRolesPutParams& Params,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameEmail_settingsGetParams
+	{
+		const utility::string_t& tenantName;
+	};
+
+
+	/// <summary>
+	/// Gets email settings (including allow-list) for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants/{tenantName}/email-settings
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameEmail_settingsGet(const super_adminTenantsTenantNameEmail_settingsGetParams& Params,
+															   csp::services::ApiResponseHandlerBase* ResponseHandler,
+															   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct super_adminTenantsTenantNameEmail_settingsPutParams
+	{
+		const utility::string_t& tenantName;
+		const std::shared_ptr<UpdateEmailSettingsRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Updates email settings (including allow-list) for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/super-admin/tenants/{tenantName}/email-settings
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameEmail_settingsPut(const super_adminTenantsTenantNameEmail_settingsPutParams& Params,
+															   csp::services::ApiResponseHandlerBase* ResponseHandler,
+															   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameSecretsKey_namesGetParams
+	{
+		const utility::string_t& tenantName;
+	};
+
+
+	/// <summary>
+	/// Gets all secret key names for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants/{tenantName}/secrets/key-names
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameSecretsKey_namesGet(const super_adminTenantsTenantNameSecretsKey_namesGetParams& Params,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameSecretsGetParams
+	{
+		const utility::string_t& tenantName;
+		const utility::string_t& keys;
+	};
+
+
+	/// <summary>
+	/// Gets decrypted secret values for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants/{tenantName}/secrets
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameSecretsGet(const super_adminTenantsTenantNameSecretsGetParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameSecretsKeyNamePutParams
+	{
+		const utility::string_t& tenantName;
+		const utility::string_t& keyName;
+		const std::shared_ptr<SetEncryptedValueRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Sets a secret value for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/super-admin/tenants/{tenantName}/secrets/{keyName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameSecretsKeyNamePut(const super_adminTenantsTenantNameSecretsKeyNamePutParams& Params,
+															   csp::services::ApiResponseHandlerBase* ResponseHandler,
+															   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct super_adminTenantsTenantNameSecretsKeyNameDeleteParams
+	{
+		const utility::string_t& tenantName;
+		const utility::string_t& keyName;
+	};
+
+
+	/// <summary>
+	/// Deletes a secret for a specific tenant.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/super-admin/tenants/{tenantName}/secrets/{keyName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameSecretsKeyNameDelete(const super_adminTenantsTenantNameSecretsKeyNameDeleteParams& Params,
+																  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminDns_settingsGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// Returns DNS configuration for the hostname management UI.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/dns-settings
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminDns_settingsGet(const super_adminDns_settingsGetParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameHostnamesPostParams
+	{
+		const utility::string_t& tenantName;
+		const std::shared_ptr<CreateHostnameRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Creates a CNAME hostname record for a tenant.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/super-admin/tenants/{tenantName}/hostnames
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameHostnamesPost(const super_adminTenantsTenantNameHostnamesPostParams& Params,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameHostnamesHostnameDeleteParams
+	{
+		const utility::string_t& tenantName;
+		const utility::string_t& hostname;
+	};
+
+
+	/// <summary>
+	/// Deletes a hostname CNAME record for a tenant.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/super-admin/tenants/{tenantName}/hostnames/{hostname}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameHostnamesHostnameDelete(const super_adminTenantsTenantNameHostnamesHostnameDeleteParams& Params,
+																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameHostnamesHostnameDns_statusGetParams
+	{
+		const utility::string_t& tenantName;
+		const utility::string_t& hostname;
+	};
+
+
+	/// <summary>
+	/// Checks DNS propagation and resolution status for a hostname.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/super-admin/tenants/{tenantName}/hostnames/{hostname}/dns-status
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void
+		super_adminTenantsTenantNameHostnamesHostnameDns_statusGet(const super_adminTenantsTenantNameHostnamesHostnameDns_statusGetParams& Params,
+																   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~ISuperAdminTenantApiBase() = default;
+};
+
 class ITenantApiBase : public csp::services::ApiBase
 {
 public:
 	ITenantApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
 	{
 	}
+
+
+
+	struct tenantsSelfGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// Returns the current user's tenant data, scoped to fields relevant for the admin portal.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenants/self
+	/// Authorization: admin,magnopus-admin
+	/// </remarks>
+	virtual void tenantsSelfGet(const tenantsSelfGetParams& Params,
+								csp::services::ApiResponseHandlerBase* ResponseHandler,
+								csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct tenantsInferred_nameGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// Returns the inferred tenant name based on the request Origin/Referer headers.
+	/// Allows clients to discover their tenant before authentication.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenants/inferred-name
+	/// Authorization: Anonymous
+	/// </remarks>
+	virtual void tenantsInferred_nameGet(const tenantsInferred_nameGetParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct tenantsSelfEmail_settingsPutParams
+	{
+		const std::shared_ptr<UpdateEmailSettingsRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Updates only the email allow-list fields on the current tenant.
+	/// Restricted to AllowedEmailAddresses and AllowedEmailDomains.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenants/self/email-settings
+	/// Authorization: admin,magnopus-admin
+	/// </remarks>
+	virtual void tenantsSelfEmail_settingsPut(const tenantsSelfEmail_settingsPutParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken) const
+		= 0;
 
 
 
@@ -2589,26 +3338,6 @@ public:
 	virtual void tenantsNamesTenantNameGet(const tenantsNamesTenantNameGetParams& Params,
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken) const
-		= 0;
-
-
-
-	struct tenantsInferred_nameGetParams
-	{
-	};
-
-
-	/// <summary>
-	/// Returns the inferred tenant name based on the request Origin/Referer headers.
-	/// Allows clients to discover their tenant before authentication.
-	/// </summary>
-	/// <remarks>
-	/// GET /api/v1/tenants/inferred-name
-	/// Authorization: Anonymous
-	/// </remarks>
-	virtual void tenantsInferred_nameGet(const tenantsInferred_nameGetParams& Params,
-										 csp::services::ApiResponseHandlerBase* ResponseHandler,
-										 csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
@@ -2660,6 +3389,258 @@ public:
 
 protected:
 	virtual ~ITenantApiBase() = default;
+};
+
+class ITenantAdminApiBase : public csp::services::ApiBase
+{
+public:
+	ITenantAdminApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	{
+	}
+
+
+
+	struct tenant_adminTenantGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// Gets the caller's own tenant details.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenant-admin/tenant
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void tenant_adminTenantGet(const tenant_adminTenantGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct tenant_adminTenantPutParams
+	{
+		const std::shared_ptr<UpdateTenantLiteRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Updates the four tenant-admin-editable fields on the caller's own tenant:
+	/// AllowedEmailAddresses, AllowedEmailDomains, CompanyName, DisplayName.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenant-admin/tenant
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void tenant_adminTenantPut(const tenant_adminTenantPutParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct tenant_adminUsersGetParams
+	{
+		const std::optional<int32_t>& skip;
+		const std::optional<int32_t>& limit;
+		const std::optional<utility::string_t>& search;
+		const std::optional<utility::string_t>& sortBy;
+		const std::optional<utility::string_t>& sortDirection;
+	};
+
+
+	/// <summary>
+	/// Lists users in the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenant-admin/users
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void tenant_adminUsersGet(const tenant_adminUsersGetParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct tenant_adminUsersUserIdLock_accountPutParams
+	{
+		const utility::string_t& userId;
+	};
+
+
+	/// <summary>
+	/// Locks a user account in the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenant-admin/users/{userId}/lock-account
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void tenant_adminUsersUserIdLock_accountPut(const tenant_adminUsersUserIdLock_accountPutParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct tenant_adminUsersUserIdUnlock_accountPutParams
+	{
+		const utility::string_t& userId;
+	};
+
+
+	/// <summary>
+	/// Unlocks a user account in the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenant-admin/users/{userId}/unlock-account
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void tenant_adminUsersUserIdUnlock_accountPut(const tenant_adminUsersUserIdUnlock_accountPutParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct tenant_adminUsersUserIdRolesPutParams
+	{
+		const utility::string_t& userId;
+		const std::shared_ptr<UpdateRolesRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Updates roles for a user in the caller's own tenant.
+	/// Role escalation guard: cannot grant magnopus-admin or magnopus-support.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenant-admin/users/{userId}/roles
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void tenant_adminUsersUserIdRolesPut(const tenant_adminUsersUserIdRolesPutParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct tenant_adminEmail_settingsGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// Gets email settings for the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenant-admin/email-settings
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void tenant_adminEmail_settingsGet(const tenant_adminEmail_settingsGetParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct tenant_adminEmail_settingsPutParams
+	{
+		const std::shared_ptr<UpdateEmailSettingsRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Updates email settings for the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenant-admin/email-settings
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void tenant_adminEmail_settingsPut(const tenant_adminEmail_settingsPutParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct tenant_adminSecretsKey_namesGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// Gets all secret key names for the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenant-admin/secrets/key-names
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void tenant_adminSecretsKey_namesGet(const tenant_adminSecretsKey_namesGetParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct tenant_adminSecretsGetParams
+	{
+		const utility::string_t& keys;
+	};
+
+
+	/// <summary>
+	/// Gets decrypted secret values for the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tenant-admin/secrets
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void tenant_adminSecretsGet(const tenant_adminSecretsGetParams& Params,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct tenant_adminSecretsKeyNamePutParams
+	{
+		const utility::string_t& keyName;
+		const std::shared_ptr<SetEncryptedValueRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Sets a secret value for the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tenant-admin/secrets/{keyName}
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void tenant_adminSecretsKeyNamePut(const tenant_adminSecretsKeyNamePutParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct tenant_adminSecretsKeyNameDeleteParams
+	{
+		const utility::string_t& keyName;
+	};
+
+
+	/// <summary>
+	/// Deletes a secret for the caller's own tenant.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/tenant-admin/secrets/{keyName}
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void tenant_adminSecretsKeyNameDelete(const tenant_adminSecretsKeyNameDeleteParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~ITenantAdminApiBase() = default;
 };
 
 class IUserRolesApiBase : public csp::services::ApiBase

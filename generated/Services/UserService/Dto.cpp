@@ -613,6 +613,356 @@ void ApiVersion::SetEndOfLifeDatetime(const utility::string_t& Value)
 	m_EndOfLifeDatetime = Value;
 }
 
+ApplicationSecretDto::ApplicationSecretDto()
+{
+}
+ApplicationSecretDto::~ApplicationSecretDto()
+{
+}
+
+utility::string_t ApplicationSecretDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Id.has_value())
+	{
+		rapidjson::Value IdValue(TypeToJsonValue(m_Id, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("id", IdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ApplicationName.has_value())
+	{
+		rapidjson::Value ApplicationNameValue(TypeToJsonValue(m_ApplicationName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("applicationName", ApplicationNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DisplayName.has_value())
+	{
+		rapidjson::Value DisplayNameValue(TypeToJsonValue(m_DisplayName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("displayName", DisplayNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EnvVarName.has_value())
+	{
+		rapidjson::Value EnvVarNameValue(TypeToJsonValue(m_EnvVarName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("envVarName", EnvVarNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Description.has_value())
+	{
+		rapidjson::Value DescriptionValue(TypeToJsonValue(m_Description, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("description", DescriptionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Category.has_value())
+	{
+		rapidjson::Value CategoryValue(TypeToJsonValue(m_Category, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("category", CategoryValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SortOrder.has_value())
+	{
+		rapidjson::Value SortOrderValue(TypeToJsonValue(m_SortOrder, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("sortOrder", SortOrderValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SecretType.has_value())
+	{
+		rapidjson::Value SecretTypeValue(TypeToJsonValue(m_SecretType, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("secretType", SecretTypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ValidationConfig.has_value())
+	{
+		rapidjson::Value ValidationConfigValue(TypeToJsonValue(m_ValidationConfig, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("validationConfig", ValidationConfigValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UpdatedAt.has_value())
+	{
+		rapidjson::Value UpdatedAtValue(TypeToJsonValue(m_UpdatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("updatedAt", UpdatedAtValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ApplicationSecretDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApplicationSecretDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("id"))
+	{
+		const rapidjson::Value& IdValue = JsonDoc["id"];
+
+		if (IdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IdValue, m_Id);
+		}
+	}
+
+	if (JsonDoc.HasMember("applicationName"))
+	{
+		const rapidjson::Value& ApplicationNameValue = JsonDoc["applicationName"];
+
+		if (ApplicationNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ApplicationNameValue, m_ApplicationName);
+		}
+	}
+
+	if (JsonDoc.HasMember("displayName"))
+	{
+		const rapidjson::Value& DisplayNameValue = JsonDoc["displayName"];
+
+		if (DisplayNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DisplayNameValue, m_DisplayName);
+		}
+	}
+
+	if (JsonDoc.HasMember("envVarName"))
+	{
+		const rapidjson::Value& EnvVarNameValue = JsonDoc["envVarName"];
+
+		if (EnvVarNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EnvVarNameValue, m_EnvVarName);
+		}
+	}
+
+	if (JsonDoc.HasMember("description"))
+	{
+		const rapidjson::Value& DescriptionValue = JsonDoc["description"];
+
+		if (DescriptionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DescriptionValue, m_Description);
+		}
+	}
+
+	if (JsonDoc.HasMember("category"))
+	{
+		const rapidjson::Value& CategoryValue = JsonDoc["category"];
+
+		if (CategoryValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CategoryValue, m_Category);
+		}
+	}
+
+	if (JsonDoc.HasMember("sortOrder"))
+	{
+		const rapidjson::Value& SortOrderValue = JsonDoc["sortOrder"];
+
+		if (SortOrderValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SortOrderValue, m_SortOrder);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("secretType"))
+	{
+		const rapidjson::Value& SecretTypeValue = JsonDoc["secretType"];
+
+		if (SecretTypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SecretTypeValue, m_SecretType);
+		}
+	}
+
+	if (JsonDoc.HasMember("validationConfig"))
+	{
+		const rapidjson::Value& ValidationConfigValue = JsonDoc["validationConfig"];
+
+		if (ValidationConfigValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ValidationConfigValue, m_ValidationConfig);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member validationConfig is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("updatedAt"))
+	{
+		const rapidjson::Value& UpdatedAtValue = JsonDoc["updatedAt"];
+
+		if (UpdatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+		}
+	}
+}
+
+
+utility::string_t ApplicationSecretDto::GetId() const
+{
+	return m_Id.value();
+}
+
+bool ApplicationSecretDto::HasId() const
+{
+	return m_Id.has_value();
+}
+utility::string_t ApplicationSecretDto::GetApplicationName() const
+{
+	return m_ApplicationName.value();
+}
+
+bool ApplicationSecretDto::HasApplicationName() const
+{
+	return m_ApplicationName.has_value();
+}
+utility::string_t ApplicationSecretDto::GetDisplayName() const
+{
+	return m_DisplayName.value();
+}
+
+bool ApplicationSecretDto::HasDisplayName() const
+{
+	return m_DisplayName.has_value();
+}
+void ApplicationSecretDto::SetDisplayName(const utility::string_t& Value)
+{
+	m_DisplayName = Value;
+}
+utility::string_t ApplicationSecretDto::GetEnvVarName() const
+{
+	return m_EnvVarName.value();
+}
+
+bool ApplicationSecretDto::HasEnvVarName() const
+{
+	return m_EnvVarName.has_value();
+}
+utility::string_t ApplicationSecretDto::GetDescription() const
+{
+	return m_Description.value();
+}
+
+bool ApplicationSecretDto::HasDescription() const
+{
+	return m_Description.has_value();
+}
+void ApplicationSecretDto::SetDescription(const utility::string_t& Value)
+{
+	m_Description = Value;
+}
+utility::string_t ApplicationSecretDto::GetCategory() const
+{
+	return m_Category.value();
+}
+
+bool ApplicationSecretDto::HasCategory() const
+{
+	return m_Category.has_value();
+}
+void ApplicationSecretDto::SetCategory(const utility::string_t& Value)
+{
+	m_Category = Value;
+}
+int32_t ApplicationSecretDto::GetSortOrder() const
+{
+	return m_SortOrder.value();
+}
+
+bool ApplicationSecretDto::HasSortOrder() const
+{
+	return m_SortOrder.has_value();
+}
+void ApplicationSecretDto::SetSortOrder(int32_t Value)
+{
+	m_SortOrder = Value;
+}
+utility::string_t ApplicationSecretDto::GetSecretType() const
+{
+	return m_SecretType.value();
+}
+
+bool ApplicationSecretDto::HasSecretType() const
+{
+	return m_SecretType.has_value();
+}
+void ApplicationSecretDto::SetSecretType(const utility::string_t& Value)
+{
+	m_SecretType = Value;
+}
+std::shared_ptr<GacValidationConfigDto> ApplicationSecretDto::GetValidationConfig() const
+{
+	return m_ValidationConfig.value();
+}
+
+bool ApplicationSecretDto::HasValidationConfig() const
+{
+	return m_ValidationConfig.has_value();
+}
+void ApplicationSecretDto::SetValidationConfig(const std::shared_ptr<GacValidationConfigDto>& Value)
+{
+	m_ValidationConfig = Value;
+}
+utility::string_t ApplicationSecretDto::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool ApplicationSecretDto::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
+}
+utility::string_t ApplicationSecretDto::GetUpdatedAt() const
+{
+	return m_UpdatedAt.value();
+}
+
+bool ApplicationSecretDto::HasUpdatedAt() const
+{
+	return m_UpdatedAt.has_value();
+}
+
 ApplicationSettingsDto::ApplicationSettingsDto()
 {
 }
@@ -1178,6 +1528,99 @@ void AvatarManifestDto::SetExternalUri(const utility::string_t& Value)
 	m_ExternalUri = Value;
 }
 
+BucketPermissionRuleDto::BucketPermissionRuleDto()
+{
+}
+BucketPermissionRuleDto::~BucketPermissionRuleDto()
+{
+}
+
+utility::string_t BucketPermissionRuleDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_BucketName.has_value())
+	{
+		rapidjson::Value BucketNameValue(TypeToJsonValue(m_BucketName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("bucketName", BucketNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Permissions.has_value())
+	{
+		rapidjson::Value PermissionsValue(TypeToJsonValue(m_Permissions, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("permissions", PermissionsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void BucketPermissionRuleDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BucketPermissionRuleDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("bucketName"))
+	{
+		const rapidjson::Value& BucketNameValue = JsonDoc["bucketName"];
+
+		if (BucketNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(BucketNameValue, m_BucketName);
+		}
+	}
+
+	if (JsonDoc.HasMember("permissions"))
+	{
+		const rapidjson::Value& PermissionsValue = JsonDoc["permissions"];
+
+		if (PermissionsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(PermissionsValue, m_Permissions);
+		}
+	}
+}
+
+
+utility::string_t BucketPermissionRuleDto::GetBucketName() const
+{
+	return m_BucketName.value();
+}
+
+bool BucketPermissionRuleDto::HasBucketName() const
+{
+	return m_BucketName.has_value();
+}
+void BucketPermissionRuleDto::SetBucketName(const utility::string_t& Value)
+{
+	m_BucketName = Value;
+}
+const std::vector<utility::string_t>& BucketPermissionRuleDto::GetPermissions() const
+{
+	return m_Permissions.value();
+}
+
+bool BucketPermissionRuleDto::HasPermissions() const
+{
+	return m_Permissions.has_value();
+}
+void BucketPermissionRuleDto::SetPermissions(const std::vector<utility::string_t>& Value)
+{
+	m_Permissions = Value;
+}
+
 ControllerVersions::ControllerVersions()
 {
 }
@@ -1327,6 +1770,361 @@ bool ControllerVersions::HasCurrentApiVersion() const
 void ControllerVersions::SetCurrentApiVersion(const utility::string_t& Value)
 {
 	m_CurrentApiVersion = Value;
+}
+
+CreateApplicationSecretRequest::CreateApplicationSecretRequest()
+{
+}
+CreateApplicationSecretRequest::~CreateApplicationSecretRequest()
+{
+}
+
+utility::string_t CreateApplicationSecretRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_DisplayName.has_value())
+	{
+		rapidjson::Value DisplayNameValue(TypeToJsonValue(m_DisplayName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("displayName", DisplayNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EnvVarName.has_value())
+	{
+		rapidjson::Value EnvVarNameValue(TypeToJsonValue(m_EnvVarName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("envVarName", EnvVarNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Description.has_value())
+	{
+		rapidjson::Value DescriptionValue(TypeToJsonValue(m_Description, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("description", DescriptionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Category.has_value())
+	{
+		rapidjson::Value CategoryValue(TypeToJsonValue(m_Category, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("category", CategoryValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SortOrder.has_value())
+	{
+		rapidjson::Value SortOrderValue(TypeToJsonValue(m_SortOrder, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("sortOrder", SortOrderValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SecretType.has_value())
+	{
+		rapidjson::Value SecretTypeValue(TypeToJsonValue(m_SecretType, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("secretType", SecretTypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ValidationConfig.has_value())
+	{
+		rapidjson::Value ValidationConfigValue(TypeToJsonValue(m_ValidationConfig, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("validationConfig", ValidationConfigValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateApplicationSecretRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("displayName"))
+	{
+		const rapidjson::Value& DisplayNameValue = JsonDoc["displayName"];
+
+		if (DisplayNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DisplayNameValue, m_DisplayName);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("envVarName"))
+	{
+		const rapidjson::Value& EnvVarNameValue = JsonDoc["envVarName"];
+
+		if (EnvVarNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EnvVarNameValue, m_EnvVarName);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member envVarName is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("description"))
+	{
+		const rapidjson::Value& DescriptionValue = JsonDoc["description"];
+
+		if (DescriptionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DescriptionValue, m_Description);
+		}
+	}
+
+	if (JsonDoc.HasMember("category"))
+	{
+		const rapidjson::Value& CategoryValue = JsonDoc["category"];
+
+		if (CategoryValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CategoryValue, m_Category);
+		}
+	}
+
+	if (JsonDoc.HasMember("sortOrder"))
+	{
+		const rapidjson::Value& SortOrderValue = JsonDoc["sortOrder"];
+
+		if (SortOrderValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SortOrderValue, m_SortOrder);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("secretType"))
+	{
+		const rapidjson::Value& SecretTypeValue = JsonDoc["secretType"];
+
+		if (SecretTypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SecretTypeValue, m_SecretType);
+		}
+	}
+
+	if (JsonDoc.HasMember("validationConfig"))
+	{
+		const rapidjson::Value& ValidationConfigValue = JsonDoc["validationConfig"];
+
+		if (ValidationConfigValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ValidationConfigValue, m_ValidationConfig);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member validationConfig is null!");
+		}
+	}
+}
+
+
+utility::string_t CreateApplicationSecretRequest::GetDisplayName() const
+{
+	return m_DisplayName.value();
+}
+
+bool CreateApplicationSecretRequest::HasDisplayName() const
+{
+	return m_DisplayName.has_value();
+}
+void CreateApplicationSecretRequest::SetDisplayName(const utility::string_t& Value)
+{
+	m_DisplayName = Value;
+}
+utility::string_t CreateApplicationSecretRequest::GetEnvVarName() const
+{
+	return m_EnvVarName.value();
+}
+
+bool CreateApplicationSecretRequest::HasEnvVarName() const
+{
+	return m_EnvVarName.has_value();
+}
+void CreateApplicationSecretRequest::SetEnvVarName(const utility::string_t& Value)
+{
+	m_EnvVarName = Value;
+}
+utility::string_t CreateApplicationSecretRequest::GetDescription() const
+{
+	return m_Description.value();
+}
+
+bool CreateApplicationSecretRequest::HasDescription() const
+{
+	return m_Description.has_value();
+}
+void CreateApplicationSecretRequest::SetDescription(const utility::string_t& Value)
+{
+	m_Description = Value;
+}
+utility::string_t CreateApplicationSecretRequest::GetCategory() const
+{
+	return m_Category.value();
+}
+
+bool CreateApplicationSecretRequest::HasCategory() const
+{
+	return m_Category.has_value();
+}
+void CreateApplicationSecretRequest::SetCategory(const utility::string_t& Value)
+{
+	m_Category = Value;
+}
+int32_t CreateApplicationSecretRequest::GetSortOrder() const
+{
+	return m_SortOrder.value();
+}
+
+bool CreateApplicationSecretRequest::HasSortOrder() const
+{
+	return m_SortOrder.has_value();
+}
+void CreateApplicationSecretRequest::SetSortOrder(int32_t Value)
+{
+	m_SortOrder = Value;
+}
+utility::string_t CreateApplicationSecretRequest::GetSecretType() const
+{
+	return m_SecretType.value();
+}
+
+bool CreateApplicationSecretRequest::HasSecretType() const
+{
+	return m_SecretType.has_value();
+}
+void CreateApplicationSecretRequest::SetSecretType(const utility::string_t& Value)
+{
+	m_SecretType = Value;
+}
+std::shared_ptr<GacValidationConfigDto> CreateApplicationSecretRequest::GetValidationConfig() const
+{
+	return m_ValidationConfig.value();
+}
+
+bool CreateApplicationSecretRequest::HasValidationConfig() const
+{
+	return m_ValidationConfig.has_value();
+}
+void CreateApplicationSecretRequest::SetValidationConfig(const std::shared_ptr<GacValidationConfigDto>& Value)
+{
+	m_ValidationConfig = Value;
+}
+
+CreateHostnameRequest::CreateHostnameRequest()
+{
+}
+CreateHostnameRequest::~CreateHostnameRequest()
+{
+}
+
+utility::string_t CreateHostnameRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Hostname.has_value())
+	{
+		rapidjson::Value HostnameValue(TypeToJsonValue(m_Hostname, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("hostname", HostnameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Type.has_value())
+	{
+		rapidjson::Value TypeValue(TypeToJsonValue(m_Type, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("type", TypeValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void CreateHostnameRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateHostnameRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("hostname"))
+	{
+		const rapidjson::Value& HostnameValue = JsonDoc["hostname"];
+
+		if (HostnameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(HostnameValue, m_Hostname);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member hostname is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("type"))
+	{
+		const rapidjson::Value& TypeValue = JsonDoc["type"];
+
+		if (TypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TypeValue, m_Type);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
+		}
+	}
+}
+
+
+utility::string_t CreateHostnameRequest::GetHostname() const
+{
+	return m_Hostname.value();
+}
+
+bool CreateHostnameRequest::HasHostname() const
+{
+	return m_Hostname.has_value();
+}
+void CreateHostnameRequest::SetHostname(const utility::string_t& Value)
+{
+	m_Hostname = Value;
+}
+utility::string_t CreateHostnameRequest::GetType() const
+{
+	return m_Type.value();
+}
+
+bool CreateHostnameRequest::HasType() const
+{
+	return m_Type.has_value();
+}
+void CreateHostnameRequest::SetType(const utility::string_t& Value)
+{
+	m_Type = Value;
 }
 
 CreateUserRequest::CreateUserRequest()
@@ -2103,6 +2901,124 @@ void CreateUserSocialRequest::SetInitialSettings(const std::vector<std::shared_p
 	m_InitialSettings = Value;
 }
 
+CrossTenantSettingsDto::CrossTenantSettingsDto()
+{
+}
+CrossTenantSettingsDto::~CrossTenantSettingsDto()
+{
+}
+
+utility::string_t CrossTenantSettingsDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Email.has_value())
+	{
+		rapidjson::Value EmailValue(TypeToJsonValue(m_Email, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("email", EmailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Context.has_value())
+	{
+		rapidjson::Value ContextValue(TypeToJsonValue(m_Context, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("context", ContextValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Settings.has_value())
+	{
+		rapidjson::Value SettingsValue(TypeToJsonValue(m_Settings, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("settings", SettingsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void CrossTenantSettingsDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CrossTenantSettingsDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("email"))
+	{
+		const rapidjson::Value& EmailValue = JsonDoc["email"];
+
+		if (EmailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EmailValue, m_Email);
+		}
+	}
+
+	if (JsonDoc.HasMember("context"))
+	{
+		const rapidjson::Value& ContextValue = JsonDoc["context"];
+
+		if (ContextValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ContextValue, m_Context);
+		}
+	}
+
+	if (JsonDoc.HasMember("settings"))
+	{
+		const rapidjson::Value& SettingsValue = JsonDoc["settings"];
+
+		if (SettingsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SettingsValue, m_Settings);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member settings is null!");
+		}
+	}
+}
+
+
+utility::string_t CrossTenantSettingsDto::GetEmail() const
+{
+	return m_Email.value();
+}
+
+bool CrossTenantSettingsDto::HasEmail() const
+{
+	return m_Email.has_value();
+}
+utility::string_t CrossTenantSettingsDto::GetContext() const
+{
+	return m_Context.value();
+}
+
+bool CrossTenantSettingsDto::HasContext() const
+{
+	return m_Context.has_value();
+}
+const std::map<utility::string_t, utility::string_t>& CrossTenantSettingsDto::GetSettings() const
+{
+	return m_Settings.value();
+}
+
+bool CrossTenantSettingsDto::HasSettings() const
+{
+	return m_Settings.has_value();
+}
+void CrossTenantSettingsDto::SetSettings(const std::map<utility::string_t, utility::string_t>& Value)
+{
+	m_Settings = Value;
+}
+
 DefaultSessionSettingsDto::DefaultSessionSettingsDto()
 {
 }
@@ -2487,6 +3403,140 @@ void EquipItemDto::SetIsEquipped(const bool& Value)
 	m_IsEquipped = Value;
 }
 
+ExchangeTenancyRequest::ExchangeTenancyRequest()
+{
+}
+ExchangeTenancyRequest::~ExchangeTenancyRequest()
+{
+}
+
+utility::string_t ExchangeTenancyRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_RefreshToken.has_value())
+	{
+		rapidjson::Value RefreshTokenValue(TypeToJsonValue(m_RefreshToken, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("refreshToken", RefreshTokenValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TargetTenantName.has_value())
+	{
+		rapidjson::Value TargetTenantNameValue(TypeToJsonValue(m_TargetTenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("targetTenantName", TargetTenantNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DeviceId.has_value())
+	{
+		rapidjson::Value DeviceIdValue(TypeToJsonValue(m_DeviceId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("deviceId", DeviceIdValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ExchangeTenancyRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ExchangeTenancyRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("refreshToken"))
+	{
+		const rapidjson::Value& RefreshTokenValue = JsonDoc["refreshToken"];
+
+		if (RefreshTokenValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RefreshTokenValue, m_RefreshToken);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member refreshToken is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("targetTenantName"))
+	{
+		const rapidjson::Value& TargetTenantNameValue = JsonDoc["targetTenantName"];
+
+		if (TargetTenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TargetTenantNameValue, m_TargetTenantName);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member targetTenantName is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("deviceId"))
+	{
+		const rapidjson::Value& DeviceIdValue = JsonDoc["deviceId"];
+
+		if (DeviceIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DeviceIdValue, m_DeviceId);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+		}
+	}
+}
+
+
+utility::string_t ExchangeTenancyRequest::GetRefreshToken() const
+{
+	return m_RefreshToken.value();
+}
+
+bool ExchangeTenancyRequest::HasRefreshToken() const
+{
+	return m_RefreshToken.has_value();
+}
+void ExchangeTenancyRequest::SetRefreshToken(const utility::string_t& Value)
+{
+	m_RefreshToken = Value;
+}
+utility::string_t ExchangeTenancyRequest::GetTargetTenantName() const
+{
+	return m_TargetTenantName.value();
+}
+
+bool ExchangeTenancyRequest::HasTargetTenantName() const
+{
+	return m_TargetTenantName.has_value();
+}
+void ExchangeTenancyRequest::SetTargetTenantName(const utility::string_t& Value)
+{
+	m_TargetTenantName = Value;
+}
+utility::string_t ExchangeTenancyRequest::GetDeviceId() const
+{
+	return m_DeviceId.value();
+}
+
+bool ExchangeTenancyRequest::HasDeviceId() const
+{
+	return m_DeviceId.has_value();
+}
+void ExchangeTenancyRequest::SetDeviceId(const utility::string_t& Value)
+{
+	m_DeviceId = Value;
+}
+
 ForgotPasswordRequest::ForgotPasswordRequest()
 {
 }
@@ -2582,6 +3632,132 @@ bool ForgotPasswordRequest::HasEmail() const
 void ForgotPasswordRequest::SetEmail(const utility::string_t& Value)
 {
 	m_Email = Value;
+}
+
+GacValidationConfigDto::GacValidationConfigDto()
+{
+}
+GacValidationConfigDto::~GacValidationConfigDto()
+{
+}
+
+utility::string_t GacValidationConfigDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_CheckVertexAi.has_value())
+	{
+		rapidjson::Value CheckVertexAiValue(TypeToJsonValue(m_CheckVertexAi, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("checkVertexAi", CheckVertexAiValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RequiredBuckets.has_value())
+	{
+		rapidjson::Value RequiredBucketsValue(TypeToJsonValue(m_RequiredBuckets, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("requiredBuckets", RequiredBucketsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RequiredProjectPermissions.has_value())
+	{
+		rapidjson::Value RequiredProjectPermissionsValue(TypeToJsonValue(m_RequiredProjectPermissions, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("requiredProjectPermissions", RequiredProjectPermissionsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void GacValidationConfigDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GacValidationConfigDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("checkVertexAi"))
+	{
+		const rapidjson::Value& CheckVertexAiValue = JsonDoc["checkVertexAi"];
+
+		if (CheckVertexAiValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CheckVertexAiValue, m_CheckVertexAi);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member checkVertexAi is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("requiredBuckets"))
+	{
+		const rapidjson::Value& RequiredBucketsValue = JsonDoc["requiredBuckets"];
+
+		if (RequiredBucketsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RequiredBucketsValue, m_RequiredBuckets);
+		}
+	}
+
+	if (JsonDoc.HasMember("requiredProjectPermissions"))
+	{
+		const rapidjson::Value& RequiredProjectPermissionsValue = JsonDoc["requiredProjectPermissions"];
+
+		if (RequiredProjectPermissionsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RequiredProjectPermissionsValue, m_RequiredProjectPermissions);
+		}
+	}
+}
+
+
+bool GacValidationConfigDto::GetCheckVertexAi() const
+{
+	return m_CheckVertexAi.value();
+}
+
+bool GacValidationConfigDto::HasCheckVertexAi() const
+{
+	return m_CheckVertexAi.has_value();
+}
+void GacValidationConfigDto::SetCheckVertexAi(const bool& Value)
+{
+	m_CheckVertexAi = Value;
+}
+const std::vector<std::shared_ptr<BucketPermissionRuleDto>>& GacValidationConfigDto::GetRequiredBuckets() const
+{
+	return m_RequiredBuckets.value();
+}
+
+bool GacValidationConfigDto::HasRequiredBuckets() const
+{
+	return m_RequiredBuckets.has_value();
+}
+void GacValidationConfigDto::SetRequiredBuckets(const std::vector<std::shared_ptr<BucketPermissionRuleDto>>& Value)
+{
+	m_RequiredBuckets = Value;
+}
+const std::vector<utility::string_t>& GacValidationConfigDto::GetRequiredProjectPermissions() const
+{
+	return m_RequiredProjectPermissions.value();
+}
+
+bool GacValidationConfigDto::HasRequiredProjectPermissions() const
+{
+	return m_RequiredProjectPermissions.has_value();
+}
+void GacValidationConfigDto::SetRequiredProjectPermissions(const std::vector<utility::string_t>& Value)
+{
+	m_RequiredProjectPermissions = Value;
 }
 
 Gender::Gender()
@@ -9043,6 +10219,12 @@ utility::string_t SocialProviderInfo::ToJson() const
 		JsonDoc.AddMember("authorizeEndpoint", AuthorizeEndpointValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_RedirectUri.has_value())
+	{
+		rapidjson::Value RedirectUriValue(TypeToJsonValue(m_RedirectUri, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("redirectUri", RedirectUriValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -9102,6 +10284,16 @@ void SocialProviderInfo::FromJson(const utility::string_t& Val)
 			JsonValueToType(AuthorizeEndpointValue, m_AuthorizeEndpoint);
 		}
 	}
+
+	if (JsonDoc.HasMember("redirectUri"))
+	{
+		const rapidjson::Value& RedirectUriValue = JsonDoc["redirectUri"];
+
+		if (RedirectUriValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RedirectUriValue, m_RedirectUri);
+		}
+	}
 }
 
 
@@ -9156,6 +10348,19 @@ bool SocialProviderInfo::HasAuthorizeEndpoint() const
 void SocialProviderInfo::SetAuthorizeEndpoint(const utility::string_t& Value)
 {
 	m_AuthorizeEndpoint = Value;
+}
+utility::string_t SocialProviderInfo::GetRedirectUri() const
+{
+	return m_RedirectUri.value();
+}
+
+bool SocialProviderInfo::HasRedirectUri() const
+{
+	return m_RedirectUri.has_value();
+}
+void SocialProviderInfo::SetRedirectUri(const utility::string_t& Value)
+{
+	m_RedirectUri = Value;
 }
 
 StringDataPage::StringDataPage()
@@ -9648,6 +10853,161 @@ bool StripeCustomerPortalDto::HasCustomerPortalUrl() const
 	return m_CustomerPortalUrl.has_value();
 }
 
+TenancyLiteDto::TenancyLiteDto()
+{
+}
+TenancyLiteDto::~TenancyLiteDto()
+{
+}
+
+utility::string_t TenancyLiteDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_TenantName.has_value())
+	{
+		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TenantDisplayName.has_value())
+	{
+		rapidjson::Value TenantDisplayNameValue(TypeToJsonValue(m_TenantDisplayName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantDisplayName", TenantDisplayNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UserDisplayName.has_value())
+	{
+		rapidjson::Value UserDisplayNameValue(TypeToJsonValue(m_UserDisplayName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("userDisplayName", UserDisplayNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_IsEmailConfirmed.has_value())
+	{
+		rapidjson::Value IsEmailConfirmedValue(TypeToJsonValue(m_IsEmailConfirmed, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("isEmailConfirmed", IsEmailConfirmedValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void TenancyLiteDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenancyLiteDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("tenantName"))
+	{
+		const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+
+		if (TenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantNameValue, m_TenantName);
+		}
+	}
+
+	if (JsonDoc.HasMember("tenantDisplayName"))
+	{
+		const rapidjson::Value& TenantDisplayNameValue = JsonDoc["tenantDisplayName"];
+
+		if (TenantDisplayNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantDisplayNameValue, m_TenantDisplayName);
+		}
+	}
+
+	if (JsonDoc.HasMember("userDisplayName"))
+	{
+		const rapidjson::Value& UserDisplayNameValue = JsonDoc["userDisplayName"];
+
+		if (UserDisplayNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UserDisplayNameValue, m_UserDisplayName);
+		}
+	}
+
+	if (JsonDoc.HasMember("isEmailConfirmed"))
+	{
+		const rapidjson::Value& IsEmailConfirmedValue = JsonDoc["isEmailConfirmed"];
+
+		if (IsEmailConfirmedValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IsEmailConfirmedValue, m_IsEmailConfirmed);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member isEmailConfirmed is null!");
+		}
+	}
+}
+
+
+utility::string_t TenancyLiteDto::GetTenantName() const
+{
+	return m_TenantName.value();
+}
+
+bool TenancyLiteDto::HasTenantName() const
+{
+	return m_TenantName.has_value();
+}
+void TenancyLiteDto::SetTenantName(const utility::string_t& Value)
+{
+	m_TenantName = Value;
+}
+utility::string_t TenancyLiteDto::GetTenantDisplayName() const
+{
+	return m_TenantDisplayName.value();
+}
+
+bool TenancyLiteDto::HasTenantDisplayName() const
+{
+	return m_TenantDisplayName.has_value();
+}
+void TenancyLiteDto::SetTenantDisplayName(const utility::string_t& Value)
+{
+	m_TenantDisplayName = Value;
+}
+utility::string_t TenancyLiteDto::GetUserDisplayName() const
+{
+	return m_UserDisplayName.value();
+}
+
+bool TenancyLiteDto::HasUserDisplayName() const
+{
+	return m_UserDisplayName.has_value();
+}
+void TenancyLiteDto::SetUserDisplayName(const utility::string_t& Value)
+{
+	m_UserDisplayName = Value;
+}
+bool TenancyLiteDto::GetIsEmailConfirmed() const
+{
+	return m_IsEmailConfirmed.value();
+}
+
+bool TenancyLiteDto::HasIsEmailConfirmed() const
+{
+	return m_IsEmailConfirmed.has_value();
+}
+void TenancyLiteDto::SetIsEmailConfirmed(const bool& Value)
+{
+	m_IsEmailConfirmed = Value;
+}
+
 TenantAdminAccount::TenantAdminAccount()
 {
 }
@@ -10114,6 +11474,36 @@ utility::string_t TenantDto::ToJson() const
 		JsonDoc.AddMember("mappedHostnames", MappedHostnamesValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_DisplayName.has_value())
+	{
+		rapidjson::Value DisplayNameValue(TypeToJsonValue(m_DisplayName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("displayName", DisplayNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TypedHostnames.has_value())
+	{
+		rapidjson::Value TypedHostnamesValue(TypeToJsonValue(m_TypedHostnames, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("typedHostnames", TypedHostnamesValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AllowedSsoRedirectUris.has_value())
+	{
+		rapidjson::Value AllowedSsoRedirectUrisValue(TypeToJsonValue(m_AllowedSsoRedirectUris, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowedSsoRedirectUris", AllowedSsoRedirectUrisValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AllowGuestLogin.has_value())
+	{
+		rapidjson::Value AllowGuestLoginValue(TypeToJsonValue(m_AllowGuestLogin, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowGuestLogin", AllowGuestLoginValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -10307,6 +11697,60 @@ void TenantDto::FromJson(const utility::string_t& Val)
 			JsonValueToType(MappedHostnamesValue, m_MappedHostnames);
 		}
 	}
+
+	if (JsonDoc.HasMember("displayName"))
+	{
+		const rapidjson::Value& DisplayNameValue = JsonDoc["displayName"];
+
+		if (DisplayNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DisplayNameValue, m_DisplayName);
+		}
+	}
+
+	if (JsonDoc.HasMember("typedHostnames"))
+	{
+		const rapidjson::Value& TypedHostnamesValue = JsonDoc["typedHostnames"];
+
+		if (TypedHostnamesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TypedHostnamesValue, m_TypedHostnames);
+		}
+	}
+
+	if (JsonDoc.HasMember("allowedSsoRedirectUris"))
+	{
+		const rapidjson::Value& AllowedSsoRedirectUrisValue = JsonDoc["allowedSsoRedirectUris"];
+
+		if (AllowedSsoRedirectUrisValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowedSsoRedirectUrisValue, m_AllowedSsoRedirectUris);
+		}
+	}
+
+	if (JsonDoc.HasMember("allowGuestLogin"))
+	{
+		const rapidjson::Value& AllowGuestLoginValue = JsonDoc["allowGuestLogin"];
+
+		if (AllowGuestLoginValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowGuestLoginValue, m_AllowGuestLogin);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowGuestLogin is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt);
+		}
+	}
 }
 
 
@@ -10492,6 +11936,255 @@ bool TenantDto::HasMappedHostnames() const
 void TenantDto::SetMappedHostnames(const std::vector<utility::string_t>& Value)
 {
 	m_MappedHostnames = Value;
+}
+utility::string_t TenantDto::GetDisplayName() const
+{
+	return m_DisplayName.value();
+}
+
+bool TenantDto::HasDisplayName() const
+{
+	return m_DisplayName.has_value();
+}
+void TenantDto::SetDisplayName(const utility::string_t& Value)
+{
+	m_DisplayName = Value;
+}
+const std::vector<std::shared_ptr<TypedHostname>>& TenantDto::GetTypedHostnames() const
+{
+	return m_TypedHostnames.value();
+}
+
+bool TenantDto::HasTypedHostnames() const
+{
+	return m_TypedHostnames.has_value();
+}
+const std::vector<utility::string_t>& TenantDto::GetAllowedSsoRedirectUris() const
+{
+	return m_AllowedSsoRedirectUris.value();
+}
+
+bool TenantDto::HasAllowedSsoRedirectUris() const
+{
+	return m_AllowedSsoRedirectUris.has_value();
+}
+void TenantDto::SetAllowedSsoRedirectUris(const std::vector<utility::string_t>& Value)
+{
+	m_AllowedSsoRedirectUris = Value;
+}
+bool TenantDto::GetAllowGuestLogin() const
+{
+	return m_AllowGuestLogin.value();
+}
+
+bool TenantDto::HasAllowGuestLogin() const
+{
+	return m_AllowGuestLogin.has_value();
+}
+void TenantDto::SetAllowGuestLogin(const bool& Value)
+{
+	m_AllowGuestLogin = Value;
+}
+utility::string_t TenantDto::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool TenantDto::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
+}
+
+TenantDtoDataPage::TenantDtoDataPage()
+{
+}
+TenantDtoDataPage::~TenantDtoDataPage()
+{
+}
+
+utility::string_t TenantDtoDataPage::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Items.has_value())
+	{
+		rapidjson::Value ItemsValue(TypeToJsonValue(m_Items, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("items", ItemsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Skip.has_value())
+	{
+		rapidjson::Value SkipValue(TypeToJsonValue(m_Skip, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("skip", SkipValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Limit.has_value())
+	{
+		rapidjson::Value LimitValue(TypeToJsonValue(m_Limit, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("limit", LimitValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemCount.has_value())
+	{
+		rapidjson::Value ItemCountValue(TypeToJsonValue(m_ItemCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemCount", ItemCountValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemTotalCount.has_value())
+	{
+		rapidjson::Value ItemTotalCountValue(TypeToJsonValue(m_ItemTotalCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void TenantDtoDataPage::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("items"))
+	{
+		const rapidjson::Value& ItemsValue = JsonDoc["items"];
+
+		if (ItemsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemsValue, m_Items);
+		}
+	}
+
+	if (JsonDoc.HasMember("skip"))
+	{
+		const rapidjson::Value& SkipValue = JsonDoc["skip"];
+
+		if (SkipValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SkipValue, m_Skip);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("limit"))
+	{
+		const rapidjson::Value& LimitValue = JsonDoc["limit"];
+
+		if (LimitValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LimitValue, m_Limit);
+		}
+	}
+
+	if (JsonDoc.HasMember("itemCount"))
+	{
+		const rapidjson::Value& ItemCountValue = JsonDoc["itemCount"];
+
+		if (ItemCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemCountValue, m_ItemCount);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("itemTotalCount"))
+	{
+		const rapidjson::Value& ItemTotalCountValue = JsonDoc["itemTotalCount"];
+
+		if (ItemTotalCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+		}
+	}
+}
+
+
+const std::vector<std::shared_ptr<TenantDto>>& TenantDtoDataPage::GetItems() const
+{
+	return m_Items.value();
+}
+
+bool TenantDtoDataPage::HasItems() const
+{
+	return m_Items.has_value();
+}
+void TenantDtoDataPage::SetItems(const std::vector<std::shared_ptr<TenantDto>>& Value)
+{
+	m_Items = Value;
+}
+int32_t TenantDtoDataPage::GetSkip() const
+{
+	return m_Skip.value();
+}
+
+bool TenantDtoDataPage::HasSkip() const
+{
+	return m_Skip.has_value();
+}
+void TenantDtoDataPage::SetSkip(int32_t Value)
+{
+	m_Skip = Value;
+}
+int32_t TenantDtoDataPage::GetLimit() const
+{
+	return m_Limit.value();
+}
+
+bool TenantDtoDataPage::HasLimit() const
+{
+	return m_Limit.has_value();
+}
+void TenantDtoDataPage::SetLimit(int32_t Value)
+{
+	m_Limit = Value;
+}
+int32_t TenantDtoDataPage::GetItemCount() const
+{
+	return m_ItemCount.value();
+}
+
+bool TenantDtoDataPage::HasItemCount() const
+{
+	return m_ItemCount.has_value();
+}
+void TenantDtoDataPage::SetItemCount(int32_t Value)
+{
+	m_ItemCount = Value;
+}
+int64_t TenantDtoDataPage::GetItemTotalCount() const
+{
+	return m_ItemTotalCount.value();
+}
+
+bool TenantDtoDataPage::HasItemTotalCount() const
+{
+	return m_ItemTotalCount.has_value();
+}
+void TenantDtoDataPage::SetItemTotalCount(int64_t Value)
+{
+	m_ItemTotalCount = Value;
 }
 
 TenantEmailSettingsDto::TenantEmailSettingsDto()
@@ -10990,6 +12683,199 @@ void TenantEmailTemplateSettingsDto::SetRecipientEmail(const utility::string_t& 
 	m_RecipientEmail = Value;
 }
 
+TenantSelfDto::TenantSelfDto()
+{
+}
+TenantSelfDto::~TenantSelfDto()
+{
+}
+
+utility::string_t TenantSelfDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Name.has_value())
+	{
+		rapidjson::Value NameValue(TypeToJsonValue(m_Name, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("name", NameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CompanyName.has_value())
+	{
+		rapidjson::Value CompanyNameValue(TypeToJsonValue(m_CompanyName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("companyName", CompanyNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AdminUserId.has_value())
+	{
+		rapidjson::Value AdminUserIdValue(TypeToJsonValue(m_AdminUserId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("adminUserId", AdminUserIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AllowedEmailAddresses.has_value())
+	{
+		rapidjson::Value AllowedEmailAddressesValue(TypeToJsonValue(m_AllowedEmailAddresses, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowedEmailAddresses", AllowedEmailAddressesValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AllowedEmailDomains.has_value())
+	{
+		rapidjson::Value AllowedEmailDomainsValue(TypeToJsonValue(m_AllowedEmailDomains, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowedEmailDomains", AllowedEmailDomainsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_MappedHostnames.has_value())
+	{
+		rapidjson::Value MappedHostnamesValue(TypeToJsonValue(m_MappedHostnames, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("mappedHostnames", MappedHostnamesValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void TenantSelfDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantSelfDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("name"))
+	{
+		const rapidjson::Value& NameValue = JsonDoc["name"];
+
+		if (NameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NameValue, m_Name);
+		}
+	}
+
+	if (JsonDoc.HasMember("companyName"))
+	{
+		const rapidjson::Value& CompanyNameValue = JsonDoc["companyName"];
+
+		if (CompanyNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CompanyNameValue, m_CompanyName);
+		}
+	}
+
+	if (JsonDoc.HasMember("adminUserId"))
+	{
+		const rapidjson::Value& AdminUserIdValue = JsonDoc["adminUserId"];
+
+		if (AdminUserIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AdminUserIdValue, m_AdminUserId);
+		}
+	}
+
+	if (JsonDoc.HasMember("allowedEmailAddresses"))
+	{
+		const rapidjson::Value& AllowedEmailAddressesValue = JsonDoc["allowedEmailAddresses"];
+
+		if (AllowedEmailAddressesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowedEmailAddressesValue, m_AllowedEmailAddresses);
+		}
+	}
+
+	if (JsonDoc.HasMember("allowedEmailDomains"))
+	{
+		const rapidjson::Value& AllowedEmailDomainsValue = JsonDoc["allowedEmailDomains"];
+
+		if (AllowedEmailDomainsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowedEmailDomainsValue, m_AllowedEmailDomains);
+		}
+	}
+
+	if (JsonDoc.HasMember("mappedHostnames"))
+	{
+		const rapidjson::Value& MappedHostnamesValue = JsonDoc["mappedHostnames"];
+
+		if (MappedHostnamesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MappedHostnamesValue, m_MappedHostnames);
+		}
+	}
+}
+
+
+utility::string_t TenantSelfDto::GetName() const
+{
+	return m_Name.value();
+}
+
+bool TenantSelfDto::HasName() const
+{
+	return m_Name.has_value();
+}
+utility::string_t TenantSelfDto::GetCompanyName() const
+{
+	return m_CompanyName.value();
+}
+
+bool TenantSelfDto::HasCompanyName() const
+{
+	return m_CompanyName.has_value();
+}
+utility::string_t TenantSelfDto::GetAdminUserId() const
+{
+	return m_AdminUserId.value();
+}
+
+bool TenantSelfDto::HasAdminUserId() const
+{
+	return m_AdminUserId.has_value();
+}
+const std::vector<utility::string_t>& TenantSelfDto::GetAllowedEmailAddresses() const
+{
+	return m_AllowedEmailAddresses.value();
+}
+
+bool TenantSelfDto::HasAllowedEmailAddresses() const
+{
+	return m_AllowedEmailAddresses.has_value();
+}
+void TenantSelfDto::SetAllowedEmailAddresses(const std::vector<utility::string_t>& Value)
+{
+	m_AllowedEmailAddresses = Value;
+}
+const std::vector<utility::string_t>& TenantSelfDto::GetAllowedEmailDomains() const
+{
+	return m_AllowedEmailDomains.value();
+}
+
+bool TenantSelfDto::HasAllowedEmailDomains() const
+{
+	return m_AllowedEmailDomains.has_value();
+}
+void TenantSelfDto::SetAllowedEmailDomains(const std::vector<utility::string_t>& Value)
+{
+	m_AllowedEmailDomains = Value;
+}
+const std::vector<utility::string_t>& TenantSelfDto::GetMappedHostnames() const
+{
+	return m_MappedHostnames.value();
+}
+
+bool TenantSelfDto::HasMappedHostnames() const
+{
+	return m_MappedHostnames.has_value();
+}
+
 TokenOptions::TokenOptions()
 {
 }
@@ -11182,6 +13068,764 @@ bool TokenResetPasswordRequest::HasNewPassword() const
 void TokenResetPasswordRequest::SetNewPassword(const utility::string_t& Value)
 {
 	m_NewPassword = Value;
+}
+
+TypedHostname::TypedHostname()
+{
+}
+TypedHostname::~TypedHostname()
+{
+}
+
+utility::string_t TypedHostname::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Hostname.has_value())
+	{
+		rapidjson::Value HostnameValue(TypeToJsonValue(m_Hostname, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("hostname", HostnameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Type.has_value())
+	{
+		rapidjson::Value TypeValue(TypeToJsonValue(m_Type, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("type", TypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Route53ChangeId.has_value())
+	{
+		rapidjson::Value Route53ChangeIdValue(TypeToJsonValue(m_Route53ChangeId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("route53ChangeId", Route53ChangeIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DnsStatus.has_value())
+	{
+		rapidjson::Value DnsStatusValue(TypeToJsonValue(m_DnsStatus, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("dnsStatus", DnsStatusValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AcmCertificateArn.has_value())
+	{
+		rapidjson::Value AcmCertificateArnValue(TypeToJsonValue(m_AcmCertificateArn, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("acmCertificateArn", AcmCertificateArnValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void TypedHostname::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TypedHostname::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("hostname"))
+	{
+		const rapidjson::Value& HostnameValue = JsonDoc["hostname"];
+
+		if (HostnameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(HostnameValue, m_Hostname);
+		}
+	}
+
+	if (JsonDoc.HasMember("type"))
+	{
+		const rapidjson::Value& TypeValue = JsonDoc["type"];
+
+		if (TypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TypeValue, m_Type);
+		}
+	}
+
+	if (JsonDoc.HasMember("route53ChangeId"))
+	{
+		const rapidjson::Value& Route53ChangeIdValue = JsonDoc["route53ChangeId"];
+
+		if (Route53ChangeIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(Route53ChangeIdValue, m_Route53ChangeId);
+		}
+	}
+
+	if (JsonDoc.HasMember("dnsStatus"))
+	{
+		const rapidjson::Value& DnsStatusValue = JsonDoc["dnsStatus"];
+
+		if (DnsStatusValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DnsStatusValue, m_DnsStatus);
+		}
+	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt);
+		}
+	}
+
+	if (JsonDoc.HasMember("acmCertificateArn"))
+	{
+		const rapidjson::Value& AcmCertificateArnValue = JsonDoc["acmCertificateArn"];
+
+		if (AcmCertificateArnValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AcmCertificateArnValue, m_AcmCertificateArn);
+		}
+	}
+}
+
+
+utility::string_t TypedHostname::GetHostname() const
+{
+	return m_Hostname.value();
+}
+
+bool TypedHostname::HasHostname() const
+{
+	return m_Hostname.has_value();
+}
+void TypedHostname::SetHostname(const utility::string_t& Value)
+{
+	m_Hostname = Value;
+}
+utility::string_t TypedHostname::GetType() const
+{
+	return m_Type.value();
+}
+
+bool TypedHostname::HasType() const
+{
+	return m_Type.has_value();
+}
+void TypedHostname::SetType(const utility::string_t& Value)
+{
+	m_Type = Value;
+}
+utility::string_t TypedHostname::GetRoute53ChangeId() const
+{
+	return m_Route53ChangeId.value();
+}
+
+bool TypedHostname::HasRoute53ChangeId() const
+{
+	return m_Route53ChangeId.has_value();
+}
+void TypedHostname::SetRoute53ChangeId(const utility::string_t& Value)
+{
+	m_Route53ChangeId = Value;
+}
+utility::string_t TypedHostname::GetDnsStatus() const
+{
+	return m_DnsStatus.value();
+}
+
+bool TypedHostname::HasDnsStatus() const
+{
+	return m_DnsStatus.has_value();
+}
+void TypedHostname::SetDnsStatus(const utility::string_t& Value)
+{
+	m_DnsStatus = Value;
+}
+utility::string_t TypedHostname::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool TypedHostname::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
+}
+void TypedHostname::SetCreatedAt(const utility::string_t& Value)
+{
+	m_CreatedAt = Value;
+}
+utility::string_t TypedHostname::GetAcmCertificateArn() const
+{
+	return m_AcmCertificateArn.value();
+}
+
+bool TypedHostname::HasAcmCertificateArn() const
+{
+	return m_AcmCertificateArn.has_value();
+}
+void TypedHostname::SetAcmCertificateArn(const utility::string_t& Value)
+{
+	m_AcmCertificateArn = Value;
+}
+
+UpdateApplicationSecretRequest::UpdateApplicationSecretRequest()
+{
+}
+UpdateApplicationSecretRequest::~UpdateApplicationSecretRequest()
+{
+}
+
+utility::string_t UpdateApplicationSecretRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_DisplayName.has_value())
+	{
+		rapidjson::Value DisplayNameValue(TypeToJsonValue(m_DisplayName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("displayName", DisplayNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Description.has_value())
+	{
+		rapidjson::Value DescriptionValue(TypeToJsonValue(m_Description, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("description", DescriptionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Category.has_value())
+	{
+		rapidjson::Value CategoryValue(TypeToJsonValue(m_Category, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("category", CategoryValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SortOrder.has_value())
+	{
+		rapidjson::Value SortOrderValue(TypeToJsonValue(m_SortOrder, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("sortOrder", SortOrderValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SecretType.has_value())
+	{
+		rapidjson::Value SecretTypeValue(TypeToJsonValue(m_SecretType, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("secretType", SecretTypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ValidationConfig.has_value())
+	{
+		rapidjson::Value ValidationConfigValue(TypeToJsonValue(m_ValidationConfig, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("validationConfig", ValidationConfigValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateApplicationSecretRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("displayName"))
+	{
+		const rapidjson::Value& DisplayNameValue = JsonDoc["displayName"];
+
+		if (DisplayNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DisplayNameValue, m_DisplayName);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("description"))
+	{
+		const rapidjson::Value& DescriptionValue = JsonDoc["description"];
+
+		if (DescriptionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DescriptionValue, m_Description);
+		}
+	}
+
+	if (JsonDoc.HasMember("category"))
+	{
+		const rapidjson::Value& CategoryValue = JsonDoc["category"];
+
+		if (CategoryValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CategoryValue, m_Category);
+		}
+	}
+
+	if (JsonDoc.HasMember("sortOrder"))
+	{
+		const rapidjson::Value& SortOrderValue = JsonDoc["sortOrder"];
+
+		if (SortOrderValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SortOrderValue, m_SortOrder);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("secretType"))
+	{
+		const rapidjson::Value& SecretTypeValue = JsonDoc["secretType"];
+
+		if (SecretTypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SecretTypeValue, m_SecretType);
+		}
+	}
+
+	if (JsonDoc.HasMember("validationConfig"))
+	{
+		const rapidjson::Value& ValidationConfigValue = JsonDoc["validationConfig"];
+
+		if (ValidationConfigValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ValidationConfigValue, m_ValidationConfig);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member validationConfig is null!");
+		}
+	}
+}
+
+
+utility::string_t UpdateApplicationSecretRequest::GetDisplayName() const
+{
+	return m_DisplayName.value();
+}
+
+bool UpdateApplicationSecretRequest::HasDisplayName() const
+{
+	return m_DisplayName.has_value();
+}
+void UpdateApplicationSecretRequest::SetDisplayName(const utility::string_t& Value)
+{
+	m_DisplayName = Value;
+}
+utility::string_t UpdateApplicationSecretRequest::GetDescription() const
+{
+	return m_Description.value();
+}
+
+bool UpdateApplicationSecretRequest::HasDescription() const
+{
+	return m_Description.has_value();
+}
+void UpdateApplicationSecretRequest::SetDescription(const utility::string_t& Value)
+{
+	m_Description = Value;
+}
+utility::string_t UpdateApplicationSecretRequest::GetCategory() const
+{
+	return m_Category.value();
+}
+
+bool UpdateApplicationSecretRequest::HasCategory() const
+{
+	return m_Category.has_value();
+}
+void UpdateApplicationSecretRequest::SetCategory(const utility::string_t& Value)
+{
+	m_Category = Value;
+}
+int32_t UpdateApplicationSecretRequest::GetSortOrder() const
+{
+	return m_SortOrder.value();
+}
+
+bool UpdateApplicationSecretRequest::HasSortOrder() const
+{
+	return m_SortOrder.has_value();
+}
+void UpdateApplicationSecretRequest::SetSortOrder(int32_t Value)
+{
+	m_SortOrder = Value;
+}
+utility::string_t UpdateApplicationSecretRequest::GetSecretType() const
+{
+	return m_SecretType.value();
+}
+
+bool UpdateApplicationSecretRequest::HasSecretType() const
+{
+	return m_SecretType.has_value();
+}
+void UpdateApplicationSecretRequest::SetSecretType(const utility::string_t& Value)
+{
+	m_SecretType = Value;
+}
+std::shared_ptr<GacValidationConfigDto> UpdateApplicationSecretRequest::GetValidationConfig() const
+{
+	return m_ValidationConfig.value();
+}
+
+bool UpdateApplicationSecretRequest::HasValidationConfig() const
+{
+	return m_ValidationConfig.has_value();
+}
+void UpdateApplicationSecretRequest::SetValidationConfig(const std::shared_ptr<GacValidationConfigDto>& Value)
+{
+	m_ValidationConfig = Value;
+}
+
+UpdateEmailSettingsRequest::UpdateEmailSettingsRequest()
+{
+}
+UpdateEmailSettingsRequest::~UpdateEmailSettingsRequest()
+{
+}
+
+utility::string_t UpdateEmailSettingsRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_AllowedEmailAddresses.has_value())
+	{
+		rapidjson::Value AllowedEmailAddressesValue(TypeToJsonValue(m_AllowedEmailAddresses, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowedEmailAddresses", AllowedEmailAddressesValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AllowedEmailDomains.has_value())
+	{
+		rapidjson::Value AllowedEmailDomainsValue(TypeToJsonValue(m_AllowedEmailDomains, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowedEmailDomains", AllowedEmailDomainsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void UpdateEmailSettingsRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateEmailSettingsRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("allowedEmailAddresses"))
+	{
+		const rapidjson::Value& AllowedEmailAddressesValue = JsonDoc["allowedEmailAddresses"];
+
+		if (AllowedEmailAddressesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowedEmailAddressesValue, m_AllowedEmailAddresses);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowedEmailAddresses is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("allowedEmailDomains"))
+	{
+		const rapidjson::Value& AllowedEmailDomainsValue = JsonDoc["allowedEmailDomains"];
+
+		if (AllowedEmailDomainsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowedEmailDomainsValue, m_AllowedEmailDomains);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowedEmailDomains is null!");
+		}
+	}
+}
+
+
+const std::vector<utility::string_t>& UpdateEmailSettingsRequest::GetAllowedEmailAddresses() const
+{
+	return m_AllowedEmailAddresses.value();
+}
+
+bool UpdateEmailSettingsRequest::HasAllowedEmailAddresses() const
+{
+	return m_AllowedEmailAddresses.has_value();
+}
+void UpdateEmailSettingsRequest::SetAllowedEmailAddresses(const std::vector<utility::string_t>& Value)
+{
+	m_AllowedEmailAddresses = Value;
+}
+const std::vector<utility::string_t>& UpdateEmailSettingsRequest::GetAllowedEmailDomains() const
+{
+	return m_AllowedEmailDomains.value();
+}
+
+bool UpdateEmailSettingsRequest::HasAllowedEmailDomains() const
+{
+	return m_AllowedEmailDomains.has_value();
+}
+void UpdateEmailSettingsRequest::SetAllowedEmailDomains(const std::vector<utility::string_t>& Value)
+{
+	m_AllowedEmailDomains = Value;
+}
+
+UpdateRolesRequest::UpdateRolesRequest()
+{
+}
+UpdateRolesRequest::~UpdateRolesRequest()
+{
+}
+
+utility::string_t UpdateRolesRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Roles.has_value())
+	{
+		rapidjson::Value RolesValue(TypeToJsonValue(m_Roles, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("roles", RolesValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void UpdateRolesRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateRolesRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("roles"))
+	{
+		const rapidjson::Value& RolesValue = JsonDoc["roles"];
+
+		if (RolesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RolesValue, m_Roles);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member roles is null!");
+		}
+	}
+}
+
+
+const std::vector<utility::string_t>& UpdateRolesRequest::GetRoles() const
+{
+	return m_Roles.value();
+}
+
+bool UpdateRolesRequest::HasRoles() const
+{
+	return m_Roles.has_value();
+}
+void UpdateRolesRequest::SetRoles(const std::vector<utility::string_t>& Value)
+{
+	m_Roles = Value;
+}
+
+UpdateTenantLiteRequest::UpdateTenantLiteRequest()
+{
+}
+UpdateTenantLiteRequest::~UpdateTenantLiteRequest()
+{
+}
+
+utility::string_t UpdateTenantLiteRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_AllowedEmailAddresses.has_value())
+	{
+		rapidjson::Value AllowedEmailAddressesValue(TypeToJsonValue(m_AllowedEmailAddresses, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowedEmailAddresses", AllowedEmailAddressesValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AllowedEmailDomains.has_value())
+	{
+		rapidjson::Value AllowedEmailDomainsValue(TypeToJsonValue(m_AllowedEmailDomains, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowedEmailDomains", AllowedEmailDomainsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CompanyName.has_value())
+	{
+		rapidjson::Value CompanyNameValue(TypeToJsonValue(m_CompanyName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("companyName", CompanyNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DisplayName.has_value())
+	{
+		rapidjson::Value DisplayNameValue(TypeToJsonValue(m_DisplayName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("displayName", DisplayNameValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void UpdateTenantLiteRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateTenantLiteRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("allowedEmailAddresses"))
+	{
+		const rapidjson::Value& AllowedEmailAddressesValue = JsonDoc["allowedEmailAddresses"];
+
+		if (AllowedEmailAddressesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowedEmailAddressesValue, m_AllowedEmailAddresses);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowedEmailAddresses is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("allowedEmailDomains"))
+	{
+		const rapidjson::Value& AllowedEmailDomainsValue = JsonDoc["allowedEmailDomains"];
+
+		if (AllowedEmailDomainsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowedEmailDomainsValue, m_AllowedEmailDomains);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowedEmailDomains is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("companyName"))
+	{
+		const rapidjson::Value& CompanyNameValue = JsonDoc["companyName"];
+
+		if (CompanyNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CompanyNameValue, m_CompanyName);
+		}
+	}
+
+	if (JsonDoc.HasMember("displayName"))
+	{
+		const rapidjson::Value& DisplayNameValue = JsonDoc["displayName"];
+
+		if (DisplayNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DisplayNameValue, m_DisplayName);
+		}
+	}
+}
+
+
+const std::vector<utility::string_t>& UpdateTenantLiteRequest::GetAllowedEmailAddresses() const
+{
+	return m_AllowedEmailAddresses.value();
+}
+
+bool UpdateTenantLiteRequest::HasAllowedEmailAddresses() const
+{
+	return m_AllowedEmailAddresses.has_value();
+}
+void UpdateTenantLiteRequest::SetAllowedEmailAddresses(const std::vector<utility::string_t>& Value)
+{
+	m_AllowedEmailAddresses = Value;
+}
+const std::vector<utility::string_t>& UpdateTenantLiteRequest::GetAllowedEmailDomains() const
+{
+	return m_AllowedEmailDomains.value();
+}
+
+bool UpdateTenantLiteRequest::HasAllowedEmailDomains() const
+{
+	return m_AllowedEmailDomains.has_value();
+}
+void UpdateTenantLiteRequest::SetAllowedEmailDomains(const std::vector<utility::string_t>& Value)
+{
+	m_AllowedEmailDomains = Value;
+}
+utility::string_t UpdateTenantLiteRequest::GetCompanyName() const
+{
+	return m_CompanyName.value();
+}
+
+bool UpdateTenantLiteRequest::HasCompanyName() const
+{
+	return m_CompanyName.has_value();
+}
+void UpdateTenantLiteRequest::SetCompanyName(const utility::string_t& Value)
+{
+	m_CompanyName = Value;
+}
+utility::string_t UpdateTenantLiteRequest::GetDisplayName() const
+{
+	return m_DisplayName.value();
+}
+
+bool UpdateTenantLiteRequest::HasDisplayName() const
+{
+	return m_DisplayName.has_value();
+}
+void UpdateTenantLiteRequest::SetDisplayName(const utility::string_t& Value)
+{
+	m_DisplayName = Value;
 }
 
 UpgradeGuestRequest::UpgradeGuestRequest()
@@ -11872,6 +14516,30 @@ utility::string_t UserQuery::ToJson() const
 		JsonDoc.AddMember("lastDeviceIds", LastDeviceIdsValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_EmailOrDisplayNameFragment.has_value())
+	{
+		rapidjson::Value EmailOrDisplayNameFragmentValue(TypeToJsonValue(m_EmailOrDisplayNameFragment, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("emailOrDisplayNameFragment", EmailOrDisplayNameFragmentValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SortBy.has_value())
+	{
+		rapidjson::Value SortByValue(TypeToJsonValue(m_SortBy, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("sortBy", SortByValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SortDirection.has_value())
+	{
+		rapidjson::Value SortDirectionValue(TypeToJsonValue(m_SortDirection, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("sortDirection", SortDirectionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EmailDisplayNameUserIdCombinedTerm.has_value())
+	{
+		rapidjson::Value EmailDisplayNameUserIdCombinedTermValue(TypeToJsonValue(m_EmailDisplayNameUserIdCombinedTerm, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("emailDisplayNameUserIdCombinedTerm", EmailDisplayNameUserIdCombinedTermValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -11989,6 +14657,46 @@ void UserQuery::FromJson(const utility::string_t& Val)
 		if (LastDeviceIdsValue != rapidjson::Type::kNullType)
 		{
 			JsonValueToType(LastDeviceIdsValue, m_LastDeviceIds);
+		}
+	}
+
+	if (JsonDoc.HasMember("emailOrDisplayNameFragment"))
+	{
+		const rapidjson::Value& EmailOrDisplayNameFragmentValue = JsonDoc["emailOrDisplayNameFragment"];
+
+		if (EmailOrDisplayNameFragmentValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EmailOrDisplayNameFragmentValue, m_EmailOrDisplayNameFragment);
+		}
+	}
+
+	if (JsonDoc.HasMember("sortBy"))
+	{
+		const rapidjson::Value& SortByValue = JsonDoc["sortBy"];
+
+		if (SortByValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SortByValue, m_SortBy);
+		}
+	}
+
+	if (JsonDoc.HasMember("sortDirection"))
+	{
+		const rapidjson::Value& SortDirectionValue = JsonDoc["sortDirection"];
+
+		if (SortDirectionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SortDirectionValue, m_SortDirection);
+		}
+	}
+
+	if (JsonDoc.HasMember("emailDisplayNameUserIdCombinedTerm"))
+	{
+		const rapidjson::Value& EmailDisplayNameUserIdCombinedTermValue = JsonDoc["emailDisplayNameUserIdCombinedTerm"];
+
+		if (EmailDisplayNameUserIdCombinedTermValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EmailDisplayNameUserIdCombinedTermValue, m_EmailDisplayNameUserIdCombinedTerm);
 		}
 	}
 }
@@ -12123,6 +14831,58 @@ bool UserQuery::HasLastDeviceIds() const
 void UserQuery::SetLastDeviceIds(const std::vector<utility::string_t>& Value)
 {
 	m_LastDeviceIds = Value;
+}
+utility::string_t UserQuery::GetEmailOrDisplayNameFragment() const
+{
+	return m_EmailOrDisplayNameFragment.value();
+}
+
+bool UserQuery::HasEmailOrDisplayNameFragment() const
+{
+	return m_EmailOrDisplayNameFragment.has_value();
+}
+void UserQuery::SetEmailOrDisplayNameFragment(const utility::string_t& Value)
+{
+	m_EmailOrDisplayNameFragment = Value;
+}
+utility::string_t UserQuery::GetSortBy() const
+{
+	return m_SortBy.value();
+}
+
+bool UserQuery::HasSortBy() const
+{
+	return m_SortBy.has_value();
+}
+void UserQuery::SetSortBy(const utility::string_t& Value)
+{
+	m_SortBy = Value;
+}
+utility::string_t UserQuery::GetSortDirection() const
+{
+	return m_SortDirection.value();
+}
+
+bool UserQuery::HasSortDirection() const
+{
+	return m_SortDirection.has_value();
+}
+void UserQuery::SetSortDirection(const utility::string_t& Value)
+{
+	m_SortDirection = Value;
+}
+utility::string_t UserQuery::GetEmailDisplayNameUserIdCombinedTerm() const
+{
+	return m_EmailDisplayNameUserIdCombinedTerm.value();
+}
+
+bool UserQuery::HasEmailDisplayNameUserIdCombinedTerm() const
+{
+	return m_EmailDisplayNameUserIdCombinedTerm.has_value();
+}
+void UserQuery::SetEmailDisplayNameUserIdCombinedTerm(const utility::string_t& Value)
+{
+	m_EmailDisplayNameUserIdCombinedTerm = Value;
 }
 
 UserRolesDto::UserRolesDto()

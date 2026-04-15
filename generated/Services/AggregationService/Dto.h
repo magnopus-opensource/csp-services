@@ -10,6 +10,7 @@
 namespace csp::services::generated::aggregationservice
 {
 
+class ActivateChaosRequest;
 class AloClassCompletedRequest;
 class AloClassCompletedResponse;
 class AltitudeMode;
@@ -18,12 +19,42 @@ class ApiVersion;
 class ApplicationSettingsDto;
 class AssetDetailDto;
 class AuthDto;
+class BugReportAssignRequest;
+class BugReportCreateRequest;
+class BugReportDetailDto;
+class BugReportListDto;
+class BugReportListResponse;
+class BugReportStatusUpdateRequest;
+class CancelRedriveResult;
+class ChaosMonkeyConfig;
 class CheckpointStats;
 class CoalescenceState;
 class CoalescingFanOutDocument;
+class CompletedNodeOutput;
 class ControllerVersions;
+class DailyExecutionCount;
+class DailyKeyUsage;
+class DailyNodeTypeUsage;
+class DailyQueueUsage;
+class DailySustainedActivityHours;
 class DefaultSettings;
+class DlqInfo;
 class DuplicateSpaceOptions;
+class ExecutionDetailDto;
+class ExecutionDto;
+class ExecutionListResponse;
+class ExecutionLogsResponse;
+class ExecutionStatusUpdateRequest;
+class GacValidationBucketRule;
+class GacValidationCheck;
+class GacValidationRequest;
+class GacValidationRequestConfig;
+class GacValidationResult;
+class GraphExecutionError;
+class GraphExecutionRequest;
+class GraphExecutionState;
+class GraphExecutionStats;
+class GraphExecutionSubmitResponse;
 class GroupRoleDto;
 class HarmonizeAloRequest;
 class HarmonizeAloResponse;
@@ -33,6 +64,7 @@ class ImportSpaceOptions;
 class Kml;
 class LineString;
 class LocalizedString;
+class LogEntryDto;
 class LookAt;
 class Model;
 class ModelLink;
@@ -40,12 +72,25 @@ class ModelLocation;
 class ModelOrientation;
 class ModelScale;
 class NamedFunction;
+class NodeSummaryDto;
+class ObserveResponse;
 class Placemark;
 class Point;
 class PositionKml;
 class ProblemDetails;
+class ProcessingTimeEntry;
 class PrototypeDto;
 class PrototypeDtoDataPage;
+class PurgeDlqResult;
+class QueueBreakdownEntry;
+class QueueConfigInfo;
+class QueueDepthInfo;
+class QueueHealthInfo;
+class QueueHealthSnapshot;
+class QueueHealthSummary;
+class QueueWaitSummary;
+class RedriveTaskInfo;
+class SaveValidatedGacRequest;
 class SequenceDto;
 class SequenceDtoDataPage;
 class ServiceRequest;
@@ -73,6 +118,9 @@ class SpaceExportDto;
 class SpaceImportDto;
 class SpaceOptions;
 class SpaceTicketDto;
+class StartObserveRequest;
+class StartRedriveRequest;
+class StartRedriveResult;
 class StringDataPage;
 class Style;
 class TicketStatus;
@@ -80,6 +128,39 @@ class VendorProviderInfo;
 class VersionMatrix;
 
 
+
+/// <summary>
+/// Request body for activating the chaos monkey on a queue
+/// </summary>
+class ActivateChaosRequest : public csp::services::DtoBase
+{
+public:
+	ActivateChaosRequest();
+	virtual ~ActivateChaosRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Percentage chance (1-100) that a message will be failed. Defaults to 5.
+	/// </summary>
+	int32_t GetFailureLikelihood() const;
+	void SetFailureLikelihood(int32_t Value);
+	bool HasFailureLikelihood() const;
+
+	/// <summary>
+	/// How long the chaos monkey stays active, in minutes. Defaults to 30.
+	/// </summary>
+	int32_t GetDurationMinutes() const;
+	void SetDurationMinutes(int32_t Value);
+	bool HasDurationMinutes() const;
+
+
+protected:
+	std::optional<int32_t> m_FailureLikelihood;
+	std::optional<int32_t> m_DurationMinutes;
+};
 
 /// <summary>
 /// Request to server when class is completed
@@ -624,6 +705,583 @@ protected:
 };
 
 /// <summary>
+/// Request to assign or unassign a bug report.
+/// </summary>
+class BugReportAssignRequest : public csp::services::DtoBase
+{
+public:
+	BugReportAssignRequest();
+	virtual ~BugReportAssignRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Email of the magnopus-admin to assign, or null/empty to unassign.
+	/// </summary>
+	utility::string_t GetAssignTo() const;
+	void SetAssignTo(const utility::string_t& Value);
+	bool HasAssignTo() const;
+
+
+protected:
+	std::optional<utility::string_t> m_AssignTo;
+};
+
+/// <summary>
+/// Request to create a bug report from Inspector Musubi.
+/// </summary>
+class BugReportCreateRequest : public csp::services::DtoBase
+{
+public:
+	BugReportCreateRequest();
+	virtual ~BugReportCreateRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Short title of the bug.
+	/// </summary>
+	utility::string_t GetTitle() const;
+	void SetTitle(const utility::string_t& Value);
+	bool HasTitle() const;
+
+	/// <summary>
+	/// Detailed description of the issue.
+	/// </summary>
+	utility::string_t GetDescription() const;
+	void SetDescription(const utility::string_t& Value);
+	bool HasDescription() const;
+
+	/// <summary>
+	/// Steps to reproduce the bug.
+	/// </summary>
+	utility::string_t GetStepsToReproduce() const;
+	void SetStepsToReproduce(const utility::string_t& Value);
+	bool HasStepsToReproduce() const;
+
+	/// <summary>
+	/// Inspector hash route at the time of filing (auto-populated by frontend).
+	/// </summary>
+	utility::string_t GetRoute() const;
+	void SetRoute(const utility::string_t& Value);
+	bool HasRoute() const;
+
+	/// <summary>
+	/// Browser viewport dimensions (auto-populated by frontend).
+	/// </summary>
+	utility::string_t GetViewport() const;
+	void SetViewport(const utility::string_t& Value);
+	bool HasViewport() const;
+
+	/// <summary>
+	/// Screenshot as base64 JPEG string (nullable).
+	/// </summary>
+	utility::string_t GetScreenshotBase64() const;
+	void SetScreenshotBase64(const utility::string_t& Value);
+	bool HasScreenshotBase64() const;
+
+	/// <summary>
+	/// Report type: "Bug" or "Feature". Defaults to "Bug" if omitted.
+	/// </summary>
+	utility::string_t GetType() const;
+	void SetType(const utility::string_t& Value);
+	bool HasType() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Title;
+	std::optional<utility::string_t> m_Description;
+	std::optional<utility::string_t> m_StepsToReproduce;
+	std::optional<utility::string_t> m_Route;
+	std::optional<utility::string_t> m_Viewport;
+	std::optional<utility::string_t> m_ScreenshotBase64;
+	std::optional<utility::string_t> m_Type;
+};
+
+/// <summary>
+/// Full bug report DTO for detail views.
+/// </summary>
+class BugReportDetailDto : public csp::services::DtoBase
+{
+public:
+	BugReportDetailDto();
+	virtual ~BugReportDetailDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Detailed description of the issue.
+	/// </summary>
+	utility::string_t GetDescription() const;
+	void SetDescription(const utility::string_t& Value);
+	bool HasDescription() const;
+
+	/// <summary>
+	/// Steps to reproduce the bug.
+	/// </summary>
+	utility::string_t GetStepsToReproduce() const;
+	void SetStepsToReproduce(const utility::string_t& Value);
+	bool HasStepsToReproduce() const;
+
+	/// <summary>
+	/// User ID from the reporter's JWT.
+	/// </summary>
+	utility::string_t GetUserId() const;
+	void SetUserId(const utility::string_t& Value);
+	bool HasUserId() const;
+
+	/// <summary>
+	/// Browser User-Agent string.
+	/// </summary>
+	utility::string_t GetUserAgent() const;
+	void SetUserAgent(const utility::string_t& Value);
+	bool HasUserAgent() const;
+
+	/// <summary>
+	/// Browser viewport dimensions.
+	/// </summary>
+	utility::string_t GetViewport() const;
+	void SetViewport(const utility::string_t& Value);
+	bool HasViewport() const;
+
+	/// <summary>
+	/// Email of the admin who acknowledged the report.
+	/// </summary>
+	utility::string_t GetAcknowledgedBy() const;
+	void SetAcknowledgedBy(const utility::string_t& Value);
+	bool HasAcknowledgedBy() const;
+
+	/// <summary>
+	/// Email of the admin who resolved the report.
+	/// </summary>
+	utility::string_t GetResolvedBy() const;
+	void SetResolvedBy(const utility::string_t& Value);
+	bool HasResolvedBy() const;
+
+	/// <summary>
+	/// Email of who assigned the report.
+	/// </summary>
+	utility::string_t GetAssignedBy() const;
+	void SetAssignedBy(const utility::string_t& Value);
+	bool HasAssignedBy() const;
+
+	/// <summary>
+	/// When the report was assigned.
+	/// </summary>
+	utility::string_t GetAssignedAt() const;
+	void SetAssignedAt(const utility::string_t& Value);
+	bool HasAssignedAt() const;
+
+	/// <summary>
+	/// Unique identifier.
+	/// </summary>
+	utility::string_t GetId() const;
+	void SetId(const utility::string_t& Value);
+	bool HasId() const;
+
+	/// <summary>
+	/// Short title of the bug.
+	/// </summary>
+	utility::string_t GetTitle() const;
+	void SetTitle(const utility::string_t& Value);
+	bool HasTitle() const;
+
+	/// <summary>
+	/// Current status: Open, Acknowledged, or Resolved.
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+	/// <summary>
+	/// Report type: "Bug" or "Feature".
+	/// </summary>
+	utility::string_t GetType() const;
+	void SetType(const utility::string_t& Value);
+	bool HasType() const;
+
+	/// <summary>
+	/// Tenant name from the reporter's JWT.
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// Email of the user who filed the report.
+	/// </summary>
+	utility::string_t GetUserEmail() const;
+	void SetUserEmail(const utility::string_t& Value);
+	bool HasUserEmail() const;
+
+	/// <summary>
+	/// Inspector hash route at time of filing.
+	/// </summary>
+	utility::string_t GetRoute() const;
+	void SetRoute(const utility::string_t& Value);
+	bool HasRoute() const;
+
+	/// <summary>
+	/// Whether a screenshot is attached.
+	/// </summary>
+	bool GetHasScreenshot() const;
+	void SetHasScreenshot(const bool& Value);
+	bool HasHasScreenshot() const;
+
+	/// <summary>
+	/// When the report was created.
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	void SetCreatedAt(const utility::string_t& Value);
+	bool HasCreatedAt() const;
+
+	/// <summary>
+	/// When the report was acknowledged.
+	/// </summary>
+	utility::string_t GetAcknowledgedAt() const;
+	void SetAcknowledgedAt(const utility::string_t& Value);
+	bool HasAcknowledgedAt() const;
+
+	/// <summary>
+	/// When the report was resolved.
+	/// </summary>
+	utility::string_t GetResolvedAt() const;
+	void SetResolvedAt(const utility::string_t& Value);
+	bool HasResolvedAt() const;
+
+	/// <summary>
+	/// Email of the assigned magnopus-admin, or null.
+	/// </summary>
+	utility::string_t GetAssignedTo() const;
+	void SetAssignedTo(const utility::string_t& Value);
+	bool HasAssignedTo() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Description;
+	std::optional<utility::string_t> m_StepsToReproduce;
+	std::optional<utility::string_t> m_UserId;
+	std::optional<utility::string_t> m_UserAgent;
+	std::optional<utility::string_t> m_Viewport;
+	std::optional<utility::string_t> m_AcknowledgedBy;
+	std::optional<utility::string_t> m_ResolvedBy;
+	std::optional<utility::string_t> m_AssignedBy;
+	std::optional<utility::string_t> m_AssignedAt;
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_Title;
+	std::optional<utility::string_t> m_Status;
+	std::optional<utility::string_t> m_Type;
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<utility::string_t> m_UserEmail;
+	std::optional<utility::string_t> m_Route;
+	std::optional<bool> m_HasScreenshot;
+	std::optional<utility::string_t> m_CreatedAt;
+	std::optional<utility::string_t> m_AcknowledgedAt;
+	std::optional<utility::string_t> m_ResolvedAt;
+	std::optional<utility::string_t> m_AssignedTo;
+};
+
+/// <summary>
+/// Lightweight bug report DTO for list views (no screenshot data).
+/// </summary>
+class BugReportListDto : public csp::services::DtoBase
+{
+public:
+	BugReportListDto();
+	virtual ~BugReportListDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Unique identifier.
+	/// </summary>
+	utility::string_t GetId() const;
+	void SetId(const utility::string_t& Value);
+	bool HasId() const;
+
+	/// <summary>
+	/// Short title of the bug.
+	/// </summary>
+	utility::string_t GetTitle() const;
+	void SetTitle(const utility::string_t& Value);
+	bool HasTitle() const;
+
+	/// <summary>
+	/// Current status: Open, Acknowledged, or Resolved.
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+	/// <summary>
+	/// Report type: "Bug" or "Feature".
+	/// </summary>
+	utility::string_t GetType() const;
+	void SetType(const utility::string_t& Value);
+	bool HasType() const;
+
+	/// <summary>
+	/// Tenant name from the reporter's JWT.
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// Email of the user who filed the report.
+	/// </summary>
+	utility::string_t GetUserEmail() const;
+	void SetUserEmail(const utility::string_t& Value);
+	bool HasUserEmail() const;
+
+	/// <summary>
+	/// Inspector hash route at time of filing.
+	/// </summary>
+	utility::string_t GetRoute() const;
+	void SetRoute(const utility::string_t& Value);
+	bool HasRoute() const;
+
+	/// <summary>
+	/// Whether a screenshot is attached.
+	/// </summary>
+	bool GetHasScreenshot() const;
+	void SetHasScreenshot(const bool& Value);
+	bool HasHasScreenshot() const;
+
+	/// <summary>
+	/// When the report was created.
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	void SetCreatedAt(const utility::string_t& Value);
+	bool HasCreatedAt() const;
+
+	/// <summary>
+	/// When the report was acknowledged.
+	/// </summary>
+	utility::string_t GetAcknowledgedAt() const;
+	void SetAcknowledgedAt(const utility::string_t& Value);
+	bool HasAcknowledgedAt() const;
+
+	/// <summary>
+	/// When the report was resolved.
+	/// </summary>
+	utility::string_t GetResolvedAt() const;
+	void SetResolvedAt(const utility::string_t& Value);
+	bool HasResolvedAt() const;
+
+	/// <summary>
+	/// Email of the assigned magnopus-admin, or null.
+	/// </summary>
+	utility::string_t GetAssignedTo() const;
+	void SetAssignedTo(const utility::string_t& Value);
+	bool HasAssignedTo() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_Title;
+	std::optional<utility::string_t> m_Status;
+	std::optional<utility::string_t> m_Type;
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<utility::string_t> m_UserEmail;
+	std::optional<utility::string_t> m_Route;
+	std::optional<bool> m_HasScreenshot;
+	std::optional<utility::string_t> m_CreatedAt;
+	std::optional<utility::string_t> m_AcknowledgedAt;
+	std::optional<utility::string_t> m_ResolvedAt;
+	std::optional<utility::string_t> m_AssignedTo;
+};
+
+/// <summary>
+/// Paged response for bug report list queries.
+/// </summary>
+class BugReportListResponse : public csp::services::DtoBase
+{
+public:
+	BugReportListResponse();
+	virtual ~BugReportListResponse();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Page of bug report items.
+	/// </summary>
+	const std::vector<std::shared_ptr<BugReportListDto>>& GetItems() const;
+	void SetItems(const std::vector<std::shared_ptr<BugReportListDto>>& Value);
+	bool HasItems() const;
+
+	/// <summary>
+	/// Total matching count (ignoring pagination).
+	/// </summary>
+	int64_t GetTotalCount() const;
+	void SetTotalCount(int64_t Value);
+	bool HasTotalCount() const;
+
+	/// <summary>
+	/// Number of items skipped.
+	/// </summary>
+	int32_t GetSkip() const;
+	void SetSkip(int32_t Value);
+	bool HasSkip() const;
+
+	/// <summary>
+	/// Page size.
+	/// </summary>
+	int32_t GetLimit() const;
+	void SetLimit(int32_t Value);
+	bool HasLimit() const;
+
+
+protected:
+	std::optional<std::vector<std::shared_ptr<BugReportListDto>>> m_Items;
+	std::optional<int64_t> m_TotalCount;
+	std::optional<int32_t> m_Skip;
+	std::optional<int32_t> m_Limit;
+};
+
+/// <summary>
+/// Request to update the status of a bug report.
+/// </summary>
+class BugReportStatusUpdateRequest : public csp::services::DtoBase
+{
+public:
+	BugReportStatusUpdateRequest();
+	virtual ~BugReportStatusUpdateRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// New status: "Acknowledged" or "Resolved".
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Status;
+};
+
+/// <summary>
+/// Result of cancelling a running redrive task.
+/// </summary>
+class CancelRedriveResult : public csp::services::DtoBase
+{
+public:
+	CancelRedriveResult();
+	virtual ~CancelRedriveResult();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Whether the cancel was successful
+	/// </summary>
+	bool GetSuccess() const;
+	void SetSuccess(const bool& Value);
+	bool HasSuccess() const;
+
+	/// <summary>
+	/// Messages already moved before cancellation
+	/// </summary>
+	int64_t GetApproximateNumberOfMessagesMoved() const;
+	void SetApproximateNumberOfMessagesMoved(int64_t Value);
+	bool HasApproximateNumberOfMessagesMoved() const;
+
+	/// <summary>
+	/// Error message if the operation failed
+	/// </summary>
+	utility::string_t GetError() const;
+	void SetError(const utility::string_t& Value);
+	bool HasError() const;
+
+
+protected:
+	std::optional<bool> m_Success;
+	std::optional<int64_t> m_ApproximateNumberOfMessagesMoved;
+	std::optional<utility::string_t> m_Error;
+};
+
+/// <summary>
+/// Chaos monkey configuration for a single queue.
+/// Stored in Redis via ILayeredCache with TTL matching the user-specified duration.
+/// </summary>
+class ChaosMonkeyConfig : public csp::services::DtoBase
+{
+public:
+	ChaosMonkeyConfig();
+	virtual ~ChaosMonkeyConfig();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Friendly queue name (e.g., "GenericNode")
+	/// </summary>
+	utility::string_t GetQn() const;
+	void SetQn(const utility::string_t& Value);
+	bool HasQn() const;
+
+	/// <summary>
+	/// Whether chaos is currently active for this queue
+	/// </summary>
+	bool GetEn() const;
+	void SetEn(const bool& Value);
+	bool HasEn() const;
+
+	/// <summary>
+	/// Failure likelihood 1–10 (maps to 10%–100%)
+	/// </summary>
+	int32_t GetFl() const;
+	void SetFl(int32_t Value);
+	bool HasFl() const;
+
+	/// <summary>
+	/// When the chaos was activated (UTC)
+	/// </summary>
+	utility::string_t GetAa() const;
+	void SetAa(const utility::string_t& Value);
+	bool HasAa() const;
+
+	/// <summary>
+	/// When it will auto-expire (UTC)
+	/// </summary>
+	utility::string_t GetEa() const;
+	void SetEa(const utility::string_t& Value);
+	bool HasEa() const;
+
+	/// <summary>
+	/// User who activated it
+	/// </summary>
+	utility::string_t GetAb() const;
+	void SetAb(const utility::string_t& Value);
+	bool HasAb() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Qn;
+	std::optional<bool> m_En;
+	std::optional<int32_t> m_Fl;
+	std::optional<utility::string_t> m_Aa;
+	std::optional<utility::string_t> m_Ea;
+	std::optional<utility::string_t> m_Ab;
+};
+
+/// <summary>
 /// collection of stats about the checkpoint
 /// </summary>
 class CheckpointStats : public csp::services::DtoBase
@@ -813,6 +1471,39 @@ protected:
 };
 
 /// <summary>
+/// Output data from a completed node
+/// </summary>
+class CompletedNodeOutput : public csp::services::DtoBase
+{
+public:
+	CompletedNodeOutput();
+	virtual ~CompletedNodeOutput();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Node identifier
+	/// </summary>
+	utility::string_t GetNodeId() const;
+	void SetNodeId(const utility::string_t& Value);
+	bool HasNodeId() const;
+
+	/// <summary>
+	/// Node output data (URLs for large assets)
+	/// </summary>
+	const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& GetData() const;
+	void SetData(const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& Value);
+	bool HasData() const;
+
+
+protected:
+	std::optional<utility::string_t> m_NodeId;
+	std::optional<std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>> m_Data;
+};
+
+/// <summary>
 /// Versions of a specific controller
 /// </summary>
 class ControllerVersions : public csp::services::DtoBase
@@ -862,6 +1553,204 @@ protected:
 };
 
 /// <summary>
+/// Daily execution count for usage charts
+/// </summary>
+class DailyExecutionCount : public csp::services::DtoBase
+{
+public:
+	DailyExecutionCount();
+	virtual ~DailyExecutionCount();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Date string in "yyyy-MM-dd" format
+	/// </summary>
+	utility::string_t GetDate() const;
+	void SetDate(const utility::string_t& Value);
+	bool HasDate() const;
+
+	/// <summary>
+	/// Number of executions on this date
+	/// </summary>
+	int32_t GetCount() const;
+	void SetCount(int32_t Value);
+	bool HasCount() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Date;
+	std::optional<int32_t> m_Count;
+};
+
+/// <summary>
+/// Daily key usage count for usage charts (tenant-aware)
+/// </summary>
+class DailyKeyUsage : public csp::services::DtoBase
+{
+public:
+	DailyKeyUsage();
+	virtual ~DailyKeyUsage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Date string in "yyyy-MM-dd" format
+	/// </summary>
+	utility::string_t GetDate() const;
+	void SetDate(const utility::string_t& Value);
+	bool HasDate() const;
+
+	/// <summary>
+	/// Secret key name (e.g., "GOOGLE_APPLICATION_CREDENTIALS")
+	/// </summary>
+	utility::string_t GetSecretKey() const;
+	void SetSecretKey(const utility::string_t& Value);
+	bool HasSecretKey() const;
+
+	/// <summary>
+	/// Tenant that consumed this key
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// Number of completed node executions requiring this key
+	/// </summary>
+	int32_t GetCount() const;
+	void SetCount(int32_t Value);
+	bool HasCount() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Date;
+	std::optional<utility::string_t> m_SecretKey;
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<int32_t> m_Count;
+};
+
+/// <summary>
+/// Daily node type usage count for usage charts
+/// </summary>
+class DailyNodeTypeUsage : public csp::services::DtoBase
+{
+public:
+	DailyNodeTypeUsage();
+	virtual ~DailyNodeTypeUsage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Date string in "yyyy-MM-dd" format
+	/// </summary>
+	utility::string_t GetDate() const;
+	void SetDate(const utility::string_t& Value);
+	bool HasDate() const;
+
+	/// <summary>
+	/// Node type label (e.g., "Gemini Flash2.5 Image")
+	/// </summary>
+	utility::string_t GetNodeType() const;
+	void SetNodeType(const utility::string_t& Value);
+	bool HasNodeType() const;
+
+	/// <summary>
+	/// Number of node executions on this date for this node type
+	/// </summary>
+	int32_t GetCount() const;
+	void SetCount(int32_t Value);
+	bool HasCount() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Date;
+	std::optional<utility::string_t> m_NodeType;
+	std::optional<int32_t> m_Count;
+};
+
+/// <summary>
+/// Daily queue usage count for usage charts
+/// </summary>
+class DailyQueueUsage : public csp::services::DtoBase
+{
+public:
+	DailyQueueUsage();
+	virtual ~DailyQueueUsage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Date string in "yyyy-MM-dd" format
+	/// </summary>
+	utility::string_t GetDate() const;
+	void SetDate(const utility::string_t& Value);
+	bool HasDate() const;
+
+	/// <summary>
+	/// Queue name (e.g., "GenericNode")
+	/// </summary>
+	utility::string_t GetQueue() const;
+	void SetQueue(const utility::string_t& Value);
+	bool HasQueue() const;
+
+	/// <summary>
+	/// Number of node executions on this date for this queue
+	/// </summary>
+	int32_t GetCount() const;
+	void SetCount(int32_t Value);
+	bool HasCount() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Date;
+	std::optional<utility::string_t> m_Queue;
+	std::optional<int32_t> m_Count;
+};
+
+/// <summary>
+/// Daily sustained activity hours for usage charts.
+/// Each entry represents the total sustained activity hours for a single day.
+/// </summary>
+class DailySustainedActivityHours : public csp::services::DtoBase
+{
+public:
+	DailySustainedActivityHours();
+	virtual ~DailySustainedActivityHours();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Date string in "yyyy-MM-dd" format
+	/// </summary>
+	utility::string_t GetDate() const;
+	void SetDate(const utility::string_t& Value);
+	bool HasDate() const;
+
+	/// <summary>
+	/// Sustained activity hours for this date
+	/// </summary>
+	float GetHours() const;
+	void SetHours(float Value);
+	bool HasHours() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Date;
+	std::optional<float> m_Hours;
+};
+
+/// <summary>
 /// Default settings of the tenant
 /// </summary>
 class DefaultSettings : public csp::services::DtoBase
@@ -892,6 +1781,47 @@ public:
 protected:
 	std::optional<std::vector<std::shared_ptr<ApplicationSettingsDto>>> m_DefaultApplicationSettings;
 	std::optional<std::vector<std::shared_ptr<SettingsDto>>> m_DefaultUserSettings;
+};
+
+/// <summary>
+/// Dead-letter queue info for a parent queue.
+/// </summary>
+class DlqInfo : public csp::services::DtoBase
+{
+public:
+	DlqInfo();
+	virtual ~DlqInfo();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Number of messages in the DLQ (permanently failed work)
+	/// </summary>
+	int32_t GetD() const;
+	void SetD(int32_t Value);
+	bool HasD() const;
+
+	/// <summary>
+	/// Full SQS URL of the DLQ
+	/// </summary>
+	utility::string_t GetQu() const;
+	void SetQu(const utility::string_t& Value);
+	bool HasQu() const;
+
+	/// <summary>
+	/// Full ARN of the DLQ (needed for StartMessageMoveTask)
+	/// </summary>
+	utility::string_t GetQa() const;
+	void SetQa(const utility::string_t& Value);
+	bool HasQa() const;
+
+
+protected:
+	std::optional<int32_t> m_D;
+	std::optional<utility::string_t> m_Qu;
+	std::optional<utility::string_t> m_Qa;
 };
 
 /// <summary>
@@ -994,6 +1924,919 @@ protected:
 	std::optional<bool> m_Discoverable;
 	std::optional<bool> m_ShallowCopy;
 	std::optional<bool> m_AsyncCall;
+};
+
+/// <summary>
+/// Detailed DTO for execution detail view
+/// </summary>
+class ExecutionDetailDto : public csp::services::DtoBase
+{
+public:
+	ExecutionDetailDto();
+	virtual ~ExecutionDetailDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Number of connections between nodes in the graph.
+	/// </summary>
+	int32_t GetCc() const;
+	void SetCc(int32_t Value);
+	bool HasCc() const;
+
+	/// <summary>
+	/// ID of the node that caused the failure, if any.
+	/// </summary>
+	utility::string_t GetFni() const;
+	void SetFni(const utility::string_t& Value);
+	bool HasFni() const;
+
+	/// <summary>
+	/// Error message if the execution failed.
+	/// </summary>
+	utility::string_t GetErr() const;
+	void SetErr(const utility::string_t& Value);
+	bool HasErr() const;
+
+	/// <summary>
+	/// S3 bucket where execution artifacts are stored.
+	/// </summary>
+	utility::string_t GetEb() const;
+	void SetEb(const utility::string_t& Value);
+	bool HasEb() const;
+
+	/// <summary>
+	/// S3 key prefix for execution artifacts.
+	/// </summary>
+	utility::string_t GetSp() const;
+	void SetSp(const utility::string_t& Value);
+	bool HasSp() const;
+
+	/// <summary>
+	/// Per-node execution summaries.
+	/// </summary>
+	const std::vector<std::shared_ptr<NodeSummaryDto>>& GetNs() const;
+	void SetNs(const std::vector<std::shared_ptr<NodeSummaryDto>>& Value);
+	bool HasNs() const;
+
+	/// <summary>
+	/// Input parameters supplied to the graph execution.
+	/// </summary>
+	const std::map<utility::string_t, utility::string_t>& GetPm() const;
+	void SetPm(const std::map<utility::string_t, utility::string_t>& Value);
+	bool HasPm() const;
+
+	/// <summary>
+	/// Unique identifier for the execution.
+	/// </summary>
+	utility::string_t GetEid() const;
+	void SetEid(const utility::string_t& Value);
+	bool HasEid() const;
+
+	/// <summary>
+	/// Tenant that owns the execution.
+	/// </summary>
+	utility::string_t GetTn() const;
+	void SetTn(const utility::string_t& Value);
+	bool HasTn() const;
+
+	/// <summary>
+	/// ID of the user who triggered the execution.
+	/// </summary>
+	utility::string_t GetUid() const;
+	void SetUid(const utility::string_t& Value);
+	bool HasUid() const;
+
+	/// <summary>
+	/// Hash of the graph definition.
+	/// </summary>
+	utility::string_t GetGh() const;
+	void SetGh(const utility::string_t& Value);
+	bool HasGh() const;
+
+	/// <summary>
+	/// Human-readable name of the graph.
+	/// </summary>
+	utility::string_t GetGn() const;
+	void SetGn(const utility::string_t& Value);
+	bool HasGn() const;
+
+	/// <summary>
+	/// Total number of nodes in the graph.
+	/// </summary>
+	int32_t GetNc() const;
+	void SetNc(int32_t Value);
+	bool HasNc() const;
+
+	/// <summary>
+	/// Current execution status (e.g. running, completed, failed).
+	/// </summary>
+	utility::string_t GetS() const;
+	void SetS(const utility::string_t& Value);
+	bool HasS() const;
+
+	/// <summary>
+	/// Execution progress as a percentage (0-100).
+	/// </summary>
+	int32_t GetP() const;
+	void SetP(int32_t Value);
+	bool HasP() const;
+
+	/// <summary>
+	/// When the execution was created.
+	/// </summary>
+	utility::string_t GetCa() const;
+	void SetCa(const utility::string_t& Value);
+	bool HasCa() const;
+
+	/// <summary>
+	/// When the execution started running.
+	/// </summary>
+	utility::string_t GetSa() const;
+	void SetSa(const utility::string_t& Value);
+	bool HasSa() const;
+
+	/// <summary>
+	/// When the execution completed.
+	/// </summary>
+	utility::string_t GetCoa() const;
+	void SetCoa(const utility::string_t& Value);
+	bool HasCoa() const;
+
+	/// <summary>
+	/// Total wall-clock duration of the execution.
+	/// </summary>
+	utility::string_t GetDur() const;
+	void SetDur(const utility::string_t& Value);
+	bool HasDur() const;
+
+
+protected:
+	std::optional<int32_t> m_Cc;
+	std::optional<utility::string_t> m_Fni;
+	std::optional<utility::string_t> m_Err;
+	std::optional<utility::string_t> m_Eb;
+	std::optional<utility::string_t> m_Sp;
+	std::optional<std::vector<std::shared_ptr<NodeSummaryDto>>> m_Ns;
+	std::optional<std::map<utility::string_t, utility::string_t>> m_Pm;
+	std::optional<utility::string_t> m_Eid;
+	std::optional<utility::string_t> m_Tn;
+	std::optional<utility::string_t> m_Uid;
+	std::optional<utility::string_t> m_Gh;
+	std::optional<utility::string_t> m_Gn;
+	std::optional<int32_t> m_Nc;
+	std::optional<utility::string_t> m_S;
+	std::optional<int32_t> m_P;
+	std::optional<utility::string_t> m_Ca;
+	std::optional<utility::string_t> m_Sa;
+	std::optional<utility::string_t> m_Coa;
+	std::optional<utility::string_t> m_Dur;
+};
+
+/// <summary>
+/// Summary DTO for execution list display
+/// </summary>
+class ExecutionDto : public csp::services::DtoBase
+{
+public:
+	ExecutionDto();
+	virtual ~ExecutionDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Unique identifier for the execution.
+	/// </summary>
+	utility::string_t GetEid() const;
+	void SetEid(const utility::string_t& Value);
+	bool HasEid() const;
+
+	/// <summary>
+	/// Tenant that owns the execution.
+	/// </summary>
+	utility::string_t GetTn() const;
+	void SetTn(const utility::string_t& Value);
+	bool HasTn() const;
+
+	/// <summary>
+	/// ID of the user who triggered the execution.
+	/// </summary>
+	utility::string_t GetUid() const;
+	void SetUid(const utility::string_t& Value);
+	bool HasUid() const;
+
+	/// <summary>
+	/// Hash of the graph definition.
+	/// </summary>
+	utility::string_t GetGh() const;
+	void SetGh(const utility::string_t& Value);
+	bool HasGh() const;
+
+	/// <summary>
+	/// Human-readable name of the graph.
+	/// </summary>
+	utility::string_t GetGn() const;
+	void SetGn(const utility::string_t& Value);
+	bool HasGn() const;
+
+	/// <summary>
+	/// Total number of nodes in the graph.
+	/// </summary>
+	int32_t GetNc() const;
+	void SetNc(int32_t Value);
+	bool HasNc() const;
+
+	/// <summary>
+	/// Current execution status (e.g. running, completed, failed).
+	/// </summary>
+	utility::string_t GetS() const;
+	void SetS(const utility::string_t& Value);
+	bool HasS() const;
+
+	/// <summary>
+	/// Execution progress as a percentage (0-100).
+	/// </summary>
+	int32_t GetP() const;
+	void SetP(int32_t Value);
+	bool HasP() const;
+
+	/// <summary>
+	/// When the execution was created.
+	/// </summary>
+	utility::string_t GetCa() const;
+	void SetCa(const utility::string_t& Value);
+	bool HasCa() const;
+
+	/// <summary>
+	/// When the execution started running.
+	/// </summary>
+	utility::string_t GetSa() const;
+	void SetSa(const utility::string_t& Value);
+	bool HasSa() const;
+
+	/// <summary>
+	/// When the execution completed.
+	/// </summary>
+	utility::string_t GetCoa() const;
+	void SetCoa(const utility::string_t& Value);
+	bool HasCoa() const;
+
+	/// <summary>
+	/// Total wall-clock duration of the execution.
+	/// </summary>
+	utility::string_t GetDur() const;
+	void SetDur(const utility::string_t& Value);
+	bool HasDur() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Eid;
+	std::optional<utility::string_t> m_Tn;
+	std::optional<utility::string_t> m_Uid;
+	std::optional<utility::string_t> m_Gh;
+	std::optional<utility::string_t> m_Gn;
+	std::optional<int32_t> m_Nc;
+	std::optional<utility::string_t> m_S;
+	std::optional<int32_t> m_P;
+	std::optional<utility::string_t> m_Ca;
+	std::optional<utility::string_t> m_Sa;
+	std::optional<utility::string_t> m_Coa;
+	std::optional<utility::string_t> m_Dur;
+};
+
+/// <summary>
+/// Response containing a list of executions with pagination info
+/// </summary>
+class ExecutionListResponse : public csp::services::DtoBase
+{
+public:
+	ExecutionListResponse();
+	virtual ~ExecutionListResponse();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// List of execution summaries.
+	/// </summary>
+	const std::vector<std::shared_ptr<ExecutionDto>>& GetI() const;
+	void SetI(const std::vector<std::shared_ptr<ExecutionDto>>& Value);
+	bool HasI() const;
+
+	/// <summary>
+	/// Total number of executions matching the filters.
+	/// </summary>
+	int64_t GetTc() const;
+	void SetTc(int64_t Value);
+	bool HasTc() const;
+
+	/// <summary>
+	/// Number of items skipped for pagination.
+	/// </summary>
+	int32_t GetSk() const;
+	void SetSk(int32_t Value);
+	bool HasSk() const;
+
+	/// <summary>
+	/// Maximum number of items returned.
+	/// </summary>
+	int32_t GetLm() const;
+	void SetLm(int32_t Value);
+	bool HasLm() const;
+
+	/// <summary>
+	/// Server timestamp (unix ms) for incremental polling. Pass as modifiedSince on next request.
+	/// </summary>
+	int64_t GetSt() const;
+	void SetSt(int64_t Value);
+	bool HasSt() const;
+
+
+protected:
+	std::optional<std::vector<std::shared_ptr<ExecutionDto>>> m_I;
+	std::optional<int64_t> m_Tc;
+	std::optional<int32_t> m_Sk;
+	std::optional<int32_t> m_Lm;
+	std::optional<int64_t> m_St;
+};
+
+/// <summary>
+/// Response containing execution logs
+/// </summary>
+class ExecutionLogsResponse : public csp::services::DtoBase
+{
+public:
+	ExecutionLogsResponse();
+	virtual ~ExecutionLogsResponse();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// ID of the execution these logs belong to.
+	/// </summary>
+	utility::string_t GetExecutionId() const;
+	void SetExecutionId(const utility::string_t& Value);
+	bool HasExecutionId() const;
+
+	/// <summary>
+	/// List of log entries for the execution.
+	/// </summary>
+	const std::vector<std::shared_ptr<LogEntryDto>>& GetLogs() const;
+	void SetLogs(const std::vector<std::shared_ptr<LogEntryDto>>& Value);
+	bool HasLogs() const;
+
+	/// <summary>
+	/// Total number of log entries available.
+	/// </summary>
+	int32_t GetTotalCount() const;
+	void SetTotalCount(int32_t Value);
+	bool HasTotalCount() const;
+
+
+protected:
+	std::optional<utility::string_t> m_ExecutionId;
+	std::optional<std::vector<std::shared_ptr<LogEntryDto>>> m_Logs;
+	std::optional<int32_t> m_TotalCount;
+};
+
+/// <summary>
+/// Request body for updating execution status (called by Graph Execution Runner)
+/// </summary>
+class ExecutionStatusUpdateRequest : public csp::services::DtoBase
+{
+public:
+	ExecutionStatusUpdateRequest();
+	virtual ~ExecutionStatusUpdateRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// New status: running, completed, failed, cancelled
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+	/// <summary>
+	/// Progress percentage (0-100), optional
+	/// </summary>
+	int32_t GetProgress() const;
+	void SetProgress(int32_t Value);
+	bool HasProgress() const;
+
+	/// <summary>
+	/// Error message if status is "failed"
+	/// </summary>
+	utility::string_t GetError() const;
+	void SetError(const utility::string_t& Value);
+	bool HasError() const;
+
+	/// <summary>
+	/// Node ID that caused the failure (if applicable)
+	/// </summary>
+	utility::string_t GetFailedNodeId() const;
+	void SetFailedNodeId(const utility::string_t& Value);
+	bool HasFailedNodeId() const;
+
+	/// <summary>
+	/// Graph-level SQS queue wait time in milliseconds.
+	/// </summary>
+	double GetQueueWaitMs() const;
+	void SetQueueWaitMs(double Value);
+	bool HasQueueWaitMs() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Status;
+	std::optional<int32_t> m_Progress;
+	std::optional<utility::string_t> m_Error;
+	std::optional<utility::string_t> m_FailedNodeId;
+	std::optional<double> m_QueueWaitMs;
+};
+
+/// <summary>
+/// A bucket + permissions rule in the validation request.
+/// </summary>
+class GacValidationBucketRule : public csp::services::DtoBase
+{
+public:
+	GacValidationBucketRule();
+	virtual ~GacValidationBucketRule();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// GCS bucket name (supports {env} token).
+	/// </summary>
+	utility::string_t GetBucketName() const;
+	void SetBucketName(const utility::string_t& Value);
+	bool HasBucketName() const;
+
+	/// <summary>
+	/// Required IAM permissions.
+	/// </summary>
+	const std::vector<utility::string_t>& GetPermissions() const;
+	void SetPermissions(const std::vector<utility::string_t>& Value);
+	bool HasPermissions() const;
+
+
+protected:
+	std::optional<utility::string_t> m_BucketName;
+	std::optional<std::vector<utility::string_t>> m_Permissions;
+};
+
+/// <summary>
+/// Result of a single GAC validation check.
+/// </summary>
+class GacValidationCheck : public csp::services::DtoBase
+{
+public:
+	GacValidationCheck();
+	virtual ~GacValidationCheck();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Type of check: "key_validity", "billing", "api_enabled", "bucket_access", "project_permission".
+	/// </summary>
+	utility::string_t GetCheckType() const;
+	void SetCheckType(const utility::string_t& Value);
+	bool HasCheckType() const;
+
+	/// <summary>
+	/// Descriptive name (e.g., "aiplatform.googleapis.com", bucket name).
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+	/// <summary>
+	/// Check status: "pass", "fail", "error", "skipped".
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+	/// <summary>
+	/// Human-readable message with details.
+	/// </summary>
+	utility::string_t GetMessage() const;
+	void SetMessage(const utility::string_t& Value);
+	bool HasMessage() const;
+
+	/// <summary>
+	/// Duration of the check in milliseconds.
+	/// </summary>
+	int64_t GetDurationMs() const;
+	void SetDurationMs(int64_t Value);
+	bool HasDurationMs() const;
+
+
+protected:
+	std::optional<utility::string_t> m_CheckType;
+	std::optional<utility::string_t> m_Name;
+	std::optional<utility::string_t> m_Status;
+	std::optional<utility::string_t> m_Message;
+	std::optional<int64_t> m_DurationMs;
+};
+
+/// <summary>
+/// Request body for GAC validation.
+/// </summary>
+class GacValidationRequest : public csp::services::DtoBase
+{
+public:
+	GacValidationRequest();
+	virtual ~GacValidationRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Tenant that owns the secret.
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// The env var name (e.g., "GOOGLE_APPLICATION_CREDENTIALS").
+	/// </summary>
+	utility::string_t GetEnvVarName() const;
+	void SetEnvVarName(const utility::string_t& Value);
+	bool HasEnvVarName() const;
+
+	/// <summary>
+	/// Application name (informational, e.g., "Nodey").
+	/// </summary>
+	utility::string_t GetApplicationName() const;
+	void SetApplicationName(const utility::string_t& Value);
+	bool HasApplicationName() const;
+
+	std::shared_ptr<GacValidationRequestConfig> GetValidationConfig() const;
+	void SetValidationConfig(const std::shared_ptr<GacValidationRequestConfig>& Value);
+	bool HasValidationConfig() const;
+
+	/// <summary>
+	/// Optional raw GAC JSON to validate without saving. When provided, bypasses encrypted storage lookup.
+	/// </summary>
+	utility::string_t GetGacJson() const;
+	void SetGacJson(const utility::string_t& Value);
+	bool HasGacJson() const;
+
+
+protected:
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<utility::string_t> m_EnvVarName;
+	std::optional<utility::string_t> m_ApplicationName;
+	std::optional<std::shared_ptr<GacValidationRequestConfig>> m_ValidationConfig;
+	std::optional<utility::string_t> m_GacJson;
+};
+
+/// <summary>
+/// Validation config passed from the frontend (mirrors the definition's validationConfig).
+/// </summary>
+class GacValidationRequestConfig : public csp::services::DtoBase
+{
+public:
+	GacValidationRequestConfig();
+	virtual ~GacValidationRequestConfig();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Whether to probe Vertex AI with a lightweight generateContent call.
+	/// </summary>
+	bool GetCheckVertexAi() const;
+	void SetCheckVertexAi(const bool& Value);
+	bool HasCheckVertexAi() const;
+
+	/// <summary>
+	/// Buckets and required permissions.
+	/// </summary>
+	const std::vector<std::shared_ptr<GacValidationBucketRule>>& GetRequiredBuckets() const;
+	void SetRequiredBuckets(const std::vector<std::shared_ptr<GacValidationBucketRule>>& Value);
+	bool HasRequiredBuckets() const;
+
+	/// <summary>
+	/// Project-level IAM permissions.
+	/// </summary>
+	const std::vector<utility::string_t>& GetRequiredProjectPermissions() const;
+	void SetRequiredProjectPermissions(const std::vector<utility::string_t>& Value);
+	bool HasRequiredProjectPermissions() const;
+
+
+protected:
+	std::optional<bool> m_CheckVertexAi;
+	std::optional<std::vector<std::shared_ptr<GacValidationBucketRule>>> m_RequiredBuckets;
+	std::optional<std::vector<utility::string_t>> m_RequiredProjectPermissions;
+};
+
+/// <summary>
+/// Result of validating a GCP Service Account JSON (GAC) credential.
+/// </summary>
+class GacValidationResult : public csp::services::DtoBase
+{
+public:
+	GacValidationResult();
+	virtual ~GacValidationResult();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// GCP project ID from the credential.
+	/// </summary>
+	utility::string_t GetProjectId() const;
+	void SetProjectId(const utility::string_t& Value);
+	bool HasProjectId() const;
+
+	/// <summary>
+	/// Service account email from the credential.
+	/// </summary>
+	utility::string_t GetClientEmail() const;
+	void SetClientEmail(const utility::string_t& Value);
+	bool HasClientEmail() const;
+
+	/// <summary>
+	/// Overall validation status: "pass", "partial", or "fail".
+	/// </summary>
+	utility::string_t GetOverallStatus() const;
+	void SetOverallStatus(const utility::string_t& Value);
+	bool HasOverallStatus() const;
+
+	/// <summary>
+	/// Individual check results.
+	/// </summary>
+	const std::vector<std::shared_ptr<GacValidationCheck>>& GetChecks() const;
+	void SetChecks(const std::vector<std::shared_ptr<GacValidationCheck>>& Value);
+	bool HasChecks() const;
+
+
+protected:
+	std::optional<utility::string_t> m_ProjectId;
+	std::optional<utility::string_t> m_ClientEmail;
+	std::optional<utility::string_t> m_OverallStatus;
+	std::optional<std::vector<std::shared_ptr<GacValidationCheck>>> m_Checks;
+};
+
+/// <summary>
+/// Error information for failed executions
+/// </summary>
+class GraphExecutionError : public csp::services::DtoBase
+{
+public:
+	GraphExecutionError();
+	virtual ~GraphExecutionError();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Node that caused the failure
+	/// </summary>
+	utility::string_t GetNodeId() const;
+	void SetNodeId(const utility::string_t& Value);
+	bool HasNodeId() const;
+
+	/// <summary>
+	/// Error message
+	/// </summary>
+	utility::string_t GetError() const;
+	void SetError(const utility::string_t& Value);
+	bool HasError() const;
+
+
+protected:
+	std::optional<utility::string_t> m_NodeId;
+	std::optional<utility::string_t> m_Error;
+};
+
+/// <summary>
+/// Request body for graph execution
+/// </summary>
+class GraphExecutionRequest : public csp::services::DtoBase
+{
+public:
+	GraphExecutionRequest();
+	virtual ~GraphExecutionRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The nodey graph JSON containing nodes, connections, and user values
+	/// </summary>
+	std::shared_ptr<rapidjson::Document> GetGraph() const;
+	void SetGraph(const std::shared_ptr<rapidjson::Document>& Value);
+	bool HasGraph() const;
+
+	/// <summary>
+	/// Node type definitions for nodes used in this graph
+	/// </summary>
+	std::shared_ptr<rapidjson::Document> GetNodeDefinitions() const;
+	void SetNodeDefinitions(const std::shared_ptr<rapidjson::Document>& Value);
+	bool HasNodeDefinitions() const;
+
+	/// <summary>
+	/// Optional execution parameters
+	/// </summary>
+	const std::map<utility::string_t, utility::string_t>& GetOptions() const;
+	void SetOptions(const std::map<utility::string_t, utility::string_t>& Value);
+	bool HasOptions() const;
+
+
+protected:
+	std::optional<std::shared_ptr<rapidjson::Document>> m_Graph;
+	std::optional<std::shared_ptr<rapidjson::Document>> m_NodeDefinitions;
+	std::optional<std::map<utility::string_t, utility::string_t>> m_Options;
+};
+
+/// <summary>
+/// Current state of a graph execution
+/// </summary>
+class GraphExecutionState : public csp::services::DtoBase
+{
+public:
+	GraphExecutionState();
+	virtual ~GraphExecutionState();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Unique execution identifier
+	/// </summary>
+	utility::string_t GetExecutionId() const;
+	void SetExecutionId(const utility::string_t& Value);
+	bool HasExecutionId() const;
+
+	/// <summary>
+	/// Current status: queued, running, completed, failed
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+	/// <summary>
+	/// Progress percentage (0-100)
+	/// </summary>
+	int32_t GetProgress() const;
+	void SetProgress(int32_t Value);
+	bool HasProgress() const;
+
+	/// <summary>
+	/// Tenant name
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// Completed nodes with their outputs
+	/// </summary>
+	const std::vector<std::shared_ptr<CompletedNodeOutput>>& GetCompletedNodes() const;
+	void SetCompletedNodes(const std::vector<std::shared_ptr<CompletedNodeOutput>>& Value);
+	bool HasCompletedNodes() const;
+
+	/// <summary>
+	/// Node currently being executed
+	/// </summary>
+	utility::string_t GetCurrentNode() const;
+	void SetCurrentNode(const utility::string_t& Value);
+	bool HasCurrentNode() const;
+
+	std::shared_ptr<GraphExecutionError> GetError() const;
+	void SetError(const std::shared_ptr<GraphExecutionError>& Value);
+	bool HasError() const;
+
+
+protected:
+	std::optional<utility::string_t> m_ExecutionId;
+	std::optional<utility::string_t> m_Status;
+	std::optional<int32_t> m_Progress;
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<std::vector<std::shared_ptr<CompletedNodeOutput>>> m_CompletedNodes;
+	std::optional<utility::string_t> m_CurrentNode;
+	std::optional<std::shared_ptr<GraphExecutionError>> m_Error;
+};
+
+/// <summary>
+/// Execution statistics summary
+/// </summary>
+class GraphExecutionStats : public csp::services::DtoBase
+{
+public:
+	GraphExecutionStats();
+	virtual ~GraphExecutionStats();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Total number of executions
+	/// </summary>
+	int64_t GetTotalExecutions() const;
+	void SetTotalExecutions(int64_t Value);
+	bool HasTotalExecutions() const;
+
+	/// <summary>
+	/// Number of completed executions
+	/// </summary>
+	int64_t GetCompletedExecutions() const;
+	void SetCompletedExecutions(int64_t Value);
+	bool HasCompletedExecutions() const;
+
+	/// <summary>
+	/// Number of failed executions
+	/// </summary>
+	int64_t GetFailedExecutions() const;
+	void SetFailedExecutions(int64_t Value);
+	bool HasFailedExecutions() const;
+
+	/// <summary>
+	/// Number of currently running executions
+	/// </summary>
+	int64_t GetRunningExecutions() const;
+	void SetRunningExecutions(int64_t Value);
+	bool HasRunningExecutions() const;
+
+	/// <summary>
+	/// Average execution duration in milliseconds
+	/// </summary>
+	double GetAverageDurationMs() const;
+	void SetAverageDurationMs(double Value);
+	bool HasAverageDurationMs() const;
+
+	/// <summary>
+	/// Success rate as a percentage
+	/// </summary>
+	double GetSuccessRate() const;
+	void SetSuccessRate(double Value);
+	bool HasSuccessRate() const;
+
+
+protected:
+	std::optional<int64_t> m_TotalExecutions;
+	std::optional<int64_t> m_CompletedExecutions;
+	std::optional<int64_t> m_FailedExecutions;
+	std::optional<int64_t> m_RunningExecutions;
+	std::optional<double> m_AverageDurationMs;
+	std::optional<double> m_SuccessRate;
+};
+
+/// <summary>
+/// Response from graph execution submission
+/// </summary>
+class GraphExecutionSubmitResponse : public csp::services::DtoBase
+{
+public:
+	GraphExecutionSubmitResponse();
+	virtual ~GraphExecutionSubmitResponse();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Unique identifier for this execution, used for status polling
+	/// </summary>
+	utility::string_t GetExecutionId() const;
+	void SetExecutionId(const utility::string_t& Value);
+	bool HasExecutionId() const;
+
+	/// <summary>
+	/// Initial status (always "queued" on successful submission)
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+
+protected:
+	std::optional<utility::string_t> m_ExecutionId;
+	std::optional<utility::string_t> m_Status;
 };
 
 /// <summary>
@@ -1349,6 +3192,71 @@ protected:
 };
 
 /// <summary>
+/// A single log entry
+/// </summary>
+class LogEntryDto : public csp::services::DtoBase
+{
+public:
+	LogEntryDto();
+	virtual ~LogEntryDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// When the log entry was recorded.
+	/// </summary>
+	utility::string_t GetTimestamp() const;
+	void SetTimestamp(const utility::string_t& Value);
+	bool HasTimestamp() const;
+
+	/// <summary>
+	/// Log level (e.g. Debug, Info, Warning, Error).
+	/// </summary>
+	utility::string_t GetLevel() const;
+	void SetLevel(const utility::string_t& Value);
+	bool HasLevel() const;
+
+	/// <summary>
+	/// Log message content.
+	/// </summary>
+	utility::string_t GetMessage() const;
+	void SetMessage(const utility::string_t& Value);
+	bool HasMessage() const;
+
+	/// <summary>
+	/// ID of the node that produced the log entry.
+	/// </summary>
+	utility::string_t GetNodeId() const;
+	void SetNodeId(const utility::string_t& Value);
+	bool HasNodeId() const;
+
+	/// <summary>
+	/// Type of the node that produced the log entry.
+	/// </summary>
+	utility::string_t GetNodeType() const;
+	void SetNodeType(const utility::string_t& Value);
+	bool HasNodeType() const;
+
+	/// <summary>
+	/// Name of the logger that produced the entry.
+	/// </summary>
+	utility::string_t GetLogger() const;
+	void SetLogger(const utility::string_t& Value);
+	bool HasLogger() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Timestamp;
+	std::optional<utility::string_t> m_Level;
+	std::optional<utility::string_t> m_Message;
+	std::optional<utility::string_t> m_NodeId;
+	std::optional<utility::string_t> m_NodeType;
+	std::optional<utility::string_t> m_Logger;
+};
+
+/// <summary>
 /// The origin view for the scene
 /// </summary>
 class LookAt : public csp::services::DtoBase
@@ -1653,6 +3561,136 @@ protected:
 };
 
 /// <summary>
+/// Summary DTO for node execution state
+/// </summary>
+class NodeSummaryDto : public csp::services::DtoBase
+{
+public:
+	NodeSummaryDto();
+	virtual ~NodeSummaryDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Unique identifier for the node.
+	/// </summary>
+	utility::string_t GetNid() const;
+	void SetNid(const utility::string_t& Value);
+	bool HasNid() const;
+
+	/// <summary>
+	/// Type of the node (e.g. HTTP, Transform, LLM).
+	/// </summary>
+	utility::string_t GetNt() const;
+	void SetNt(const utility::string_t& Value);
+	bool HasNt() const;
+
+	/// <summary>
+	/// Current status of the node.
+	/// </summary>
+	utility::string_t GetS() const;
+	void SetS(const utility::string_t& Value);
+	bool HasS() const;
+
+	/// <summary>
+	/// When the node started executing.
+	/// </summary>
+	utility::string_t GetSa() const;
+	void SetSa(const utility::string_t& Value);
+	bool HasSa() const;
+
+	/// <summary>
+	/// When the node finished executing.
+	/// </summary>
+	utility::string_t GetCoa() const;
+	void SetCoa(const utility::string_t& Value);
+	bool HasCoa() const;
+
+	/// <summary>
+	/// Error message if the node failed.
+	/// </summary>
+	utility::string_t GetErr() const;
+	void SetErr(const utility::string_t& Value);
+	bool HasErr() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Nid;
+	std::optional<utility::string_t> m_Nt;
+	std::optional<utility::string_t> m_S;
+	std::optional<utility::string_t> m_Sa;
+	std::optional<utility::string_t> m_Coa;
+	std::optional<utility::string_t> m_Err;
+};
+
+/// <summary>
+/// Response from starting a log observer
+/// </summary>
+class ObserveResponse : public csp::services::DtoBase
+{
+public:
+	ObserveResponse();
+	virtual ~ObserveResponse();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// ID of the execution being observed.
+	/// </summary>
+	utility::string_t GetExecutionId() const;
+	void SetExecutionId(const utility::string_t& Value);
+	bool HasExecutionId() const;
+
+	/// <summary>
+	/// Session identifier for this observer.
+	/// </summary>
+	utility::string_t GetSessionId() const;
+	void SetSessionId(const utility::string_t& Value);
+	bool HasSessionId() const;
+
+	/// <summary>
+	/// Scope identifier for the observation.
+	/// </summary>
+	utility::string_t GetScopeId() const;
+	void SetScopeId(const utility::string_t& Value);
+	bool HasScopeId() const;
+
+	/// <summary>
+	/// Type of the scope reference (e.g. tenant, user).
+	/// </summary>
+	utility::string_t GetScopeReferenceType() const;
+	void SetScopeReferenceType(const utility::string_t& Value);
+	bool HasScopeReferenceType() const;
+
+	/// <summary>
+	/// ID of the scope reference entity.
+	/// </summary>
+	utility::string_t GetScopeReferenceId() const;
+	void SetScopeReferenceId(const utility::string_t& Value);
+	bool HasScopeReferenceId() const;
+
+	/// <summary>
+	/// Current status of the observer.
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+
+protected:
+	std::optional<utility::string_t> m_ExecutionId;
+	std::optional<utility::string_t> m_SessionId;
+	std::optional<utility::string_t> m_ScopeId;
+	std::optional<utility::string_t> m_ScopeReferenceType;
+	std::optional<utility::string_t> m_ScopeReferenceId;
+	std::optional<utility::string_t> m_Status;
+};
+
+/// <summary>
 /// Definition for a Placemark Inside a Kml Document
 /// </summary>
 class Placemark : public csp::services::DtoBase
@@ -1865,6 +3903,55 @@ protected:
 };
 
 /// <summary>
+/// Processing time breakdown entry for usage charts
+/// </summary>
+class ProcessingTimeEntry : public csp::services::DtoBase
+{
+public:
+	ProcessingTimeEntry();
+	virtual ~ProcessingTimeEntry();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Group key (date string, queue name, or tier name depending on groupBy)
+	/// </summary>
+	utility::string_t GetGroupKey() const;
+	void SetGroupKey(const utility::string_t& Value);
+	bool HasGroupKey() const;
+
+	/// <summary>
+	/// Total processing time in milliseconds
+	/// </summary>
+	double GetTotalDurationMs() const;
+	void SetTotalDurationMs(double Value);
+	bool HasTotalDurationMs() const;
+
+	/// <summary>
+	/// Average processing time in milliseconds
+	/// </summary>
+	double GetAvgDurationMs() const;
+	void SetAvgDurationMs(double Value);
+	bool HasAvgDurationMs() const;
+
+	/// <summary>
+	/// Number of items in this group
+	/// </summary>
+	int32_t GetCount() const;
+	void SetCount(int32_t Value);
+	bool HasCount() const;
+
+
+protected:
+	std::optional<utility::string_t> m_GroupKey;
+	std::optional<double> m_TotalDurationMs;
+	std::optional<double> m_AvgDurationMs;
+	std::optional<int32_t> m_Count;
+};
+
+/// <summary>
 /// Prototype data transform object
 /// </summary>
 class PrototypeDto : public csp::services::DtoBase
@@ -2074,6 +4161,599 @@ protected:
 	std::optional<int32_t> m_Limit;
 	std::optional<int32_t> m_ItemCount;
 	std::optional<int64_t> m_ItemTotalCount;
+};
+
+/// <summary>
+/// Result of purging a DLQ.
+/// </summary>
+class PurgeDlqResult : public csp::services::DtoBase
+{
+public:
+	PurgeDlqResult();
+	virtual ~PurgeDlqResult();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Whether the purge was successful
+	/// </summary>
+	bool GetSuccess() const;
+	void SetSuccess(const bool& Value);
+	bool HasSuccess() const;
+
+	/// <summary>
+	/// Error message if the operation failed
+	/// </summary>
+	utility::string_t GetError() const;
+	void SetError(const utility::string_t& Value);
+	bool HasError() const;
+
+
+protected:
+	std::optional<bool> m_Success;
+	std::optional<utility::string_t> m_Error;
+};
+
+/// <summary>
+/// Per-queue breakdown of wait vs processing time
+/// </summary>
+class QueueBreakdownEntry : public csp::services::DtoBase
+{
+public:
+	QueueBreakdownEntry();
+	virtual ~QueueBreakdownEntry();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Queue name (e.g., "GenericNode")
+	/// </summary>
+	utility::string_t GetQueue() const;
+	void SetQueue(const utility::string_t& Value);
+	bool HasQueue() const;
+
+	/// <summary>
+	/// Average queue wait time in milliseconds
+	/// </summary>
+	double GetAvgQueueWaitMs() const;
+	void SetAvgQueueWaitMs(double Value);
+	bool HasAvgQueueWaitMs() const;
+
+	/// <summary>
+	/// Average processing time in milliseconds
+	/// </summary>
+	double GetAvgProcessingMs() const;
+	void SetAvgProcessingMs(double Value);
+	bool HasAvgProcessingMs() const;
+
+	/// <summary>
+	/// Average total wall-clock time in milliseconds
+	/// </summary>
+	double GetAvgTotalMs() const;
+	void SetAvgTotalMs(double Value);
+	bool HasAvgTotalMs() const;
+
+	/// <summary>
+	/// Number of node executions in this queue
+	/// </summary>
+	int32_t GetCount() const;
+	void SetCount(int32_t Value);
+	bool HasCount() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Queue;
+	std::optional<double> m_AvgQueueWaitMs;
+	std::optional<double> m_AvgProcessingMs;
+	std::optional<double> m_AvgTotalMs;
+	std::optional<int32_t> m_Count;
+};
+
+/// <summary>
+/// Queue configuration attributes extracted from SQS GetQueueAttributes("All").
+/// These are read-only, zero-cost fields already fetched but previously discarded.
+/// </summary>
+class QueueConfigInfo : public csp::services::DtoBase
+{
+public:
+	QueueConfigInfo();
+	virtual ~QueueConfigInfo();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Full ARN of the queue
+	/// </summary>
+	utility::string_t GetQa() const;
+	void SetQa(const utility::string_t& Value);
+	bool HasQa() const;
+
+	/// <summary>
+	/// When the queue was provisioned (epoch seconds)
+	/// </summary>
+	int64_t GetCt() const;
+	void SetCt(int64_t Value);
+	bool HasCt() const;
+
+	/// <summary>
+	/// Last configuration change (epoch seconds)
+	/// </summary>
+	int64_t GetLmt() const;
+	void SetLmt(int64_t Value);
+	bool HasLmt() const;
+
+	/// <summary>
+	/// How long a consumer locks a message (seconds)
+	/// </summary>
+	int32_t GetVt() const;
+	void SetVt(int32_t Value);
+	bool HasVt() const;
+
+	/// <summary>
+	/// Maximum payload size (bytes, up to 256 KB)
+	/// </summary>
+	int32_t GetMms() const;
+	void SetMms(int32_t Value);
+	bool HasMms() const;
+
+	/// <summary>
+	/// How long messages are kept before auto-deletion (seconds)
+	/// </summary>
+	int32_t GetMrp() const;
+	void SetMrp(int32_t Value);
+	bool HasMrp() const;
+
+	/// <summary>
+	/// Default delivery delay for new messages (seconds)
+	/// </summary>
+	int32_t GetDs() const;
+	void SetDs(int32_t Value);
+	bool HasDs() const;
+
+	/// <summary>
+	/// Receive attempts before DLQ (parsed from RedrivePolicy)
+	/// </summary>
+	int32_t GetMrc() const;
+	void SetMrc(int32_t Value);
+	bool HasMrc() const;
+
+	/// <summary>
+	/// Whether SSE-SQS or KMS encryption is active
+	/// </summary>
+	bool GetEnc() const;
+	void SetEnc(const bool& Value);
+	bool HasEnc() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Qa;
+	std::optional<int64_t> m_Ct;
+	std::optional<int64_t> m_Lmt;
+	std::optional<int32_t> m_Vt;
+	std::optional<int32_t> m_Mms;
+	std::optional<int32_t> m_Mrp;
+	std::optional<int32_t> m_Ds;
+	std::optional<int32_t> m_Mrc;
+	std::optional<bool> m_Enc;
+};
+
+/// <summary>
+/// SQS queue depth breakdown.
+/// </summary>
+class QueueDepthInfo : public csp::services::DtoBase
+{
+public:
+	QueueDepthInfo();
+	virtual ~QueueDepthInfo();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Messages waiting to be picked up (ApproximateNumberOfMessages)
+	/// </summary>
+	int32_t GetW() const;
+	void SetW(int32_t Value);
+	bool HasW() const;
+
+	/// <summary>
+	/// Messages currently being processed by a consumer (ApproximateNumberOfMessagesNotVisible)
+	/// </summary>
+	int32_t GetIf() const;
+	void SetIf(int32_t Value);
+	bool HasIf() const;
+
+	/// <summary>
+	/// Messages in delayed delivery (ApproximateNumberOfMessagesDelayed)
+	/// </summary>
+	int32_t GetDy() const;
+	void SetDy(int32_t Value);
+	bool HasDy() const;
+
+
+protected:
+	std::optional<int32_t> m_W;
+	std::optional<int32_t> m_If;
+	std::optional<int32_t> m_Dy;
+};
+
+/// <summary>
+/// Health data for a single SQS queue and its optional DLQ.
+/// </summary>
+class QueueHealthInfo : public csp::services::DtoBase
+{
+public:
+	QueueHealthInfo();
+	virtual ~QueueHealthInfo();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Friendly queue name extracted from the SQS queue name
+	/// (e.g., "GenericNode", "HunyuanImage", "GraphExecutionTrigger")
+	/// </summary>
+	utility::string_t GetN() const;
+	void SetN(const utility::string_t& Value);
+	bool HasN() const;
+
+	/// <summary>
+	/// Full SQS queue URL
+	/// </summary>
+	utility::string_t GetQu() const;
+	void SetQu(const utility::string_t& Value);
+	bool HasQu() const;
+
+	/// <summary>
+	/// Queue classification: "system" for orchestration queues
+	/// (GraphExecutionTrigger, GraphExecutionResult, etc.)
+	/// or "node-worker" for distributed node processing queues.
+	/// </summary>
+	utility::string_t GetT() const;
+	void SetT(const utility::string_t& Value);
+	bool HasT() const;
+
+	std::shared_ptr<QueueDepthInfo> GetD() const;
+	void SetD(const std::shared_ptr<QueueDepthInfo>& Value);
+	bool HasD() const;
+
+	/// <summary>
+	/// Age of the oldest message in seconds, from CloudWatch.
+	/// Null if CloudWatch data is unavailable (e.g., local dev).
+	/// </summary>
+	double GetOa() const;
+	void SetOa(double Value);
+	bool HasOa() const;
+
+	std::shared_ptr<DlqInfo> GetDlq() const;
+	void SetDlq(const std::shared_ptr<DlqInfo>& Value);
+	bool HasDlq() const;
+
+	std::shared_ptr<QueueConfigInfo> GetCfg() const;
+	void SetCfg(const std::shared_ptr<QueueConfigInfo>& Value);
+	bool HasCfg() const;
+
+	std::shared_ptr<ChaosMonkeyConfig> GetAc() const;
+	void SetAc(const std::shared_ptr<ChaosMonkeyConfig>& Value);
+	bool HasAc() const;
+
+	/// <summary>
+	/// When this queue's volatile data last changed (unix milliseconds).
+	/// Compared against the previous cached snapshot to detect changes.
+	/// Used by the frontend for incremental polling via modifiedSince.
+	/// </summary>
+	int64_t GetUa() const;
+	void SetUa(int64_t Value);
+	bool HasUa() const;
+
+	/// <summary>
+	/// True when this queue was discovered in a previous snapshot but is no longer
+	/// present in SQS. The frontend removes it from its cache on receipt.
+	/// Markers are carried forward for a short window (~30s) then dropped.
+	/// </summary>
+	bool GetDel() const;
+	void SetDel(const bool& Value);
+	bool HasDel() const;
+
+
+protected:
+	std::optional<utility::string_t> m_N;
+	std::optional<utility::string_t> m_Qu;
+	std::optional<utility::string_t> m_T;
+	std::optional<std::shared_ptr<QueueDepthInfo>> m_D;
+	std::optional<double> m_Oa;
+	std::optional<std::shared_ptr<DlqInfo>> m_Dlq;
+	std::optional<std::shared_ptr<QueueConfigInfo>> m_Cfg;
+	std::optional<std::shared_ptr<ChaosMonkeyConfig>> m_Ac;
+	std::optional<int64_t> m_Ua;
+	std::optional<bool> m_Del;
+};
+
+/// <summary>
+/// Top-level snapshot of all queue health data at a point in time.
+/// </summary>
+class QueueHealthSnapshot : public csp::services::DtoBase
+{
+public:
+	QueueHealthSnapshot();
+	virtual ~QueueHealthSnapshot();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// When this snapshot was captured (unix milliseconds)
+	/// </summary>
+	int64_t GetTs() const;
+	void SetTs(int64_t Value);
+	bool HasTs() const;
+
+	/// <summary>
+	/// Per-queue health data, sorted active-first then alphabetical
+	/// </summary>
+	const std::vector<std::shared_ptr<QueueHealthInfo>>& GetQs() const;
+	void SetQs(const std::vector<std::shared_ptr<QueueHealthInfo>>& Value);
+	bool HasQs() const;
+
+	std::shared_ptr<QueueHealthSummary> GetSy() const;
+	void SetSy(const std::shared_ptr<QueueHealthSummary>& Value);
+	bool HasSy() const;
+
+
+protected:
+	std::optional<int64_t> m_Ts;
+	std::optional<std::vector<std::shared_ptr<QueueHealthInfo>>> m_Qs;
+	std::optional<std::shared_ptr<QueueHealthSummary>> m_Sy;
+};
+
+/// <summary>
+/// Aggregate summary across all discovered queues.
+/// </summary>
+class QueueHealthSummary : public csp::services::DtoBase
+{
+public:
+	QueueHealthSummary();
+	virtual ~QueueHealthSummary();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Total messages waiting across all queues
+	/// </summary>
+	int32_t GetTw() const;
+	void SetTw(int32_t Value);
+	bool HasTw() const;
+
+	/// <summary>
+	/// Total messages in-flight across all queues
+	/// </summary>
+	int32_t GetTif() const;
+	void SetTif(int32_t Value);
+	bool HasTif() const;
+
+	/// <summary>
+	/// Total messages in all DLQs
+	/// </summary>
+	int32_t GetTdl() const;
+	void SetTdl(int32_t Value);
+	bool HasTdl() const;
+
+	/// <summary>
+	/// Number of queues with waiting > 0 or inFlight > 0
+	/// </summary>
+	int32_t GetAq() const;
+	void SetAq(int32_t Value);
+	bool HasAq() const;
+
+	/// <summary>
+	/// Total number of (non-DLQ) queues discovered
+	/// </summary>
+	int32_t GetTqd() const;
+	void SetTqd(int32_t Value);
+	bool HasTqd() const;
+
+
+protected:
+	std::optional<int32_t> m_Tw;
+	std::optional<int32_t> m_Tif;
+	std::optional<int32_t> m_Tdl;
+	std::optional<int32_t> m_Aq;
+	std::optional<int32_t> m_Tqd;
+};
+
+/// <summary>
+/// Summary of queue wait times for the queue wait summary endpoint
+/// </summary>
+class QueueWaitSummary : public csp::services::DtoBase
+{
+public:
+	QueueWaitSummary();
+	virtual ~QueueWaitSummary();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Average graph-level queue wait in milliseconds
+	/// </summary>
+	double GetAvgGraphQueueWaitMs() const;
+	void SetAvgGraphQueueWaitMs(double Value);
+	bool HasAvgGraphQueueWaitMs() const;
+
+	/// <summary>
+	/// Median (P50) graph-level queue wait in milliseconds
+	/// </summary>
+	double GetP50() const;
+	void SetP50(double Value);
+	bool HasP50() const;
+
+	/// <summary>
+	/// 95th percentile graph-level queue wait in milliseconds
+	/// </summary>
+	double GetP95() const;
+	void SetP95(double Value);
+	bool HasP95() const;
+
+	/// <summary>
+	/// 99th percentile graph-level queue wait in milliseconds
+	/// </summary>
+	double GetP99() const;
+	void SetP99(double Value);
+	bool HasP99() const;
+
+	/// <summary>
+	/// Total graph-level queue wait in milliseconds
+	/// </summary>
+	double GetTotalGraphQueueWaitMs() const;
+	void SetTotalGraphQueueWaitMs(double Value);
+	bool HasTotalGraphQueueWaitMs() const;
+
+	/// <summary>
+	/// Number of executions with queue wait data
+	/// </summary>
+	int32_t GetCount() const;
+	void SetCount(int32_t Value);
+	bool HasCount() const;
+
+	/// <summary>
+	/// Per-queue breakdown of wait vs processing time
+	/// </summary>
+	const std::vector<std::shared_ptr<QueueBreakdownEntry>>& GetByQueue() const;
+	void SetByQueue(const std::vector<std::shared_ptr<QueueBreakdownEntry>>& Value);
+	bool HasByQueue() const;
+
+
+protected:
+	std::optional<double> m_AvgGraphQueueWaitMs;
+	std::optional<double> m_P50;
+	std::optional<double> m_P95;
+	std::optional<double> m_P99;
+	std::optional<double> m_TotalGraphQueueWaitMs;
+	std::optional<int32_t> m_Count;
+	std::optional<std::vector<std::shared_ptr<QueueBreakdownEntry>>> m_ByQueue;
+};
+
+/// <summary>
+/// Info about a single redrive task from ListMessageMoveTasks.
+/// </summary>
+class RedriveTaskInfo : public csp::services::DtoBase
+{
+public:
+	RedriveTaskInfo();
+	virtual ~RedriveTaskInfo();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Handle for the task (null if not RUNNING)
+	/// </summary>
+	utility::string_t GetTaskHandle() const;
+	void SetTaskHandle(const utility::string_t& Value);
+	bool HasTaskHandle() const;
+
+	/// <summary>
+	/// Task status: RUNNING, COMPLETED, CANCELLED, FAILED
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+	/// <summary>
+	/// Messages moved so far
+	/// </summary>
+	int64_t GetApproximateNumberOfMessagesMoved() const;
+	void SetApproximateNumberOfMessagesMoved(int64_t Value);
+	bool HasApproximateNumberOfMessagesMoved() const;
+
+	/// <summary>
+	/// Total messages to move
+	/// </summary>
+	int64_t GetApproximateNumberOfMessagesToMove() const;
+	void SetApproximateNumberOfMessagesToMove(int64_t Value);
+	bool HasApproximateNumberOfMessagesToMove() const;
+
+	/// <summary>
+	/// When the task started (epoch ms)
+	/// </summary>
+	int64_t GetStartedTimestamp() const;
+	void SetStartedTimestamp(int64_t Value);
+	bool HasStartedTimestamp() const;
+
+	/// <summary>
+	/// Reason for failure if status is FAILED
+	/// </summary>
+	utility::string_t GetFailureReason() const;
+	void SetFailureReason(const utility::string_t& Value);
+	bool HasFailureReason() const;
+
+
+protected:
+	std::optional<utility::string_t> m_TaskHandle;
+	std::optional<utility::string_t> m_Status;
+	std::optional<int64_t> m_ApproximateNumberOfMessagesMoved;
+	std::optional<int64_t> m_ApproximateNumberOfMessagesToMove;
+	std::optional<int64_t> m_StartedTimestamp;
+	std::optional<utility::string_t> m_FailureReason;
+};
+
+/// <summary>
+/// Request body for saving a validated GAC credential.
+/// </summary>
+class SaveValidatedGacRequest : public csp::services::DtoBase
+{
+public:
+	SaveValidatedGacRequest();
+	virtual ~SaveValidatedGacRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Tenant that owns the secret.
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// The env var name (e.g., "GOOGLE_APPLICATION_CREDENTIALS").
+	/// </summary>
+	utility::string_t GetEnvVarName() const;
+	void SetEnvVarName(const utility::string_t& Value);
+	bool HasEnvVarName() const;
+
+	/// <summary>
+	/// The raw GAC JSON to save as the tenant secret.
+	/// </summary>
+	utility::string_t GetGacJson() const;
+	void SetGacJson(const utility::string_t& Value);
+	bool HasGacJson() const;
+
+	std::shared_ptr<GacValidationResult> GetValidationResult() const;
+	void SetValidationResult(const std::shared_ptr<GacValidationResult>& Value);
+	bool HasValidationResult() const;
+
+
+protected:
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<utility::string_t> m_EnvVarName;
+	std::optional<utility::string_t> m_GacJson;
+	std::optional<std::shared_ptr<GacValidationResult>> m_ValidationResult;
 };
 
 /// <summary>
@@ -3450,6 +6130,97 @@ protected:
 	std::optional<std::shared_ptr<TicketStatus>> m_TicketStatus;
 	std::optional<utility::string_t> m_UserId;
 	std::optional<utility::string_t> m_EmailLower;
+};
+
+/// <summary>
+/// Request to start observing an execution's logs
+/// </summary>
+class StartObserveRequest : public csp::services::DtoBase
+{
+public:
+	StartObserveRequest();
+	virtual ~StartObserveRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Optional client session identifier for the observer.
+	/// </summary>
+	utility::string_t GetSessionId() const;
+	void SetSessionId(const utility::string_t& Value);
+	bool HasSessionId() const;
+
+
+protected:
+	std::optional<utility::string_t> m_SessionId;
+};
+
+/// <summary>
+/// Request body for starting a DLQ redrive
+/// </summary>
+class StartRedriveRequest : public csp::services::DtoBase
+{
+public:
+	StartRedriveRequest();
+	virtual ~StartRedriveRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Optional rate limit for the redrive in messages per second.
+	/// </summary>
+	int32_t GetMaxMessagesPerSecond() const;
+	void SetMaxMessagesPerSecond(int32_t Value);
+	bool HasMaxMessagesPerSecond() const;
+
+
+protected:
+	std::optional<int32_t> m_MaxMessagesPerSecond;
+};
+
+/// <summary>
+/// Result of starting a DLQ redrive (StartMessageMoveTask).
+/// </summary>
+class StartRedriveResult : public csp::services::DtoBase
+{
+public:
+	StartRedriveResult();
+	virtual ~StartRedriveResult();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Whether the redrive was started successfully
+	/// </summary>
+	bool GetSuccess() const;
+	void SetSuccess(const bool& Value);
+	bool HasSuccess() const;
+
+	/// <summary>
+	/// Handle for the started message move task
+	/// </summary>
+	utility::string_t GetTaskHandle() const;
+	void SetTaskHandle(const utility::string_t& Value);
+	bool HasTaskHandle() const;
+
+	/// <summary>
+	/// Error message if the operation failed
+	/// </summary>
+	utility::string_t GetError() const;
+	void SetError(const utility::string_t& Value);
+	bool HasError() const;
+
+
+protected:
+	std::optional<bool> m_Success;
+	std::optional<utility::string_t> m_TaskHandle;
+	std::optional<utility::string_t> m_Error;
 };
 
 class StringDataPage : public csp::services::DtoBase

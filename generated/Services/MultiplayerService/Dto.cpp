@@ -3409,6 +3409,215 @@ void ObjectMessagePatchDto::SetComponents(const std::map<utility::string_t, std:
 	m_Components = Value;
 }
 
+ProblemDetails::ProblemDetails()
+{
+}
+ProblemDetails::~ProblemDetails()
+{
+}
+
+utility::string_t ProblemDetails::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Type.has_value())
+	{
+		rapidjson::Value TypeValue(TypeToJsonValue(m_Type, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("type", TypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Title.has_value())
+	{
+		rapidjson::Value TitleValue(TypeToJsonValue(m_Title, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("title", TitleValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Status.has_value())
+	{
+		rapidjson::Value StatusValue(TypeToJsonValue(m_Status, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("status", StatusValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Detail.has_value())
+	{
+		rapidjson::Value DetailValue(TypeToJsonValue(m_Detail, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("detail", DetailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Instance.has_value())
+	{
+		rapidjson::Value InstanceValue(TypeToJsonValue(m_Instance, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("instance", InstanceValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Extensions.has_value())
+	{
+		rapidjson::Value ExtensionsValue(TypeToJsonValue(m_Extensions, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("extensions", ExtensionsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ProblemDetails::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProblemDetails::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("type"))
+	{
+		const rapidjson::Value& TypeValue = JsonDoc["type"];
+
+		if (TypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TypeValue, m_Type);
+		}
+	}
+
+	if (JsonDoc.HasMember("title"))
+	{
+		const rapidjson::Value& TitleValue = JsonDoc["title"];
+
+		if (TitleValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TitleValue, m_Title);
+		}
+	}
+
+	if (JsonDoc.HasMember("status"))
+	{
+		const rapidjson::Value& StatusValue = JsonDoc["status"];
+
+		if (StatusValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StatusValue, m_Status);
+		}
+	}
+
+	if (JsonDoc.HasMember("detail"))
+	{
+		const rapidjson::Value& DetailValue = JsonDoc["detail"];
+
+		if (DetailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DetailValue, m_Detail);
+		}
+	}
+
+	if (JsonDoc.HasMember("instance"))
+	{
+		const rapidjson::Value& InstanceValue = JsonDoc["instance"];
+
+		if (InstanceValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(InstanceValue, m_Instance);
+		}
+	}
+
+	if (JsonDoc.HasMember("extensions"))
+	{
+		const rapidjson::Value& ExtensionsValue = JsonDoc["extensions"];
+
+		if (ExtensionsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExtensionsValue, m_Extensions);
+		}
+	}
+}
+
+
+utility::string_t ProblemDetails::GetType() const
+{
+	return m_Type.value();
+}
+
+bool ProblemDetails::HasType() const
+{
+	return m_Type.has_value();
+}
+void ProblemDetails::SetType(const utility::string_t& Value)
+{
+	m_Type = Value;
+}
+utility::string_t ProblemDetails::GetTitle() const
+{
+	return m_Title.value();
+}
+
+bool ProblemDetails::HasTitle() const
+{
+	return m_Title.has_value();
+}
+void ProblemDetails::SetTitle(const utility::string_t& Value)
+{
+	m_Title = Value;
+}
+int32_t ProblemDetails::GetStatus() const
+{
+	return m_Status.value();
+}
+
+bool ProblemDetails::HasStatus() const
+{
+	return m_Status.has_value();
+}
+void ProblemDetails::SetStatus(int32_t Value)
+{
+	m_Status = Value;
+}
+utility::string_t ProblemDetails::GetDetail() const
+{
+	return m_Detail.value();
+}
+
+bool ProblemDetails::HasDetail() const
+{
+	return m_Detail.has_value();
+}
+void ProblemDetails::SetDetail(const utility::string_t& Value)
+{
+	m_Detail = Value;
+}
+utility::string_t ProblemDetails::GetInstance() const
+{
+	return m_Instance.value();
+}
+
+bool ProblemDetails::HasInstance() const
+{
+	return m_Instance.has_value();
+}
+void ProblemDetails::SetInstance(const utility::string_t& Value)
+{
+	m_Instance = Value;
+}
+const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& ProblemDetails::GetExtensions() const
+{
+	return m_Extensions.value();
+}
+
+bool ProblemDetails::HasExtensions() const
+{
+	return m_Extensions.has_value();
+}
+void ProblemDetails::SetExtensions(const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& Value)
+{
+	m_Extensions = Value;
+}
+
 PubSubModel::PubSubModel()
 {
 }
@@ -3934,6 +4143,12 @@ utility::string_t ScopeLeaderDto::ToJson() const
 		JsonDoc.AddMember("electionInProgress", ElectionInProgressValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_ExcludeConnectionIds.has_value())
+	{
+		rapidjson::Value ExcludeConnectionIdsValue(TypeToJsonValue(m_ExcludeConnectionIds, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("excludeConnectionIds", ExcludeConnectionIdsValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -3993,6 +4208,16 @@ void ScopeLeaderDto::FromJson(const utility::string_t& Val)
 			JsonValueToType(ElectionInProgressValue, m_ElectionInProgress);
 		}
 	}
+
+	if (JsonDoc.HasMember("excludeConnectionIds"))
+	{
+		const rapidjson::Value& ExcludeConnectionIdsValue = JsonDoc["excludeConnectionIds"];
+
+		if (ExcludeConnectionIdsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExcludeConnectionIdsValue, m_ExcludeConnectionIds);
+		}
+	}
 }
 
 
@@ -4047,6 +4272,19 @@ bool ScopeLeaderDto::HasElectionInProgress() const
 void ScopeLeaderDto::SetElectionInProgress(const bool& Value)
 {
 	m_ElectionInProgress = Value;
+}
+const std::vector<utility::string_t>& ScopeLeaderDto::GetExcludeConnectionIds() const
+{
+	return m_ExcludeConnectionIds.value();
+}
+
+bool ScopeLeaderDto::HasExcludeConnectionIds() const
+{
+	return m_ExcludeConnectionIds.has_value();
+}
+void ScopeLeaderDto::SetExcludeConnectionIds(const std::vector<utility::string_t>& Value)
+{
+	m_ExcludeConnectionIds = Value;
 }
 
 ServiceVersionInfo::ServiceVersionInfo()

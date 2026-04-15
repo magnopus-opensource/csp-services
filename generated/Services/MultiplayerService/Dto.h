@@ -27,6 +27,7 @@ class ObjectMessageDocumentDtoDataPage;
 class ObjectMessageDto;
 class ObjectMessageDtoDataPage;
 class ObjectMessagePatchDto;
+class ProblemDetails;
 class PubSubModel;
 class ScopeDto;
 class ScopeDtoDataPage;
@@ -956,6 +957,50 @@ protected:
 	std::optional<std::map<utility::string_t, std::shared_ptr<IComponentData>>> m_Components;
 };
 
+class ProblemDetails : public csp::services::DtoBase
+{
+public:
+	ProblemDetails();
+	virtual ~ProblemDetails();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	utility::string_t GetType() const;
+	void SetType(const utility::string_t& Value);
+	bool HasType() const;
+
+	utility::string_t GetTitle() const;
+	void SetTitle(const utility::string_t& Value);
+	bool HasTitle() const;
+
+	int32_t GetStatus() const;
+	void SetStatus(int32_t Value);
+	bool HasStatus() const;
+
+	utility::string_t GetDetail() const;
+	void SetDetail(const utility::string_t& Value);
+	bool HasDetail() const;
+
+	utility::string_t GetInstance() const;
+	void SetInstance(const utility::string_t& Value);
+	bool HasInstance() const;
+
+	const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& GetExtensions() const;
+	void SetExtensions(const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& Value);
+	bool HasExtensions() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Type;
+	std::optional<utility::string_t> m_Title;
+	std::optional<int32_t> m_Status;
+	std::optional<utility::string_t> m_Detail;
+	std::optional<utility::string_t> m_Instance;
+	std::optional<std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>> m_Extensions;
+};
+
 /// <summary>
 /// Possible pub/sub models
 /// </summary>
@@ -1132,12 +1177,20 @@ public:
 	void SetElectionInProgress(const bool& Value);
 	bool HasElectionInProgress() const;
 
+	/// <summary>
+	/// List of connection ids to exclude from being elected as leader
+	/// </summary>
+	const std::vector<utility::string_t>& GetExcludeConnectionIds() const;
+	void SetExcludeConnectionIds(const std::vector<utility::string_t>& Value);
+	bool HasExcludeConnectionIds() const;
+
 
 protected:
 	std::optional<utility::string_t> m_ScopeId;
 	std::optional<utility::string_t> m_LeaderUserId;
 	std::optional<int32_t> m_LeaderClientId;
 	std::optional<bool> m_ElectionInProgress;
+	std::optional<std::vector<utility::string_t>> m_ExcludeConnectionIds;
 };
 
 /// <summary>

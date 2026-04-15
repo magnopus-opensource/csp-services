@@ -1122,7 +1122,7 @@ public:
 
 
 	/// <summary>
-	/// Gets all of the positions that are spoof positions for the specified userId
+	/// Gets all the positions that are spoof positions for the specified userId
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/users/{userId}/positions/spoof
@@ -1140,7 +1140,7 @@ public:
 
 
 	/// <summary>
-	/// Deletes all of the positions that are spoof positions for the specified userId
+	/// Deletes all the positions that are spoof positions for the specified userId
 	/// </summary>
 	/// <remarks>
 	/// DELETE /api/v1/users/{userId}/positions/spoof

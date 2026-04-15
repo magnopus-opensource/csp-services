@@ -241,6 +241,12 @@ void ClientConnectionApi::client_connectionsGet([[maybe_unused]] const client_co
 	}
 
 
+	if (Params.ExcludedConnectionIds.has_value())
+	{
+		Uri.AddQueryParams("ExcludedConnectionIds", Params.ExcludedConnectionIds.value());
+	}
+
+
 	if (Params.Skip.has_value())
 	{
 		Uri.AddQueryParams("Skip", Params.Skip.value());
@@ -310,11 +316,35 @@ void ClientConnectionApi::client_connectionsRequest_to_disconnectPost(
 		Uri.AddQueryParams("ConnectionStatus", Params.ConnectionStatus.value());
 	}
 
+
+	if (Params.ExcludedConnectionIds.has_value())
+	{
+		Uri.AddQueryParams("ExcludedConnectionIds", Params.ExcludedConnectionIds.value());
+	}
+
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ClientConnectionApi::client_connectionsMeCleanupDelete([[maybe_unused]] const client_connectionsMeCleanupDeleteParams& Params,
+															csp::services::ApiResponseHandlerBase* ResponseHandler,
+															csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/client-connections/me/cleanup").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
@@ -608,6 +638,12 @@ void ObjectMessageApi::objectsOwnersUserIdBatchPost([[maybe_unused]] const objec
 	Uri.SetWithParams(
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/objects/owners/{userId}/batch").c_str(),
 		{Params.userId});
+
+
+	if (Params.fileName.has_value())
+	{
+		Uri.AddQueryParams("fileName", Params.fileName.value());
+	}
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
