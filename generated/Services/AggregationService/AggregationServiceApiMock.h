@@ -357,6 +357,39 @@ public:
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
+	MOCK_METHOD(void,
+				inspectorValidate_secretPost,
+				(const inspectorValidate_secretPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorSave_validated_secretPost,
+				(const inspectorSave_validated_secretPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorSecret_validation_metadataGet,
+				(const inspectorSecret_validation_metadataGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class InspectorAuditTrailApiMock final : public IInspectorAuditTrailApiBase
+{
+public:
+	InspectorAuditTrailApiMock() : IInspectorAuditTrailApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				inspectorAudit_trailGet,
+				(const inspectorAudit_trailGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
 };
 
 class InspectorBugReportApiMock final : public IInspectorBugReportApiBase
@@ -404,6 +437,78 @@ public:
 				(const, override));
 };
 
+class InspectorNodeDefinitionApiMock final : public IInspectorNodeDefinitionApiBase
+{
+public:
+	InspectorNodeDefinitionApiMock() : IInspectorNodeDefinitionApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				inspectorNode_definitionsGet,
+				(const inspectorNode_definitionsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorNode_definitionsPost,
+				(const inspectorNode_definitionsPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorNode_definitionsNodeTypeIdGet,
+				(const inspectorNode_definitionsNodeTypeIdGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorNode_definitionsNodeTypeIdPut,
+				(const inspectorNode_definitionsNodeTypeIdPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorNode_definitionsNodeTypeIdStatusPatch,
+				(const inspectorNode_definitionsNodeTypeIdStatusPatchParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorNode_definitionsNodeTypeIdHistoryGet,
+				(const inspectorNode_definitionsNodeTypeIdHistoryGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorNode_definitionsNodeTypeIdHistoryVerGet,
+				(const inspectorNode_definitionsNodeTypeIdHistoryVerGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorNode_definitionsNodeTypeIdRestoreVerPost,
+				(const inspectorNode_definitionsNodeTypeIdRestoreVerPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class InspectorWorkerRuntimeApiMock final : public IInspectorWorkerRuntimeApiBase
+{
+public:
+	InspectorWorkerRuntimeApiMock() : IInspectorWorkerRuntimeApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				inspectorWorker_runtimesGet,
+				(const inspectorWorker_runtimesGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
 class MusubiGraphApiMock final : public IMusubiGraphApiBase
 {
 public:
@@ -432,6 +537,27 @@ public:
 	MOCK_METHOD(void,
 				musubiChaosQueueNameActiveGet,
 				(const musubiChaosQueueNameActiveGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class NodeDefinitionApiMock final : public INodeDefinitionApiBase
+{
+public:
+	NodeDefinitionApiMock() : INodeDefinitionApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				node_definitionsFlatGet,
+				(const node_definitionsFlatGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				node_definitionsNestedGet,
+				(const node_definitionsNestedGetParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));

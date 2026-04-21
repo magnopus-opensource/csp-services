@@ -679,6 +679,18 @@ utility::string_t ApplicationSecretDto::ToJson() const
 		JsonDoc.AddMember("validationConfig", ValidationConfigValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_QuotaFeatureName.has_value())
+	{
+		rapidjson::Value QuotaFeatureNameValue(TypeToJsonValue(m_QuotaFeatureName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("quotaFeatureName", QuotaFeatureNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AllowedTenants.has_value())
+	{
+		rapidjson::Value AllowedTenantsValue(TypeToJsonValue(m_AllowedTenants, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowedTenants", AllowedTenantsValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_CreatedAt.has_value())
 	{
 		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
@@ -806,6 +818,26 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 		else
 		{
 			CSP_LOG_ERROR_MSG("Error: Non-nullable member validationConfig is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("quotaFeatureName"))
+	{
+		const rapidjson::Value& QuotaFeatureNameValue = JsonDoc["quotaFeatureName"];
+
+		if (QuotaFeatureNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(QuotaFeatureNameValue, m_QuotaFeatureName);
+		}
+	}
+
+	if (JsonDoc.HasMember("allowedTenants"))
+	{
+		const rapidjson::Value& AllowedTenantsValue = JsonDoc["allowedTenants"];
+
+		if (AllowedTenantsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowedTenantsValue, m_AllowedTenants);
 		}
 	}
 
@@ -943,6 +975,32 @@ bool ApplicationSecretDto::HasValidationConfig() const
 void ApplicationSecretDto::SetValidationConfig(const std::shared_ptr<GacValidationConfigDto>& Value)
 {
 	m_ValidationConfig = Value;
+}
+utility::string_t ApplicationSecretDto::GetQuotaFeatureName() const
+{
+	return m_QuotaFeatureName.value();
+}
+
+bool ApplicationSecretDto::HasQuotaFeatureName() const
+{
+	return m_QuotaFeatureName.has_value();
+}
+void ApplicationSecretDto::SetQuotaFeatureName(const utility::string_t& Value)
+{
+	m_QuotaFeatureName = Value;
+}
+const std::vector<utility::string_t>& ApplicationSecretDto::GetAllowedTenants() const
+{
+	return m_AllowedTenants.value();
+}
+
+bool ApplicationSecretDto::HasAllowedTenants() const
+{
+	return m_AllowedTenants.has_value();
+}
+void ApplicationSecretDto::SetAllowedTenants(const std::vector<utility::string_t>& Value)
+{
+	m_AllowedTenants = Value;
 }
 utility::string_t ApplicationSecretDto::GetCreatedAt() const
 {
@@ -1826,6 +1884,18 @@ utility::string_t CreateApplicationSecretRequest::ToJson() const
 		JsonDoc.AddMember("validationConfig", ValidationConfigValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_QuotaFeatureName.has_value())
+	{
+		rapidjson::Value QuotaFeatureNameValue(TypeToJsonValue(m_QuotaFeatureName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("quotaFeatureName", QuotaFeatureNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AllowedTenants.has_value())
+	{
+		rapidjson::Value AllowedTenantsValue(TypeToJsonValue(m_AllowedTenants, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowedTenants", AllowedTenantsValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -1931,6 +2001,26 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 			CSP_LOG_ERROR_MSG("Error: Non-nullable member validationConfig is null!");
 		}
 	}
+
+	if (JsonDoc.HasMember("quotaFeatureName"))
+	{
+		const rapidjson::Value& QuotaFeatureNameValue = JsonDoc["quotaFeatureName"];
+
+		if (QuotaFeatureNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(QuotaFeatureNameValue, m_QuotaFeatureName);
+		}
+	}
+
+	if (JsonDoc.HasMember("allowedTenants"))
+	{
+		const rapidjson::Value& AllowedTenantsValue = JsonDoc["allowedTenants"];
+
+		if (AllowedTenantsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowedTenantsValue, m_AllowedTenants);
+		}
+	}
 }
 
 
@@ -2024,6 +2114,32 @@ bool CreateApplicationSecretRequest::HasValidationConfig() const
 void CreateApplicationSecretRequest::SetValidationConfig(const std::shared_ptr<GacValidationConfigDto>& Value)
 {
 	m_ValidationConfig = Value;
+}
+utility::string_t CreateApplicationSecretRequest::GetQuotaFeatureName() const
+{
+	return m_QuotaFeatureName.value();
+}
+
+bool CreateApplicationSecretRequest::HasQuotaFeatureName() const
+{
+	return m_QuotaFeatureName.has_value();
+}
+void CreateApplicationSecretRequest::SetQuotaFeatureName(const utility::string_t& Value)
+{
+	m_QuotaFeatureName = Value;
+}
+const std::vector<utility::string_t>& CreateApplicationSecretRequest::GetAllowedTenants() const
+{
+	return m_AllowedTenants.value();
+}
+
+bool CreateApplicationSecretRequest::HasAllowedTenants() const
+{
+	return m_AllowedTenants.has_value();
+}
+void CreateApplicationSecretRequest::SetAllowedTenants(const std::vector<utility::string_t>& Value)
+{
+	m_AllowedTenants = Value;
 }
 
 CreateHostnameRequest::CreateHostnameRequest()
@@ -2125,6 +2241,74 @@ bool CreateHostnameRequest::HasType() const
 void CreateHostnameRequest::SetType(const utility::string_t& Value)
 {
 	m_Type = Value;
+}
+
+CreateLegacyHostnameRequest::CreateLegacyHostnameRequest()
+{
+}
+CreateLegacyHostnameRequest::~CreateLegacyHostnameRequest()
+{
+}
+
+utility::string_t CreateLegacyHostnameRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Hostname.has_value())
+	{
+		rapidjson::Value HostnameValue(TypeToJsonValue(m_Hostname, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("hostname", HostnameValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void CreateLegacyHostnameRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateLegacyHostnameRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("hostname"))
+	{
+		const rapidjson::Value& HostnameValue = JsonDoc["hostname"];
+
+		if (HostnameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(HostnameValue, m_Hostname);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member hostname is null!");
+		}
+	}
+}
+
+
+utility::string_t CreateLegacyHostnameRequest::GetHostname() const
+{
+	return m_Hostname.value();
+}
+
+bool CreateLegacyHostnameRequest::HasHostname() const
+{
+	return m_Hostname.has_value();
+}
+void CreateLegacyHostnameRequest::SetHostname(const utility::string_t& Value)
+{
+	m_Hostname = Value;
 }
 
 CreateUserRequest::CreateUserRequest()
@@ -10219,6 +10403,12 @@ utility::string_t SocialProviderInfo::ToJson() const
 		JsonDoc.AddMember("authorizeEndpoint", AuthorizeEndpointValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_ThirdPartyAuthStateId.has_value())
+	{
+		rapidjson::Value ThirdPartyAuthStateIdValue(TypeToJsonValue(m_ThirdPartyAuthStateId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("thirdPartyAuthStateId", ThirdPartyAuthStateIdValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_RedirectUri.has_value())
 	{
 		rapidjson::Value RedirectUriValue(TypeToJsonValue(m_RedirectUri, JsonDoc.GetAllocator()));
@@ -10285,6 +10475,16 @@ void SocialProviderInfo::FromJson(const utility::string_t& Val)
 		}
 	}
 
+	if (JsonDoc.HasMember("thirdPartyAuthStateId"))
+	{
+		const rapidjson::Value& ThirdPartyAuthStateIdValue = JsonDoc["thirdPartyAuthStateId"];
+
+		if (ThirdPartyAuthStateIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ThirdPartyAuthStateIdValue, m_ThirdPartyAuthStateId);
+		}
+	}
+
 	if (JsonDoc.HasMember("redirectUri"))
 	{
 		const rapidjson::Value& RedirectUriValue = JsonDoc["redirectUri"];
@@ -10348,6 +10548,19 @@ bool SocialProviderInfo::HasAuthorizeEndpoint() const
 void SocialProviderInfo::SetAuthorizeEndpoint(const utility::string_t& Value)
 {
 	m_AuthorizeEndpoint = Value;
+}
+utility::string_t SocialProviderInfo::GetThirdPartyAuthStateId() const
+{
+	return m_ThirdPartyAuthStateId.value();
+}
+
+bool SocialProviderInfo::HasThirdPartyAuthStateId() const
+{
+	return m_ThirdPartyAuthStateId.has_value();
+}
+void SocialProviderInfo::SetThirdPartyAuthStateId(const utility::string_t& Value)
+{
+	m_ThirdPartyAuthStateId = Value;
 }
 utility::string_t SocialProviderInfo::GetRedirectUri() const
 {
@@ -11498,6 +11711,12 @@ utility::string_t TenantDto::ToJson() const
 		JsonDoc.AddMember("allowGuestLogin", AllowGuestLoginValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_EnforceSecretValidation.has_value())
+	{
+		rapidjson::Value EnforceSecretValidationValue(TypeToJsonValue(m_EnforceSecretValidation, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("enforceSecretValidation", EnforceSecretValidationValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_CreatedAt.has_value())
 	{
 		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
@@ -11739,6 +11958,20 @@ void TenantDto::FromJson(const utility::string_t& Val)
 		else
 		{
 			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowGuestLogin is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("enforceSecretValidation"))
+	{
+		const rapidjson::Value& EnforceSecretValidationValue = JsonDoc["enforceSecretValidation"];
+
+		if (EnforceSecretValidationValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EnforceSecretValidationValue, m_EnforceSecretValidation);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member enforceSecretValidation is null!");
 		}
 	}
 
@@ -11984,6 +12217,19 @@ bool TenantDto::HasAllowGuestLogin() const
 void TenantDto::SetAllowGuestLogin(const bool& Value)
 {
 	m_AllowGuestLogin = Value;
+}
+bool TenantDto::GetEnforceSecretValidation() const
+{
+	return m_EnforceSecretValidation.value();
+}
+
+bool TenantDto::HasEnforceSecretValidation() const
+{
+	return m_EnforceSecretValidation.has_value();
+}
+void TenantDto::SetEnforceSecretValidation(const bool& Value)
+{
+	m_EnforceSecretValidation = Value;
 }
 utility::string_t TenantDto::GetCreatedAt() const
 {
@@ -13327,6 +13573,18 @@ utility::string_t UpdateApplicationSecretRequest::ToJson() const
 		JsonDoc.AddMember("validationConfig", ValidationConfigValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_QuotaFeatureName.has_value())
+	{
+		rapidjson::Value QuotaFeatureNameValue(TypeToJsonValue(m_QuotaFeatureName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("quotaFeatureName", QuotaFeatureNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AllowedTenants.has_value())
+	{
+		rapidjson::Value AllowedTenantsValue(TypeToJsonValue(m_AllowedTenants, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowedTenants", AllowedTenantsValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -13418,6 +13676,26 @@ void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 			CSP_LOG_ERROR_MSG("Error: Non-nullable member validationConfig is null!");
 		}
 	}
+
+	if (JsonDoc.HasMember("quotaFeatureName"))
+	{
+		const rapidjson::Value& QuotaFeatureNameValue = JsonDoc["quotaFeatureName"];
+
+		if (QuotaFeatureNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(QuotaFeatureNameValue, m_QuotaFeatureName);
+		}
+	}
+
+	if (JsonDoc.HasMember("allowedTenants"))
+	{
+		const rapidjson::Value& AllowedTenantsValue = JsonDoc["allowedTenants"];
+
+		if (AllowedTenantsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowedTenantsValue, m_AllowedTenants);
+		}
+	}
 }
 
 
@@ -13498,6 +13776,32 @@ bool UpdateApplicationSecretRequest::HasValidationConfig() const
 void UpdateApplicationSecretRequest::SetValidationConfig(const std::shared_ptr<GacValidationConfigDto>& Value)
 {
 	m_ValidationConfig = Value;
+}
+utility::string_t UpdateApplicationSecretRequest::GetQuotaFeatureName() const
+{
+	return m_QuotaFeatureName.value();
+}
+
+bool UpdateApplicationSecretRequest::HasQuotaFeatureName() const
+{
+	return m_QuotaFeatureName.has_value();
+}
+void UpdateApplicationSecretRequest::SetQuotaFeatureName(const utility::string_t& Value)
+{
+	m_QuotaFeatureName = Value;
+}
+const std::vector<utility::string_t>& UpdateApplicationSecretRequest::GetAllowedTenants() const
+{
+	return m_AllowedTenants.value();
+}
+
+bool UpdateApplicationSecretRequest::HasAllowedTenants() const
+{
+	return m_AllowedTenants.has_value();
+}
+void UpdateApplicationSecretRequest::SetAllowedTenants(const std::vector<utility::string_t>& Value)
+{
+	m_AllowedTenants = Value;
 }
 
 UpdateEmailSettingsRequest::UpdateEmailSettingsRequest()

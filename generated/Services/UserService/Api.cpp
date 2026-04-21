@@ -914,6 +914,12 @@ void EncryptedValueApi::encrypted_valuesTenantKeyNamePut([[maybe_unused]] const 
 			.c_str(),
 		{Params.keyName});
 
+
+	if (Params.applicationName.has_value())
+	{
+		Uri.AddQueryParams("applicationName", Params.applicationName.value());
+	}
+
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
 	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
@@ -932,6 +938,12 @@ void EncryptedValueApi::encrypted_valuesTenantKeyNameDelete([[maybe_unused]] con
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/encrypted-values/tenant/{keyName}")
 			.c_str(),
 		{Params.keyName});
+
+
+	if (Params.applicationName.has_value())
+	{
+		Uri.AddQueryParams("applicationName", Params.applicationName.value());
+	}
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
@@ -3663,6 +3675,73 @@ void SuperAdminTenantApi::super_adminTenantsTenantNameHostnamesHostnameDelete(
 								  ServiceDefinition.GetURI().c_str(),
 								  ServiceDefinition.GetVersion(),
 								  "/super-admin/tenants/{tenantName}/hostnames/{hostname}")
+						  .c_str(),
+					  {Params.tenantName, Params.hostname});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameLegacy_hostnamesPost(
+	[[maybe_unused]] const super_adminTenantsTenantNameLegacy_hostnamesPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/legacy-hostnames")
+						  .c_str(),
+					  {Params.tenantName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameLegacy_hostnamesHostnamePut(
+	[[maybe_unused]] const super_adminTenantsTenantNameLegacy_hostnamesHostnamePutParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/legacy-hostnames/{hostname}")
+						  .c_str(),
+					  {Params.tenantName, Params.hostname});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void SuperAdminTenantApi::super_adminTenantsTenantNameLegacy_hostnamesHostnameDelete(
+	[[maybe_unused]] const super_adminTenantsTenantNameLegacy_hostnamesHostnameDeleteParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/super-admin/tenants/{tenantName}/legacy-hostnames/{hostname}")
 						  .c_str(),
 					  {Params.tenantName, Params.hostname});
 

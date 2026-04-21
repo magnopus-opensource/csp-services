@@ -153,6 +153,10 @@ public:
 	}
 
 	MOCK_METHOD(void,
+				tiersGet,
+				(const tiersGetParams&, csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
 				tiersTierNameQuotasGet,
 				(const tiersTierNameQuotasGetParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -173,6 +177,75 @@ public:
 	MOCK_METHOD(void,
 				tiersTierNameFeaturesFeatureNameQuotaDelete,
 				(const tiersTierNameFeaturesFeatureNameQuotaDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				quota_featuresGet,
+				(const quota_featuresGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tiersTierNameFeaturesFeatureNameHistoryGet,
+				(const tiersTierNameFeaturesFeatureNameHistoryGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tiersTierNameFeaturesFeatureNameHistoryVerGet,
+				(const tiersTierNameFeaturesFeatureNameHistoryVerGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tiersTierNameFeaturesFeatureNameRestoreVerPost,
+				(const tiersTierNameFeaturesFeatureNameRestoreVerPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class QuotaTierApiMock final : public IQuotaTierApiBase
+{
+public:
+	QuotaTierApiMock() : IQuotaTierApiBase(nullptr)
+	{
+	}
+
+	MOCK_METHOD(void,
+				tier_definitionsGet,
+				(const tier_definitionsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tier_definitionsTierNameGet,
+				(const tier_definitionsTierNameGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tier_definitionsTierNamePost,
+				(const tier_definitionsTierNamePostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tier_definitionsTierNamePut,
+				(const tier_definitionsTierNamePutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tier_definitionsTierNameDelete,
+				(const tier_definitionsTierNameDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				tier_definitionsSeedPost,
+				(const tier_definitionsSeedPostParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
@@ -224,6 +297,12 @@ public:
 	MOCK_METHOD(void,
 				tenantsTenantNameTier_assignmentDelete,
 				(const tenantsTenantNameTier_assignmentDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				usersTier_assignmentsGet,
+				(const usersTier_assignmentsGetParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));

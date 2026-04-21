@@ -1401,6 +1401,152 @@ void InspectorApi::inspectorGac_validation_metadataGet([[maybe_unused]] const in
 
 
 
+void InspectorApi::inspectorValidate_secretPost([[maybe_unused]] const inspectorValidate_secretPostParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/inspector/validate-secret").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void InspectorApi::inspectorSave_validated_secretPost([[maybe_unused]] const inspectorSave_validated_secretPostParams& Params,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/inspector/save-validated-secret")
+			.c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void InspectorApi::inspectorSecret_validation_metadataGet([[maybe_unused]] const inspectorSecret_validation_metadataGetParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/inspector/secret-validation-metadata")
+			.c_str(),
+		{});
+
+
+	if (Params.tenantName.has_value())
+	{
+		Uri.AddQueryParams("tenantName", Params.tenantName.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+InspectorAuditTrailApi::InspectorAuditTrailApi(csp::web::WebClient* InWebClient) : IInspectorAuditTrailApiBase(InWebClient)
+{
+}
+
+InspectorAuditTrailApi::~InspectorAuditTrailApi()
+{
+}
+
+
+
+void InspectorAuditTrailApi::inspectorAudit_trailGet([[maybe_unused]] const inspectorAudit_trailGetParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/inspector/audit-trail").c_str(),
+		{});
+
+
+	if (Params.search.has_value())
+	{
+		Uri.AddQueryParams("search", Params.search.value());
+	}
+
+
+	if (Params.tenantName.has_value())
+	{
+		Uri.AddQueryParams("tenantName", Params.tenantName.value());
+	}
+
+
+	if (Params.eventType.has_value())
+	{
+		Uri.AddQueryParams("eventType", Params.eventType.value());
+	}
+
+
+	if (Params.userId.has_value())
+	{
+		Uri.AddQueryParams("userId", Params.userId.value());
+	}
+
+
+	if (Params.from.has_value())
+	{
+		Uri.AddQueryParams("from", Params.from.value());
+	}
+
+
+	if (Params.to.has_value())
+	{
+		Uri.AddQueryParams("to", Params.to.value());
+	}
+
+
+	if (Params.modifiedSince.has_value())
+	{
+		Uri.AddQueryParams("modifiedSince", Params.modifiedSince.value());
+	}
+
+
+	if (Params.skip.has_value())
+	{
+		Uri.AddQueryParams("skip", Params.skip.value());
+	}
+
+
+	if (Params.limit.has_value())
+	{
+		Uri.AddQueryParams("limit", Params.limit.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 InspectorBugReportApi::InspectorBugReportApi(csp::web::WebClient* InWebClient) : IInspectorBugReportApiBase(InWebClient)
 {
 }
@@ -1572,6 +1718,255 @@ void InspectorBugReportApi::inspectorBug_reportsIdScreenshotGet([[maybe_unused]]
 
 
 
+InspectorNodeDefinitionApi::InspectorNodeDefinitionApi(csp::web::WebClient* InWebClient) : IInspectorNodeDefinitionApiBase(InWebClient)
+{
+}
+
+InspectorNodeDefinitionApi::~InspectorNodeDefinitionApi()
+{
+}
+
+
+
+void InspectorNodeDefinitionApi::inspectorNode_definitionsGet([[maybe_unused]] const inspectorNode_definitionsGetParams& Params,
+															  csp::services::ApiResponseHandlerBase* ResponseHandler,
+															  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/inspector/node-definitions").c_str(),
+		{});
+
+
+	if (Params.status.has_value())
+	{
+		Uri.AddQueryParams("status", Params.status.value());
+	}
+
+
+	if (Params.category.has_value())
+	{
+		Uri.AddQueryParams("category", Params.category.value());
+	}
+
+
+	if (Params.search.has_value())
+	{
+		Uri.AddQueryParams("search", Params.search.value());
+	}
+
+
+	if (Params.runtimeId.has_value())
+	{
+		Uri.AddQueryParams("runtimeId", Params.runtimeId.value());
+	}
+
+
+	if (Params.provider.has_value())
+	{
+		Uri.AddQueryParams("provider", Params.provider.value());
+	}
+
+
+	if (Params.tag.has_value())
+	{
+		Uri.AddQueryParams("tag", Params.tag.value());
+	}
+
+
+	if (Params.Skip.has_value())
+	{
+		Uri.AddQueryParams("Skip", Params.Skip.value());
+	}
+
+
+	if (Params.Limit.has_value())
+	{
+		Uri.AddQueryParams("Limit", Params.Limit.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void InspectorNodeDefinitionApi::inspectorNode_definitionsPost([[maybe_unused]] const inspectorNode_definitionsPostParams& Params,
+															   csp::services::ApiResponseHandlerBase* ResponseHandler,
+															   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/inspector/node-definitions").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void InspectorNodeDefinitionApi::inspectorNode_definitionsNodeTypeIdGet([[maybe_unused]] const inspectorNode_definitionsNodeTypeIdGetParams& Params,
+																		csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/inspector/node-definitions/{nodeTypeId}")
+			.c_str(),
+		{Params.nodeTypeId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void InspectorNodeDefinitionApi::inspectorNode_definitionsNodeTypeIdPut([[maybe_unused]] const inspectorNode_definitionsNodeTypeIdPutParams& Params,
+																		csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/inspector/node-definitions/{nodeTypeId}")
+			.c_str(),
+		{Params.nodeTypeId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void InspectorNodeDefinitionApi::inspectorNode_definitionsNodeTypeIdStatusPatch(
+	[[maybe_unused]] const inspectorNode_definitionsNodeTypeIdStatusPatchParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/inspector/node-definitions/{nodeTypeId}/status")
+						  .c_str(),
+					  {Params.nodeTypeId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PATCH, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void InspectorNodeDefinitionApi::inspectorNode_definitionsNodeTypeIdHistoryGet(
+	[[maybe_unused]] const inspectorNode_definitionsNodeTypeIdHistoryGetParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/inspector/node-definitions/{nodeTypeId}/history")
+						  .c_str(),
+					  {Params.nodeTypeId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void InspectorNodeDefinitionApi::inspectorNode_definitionsNodeTypeIdHistoryVerGet(
+	[[maybe_unused]] const inspectorNode_definitionsNodeTypeIdHistoryVerGetParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/inspector/node-definitions/{nodeTypeId}/history/{ver}")
+						  .c_str(),
+					  {Params.nodeTypeId, std::to_string(Params.ver).c_str()});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void InspectorNodeDefinitionApi::inspectorNode_definitionsNodeTypeIdRestoreVerPost(
+	[[maybe_unused]] const inspectorNode_definitionsNodeTypeIdRestoreVerPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/inspector/node-definitions/{nodeTypeId}/restore/{ver}")
+						  .c_str(),
+					  {Params.nodeTypeId, std::to_string(Params.ver).c_str()});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+InspectorWorkerRuntimeApi::InspectorWorkerRuntimeApi(csp::web::WebClient* InWebClient) : IInspectorWorkerRuntimeApiBase(InWebClient)
+{
+}
+
+InspectorWorkerRuntimeApi::~InspectorWorkerRuntimeApi()
+{
+}
+
+
+
+void InspectorWorkerRuntimeApi::inspectorWorker_runtimesGet([[maybe_unused]] const inspectorWorker_runtimesGetParams& Params,
+															csp::services::ApiResponseHandlerBase* ResponseHandler,
+															csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/inspector/worker-runtimes").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 MusubiGraphApi::MusubiGraphApi(csp::web::WebClient* InWebClient) : IMusubiGraphApiBase(InWebClient)
 {
 }
@@ -1652,6 +2047,52 @@ void MusubiGraphApi::musubiChaosQueueNameActiveGet([[maybe_unused]] const musubi
 		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/musubi/chaos/{queueName}/active")
 			.c_str(),
 		{Params.queueName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+NodeDefinitionApi::NodeDefinitionApi(csp::web::WebClient* InWebClient) : INodeDefinitionApiBase(InWebClient)
+{
+}
+
+NodeDefinitionApi::~NodeDefinitionApi()
+{
+}
+
+
+
+void NodeDefinitionApi::node_definitionsFlatGet([[maybe_unused]] const node_definitionsFlatGetParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/node-definitions/flat").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void NodeDefinitionApi::node_definitionsNestedGet([[maybe_unused]] const node_definitionsNestedGetParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/node-definitions/nested").c_str(),
+		{});
 
 	csp::web::HttpPayload Payload;
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));

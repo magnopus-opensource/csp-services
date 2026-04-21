@@ -72,8 +72,9 @@ public:
 
 
 	/// <summary>
-	/// List all secret definitions for an application.
-	/// Any authenticated user can read definitions (they need to know what keys exist).
+	/// List secret definitions for an application.
+	/// Magnopus-admin: returns all definitions with AllowedTenants field.
+	/// Tenant users: returns only definitions visible to their tenant, without AllowedTenants.
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/application-secrets/{applicationName}
@@ -2028,6 +2029,47 @@ public:
 															 csp::services::ApiResponseHandlerBase* ResponseHandler,
 															 csp::common::CancellationToken& CancellationToken
 															 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Creates a legacy hostname mapping (adds to MappedHostnames without DNS provisioning).
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/super-admin/tenants/{tenantName}/legacy-hostnames
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameLegacy_hostnamesPost(const super_adminTenantsTenantNameLegacy_hostnamesPostParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken
+														  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Updates (renames) a legacy hostname mapping.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/super-admin/tenants/{tenantName}/legacy-hostnames/{hostname}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameLegacy_hostnamesHostnamePut(const super_adminTenantsTenantNameLegacy_hostnamesHostnamePutParams& Params,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken
+																 = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Deletes a legacy hostname mapping.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/super-admin/tenants/{tenantName}/legacy-hostnames/{hostname}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void super_adminTenantsTenantNameLegacy_hostnamesHostnameDelete(const super_adminTenantsTenantNameLegacy_hostnamesHostnameDeleteParams& Params,
+																	csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	csp::common::CancellationToken& CancellationToken
+																	= csp::common::CancellationToken::Dummy()) const override;
 
 
 

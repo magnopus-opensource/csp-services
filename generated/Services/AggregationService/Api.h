@@ -693,7 +693,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/inspector/usage/sustained-activity-per-day
-	/// Authorization: magnopus-admin,magnopus-support
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void inspectorUsageSustained_activity_per_dayGet(const inspectorUsageSustained_activity_per_dayGetParams& Params,
 													 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -755,6 +755,70 @@ public:
 											 csp::services::ApiResponseHandlerBase* ResponseHandler,
 											 csp::common::CancellationToken& CancellationToken
 											 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Validate a secret value against the registered provider probe.
+	/// Supports both saved values (omit rawValue) and try-before-save (provide rawValue).
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/validate-secret
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorValidate_secretPost(const inspectorValidate_secretPostParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Save a secret value that has already been validated, persisting both
+	/// the value and the validation result atomically.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/save-validated-secret
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorSave_validated_secretPost(const inspectorSave_validated_secretPostParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken
+											= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Returns persisted validation metadata for a tenant's secrets (both GAC and API key types).
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/secret-validation-metadata
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorSecret_validation_metadataGet(const inspectorSecret_validation_metadataGetParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken
+												= csp::common::CancellationToken::Dummy()) const override;
+};
+
+class InspectorAuditTrailApi final : public IInspectorAuditTrailApiBase
+{
+public:
+	InspectorAuditTrailApi(csp::web::WebClient* InWebClient);
+	virtual ~InspectorAuditTrailApi();
+
+
+
+	/// <summary>
+	/// Search audit records with optional filters and pagination.
+	/// Only accessible from the MAG_SUP tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/audit-trail
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void inspectorAudit_trailGet(const inspectorAudit_trailGetParams& Params,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class InspectorBugReportApi final : public IInspectorBugReportApiBase
@@ -844,6 +908,141 @@ public:
 											 = csp::common::CancellationToken::Dummy()) const override;
 };
 
+class InspectorNodeDefinitionApi final : public IInspectorNodeDefinitionApiBase
+{
+public:
+	InspectorNodeDefinitionApi(csp::web::WebClient* InWebClient);
+	virtual ~InspectorNodeDefinitionApi();
+
+
+
+	/// <summary>
+	/// List node definitions with optional filters and pagination.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/node-definitions
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorNode_definitionsGet(const inspectorNode_definitionsGetParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Create a new node definition (version 1).
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/node-definitions
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	void inspectorNode_definitionsPost(const inspectorNode_definitionsPostParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get a single node definition by its type ID.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/node-definitions/{nodeTypeId}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void inspectorNode_definitionsNodeTypeIdGet(const inspectorNode_definitionsNodeTypeIdGetParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken
+												= csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Update an existing node definition. Creates a new version.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/inspector/node-definitions/{nodeTypeId}
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	void inspectorNode_definitionsNodeTypeIdPut(const inspectorNode_definitionsNodeTypeIdPutParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken
+												= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Change the status of a node definition (active/draft/deprecated).
+	/// </summary>
+	/// <remarks>
+	/// PATCH /api/v1/inspector/node-definitions/{nodeTypeId}/status
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	void inspectorNode_definitionsNodeTypeIdStatusPatch(const inspectorNode_definitionsNodeTypeIdStatusPatchParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken
+														= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get version history for a node definition.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/node-definitions/{nodeTypeId}/history
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	void inspectorNode_definitionsNodeTypeIdHistoryGet(const inspectorNode_definitionsNodeTypeIdHistoryGetParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken
+													   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get a specific version snapshot of a node definition.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/node-definitions/{nodeTypeId}/history/{ver}
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	void inspectorNode_definitionsNodeTypeIdHistoryVerGet(const inspectorNode_definitionsNodeTypeIdHistoryVerGetParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken
+														  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Restore a previous version (creates a new version from the old snapshot).
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/node-definitions/{nodeTypeId}/restore/{ver}
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	void inspectorNode_definitionsNodeTypeIdRestoreVerPost(const inspectorNode_definitionsNodeTypeIdRestoreVerPostParams& Params,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken
+														   = csp::common::CancellationToken::Dummy()) const override;
+};
+
+class InspectorWorkerRuntimeApi final : public IInspectorWorkerRuntimeApiBase
+{
+public:
+	InspectorWorkerRuntimeApi(csp::web::WebClient* InWebClient);
+	virtual ~InspectorWorkerRuntimeApi();
+
+
+
+	/// <summary>
+	/// List all active worker runtimes.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/worker-runtimes
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	void inspectorWorker_runtimesGet(const inspectorWorker_runtimesGetParams& Params,
+									 csp::services::ApiResponseHandlerBase* ResponseHandler,
+									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+};
+
 class MusubiGraphApi final : public IMusubiGraphApiBase
 {
 public:
@@ -904,6 +1103,41 @@ public:
 	void musubiChaosQueueNameActiveGet(const musubiChaosQueueNameActiveGetParams& Params,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
 									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+};
+
+class NodeDefinitionApi final : public INodeDefinitionApiBase
+{
+public:
+	NodeDefinitionApi(csp::web::WebClient* InWebClient);
+	virtual ~NodeDefinitionApi();
+
+
+
+	/// <summary>
+	/// Get all active node definitions as a flat map keyed by node type ID.
+	/// Replaces Nodey's filesystem-based /nodes endpoint.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/node-definitions/flat
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void node_definitionsFlatGet(const node_definitionsFlatGetParams& Params,
+								 csp::services::ApiResponseHandlerBase* ResponseHandler,
+								 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get all active node definitions as a nested map grouped by category.
+	/// Replaces Nodey's filesystem-based /nested_nodes endpoint.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/node-definitions/nested
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void node_definitionsNestedGet(const node_definitionsNestedGetParams& Params,
+								   csp::services::ApiResponseHandlerBase* ResponseHandler,
+								   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class NtpApi final : public INtpApiBase

@@ -998,6 +998,24 @@ public:
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
+				super_adminTenantsTenantNameLegacy_hostnamesPost,
+				(const super_adminTenantsTenantNameLegacy_hostnamesPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameLegacy_hostnamesHostnamePut,
+				(const super_adminTenantsTenantNameLegacy_hostnamesHostnamePutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				super_adminTenantsTenantNameLegacy_hostnamesHostnameDelete,
+				(const super_adminTenantsTenantNameLegacy_hostnamesHostnameDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
 				super_adminTenantsTenantNameHostnamesHostnameDns_statusGet,
 				(const super_adminTenantsTenantNameHostnamesHostnameDns_statusGetParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,

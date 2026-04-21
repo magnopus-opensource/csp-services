@@ -14,12 +14,16 @@ class AnalyticsRecord;
 class ApiVersion;
 class ControllerVersions;
 class NamedFunction;
+class ProblemDetails;
 class QuotaFeatureActivityDto;
 class QuotaFeatureActivityDtoDataPage;
 class QuotaFeatureLimitProgressDto;
 class QuotaFeatureTierDto;
+class QuotaFeatureTierHistoryDto;
 class QuotaSumByPeriodDto;
 class QuotaTierAssignmentDto;
+class QuotaTierDto;
+class SeedResultDto;
 class ServiceVersionInfo;
 class StringDataPage;
 
@@ -241,6 +245,50 @@ protected:
 	std::optional<utility::string_t> m_EndOfLifeDatetime;
 };
 
+class ProblemDetails : public csp::services::DtoBase
+{
+public:
+	ProblemDetails();
+	virtual ~ProblemDetails();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	utility::string_t GetType() const;
+	void SetType(const utility::string_t& Value);
+	bool HasType() const;
+
+	utility::string_t GetTitle() const;
+	void SetTitle(const utility::string_t& Value);
+	bool HasTitle() const;
+
+	int32_t GetStatus() const;
+	void SetStatus(int32_t Value);
+	bool HasStatus() const;
+
+	utility::string_t GetDetail() const;
+	void SetDetail(const utility::string_t& Value);
+	bool HasDetail() const;
+
+	utility::string_t GetInstance() const;
+	void SetInstance(const utility::string_t& Value);
+	bool HasInstance() const;
+
+	const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& GetExtensions() const;
+	void SetExtensions(const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& Value);
+	bool HasExtensions() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Type;
+	std::optional<utility::string_t> m_Title;
+	std::optional<int32_t> m_Status;
+	std::optional<utility::string_t> m_Detail;
+	std::optional<utility::string_t> m_Instance;
+	std::optional<std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>> m_Extensions;
+};
+
 /// <summary>
 /// The quota activity for a feature
 /// </summary>
@@ -439,6 +487,35 @@ public:
 	void SetAllowReductions(const bool& Value);
 	bool HasAllowReductions() const;
 
+	/// <summary>
+	/// Version number, incremented on each update.
+	/// </summary>
+	int32_t GetVersion() const;
+	bool HasVersion() const;
+
+	/// <summary>
+	/// Whether this feature is active for this tier.
+	/// When false, the feature is not enforced and treated as if it doesn't exist.
+	/// </summary>
+	bool GetEnabled() const;
+	void SetEnabled(const bool& Value);
+	bool HasEnabled() const;
+
+	/// <summary>
+	/// Whether quota limits are enforced for this feature at this tier.
+	/// When false, usage is tracked but never blocked (track-only / observing mode).
+	/// </summary>
+	bool GetLimitsEnforced() const;
+	void SetLimitsEnforced(const bool& Value);
+	bool HasLimitsEnforced() const;
+
+	/// <summary>
+	/// Optional category name for grouping features in the UI.
+	/// </summary>
+	utility::string_t GetCategory() const;
+	void SetCategory(const utility::string_t& Value);
+	bool HasCategory() const;
+
 
 protected:
 	std::optional<utility::string_t> m_FeatureName;
@@ -446,6 +523,128 @@ protected:
 	std::optional<int32_t> m_Limit;
 	std::optional<std::shared_ptr<QuotaSumByPeriodDto>> m_Period;
 	std::optional<bool> m_AllowReductions;
+	std::optional<int32_t> m_Version;
+	std::optional<bool> m_Enabled;
+	std::optional<bool> m_LimitsEnforced;
+	std::optional<utility::string_t> m_Category;
+};
+
+/// <summary>
+/// DTO for a versioned snapshot of a quota feature tier entry
+/// </summary>
+class QuotaFeatureTierHistoryDto : public csp::services::DtoBase
+{
+public:
+	QuotaFeatureTierHistoryDto();
+	virtual ~QuotaFeatureTierHistoryDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The tier this history entry belongs to
+	/// </summary>
+	utility::string_t GetTierName() const;
+	void SetTierName(const utility::string_t& Value);
+	bool HasTierName() const;
+
+	/// <summary>
+	/// The feature this history entry belongs to
+	/// </summary>
+	utility::string_t GetFeatureName() const;
+	void SetFeatureName(const utility::string_t& Value);
+	bool HasFeatureName() const;
+
+	/// <summary>
+	/// Version number of this snapshot
+	/// </summary>
+	int32_t GetVersion() const;
+	void SetVersion(int32_t Value);
+	bool HasVersion() const;
+
+	/// <summary>
+	/// Snapshot: the limit at this version
+	/// </summary>
+	int32_t GetLimit() const;
+	void SetLimit(int32_t Value);
+	bool HasLimit() const;
+
+	std::shared_ptr<QuotaSumByPeriodDto> GetPeriod() const;
+	void SetPeriod(const std::shared_ptr<QuotaSumByPeriodDto>& Value);
+	bool HasPeriod() const;
+
+	/// <summary>
+	/// Snapshot: allow reductions at this version
+	/// </summary>
+	bool GetAllowReductions() const;
+	void SetAllowReductions(const bool& Value);
+	bool HasAllowReductions() const;
+
+	/// <summary>
+	/// Snapshot: enabled state at this version
+	/// </summary>
+	bool GetEnabled() const;
+	void SetEnabled(const bool& Value);
+	bool HasEnabled() const;
+
+	/// <summary>
+	/// Snapshot: limits enforced state at this version
+	/// </summary>
+	bool GetLimitsEnforced() const;
+	void SetLimitsEnforced(const bool& Value);
+	bool HasLimitsEnforced() const;
+
+	/// <summary>
+	/// Snapshot: category at this version
+	/// </summary>
+	utility::string_t GetCategory() const;
+	void SetCategory(const utility::string_t& Value);
+	bool HasCategory() const;
+
+	/// <summary>
+	/// Description of what changed in this version
+	/// </summary>
+	utility::string_t GetChangeNote() const;
+	void SetChangeNote(const utility::string_t& Value);
+	bool HasChangeNote() const;
+
+	/// <summary>
+	/// Parent version number
+	/// </summary>
+	int32_t GetParentVersion() const;
+	void SetParentVersion(int32_t Value);
+	bool HasParentVersion() const;
+
+	/// <summary>
+	/// When this version was created
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	void SetCreatedAt(const utility::string_t& Value);
+	bool HasCreatedAt() const;
+
+	/// <summary>
+	/// Who created this version
+	/// </summary>
+	utility::string_t GetCreatedBy() const;
+	void SetCreatedBy(const utility::string_t& Value);
+	bool HasCreatedBy() const;
+
+
+protected:
+	std::optional<utility::string_t> m_TierName;
+	std::optional<utility::string_t> m_FeatureName;
+	std::optional<int32_t> m_Version;
+	std::optional<int32_t> m_Limit;
+	std::optional<std::shared_ptr<QuotaSumByPeriodDto>> m_Period;
+	std::optional<bool> m_AllowReductions;
+	std::optional<bool> m_Enabled;
+	std::optional<bool> m_LimitsEnforced;
+	std::optional<utility::string_t> m_Category;
+	std::optional<utility::string_t> m_ChangeNote;
+	std::optional<int32_t> m_ParentVersion;
+	std::optional<utility::string_t> m_CreatedAt;
+	std::optional<utility::string_t> m_CreatedBy;
 };
 
 /// <summary>
@@ -528,6 +727,118 @@ protected:
 	std::optional<utility::string_t> m_TierName;
 	std::optional<utility::string_t> m_TenantName;
 	std::optional<utility::string_t> m_ExpiresAt;
+};
+
+/// <summary>
+/// First-class tier definition with metadata (display name, color, sort order, etc.)
+/// </summary>
+class QuotaTierDto : public csp::services::DtoBase
+{
+public:
+	QuotaTierDto();
+	virtual ~QuotaTierDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Unique tier identifier (e.g., "free", "pro", "enterprise")
+	/// </summary>
+	utility::string_t GetTierName() const;
+	bool HasTierName() const;
+
+	/// <summary>
+	/// Human-readable display name (e.g., "Professional", "Enterprise")
+	/// </summary>
+	utility::string_t GetDisplayName() const;
+	void SetDisplayName(const utility::string_t& Value);
+	bool HasDisplayName() const;
+
+	/// <summary>
+	/// Optional description of what this tier includes or who it's for
+	/// </summary>
+	utility::string_t GetDescription() const;
+	void SetDescription(const utility::string_t& Value);
+	bool HasDescription() const;
+
+	/// <summary>
+	/// CSS hex color for UI badge styling (e.g., "#3B82F6")
+	/// </summary>
+	utility::string_t GetColor() const;
+	void SetColor(const utility::string_t& Value);
+	bool HasColor() const;
+
+	/// <summary>
+	/// Display ordering / tier rank (higher = more permissive)
+	/// </summary>
+	int32_t GetSortOrder() const;
+	void SetSortOrder(int32_t Value);
+	bool HasSortOrder() const;
+
+	/// <summary>
+	/// Whether this is the default fallback tier
+	/// </summary>
+	bool GetIsDefault() const;
+	void SetIsDefault(const bool& Value);
+	bool HasIsDefault() const;
+
+	/// <summary>
+	/// Tier status: "active" or "deprecated"
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+	/// <summary>
+	/// Number of feature quota definitions associated with this tier (computed)
+	/// </summary>
+	int32_t GetFeatureCount() const;
+	bool HasFeatureCount() const;
+
+
+protected:
+	std::optional<utility::string_t> m_TierName;
+	std::optional<utility::string_t> m_DisplayName;
+	std::optional<utility::string_t> m_Description;
+	std::optional<utility::string_t> m_Color;
+	std::optional<int32_t> m_SortOrder;
+	std::optional<bool> m_IsDefault;
+	std::optional<utility::string_t> m_Status;
+	std::optional<int32_t> m_FeatureCount;
+};
+
+/// <summary>
+/// Result of a tier seed operation
+/// </summary>
+class SeedResultDto : public csp::services::DtoBase
+{
+public:
+	SeedResultDto();
+	virtual ~SeedResultDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Number of new tier documents created
+	/// </summary>
+	int32_t GetSeededCount() const;
+	void SetSeededCount(int32_t Value);
+	bool HasSeededCount() const;
+
+	/// <summary>
+	/// Total tier documents after seeding
+	/// </summary>
+	int32_t GetTotalCount() const;
+	void SetTotalCount(int32_t Value);
+	bool HasTotalCount() const;
+
+
+protected:
+	std::optional<int32_t> m_SeededCount;
+	std::optional<int32_t> m_TotalCount;
 };
 
 /// <summary>

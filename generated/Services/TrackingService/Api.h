@@ -234,6 +234,19 @@ public:
 
 
 	/// <summary>
+	/// Gets all distinct tier names across all feature-tier definitions
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tiers
+	/// Authorization: admin,magnopus-admin,magnopus-support
+	/// </remarks>
+	void tiersGet(const tiersGetParams& Params,
+				  csp::services::ApiResponseHandlerBase* ResponseHandler,
+				  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
 	/// Gets all feature quota definition at the specified tier
 	/// </summary>
 	/// <remarks>
@@ -285,6 +298,145 @@ public:
 													 csp::services::ApiResponseHandlerBase* ResponseHandler,
 													 csp::common::CancellationToken& CancellationToken
 													 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets all implemented quota feature names from the registry.
+	/// Useful for populating "Add Feature" dropdowns.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/quota-features
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void quota_featuresGet(const quota_featuresGetParams& Params,
+						   csp::services::ApiResponseHandlerBase* ResponseHandler,
+						   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets version history for a feature at a tier, ordered by version descending.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tiers/{tierName}/features/{featureName}/history
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void tiersTierNameFeaturesFeatureNameHistoryGet(const tiersTierNameFeaturesFeatureNameHistoryGetParams& Params,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken
+													= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets a specific version snapshot of a feature at a tier.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tiers/{tierName}/features/{featureName}/history/{ver}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void tiersTierNameFeaturesFeatureNameHistoryVerGet(const tiersTierNameFeaturesFeatureNameHistoryVerGetParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken
+													   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Restores a feature at a tier to a previous version. Creates a new version from the old snapshot.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/tiers/{tierName}/features/{featureName}/restore/{ver}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void tiersTierNameFeaturesFeatureNameRestoreVerPost(const tiersTierNameFeaturesFeatureNameRestoreVerPostParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken
+														= csp::common::CancellationToken::Dummy()) const override;
+};
+
+class QuotaTierApi final : public IQuotaTierApiBase
+{
+public:
+	QuotaTierApi(csp::web::WebClient* InWebClient);
+	virtual ~QuotaTierApi();
+
+
+
+	/// <summary>
+	/// Gets all tier definitions sorted by sort order, enriched with feature counts
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tier-definitions
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void tier_definitionsGet(const tier_definitionsGetParams& Params,
+							 csp::services::ApiResponseHandlerBase* ResponseHandler,
+							 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets a single tier definition by its tier name, enriched with feature count
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/tier-definitions/{tierName}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void tier_definitionsTierNameGet(const tier_definitionsTierNameGetParams& Params,
+									 csp::services::ApiResponseHandlerBase* ResponseHandler,
+									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Creates a new tier definition
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/tier-definitions/{tierName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void tier_definitionsTierNamePost(const tier_definitionsTierNamePostParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Updates an existing tier definition's metadata
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/tier-definitions/{tierName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void tier_definitionsTierNamePut(const tier_definitionsTierNamePutParams& Params,
+									 csp::services::ApiResponseHandlerBase* ResponseHandler,
+									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Deletes a tier definition
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/tier-definitions/{tierName}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void tier_definitionsTierNameDelete(const tier_definitionsTierNameDeleteParams& Params,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Seeds tier definitions from existing tier names discovered in QuotaFeatureTierDocument and config.
+	/// Skips tiers that already have a QuotaTierDocument. Safe to call multiple times.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/tier-definitions/seed
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	void tier_definitionsSeedPost(const tier_definitionsSeedPostParams& Params,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class QuotaTierAssignmentApi final : public IQuotaTierAssignmentApiBase
@@ -325,7 +477,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// PUT /api/v1/users/{userId}/tier-assignment
-	/// Authorization: magnopus-admin,internal-service
+	/// Authorization: magnopus-admin,admin,internal-service
 	/// </remarks>
 	void usersUserIdTier_assignmentPut(const usersUserIdTier_assignmentPutParams& Params,
 									   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -382,6 +534,20 @@ public:
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken
 												= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Gets the enforced tier assignments for multiple users.
+	/// Resolution order per user: explicit user assignment → tenant assignment → default tier.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/users/tier-assignments
+	/// Authorization: magnopus-admin,magnopus-support,admin
+	/// </remarks>
+	void usersTier_assignmentsGet(const usersTier_assignmentsGetParams& Params,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 
 
 

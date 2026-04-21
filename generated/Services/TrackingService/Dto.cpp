@@ -886,6 +886,215 @@ void NamedFunction::SetEndOfLifeDatetime(const utility::string_t& Value)
 	m_EndOfLifeDatetime = Value;
 }
 
+ProblemDetails::ProblemDetails()
+{
+}
+ProblemDetails::~ProblemDetails()
+{
+}
+
+utility::string_t ProblemDetails::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Type.has_value())
+	{
+		rapidjson::Value TypeValue(TypeToJsonValue(m_Type, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("type", TypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Title.has_value())
+	{
+		rapidjson::Value TitleValue(TypeToJsonValue(m_Title, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("title", TitleValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Status.has_value())
+	{
+		rapidjson::Value StatusValue(TypeToJsonValue(m_Status, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("status", StatusValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Detail.has_value())
+	{
+		rapidjson::Value DetailValue(TypeToJsonValue(m_Detail, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("detail", DetailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Instance.has_value())
+	{
+		rapidjson::Value InstanceValue(TypeToJsonValue(m_Instance, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("instance", InstanceValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Extensions.has_value())
+	{
+		rapidjson::Value ExtensionsValue(TypeToJsonValue(m_Extensions, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("extensions", ExtensionsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ProblemDetails::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProblemDetails::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("type"))
+	{
+		const rapidjson::Value& TypeValue = JsonDoc["type"];
+
+		if (TypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TypeValue, m_Type);
+		}
+	}
+
+	if (JsonDoc.HasMember("title"))
+	{
+		const rapidjson::Value& TitleValue = JsonDoc["title"];
+
+		if (TitleValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TitleValue, m_Title);
+		}
+	}
+
+	if (JsonDoc.HasMember("status"))
+	{
+		const rapidjson::Value& StatusValue = JsonDoc["status"];
+
+		if (StatusValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StatusValue, m_Status);
+		}
+	}
+
+	if (JsonDoc.HasMember("detail"))
+	{
+		const rapidjson::Value& DetailValue = JsonDoc["detail"];
+
+		if (DetailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DetailValue, m_Detail);
+		}
+	}
+
+	if (JsonDoc.HasMember("instance"))
+	{
+		const rapidjson::Value& InstanceValue = JsonDoc["instance"];
+
+		if (InstanceValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(InstanceValue, m_Instance);
+		}
+	}
+
+	if (JsonDoc.HasMember("extensions"))
+	{
+		const rapidjson::Value& ExtensionsValue = JsonDoc["extensions"];
+
+		if (ExtensionsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExtensionsValue, m_Extensions);
+		}
+	}
+}
+
+
+utility::string_t ProblemDetails::GetType() const
+{
+	return m_Type.value();
+}
+
+bool ProblemDetails::HasType() const
+{
+	return m_Type.has_value();
+}
+void ProblemDetails::SetType(const utility::string_t& Value)
+{
+	m_Type = Value;
+}
+utility::string_t ProblemDetails::GetTitle() const
+{
+	return m_Title.value();
+}
+
+bool ProblemDetails::HasTitle() const
+{
+	return m_Title.has_value();
+}
+void ProblemDetails::SetTitle(const utility::string_t& Value)
+{
+	m_Title = Value;
+}
+int32_t ProblemDetails::GetStatus() const
+{
+	return m_Status.value();
+}
+
+bool ProblemDetails::HasStatus() const
+{
+	return m_Status.has_value();
+}
+void ProblemDetails::SetStatus(int32_t Value)
+{
+	m_Status = Value;
+}
+utility::string_t ProblemDetails::GetDetail() const
+{
+	return m_Detail.value();
+}
+
+bool ProblemDetails::HasDetail() const
+{
+	return m_Detail.has_value();
+}
+void ProblemDetails::SetDetail(const utility::string_t& Value)
+{
+	m_Detail = Value;
+}
+utility::string_t ProblemDetails::GetInstance() const
+{
+	return m_Instance.value();
+}
+
+bool ProblemDetails::HasInstance() const
+{
+	return m_Instance.has_value();
+}
+void ProblemDetails::SetInstance(const utility::string_t& Value)
+{
+	m_Instance = Value;
+}
+const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& ProblemDetails::GetExtensions() const
+{
+	return m_Extensions.value();
+}
+
+bool ProblemDetails::HasExtensions() const
+{
+	return m_Extensions.has_value();
+}
+void ProblemDetails::SetExtensions(const std::map<utility::string_t, std::shared_ptr<rapidjson::Document>>& Value)
+{
+	m_Extensions = Value;
+}
+
 QuotaFeatureActivityDto::QuotaFeatureActivityDto()
 {
 }
@@ -1473,6 +1682,30 @@ utility::string_t QuotaFeatureTierDto::ToJson() const
 		JsonDoc.AddMember("allowReductions", AllowReductionsValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_Version.has_value())
+	{
+		rapidjson::Value VersionValue(TypeToJsonValue(m_Version, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("version", VersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Enabled.has_value())
+	{
+		rapidjson::Value EnabledValue(TypeToJsonValue(m_Enabled, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("enabled", EnabledValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LimitsEnforced.has_value())
+	{
+		rapidjson::Value LimitsEnforcedValue(TypeToJsonValue(m_LimitsEnforced, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("limitsEnforced", LimitsEnforcedValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Category.has_value())
+	{
+		rapidjson::Value CategoryValue(TypeToJsonValue(m_Category, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("category", CategoryValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -1550,6 +1783,58 @@ void QuotaFeatureTierDto::FromJson(const utility::string_t& Val)
 			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowReductions is null!");
 		}
 	}
+
+	if (JsonDoc.HasMember("version"))
+	{
+		const rapidjson::Value& VersionValue = JsonDoc["version"];
+
+		if (VersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(VersionValue, m_Version);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("enabled"))
+	{
+		const rapidjson::Value& EnabledValue = JsonDoc["enabled"];
+
+		if (EnabledValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EnabledValue, m_Enabled);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("limitsEnforced"))
+	{
+		const rapidjson::Value& LimitsEnforcedValue = JsonDoc["limitsEnforced"];
+
+		if (LimitsEnforcedValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LimitsEnforcedValue, m_LimitsEnforced);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member limitsEnforced is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("category"))
+	{
+		const rapidjson::Value& CategoryValue = JsonDoc["category"];
+
+		if (CategoryValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CategoryValue, m_Category);
+		}
+	}
 }
 
 
@@ -1609,6 +1894,494 @@ bool QuotaFeatureTierDto::HasAllowReductions() const
 void QuotaFeatureTierDto::SetAllowReductions(const bool& Value)
 {
 	m_AllowReductions = Value;
+}
+int32_t QuotaFeatureTierDto::GetVersion() const
+{
+	return m_Version.value();
+}
+
+bool QuotaFeatureTierDto::HasVersion() const
+{
+	return m_Version.has_value();
+}
+bool QuotaFeatureTierDto::GetEnabled() const
+{
+	return m_Enabled.value();
+}
+
+bool QuotaFeatureTierDto::HasEnabled() const
+{
+	return m_Enabled.has_value();
+}
+void QuotaFeatureTierDto::SetEnabled(const bool& Value)
+{
+	m_Enabled = Value;
+}
+bool QuotaFeatureTierDto::GetLimitsEnforced() const
+{
+	return m_LimitsEnforced.value();
+}
+
+bool QuotaFeatureTierDto::HasLimitsEnforced() const
+{
+	return m_LimitsEnforced.has_value();
+}
+void QuotaFeatureTierDto::SetLimitsEnforced(const bool& Value)
+{
+	m_LimitsEnforced = Value;
+}
+utility::string_t QuotaFeatureTierDto::GetCategory() const
+{
+	return m_Category.value();
+}
+
+bool QuotaFeatureTierDto::HasCategory() const
+{
+	return m_Category.has_value();
+}
+void QuotaFeatureTierDto::SetCategory(const utility::string_t& Value)
+{
+	m_Category = Value;
+}
+
+QuotaFeatureTierHistoryDto::QuotaFeatureTierHistoryDto()
+{
+}
+QuotaFeatureTierHistoryDto::~QuotaFeatureTierHistoryDto()
+{
+}
+
+utility::string_t QuotaFeatureTierHistoryDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_TierName.has_value())
+	{
+		rapidjson::Value TierNameValue(TypeToJsonValue(m_TierName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tierName", TierNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_FeatureName.has_value())
+	{
+		rapidjson::Value FeatureNameValue(TypeToJsonValue(m_FeatureName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("featureName", FeatureNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Version.has_value())
+	{
+		rapidjson::Value VersionValue(TypeToJsonValue(m_Version, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("version", VersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Limit.has_value())
+	{
+		rapidjson::Value LimitValue(TypeToJsonValue(m_Limit, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("limit", LimitValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Period.has_value())
+	{
+		rapidjson::Value PeriodValue(TypeToJsonValue(m_Period, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("period", PeriodValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AllowReductions.has_value())
+	{
+		rapidjson::Value AllowReductionsValue(TypeToJsonValue(m_AllowReductions, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("allowReductions", AllowReductionsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Enabled.has_value())
+	{
+		rapidjson::Value EnabledValue(TypeToJsonValue(m_Enabled, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("enabled", EnabledValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LimitsEnforced.has_value())
+	{
+		rapidjson::Value LimitsEnforcedValue(TypeToJsonValue(m_LimitsEnforced, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("limitsEnforced", LimitsEnforcedValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Category.has_value())
+	{
+		rapidjson::Value CategoryValue(TypeToJsonValue(m_Category, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("category", CategoryValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ChangeNote.has_value())
+	{
+		rapidjson::Value ChangeNoteValue(TypeToJsonValue(m_ChangeNote, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("changeNote", ChangeNoteValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ParentVersion.has_value())
+	{
+		rapidjson::Value ParentVersionValue(TypeToJsonValue(m_ParentVersion, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("parentVersion", ParentVersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedBy.has_value())
+	{
+		rapidjson::Value CreatedByValue(TypeToJsonValue(m_CreatedBy, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdBy", CreatedByValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void QuotaFeatureTierHistoryDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "QuotaFeatureTierHistoryDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("tierName"))
+	{
+		const rapidjson::Value& TierNameValue = JsonDoc["tierName"];
+
+		if (TierNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TierNameValue, m_TierName);
+		}
+	}
+
+	if (JsonDoc.HasMember("featureName"))
+	{
+		const rapidjson::Value& FeatureNameValue = JsonDoc["featureName"];
+
+		if (FeatureNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FeatureNameValue, m_FeatureName);
+		}
+	}
+
+	if (JsonDoc.HasMember("version"))
+	{
+		const rapidjson::Value& VersionValue = JsonDoc["version"];
+
+		if (VersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(VersionValue, m_Version);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("limit"))
+	{
+		const rapidjson::Value& LimitValue = JsonDoc["limit"];
+
+		if (LimitValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LimitValue, m_Limit);
+		}
+	}
+
+	if (JsonDoc.HasMember("period"))
+	{
+		const rapidjson::Value& PeriodValue = JsonDoc["period"];
+
+		if (PeriodValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(PeriodValue, m_Period);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member period is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("allowReductions"))
+	{
+		const rapidjson::Value& AllowReductionsValue = JsonDoc["allowReductions"];
+
+		if (AllowReductionsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AllowReductionsValue, m_AllowReductions);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowReductions is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("enabled"))
+	{
+		const rapidjson::Value& EnabledValue = JsonDoc["enabled"];
+
+		if (EnabledValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EnabledValue, m_Enabled);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("limitsEnforced"))
+	{
+		const rapidjson::Value& LimitsEnforcedValue = JsonDoc["limitsEnforced"];
+
+		if (LimitsEnforcedValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LimitsEnforcedValue, m_LimitsEnforced);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member limitsEnforced is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("category"))
+	{
+		const rapidjson::Value& CategoryValue = JsonDoc["category"];
+
+		if (CategoryValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CategoryValue, m_Category);
+		}
+	}
+
+	if (JsonDoc.HasMember("changeNote"))
+	{
+		const rapidjson::Value& ChangeNoteValue = JsonDoc["changeNote"];
+
+		if (ChangeNoteValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+		}
+	}
+
+	if (JsonDoc.HasMember("parentVersion"))
+	{
+		const rapidjson::Value& ParentVersionValue = JsonDoc["parentVersion"];
+
+		if (ParentVersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ParentVersionValue, m_ParentVersion);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member parentVersion is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("createdBy"))
+	{
+		const rapidjson::Value& CreatedByValue = JsonDoc["createdBy"];
+
+		if (CreatedByValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedByValue, m_CreatedBy);
+		}
+	}
+}
+
+
+utility::string_t QuotaFeatureTierHistoryDto::GetTierName() const
+{
+	return m_TierName.value();
+}
+
+bool QuotaFeatureTierHistoryDto::HasTierName() const
+{
+	return m_TierName.has_value();
+}
+void QuotaFeatureTierHistoryDto::SetTierName(const utility::string_t& Value)
+{
+	m_TierName = Value;
+}
+utility::string_t QuotaFeatureTierHistoryDto::GetFeatureName() const
+{
+	return m_FeatureName.value();
+}
+
+bool QuotaFeatureTierHistoryDto::HasFeatureName() const
+{
+	return m_FeatureName.has_value();
+}
+void QuotaFeatureTierHistoryDto::SetFeatureName(const utility::string_t& Value)
+{
+	m_FeatureName = Value;
+}
+int32_t QuotaFeatureTierHistoryDto::GetVersion() const
+{
+	return m_Version.value();
+}
+
+bool QuotaFeatureTierHistoryDto::HasVersion() const
+{
+	return m_Version.has_value();
+}
+void QuotaFeatureTierHistoryDto::SetVersion(int32_t Value)
+{
+	m_Version = Value;
+}
+int32_t QuotaFeatureTierHistoryDto::GetLimit() const
+{
+	return m_Limit.value();
+}
+
+bool QuotaFeatureTierHistoryDto::HasLimit() const
+{
+	return m_Limit.has_value();
+}
+void QuotaFeatureTierHistoryDto::SetLimit(int32_t Value)
+{
+	m_Limit = Value;
+}
+std::shared_ptr<QuotaSumByPeriodDto> QuotaFeatureTierHistoryDto::GetPeriod() const
+{
+	return m_Period.value();
+}
+
+bool QuotaFeatureTierHistoryDto::HasPeriod() const
+{
+	return m_Period.has_value();
+}
+void QuotaFeatureTierHistoryDto::SetPeriod(const std::shared_ptr<QuotaSumByPeriodDto>& Value)
+{
+	m_Period = Value;
+}
+bool QuotaFeatureTierHistoryDto::GetAllowReductions() const
+{
+	return m_AllowReductions.value();
+}
+
+bool QuotaFeatureTierHistoryDto::HasAllowReductions() const
+{
+	return m_AllowReductions.has_value();
+}
+void QuotaFeatureTierHistoryDto::SetAllowReductions(const bool& Value)
+{
+	m_AllowReductions = Value;
+}
+bool QuotaFeatureTierHistoryDto::GetEnabled() const
+{
+	return m_Enabled.value();
+}
+
+bool QuotaFeatureTierHistoryDto::HasEnabled() const
+{
+	return m_Enabled.has_value();
+}
+void QuotaFeatureTierHistoryDto::SetEnabled(const bool& Value)
+{
+	m_Enabled = Value;
+}
+bool QuotaFeatureTierHistoryDto::GetLimitsEnforced() const
+{
+	return m_LimitsEnforced.value();
+}
+
+bool QuotaFeatureTierHistoryDto::HasLimitsEnforced() const
+{
+	return m_LimitsEnforced.has_value();
+}
+void QuotaFeatureTierHistoryDto::SetLimitsEnforced(const bool& Value)
+{
+	m_LimitsEnforced = Value;
+}
+utility::string_t QuotaFeatureTierHistoryDto::GetCategory() const
+{
+	return m_Category.value();
+}
+
+bool QuotaFeatureTierHistoryDto::HasCategory() const
+{
+	return m_Category.has_value();
+}
+void QuotaFeatureTierHistoryDto::SetCategory(const utility::string_t& Value)
+{
+	m_Category = Value;
+}
+utility::string_t QuotaFeatureTierHistoryDto::GetChangeNote() const
+{
+	return m_ChangeNote.value();
+}
+
+bool QuotaFeatureTierHistoryDto::HasChangeNote() const
+{
+	return m_ChangeNote.has_value();
+}
+void QuotaFeatureTierHistoryDto::SetChangeNote(const utility::string_t& Value)
+{
+	m_ChangeNote = Value;
+}
+int32_t QuotaFeatureTierHistoryDto::GetParentVersion() const
+{
+	return m_ParentVersion.value();
+}
+
+bool QuotaFeatureTierHistoryDto::HasParentVersion() const
+{
+	return m_ParentVersion.has_value();
+}
+void QuotaFeatureTierHistoryDto::SetParentVersion(int32_t Value)
+{
+	m_ParentVersion = Value;
+}
+utility::string_t QuotaFeatureTierHistoryDto::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool QuotaFeatureTierHistoryDto::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
+}
+void QuotaFeatureTierHistoryDto::SetCreatedAt(const utility::string_t& Value)
+{
+	m_CreatedAt = Value;
+}
+utility::string_t QuotaFeatureTierHistoryDto::GetCreatedBy() const
+{
+	return m_CreatedBy.value();
+}
+
+bool QuotaFeatureTierHistoryDto::HasCreatedBy() const
+{
+	return m_CreatedBy.has_value();
+}
+void QuotaFeatureTierHistoryDto::SetCreatedBy(const utility::string_t& Value)
+{
+	m_CreatedBy = Value;
 }
 
 QuotaSumByPeriodDto::QuotaSumByPeriodDto()
@@ -1838,6 +2611,382 @@ bool QuotaTierAssignmentDto::HasExpiresAt() const
 void QuotaTierAssignmentDto::SetExpiresAt(const utility::string_t& Value)
 {
 	m_ExpiresAt = Value;
+}
+
+QuotaTierDto::QuotaTierDto()
+{
+}
+QuotaTierDto::~QuotaTierDto()
+{
+}
+
+utility::string_t QuotaTierDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_TierName.has_value())
+	{
+		rapidjson::Value TierNameValue(TypeToJsonValue(m_TierName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tierName", TierNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DisplayName.has_value())
+	{
+		rapidjson::Value DisplayNameValue(TypeToJsonValue(m_DisplayName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("displayName", DisplayNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Description.has_value())
+	{
+		rapidjson::Value DescriptionValue(TypeToJsonValue(m_Description, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("description", DescriptionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Color.has_value())
+	{
+		rapidjson::Value ColorValue(TypeToJsonValue(m_Color, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("color", ColorValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SortOrder.has_value())
+	{
+		rapidjson::Value SortOrderValue(TypeToJsonValue(m_SortOrder, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("sortOrder", SortOrderValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_IsDefault.has_value())
+	{
+		rapidjson::Value IsDefaultValue(TypeToJsonValue(m_IsDefault, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("isDefault", IsDefaultValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Status.has_value())
+	{
+		rapidjson::Value StatusValue(TypeToJsonValue(m_Status, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("status", StatusValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_FeatureCount.has_value())
+	{
+		rapidjson::Value FeatureCountValue(TypeToJsonValue(m_FeatureCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("featureCount", FeatureCountValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void QuotaTierDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "QuotaTierDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("tierName"))
+	{
+		const rapidjson::Value& TierNameValue = JsonDoc["tierName"];
+
+		if (TierNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TierNameValue, m_TierName);
+		}
+	}
+
+	if (JsonDoc.HasMember("displayName"))
+	{
+		const rapidjson::Value& DisplayNameValue = JsonDoc["displayName"];
+
+		if (DisplayNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DisplayNameValue, m_DisplayName);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("description"))
+	{
+		const rapidjson::Value& DescriptionValue = JsonDoc["description"];
+
+		if (DescriptionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DescriptionValue, m_Description);
+		}
+	}
+
+	if (JsonDoc.HasMember("color"))
+	{
+		const rapidjson::Value& ColorValue = JsonDoc["color"];
+
+		if (ColorValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ColorValue, m_Color);
+		}
+	}
+
+	if (JsonDoc.HasMember("sortOrder"))
+	{
+		const rapidjson::Value& SortOrderValue = JsonDoc["sortOrder"];
+
+		if (SortOrderValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SortOrderValue, m_SortOrder);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("isDefault"))
+	{
+		const rapidjson::Value& IsDefaultValue = JsonDoc["isDefault"];
+
+		if (IsDefaultValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IsDefaultValue, m_IsDefault);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member isDefault is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("status"))
+	{
+		const rapidjson::Value& StatusValue = JsonDoc["status"];
+
+		if (StatusValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StatusValue, m_Status);
+		}
+	}
+
+	if (JsonDoc.HasMember("featureCount"))
+	{
+		const rapidjson::Value& FeatureCountValue = JsonDoc["featureCount"];
+
+		if (FeatureCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FeatureCountValue, m_FeatureCount);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member featureCount is null!");
+		}
+	}
+}
+
+
+utility::string_t QuotaTierDto::GetTierName() const
+{
+	return m_TierName.value();
+}
+
+bool QuotaTierDto::HasTierName() const
+{
+	return m_TierName.has_value();
+}
+utility::string_t QuotaTierDto::GetDisplayName() const
+{
+	return m_DisplayName.value();
+}
+
+bool QuotaTierDto::HasDisplayName() const
+{
+	return m_DisplayName.has_value();
+}
+void QuotaTierDto::SetDisplayName(const utility::string_t& Value)
+{
+	m_DisplayName = Value;
+}
+utility::string_t QuotaTierDto::GetDescription() const
+{
+	return m_Description.value();
+}
+
+bool QuotaTierDto::HasDescription() const
+{
+	return m_Description.has_value();
+}
+void QuotaTierDto::SetDescription(const utility::string_t& Value)
+{
+	m_Description = Value;
+}
+utility::string_t QuotaTierDto::GetColor() const
+{
+	return m_Color.value();
+}
+
+bool QuotaTierDto::HasColor() const
+{
+	return m_Color.has_value();
+}
+void QuotaTierDto::SetColor(const utility::string_t& Value)
+{
+	m_Color = Value;
+}
+int32_t QuotaTierDto::GetSortOrder() const
+{
+	return m_SortOrder.value();
+}
+
+bool QuotaTierDto::HasSortOrder() const
+{
+	return m_SortOrder.has_value();
+}
+void QuotaTierDto::SetSortOrder(int32_t Value)
+{
+	m_SortOrder = Value;
+}
+bool QuotaTierDto::GetIsDefault() const
+{
+	return m_IsDefault.value();
+}
+
+bool QuotaTierDto::HasIsDefault() const
+{
+	return m_IsDefault.has_value();
+}
+void QuotaTierDto::SetIsDefault(const bool& Value)
+{
+	m_IsDefault = Value;
+}
+utility::string_t QuotaTierDto::GetStatus() const
+{
+	return m_Status.value();
+}
+
+bool QuotaTierDto::HasStatus() const
+{
+	return m_Status.has_value();
+}
+void QuotaTierDto::SetStatus(const utility::string_t& Value)
+{
+	m_Status = Value;
+}
+int32_t QuotaTierDto::GetFeatureCount() const
+{
+	return m_FeatureCount.value();
+}
+
+bool QuotaTierDto::HasFeatureCount() const
+{
+	return m_FeatureCount.has_value();
+}
+
+SeedResultDto::SeedResultDto()
+{
+}
+SeedResultDto::~SeedResultDto()
+{
+}
+
+utility::string_t SeedResultDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_SeededCount.has_value())
+	{
+		rapidjson::Value SeededCountValue(TypeToJsonValue(m_SeededCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("seededCount", SeededCountValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TotalCount.has_value())
+	{
+		rapidjson::Value TotalCountValue(TypeToJsonValue(m_TotalCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("totalCount", TotalCountValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void SeedResultDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SeedResultDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("seededCount"))
+	{
+		const rapidjson::Value& SeededCountValue = JsonDoc["seededCount"];
+
+		if (SeededCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SeededCountValue, m_SeededCount);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member seededCount is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("totalCount"))
+	{
+		const rapidjson::Value& TotalCountValue = JsonDoc["totalCount"];
+
+		if (TotalCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TotalCountValue, m_TotalCount);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member totalCount is null!");
+		}
+	}
+}
+
+
+int32_t SeedResultDto::GetSeededCount() const
+{
+	return m_SeededCount.value();
+}
+
+bool SeedResultDto::HasSeededCount() const
+{
+	return m_SeededCount.has_value();
+}
+void SeedResultDto::SetSeededCount(int32_t Value)
+{
+	m_SeededCount = Value;
+}
+int32_t SeedResultDto::GetTotalCount() const
+{
+	return m_TotalCount.value();
+}
+
+bool SeedResultDto::HasTotalCount() const
+{
+	return m_TotalCount.has_value();
+}
+void SeedResultDto::SetTotalCount(int32_t Value)
+{
+	m_TotalCount = Value;
 }
 
 ServiceVersionInfo::ServiceVersionInfo()

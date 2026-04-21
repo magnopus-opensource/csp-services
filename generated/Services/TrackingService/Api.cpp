@@ -411,6 +411,22 @@ QuotaManagementApi::~QuotaManagementApi()
 
 
 
+void QuotaManagementApi::tiersGet([[maybe_unused]] const tiersGetParams& Params,
+								  csp::services::ApiResponseHandlerBase* ResponseHandler,
+								  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tiers").c_str(), {});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 void QuotaManagementApi::tiersTierNameQuotasGet([[maybe_unused]] const tiersTierNameQuotasGetParams& Params,
 												csp::services::ApiResponseHandlerBase* ResponseHandler,
 												csp::common::CancellationToken& CancellationToken) const
@@ -487,6 +503,204 @@ void QuotaManagementApi::tiersTierNameFeaturesFeatureNameQuotaDelete([[maybe_unu
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void QuotaManagementApi::quota_featuresGet([[maybe_unused]] const quota_featuresGetParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/quota-features").c_str(),
+					  {});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void QuotaManagementApi::tiersTierNameFeaturesFeatureNameHistoryGet([[maybe_unused]] const tiersTierNameFeaturesFeatureNameHistoryGetParams& Params,
+																	csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/tiers/{tierName}/features/{featureName}/history")
+						  .c_str(),
+					  {Params.tierName, Params.featureName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void QuotaManagementApi::tiersTierNameFeaturesFeatureNameHistoryVerGet(
+	[[maybe_unused]] const tiersTierNameFeaturesFeatureNameHistoryVerGetParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/tiers/{tierName}/features/{featureName}/history/{ver}")
+						  .c_str(),
+					  {Params.tierName, Params.featureName, std::to_string(Params.ver).c_str()});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void QuotaManagementApi::tiersTierNameFeaturesFeatureNameRestoreVerPost(
+	[[maybe_unused]] const tiersTierNameFeaturesFeatureNameRestoreVerPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/tiers/{tierName}/features/{featureName}/restore/{ver}")
+						  .c_str(),
+					  {Params.tierName, Params.featureName, std::to_string(Params.ver).c_str()});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+QuotaTierApi::QuotaTierApi(csp::web::WebClient* InWebClient) : IQuotaTierApiBase(InWebClient)
+{
+}
+
+QuotaTierApi::~QuotaTierApi()
+{
+}
+
+
+
+void QuotaTierApi::tier_definitionsGet([[maybe_unused]] const tier_definitionsGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tier-definitions").c_str(),
+					  {});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void QuotaTierApi::tier_definitionsTierNameGet([[maybe_unused]] const tier_definitionsTierNameGetParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tier-definitions/{tierName}").c_str(),
+		{Params.tierName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void QuotaTierApi::tier_definitionsTierNamePost([[maybe_unused]] const tier_definitionsTierNamePostParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tier-definitions/{tierName}").c_str(),
+		{Params.tierName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void QuotaTierApi::tier_definitionsTierNamePut([[maybe_unused]] const tier_definitionsTierNamePutParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tier-definitions/{tierName}").c_str(),
+		{Params.tierName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void QuotaTierApi::tier_definitionsTierNameDelete([[maybe_unused]] const tier_definitionsTierNameDeleteParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tier-definitions/{tierName}").c_str(),
+		{Params.tierName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void QuotaTierApi::tier_definitionsSeedPost([[maybe_unused]] const tier_definitionsSeedPostParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/tier-definitions/seed").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
@@ -624,6 +838,30 @@ void QuotaTierAssignmentApi::tenantsTenantNameTier_assignmentDelete([[maybe_unus
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void QuotaTierAssignmentApi::usersTier_assignmentsGet([[maybe_unused]] const usersTier_assignmentsGetParams& Params,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/tier-assignments").c_str(),
+		{});
+
+
+	if (Params.userIds.has_value())
+	{
+		Uri.AddQueryParams("userIds", Params.userIds.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 

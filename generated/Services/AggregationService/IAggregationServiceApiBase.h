@@ -1068,7 +1068,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/inspector/usage/sustained-activity-per-day
-	/// Authorization: magnopus-admin,magnopus-support
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	virtual void inspectorUsageSustained_activity_per_dayGet(const inspectorUsageSustained_activity_per_dayGetParams& Params,
 															 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -1160,8 +1160,113 @@ public:
 
 
 
+	struct inspectorValidate_secretPostParams
+	{
+		const std::shared_ptr<ValidateSecretRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Validate a secret value against the registered provider probe.
+	/// Supports both saved values (omit rawValue) and try-before-save (provide rawValue).
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/validate-secret
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	virtual void inspectorValidate_secretPost(const inspectorValidate_secretPostParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorSave_validated_secretPostParams
+	{
+		const std::shared_ptr<SaveValidatedSecretRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Save a secret value that has already been validated, persisting both
+	/// the value and the validation result atomically.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/save-validated-secret
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	virtual void inspectorSave_validated_secretPost(const inspectorSave_validated_secretPostParams& Params,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorSecret_validation_metadataGetParams
+	{
+		const std::optional<utility::string_t>& tenantName;
+	};
+
+
+	/// <summary>
+	/// Returns persisted validation metadata for a tenant's secrets (both GAC and API key types).
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/secret-validation-metadata
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	virtual void inspectorSecret_validation_metadataGet(const inspectorSecret_validation_metadataGetParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
 protected:
 	virtual ~IInspectorApiBase() = default;
+};
+
+class IInspectorAuditTrailApiBase : public csp::services::ApiBase
+{
+public:
+	IInspectorAuditTrailApiBase(csp::web::WebClient* InWebClient)
+		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().AggregationService)
+	{
+	}
+
+
+
+	struct inspectorAudit_trailGetParams
+	{
+		const std::optional<utility::string_t>& search;
+		const std::optional<utility::string_t>& tenantName;
+		const std::optional<utility::string_t>& eventType;
+		const std::optional<utility::string_t>& userId;
+		const std::optional<int64_t>& from;
+		const std::optional<int64_t>& to;
+		const std::optional<int64_t>& modifiedSince;
+		const std::optional<int32_t>& skip;
+		const std::optional<int32_t>& limit;
+	};
+
+
+	/// <summary>
+	/// Search audit records with optional filters and pagination.
+	/// Only accessible from the MAG_SUP tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/audit-trail
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorAudit_trailGet(const inspectorAudit_trailGetParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IInspectorAuditTrailApiBase() = default;
 };
 
 class IInspectorBugReportApiBase : public csp::services::ApiBase
@@ -1305,6 +1410,220 @@ protected:
 	virtual ~IInspectorBugReportApiBase() = default;
 };
 
+class IInspectorNodeDefinitionApiBase : public csp::services::ApiBase
+{
+public:
+	IInspectorNodeDefinitionApiBase(csp::web::WebClient* InWebClient)
+		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().AggregationService)
+	{
+	}
+
+
+
+	struct inspectorNode_definitionsGetParams
+	{
+		const std::optional<utility::string_t>& status;
+		const std::optional<utility::string_t>& category;
+		const std::optional<utility::string_t>& search;
+		const std::optional<utility::string_t>& runtimeId;
+		const std::optional<utility::string_t>& provider;
+		const std::optional<utility::string_t>& tag;
+		const std::optional<int32_t>& Skip;
+		const std::optional<int32_t>& Limit;
+	};
+
+
+	/// <summary>
+	/// List node definitions with optional filters and pagination.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/node-definitions
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorNode_definitionsGet(const inspectorNode_definitionsGetParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct inspectorNode_definitionsPostParams
+	{
+		const std::shared_ptr<NodeDefinitionCreateRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Create a new node definition (version 1).
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/node-definitions
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	virtual void inspectorNode_definitionsPost(const inspectorNode_definitionsPostParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorNode_definitionsNodeTypeIdGetParams
+	{
+		const utility::string_t& nodeTypeId;
+	};
+
+
+	/// <summary>
+	/// Get a single node definition by its type ID.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/node-definitions/{nodeTypeId}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void inspectorNode_definitionsNodeTypeIdGet(const inspectorNode_definitionsNodeTypeIdGetParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct inspectorNode_definitionsNodeTypeIdPutParams
+	{
+		const utility::string_t& nodeTypeId;
+		const std::shared_ptr<NodeDefinitionUpdateRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Update an existing node definition. Creates a new version.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/inspector/node-definitions/{nodeTypeId}
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	virtual void inspectorNode_definitionsNodeTypeIdPut(const inspectorNode_definitionsNodeTypeIdPutParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorNode_definitionsNodeTypeIdStatusPatchParams
+	{
+		const utility::string_t& nodeTypeId;
+		const std::shared_ptr<NodeDefinitionStatusRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Change the status of a node definition (active/draft/deprecated).
+	/// </summary>
+	/// <remarks>
+	/// PATCH /api/v1/inspector/node-definitions/{nodeTypeId}/status
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	virtual void inspectorNode_definitionsNodeTypeIdStatusPatch(const inspectorNode_definitionsNodeTypeIdStatusPatchParams& Params,
+																csp::services::ApiResponseHandlerBase* ResponseHandler,
+																csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorNode_definitionsNodeTypeIdHistoryGetParams
+	{
+		const utility::string_t& nodeTypeId;
+	};
+
+
+	/// <summary>
+	/// Get version history for a node definition.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/node-definitions/{nodeTypeId}/history
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	virtual void inspectorNode_definitionsNodeTypeIdHistoryGet(const inspectorNode_definitionsNodeTypeIdHistoryGetParams& Params,
+															   csp::services::ApiResponseHandlerBase* ResponseHandler,
+															   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorNode_definitionsNodeTypeIdHistoryVerGetParams
+	{
+		const utility::string_t& nodeTypeId;
+		const int32_t& ver;
+	};
+
+
+	/// <summary>
+	/// Get a specific version snapshot of a node definition.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/node-definitions/{nodeTypeId}/history/{ver}
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	virtual void inspectorNode_definitionsNodeTypeIdHistoryVerGet(const inspectorNode_definitionsNodeTypeIdHistoryVerGetParams& Params,
+																  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorNode_definitionsNodeTypeIdRestoreVerPostParams
+	{
+		const utility::string_t& nodeTypeId;
+		const int32_t& ver;
+	};
+
+
+	/// <summary>
+	/// Restore a previous version (creates a new version from the old snapshot).
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/node-definitions/{nodeTypeId}/restore/{ver}
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	virtual void inspectorNode_definitionsNodeTypeIdRestoreVerPost(const inspectorNode_definitionsNodeTypeIdRestoreVerPostParams& Params,
+																   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IInspectorNodeDefinitionApiBase() = default;
+};
+
+class IInspectorWorkerRuntimeApiBase : public csp::services::ApiBase
+{
+public:
+	IInspectorWorkerRuntimeApiBase(csp::web::WebClient* InWebClient)
+		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().AggregationService)
+	{
+	}
+
+
+
+	struct inspectorWorker_runtimesGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// List all active worker runtimes.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/worker-runtimes
+	/// Authorization: magnopus-admin,magnopus-nodey-developer
+	/// </remarks>
+	virtual void inspectorWorker_runtimesGet(const inspectorWorker_runtimesGetParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IInspectorWorkerRuntimeApiBase() = default;
+};
+
 class IMusubiGraphApiBase : public csp::services::ApiBase
 {
 public:
@@ -1397,6 +1716,60 @@ public:
 
 protected:
 	virtual ~IMusubiGraphApiBase() = default;
+};
+
+class INodeDefinitionApiBase : public csp::services::ApiBase
+{
+public:
+	INodeDefinitionApiBase(csp::web::WebClient* InWebClient)
+		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().AggregationService)
+	{
+	}
+
+
+
+	struct node_definitionsFlatGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// Get all active node definitions as a flat map keyed by node type ID.
+	/// Replaces Nodey's filesystem-based /nodes endpoint.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/node-definitions/flat
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void node_definitionsFlatGet(const node_definitionsFlatGetParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct node_definitionsNestedGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// Get all active node definitions as a nested map grouped by category.
+	/// Replaces Nodey's filesystem-based /nested_nodes endpoint.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/node-definitions/nested
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void node_definitionsNestedGet(const node_definitionsNestedGetParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~INodeDefinitionApiBase() = default;
 };
 
 class INtpApiBase : public csp::services::ApiBase

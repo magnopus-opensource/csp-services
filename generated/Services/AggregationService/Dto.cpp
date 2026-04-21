@@ -1774,6 +1774,614 @@ bool AssetDetailDto::HasUpdatedBy() const
 	return m_UpdatedBy.has_value();
 }
 
+AuditTrailDto::AuditTrailDto()
+{
+}
+AuditTrailDto::~AuditTrailDto()
+{
+}
+
+utility::string_t AuditTrailDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Id.has_value())
+	{
+		rapidjson::Value IdValue(TypeToJsonValue(m_Id, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("id", IdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EventType.has_value())
+	{
+		rapidjson::Value EventTypeValue(TypeToJsonValue(m_EventType, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("eventType", EventTypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UserId.has_value())
+	{
+		rapidjson::Value UserIdValue(TypeToJsonValue(m_UserId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("userId", UserIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UserEmail.has_value())
+	{
+		rapidjson::Value UserEmailValue(TypeToJsonValue(m_UserEmail, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("userEmail", UserEmailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TenantName.has_value())
+	{
+		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_IpAddress.has_value())
+	{
+		rapidjson::Value IpAddressValue(TypeToJsonValue(m_IpAddress, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("ipAddress", IpAddressValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Controller.has_value())
+	{
+		rapidjson::Value ControllerValue(TypeToJsonValue(m_Controller, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("controller", ControllerValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Action.has_value())
+	{
+		rapidjson::Value ActionValue(TypeToJsonValue(m_Action, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("action", ActionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_HttpMethod.has_value())
+	{
+		rapidjson::Value HttpMethodValue(TypeToJsonValue(m_HttpMethod, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("httpMethod", HttpMethodValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Route.has_value())
+	{
+		rapidjson::Value RouteValue(TypeToJsonValue(m_Route, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("route", RouteValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_StatusCode.has_value())
+	{
+		rapidjson::Value StatusCodeValue(TypeToJsonValue(m_StatusCode, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("statusCode", StatusCodeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EventData.has_value())
+	{
+		rapidjson::Value EventDataValue(TypeToJsonValue(m_EventData, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("eventData", EventDataValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void AuditTrailDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AuditTrailDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("id"))
+	{
+		const rapidjson::Value& IdValue = JsonDoc["id"];
+
+		if (IdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IdValue, m_Id);
+		}
+	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("eventType"))
+	{
+		const rapidjson::Value& EventTypeValue = JsonDoc["eventType"];
+
+		if (EventTypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EventTypeValue, m_EventType);
+		}
+	}
+
+	if (JsonDoc.HasMember("userId"))
+	{
+		const rapidjson::Value& UserIdValue = JsonDoc["userId"];
+
+		if (UserIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UserIdValue, m_UserId);
+		}
+	}
+
+	if (JsonDoc.HasMember("userEmail"))
+	{
+		const rapidjson::Value& UserEmailValue = JsonDoc["userEmail"];
+
+		if (UserEmailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UserEmailValue, m_UserEmail);
+		}
+	}
+
+	if (JsonDoc.HasMember("tenantName"))
+	{
+		const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+
+		if (TenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantNameValue, m_TenantName);
+		}
+	}
+
+	if (JsonDoc.HasMember("ipAddress"))
+	{
+		const rapidjson::Value& IpAddressValue = JsonDoc["ipAddress"];
+
+		if (IpAddressValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IpAddressValue, m_IpAddress);
+		}
+	}
+
+	if (JsonDoc.HasMember("controller"))
+	{
+		const rapidjson::Value& ControllerValue = JsonDoc["controller"];
+
+		if (ControllerValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ControllerValue, m_Controller);
+		}
+	}
+
+	if (JsonDoc.HasMember("action"))
+	{
+		const rapidjson::Value& ActionValue = JsonDoc["action"];
+
+		if (ActionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ActionValue, m_Action);
+		}
+	}
+
+	if (JsonDoc.HasMember("httpMethod"))
+	{
+		const rapidjson::Value& HttpMethodValue = JsonDoc["httpMethod"];
+
+		if (HttpMethodValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(HttpMethodValue, m_HttpMethod);
+		}
+	}
+
+	if (JsonDoc.HasMember("route"))
+	{
+		const rapidjson::Value& RouteValue = JsonDoc["route"];
+
+		if (RouteValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RouteValue, m_Route);
+		}
+	}
+
+	if (JsonDoc.HasMember("statusCode"))
+	{
+		const rapidjson::Value& StatusCodeValue = JsonDoc["statusCode"];
+
+		if (StatusCodeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StatusCodeValue, m_StatusCode);
+		}
+	}
+
+	if (JsonDoc.HasMember("eventData"))
+	{
+		const rapidjson::Value& EventDataValue = JsonDoc["eventData"];
+
+		if (EventDataValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EventDataValue, m_EventData);
+		}
+	}
+}
+
+
+utility::string_t AuditTrailDto::GetId() const
+{
+	return m_Id.value();
+}
+
+bool AuditTrailDto::HasId() const
+{
+	return m_Id.has_value();
+}
+void AuditTrailDto::SetId(const utility::string_t& Value)
+{
+	m_Id = Value;
+}
+utility::string_t AuditTrailDto::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool AuditTrailDto::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
+}
+void AuditTrailDto::SetCreatedAt(const utility::string_t& Value)
+{
+	m_CreatedAt = Value;
+}
+utility::string_t AuditTrailDto::GetEventType() const
+{
+	return m_EventType.value();
+}
+
+bool AuditTrailDto::HasEventType() const
+{
+	return m_EventType.has_value();
+}
+void AuditTrailDto::SetEventType(const utility::string_t& Value)
+{
+	m_EventType = Value;
+}
+utility::string_t AuditTrailDto::GetUserId() const
+{
+	return m_UserId.value();
+}
+
+bool AuditTrailDto::HasUserId() const
+{
+	return m_UserId.has_value();
+}
+void AuditTrailDto::SetUserId(const utility::string_t& Value)
+{
+	m_UserId = Value;
+}
+utility::string_t AuditTrailDto::GetUserEmail() const
+{
+	return m_UserEmail.value();
+}
+
+bool AuditTrailDto::HasUserEmail() const
+{
+	return m_UserEmail.has_value();
+}
+void AuditTrailDto::SetUserEmail(const utility::string_t& Value)
+{
+	m_UserEmail = Value;
+}
+utility::string_t AuditTrailDto::GetTenantName() const
+{
+	return m_TenantName.value();
+}
+
+bool AuditTrailDto::HasTenantName() const
+{
+	return m_TenantName.has_value();
+}
+void AuditTrailDto::SetTenantName(const utility::string_t& Value)
+{
+	m_TenantName = Value;
+}
+utility::string_t AuditTrailDto::GetIpAddress() const
+{
+	return m_IpAddress.value();
+}
+
+bool AuditTrailDto::HasIpAddress() const
+{
+	return m_IpAddress.has_value();
+}
+void AuditTrailDto::SetIpAddress(const utility::string_t& Value)
+{
+	m_IpAddress = Value;
+}
+utility::string_t AuditTrailDto::GetController() const
+{
+	return m_Controller.value();
+}
+
+bool AuditTrailDto::HasController() const
+{
+	return m_Controller.has_value();
+}
+void AuditTrailDto::SetController(const utility::string_t& Value)
+{
+	m_Controller = Value;
+}
+utility::string_t AuditTrailDto::GetAction() const
+{
+	return m_Action.value();
+}
+
+bool AuditTrailDto::HasAction() const
+{
+	return m_Action.has_value();
+}
+void AuditTrailDto::SetAction(const utility::string_t& Value)
+{
+	m_Action = Value;
+}
+utility::string_t AuditTrailDto::GetHttpMethod() const
+{
+	return m_HttpMethod.value();
+}
+
+bool AuditTrailDto::HasHttpMethod() const
+{
+	return m_HttpMethod.has_value();
+}
+void AuditTrailDto::SetHttpMethod(const utility::string_t& Value)
+{
+	m_HttpMethod = Value;
+}
+utility::string_t AuditTrailDto::GetRoute() const
+{
+	return m_Route.value();
+}
+
+bool AuditTrailDto::HasRoute() const
+{
+	return m_Route.has_value();
+}
+void AuditTrailDto::SetRoute(const utility::string_t& Value)
+{
+	m_Route = Value;
+}
+int32_t AuditTrailDto::GetStatusCode() const
+{
+	return m_StatusCode.value();
+}
+
+bool AuditTrailDto::HasStatusCode() const
+{
+	return m_StatusCode.has_value();
+}
+void AuditTrailDto::SetStatusCode(int32_t Value)
+{
+	m_StatusCode = Value;
+}
+const std::map<utility::string_t, utility::string_t>& AuditTrailDto::GetEventData() const
+{
+	return m_EventData.value();
+}
+
+bool AuditTrailDto::HasEventData() const
+{
+	return m_EventData.has_value();
+}
+void AuditTrailDto::SetEventData(const std::map<utility::string_t, utility::string_t>& Value)
+{
+	m_EventData = Value;
+}
+
+AuditTrailDtoDataPage::AuditTrailDtoDataPage()
+{
+}
+AuditTrailDtoDataPage::~AuditTrailDtoDataPage()
+{
+}
+
+utility::string_t AuditTrailDtoDataPage::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Items.has_value())
+	{
+		rapidjson::Value ItemsValue(TypeToJsonValue(m_Items, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("items", ItemsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Skip.has_value())
+	{
+		rapidjson::Value SkipValue(TypeToJsonValue(m_Skip, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("skip", SkipValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Limit.has_value())
+	{
+		rapidjson::Value LimitValue(TypeToJsonValue(m_Limit, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("limit", LimitValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemCount.has_value())
+	{
+		rapidjson::Value ItemCountValue(TypeToJsonValue(m_ItemCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemCount", ItemCountValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemTotalCount.has_value())
+	{
+		rapidjson::Value ItemTotalCountValue(TypeToJsonValue(m_ItemTotalCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void AuditTrailDtoDataPage::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AuditTrailDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("items"))
+	{
+		const rapidjson::Value& ItemsValue = JsonDoc["items"];
+
+		if (ItemsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemsValue, m_Items);
+		}
+	}
+
+	if (JsonDoc.HasMember("skip"))
+	{
+		const rapidjson::Value& SkipValue = JsonDoc["skip"];
+
+		if (SkipValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SkipValue, m_Skip);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("limit"))
+	{
+		const rapidjson::Value& LimitValue = JsonDoc["limit"];
+
+		if (LimitValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LimitValue, m_Limit);
+		}
+	}
+
+	if (JsonDoc.HasMember("itemCount"))
+	{
+		const rapidjson::Value& ItemCountValue = JsonDoc["itemCount"];
+
+		if (ItemCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemCountValue, m_ItemCount);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("itemTotalCount"))
+	{
+		const rapidjson::Value& ItemTotalCountValue = JsonDoc["itemTotalCount"];
+
+		if (ItemTotalCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+		}
+	}
+}
+
+
+const std::vector<std::shared_ptr<AuditTrailDto>>& AuditTrailDtoDataPage::GetItems() const
+{
+	return m_Items.value();
+}
+
+bool AuditTrailDtoDataPage::HasItems() const
+{
+	return m_Items.has_value();
+}
+void AuditTrailDtoDataPage::SetItems(const std::vector<std::shared_ptr<AuditTrailDto>>& Value)
+{
+	m_Items = Value;
+}
+int32_t AuditTrailDtoDataPage::GetSkip() const
+{
+	return m_Skip.value();
+}
+
+bool AuditTrailDtoDataPage::HasSkip() const
+{
+	return m_Skip.has_value();
+}
+void AuditTrailDtoDataPage::SetSkip(int32_t Value)
+{
+	m_Skip = Value;
+}
+int32_t AuditTrailDtoDataPage::GetLimit() const
+{
+	return m_Limit.value();
+}
+
+bool AuditTrailDtoDataPage::HasLimit() const
+{
+	return m_Limit.has_value();
+}
+void AuditTrailDtoDataPage::SetLimit(int32_t Value)
+{
+	m_Limit = Value;
+}
+int32_t AuditTrailDtoDataPage::GetItemCount() const
+{
+	return m_ItemCount.value();
+}
+
+bool AuditTrailDtoDataPage::HasItemCount() const
+{
+	return m_ItemCount.has_value();
+}
+void AuditTrailDtoDataPage::SetItemCount(int32_t Value)
+{
+	m_ItemCount = Value;
+}
+int64_t AuditTrailDtoDataPage::GetItemTotalCount() const
+{
+	return m_ItemTotalCount.value();
+}
+
+bool AuditTrailDtoDataPage::HasItemTotalCount() const
+{
+	return m_ItemTotalCount.has_value();
+}
+void AuditTrailDtoDataPage::SetItemTotalCount(int64_t Value)
+{
+	m_ItemTotalCount = Value;
+}
+
 AuthDto::AuthDto()
 {
 }
@@ -8469,6 +9077,18 @@ utility::string_t GraphExecutionRequest::ToJson() const
 		JsonDoc.AddMember("options", OptionsValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_OutputBucket.has_value())
+	{
+		rapidjson::Value OutputBucketValue(TypeToJsonValue(m_OutputBucket, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("outputBucket", OutputBucketValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TempBucket.has_value())
+	{
+		rapidjson::Value TempBucketValue(TypeToJsonValue(m_TempBucket, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tempBucket", TempBucketValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
@@ -8518,6 +9138,26 @@ void GraphExecutionRequest::FromJson(const utility::string_t& Val)
 			JsonValueToType(OptionsValue, m_Options);
 		}
 	}
+
+	if (JsonDoc.HasMember("outputBucket"))
+	{
+		const rapidjson::Value& OutputBucketValue = JsonDoc["outputBucket"];
+
+		if (OutputBucketValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OutputBucketValue, m_OutputBucket);
+		}
+	}
+
+	if (JsonDoc.HasMember("tempBucket"))
+	{
+		const rapidjson::Value& TempBucketValue = JsonDoc["tempBucket"];
+
+		if (TempBucketValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TempBucketValue, m_TempBucket);
+		}
+	}
 }
 
 
@@ -8559,6 +9199,32 @@ bool GraphExecutionRequest::HasOptions() const
 void GraphExecutionRequest::SetOptions(const std::map<utility::string_t, utility::string_t>& Value)
 {
 	m_Options = Value;
+}
+utility::string_t GraphExecutionRequest::GetOutputBucket() const
+{
+	return m_OutputBucket.value();
+}
+
+bool GraphExecutionRequest::HasOutputBucket() const
+{
+	return m_OutputBucket.has_value();
+}
+void GraphExecutionRequest::SetOutputBucket(const utility::string_t& Value)
+{
+	m_OutputBucket = Value;
+}
+utility::string_t GraphExecutionRequest::GetTempBucket() const
+{
+	return m_TempBucket.value();
+}
+
+bool GraphExecutionRequest::HasTempBucket() const
+{
+	return m_TempBucket.has_value();
+}
+void GraphExecutionRequest::SetTempBucket(const utility::string_t& Value)
+{
+	m_TempBucket = Value;
 }
 
 GraphExecutionState::GraphExecutionState()
@@ -11557,6 +12223,1780 @@ bool NamedFunction::HasEndOfLifeDatetime() const
 void NamedFunction::SetEndOfLifeDatetime(const utility::string_t& Value)
 {
 	m_EndOfLifeDatetime = Value;
+}
+
+NodeDefinitionCreateRequest::NodeDefinitionCreateRequest()
+{
+}
+NodeDefinitionCreateRequest::~NodeDefinitionCreateRequest()
+{
+}
+
+utility::string_t NodeDefinitionCreateRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_NodeTypeId.has_value())
+	{
+		rapidjson::Value NodeTypeIdValue(TypeToJsonValue(m_NodeTypeId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("nodeTypeId", NodeTypeIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Category.has_value())
+	{
+		rapidjson::Value CategoryValue(TypeToJsonValue(m_Category, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("category", CategoryValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Definition.has_value())
+	{
+		rapidjson::Value DefinitionValue(TypeToJsonValue(m_Definition, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("definition", DefinitionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_FunctionRef.has_value())
+	{
+		rapidjson::Value FunctionRefValue(TypeToJsonValue(m_FunctionRef, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("functionRef", FunctionRefValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RuntimeId.has_value())
+	{
+		rapidjson::Value RuntimeIdValue(TypeToJsonValue(m_RuntimeId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("runtimeId", RuntimeIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Status.has_value())
+	{
+		rapidjson::Value StatusValue(TypeToJsonValue(m_Status, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("status", StatusValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ChangeNote.has_value())
+	{
+		rapidjson::Value ChangeNoteValue(TypeToJsonValue(m_ChangeNote, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("changeNote", ChangeNoteValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Tags.has_value())
+	{
+		rapidjson::Value TagsValue(TypeToJsonValue(m_Tags, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tags", TagsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RequiredSecrets.has_value())
+	{
+		rapidjson::Value RequiredSecretsValue(TypeToJsonValue(m_RequiredSecrets, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("requiredSecrets", RequiredSecretsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Provider.has_value())
+	{
+		rapidjson::Value ProviderValue(TypeToJsonValue(m_Provider, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("provider", ProviderValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ClonedFromNodeTypeId.has_value())
+	{
+		rapidjson::Value ClonedFromNodeTypeIdValue(TypeToJsonValue(m_ClonedFromNodeTypeId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("clonedFromNodeTypeId", ClonedFromNodeTypeIdValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void NodeDefinitionCreateRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "NodeDefinitionCreateRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("nodeTypeId"))
+	{
+		const rapidjson::Value& NodeTypeIdValue = JsonDoc["nodeTypeId"];
+
+		if (NodeTypeIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NodeTypeIdValue, m_NodeTypeId);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member nodeTypeId is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("category"))
+	{
+		const rapidjson::Value& CategoryValue = JsonDoc["category"];
+
+		if (CategoryValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CategoryValue, m_Category);
+		}
+	}
+
+	if (JsonDoc.HasMember("definition"))
+	{
+		const rapidjson::Value& DefinitionValue = JsonDoc["definition"];
+
+		if (DefinitionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DefinitionValue, m_Definition);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member definition is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("functionRef"))
+	{
+		const rapidjson::Value& FunctionRefValue = JsonDoc["functionRef"];
+
+		if (FunctionRefValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FunctionRefValue, m_FunctionRef);
+		}
+	}
+
+	if (JsonDoc.HasMember("runtimeId"))
+	{
+		const rapidjson::Value& RuntimeIdValue = JsonDoc["runtimeId"];
+
+		if (RuntimeIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RuntimeIdValue, m_RuntimeId);
+		}
+	}
+
+	if (JsonDoc.HasMember("status"))
+	{
+		const rapidjson::Value& StatusValue = JsonDoc["status"];
+
+		if (StatusValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StatusValue, m_Status);
+		}
+	}
+
+	if (JsonDoc.HasMember("changeNote"))
+	{
+		const rapidjson::Value& ChangeNoteValue = JsonDoc["changeNote"];
+
+		if (ChangeNoteValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+		}
+	}
+
+	if (JsonDoc.HasMember("tags"))
+	{
+		const rapidjson::Value& TagsValue = JsonDoc["tags"];
+
+		if (TagsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TagsValue, m_Tags);
+		}
+	}
+
+	if (JsonDoc.HasMember("requiredSecrets"))
+	{
+		const rapidjson::Value& RequiredSecretsValue = JsonDoc["requiredSecrets"];
+
+		if (RequiredSecretsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RequiredSecretsValue, m_RequiredSecrets);
+		}
+	}
+
+	if (JsonDoc.HasMember("provider"))
+	{
+		const rapidjson::Value& ProviderValue = JsonDoc["provider"];
+
+		if (ProviderValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ProviderValue, m_Provider);
+		}
+	}
+
+	if (JsonDoc.HasMember("clonedFromNodeTypeId"))
+	{
+		const rapidjson::Value& ClonedFromNodeTypeIdValue = JsonDoc["clonedFromNodeTypeId"];
+
+		if (ClonedFromNodeTypeIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ClonedFromNodeTypeIdValue, m_ClonedFromNodeTypeId);
+		}
+	}
+}
+
+
+utility::string_t NodeDefinitionCreateRequest::GetNodeTypeId() const
+{
+	return m_NodeTypeId.value();
+}
+
+bool NodeDefinitionCreateRequest::HasNodeTypeId() const
+{
+	return m_NodeTypeId.has_value();
+}
+void NodeDefinitionCreateRequest::SetNodeTypeId(const utility::string_t& Value)
+{
+	m_NodeTypeId = Value;
+}
+const std::vector<utility::string_t>& NodeDefinitionCreateRequest::GetCategory() const
+{
+	return m_Category.value();
+}
+
+bool NodeDefinitionCreateRequest::HasCategory() const
+{
+	return m_Category.has_value();
+}
+void NodeDefinitionCreateRequest::SetCategory(const std::vector<utility::string_t>& Value)
+{
+	m_Category = Value;
+}
+std::shared_ptr<rapidjson::Document> NodeDefinitionCreateRequest::GetDefinition() const
+{
+	return m_Definition.value();
+}
+
+bool NodeDefinitionCreateRequest::HasDefinition() const
+{
+	return m_Definition.has_value();
+}
+void NodeDefinitionCreateRequest::SetDefinition(const std::shared_ptr<rapidjson::Document>& Value)
+{
+	m_Definition = Value;
+}
+utility::string_t NodeDefinitionCreateRequest::GetFunctionRef() const
+{
+	return m_FunctionRef.value();
+}
+
+bool NodeDefinitionCreateRequest::HasFunctionRef() const
+{
+	return m_FunctionRef.has_value();
+}
+void NodeDefinitionCreateRequest::SetFunctionRef(const utility::string_t& Value)
+{
+	m_FunctionRef = Value;
+}
+utility::string_t NodeDefinitionCreateRequest::GetRuntimeId() const
+{
+	return m_RuntimeId.value();
+}
+
+bool NodeDefinitionCreateRequest::HasRuntimeId() const
+{
+	return m_RuntimeId.has_value();
+}
+void NodeDefinitionCreateRequest::SetRuntimeId(const utility::string_t& Value)
+{
+	m_RuntimeId = Value;
+}
+utility::string_t NodeDefinitionCreateRequest::GetStatus() const
+{
+	return m_Status.value();
+}
+
+bool NodeDefinitionCreateRequest::HasStatus() const
+{
+	return m_Status.has_value();
+}
+void NodeDefinitionCreateRequest::SetStatus(const utility::string_t& Value)
+{
+	m_Status = Value;
+}
+utility::string_t NodeDefinitionCreateRequest::GetChangeNote() const
+{
+	return m_ChangeNote.value();
+}
+
+bool NodeDefinitionCreateRequest::HasChangeNote() const
+{
+	return m_ChangeNote.has_value();
+}
+void NodeDefinitionCreateRequest::SetChangeNote(const utility::string_t& Value)
+{
+	m_ChangeNote = Value;
+}
+const std::vector<utility::string_t>& NodeDefinitionCreateRequest::GetTags() const
+{
+	return m_Tags.value();
+}
+
+bool NodeDefinitionCreateRequest::HasTags() const
+{
+	return m_Tags.has_value();
+}
+void NodeDefinitionCreateRequest::SetTags(const std::vector<utility::string_t>& Value)
+{
+	m_Tags = Value;
+}
+const std::vector<utility::string_t>& NodeDefinitionCreateRequest::GetRequiredSecrets() const
+{
+	return m_RequiredSecrets.value();
+}
+
+bool NodeDefinitionCreateRequest::HasRequiredSecrets() const
+{
+	return m_RequiredSecrets.has_value();
+}
+void NodeDefinitionCreateRequest::SetRequiredSecrets(const std::vector<utility::string_t>& Value)
+{
+	m_RequiredSecrets = Value;
+}
+utility::string_t NodeDefinitionCreateRequest::GetProvider() const
+{
+	return m_Provider.value();
+}
+
+bool NodeDefinitionCreateRequest::HasProvider() const
+{
+	return m_Provider.has_value();
+}
+void NodeDefinitionCreateRequest::SetProvider(const utility::string_t& Value)
+{
+	m_Provider = Value;
+}
+utility::string_t NodeDefinitionCreateRequest::GetClonedFromNodeTypeId() const
+{
+	return m_ClonedFromNodeTypeId.value();
+}
+
+bool NodeDefinitionCreateRequest::HasClonedFromNodeTypeId() const
+{
+	return m_ClonedFromNodeTypeId.has_value();
+}
+void NodeDefinitionCreateRequest::SetClonedFromNodeTypeId(const utility::string_t& Value)
+{
+	m_ClonedFromNodeTypeId = Value;
+}
+
+NodeDefinitionDetailDto::NodeDefinitionDetailDto()
+{
+}
+NodeDefinitionDetailDto::~NodeDefinitionDetailDto()
+{
+}
+
+utility::string_t NodeDefinitionDetailDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Definition.has_value())
+	{
+		rapidjson::Value DefinitionValue(TypeToJsonValue(m_Definition, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("definition", DefinitionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SourceVersion.has_value())
+	{
+		rapidjson::Value SourceVersionValue(TypeToJsonValue(m_SourceVersion, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("sourceVersion", SourceVersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Tags.has_value())
+	{
+		rapidjson::Value TagsValue(TypeToJsonValue(m_Tags, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tags", TagsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ClonedFromNodeTypeId.has_value())
+	{
+		rapidjson::Value ClonedFromNodeTypeIdValue(TypeToJsonValue(m_ClonedFromNodeTypeId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("clonedFromNodeTypeId", ClonedFromNodeTypeIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_NodeTypeId.has_value())
+	{
+		rapidjson::Value NodeTypeIdValue(TypeToJsonValue(m_NodeTypeId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("nodeTypeId", NodeTypeIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Label.has_value())
+	{
+		rapidjson::Value LabelValue(TypeToJsonValue(m_Label, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("label", LabelValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Category.has_value())
+	{
+		rapidjson::Value CategoryValue(TypeToJsonValue(m_Category, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("category", CategoryValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RuntimeId.has_value())
+	{
+		rapidjson::Value RuntimeIdValue(TypeToJsonValue(m_RuntimeId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("runtimeId", RuntimeIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Status.has_value())
+	{
+		rapidjson::Value StatusValue(TypeToJsonValue(m_Status, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("status", StatusValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Version.has_value())
+	{
+		rapidjson::Value VersionValue(TypeToJsonValue(m_Version, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("version", VersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_FunctionRef.has_value())
+	{
+		rapidjson::Value FunctionRefValue(TypeToJsonValue(m_FunctionRef, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("functionRef", FunctionRefValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Provider.has_value())
+	{
+		rapidjson::Value ProviderValue(TypeToJsonValue(m_Provider, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("provider", ProviderValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RequiredSecrets.has_value())
+	{
+		rapidjson::Value RequiredSecretsValue(TypeToJsonValue(m_RequiredSecrets, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("requiredSecrets", RequiredSecretsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UpdatedAt.has_value())
+	{
+		rapidjson::Value UpdatedAtValue(TypeToJsonValue(m_UpdatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("updatedAt", UpdatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void NodeDefinitionDetailDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "NodeDefinitionDetailDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("definition"))
+	{
+		const rapidjson::Value& DefinitionValue = JsonDoc["definition"];
+
+		if (DefinitionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DefinitionValue, m_Definition);
+		}
+	}
+
+	if (JsonDoc.HasMember("sourceVersion"))
+	{
+		const rapidjson::Value& SourceVersionValue = JsonDoc["sourceVersion"];
+
+		if (SourceVersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SourceVersionValue, m_SourceVersion);
+		}
+	}
+
+	if (JsonDoc.HasMember("tags"))
+	{
+		const rapidjson::Value& TagsValue = JsonDoc["tags"];
+
+		if (TagsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TagsValue, m_Tags);
+		}
+	}
+
+	if (JsonDoc.HasMember("clonedFromNodeTypeId"))
+	{
+		const rapidjson::Value& ClonedFromNodeTypeIdValue = JsonDoc["clonedFromNodeTypeId"];
+
+		if (ClonedFromNodeTypeIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ClonedFromNodeTypeIdValue, m_ClonedFromNodeTypeId);
+		}
+	}
+
+	if (JsonDoc.HasMember("nodeTypeId"))
+	{
+		const rapidjson::Value& NodeTypeIdValue = JsonDoc["nodeTypeId"];
+
+		if (NodeTypeIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NodeTypeIdValue, m_NodeTypeId);
+		}
+	}
+
+	if (JsonDoc.HasMember("label"))
+	{
+		const rapidjson::Value& LabelValue = JsonDoc["label"];
+
+		if (LabelValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LabelValue, m_Label);
+		}
+	}
+
+	if (JsonDoc.HasMember("category"))
+	{
+		const rapidjson::Value& CategoryValue = JsonDoc["category"];
+
+		if (CategoryValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CategoryValue, m_Category);
+		}
+	}
+
+	if (JsonDoc.HasMember("runtimeId"))
+	{
+		const rapidjson::Value& RuntimeIdValue = JsonDoc["runtimeId"];
+
+		if (RuntimeIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RuntimeIdValue, m_RuntimeId);
+		}
+	}
+
+	if (JsonDoc.HasMember("status"))
+	{
+		const rapidjson::Value& StatusValue = JsonDoc["status"];
+
+		if (StatusValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StatusValue, m_Status);
+		}
+	}
+
+	if (JsonDoc.HasMember("version"))
+	{
+		const rapidjson::Value& VersionValue = JsonDoc["version"];
+
+		if (VersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(VersionValue, m_Version);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("functionRef"))
+	{
+		const rapidjson::Value& FunctionRefValue = JsonDoc["functionRef"];
+
+		if (FunctionRefValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FunctionRefValue, m_FunctionRef);
+		}
+	}
+
+	if (JsonDoc.HasMember("provider"))
+	{
+		const rapidjson::Value& ProviderValue = JsonDoc["provider"];
+
+		if (ProviderValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ProviderValue, m_Provider);
+		}
+	}
+
+	if (JsonDoc.HasMember("requiredSecrets"))
+	{
+		const rapidjson::Value& RequiredSecretsValue = JsonDoc["requiredSecrets"];
+
+		if (RequiredSecretsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RequiredSecretsValue, m_RequiredSecrets);
+		}
+	}
+
+	if (JsonDoc.HasMember("updatedAt"))
+	{
+		const rapidjson::Value& UpdatedAtValue = JsonDoc["updatedAt"];
+
+		if (UpdatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+		}
+	}
+}
+
+
+std::shared_ptr<rapidjson::Document> NodeDefinitionDetailDto::GetDefinition() const
+{
+	return m_Definition.value();
+}
+
+bool NodeDefinitionDetailDto::HasDefinition() const
+{
+	return m_Definition.has_value();
+}
+void NodeDefinitionDetailDto::SetDefinition(const std::shared_ptr<rapidjson::Document>& Value)
+{
+	m_Definition = Value;
+}
+utility::string_t NodeDefinitionDetailDto::GetSourceVersion() const
+{
+	return m_SourceVersion.value();
+}
+
+bool NodeDefinitionDetailDto::HasSourceVersion() const
+{
+	return m_SourceVersion.has_value();
+}
+void NodeDefinitionDetailDto::SetSourceVersion(const utility::string_t& Value)
+{
+	m_SourceVersion = Value;
+}
+const std::vector<utility::string_t>& NodeDefinitionDetailDto::GetTags() const
+{
+	return m_Tags.value();
+}
+
+bool NodeDefinitionDetailDto::HasTags() const
+{
+	return m_Tags.has_value();
+}
+void NodeDefinitionDetailDto::SetTags(const std::vector<utility::string_t>& Value)
+{
+	m_Tags = Value;
+}
+utility::string_t NodeDefinitionDetailDto::GetClonedFromNodeTypeId() const
+{
+	return m_ClonedFromNodeTypeId.value();
+}
+
+bool NodeDefinitionDetailDto::HasClonedFromNodeTypeId() const
+{
+	return m_ClonedFromNodeTypeId.has_value();
+}
+void NodeDefinitionDetailDto::SetClonedFromNodeTypeId(const utility::string_t& Value)
+{
+	m_ClonedFromNodeTypeId = Value;
+}
+utility::string_t NodeDefinitionDetailDto::GetNodeTypeId() const
+{
+	return m_NodeTypeId.value();
+}
+
+bool NodeDefinitionDetailDto::HasNodeTypeId() const
+{
+	return m_NodeTypeId.has_value();
+}
+void NodeDefinitionDetailDto::SetNodeTypeId(const utility::string_t& Value)
+{
+	m_NodeTypeId = Value;
+}
+utility::string_t NodeDefinitionDetailDto::GetLabel() const
+{
+	return m_Label.value();
+}
+
+bool NodeDefinitionDetailDto::HasLabel() const
+{
+	return m_Label.has_value();
+}
+void NodeDefinitionDetailDto::SetLabel(const utility::string_t& Value)
+{
+	m_Label = Value;
+}
+const std::vector<utility::string_t>& NodeDefinitionDetailDto::GetCategory() const
+{
+	return m_Category.value();
+}
+
+bool NodeDefinitionDetailDto::HasCategory() const
+{
+	return m_Category.has_value();
+}
+void NodeDefinitionDetailDto::SetCategory(const std::vector<utility::string_t>& Value)
+{
+	m_Category = Value;
+}
+utility::string_t NodeDefinitionDetailDto::GetRuntimeId() const
+{
+	return m_RuntimeId.value();
+}
+
+bool NodeDefinitionDetailDto::HasRuntimeId() const
+{
+	return m_RuntimeId.has_value();
+}
+void NodeDefinitionDetailDto::SetRuntimeId(const utility::string_t& Value)
+{
+	m_RuntimeId = Value;
+}
+utility::string_t NodeDefinitionDetailDto::GetStatus() const
+{
+	return m_Status.value();
+}
+
+bool NodeDefinitionDetailDto::HasStatus() const
+{
+	return m_Status.has_value();
+}
+void NodeDefinitionDetailDto::SetStatus(const utility::string_t& Value)
+{
+	m_Status = Value;
+}
+int32_t NodeDefinitionDetailDto::GetVersion() const
+{
+	return m_Version.value();
+}
+
+bool NodeDefinitionDetailDto::HasVersion() const
+{
+	return m_Version.has_value();
+}
+void NodeDefinitionDetailDto::SetVersion(int32_t Value)
+{
+	m_Version = Value;
+}
+utility::string_t NodeDefinitionDetailDto::GetFunctionRef() const
+{
+	return m_FunctionRef.value();
+}
+
+bool NodeDefinitionDetailDto::HasFunctionRef() const
+{
+	return m_FunctionRef.has_value();
+}
+void NodeDefinitionDetailDto::SetFunctionRef(const utility::string_t& Value)
+{
+	m_FunctionRef = Value;
+}
+utility::string_t NodeDefinitionDetailDto::GetProvider() const
+{
+	return m_Provider.value();
+}
+
+bool NodeDefinitionDetailDto::HasProvider() const
+{
+	return m_Provider.has_value();
+}
+void NodeDefinitionDetailDto::SetProvider(const utility::string_t& Value)
+{
+	m_Provider = Value;
+}
+const std::vector<utility::string_t>& NodeDefinitionDetailDto::GetRequiredSecrets() const
+{
+	return m_RequiredSecrets.value();
+}
+
+bool NodeDefinitionDetailDto::HasRequiredSecrets() const
+{
+	return m_RequiredSecrets.has_value();
+}
+void NodeDefinitionDetailDto::SetRequiredSecrets(const std::vector<utility::string_t>& Value)
+{
+	m_RequiredSecrets = Value;
+}
+utility::string_t NodeDefinitionDetailDto::GetUpdatedAt() const
+{
+	return m_UpdatedAt.value();
+}
+
+bool NodeDefinitionDetailDto::HasUpdatedAt() const
+{
+	return m_UpdatedAt.has_value();
+}
+void NodeDefinitionDetailDto::SetUpdatedAt(const utility::string_t& Value)
+{
+	m_UpdatedAt = Value;
+}
+utility::string_t NodeDefinitionDetailDto::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool NodeDefinitionDetailDto::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
+}
+void NodeDefinitionDetailDto::SetCreatedAt(const utility::string_t& Value)
+{
+	m_CreatedAt = Value;
+}
+
+NodeDefinitionListDto::NodeDefinitionListDto()
+{
+}
+NodeDefinitionListDto::~NodeDefinitionListDto()
+{
+}
+
+utility::string_t NodeDefinitionListDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_NodeTypeId.has_value())
+	{
+		rapidjson::Value NodeTypeIdValue(TypeToJsonValue(m_NodeTypeId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("nodeTypeId", NodeTypeIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Label.has_value())
+	{
+		rapidjson::Value LabelValue(TypeToJsonValue(m_Label, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("label", LabelValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Category.has_value())
+	{
+		rapidjson::Value CategoryValue(TypeToJsonValue(m_Category, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("category", CategoryValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RuntimeId.has_value())
+	{
+		rapidjson::Value RuntimeIdValue(TypeToJsonValue(m_RuntimeId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("runtimeId", RuntimeIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Status.has_value())
+	{
+		rapidjson::Value StatusValue(TypeToJsonValue(m_Status, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("status", StatusValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Version.has_value())
+	{
+		rapidjson::Value VersionValue(TypeToJsonValue(m_Version, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("version", VersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_FunctionRef.has_value())
+	{
+		rapidjson::Value FunctionRefValue(TypeToJsonValue(m_FunctionRef, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("functionRef", FunctionRefValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Provider.has_value())
+	{
+		rapidjson::Value ProviderValue(TypeToJsonValue(m_Provider, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("provider", ProviderValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RequiredSecrets.has_value())
+	{
+		rapidjson::Value RequiredSecretsValue(TypeToJsonValue(m_RequiredSecrets, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("requiredSecrets", RequiredSecretsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UpdatedAt.has_value())
+	{
+		rapidjson::Value UpdatedAtValue(TypeToJsonValue(m_UpdatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("updatedAt", UpdatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void NodeDefinitionListDto::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "NodeDefinitionListDto::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("nodeTypeId"))
+	{
+		const rapidjson::Value& NodeTypeIdValue = JsonDoc["nodeTypeId"];
+
+		if (NodeTypeIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NodeTypeIdValue, m_NodeTypeId);
+		}
+	}
+
+	if (JsonDoc.HasMember("label"))
+	{
+		const rapidjson::Value& LabelValue = JsonDoc["label"];
+
+		if (LabelValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LabelValue, m_Label);
+		}
+	}
+
+	if (JsonDoc.HasMember("category"))
+	{
+		const rapidjson::Value& CategoryValue = JsonDoc["category"];
+
+		if (CategoryValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CategoryValue, m_Category);
+		}
+	}
+
+	if (JsonDoc.HasMember("runtimeId"))
+	{
+		const rapidjson::Value& RuntimeIdValue = JsonDoc["runtimeId"];
+
+		if (RuntimeIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RuntimeIdValue, m_RuntimeId);
+		}
+	}
+
+	if (JsonDoc.HasMember("status"))
+	{
+		const rapidjson::Value& StatusValue = JsonDoc["status"];
+
+		if (StatusValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StatusValue, m_Status);
+		}
+	}
+
+	if (JsonDoc.HasMember("version"))
+	{
+		const rapidjson::Value& VersionValue = JsonDoc["version"];
+
+		if (VersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(VersionValue, m_Version);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("functionRef"))
+	{
+		const rapidjson::Value& FunctionRefValue = JsonDoc["functionRef"];
+
+		if (FunctionRefValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FunctionRefValue, m_FunctionRef);
+		}
+	}
+
+	if (JsonDoc.HasMember("provider"))
+	{
+		const rapidjson::Value& ProviderValue = JsonDoc["provider"];
+
+		if (ProviderValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ProviderValue, m_Provider);
+		}
+	}
+
+	if (JsonDoc.HasMember("requiredSecrets"))
+	{
+		const rapidjson::Value& RequiredSecretsValue = JsonDoc["requiredSecrets"];
+
+		if (RequiredSecretsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RequiredSecretsValue, m_RequiredSecrets);
+		}
+	}
+
+	if (JsonDoc.HasMember("updatedAt"))
+	{
+		const rapidjson::Value& UpdatedAtValue = JsonDoc["updatedAt"];
+
+		if (UpdatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+		}
+	}
+}
+
+
+utility::string_t NodeDefinitionListDto::GetNodeTypeId() const
+{
+	return m_NodeTypeId.value();
+}
+
+bool NodeDefinitionListDto::HasNodeTypeId() const
+{
+	return m_NodeTypeId.has_value();
+}
+void NodeDefinitionListDto::SetNodeTypeId(const utility::string_t& Value)
+{
+	m_NodeTypeId = Value;
+}
+utility::string_t NodeDefinitionListDto::GetLabel() const
+{
+	return m_Label.value();
+}
+
+bool NodeDefinitionListDto::HasLabel() const
+{
+	return m_Label.has_value();
+}
+void NodeDefinitionListDto::SetLabel(const utility::string_t& Value)
+{
+	m_Label = Value;
+}
+const std::vector<utility::string_t>& NodeDefinitionListDto::GetCategory() const
+{
+	return m_Category.value();
+}
+
+bool NodeDefinitionListDto::HasCategory() const
+{
+	return m_Category.has_value();
+}
+void NodeDefinitionListDto::SetCategory(const std::vector<utility::string_t>& Value)
+{
+	m_Category = Value;
+}
+utility::string_t NodeDefinitionListDto::GetRuntimeId() const
+{
+	return m_RuntimeId.value();
+}
+
+bool NodeDefinitionListDto::HasRuntimeId() const
+{
+	return m_RuntimeId.has_value();
+}
+void NodeDefinitionListDto::SetRuntimeId(const utility::string_t& Value)
+{
+	m_RuntimeId = Value;
+}
+utility::string_t NodeDefinitionListDto::GetStatus() const
+{
+	return m_Status.value();
+}
+
+bool NodeDefinitionListDto::HasStatus() const
+{
+	return m_Status.has_value();
+}
+void NodeDefinitionListDto::SetStatus(const utility::string_t& Value)
+{
+	m_Status = Value;
+}
+int32_t NodeDefinitionListDto::GetVersion() const
+{
+	return m_Version.value();
+}
+
+bool NodeDefinitionListDto::HasVersion() const
+{
+	return m_Version.has_value();
+}
+void NodeDefinitionListDto::SetVersion(int32_t Value)
+{
+	m_Version = Value;
+}
+utility::string_t NodeDefinitionListDto::GetFunctionRef() const
+{
+	return m_FunctionRef.value();
+}
+
+bool NodeDefinitionListDto::HasFunctionRef() const
+{
+	return m_FunctionRef.has_value();
+}
+void NodeDefinitionListDto::SetFunctionRef(const utility::string_t& Value)
+{
+	m_FunctionRef = Value;
+}
+utility::string_t NodeDefinitionListDto::GetProvider() const
+{
+	return m_Provider.value();
+}
+
+bool NodeDefinitionListDto::HasProvider() const
+{
+	return m_Provider.has_value();
+}
+void NodeDefinitionListDto::SetProvider(const utility::string_t& Value)
+{
+	m_Provider = Value;
+}
+const std::vector<utility::string_t>& NodeDefinitionListDto::GetRequiredSecrets() const
+{
+	return m_RequiredSecrets.value();
+}
+
+bool NodeDefinitionListDto::HasRequiredSecrets() const
+{
+	return m_RequiredSecrets.has_value();
+}
+void NodeDefinitionListDto::SetRequiredSecrets(const std::vector<utility::string_t>& Value)
+{
+	m_RequiredSecrets = Value;
+}
+utility::string_t NodeDefinitionListDto::GetUpdatedAt() const
+{
+	return m_UpdatedAt.value();
+}
+
+bool NodeDefinitionListDto::HasUpdatedAt() const
+{
+	return m_UpdatedAt.has_value();
+}
+void NodeDefinitionListDto::SetUpdatedAt(const utility::string_t& Value)
+{
+	m_UpdatedAt = Value;
+}
+utility::string_t NodeDefinitionListDto::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool NodeDefinitionListDto::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
+}
+void NodeDefinitionListDto::SetCreatedAt(const utility::string_t& Value)
+{
+	m_CreatedAt = Value;
+}
+
+NodeDefinitionListDtoDataPage::NodeDefinitionListDtoDataPage()
+{
+}
+NodeDefinitionListDtoDataPage::~NodeDefinitionListDtoDataPage()
+{
+}
+
+utility::string_t NodeDefinitionListDtoDataPage::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Items.has_value())
+	{
+		rapidjson::Value ItemsValue(TypeToJsonValue(m_Items, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("items", ItemsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Skip.has_value())
+	{
+		rapidjson::Value SkipValue(TypeToJsonValue(m_Skip, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("skip", SkipValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Limit.has_value())
+	{
+		rapidjson::Value LimitValue(TypeToJsonValue(m_Limit, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("limit", LimitValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemCount.has_value())
+	{
+		rapidjson::Value ItemCountValue(TypeToJsonValue(m_ItemCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemCount", ItemCountValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemTotalCount.has_value())
+	{
+		rapidjson::Value ItemTotalCountValue(TypeToJsonValue(m_ItemTotalCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void NodeDefinitionListDtoDataPage::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "NodeDefinitionListDtoDataPage::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("items"))
+	{
+		const rapidjson::Value& ItemsValue = JsonDoc["items"];
+
+		if (ItemsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemsValue, m_Items);
+		}
+	}
+
+	if (JsonDoc.HasMember("skip"))
+	{
+		const rapidjson::Value& SkipValue = JsonDoc["skip"];
+
+		if (SkipValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SkipValue, m_Skip);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("limit"))
+	{
+		const rapidjson::Value& LimitValue = JsonDoc["limit"];
+
+		if (LimitValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LimitValue, m_Limit);
+		}
+	}
+
+	if (JsonDoc.HasMember("itemCount"))
+	{
+		const rapidjson::Value& ItemCountValue = JsonDoc["itemCount"];
+
+		if (ItemCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemCountValue, m_ItemCount);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("itemTotalCount"))
+	{
+		const rapidjson::Value& ItemTotalCountValue = JsonDoc["itemTotalCount"];
+
+		if (ItemTotalCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+		}
+	}
+}
+
+
+const std::vector<std::shared_ptr<NodeDefinitionListDto>>& NodeDefinitionListDtoDataPage::GetItems() const
+{
+	return m_Items.value();
+}
+
+bool NodeDefinitionListDtoDataPage::HasItems() const
+{
+	return m_Items.has_value();
+}
+void NodeDefinitionListDtoDataPage::SetItems(const std::vector<std::shared_ptr<NodeDefinitionListDto>>& Value)
+{
+	m_Items = Value;
+}
+int32_t NodeDefinitionListDtoDataPage::GetSkip() const
+{
+	return m_Skip.value();
+}
+
+bool NodeDefinitionListDtoDataPage::HasSkip() const
+{
+	return m_Skip.has_value();
+}
+void NodeDefinitionListDtoDataPage::SetSkip(int32_t Value)
+{
+	m_Skip = Value;
+}
+int32_t NodeDefinitionListDtoDataPage::GetLimit() const
+{
+	return m_Limit.value();
+}
+
+bool NodeDefinitionListDtoDataPage::HasLimit() const
+{
+	return m_Limit.has_value();
+}
+void NodeDefinitionListDtoDataPage::SetLimit(int32_t Value)
+{
+	m_Limit = Value;
+}
+int32_t NodeDefinitionListDtoDataPage::GetItemCount() const
+{
+	return m_ItemCount.value();
+}
+
+bool NodeDefinitionListDtoDataPage::HasItemCount() const
+{
+	return m_ItemCount.has_value();
+}
+void NodeDefinitionListDtoDataPage::SetItemCount(int32_t Value)
+{
+	m_ItemCount = Value;
+}
+int64_t NodeDefinitionListDtoDataPage::GetItemTotalCount() const
+{
+	return m_ItemTotalCount.value();
+}
+
+bool NodeDefinitionListDtoDataPage::HasItemTotalCount() const
+{
+	return m_ItemTotalCount.has_value();
+}
+void NodeDefinitionListDtoDataPage::SetItemTotalCount(int64_t Value)
+{
+	m_ItemTotalCount = Value;
+}
+
+NodeDefinitionStatusRequest::NodeDefinitionStatusRequest()
+{
+}
+NodeDefinitionStatusRequest::~NodeDefinitionStatusRequest()
+{
+}
+
+utility::string_t NodeDefinitionStatusRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Status.has_value())
+	{
+		rapidjson::Value StatusValue(TypeToJsonValue(m_Status, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("status", StatusValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void NodeDefinitionStatusRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "NodeDefinitionStatusRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("status"))
+	{
+		const rapidjson::Value& StatusValue = JsonDoc["status"];
+
+		if (StatusValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StatusValue, m_Status);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member status is null!");
+		}
+	}
+}
+
+
+utility::string_t NodeDefinitionStatusRequest::GetStatus() const
+{
+	return m_Status.value();
+}
+
+bool NodeDefinitionStatusRequest::HasStatus() const
+{
+	return m_Status.has_value();
+}
+void NodeDefinitionStatusRequest::SetStatus(const utility::string_t& Value)
+{
+	m_Status = Value;
+}
+
+NodeDefinitionUpdateRequest::NodeDefinitionUpdateRequest()
+{
+}
+NodeDefinitionUpdateRequest::~NodeDefinitionUpdateRequest()
+{
+}
+
+utility::string_t NodeDefinitionUpdateRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Category.has_value())
+	{
+		rapidjson::Value CategoryValue(TypeToJsonValue(m_Category, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("category", CategoryValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Definition.has_value())
+	{
+		rapidjson::Value DefinitionValue(TypeToJsonValue(m_Definition, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("definition", DefinitionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_FunctionRef.has_value())
+	{
+		rapidjson::Value FunctionRefValue(TypeToJsonValue(m_FunctionRef, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("functionRef", FunctionRefValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RuntimeId.has_value())
+	{
+		rapidjson::Value RuntimeIdValue(TypeToJsonValue(m_RuntimeId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("runtimeId", RuntimeIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ChangeNote.has_value())
+	{
+		rapidjson::Value ChangeNoteValue(TypeToJsonValue(m_ChangeNote, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("changeNote", ChangeNoteValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Tags.has_value())
+	{
+		rapidjson::Value TagsValue(TypeToJsonValue(m_Tags, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tags", TagsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RequiredSecrets.has_value())
+	{
+		rapidjson::Value RequiredSecretsValue(TypeToJsonValue(m_RequiredSecrets, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("requiredSecrets", RequiredSecretsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Provider.has_value())
+	{
+		rapidjson::Value ProviderValue(TypeToJsonValue(m_Provider, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("provider", ProviderValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SourceVersion.has_value())
+	{
+		rapidjson::Value SourceVersionValue(TypeToJsonValue(m_SourceVersion, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("sourceVersion", SourceVersionValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void NodeDefinitionUpdateRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "NodeDefinitionUpdateRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("category"))
+	{
+		const rapidjson::Value& CategoryValue = JsonDoc["category"];
+
+		if (CategoryValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CategoryValue, m_Category);
+		}
+	}
+
+	if (JsonDoc.HasMember("definition"))
+	{
+		const rapidjson::Value& DefinitionValue = JsonDoc["definition"];
+
+		if (DefinitionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DefinitionValue, m_Definition);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member definition is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("functionRef"))
+	{
+		const rapidjson::Value& FunctionRefValue = JsonDoc["functionRef"];
+
+		if (FunctionRefValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FunctionRefValue, m_FunctionRef);
+		}
+	}
+
+	if (JsonDoc.HasMember("runtimeId"))
+	{
+		const rapidjson::Value& RuntimeIdValue = JsonDoc["runtimeId"];
+
+		if (RuntimeIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RuntimeIdValue, m_RuntimeId);
+		}
+	}
+
+	if (JsonDoc.HasMember("changeNote"))
+	{
+		const rapidjson::Value& ChangeNoteValue = JsonDoc["changeNote"];
+
+		if (ChangeNoteValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member changeNote is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("tags"))
+	{
+		const rapidjson::Value& TagsValue = JsonDoc["tags"];
+
+		if (TagsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TagsValue, m_Tags);
+		}
+	}
+
+	if (JsonDoc.HasMember("requiredSecrets"))
+	{
+		const rapidjson::Value& RequiredSecretsValue = JsonDoc["requiredSecrets"];
+
+		if (RequiredSecretsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RequiredSecretsValue, m_RequiredSecrets);
+		}
+	}
+
+	if (JsonDoc.HasMember("provider"))
+	{
+		const rapidjson::Value& ProviderValue = JsonDoc["provider"];
+
+		if (ProviderValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ProviderValue, m_Provider);
+		}
+	}
+
+	if (JsonDoc.HasMember("sourceVersion"))
+	{
+		const rapidjson::Value& SourceVersionValue = JsonDoc["sourceVersion"];
+
+		if (SourceVersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SourceVersionValue, m_SourceVersion);
+		}
+	}
+}
+
+
+const std::vector<utility::string_t>& NodeDefinitionUpdateRequest::GetCategory() const
+{
+	return m_Category.value();
+}
+
+bool NodeDefinitionUpdateRequest::HasCategory() const
+{
+	return m_Category.has_value();
+}
+void NodeDefinitionUpdateRequest::SetCategory(const std::vector<utility::string_t>& Value)
+{
+	m_Category = Value;
+}
+std::shared_ptr<rapidjson::Document> NodeDefinitionUpdateRequest::GetDefinition() const
+{
+	return m_Definition.value();
+}
+
+bool NodeDefinitionUpdateRequest::HasDefinition() const
+{
+	return m_Definition.has_value();
+}
+void NodeDefinitionUpdateRequest::SetDefinition(const std::shared_ptr<rapidjson::Document>& Value)
+{
+	m_Definition = Value;
+}
+utility::string_t NodeDefinitionUpdateRequest::GetFunctionRef() const
+{
+	return m_FunctionRef.value();
+}
+
+bool NodeDefinitionUpdateRequest::HasFunctionRef() const
+{
+	return m_FunctionRef.has_value();
+}
+void NodeDefinitionUpdateRequest::SetFunctionRef(const utility::string_t& Value)
+{
+	m_FunctionRef = Value;
+}
+utility::string_t NodeDefinitionUpdateRequest::GetRuntimeId() const
+{
+	return m_RuntimeId.value();
+}
+
+bool NodeDefinitionUpdateRequest::HasRuntimeId() const
+{
+	return m_RuntimeId.has_value();
+}
+void NodeDefinitionUpdateRequest::SetRuntimeId(const utility::string_t& Value)
+{
+	m_RuntimeId = Value;
+}
+utility::string_t NodeDefinitionUpdateRequest::GetChangeNote() const
+{
+	return m_ChangeNote.value();
+}
+
+bool NodeDefinitionUpdateRequest::HasChangeNote() const
+{
+	return m_ChangeNote.has_value();
+}
+void NodeDefinitionUpdateRequest::SetChangeNote(const utility::string_t& Value)
+{
+	m_ChangeNote = Value;
+}
+const std::vector<utility::string_t>& NodeDefinitionUpdateRequest::GetTags() const
+{
+	return m_Tags.value();
+}
+
+bool NodeDefinitionUpdateRequest::HasTags() const
+{
+	return m_Tags.has_value();
+}
+void NodeDefinitionUpdateRequest::SetTags(const std::vector<utility::string_t>& Value)
+{
+	m_Tags = Value;
+}
+const std::vector<utility::string_t>& NodeDefinitionUpdateRequest::GetRequiredSecrets() const
+{
+	return m_RequiredSecrets.value();
+}
+
+bool NodeDefinitionUpdateRequest::HasRequiredSecrets() const
+{
+	return m_RequiredSecrets.has_value();
+}
+void NodeDefinitionUpdateRequest::SetRequiredSecrets(const std::vector<utility::string_t>& Value)
+{
+	m_RequiredSecrets = Value;
+}
+utility::string_t NodeDefinitionUpdateRequest::GetProvider() const
+{
+	return m_Provider.value();
+}
+
+bool NodeDefinitionUpdateRequest::HasProvider() const
+{
+	return m_Provider.has_value();
+}
+void NodeDefinitionUpdateRequest::SetProvider(const utility::string_t& Value)
+{
+	m_Provider = Value;
+}
+utility::string_t NodeDefinitionUpdateRequest::GetSourceVersion() const
+{
+	return m_SourceVersion.value();
+}
+
+bool NodeDefinitionUpdateRequest::HasSourceVersion() const
+{
+	return m_SourceVersion.has_value();
+}
+void NodeDefinitionUpdateRequest::SetSourceVersion(const utility::string_t& Value)
+{
+	m_SourceVersion = Value;
 }
 
 NodeSummaryDto::NodeSummaryDto()
@@ -15803,6 +18243,471 @@ bool SaveValidatedGacRequest::HasValidationResult() const
 void SaveValidatedGacRequest::SetValidationResult(const std::shared_ptr<GacValidationResult>& Value)
 {
 	m_ValidationResult = Value;
+}
+
+SaveValidatedSecretRequest::SaveValidatedSecretRequest()
+{
+}
+SaveValidatedSecretRequest::~SaveValidatedSecretRequest()
+{
+}
+
+utility::string_t SaveValidatedSecretRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_TenantName.has_value())
+	{
+		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EnvVarName.has_value())
+	{
+		rapidjson::Value EnvVarNameValue(TypeToJsonValue(m_EnvVarName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("envVarName", EnvVarNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RawValue.has_value())
+	{
+		rapidjson::Value RawValueValue(TypeToJsonValue(m_RawValue, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("rawValue", RawValueValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ValidationResult.has_value())
+	{
+		rapidjson::Value ValidationResultValue(TypeToJsonValue(m_ValidationResult, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("validationResult", ValidationResultValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void SaveValidatedSecretRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SaveValidatedSecretRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("tenantName"))
+	{
+		const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+
+		if (TenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantNameValue, m_TenantName);
+		}
+	}
+
+	if (JsonDoc.HasMember("envVarName"))
+	{
+		const rapidjson::Value& EnvVarNameValue = JsonDoc["envVarName"];
+
+		if (EnvVarNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EnvVarNameValue, m_EnvVarName);
+		}
+	}
+
+	if (JsonDoc.HasMember("rawValue"))
+	{
+		const rapidjson::Value& RawValueValue = JsonDoc["rawValue"];
+
+		if (RawValueValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RawValueValue, m_RawValue);
+		}
+	}
+
+	if (JsonDoc.HasMember("validationResult"))
+	{
+		const rapidjson::Value& ValidationResultValue = JsonDoc["validationResult"];
+
+		if (ValidationResultValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ValidationResultValue, m_ValidationResult);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member validationResult is null!");
+		}
+	}
+}
+
+
+utility::string_t SaveValidatedSecretRequest::GetTenantName() const
+{
+	return m_TenantName.value();
+}
+
+bool SaveValidatedSecretRequest::HasTenantName() const
+{
+	return m_TenantName.has_value();
+}
+void SaveValidatedSecretRequest::SetTenantName(const utility::string_t& Value)
+{
+	m_TenantName = Value;
+}
+utility::string_t SaveValidatedSecretRequest::GetEnvVarName() const
+{
+	return m_EnvVarName.value();
+}
+
+bool SaveValidatedSecretRequest::HasEnvVarName() const
+{
+	return m_EnvVarName.has_value();
+}
+void SaveValidatedSecretRequest::SetEnvVarName(const utility::string_t& Value)
+{
+	m_EnvVarName = Value;
+}
+utility::string_t SaveValidatedSecretRequest::GetRawValue() const
+{
+	return m_RawValue.value();
+}
+
+bool SaveValidatedSecretRequest::HasRawValue() const
+{
+	return m_RawValue.has_value();
+}
+void SaveValidatedSecretRequest::SetRawValue(const utility::string_t& Value)
+{
+	m_RawValue = Value;
+}
+std::shared_ptr<SecretValidationResult> SaveValidatedSecretRequest::GetValidationResult() const
+{
+	return m_ValidationResult.value();
+}
+
+bool SaveValidatedSecretRequest::HasValidationResult() const
+{
+	return m_ValidationResult.has_value();
+}
+void SaveValidatedSecretRequest::SetValidationResult(const std::shared_ptr<SecretValidationResult>& Value)
+{
+	m_ValidationResult = Value;
+}
+
+SecretValidationCheck::SecretValidationCheck()
+{
+}
+SecretValidationCheck::~SecretValidationCheck()
+{
+}
+
+utility::string_t SecretValidationCheck::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_CheckType.has_value())
+	{
+		rapidjson::Value CheckTypeValue(TypeToJsonValue(m_CheckType, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("checkType", CheckTypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Status.has_value())
+	{
+		rapidjson::Value StatusValue(TypeToJsonValue(m_Status, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("status", StatusValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Message.has_value())
+	{
+		rapidjson::Value MessageValue(TypeToJsonValue(m_Message, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("message", MessageValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DurationMs.has_value())
+	{
+		rapidjson::Value DurationMsValue(TypeToJsonValue(m_DurationMs, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("durationMs", DurationMsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void SecretValidationCheck::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SecretValidationCheck::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("checkType"))
+	{
+		const rapidjson::Value& CheckTypeValue = JsonDoc["checkType"];
+
+		if (CheckTypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CheckTypeValue, m_CheckType);
+		}
+	}
+
+	if (JsonDoc.HasMember("status"))
+	{
+		const rapidjson::Value& StatusValue = JsonDoc["status"];
+
+		if (StatusValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StatusValue, m_Status);
+		}
+	}
+
+	if (JsonDoc.HasMember("message"))
+	{
+		const rapidjson::Value& MessageValue = JsonDoc["message"];
+
+		if (MessageValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MessageValue, m_Message);
+		}
+	}
+
+	if (JsonDoc.HasMember("durationMs"))
+	{
+		const rapidjson::Value& DurationMsValue = JsonDoc["durationMs"];
+
+		if (DurationMsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DurationMsValue, m_DurationMs);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member durationMs is null!");
+		}
+	}
+}
+
+
+utility::string_t SecretValidationCheck::GetCheckType() const
+{
+	return m_CheckType.value();
+}
+
+bool SecretValidationCheck::HasCheckType() const
+{
+	return m_CheckType.has_value();
+}
+void SecretValidationCheck::SetCheckType(const utility::string_t& Value)
+{
+	m_CheckType = Value;
+}
+utility::string_t SecretValidationCheck::GetStatus() const
+{
+	return m_Status.value();
+}
+
+bool SecretValidationCheck::HasStatus() const
+{
+	return m_Status.has_value();
+}
+void SecretValidationCheck::SetStatus(const utility::string_t& Value)
+{
+	m_Status = Value;
+}
+utility::string_t SecretValidationCheck::GetMessage() const
+{
+	return m_Message.value();
+}
+
+bool SecretValidationCheck::HasMessage() const
+{
+	return m_Message.has_value();
+}
+void SecretValidationCheck::SetMessage(const utility::string_t& Value)
+{
+	m_Message = Value;
+}
+int64_t SecretValidationCheck::GetDurationMs() const
+{
+	return m_DurationMs.value();
+}
+
+bool SecretValidationCheck::HasDurationMs() const
+{
+	return m_DurationMs.has_value();
+}
+void SecretValidationCheck::SetDurationMs(int64_t Value)
+{
+	m_DurationMs = Value;
+}
+
+SecretValidationResult::SecretValidationResult()
+{
+}
+SecretValidationResult::~SecretValidationResult()
+{
+}
+
+utility::string_t SecretValidationResult::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_OverallStatus.has_value())
+	{
+		rapidjson::Value OverallStatusValue(TypeToJsonValue(m_OverallStatus, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("overallStatus", OverallStatusValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Provider.has_value())
+	{
+		rapidjson::Value ProviderValue(TypeToJsonValue(m_Provider, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("provider", ProviderValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ValidatedAt.has_value())
+	{
+		rapidjson::Value ValidatedAtValue(TypeToJsonValue(m_ValidatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("validatedAt", ValidatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Checks.has_value())
+	{
+		rapidjson::Value ChecksValue(TypeToJsonValue(m_Checks, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("checks", ChecksValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void SecretValidationResult::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SecretValidationResult::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("overallStatus"))
+	{
+		const rapidjson::Value& OverallStatusValue = JsonDoc["overallStatus"];
+
+		if (OverallStatusValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OverallStatusValue, m_OverallStatus);
+		}
+	}
+
+	if (JsonDoc.HasMember("provider"))
+	{
+		const rapidjson::Value& ProviderValue = JsonDoc["provider"];
+
+		if (ProviderValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ProviderValue, m_Provider);
+		}
+	}
+
+	if (JsonDoc.HasMember("validatedAt"))
+	{
+		const rapidjson::Value& ValidatedAtValue = JsonDoc["validatedAt"];
+
+		if (ValidatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ValidatedAtValue, m_ValidatedAt);
+		}
+		else
+		{
+			CSP_LOG_ERROR_MSG("Error: Non-nullable member validatedAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("checks"))
+	{
+		const rapidjson::Value& ChecksValue = JsonDoc["checks"];
+
+		if (ChecksValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ChecksValue, m_Checks);
+		}
+	}
+}
+
+
+utility::string_t SecretValidationResult::GetOverallStatus() const
+{
+	return m_OverallStatus.value();
+}
+
+bool SecretValidationResult::HasOverallStatus() const
+{
+	return m_OverallStatus.has_value();
+}
+void SecretValidationResult::SetOverallStatus(const utility::string_t& Value)
+{
+	m_OverallStatus = Value;
+}
+utility::string_t SecretValidationResult::GetProvider() const
+{
+	return m_Provider.value();
+}
+
+bool SecretValidationResult::HasProvider() const
+{
+	return m_Provider.has_value();
+}
+void SecretValidationResult::SetProvider(const utility::string_t& Value)
+{
+	m_Provider = Value;
+}
+utility::string_t SecretValidationResult::GetValidatedAt() const
+{
+	return m_ValidatedAt.value();
+}
+
+bool SecretValidationResult::HasValidatedAt() const
+{
+	return m_ValidatedAt.has_value();
+}
+void SecretValidationResult::SetValidatedAt(const utility::string_t& Value)
+{
+	m_ValidatedAt = Value;
+}
+const std::vector<std::shared_ptr<SecretValidationCheck>>& SecretValidationResult::GetChecks() const
+{
+	return m_Checks.value();
+}
+
+bool SecretValidationResult::HasChecks() const
+{
+	return m_Checks.has_value();
+}
+void SecretValidationResult::SetChecks(const std::vector<std::shared_ptr<SecretValidationCheck>>& Value)
+{
+	m_Checks = Value;
 }
 
 SequenceDto::SequenceDto()
@@ -20970,6 +23875,157 @@ TicketStatus::eTicketStatus TicketStatus::GetValue() const
 void TicketStatus::SetValue(TicketStatus::eTicketStatus const InValue)
 {
 	Value = InValue;
+}
+
+ValidateSecretRequest::ValidateSecretRequest()
+{
+}
+ValidateSecretRequest::~ValidateSecretRequest()
+{
+}
+
+utility::string_t ValidateSecretRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_TenantName.has_value())
+	{
+		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_EnvVarName.has_value())
+	{
+		rapidjson::Value EnvVarNameValue(TypeToJsonValue(m_EnvVarName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("envVarName", EnvVarNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SecretType.has_value())
+	{
+		rapidjson::Value SecretTypeValue(TypeToJsonValue(m_SecretType, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("secretType", SecretTypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RawValue.has_value())
+	{
+		rapidjson::Value RawValueValue(TypeToJsonValue(m_RawValue, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("rawValue", RawValueValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ValidateSecretRequest::FromJson(const utility::string_t& Val)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ValidateSecretRequest::FromJson");
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("tenantName"))
+	{
+		const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+
+		if (TenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantNameValue, m_TenantName);
+		}
+	}
+
+	if (JsonDoc.HasMember("envVarName"))
+	{
+		const rapidjson::Value& EnvVarNameValue = JsonDoc["envVarName"];
+
+		if (EnvVarNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EnvVarNameValue, m_EnvVarName);
+		}
+	}
+
+	if (JsonDoc.HasMember("secretType"))
+	{
+		const rapidjson::Value& SecretTypeValue = JsonDoc["secretType"];
+
+		if (SecretTypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SecretTypeValue, m_SecretType);
+		}
+	}
+
+	if (JsonDoc.HasMember("rawValue"))
+	{
+		const rapidjson::Value& RawValueValue = JsonDoc["rawValue"];
+
+		if (RawValueValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RawValueValue, m_RawValue);
+		}
+	}
+}
+
+
+utility::string_t ValidateSecretRequest::GetTenantName() const
+{
+	return m_TenantName.value();
+}
+
+bool ValidateSecretRequest::HasTenantName() const
+{
+	return m_TenantName.has_value();
+}
+void ValidateSecretRequest::SetTenantName(const utility::string_t& Value)
+{
+	m_TenantName = Value;
+}
+utility::string_t ValidateSecretRequest::GetEnvVarName() const
+{
+	return m_EnvVarName.value();
+}
+
+bool ValidateSecretRequest::HasEnvVarName() const
+{
+	return m_EnvVarName.has_value();
+}
+void ValidateSecretRequest::SetEnvVarName(const utility::string_t& Value)
+{
+	m_EnvVarName = Value;
+}
+utility::string_t ValidateSecretRequest::GetSecretType() const
+{
+	return m_SecretType.value();
+}
+
+bool ValidateSecretRequest::HasSecretType() const
+{
+	return m_SecretType.has_value();
+}
+void ValidateSecretRequest::SetSecretType(const utility::string_t& Value)
+{
+	m_SecretType = Value;
+}
+utility::string_t ValidateSecretRequest::GetRawValue() const
+{
+	return m_RawValue.value();
+}
+
+bool ValidateSecretRequest::HasRawValue() const
+{
+	return m_RawValue.has_value();
+}
+void ValidateSecretRequest::SetRawValue(const utility::string_t& Value)
+{
+	m_RawValue = Value;
 }
 
 VendorProviderInfo::VendorProviderInfo()

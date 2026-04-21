@@ -18,6 +18,8 @@ class AnalyticsRecord;
 class ApiVersion;
 class ApplicationSettingsDto;
 class AssetDetailDto;
+class AuditTrailDto;
+class AuditTrailDtoDataPage;
 class AuthDto;
 class BugReportAssignRequest;
 class BugReportCreateRequest;
@@ -72,6 +74,12 @@ class ModelLocation;
 class ModelOrientation;
 class ModelScale;
 class NamedFunction;
+class NodeDefinitionCreateRequest;
+class NodeDefinitionDetailDto;
+class NodeDefinitionListDto;
+class NodeDefinitionListDtoDataPage;
+class NodeDefinitionStatusRequest;
+class NodeDefinitionUpdateRequest;
 class NodeSummaryDto;
 class ObserveResponse;
 class Placemark;
@@ -91,6 +99,9 @@ class QueueHealthSummary;
 class QueueWaitSummary;
 class RedriveTaskInfo;
 class SaveValidatedGacRequest;
+class SaveValidatedSecretRequest;
+class SecretValidationCheck;
+class SecretValidationResult;
 class SequenceDto;
 class SequenceDtoDataPage;
 class ServiceRequest;
@@ -124,6 +135,7 @@ class StartRedriveResult;
 class StringDataPage;
 class Style;
 class TicketStatus;
+class ValidateSecretRequest;
 class VendorProviderInfo;
 class VersionMatrix;
 
@@ -624,6 +636,168 @@ protected:
 	std::optional<utility::string_t> m_CreatedBy;
 	std::optional<utility::string_t> m_UpdatedAt;
 	std::optional<utility::string_t> m_UpdatedBy;
+};
+
+/// <summary>
+/// DTO for audit trail list/detail views in Inspector Musubi.
+/// Normalizes pre-enrichment records (where UserEmail/TenantName may be in EventData)
+/// with post-enrichment records (where they are top-level fields).
+/// </summary>
+class AuditTrailDto : public csp::services::DtoBase
+{
+public:
+	AuditTrailDto();
+	virtual ~AuditTrailDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Document ID.
+	/// </summary>
+	utility::string_t GetId() const;
+	void SetId(const utility::string_t& Value);
+	bool HasId() const;
+
+	/// <summary>
+	/// When the audit record was created.
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	void SetCreatedAt(const utility::string_t& Value);
+	bool HasCreatedAt() const;
+
+	/// <summary>
+	/// Event type (e.g., "SuperAdmin.LockAccount", "Auth.Login").
+	/// </summary>
+	utility::string_t GetEventType() const;
+	void SetEventType(const utility::string_t& Value);
+	bool HasEventType() const;
+
+	/// <summary>
+	/// ID of the acting user.
+	/// </summary>
+	utility::string_t GetUserId() const;
+	void SetUserId(const utility::string_t& Value);
+	bool HasUserId() const;
+
+	/// <summary>
+	/// Email of the acting user.
+	/// </summary>
+	utility::string_t GetUserEmail() const;
+	void SetUserEmail(const utility::string_t& Value);
+	bool HasUserEmail() const;
+
+	/// <summary>
+	/// Tenant context for the action.
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// Client IP address.
+	/// </summary>
+	utility::string_t GetIpAddress() const;
+	void SetIpAddress(const utility::string_t& Value);
+	bool HasIpAddress() const;
+
+	/// <summary>
+	/// Controller that handled the request.
+	/// </summary>
+	utility::string_t GetController() const;
+	void SetController(const utility::string_t& Value);
+	bool HasController() const;
+
+	/// <summary>
+	/// Action method that handled the request.
+	/// </summary>
+	utility::string_t GetAction() const;
+	void SetAction(const utility::string_t& Value);
+	bool HasAction() const;
+
+	/// <summary>
+	/// HTTP method (GET, POST, PUT, DELETE).
+	/// </summary>
+	utility::string_t GetHttpMethod() const;
+	void SetHttpMethod(const utility::string_t& Value);
+	bool HasHttpMethod() const;
+
+	/// <summary>
+	/// Request path.
+	/// </summary>
+	utility::string_t GetRoute() const;
+	void SetRoute(const utility::string_t& Value);
+	bool HasRoute() const;
+
+	/// <summary>
+	/// HTTP response status code.
+	/// </summary>
+	int32_t GetStatusCode() const;
+	void SetStatusCode(int32_t Value);
+	bool HasStatusCode() const;
+
+	/// <summary>
+	/// Additional event-specific key-value data.
+	/// </summary>
+	const std::map<utility::string_t, utility::string_t>& GetEventData() const;
+	void SetEventData(const std::map<utility::string_t, utility::string_t>& Value);
+	bool HasEventData() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_CreatedAt;
+	std::optional<utility::string_t> m_EventType;
+	std::optional<utility::string_t> m_UserId;
+	std::optional<utility::string_t> m_UserEmail;
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<utility::string_t> m_IpAddress;
+	std::optional<utility::string_t> m_Controller;
+	std::optional<utility::string_t> m_Action;
+	std::optional<utility::string_t> m_HttpMethod;
+	std::optional<utility::string_t> m_Route;
+	std::optional<int32_t> m_StatusCode;
+	std::optional<std::map<utility::string_t, utility::string_t>> m_EventData;
+};
+
+class AuditTrailDtoDataPage : public csp::services::DtoBase
+{
+public:
+	AuditTrailDtoDataPage();
+	virtual ~AuditTrailDtoDataPage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	const std::vector<std::shared_ptr<AuditTrailDto>>& GetItems() const;
+	void SetItems(const std::vector<std::shared_ptr<AuditTrailDto>>& Value);
+	bool HasItems() const;
+
+	int32_t GetSkip() const;
+	void SetSkip(int32_t Value);
+	bool HasSkip() const;
+
+	int32_t GetLimit() const;
+	void SetLimit(int32_t Value);
+	bool HasLimit() const;
+
+	int32_t GetItemCount() const;
+	void SetItemCount(int32_t Value);
+	bool HasItemCount() const;
+
+	int64_t GetItemTotalCount() const;
+	void SetItemTotalCount(int64_t Value);
+	bool HasItemTotalCount() const;
+
+
+protected:
+	std::optional<std::vector<std::shared_ptr<AuditTrailDto>>> m_Items;
+	std::optional<int32_t> m_Skip;
+	std::optional<int32_t> m_Limit;
+	std::optional<int32_t> m_ItemCount;
+	std::optional<int64_t> m_ItemTotalCount;
 };
 
 /// <summary>
@@ -2664,11 +2838,30 @@ public:
 	void SetOptions(const std::map<utility::string_t, utility::string_t>& Value);
 	bool HasOptions() const;
 
+	/// <summary>
+	/// GCS bucket name for persistent node output assets (images, video, etc.).
+	/// When provided, overrides the server-side GraphExecutionSettings.OutputBucket.
+	/// Enables per-tenant bucket configuration.
+	/// </summary>
+	utility::string_t GetOutputBucket() const;
+	void SetOutputBucket(const utility::string_t& Value);
+	bool HasOutputBucket() const;
+
+	/// <summary>
+	/// GCS bucket name for temporary/working storage.
+	/// When provided, overrides the server-side GraphExecutionSettings.TempBucket.
+	/// </summary>
+	utility::string_t GetTempBucket() const;
+	void SetTempBucket(const utility::string_t& Value);
+	bool HasTempBucket() const;
+
 
 protected:
 	std::optional<std::shared_ptr<rapidjson::Document>> m_Graph;
 	std::optional<std::shared_ptr<rapidjson::Document>> m_NodeDefinitions;
 	std::optional<std::map<utility::string_t, utility::string_t>> m_Options;
+	std::optional<utility::string_t> m_OutputBucket;
+	std::optional<utility::string_t> m_TempBucket;
 };
 
 /// <summary>
@@ -3558,6 +3751,506 @@ protected:
 	std::optional<utility::string_t> m_FunctionName;
 	std::optional<utility::string_t> m_DeprecationDatetime;
 	std::optional<utility::string_t> m_EndOfLifeDatetime;
+};
+
+/// <summary>
+/// Request to create a new node definition.
+/// </summary>
+class NodeDefinitionCreateRequest : public csp::services::DtoBase
+{
+public:
+	NodeDefinitionCreateRequest();
+	virtual ~NodeDefinitionCreateRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Unique node type identifier (e.g., "gemini-flash2-5-image").
+	/// </summary>
+	utility::string_t GetNodeTypeId() const;
+	void SetNodeTypeId(const utility::string_t& Value);
+	bool HasNodeTypeId() const;
+
+	/// <summary>
+	/// Category path segments (e.g., ["GenAI", "Google"]).
+	/// </summary>
+	const std::vector<utility::string_t>& GetCategory() const;
+	void SetCategory(const std::vector<utility::string_t>& Value);
+	bool HasCategory() const;
+
+	/// <summary>
+	/// The full node definition JSON.
+	/// </summary>
+	std::shared_ptr<rapidjson::Document> GetDefinition() const;
+	void SetDefinition(const std::shared_ptr<rapidjson::Document>& Value);
+	bool HasDefinition() const;
+
+	/// <summary>
+	/// Python function reference (e.g., "node_engine.node_sources.google_gemini_flash2_5_image.process").
+	/// </summary>
+	utility::string_t GetFunctionRef() const;
+	void SetFunctionRef(const utility::string_t& Value);
+	bool HasFunctionRef() const;
+
+	/// <summary>
+	/// Worker runtime identifier (e.g., "generic-cpu" or "local").
+	/// </summary>
+	utility::string_t GetRuntimeId() const;
+	void SetRuntimeId(const utility::string_t& Value);
+	bool HasRuntimeId() const;
+
+	/// <summary>
+	/// Initial status. Defaults to "active".
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+	/// <summary>
+	/// Description of this version.
+	/// </summary>
+	utility::string_t GetChangeNote() const;
+	void SetChangeNote(const utility::string_t& Value);
+	bool HasChangeNote() const;
+
+	/// <summary>
+	/// Searchable metadata tags.
+	/// </summary>
+	const std::vector<utility::string_t>& GetTags() const;
+	void SetTags(const std::vector<utility::string_t>& Value);
+	bool HasTags() const;
+
+	/// <summary>
+	/// Secret key names required by this node.
+	/// </summary>
+	const std::vector<utility::string_t>& GetRequiredSecrets() const;
+	void SetRequiredSecrets(const std::vector<utility::string_t>& Value);
+	bool HasRequiredSecrets() const;
+
+	/// <summary>
+	/// Provider name (e.g., "Google", "Topaz").
+	/// </summary>
+	utility::string_t GetProvider() const;
+	void SetProvider(const utility::string_t& Value);
+	bool HasProvider() const;
+
+	/// <summary>
+	/// NodeTypeId of the definition this was cloned from (if any).
+	/// </summary>
+	utility::string_t GetClonedFromNodeTypeId() const;
+	void SetClonedFromNodeTypeId(const utility::string_t& Value);
+	bool HasClonedFromNodeTypeId() const;
+
+
+protected:
+	std::optional<utility::string_t> m_NodeTypeId;
+	std::optional<std::vector<utility::string_t>> m_Category;
+	std::optional<std::shared_ptr<rapidjson::Document>> m_Definition;
+	std::optional<utility::string_t> m_FunctionRef;
+	std::optional<utility::string_t> m_RuntimeId;
+	std::optional<utility::string_t> m_Status;
+	std::optional<utility::string_t> m_ChangeNote;
+	std::optional<std::vector<utility::string_t>> m_Tags;
+	std::optional<std::vector<utility::string_t>> m_RequiredSecrets;
+	std::optional<utility::string_t> m_Provider;
+	std::optional<utility::string_t> m_ClonedFromNodeTypeId;
+};
+
+/// <summary>
+/// Full node definition DTO including the full definition JSON.
+/// </summary>
+class NodeDefinitionDetailDto : public csp::services::DtoBase
+{
+public:
+	NodeDefinitionDetailDto();
+	virtual ~NodeDefinitionDetailDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// The full node definition JSON.
+	/// </summary>
+	std::shared_ptr<rapidjson::Document> GetDefinition() const;
+	void SetDefinition(const std::shared_ptr<rapidjson::Document>& Value);
+	bool HasDefinition() const;
+
+	/// <summary>
+	/// Source version pin (null = latest).
+	/// </summary>
+	utility::string_t GetSourceVersion() const;
+	void SetSourceVersion(const utility::string_t& Value);
+	bool HasSourceVersion() const;
+
+	/// <summary>
+	/// Searchable metadata tags.
+	/// </summary>
+	const std::vector<utility::string_t>& GetTags() const;
+	void SetTags(const std::vector<utility::string_t>& Value);
+	bool HasTags() const;
+
+	/// <summary>
+	/// NodeTypeId of the definition this was cloned from (if any).
+	/// </summary>
+	utility::string_t GetClonedFromNodeTypeId() const;
+	void SetClonedFromNodeTypeId(const utility::string_t& Value);
+	bool HasClonedFromNodeTypeId() const;
+
+	/// <summary>
+	/// Unique node type identifier.
+	/// </summary>
+	utility::string_t GetNodeTypeId() const;
+	void SetNodeTypeId(const utility::string_t& Value);
+	bool HasNodeTypeId() const;
+
+	/// <summary>
+	/// Display label from the definition.
+	/// </summary>
+	utility::string_t GetLabel() const;
+	void SetLabel(const utility::string_t& Value);
+	bool HasLabel() const;
+
+	/// <summary>
+	/// Category path segments.
+	/// </summary>
+	const std::vector<utility::string_t>& GetCategory() const;
+	void SetCategory(const std::vector<utility::string_t>& Value);
+	bool HasCategory() const;
+
+	/// <summary>
+	/// Worker runtime identifier.
+	/// </summary>
+	utility::string_t GetRuntimeId() const;
+	void SetRuntimeId(const utility::string_t& Value);
+	bool HasRuntimeId() const;
+
+	/// <summary>
+	/// Current status.
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+	/// <summary>
+	/// Current version number.
+	/// </summary>
+	int32_t GetVersion() const;
+	void SetVersion(int32_t Value);
+	bool HasVersion() const;
+
+	/// <summary>
+	/// Python function reference.
+	/// </summary>
+	utility::string_t GetFunctionRef() const;
+	void SetFunctionRef(const utility::string_t& Value);
+	bool HasFunctionRef() const;
+
+	/// <summary>
+	/// Provider name.
+	/// </summary>
+	utility::string_t GetProvider() const;
+	void SetProvider(const utility::string_t& Value);
+	bool HasProvider() const;
+
+	/// <summary>
+	/// Required secret key names.
+	/// </summary>
+	const std::vector<utility::string_t>& GetRequiredSecrets() const;
+	void SetRequiredSecrets(const std::vector<utility::string_t>& Value);
+	bool HasRequiredSecrets() const;
+
+	/// <summary>
+	/// When the definition was last updated.
+	/// </summary>
+	utility::string_t GetUpdatedAt() const;
+	void SetUpdatedAt(const utility::string_t& Value);
+	bool HasUpdatedAt() const;
+
+	/// <summary>
+	/// When the definition was created.
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	void SetCreatedAt(const utility::string_t& Value);
+	bool HasCreatedAt() const;
+
+
+protected:
+	std::optional<std::shared_ptr<rapidjson::Document>> m_Definition;
+	std::optional<utility::string_t> m_SourceVersion;
+	std::optional<std::vector<utility::string_t>> m_Tags;
+	std::optional<utility::string_t> m_ClonedFromNodeTypeId;
+	std::optional<utility::string_t> m_NodeTypeId;
+	std::optional<utility::string_t> m_Label;
+	std::optional<std::vector<utility::string_t>> m_Category;
+	std::optional<utility::string_t> m_RuntimeId;
+	std::optional<utility::string_t> m_Status;
+	std::optional<int32_t> m_Version;
+	std::optional<utility::string_t> m_FunctionRef;
+	std::optional<utility::string_t> m_Provider;
+	std::optional<std::vector<utility::string_t>> m_RequiredSecrets;
+	std::optional<utility::string_t> m_UpdatedAt;
+	std::optional<utility::string_t> m_CreatedAt;
+};
+
+/// <summary>
+/// Lightweight node definition DTO for list views.
+/// </summary>
+class NodeDefinitionListDto : public csp::services::DtoBase
+{
+public:
+	NodeDefinitionListDto();
+	virtual ~NodeDefinitionListDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Unique node type identifier.
+	/// </summary>
+	utility::string_t GetNodeTypeId() const;
+	void SetNodeTypeId(const utility::string_t& Value);
+	bool HasNodeTypeId() const;
+
+	/// <summary>
+	/// Display label from the definition.
+	/// </summary>
+	utility::string_t GetLabel() const;
+	void SetLabel(const utility::string_t& Value);
+	bool HasLabel() const;
+
+	/// <summary>
+	/// Category path segments.
+	/// </summary>
+	const std::vector<utility::string_t>& GetCategory() const;
+	void SetCategory(const std::vector<utility::string_t>& Value);
+	bool HasCategory() const;
+
+	/// <summary>
+	/// Worker runtime identifier.
+	/// </summary>
+	utility::string_t GetRuntimeId() const;
+	void SetRuntimeId(const utility::string_t& Value);
+	bool HasRuntimeId() const;
+
+	/// <summary>
+	/// Current status.
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+	/// <summary>
+	/// Current version number.
+	/// </summary>
+	int32_t GetVersion() const;
+	void SetVersion(int32_t Value);
+	bool HasVersion() const;
+
+	/// <summary>
+	/// Python function reference.
+	/// </summary>
+	utility::string_t GetFunctionRef() const;
+	void SetFunctionRef(const utility::string_t& Value);
+	bool HasFunctionRef() const;
+
+	/// <summary>
+	/// Provider name.
+	/// </summary>
+	utility::string_t GetProvider() const;
+	void SetProvider(const utility::string_t& Value);
+	bool HasProvider() const;
+
+	/// <summary>
+	/// Required secret key names.
+	/// </summary>
+	const std::vector<utility::string_t>& GetRequiredSecrets() const;
+	void SetRequiredSecrets(const std::vector<utility::string_t>& Value);
+	bool HasRequiredSecrets() const;
+
+	/// <summary>
+	/// When the definition was last updated.
+	/// </summary>
+	utility::string_t GetUpdatedAt() const;
+	void SetUpdatedAt(const utility::string_t& Value);
+	bool HasUpdatedAt() const;
+
+	/// <summary>
+	/// When the definition was created.
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	void SetCreatedAt(const utility::string_t& Value);
+	bool HasCreatedAt() const;
+
+
+protected:
+	std::optional<utility::string_t> m_NodeTypeId;
+	std::optional<utility::string_t> m_Label;
+	std::optional<std::vector<utility::string_t>> m_Category;
+	std::optional<utility::string_t> m_RuntimeId;
+	std::optional<utility::string_t> m_Status;
+	std::optional<int32_t> m_Version;
+	std::optional<utility::string_t> m_FunctionRef;
+	std::optional<utility::string_t> m_Provider;
+	std::optional<std::vector<utility::string_t>> m_RequiredSecrets;
+	std::optional<utility::string_t> m_UpdatedAt;
+	std::optional<utility::string_t> m_CreatedAt;
+};
+
+class NodeDefinitionListDtoDataPage : public csp::services::DtoBase
+{
+public:
+	NodeDefinitionListDtoDataPage();
+	virtual ~NodeDefinitionListDtoDataPage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	const std::vector<std::shared_ptr<NodeDefinitionListDto>>& GetItems() const;
+	void SetItems(const std::vector<std::shared_ptr<NodeDefinitionListDto>>& Value);
+	bool HasItems() const;
+
+	int32_t GetSkip() const;
+	void SetSkip(int32_t Value);
+	bool HasSkip() const;
+
+	int32_t GetLimit() const;
+	void SetLimit(int32_t Value);
+	bool HasLimit() const;
+
+	int32_t GetItemCount() const;
+	void SetItemCount(int32_t Value);
+	bool HasItemCount() const;
+
+	int64_t GetItemTotalCount() const;
+	void SetItemTotalCount(int64_t Value);
+	bool HasItemTotalCount() const;
+
+
+protected:
+	std::optional<std::vector<std::shared_ptr<NodeDefinitionListDto>>> m_Items;
+	std::optional<int32_t> m_Skip;
+	std::optional<int32_t> m_Limit;
+	std::optional<int32_t> m_ItemCount;
+	std::optional<int64_t> m_ItemTotalCount;
+};
+
+/// <summary>
+/// Request to change the status of a node definition.
+/// </summary>
+class NodeDefinitionStatusRequest : public csp::services::DtoBase
+{
+public:
+	NodeDefinitionStatusRequest();
+	virtual ~NodeDefinitionStatusRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// New status: "active", "draft", or "deprecated".
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Status;
+};
+
+/// <summary>
+/// Request to update an existing node definition. Creates a new version.
+/// </summary>
+class NodeDefinitionUpdateRequest : public csp::services::DtoBase
+{
+public:
+	NodeDefinitionUpdateRequest();
+	virtual ~NodeDefinitionUpdateRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Updated category path segments.
+	/// </summary>
+	const std::vector<utility::string_t>& GetCategory() const;
+	void SetCategory(const std::vector<utility::string_t>& Value);
+	bool HasCategory() const;
+
+	/// <summary>
+	/// Updated full node definition JSON.
+	/// </summary>
+	std::shared_ptr<rapidjson::Document> GetDefinition() const;
+	void SetDefinition(const std::shared_ptr<rapidjson::Document>& Value);
+	bool HasDefinition() const;
+
+	/// <summary>
+	/// Updated Python function reference.
+	/// </summary>
+	utility::string_t GetFunctionRef() const;
+	void SetFunctionRef(const utility::string_t& Value);
+	bool HasFunctionRef() const;
+
+	/// <summary>
+	/// Updated worker runtime identifier.
+	/// </summary>
+	utility::string_t GetRuntimeId() const;
+	void SetRuntimeId(const utility::string_t& Value);
+	bool HasRuntimeId() const;
+
+	/// <summary>
+	/// Description of what changed in this version.
+	/// </summary>
+	utility::string_t GetChangeNote() const;
+	void SetChangeNote(const utility::string_t& Value);
+	bool HasChangeNote() const;
+
+	/// <summary>
+	/// Updated tags.
+	/// </summary>
+	const std::vector<utility::string_t>& GetTags() const;
+	void SetTags(const std::vector<utility::string_t>& Value);
+	bool HasTags() const;
+
+	/// <summary>
+	/// Updated required secrets.
+	/// </summary>
+	const std::vector<utility::string_t>& GetRequiredSecrets() const;
+	void SetRequiredSecrets(const std::vector<utility::string_t>& Value);
+	bool HasRequiredSecrets() const;
+
+	/// <summary>
+	/// Updated provider name.
+	/// </summary>
+	utility::string_t GetProvider() const;
+	void SetProvider(const utility::string_t& Value);
+	bool HasProvider() const;
+
+	/// <summary>
+	/// Optional source version pin.
+	/// </summary>
+	utility::string_t GetSourceVersion() const;
+	void SetSourceVersion(const utility::string_t& Value);
+	bool HasSourceVersion() const;
+
+
+protected:
+	std::optional<std::vector<utility::string_t>> m_Category;
+	std::optional<std::shared_ptr<rapidjson::Document>> m_Definition;
+	std::optional<utility::string_t> m_FunctionRef;
+	std::optional<utility::string_t> m_RuntimeId;
+	std::optional<utility::string_t> m_ChangeNote;
+	std::optional<std::vector<utility::string_t>> m_Tags;
+	std::optional<std::vector<utility::string_t>> m_RequiredSecrets;
+	std::optional<utility::string_t> m_Provider;
+	std::optional<utility::string_t> m_SourceVersion;
 };
 
 /// <summary>
@@ -4754,6 +5447,150 @@ protected:
 	std::optional<utility::string_t> m_EnvVarName;
 	std::optional<utility::string_t> m_GacJson;
 	std::optional<std::shared_ptr<GacValidationResult>> m_ValidationResult;
+};
+
+/// <summary>
+/// Request to save a secret that has already been validated.
+/// </summary>
+class SaveValidatedSecretRequest : public csp::services::DtoBase
+{
+public:
+	SaveValidatedSecretRequest();
+	virtual ~SaveValidatedSecretRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Tenant owning the secret.
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// Environment variable name.
+	/// </summary>
+	utility::string_t GetEnvVarName() const;
+	void SetEnvVarName(const utility::string_t& Value);
+	bool HasEnvVarName() const;
+
+	/// <summary>
+	/// The value to save.
+	/// </summary>
+	utility::string_t GetRawValue() const;
+	void SetRawValue(const utility::string_t& Value);
+	bool HasRawValue() const;
+
+	std::shared_ptr<SecretValidationResult> GetValidationResult() const;
+	void SetValidationResult(const std::shared_ptr<SecretValidationResult>& Value);
+	bool HasValidationResult() const;
+
+
+protected:
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<utility::string_t> m_EnvVarName;
+	std::optional<utility::string_t> m_RawValue;
+	std::optional<std::shared_ptr<SecretValidationResult>> m_ValidationResult;
+};
+
+/// <summary>
+/// An individual check within a secret validation.
+/// </summary>
+class SecretValidationCheck : public csp::services::DtoBase
+{
+public:
+	SecretValidationCheck();
+	virtual ~SecretValidationCheck();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Type of check: "authentication", "quota", "endpoint_reachable".
+	/// </summary>
+	utility::string_t GetCheckType() const;
+	void SetCheckType(const utility::string_t& Value);
+	bool HasCheckType() const;
+
+	/// <summary>
+	/// Check status: "pass", "fail", or "error".
+	/// </summary>
+	utility::string_t GetStatus() const;
+	void SetStatus(const utility::string_t& Value);
+	bool HasStatus() const;
+
+	/// <summary>
+	/// Human-readable detail message.
+	/// </summary>
+	utility::string_t GetMessage() const;
+	void SetMessage(const utility::string_t& Value);
+	bool HasMessage() const;
+
+	/// <summary>
+	/// Check execution time in milliseconds.
+	/// </summary>
+	int64_t GetDurationMs() const;
+	void SetDurationMs(int64_t Value);
+	bool HasDurationMs() const;
+
+
+protected:
+	std::optional<utility::string_t> m_CheckType;
+	std::optional<utility::string_t> m_Status;
+	std::optional<utility::string_t> m_Message;
+	std::optional<int64_t> m_DurationMs;
+};
+
+/// <summary>
+/// Result of validating a secret value against a provider-specific probe.
+/// </summary>
+class SecretValidationResult : public csp::services::DtoBase
+{
+public:
+	SecretValidationResult();
+	virtual ~SecretValidationResult();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Overall validation status: "pass", "fail", or "error".
+	/// </summary>
+	utility::string_t GetOverallStatus() const;
+	void SetOverallStatus(const utility::string_t& Value);
+	bool HasOverallStatus() const;
+
+	/// <summary>
+	/// Provider name (e.g., "FAL", "Meshy", "Topaz").
+	/// </summary>
+	utility::string_t GetProvider() const;
+	void SetProvider(const utility::string_t& Value);
+	bool HasProvider() const;
+
+	/// <summary>
+	/// When the validation was performed.
+	/// </summary>
+	utility::string_t GetValidatedAt() const;
+	void SetValidatedAt(const utility::string_t& Value);
+	bool HasValidatedAt() const;
+
+	/// <summary>
+	/// Individual check results.
+	/// </summary>
+	const std::vector<std::shared_ptr<SecretValidationCheck>>& GetChecks() const;
+	void SetChecks(const std::vector<std::shared_ptr<SecretValidationCheck>>& Value);
+	bool HasChecks() const;
+
+
+protected:
+	std::optional<utility::string_t> m_OverallStatus;
+	std::optional<utility::string_t> m_Provider;
+	std::optional<utility::string_t> m_ValidatedAt;
+	std::optional<std::vector<std::shared_ptr<SecretValidationCheck>>> m_Checks;
 };
 
 /// <summary>
@@ -6316,6 +7153,55 @@ public:
 
 protected:
 	eTicketStatus Value = {};
+};
+
+/// <summary>
+/// Request to validate an API key secret.
+/// </summary>
+class ValidateSecretRequest : public csp::services::DtoBase
+{
+public:
+	ValidateSecretRequest();
+	virtual ~ValidateSecretRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json) override;
+
+
+	/// <summary>
+	/// Tenant owning the secret.
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// Environment variable name (e.g., "MESHY_API_KEY").
+	/// </summary>
+	utility::string_t GetEnvVarName() const;
+	void SetEnvVarName(const utility::string_t& Value);
+	bool HasEnvVarName() const;
+
+	/// <summary>
+	/// Secret type that determines which validator to use (e.g., "meshy", "fal", "api_key").
+	/// </summary>
+	utility::string_t GetSecretType() const;
+	void SetSecretType(const utility::string_t& Value);
+	bool HasSecretType() const;
+
+	/// <summary>
+	/// Optional raw value to validate (try-before-save). Omit to validate the saved value.
+	/// </summary>
+	utility::string_t GetRawValue() const;
+	void SetRawValue(const utility::string_t& Value);
+	bool HasRawValue() const;
+
+
+protected:
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<utility::string_t> m_EnvVarName;
+	std::optional<utility::string_t> m_SecretType;
+	std::optional<utility::string_t> m_RawValue;
 };
 
 /// <summary>

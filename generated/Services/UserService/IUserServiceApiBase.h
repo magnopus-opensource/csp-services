@@ -104,8 +104,9 @@ public:
 
 
 	/// <summary>
-	/// List all secret definitions for an application.
-	/// Any authenticated user can read definitions (they need to know what keys exist).
+	/// List secret definitions for an application.
+	/// Magnopus-admin: returns all definitions with AllowedTenants field.
+	/// Tenant users: returns only definitions visible to their tenant, without AllowedTenants.
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/application-secrets/{applicationName}
@@ -930,6 +931,7 @@ public:
 	struct encrypted_valuesTenantKeyNamePutParams
 	{
 		const utility::string_t& keyName;
+		const std::optional<utility::string_t>& applicationName;
 		const std::shared_ptr<SetEncryptedValueRequest>& RequestBody;
 	};
 
@@ -950,6 +952,7 @@ public:
 	struct encrypted_valuesTenantKeyNameDeleteParams
 	{
 		const utility::string_t& keyName;
+		const std::optional<utility::string_t>& applicationName;
 	};
 
 
@@ -3204,6 +3207,69 @@ public:
 	virtual void super_adminTenantsTenantNameHostnamesHostnameDelete(const super_adminTenantsTenantNameHostnamesHostnameDeleteParams& Params,
 																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
 																	 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameLegacy_hostnamesPostParams
+	{
+		const utility::string_t& tenantName;
+		const std::shared_ptr<CreateLegacyHostnameRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Creates a legacy hostname mapping (adds to MappedHostnames without DNS provisioning).
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/super-admin/tenants/{tenantName}/legacy-hostnames
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameLegacy_hostnamesPost(const super_adminTenantsTenantNameLegacy_hostnamesPostParams& Params,
+																  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct super_adminTenantsTenantNameLegacy_hostnamesHostnamePutParams
+	{
+		const utility::string_t& tenantName;
+		const utility::string_t& hostname;
+		const std::shared_ptr<CreateLegacyHostnameRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Updates (renames) a legacy hostname mapping.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/super-admin/tenants/{tenantName}/legacy-hostnames/{hostname}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void super_adminTenantsTenantNameLegacy_hostnamesHostnamePut(const super_adminTenantsTenantNameLegacy_hostnamesHostnamePutParams& Params,
+																		 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct super_adminTenantsTenantNameLegacy_hostnamesHostnameDeleteParams
+	{
+		const utility::string_t& tenantName;
+		const utility::string_t& hostname;
+	};
+
+
+	/// <summary>
+	/// Deletes a legacy hostname mapping.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/super-admin/tenants/{tenantName}/legacy-hostnames/{hostname}
+	/// Authorization: magnopus-admin
+	/// </remarks>
+	virtual void
+		super_adminTenantsTenantNameLegacy_hostnamesHostnameDelete(const super_adminTenantsTenantNameLegacy_hostnamesHostnameDeleteParams& Params,
+																   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																   csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
