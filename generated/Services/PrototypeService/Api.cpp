@@ -3,7 +3,6 @@
 #include "Api.h"
 
 #include "CSP/CSPFoundation.h"
-#include "Common/Web/HttpAuth.h"
 #include "Common/Web/HttpPayload.h"
 
 #include <fmt/format.h>
