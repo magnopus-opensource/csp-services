@@ -93,6 +93,7 @@ def main():
 
     excluded_route_paths = [
         "/api/v1/prototypes/most-referenced",
+        "/identity/apple-callback",
     ]
 
     # Render source files
