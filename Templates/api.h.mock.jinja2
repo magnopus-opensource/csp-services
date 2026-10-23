@@ -14,7 +14,7 @@ namespace csp::services::generated::{{ service_name | lower }}
     class {{ tag }}ApiMock final : public I{{ tag }}ApiBase
     {
     public:
-        {{ tag }}ApiMock() : I{{ tag }}ApiBase(nullptr) {}
+        {{ tag }}ApiMock() : I{{ tag }}ApiBase(nullptr, csp::ServiceDefinition {}) {}
 
         {% for route_path, route in routes.items() -%}
             {% for method_name, method in route.items() -%}
