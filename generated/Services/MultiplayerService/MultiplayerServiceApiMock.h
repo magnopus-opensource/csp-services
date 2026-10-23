@@ -14,7 +14,7 @@ namespace csp::services::generated::multiplayerservice
 class AnalyticsApiMock final : public IAnalyticsApiBase
 {
 public:
-	AnalyticsApiMock() : IAnalyticsApiBase(nullptr)
+	AnalyticsApiMock() : IAnalyticsApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -41,7 +41,7 @@ public:
 class AreaOfInterestApiMock final : public IAreaOfInterestApiBase
 {
 public:
-	AreaOfInterestApiMock() : IAreaOfInterestApiBase(nullptr)
+	AreaOfInterestApiMock() : IAreaOfInterestApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -62,7 +62,7 @@ public:
 class AssignmentsApiMock final : public IAssignmentsApiBase
 {
 public:
-	AssignmentsApiMock() : IAssignmentsApiBase(nullptr)
+	AssignmentsApiMock() : IAssignmentsApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -95,7 +95,7 @@ public:
 class CacheApiMock final : public ICacheApiBase
 {
 public:
-	CacheApiMock() : ICacheApiBase(nullptr)
+	CacheApiMock() : ICacheApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -116,7 +116,7 @@ public:
 class ClientConnectionApiMock final : public IClientConnectionApiBase
 {
 public:
-	ClientConnectionApiMock() : IClientConnectionApiBase(nullptr)
+	ClientConnectionApiMock() : IClientConnectionApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -143,7 +143,7 @@ public:
 class ConfigApiMock final : public IConfigApiBase
 {
 public:
-	ConfigApiMock() : IConfigApiBase(nullptr)
+	ConfigApiMock() : IConfigApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -170,7 +170,7 @@ public:
 class ConfigurationApiMock final : public IConfigurationApiBase
 {
 public:
-	ConfigurationApiMock() : IConfigurationApiBase(nullptr)
+	ConfigurationApiMock() : IConfigurationApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -197,7 +197,7 @@ public:
 class ContentReferenceApiMock final : public IContentReferenceApiBase
 {
 public:
-	ContentReferenceApiMock() : IContentReferenceApiBase(nullptr)
+	ContentReferenceApiMock() : IContentReferenceApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -212,7 +212,7 @@ public:
 class DaigramsApiMock final : public IDaigramsApiBase
 {
 public:
-	DaigramsApiMock() : IDaigramsApiBase(nullptr)
+	DaigramsApiMock() : IDaigramsApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -255,7 +255,7 @@ public:
 class DepartmentsApiMock final : public IDepartmentsApiBase
 {
 public:
-	DepartmentsApiMock() : IDepartmentsApiBase(nullptr)
+	DepartmentsApiMock() : IDepartmentsApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -288,7 +288,7 @@ public:
 class EffortResourcesApiMock final : public IEffortResourcesApiBase
 {
 public:
-	EffortResourcesApiMock() : IEffortResourcesApiBase(nullptr)
+	EffortResourcesApiMock() : IEffortResourcesApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -321,7 +321,7 @@ public:
 class EventMessageApiMock final : public IEventMessageApiBase
 {
 public:
-	EventMessageApiMock() : IEventMessageApiBase(nullptr)
+	EventMessageApiMock() : IEventMessageApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -334,7 +334,7 @@ public:
 class JiraResourcesApiMock final : public IJiraResourcesApiBase
 {
 public:
-	JiraResourcesApiMock() : IJiraResourcesApiBase(nullptr)
+	JiraResourcesApiMock() : IJiraResourcesApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -385,7 +385,7 @@ public:
 class NtpApiMock final : public INtpApiBase
 {
 public:
-	NtpApiMock() : INtpApiBase(nullptr)
+	NtpApiMock() : INtpApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -398,7 +398,7 @@ public:
 class ObjectMessageApiMock final : public IObjectMessageApiBase
 {
 public:
-	ObjectMessageApiMock() : IObjectMessageApiBase(nullptr)
+	ObjectMessageApiMock() : IObjectMessageApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -469,7 +469,7 @@ public:
 class PeopleApiMock final : public IPeopleApiBase
 {
 public:
-	PeopleApiMock() : IPeopleApiBase(nullptr)
+	PeopleApiMock() : IPeopleApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -502,7 +502,7 @@ public:
 class PingApiMock final : public IPingApiBase
 {
 public:
-	PingApiMock() : IPingApiBase(nullptr)
+	PingApiMock() : IPingApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -515,7 +515,7 @@ public:
 class ProjectsApiMock final : public IProjectsApiBase
 {
 public:
-	ProjectsApiMock() : IProjectsApiBase(nullptr)
+	ProjectsApiMock() : IProjectsApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -548,7 +548,7 @@ public:
 class ScopeLeaderApiMock final : public IScopeLeaderApiBase
 {
 public:
-	ScopeLeaderApiMock() : IScopeLeaderApiBase(nullptr)
+	ScopeLeaderApiMock() : IScopeLeaderApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -569,7 +569,7 @@ public:
 class ScopesApiMock final : public IScopesApiBase
 {
 public:
-	ScopesApiMock() : IScopesApiBase(nullptr)
+	ScopesApiMock() : IScopesApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -616,7 +616,7 @@ public:
 class SnapshotApiMock final : public ISnapshotApiBase
 {
 public:
-	SnapshotApiMock() : ISnapshotApiBase(nullptr)
+	SnapshotApiMock() : ISnapshotApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -631,7 +631,7 @@ public:
 class SystemClaimApiMock final : public ISystemClaimApiBase
 {
 public:
-	SystemClaimApiMock() : ISystemClaimApiBase(nullptr)
+	SystemClaimApiMock() : ISystemClaimApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -652,7 +652,7 @@ public:
 class SystemHistoryApiMock final : public ISystemHistoryApiBase
 {
 public:
-	SystemHistoryApiMock() : ISystemHistoryApiBase(nullptr)
+	SystemHistoryApiMock() : ISystemHistoryApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -667,7 +667,7 @@ public:
 class SystemQueueApiMock final : public ISystemQueueApiBase
 {
 public:
-	SystemQueueApiMock() : ISystemQueueApiBase(nullptr)
+	SystemQueueApiMock() : ISystemQueueApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -694,7 +694,7 @@ public:
 class SystemsApiMock final : public ISystemsApiBase
 {
 public:
-	SystemsApiMock() : ISystemsApiBase(nullptr)
+	SystemsApiMock() : ISystemsApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -733,7 +733,7 @@ public:
 class SystemThumbnailApiMock final : public ISystemThumbnailApiBase
 {
 public:
-	SystemThumbnailApiMock() : ISystemThumbnailApiBase(nullptr)
+	SystemThumbnailApiMock() : ISystemThumbnailApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -748,7 +748,7 @@ public:
 class VersionsApiMock final : public IVersionsApiBase
 {
 public:
-	VersionsApiMock() : IVersionsApiBase(nullptr)
+	VersionsApiMock() : IVersionsApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -761,7 +761,7 @@ public:
 class WazzupAgentOverridesApiMock final : public IWazzupAgentOverridesApiBase
 {
 public:
-	WazzupAgentOverridesApiMock() : IWazzupAgentOverridesApiBase(nullptr)
+	WazzupAgentOverridesApiMock() : IWazzupAgentOverridesApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -794,7 +794,7 @@ public:
 class WazzupCapabilitiesApiMock final : public IWazzupCapabilitiesApiBase
 {
 public:
-	WazzupCapabilitiesApiMock() : IWazzupCapabilitiesApiBase(nullptr)
+	WazzupCapabilitiesApiMock() : IWazzupCapabilitiesApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -809,7 +809,7 @@ public:
 class WazzupLlmApiMock final : public IWazzupLlmApiBase
 {
 public:
-	WazzupLlmApiMock() : IWazzupLlmApiBase(nullptr)
+	WazzupLlmApiMock() : IWazzupLlmApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -830,7 +830,7 @@ public:
 class WazzupSessionsApiMock final : public IWazzupSessionsApiBase
 {
 public:
-	WazzupSessionsApiMock() : IWazzupSessionsApiBase(nullptr)
+	WazzupSessionsApiMock() : IWazzupSessionsApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 
@@ -869,7 +869,7 @@ public:
 class WazzupStorageApiMock final : public IWazzupStorageApiBase
 {
 public:
-	WazzupStorageApiMock() : IWazzupStorageApiBase(nullptr)
+	WazzupStorageApiMock() : IWazzupStorageApiBase(nullptr, csp::ServiceDefinition {})
 	{
 	}
 

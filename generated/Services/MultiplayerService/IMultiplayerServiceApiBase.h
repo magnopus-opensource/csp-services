@@ -18,7 +18,8 @@ namespace csp::services::generated::multiplayerservice
 class IAnalyticsApiBase : public csp::services::ApiBase
 {
 public:
-	IAnalyticsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IAnalyticsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -91,8 +92,8 @@ protected:
 class IAreaOfInterestApiBase : public csp::services::ApiBase
 {
 public:
-	IAreaOfInterestApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IAreaOfInterestApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -145,7 +146,8 @@ protected:
 class IAssignmentsApiBase : public csp::services::ApiBase
 {
 public:
-	IAssignmentsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IAssignmentsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -255,7 +257,8 @@ protected:
 class ICacheApiBase : public csp::services::ApiBase
 {
 public:
-	ICacheApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	ICacheApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -308,8 +311,8 @@ protected:
 class IClientConnectionApiBase : public csp::services::ApiBase
 {
 public:
-	IClientConnectionApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IClientConnectionApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -397,7 +400,8 @@ protected:
 class IConfigApiBase : public csp::services::ApiBase
 {
 public:
-	IConfigApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IConfigApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -489,8 +493,8 @@ protected:
 class IConfigurationApiBase : public csp::services::ApiBase
 {
 public:
-	IConfigurationApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IConfigurationApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -548,8 +552,8 @@ protected:
 class IContentReferenceApiBase : public csp::services::ApiBase
 {
 public:
-	IContentReferenceApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IContentReferenceApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -582,7 +586,8 @@ protected:
 class IDaigramsApiBase : public csp::services::ApiBase
 {
 public:
-	IDaigramsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IDaigramsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -711,7 +716,8 @@ protected:
 class IDepartmentsApiBase : public csp::services::ApiBase
 {
 public:
-	IDepartmentsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IDepartmentsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -800,8 +806,8 @@ protected:
 class IEffortResourcesApiBase : public csp::services::ApiBase
 {
 public:
-	IEffortResourcesApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IEffortResourcesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -901,8 +907,8 @@ protected:
 class IEventMessageApiBase : public csp::services::ApiBase
 {
 public:
-	IEventMessageApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IEventMessageApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -935,8 +941,8 @@ protected:
 class IJiraResourcesApiBase : public csp::services::ApiBase
 {
 public:
-	IJiraResourcesApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IJiraResourcesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1097,7 +1103,8 @@ protected:
 class INtpApiBase : public csp::services::ApiBase
 {
 public:
-	INtpApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	INtpApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1125,8 +1132,8 @@ protected:
 class IObjectMessageApiBase : public csp::services::ApiBase
 {
 public:
-	IObjectMessageApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IObjectMessageApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1391,7 +1398,8 @@ protected:
 class IPeopleApiBase : public csp::services::ApiBase
 {
 public:
-	IPeopleApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IPeopleApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1483,7 +1491,8 @@ protected:
 class IPingApiBase : public csp::services::ApiBase
 {
 public:
-	IPingApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IPingApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1511,7 +1520,8 @@ protected:
 class IProjectsApiBase : public csp::services::ApiBase
 {
 public:
-	IProjectsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IProjectsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1600,7 +1610,8 @@ protected:
 class IScopeLeaderApiBase : public csp::services::ApiBase
 {
 public:
-	IScopeLeaderApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IScopeLeaderApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1655,7 +1666,8 @@ protected:
 class IScopesApiBase : public csp::services::ApiBase
 {
 public:
-	IScopesApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IScopesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1833,7 +1845,8 @@ protected:
 class ISnapshotApiBase : public csp::services::ApiBase
 {
 public:
-	ISnapshotApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	ISnapshotApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1881,7 +1894,8 @@ protected:
 class ISystemClaimApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemClaimApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	ISystemClaimApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1945,8 +1959,8 @@ protected:
 class ISystemHistoryApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemHistoryApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	ISystemHistoryApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1982,7 +1996,8 @@ protected:
 class ISystemQueueApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemQueueApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	ISystemQueueApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2065,7 +2080,8 @@ protected:
 class ISystemsApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	ISystemsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2190,8 +2206,8 @@ protected:
 class ISystemThumbnailApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemThumbnailApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	ISystemThumbnailApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2226,7 +2242,8 @@ protected:
 class IVersionsApiBase : public csp::services::ApiBase
 {
 public:
-	IVersionsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IVersionsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2258,8 +2275,8 @@ protected:
 class IWazzupAgentOverridesApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupAgentOverridesApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IWazzupAgentOverridesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2348,8 +2365,8 @@ protected:
 class IWazzupCapabilitiesApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupCapabilitiesApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IWazzupCapabilitiesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2381,7 +2398,8 @@ protected:
 class IWazzupLlmApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupLlmApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IWazzupLlmApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2433,8 +2451,8 @@ protected:
 class IWazzupSessionsApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupSessionsApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IWazzupSessionsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2544,8 +2562,8 @@ protected:
 class IWazzupStorageApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupStorageApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().MultiplayerService)
+	IWazzupStorageApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 

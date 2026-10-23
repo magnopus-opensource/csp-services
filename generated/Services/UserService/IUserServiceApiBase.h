@@ -18,7 +18,8 @@ namespace csp::services::generated::userservice
 class IAnalyticsApiBase : public csp::services::ApiBase
 {
 public:
-	IAnalyticsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IAnalyticsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -91,7 +92,8 @@ protected:
 class IApiKeyApiBase : public csp::services::ApiBase
 {
 public:
-	IApiKeyApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IApiKeyApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -248,7 +250,8 @@ protected:
 class IApplicationSecretsApiBase : public csp::services::ApiBase
 {
 public:
-	IApplicationSecretsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IApplicationSecretsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -406,8 +409,8 @@ protected:
 class IApplicationSettingsApiBase : public csp::services::ApiBase
 {
 public:
-	IApplicationSettingsApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IApplicationSettingsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -711,7 +714,8 @@ protected:
 class IAssignmentsApiBase : public csp::services::ApiBase
 {
 public:
-	IAssignmentsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IAssignmentsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -821,7 +825,8 @@ protected:
 class IAuthenticationApiBase : public csp::services::ApiBase
 {
 public:
-	IAuthenticationApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IAuthenticationApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1100,7 +1105,8 @@ protected:
 class IAvatarsApiBase : public csp::services::ApiBase
 {
 public:
-	IAvatarsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IAvatarsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1217,7 +1223,8 @@ protected:
 class IBillingMatrixApiBase : public csp::services::ApiBase
 {
 public:
-	IBillingMatrixApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IBillingMatrixApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2187,7 +2194,8 @@ protected:
 class ICacheApiBase : public csp::services::ApiBase
 {
 public:
-	ICacheApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ICacheApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2240,7 +2248,8 @@ protected:
 class ICdnAuthCookieApiBase : public csp::services::ApiBase
 {
 public:
-	ICdnAuthCookieApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ICdnAuthCookieApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2266,12 +2275,17 @@ public:
 
 	struct cdn_sessionDeleteParams
 	{
+		const std::optional<utility::string_t>& tenant;
 	};
 
 
 	/// <summary>
-	/// Clears the CDN auth cookie (logout). Anonymous on purpose: logout commonly happens with an
+	/// Clears CDN auth cookies (logout). Anonymous on purpose: logout commonly happens with an
 	/// already-expired token, and clearing a cookie only ever affects the caller's own browser.
+	/// `?tenant=X` clears X's per-tenant cookie, and the legacy Magnopus.Service.User.Bootstrap.Settings.CdnAuthCookieSettings.CookieName
+	/// cookie when it currently holds a token for X (D5) — so logout cannot leave that tenant's token behind in the
+	/// shared legacy slot while MCS dual-writes (D12). With no `tenant`, clears the legacy cookie and every
+	/// per-tenant cookie the request carries, preserving today's clear-everything contract.
 	/// </summary>
 	/// <remarks>
 	/// DELETE /api/v1/cdn-session
@@ -2291,7 +2305,8 @@ protected:
 class IConfigApiBase : public csp::services::ApiBase
 {
 public:
-	IConfigApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IConfigApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2383,7 +2398,8 @@ protected:
 class IConfigurationApiBase : public csp::services::ApiBase
 {
 public:
-	IConfigurationApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IConfigurationApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2441,8 +2457,8 @@ protected:
 class ICrossTenantSettingsApiBase : public csp::services::ApiBase
 {
 public:
-	ICrossTenantSettingsApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ICrossTenantSettingsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2555,7 +2571,8 @@ protected:
 class IDaigramsApiBase : public csp::services::ApiBase
 {
 public:
-	IDaigramsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IDaigramsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2684,7 +2701,8 @@ protected:
 class IDepartmentsApiBase : public csp::services::ApiBase
 {
 public:
-	IDepartmentsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IDepartmentsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2773,7 +2791,8 @@ protected:
 class IEffortResourcesApiBase : public csp::services::ApiBase
 {
 public:
-	IEffortResourcesApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IEffortResourcesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2873,7 +2892,8 @@ protected:
 class IEncryptedValueApiBase : public csp::services::ApiBase
 {
 public:
-	IEncryptedValueApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IEncryptedValueApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2992,7 +3012,8 @@ protected:
 class IGroupApiBase : public csp::services::ApiBase
 {
 public:
-	IGroupApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IGroupApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -3592,7 +3613,8 @@ protected:
 class IInventoryApiBase : public csp::services::ApiBase
 {
 public:
-	IInventoryApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IInventoryApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -3837,7 +3859,8 @@ protected:
 class IJiraResourcesApiBase : public csp::services::ApiBase
 {
 public:
-	IJiraResourcesApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IJiraResourcesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -3998,7 +4021,8 @@ protected:
 class INtpApiBase : public csp::services::ApiBase
 {
 public:
-	INtpApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	INtpApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -4026,7 +4050,8 @@ protected:
 class IPeopleApiBase : public csp::services::ApiBase
 {
 public:
-	IPeopleApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IPeopleApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -4118,7 +4143,8 @@ protected:
 class IPingApiBase : public csp::services::ApiBase
 {
 public:
-	IPingApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IPingApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -4146,7 +4172,8 @@ protected:
 class IProfileApiBase : public csp::services::ApiBase
 {
 public:
-	IProfileApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IProfileApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -4778,7 +4805,8 @@ protected:
 class IProjectsApiBase : public csp::services::ApiBase
 {
 public:
-	IProjectsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IProjectsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -4867,7 +4895,8 @@ protected:
 class ISettingsApiBase : public csp::services::ApiBase
 {
 public:
-	ISettingsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ISettingsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -5008,7 +5037,8 @@ protected:
 class ISnapshotApiBase : public csp::services::ApiBase
 {
 public:
-	ISnapshotApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ISnapshotApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -5056,7 +5086,8 @@ protected:
 class IStripeApiBase : public csp::services::ApiBase
 {
 public:
-	IStripeApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IStripeApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -5150,7 +5181,8 @@ protected:
 class ISuperAdminTenantApiBase : public csp::services::ApiBase
 {
 public:
-	ISuperAdminTenantApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ISuperAdminTenantApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -5645,7 +5677,8 @@ protected:
 class ISystemClaimApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemClaimApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ISystemClaimApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -5709,7 +5742,8 @@ protected:
 class ISystemHistoryApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemHistoryApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ISystemHistoryApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -5745,7 +5779,8 @@ protected:
 class ISystemQueueApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemQueueApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ISystemQueueApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -5828,7 +5863,8 @@ protected:
 class ISystemsApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ISystemsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -5953,7 +5989,8 @@ protected:
 class ISystemThumbnailApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemThumbnailApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ISystemThumbnailApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -5988,7 +6025,8 @@ protected:
 class ITenantApiBase : public csp::services::ApiBase
 {
 public:
-	ITenantApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ITenantApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -6309,7 +6347,8 @@ protected:
 class ITenantAdminApiBase : public csp::services::ApiBase
 {
 public:
-	ITenantAdminApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ITenantAdminApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -6581,7 +6620,8 @@ protected:
 class ITenantHostnameApiBase : public csp::services::ApiBase
 {
 public:
-	ITenantHostnameApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	ITenantHostnameApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -6880,7 +6920,8 @@ protected:
 class IUserRolesApiBase : public csp::services::ApiBase
 {
 public:
-	IUserRolesApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IUserRolesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -6932,7 +6973,8 @@ protected:
 class IVersionsApiBase : public csp::services::ApiBase
 {
 public:
-	IVersionsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IVersionsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -6964,8 +7006,8 @@ protected:
 class IWazzupAgentOverridesApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupAgentOverridesApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IWazzupAgentOverridesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -7054,7 +7096,8 @@ protected:
 class IWazzupCapabilitiesApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupCapabilitiesApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IWazzupCapabilitiesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -7086,7 +7129,8 @@ protected:
 class IWazzupLlmApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupLlmApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IWazzupLlmApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -7138,7 +7182,8 @@ protected:
 class IWazzupSessionsApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupSessionsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IWazzupSessionsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -7248,7 +7293,8 @@ protected:
 class IWazzupStorageApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupStorageApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().UserService)
+	IWazzupStorageApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
