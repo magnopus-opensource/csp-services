@@ -18,7 +18,7 @@ namespace csp::services::generated::{{ service_name | lower }}
     class {{ tag }}Api final : public I{{ tag }}ApiBase
     {
     public:
-        {{ tag }}Api(csp::web::WebClient* InWebClient);
+        {{ tag }}Api(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
         virtual ~{{ tag }}Api();
 
         {% for route_path, route in routes.items() %}

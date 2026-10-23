@@ -1,7 +1,6 @@
 {% from 'helpers.jinja2' import print_type, print_method_name, print_method_parameters %}
 
 #include "Common/Web/HttpPayload.h"
-#include "CSP/CSPFoundation.h"
 
 #include "Api.h"
 
@@ -12,7 +11,8 @@
 namespace csp::services::generated::{{ service_name | lower }} {
 
 {% for tag, routes in tags.items() %}
-    {{ tag }}Api::{{ tag }}Api(csp::web::WebClient* InWebClient) : I{{ tag }}ApiBase(InWebClient)
+    {{ tag }}Api::{{ tag }}Api(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+        : I{{ tag }}ApiBase(InWebClient, InServiceDefinition)
     {
 
     }
