@@ -2,7 +2,6 @@
 
 #include "Api.h"
 
-#include "CSP/CSPFoundation.h"
 #include "Common/Web/HttpPayload.h"
 
 #include <fmt/format.h>
@@ -13,7 +12,8 @@ namespace csp::services::generated::spatialdataservice
 {
 
 
-AnalyticsApi::AnalyticsApi(csp::web::WebClient* InWebClient) : IAnalyticsApiBase(InWebClient)
+AnalyticsApi::AnalyticsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IAnalyticsApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -72,7 +72,8 @@ void AnalyticsApi::analyticsStream_urlPost([[maybe_unused]] const analyticsStrea
 
 
 
-AnchorsApi::AnchorsApi(csp::web::WebClient* InWebClient) : IAnchorsApiBase(InWebClient)
+AnchorsApi::AnchorsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IAnchorsApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -377,7 +378,8 @@ void AnchorsApi::anchor_resolutionsStatsGet([[maybe_unused]] const anchor_resolu
 
 
 
-AssignmentsApi::AssignmentsApi(csp::web::WebClient* InWebClient) : IAssignmentsApiBase(InWebClient)
+AssignmentsApi::AssignmentsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IAssignmentsApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -486,7 +488,8 @@ void AssignmentsApi::productionrosterAssignmentsBulkPost([[maybe_unused]] const 
 
 
 
-CacheApi::CacheApi(csp::web::WebClient* InWebClient) : ICacheApiBase(InWebClient)
+CacheApi::CacheApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: ICacheApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -551,7 +554,8 @@ void CacheApi::cache_keysDelete([[maybe_unused]] const cache_keysDeleteParams& P
 
 
 
-ConfigApi::ConfigApi(csp::web::WebClient* InWebClient) : IConfigApiBase(InWebClient)
+ConfigApi::ConfigApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IConfigApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -616,7 +620,8 @@ void ConfigApi::productionrosterConfigGroupGroupIdPut([[maybe_unused]] const pro
 
 
 
-ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient) : IConfigurationApiBase(InWebClient)
+ConfigurationApi::ConfigurationApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IConfigurationApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -674,7 +679,8 @@ void ConfigurationApi::featureflagsGet([[maybe_unused]] const featureflagsGetPar
 
 
 
-DaigramsApi::DaigramsApi(csp::web::WebClient* InWebClient) : IDaigramsApiBase(InWebClient)
+DaigramsApi::DaigramsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IDaigramsApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -785,7 +791,8 @@ void DaigramsApi::daigramsIdThumbnailPut([[maybe_unused]] const daigramsIdThumbn
 
 
 
-DepartmentsApi::DepartmentsApi(csp::web::WebClient* InWebClient) : IDepartmentsApiBase(InWebClient)
+DepartmentsApi::DepartmentsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IDepartmentsApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -869,7 +876,8 @@ void DepartmentsApi::productionrosterDepartmentsIdDelete([[maybe_unused]] const 
 
 
 
-EffortResourcesApi::EffortResourcesApi(csp::web::WebClient* InWebClient) : IEffortResourcesApiBase(InWebClient)
+EffortResourcesApi::EffortResourcesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IEffortResourcesApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -955,7 +963,8 @@ void EffortResourcesApi::watchtowerEffortSearchPost([[maybe_unused]] const watch
 
 
 
-JiraResourcesApi::JiraResourcesApi(csp::web::WebClient* InWebClient) : IJiraResourcesApiBase(InWebClient)
+JiraResourcesApi::JiraResourcesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IJiraResourcesApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -1114,7 +1123,7 @@ void JiraResourcesApi::watchtowerJiraReferenceUpsertPost([[maybe_unused]] const 
 
 
 
-NtpApi::NtpApi(csp::web::WebClient* InWebClient) : INtpApiBase(InWebClient)
+NtpApi::NtpApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition) : INtpApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -1139,7 +1148,8 @@ void NtpApi::datetimeGet([[maybe_unused]] const datetimeGetParams& Params,
 
 
 
-PeopleApi::PeopleApi(csp::web::WebClient* InWebClient) : IPeopleApiBase(InWebClient)
+PeopleApi::PeopleApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IPeopleApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -1221,7 +1231,8 @@ void PeopleApi::productionrosterPeopleIdDelete([[maybe_unused]] const production
 
 
 
-PersonalPointOfInterestApi::PersonalPointOfInterestApi(csp::web::WebClient* InWebClient) : IPersonalPointOfInterestApiBase(InWebClient)
+PersonalPointOfInterestApi::PersonalPointOfInterestApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IPersonalPointOfInterestApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -1284,7 +1295,7 @@ void PersonalPointOfInterestApi::usersUserIdPoiPoiIdDelete([[maybe_unused]] cons
 
 
 
-PingApi::PingApi(csp::web::WebClient* InWebClient) : IPingApiBase(InWebClient)
+PingApi::PingApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition) : IPingApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -1309,7 +1320,8 @@ void PingApi::pingGet([[maybe_unused]] const pingGetParams& Params,
 
 
 
-PointOfInterestApi::PointOfInterestApi(csp::web::WebClient* InWebClient) : IPointOfInterestApiBase(InWebClient)
+PointOfInterestApi::PointOfInterestApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IPointOfInterestApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -1978,7 +1990,8 @@ void PointOfInterestApi::poiTagsGet([[maybe_unused]] const poiTagsGetParams& Par
 
 
 
-PositionApi::PositionApi(csp::web::WebClient* InWebClient) : IPositionApiBase(InWebClient)
+PositionApi::PositionApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IPositionApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -2368,7 +2381,8 @@ void PositionApi::usersPositionsGet([[maybe_unused]] const usersPositionsGetPara
 
 
 
-PositionSpoofingApi::PositionSpoofingApi(csp::web::WebClient* InWebClient) : IPositionSpoofingApiBase(InWebClient)
+PositionSpoofingApi::PositionSpoofingApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IPositionSpoofingApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -2455,7 +2469,8 @@ void PositionSpoofingApi::positionsSpoofUsersGet([[maybe_unused]] const position
 
 
 
-ProjectsApi::ProjectsApi(csp::web::WebClient* InWebClient) : IProjectsApiBase(InWebClient)
+ProjectsApi::ProjectsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IProjectsApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -2537,7 +2552,8 @@ void ProjectsApi::productionrosterProjectsIdDelete([[maybe_unused]] const produc
 
 
 
-SnapshotApi::SnapshotApi(csp::web::WebClient* InWebClient) : ISnapshotApiBase(InWebClient)
+SnapshotApi::SnapshotApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: ISnapshotApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -2583,7 +2599,8 @@ void SnapshotApi::productionrosterSnapshotGet([[maybe_unused]] const productionr
 
 
 
-SpaceTimeApi::SpaceTimeApi(csp::web::WebClient* InWebClient) : ISpaceTimeApiBase(InWebClient)
+SpaceTimeApi::SpaceTimeApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: ISpaceTimeApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -2747,7 +2764,8 @@ void SpaceTimeApi::spacetimeGet([[maybe_unused]] const spacetimeGetParams& Param
 
 
 
-SystemClaimApi::SystemClaimApi(csp::web::WebClient* InWebClient) : ISystemClaimApiBase(InWebClient)
+SystemClaimApi::SystemClaimApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: ISystemClaimApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -2805,7 +2823,8 @@ void SystemClaimApi::batonSystemsSystemIdClaimDelete([[maybe_unused]] const bato
 
 
 
-SystemHistoryApi::SystemHistoryApi(csp::web::WebClient* InWebClient) : ISystemHistoryApiBase(InWebClient)
+SystemHistoryApi::SystemHistoryApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: ISystemHistoryApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -2846,7 +2865,8 @@ void SystemHistoryApi::batonSystemsSystemIdHistoryGet([[maybe_unused]] const bat
 
 
 
-SystemQueueApi::SystemQueueApi(csp::web::WebClient* InWebClient) : ISystemQueueApiBase(InWebClient)
+SystemQueueApi::SystemQueueApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: ISystemQueueApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -2921,7 +2941,8 @@ void SystemQueueApi::batonSystemsSystemIdQueueDelete([[maybe_unused]] const bato
 
 
 
-SystemsApi::SystemsApi(csp::web::WebClient* InWebClient) : ISystemsApiBase(InWebClient)
+SystemsApi::SystemsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: ISystemsApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -3060,7 +3081,8 @@ void SystemsApi::batonSystemsIdDelete([[maybe_unused]] const batonSystemsIdDelet
 
 
 
-SystemThumbnailApi::SystemThumbnailApi(csp::web::WebClient* InWebClient) : ISystemThumbnailApiBase(InWebClient)
+SystemThumbnailApi::SystemThumbnailApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: ISystemThumbnailApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -3089,7 +3111,8 @@ void SystemThumbnailApi::batonSystemsIdThumbnailPut([[maybe_unused]] const baton
 
 
 
-VersionsApi::VersionsApi(csp::web::WebClient* InWebClient) : IVersionsApiBase(InWebClient)
+VersionsApi::VersionsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IVersionsApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -3114,7 +3137,8 @@ void VersionsApi::rsionsGet([[maybe_unused]] const rsionsGetParams& Params,
 
 
 
-WazzupAgentOverridesApi::WazzupAgentOverridesApi(csp::web::WebClient* InWebClient) : IWazzupAgentOverridesApiBase(InWebClient)
+WazzupAgentOverridesApi::WazzupAgentOverridesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IWazzupAgentOverridesApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -3203,7 +3227,8 @@ void WazzupAgentOverridesApi::wazzupAgent_overridesAgentIdDelete([[maybe_unused]
 
 
 
-WazzupCapabilitiesApi::WazzupCapabilitiesApi(csp::web::WebClient* InWebClient) : IWazzupCapabilitiesApiBase(InWebClient)
+WazzupCapabilitiesApi::WazzupCapabilitiesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IWazzupCapabilitiesApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -3231,7 +3256,8 @@ void WazzupCapabilitiesApi::wazzupCapabilitiesGet([[maybe_unused]] const wazzupC
 
 
 
-WazzupLlmApi::WazzupLlmApi(csp::web::WebClient* InWebClient) : IWazzupLlmApiBase(InWebClient)
+WazzupLlmApi::WazzupLlmApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IWazzupLlmApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -3278,7 +3304,8 @@ void WazzupLlmApi::wazzupLlmGeneratePost([[maybe_unused]] const wazzupLlmGenerat
 
 
 
-WazzupSessionsApi::WazzupSessionsApi(csp::web::WebClient* InWebClient) : IWazzupSessionsApiBase(InWebClient)
+WazzupSessionsApi::WazzupSessionsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IWazzupSessionsApiBase(InWebClient, InServiceDefinition)
 {
 }
 
@@ -3393,7 +3420,8 @@ void WazzupSessionsApi::wazzupSessionsIdDelete([[maybe_unused]] const wazzupSess
 
 
 
-WazzupStorageApi::WazzupStorageApi(csp::web::WebClient* InWebClient) : IWazzupStorageApiBase(InWebClient)
+WazzupStorageApi::WazzupStorageApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IWazzupStorageApiBase(InWebClient, InServiceDefinition)
 {
 }
 

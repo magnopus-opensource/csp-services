@@ -18,7 +18,7 @@ namespace csp::services::generated::aggregationservice
 class AloMovesApi final : public IAloMovesApiBase
 {
 public:
-	AloMovesApi(csp::web::WebClient* InWebClient);
+	AloMovesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~AloMovesApi();
 
 
@@ -191,7 +191,7 @@ public:
 class AnalyticsApi final : public IAnalyticsApiBase
 {
 public:
-	AnalyticsApi(csp::web::WebClient* InWebClient);
+	AnalyticsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~AnalyticsApi();
 
 
@@ -239,7 +239,7 @@ public:
 class AssignmentsApi final : public IAssignmentsApiBase
 {
 public:
-	AssignmentsApi(csp::web::WebClient* InWebClient);
+	AssignmentsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~AssignmentsApi();
 
 
@@ -315,7 +315,7 @@ public:
 class BillingCadenceDevApi final : public IBillingCadenceDevApiBase
 {
 public:
-	BillingCadenceDevApi(csp::web::WebClient* InWebClient);
+	BillingCadenceDevApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~BillingCadenceDevApi();
 
 
@@ -338,7 +338,7 @@ public:
 class CacheApi final : public ICacheApiBase
 {
 public:
-	CacheApi(csp::web::WebClient* InWebClient);
+	CacheApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~CacheApi();
 
 
@@ -370,7 +370,7 @@ public:
 class CoalescenceApi final : public ICoalescenceApiBase
 {
 public:
-	CoalescenceApi(csp::web::WebClient* InWebClient);
+	CoalescenceApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~CoalescenceApi();
 
 
@@ -390,7 +390,7 @@ public:
 class ConfigApi final : public IConfigApiBase
 {
 public:
-	ConfigApi(csp::web::WebClient* InWebClient);
+	ConfigApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~ConfigApi();
 
 
@@ -458,7 +458,7 @@ public:
 class ConfigurationApi final : public IConfigurationApiBase
 {
 public:
-	ConfigurationApi(csp::web::WebClient* InWebClient);
+	ConfigurationApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~ConfigurationApi();
 
 
@@ -495,7 +495,7 @@ public:
 class DaigramsApi final : public IDaigramsApiBase
 {
 public:
-	DaigramsApi(csp::web::WebClient* InWebClient);
+	DaigramsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~DaigramsApi();
 
 
@@ -578,7 +578,7 @@ public:
 class DepartmentsApi final : public IDepartmentsApiBase
 {
 public:
-	DepartmentsApi(csp::web::WebClient* InWebClient);
+	DepartmentsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~DepartmentsApi();
 
 
@@ -636,7 +636,7 @@ public:
 class EffortResourcesApi final : public IEffortResourcesApiBase
 {
 public:
-	EffortResourcesApi(csp::web::WebClient* InWebClient);
+	EffortResourcesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~EffortResourcesApi();
 
 
@@ -702,7 +702,7 @@ public:
 class ExternalServiceProxyApi final : public IExternalServiceProxyApiBase
 {
 public:
-	ExternalServiceProxyApi(csp::web::WebClient* InWebClient);
+	ExternalServiceProxyApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~ExternalServiceProxyApi();
 
 
@@ -722,7 +722,7 @@ public:
 class GroupRolesApi final : public IGroupRolesApiBase
 {
 public:
-	GroupRolesApi(csp::web::WebClient* InWebClient);
+	GroupRolesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~GroupRolesApi();
 
 
@@ -742,7 +742,7 @@ public:
 class InspectorApi final : public IInspectorApiBase
 {
 public:
-	InspectorApi(csp::web::WebClient* InWebClient);
+	InspectorApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~InspectorApi();
 
 
@@ -1321,7 +1321,7 @@ public:
 class InspectorAuditTrailApi final : public IInspectorAuditTrailApiBase
 {
 public:
-	InspectorAuditTrailApi(csp::web::WebClient* InWebClient);
+	InspectorAuditTrailApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~InspectorAuditTrailApi();
 
 
@@ -1358,7 +1358,7 @@ public:
 class InspectorBackfillApi final : public IInspectorBackfillApiBase
 {
 public:
-	InspectorBackfillApi(csp::web::WebClient* InWebClient);
+	InspectorBackfillApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~InspectorBackfillApi();
 
 
@@ -1406,7 +1406,7 @@ public:
 class InspectorBugReportApi final : public IInspectorBugReportApiBase
 {
 public:
-	InspectorBugReportApi(csp::web::WebClient* InWebClient);
+	InspectorBugReportApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~InspectorBugReportApi();
 
 
@@ -1493,7 +1493,7 @@ public:
 class InspectorExecutionsApi final : public IInspectorExecutionsApiBase
 {
 public:
-	InspectorExecutionsApi(csp::web::WebClient* InWebClient);
+	InspectorExecutionsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~InspectorExecutionsApi();
 
 
@@ -1515,7 +1515,7 @@ public:
 class InspectorMarketplaceApi final : public IInspectorMarketplaceApiBase
 {
 public:
-	InspectorMarketplaceApi(csp::web::WebClient* InWebClient);
+	InspectorMarketplaceApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~InspectorMarketplaceApi();
 
 
@@ -1567,7 +1567,7 @@ public:
 class InspectorNodeDefinitionApi final : public IInspectorNodeDefinitionApiBase
 {
 public:
-	InspectorNodeDefinitionApi(csp::web::WebClient* InWebClient);
+	InspectorNodeDefinitionApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~InspectorNodeDefinitionApi();
 
 
@@ -1682,7 +1682,7 @@ public:
 class InspectorOrganizationApi final : public IInspectorOrganizationApiBase
 {
 public:
-	InspectorOrganizationApi(csp::web::WebClient* InWebClient);
+	InspectorOrganizationApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~InspectorOrganizationApi();
 
 
@@ -1798,7 +1798,7 @@ public:
 class InspectorQueueOverrideApi final : public IInspectorQueueOverrideApiBase
 {
 public:
-	InspectorQueueOverrideApi(csp::web::WebClient* InWebClient);
+	InspectorQueueOverrideApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~InspectorQueueOverrideApi();
 
 
@@ -1861,7 +1861,7 @@ public:
 class InspectorUsageLedgerApi final : public IInspectorUsageLedgerApiBase
 {
 public:
-	InspectorUsageLedgerApi(csp::web::WebClient* InWebClient);
+	InspectorUsageLedgerApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~InspectorUsageLedgerApi();
 
 
@@ -1898,7 +1898,7 @@ public:
 class InspectorUsageReportingApi final : public IInspectorUsageReportingApiBase
 {
 public:
-	InspectorUsageReportingApi(csp::web::WebClient* InWebClient);
+	InspectorUsageReportingApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~InspectorUsageReportingApi();
 
 
@@ -1990,7 +1990,7 @@ public:
 class InspectorWorkerRuntimeApi final : public IInspectorWorkerRuntimeApiBase
 {
 public:
-	InspectorWorkerRuntimeApi(csp::web::WebClient* InWebClient);
+	InspectorWorkerRuntimeApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~InspectorWorkerRuntimeApi();
 
 
@@ -2010,7 +2010,7 @@ public:
 class JiraResourcesApi final : public IJiraResourcesApiBase
 {
 public:
-	JiraResourcesApi(csp::web::WebClient* InWebClient);
+	JiraResourcesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~JiraResourcesApi();
 
 
@@ -2117,7 +2117,7 @@ public:
 class MarketplaceApi final : public IMarketplaceApiBase
 {
 public:
-	MarketplaceApi(csp::web::WebClient* InWebClient);
+	MarketplaceApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~MarketplaceApi();
 
 
@@ -2280,7 +2280,7 @@ public:
 class MarketplaceAdminApi final : public IMarketplaceAdminApiBase
 {
 public:
-	MarketplaceAdminApi(csp::web::WebClient* InWebClient);
+	MarketplaceAdminApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~MarketplaceAdminApi();
 
 
@@ -2538,7 +2538,7 @@ public:
 class McpStateApi final : public IMcpStateApiBase
 {
 public:
-	McpStateApi(csp::web::WebClient* InWebClient);
+	McpStateApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~McpStateApi();
 
 
@@ -2585,7 +2585,7 @@ public:
 class MusubiGraphApi final : public IMusubiGraphApiBase
 {
 public:
-	MusubiGraphApi(csp::web::WebClient* InWebClient);
+	MusubiGraphApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~MusubiGraphApi();
 
 
@@ -2734,7 +2734,7 @@ public:
 class MyOrganizationApi final : public IMyOrganizationApiBase
 {
 public:
-	MyOrganizationApi(csp::web::WebClient* InWebClient);
+	MyOrganizationApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~MyOrganizationApi();
 
 
@@ -2787,7 +2787,7 @@ public:
 class NodeDefinitionApi final : public INodeDefinitionApiBase
 {
 public:
-	NodeDefinitionApi(csp::web::WebClient* InWebClient);
+	NodeDefinitionApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~NodeDefinitionApi();
 
 
@@ -2822,7 +2822,7 @@ public:
 class NtpApi final : public INtpApiBase
 {
 public:
-	NtpApi(csp::web::WebClient* InWebClient);
+	NtpApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~NtpApi();
 
 
@@ -2839,7 +2839,7 @@ public:
 class OrganizationTenantApi final : public IOrganizationTenantApiBase
 {
 public:
-	OrganizationTenantApi(csp::web::WebClient* InWebClient);
+	OrganizationTenantApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~OrganizationTenantApi();
 
 
@@ -2960,7 +2960,7 @@ public:
 class PeopleApi final : public IPeopleApiBase
 {
 public:
-	PeopleApi(csp::web::WebClient* InWebClient);
+	PeopleApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~PeopleApi();
 
 
@@ -3020,7 +3020,7 @@ public:
 class PingApi final : public IPingApiBase
 {
 public:
-	PingApi(csp::web::WebClient* InWebClient);
+	PingApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~PingApi();
 
 
@@ -3037,7 +3037,7 @@ public:
 class ProjectsApi final : public IProjectsApiBase
 {
 public:
-	ProjectsApi(csp::web::WebClient* InWebClient);
+	ProjectsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~ProjectsApi();
 
 
@@ -3094,7 +3094,7 @@ public:
 class SequenceApi final : public ISequenceApiBase
 {
 public:
-	SequenceApi(csp::web::WebClient* InWebClient);
+	SequenceApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~SequenceApi();
 
 
@@ -3277,7 +3277,7 @@ public:
 class ShopifyApi final : public IShopifyApiBase
 {
 public:
-	ShopifyApi(csp::web::WebClient* InWebClient);
+	ShopifyApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~ShopifyApi();
 
 
@@ -3407,7 +3407,7 @@ public:
 class SnapshotApi final : public ISnapshotApiBase
 {
 public:
-	SnapshotApi(csp::web::WebClient* InWebClient);
+	SnapshotApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~SnapshotApi();
 
 
@@ -3440,7 +3440,7 @@ public:
 class SpaceApi final : public ISpaceApiBase
 {
 public:
-	SpaceApi(csp::web::WebClient* InWebClient);
+	SpaceApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~SpaceApi();
 
 
@@ -3631,7 +3631,7 @@ public:
 class SupportApi final : public ISupportApiBase
 {
 public:
-	SupportApi(csp::web::WebClient* InWebClient);
+	SupportApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~SupportApi();
 
 
@@ -3665,7 +3665,7 @@ public:
 class SystemClaimApi final : public ISystemClaimApiBase
 {
 public:
-	SystemClaimApi(csp::web::WebClient* InWebClient);
+	SystemClaimApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~SystemClaimApi();
 
 
@@ -3707,7 +3707,7 @@ public:
 class SystemHistoryApi final : public ISystemHistoryApiBase
 {
 public:
-	SystemHistoryApi(csp::web::WebClient* InWebClient);
+	SystemHistoryApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~SystemHistoryApi();
 
 
@@ -3728,7 +3728,7 @@ public:
 class SystemQueueApi final : public ISystemQueueApiBase
 {
 public:
-	SystemQueueApi(csp::web::WebClient* InWebClient);
+	SystemQueueApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~SystemQueueApi();
 
 
@@ -3783,7 +3783,7 @@ public:
 class SystemsApi final : public ISystemsApiBase
 {
 public:
-	SystemsApi(csp::web::WebClient* InWebClient);
+	SystemsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~SystemsApi();
 
 
@@ -3863,7 +3863,7 @@ public:
 class SystemThumbnailApi final : public ISystemThumbnailApiBase
 {
 public:
-	SystemThumbnailApi(csp::web::WebClient* InWebClient);
+	SystemThumbnailApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~SystemThumbnailApi();
 
 
@@ -3884,7 +3884,7 @@ public:
 class TenantAppUrlApi final : public ITenantAppUrlApiBase
 {
 public:
-	TenantAppUrlApi(csp::web::WebClient* InWebClient);
+	TenantAppUrlApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~TenantAppUrlApi();
 
 
@@ -3944,7 +3944,7 @@ public:
 class TicketedSpaceApi final : public ITicketedSpaceApiBase
 {
 public:
-	TicketedSpaceApi(csp::web::WebClient* InWebClient);
+	TicketedSpaceApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~TicketedSpaceApi();
 
 
@@ -4046,7 +4046,7 @@ public:
 class UsageReporterDevApi final : public IUsageReporterDevApiBase
 {
 public:
-	UsageReporterDevApi(csp::web::WebClient* InWebClient);
+	UsageReporterDevApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~UsageReporterDevApi();
 
 
@@ -4066,7 +4066,7 @@ public:
 class UserSustainedActivityApi final : public IUserSustainedActivityApiBase
 {
 public:
-	UserSustainedActivityApi(csp::web::WebClient* InWebClient);
+	UserSustainedActivityApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~UserSustainedActivityApi();
 
 
@@ -4086,7 +4086,7 @@ public:
 class VersionsApi final : public IVersionsApiBase
 {
 public:
-	VersionsApi(csp::web::WebClient* InWebClient);
+	VersionsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~VersionsApi();
 
 
@@ -4106,7 +4106,7 @@ public:
 class VersionsAggregatorApi final : public IVersionsAggregatorApiBase
 {
 public:
-	VersionsAggregatorApi(csp::web::WebClient* InWebClient);
+	VersionsAggregatorApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~VersionsAggregatorApi();
 
 
@@ -4126,7 +4126,7 @@ public:
 class WazzupAgentOverridesApi final : public IWazzupAgentOverridesApiBase
 {
 public:
-	WazzupAgentOverridesApi(csp::web::WebClient* InWebClient);
+	WazzupAgentOverridesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~WazzupAgentOverridesApi();
 
 
@@ -4184,7 +4184,7 @@ public:
 class WazzupCapabilitiesApi final : public IWazzupCapabilitiesApiBase
 {
 public:
-	WazzupCapabilitiesApi(csp::web::WebClient* InWebClient);
+	WazzupCapabilitiesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~WazzupCapabilitiesApi();
 
 
@@ -4204,7 +4204,7 @@ public:
 class WazzupLlmApi final : public IWazzupLlmApiBase
 {
 public:
-	WazzupLlmApi(csp::web::WebClient* InWebClient);
+	WazzupLlmApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~WazzupLlmApi();
 
 
@@ -4237,7 +4237,7 @@ public:
 class WazzupSessionsApi final : public IWazzupSessionsApiBase
 {
 public:
-	WazzupSessionsApi(csp::web::WebClient* InWebClient);
+	WazzupSessionsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~WazzupSessionsApi();
 
 
@@ -4306,7 +4306,7 @@ public:
 class WazzupStorageApi final : public IWazzupStorageApiBase
 {
 public:
-	WazzupStorageApi(csp::web::WebClient* InWebClient);
+	WazzupStorageApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
 	virtual ~WazzupStorageApi();
 
 

@@ -18,7 +18,8 @@ namespace csp::services::generated::spatialdataservice
 class IAnalyticsApiBase : public csp::services::ApiBase
 {
 public:
-	IAnalyticsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IAnalyticsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -91,7 +92,8 @@ protected:
 class IAnchorsApiBase : public csp::services::ApiBase
 {
 public:
-	IAnchorsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IAnchorsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -296,7 +298,8 @@ protected:
 class IAssignmentsApiBase : public csp::services::ApiBase
 {
 public:
-	IAssignmentsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IAssignmentsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -406,7 +409,8 @@ protected:
 class ICacheApiBase : public csp::services::ApiBase
 {
 public:
-	ICacheApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	ICacheApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -459,7 +463,8 @@ protected:
 class IConfigApiBase : public csp::services::ApiBase
 {
 public:
-	IConfigApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IConfigApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -551,8 +556,8 @@ protected:
 class IConfigurationApiBase : public csp::services::ApiBase
 {
 public:
-	IConfigurationApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IConfigurationApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -610,7 +615,8 @@ protected:
 class IDaigramsApiBase : public csp::services::ApiBase
 {
 public:
-	IDaigramsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IDaigramsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -739,7 +745,8 @@ protected:
 class IDepartmentsApiBase : public csp::services::ApiBase
 {
 public:
-	IDepartmentsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IDepartmentsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -828,8 +835,8 @@ protected:
 class IEffortResourcesApiBase : public csp::services::ApiBase
 {
 public:
-	IEffortResourcesApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IEffortResourcesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -929,8 +936,8 @@ protected:
 class IJiraResourcesApiBase : public csp::services::ApiBase
 {
 public:
-	IJiraResourcesApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IJiraResourcesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1091,7 +1098,8 @@ protected:
 class INtpApiBase : public csp::services::ApiBase
 {
 public:
-	INtpApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	INtpApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1119,7 +1127,8 @@ protected:
 class IPeopleApiBase : public csp::services::ApiBase
 {
 public:
-	IPeopleApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IPeopleApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1211,8 +1220,8 @@ protected:
 class IPersonalPointOfInterestApiBase : public csp::services::ApiBase
 {
 public:
-	IPersonalPointOfInterestApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IPersonalPointOfInterestApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1285,7 +1294,8 @@ protected:
 class IPingApiBase : public csp::services::ApiBase
 {
 public:
-	IPingApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IPingApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1313,8 +1323,8 @@ protected:
 class IPointOfInterestApiBase : public csp::services::ApiBase
 {
 public:
-	IPointOfInterestApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IPointOfInterestApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1638,7 +1648,8 @@ protected:
 class IPositionApiBase : public csp::services::ApiBase
 {
 public:
-	IPositionApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IPositionApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1863,8 +1874,8 @@ protected:
 class IPositionSpoofingApiBase : public csp::services::ApiBase
 {
 public:
-	IPositionSpoofingApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IPositionSpoofingApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -1954,7 +1965,8 @@ protected:
 class IProjectsApiBase : public csp::services::ApiBase
 {
 public:
-	IProjectsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IProjectsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2043,7 +2055,8 @@ protected:
 class ISnapshotApiBase : public csp::services::ApiBase
 {
 public:
-	ISnapshotApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	ISnapshotApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2091,7 +2104,8 @@ protected:
 class ISpaceTimeApiBase : public csp::services::ApiBase
 {
 public:
-	ISpaceTimeApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	ISpaceTimeApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2218,7 +2232,8 @@ protected:
 class ISystemClaimApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemClaimApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	ISystemClaimApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2282,8 +2297,8 @@ protected:
 class ISystemHistoryApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemHistoryApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	ISystemHistoryApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2319,7 +2334,8 @@ protected:
 class ISystemQueueApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemQueueApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	ISystemQueueApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2402,7 +2418,8 @@ protected:
 class ISystemsApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	ISystemsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2527,8 +2544,8 @@ protected:
 class ISystemThumbnailApiBase : public csp::services::ApiBase
 {
 public:
-	ISystemThumbnailApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	ISystemThumbnailApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2563,7 +2580,8 @@ protected:
 class IVersionsApiBase : public csp::services::ApiBase
 {
 public:
-	IVersionsApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IVersionsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2595,8 +2613,8 @@ protected:
 class IWazzupAgentOverridesApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupAgentOverridesApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IWazzupAgentOverridesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2685,8 +2703,8 @@ protected:
 class IWazzupCapabilitiesApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupCapabilitiesApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IWazzupCapabilitiesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2718,7 +2736,8 @@ protected:
 class IWazzupLlmApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupLlmApiBase(csp::web::WebClient* InWebClient) : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IWazzupLlmApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2770,8 +2789,8 @@ protected:
 class IWazzupSessionsApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupSessionsApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IWazzupSessionsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
@@ -2881,8 +2900,8 @@ protected:
 class IWazzupStorageApiBase : public csp::services::ApiBase
 {
 public:
-	IWazzupStorageApiBase(csp::web::WebClient* InWebClient)
-		: csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().SpatialDataService)
+	IWazzupStorageApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
 	{
 	}
 
