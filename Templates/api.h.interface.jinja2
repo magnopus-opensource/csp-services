@@ -18,8 +18,8 @@ namespace csp::services::generated::{{ service_name | lower }}
     class I{{ tag }}ApiBase : public csp::services::ApiBase
     {
     public:
-        I{{ tag }}ApiBase(csp::web::WebClient* InWebClient) 
-            : csp::services::ApiBase(InWebClient, csp::CSPFoundation::GetEndpoints().{{ service_name }})
+        I{{ tag }}ApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+            : csp::services::ApiBase(InWebClient, InServiceDefinition)
             {}
 
         {% for route_path, route in routes.items() %}
