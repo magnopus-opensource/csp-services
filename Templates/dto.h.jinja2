@@ -53,7 +53,7 @@ namespace csp::services::generated::{{ service_name | lower }}
             virtual ~{{ schema_name }}();
 
             utility::string_t ToJson() const override;
-            void FromJson(const utility::string_t& Json) override;
+            void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
             {% for property_name, property in schema.properties.items() %}
                 {% if 'description' in property -%}

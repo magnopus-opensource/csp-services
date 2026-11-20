@@ -2,12 +2,13 @@
 
 #include "Common/Web/Json.h"
 #include "Common/Web/Json_HttpPayload.h"
-#include "Debug/Logging.h"
+#include "CSP/Common/Systems/Log/LogSystem.h"
 #include "Json/JsonParseHelper.h"
 
 #include "Dto.h"
 
 #include <optional>
+#include <stdexcept>
 
 
 using namespace csp::web;
@@ -75,7 +76,7 @@ namespace csp::services::generated::{{ service_name | lower }}
             return JsonDocToString(JsonDoc);
         }
 
-        void {{ schema_name }}::FromJson(const utility::string_t& Val)
+        void {{ schema_name }}::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
         {
             rapidjson::Document JsonDoc;
 
@@ -84,7 +85,7 @@ namespace csp::services::generated::{{ service_name | lower }}
                 return;
             }
 
-            rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "{{ schema_name }}::FromJson");
+            rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "{{ schema_name }}::FromJson", LogSystem);
             if (!ok)
             {
                 return;
@@ -97,12 +98,12 @@ namespace csp::services::generated::{{ service_name | lower }}
 
                     if ({{ property_name | pascalcase }}Value != rapidjson::Type::kNullType)
                     {
-                        JsonValueToType({{ property_name | pascalcase }}Value, m_{{ property_name | pascalcase }});
+                        JsonValueToType({{ property_name | pascalcase }}Value, m_{{ property_name | pascalcase }}, LogSystem);
                     }
                     {%- if 'nullable' not in property or not property.nullable %}
                     else
                     {
-                        CSP_LOG_ERROR_MSG("Error: Non-nullable member {{ property_name }} is null!");
+                        LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member {{ property_name }} is null!");
                     }
                     {% endif %}
                 }
