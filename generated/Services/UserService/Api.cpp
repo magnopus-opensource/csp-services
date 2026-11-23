@@ -932,6 +932,42 @@ void AuthenticationApi::usersRefreshPost([[maybe_unused]] const usersRefreshPost
 
 
 
+void AuthenticationApi::usersOnetimekeyPost([[maybe_unused]] const usersOnetimekeyPostParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/onetimekey").c_str(),
+					  {});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void AuthenticationApi::usersKeyexchangePost([[maybe_unused]] const usersKeyexchangePostParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/users/keyexchange").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 void AuthenticationApi::usersExchange_tenancyPost([[maybe_unused]] const usersExchange_tenancyPostParams& Params,
 												  csp::services::ApiResponseHandlerBase* ResponseHandler,
 												  csp::common::CancellationToken& CancellationToken) const
@@ -2093,6 +2129,838 @@ void BillingMatrixApi::billing_matrixEpochGet([[maybe_unused]] const billing_mat
 	Payload.SetBearerToken();
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+ByoProvisioningAdminMachineActionsApi::ByoProvisioningAdminMachineActionsApi(csp::web::WebClient* InWebClient,
+																			 const csp::ServiceDefinition& InServiceDefinition)
+	: IByoProvisioningAdminMachineActionsApiBase(InWebClient, InServiceDefinition)
+{
+}
+
+ByoProvisioningAdminMachineActionsApi::~ByoProvisioningAdminMachineActionsApi()
+{
+}
+
+
+
+void ByoProvisioningAdminMachineActionsApi::byo_provisioningAdminProjectsProjectIdMachinesPost(
+	[[maybe_unused]] const byo_provisioningAdminProjectsProjectIdMachinesPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/projects/{projectId}/machines")
+						  .c_str(),
+					  {Params.projectId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminMachineActionsApi::byo_provisioningAdminMachinesIdCancelPost(
+	[[maybe_unused]] const byo_provisioningAdminMachinesIdCancelPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/machines/{id}/cancel")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminMachineActionsApi::byo_provisioningAdminMachinesIdRetryPost(
+	[[maybe_unused]] const byo_provisioningAdminMachinesIdRetryPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/machines/{id}/retry")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminMachineActionsApi::byo_provisioningAdminMachinesIdDismissPost(
+	[[maybe_unused]] const byo_provisioningAdminMachinesIdDismissPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/machines/{id}/dismiss")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminMachineActionsApi::byo_provisioningAdminMachinesIdStartPost(
+	[[maybe_unused]] const byo_provisioningAdminMachinesIdStartPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/machines/{id}/start")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminMachineActionsApi::byo_provisioningAdminMachinesIdStopPost(
+	[[maybe_unused]] const byo_provisioningAdminMachinesIdStopPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/machines/{id}/stop")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminMachineActionsApi::byo_provisioningAdminMachinesIdDeletePost(
+	[[maybe_unused]] const byo_provisioningAdminMachinesIdDeletePostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/machines/{id}/delete")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminMachineActionsApi::byo_provisioningAdminMachinesIdAdoptPost(
+	[[maybe_unused]] const byo_provisioningAdminMachinesIdAdoptPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/machines/{id}/adopt")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminMachineActionsApi::byo_provisioningAdminMachinesIdLeasePost(
+	[[maybe_unused]] const byo_provisioningAdminMachinesIdLeasePostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/machines/{id}/lease")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminMachineActionsApi::byo_provisioningAdminMachinesIdJobsGet(
+	[[maybe_unused]] const byo_provisioningAdminMachinesIdJobsGetParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/machines/{id}/jobs")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+ByoProvisioningAdminMachinesApi::ByoProvisioningAdminMachinesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IByoProvisioningAdminMachinesApiBase(InWebClient, InServiceDefinition)
+{
+}
+
+ByoProvisioningAdminMachinesApi::~ByoProvisioningAdminMachinesApi()
+{
+}
+
+
+
+void ByoProvisioningAdminMachinesApi::byo_provisioningAdminMachinesGet([[maybe_unused]] const byo_provisioningAdminMachinesGetParams& Params,
+																	   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/admin/machines")
+			.c_str(),
+		{});
+
+
+	if (Params.tenantName.has_value())
+	{
+		Uri.AddQueryParams("tenantName", Params.tenantName.value());
+	}
+
+
+	if (Params.View.has_value())
+	{
+		Uri.AddQueryParams("View", Params.View.value());
+	}
+
+
+	if (Params.Sort.has_value())
+	{
+		Uri.AddQueryParams("Sort", Params.Sort.value());
+	}
+
+
+	if (Params.Search.has_value())
+	{
+		Uri.AddQueryParams("Search", Params.Search.value());
+	}
+
+
+	if (Params.ProjectId.has_value())
+	{
+		Uri.AddQueryParams("ProjectId", Params.ProjectId.value());
+	}
+
+
+	if (Params.Skip.has_value())
+	{
+		Uri.AddQueryParams("Skip", Params.Skip.value());
+	}
+
+
+	if (Params.Limit.has_value())
+	{
+		Uri.AddQueryParams("Limit", Params.Limit.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminMachinesApi::byo_provisioningAdminMachinesInventoryGet(
+	[[maybe_unused]] const byo_provisioningAdminMachinesInventoryGetParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/machines/inventory")
+						  .c_str(),
+					  {});
+
+
+	if (Params.tenantName.has_value())
+	{
+		Uri.AddQueryParams("tenantName", Params.tenantName.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminMachinesApi::byo_provisioningAdminMachinesInventoryProjectIdSweepPost(
+	[[maybe_unused]] const byo_provisioningAdminMachinesInventoryProjectIdSweepPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/machines/inventory/{projectId}/sweep")
+						  .c_str(),
+					  {Params.projectId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminMachinesApi::byo_provisioningAdminMachinesIdGet([[maybe_unused]] const byo_provisioningAdminMachinesIdGetParams& Params,
+																		 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/admin/machines/{id}")
+			.c_str(),
+		{Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+ByoProvisioningAdminProjectsApi::ByoProvisioningAdminProjectsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IByoProvisioningAdminProjectsApiBase(InWebClient, InServiceDefinition)
+{
+}
+
+ByoProvisioningAdminProjectsApi::~ByoProvisioningAdminProjectsApi()
+{
+}
+
+
+
+void ByoProvisioningAdminProjectsApi::byo_provisioningAdminProjectsGet([[maybe_unused]] const byo_provisioningAdminProjectsGetParams& Params,
+																	   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/admin/projects")
+			.c_str(),
+		{});
+
+
+	if (Params.tenantName.has_value())
+	{
+		Uri.AddQueryParams("tenantName", Params.tenantName.value());
+	}
+
+
+	if (Params.search.has_value())
+	{
+		Uri.AddQueryParams("search", Params.search.value());
+	}
+
+
+	if (Params.Skip.has_value())
+	{
+		Uri.AddQueryParams("Skip", Params.Skip.value());
+	}
+
+
+	if (Params.Limit.has_value())
+	{
+		Uri.AddQueryParams("Limit", Params.Limit.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void ByoProvisioningAdminProjectsApi::byo_provisioningAdminProjectsPost([[maybe_unused]] const byo_provisioningAdminProjectsPostParams& Params,
+																		csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/admin/projects")
+			.c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminProjectsApi::byo_provisioningAdminProjectsIdGet([[maybe_unused]] const byo_provisioningAdminProjectsIdGetParams& Params,
+																		 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/admin/projects/{id}")
+			.c_str(),
+		{Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void ByoProvisioningAdminProjectsApi::byo_provisioningAdminProjectsIdDelete(
+	[[maybe_unused]] const byo_provisioningAdminProjectsIdDeleteParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/admin/projects/{id}")
+			.c_str(),
+		{Params.id});
+
+
+	if (Params.confirm.has_value())
+	{
+		Uri.AddQueryParams("confirm", Params.confirm.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminProjectsApi::byo_provisioningAdminProjectsIdOperatorPost(
+	[[maybe_unused]] const byo_provisioningAdminProjectsIdOperatorPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/projects/{id}/operator")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminProjectsApi::byo_provisioningAdminProjectsIdTerraform_outputPost(
+	[[maybe_unused]] const byo_provisioningAdminProjectsIdTerraform_outputPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/projects/{id}/terraform-output")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningAdminProjectsApi::byo_provisioningAdminProjectsIdAccess_checkPost(
+	[[maybe_unused]] const byo_provisioningAdminProjectsIdAccess_checkPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/admin/projects/{id}/access-check")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+ByoProvisioningMachinesApi::ByoProvisioningMachinesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IByoProvisioningMachinesApiBase(InWebClient, InServiceDefinition)
+{
+}
+
+ByoProvisioningMachinesApi::~ByoProvisioningMachinesApi()
+{
+}
+
+
+
+void ByoProvisioningMachinesApi::byo_provisioningMachinesGet([[maybe_unused]] const byo_provisioningMachinesGetParams& Params,
+															 csp::services::ApiResponseHandlerBase* ResponseHandler,
+															 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/machines").c_str(),
+		{});
+
+
+	if (Params.View.has_value())
+	{
+		Uri.AddQueryParams("View", Params.View.value());
+	}
+
+
+	if (Params.Sort.has_value())
+	{
+		Uri.AddQueryParams("Sort", Params.Sort.value());
+	}
+
+
+	if (Params.Search.has_value())
+	{
+		Uri.AddQueryParams("Search", Params.Search.value());
+	}
+
+
+	if (Params.ProjectId.has_value())
+	{
+		Uri.AddQueryParams("ProjectId", Params.ProjectId.value());
+	}
+
+
+	if (Params.Skip.has_value())
+	{
+		Uri.AddQueryParams("Skip", Params.Skip.value());
+	}
+
+
+	if (Params.Limit.has_value())
+	{
+		Uri.AddQueryParams("Limit", Params.Limit.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningMachinesApi::byo_provisioningMachinesInventoryGet([[maybe_unused]] const byo_provisioningMachinesInventoryGetParams& Params,
+																	  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/machines/inventory")
+			.c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningMachinesApi::byo_provisioningMachinesIdGet([[maybe_unused]] const byo_provisioningMachinesIdGetParams& Params,
+															   csp::services::ApiResponseHandlerBase* ResponseHandler,
+															   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/machines/{id}").c_str(),
+		{Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+ByoProvisioningProjectsApi::ByoProvisioningProjectsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IByoProvisioningProjectsApiBase(InWebClient, InServiceDefinition)
+{
+}
+
+ByoProvisioningProjectsApi::~ByoProvisioningProjectsApi()
+{
+}
+
+
+
+void ByoProvisioningProjectsApi::byo_provisioningProjectsGet([[maybe_unused]] const byo_provisioningProjectsGetParams& Params,
+															 csp::services::ApiResponseHandlerBase* ResponseHandler,
+															 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/projects").c_str(),
+		{});
+
+
+	if (Params.search.has_value())
+	{
+		Uri.AddQueryParams("search", Params.search.value());
+	}
+
+
+	if (Params.Skip.has_value())
+	{
+		Uri.AddQueryParams("Skip", Params.Skip.value());
+	}
+
+
+	if (Params.Limit.has_value())
+	{
+		Uri.AddQueryParams("Limit", Params.Limit.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void ByoProvisioningProjectsApi::byo_provisioningProjectsPost([[maybe_unused]] const byo_provisioningProjectsPostParams& Params,
+															  csp::services::ApiResponseHandlerBase* ResponseHandler,
+															  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/projects").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningProjectsApi::byo_provisioningProjectsIdGet([[maybe_unused]] const byo_provisioningProjectsIdGetParams& Params,
+															   csp::services::ApiResponseHandlerBase* ResponseHandler,
+															   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/projects/{id}").c_str(),
+		{Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void ByoProvisioningProjectsApi::byo_provisioningProjectsIdDelete([[maybe_unused]] const byo_provisioningProjectsIdDeleteParams& Params,
+																  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/projects/{id}").c_str(),
+		{Params.id});
+
+
+	if (Params.confirm.has_value())
+	{
+		Uri.AddQueryParams("confirm", Params.confirm.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningProjectsApi::byo_provisioningProjectsIdOperatorPost([[maybe_unused]] const byo_provisioningProjectsIdOperatorPostParams& Params,
+																		csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/byo-provisioning/projects/{id}/operator")
+			.c_str(),
+		{Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningProjectsApi::byo_provisioningProjectsIdTerraform_outputPost(
+	[[maybe_unused]] const byo_provisioningProjectsIdTerraform_outputPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/projects/{id}/terraform-output")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void ByoProvisioningProjectsApi::byo_provisioningProjectsIdAccess_checkPost(
+	[[maybe_unused]] const byo_provisioningProjectsIdAccess_checkPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/byo-provisioning/projects/{id}/access-check")
+						  .c_str(),
+					  {Params.id});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 
@@ -3560,6 +4428,210 @@ void GroupApi::groupsArchivedPut([[maybe_unused]] const groupsArchivedPutParams&
 
 
 
+InspectorOrganizationApi::InspectorOrganizationApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IInspectorOrganizationApiBase(InWebClient, InServiceDefinition)
+{
+}
+
+InspectorOrganizationApi::~InspectorOrganizationApi()
+{
+}
+
+
+
+void InspectorOrganizationApi::inspectorOrganizationsGet([[maybe_unused]] const inspectorOrganizationsGetParams& Params,
+														 csp::services::ApiResponseHandlerBase* ResponseHandler,
+														 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/inspector/organizations").c_str(),
+		{});
+
+
+	if (Params.search.has_value())
+	{
+		Uri.AddQueryParams("search", Params.search.value());
+	}
+
+
+	if (Params.modifiedSince.has_value())
+	{
+		Uri.AddQueryParams("modifiedSince", Params.modifiedSince.value());
+	}
+
+
+	if (Params.skip.has_value())
+	{
+		Uri.AddQueryParams("skip", Params.skip.value());
+	}
+
+
+	if (Params.limit.has_value())
+	{
+		Uri.AddQueryParams("limit", Params.limit.value());
+	}
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void InspectorOrganizationApi::inspectorOrganizationsPost([[maybe_unused]] const inspectorOrganizationsPostParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/inspector/organizations").c_str(),
+		{});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void InspectorOrganizationApi::inspectorOrganizationsOrganizationIdGet([[maybe_unused]] const inspectorOrganizationsOrganizationIdGetParams& Params,
+																	   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/inspector/organizations/{organizationId}")
+						  .c_str(),
+					  {Params.organizationId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void InspectorOrganizationApi::inspectorOrganizationsOrganizationIdPut([[maybe_unused]] const inspectorOrganizationsOrganizationIdPutParams& Params,
+																	   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	   csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/inspector/organizations/{organizationId}")
+						  .c_str(),
+					  {Params.organizationId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void InspectorOrganizationApi::inspectorOrganizationsOrganizationIdTenantsPost(
+	[[maybe_unused]] const inspectorOrganizationsOrganizationIdTenantsPostParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/inspector/organizations/{organizationId}/tenants")
+						  .c_str(),
+					  {Params.organizationId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void InspectorOrganizationApi::inspectorOrganizationsOrganizationIdTenantsTenantNameDelete(
+	[[maybe_unused]] const inspectorOrganizationsOrganizationIdTenantsTenantNameDeleteParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/inspector/organizations/{organizationId}/tenants/{tenantName}")
+						  .c_str(),
+					  {Params.organizationId, Params.tenantName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void InspectorOrganizationApi::inspectorOrganizationsOrganizationIdAdministrative_tenantPut(
+	[[maybe_unused]] const inspectorOrganizationsOrganizationIdAdministrative_tenantPutParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/inspector/organizations/{organizationId}/administrative-tenant")
+						  .c_str(),
+					  {Params.organizationId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void InspectorOrganizationApi::inspectorOrganizationsOrganizationIdOwnerPut(
+	[[maybe_unused]] const inspectorOrganizationsOrganizationIdOwnerPutParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/inspector/organizations/{organizationId}/owner")
+						  .c_str(),
+					  {Params.organizationId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
 InventoryApi::InventoryApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
 	: IInventoryApiBase(InWebClient, InServiceDefinition)
 {
@@ -4202,6 +5274,131 @@ void NtpApi::datetimeGet([[maybe_unused]] const datetimeGetParams& Params,
 	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
 
 	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+OrganizationGroupApi::OrganizationGroupApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IOrganizationGroupApiBase(InWebClient, InServiceDefinition)
+{
+}
+
+OrganizationGroupApi::~OrganizationGroupApi()
+{
+}
+
+
+
+void OrganizationGroupApi::organizationsOrganizationIdGroupsGet([[maybe_unused]] const organizationsOrganizationIdGroupsGetParams& Params,
+																csp::services::ApiResponseHandlerBase* ResponseHandler,
+																csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/organizations/{organizationId}/groups")
+			.c_str(),
+		{Params.organizationId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::GET, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void OrganizationGroupApi::organizationsOrganizationIdGroupsPost([[maybe_unused]] const organizationsOrganizationIdGroupsPostParams& Params,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(
+		fmt::format("{0}/api/v{1}{2}", ServiceDefinition.GetURI().c_str(), ServiceDefinition.GetVersion(), "/organizations/{organizationId}/groups")
+			.c_str(),
+		{Params.organizationId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+void OrganizationGroupApi::organizationsOrganizationIdGroupsGroupIdUsersUserIdPut(
+	[[maybe_unused]] const organizationsOrganizationIdGroupsGroupIdUsersUserIdPutParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/organizations/{organizationId}/groups/{groupId}/users/{userId}")
+						  .c_str(),
+					  {Params.organizationId, Params.groupId, Params.userId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::PUT, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+void OrganizationGroupApi::organizationsOrganizationIdGroupsGroupIdUsersUserIdDelete(
+	[[maybe_unused]] const organizationsOrganizationIdGroupsGroupIdUsersUserIdDeleteParams& Params,
+	csp::services::ApiResponseHandlerBase* ResponseHandler,
+	csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/organizations/{organizationId}/groups/{groupId}/users/{userId}")
+						  .c_str(),
+					  {Params.organizationId, Params.groupId, Params.userId});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::DELETE, Uri, Payload, ResponseHandler, CancellationToken);
+}
+
+
+
+OrganizationMemberApi::OrganizationMemberApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+	: IOrganizationMemberApiBase(InWebClient, InServiceDefinition)
+{
+}
+
+OrganizationMemberApi::~OrganizationMemberApi()
+{
+}
+
+
+
+void OrganizationMemberApi::tenantsTenantNameOrganization_membersPost([[maybe_unused]] const tenantsTenantNameOrganization_membersPostParams& Params,
+																	  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	  csp::common::CancellationToken& CancellationToken) const
+{
+	csp::web::Uri Uri;
+	Uri.SetWithParams(fmt::format("{0}/api/v{1}{2}",
+								  ServiceDefinition.GetURI().c_str(),
+								  ServiceDefinition.GetVersion(),
+								  "/tenants/{tenantName}/organization-members")
+						  .c_str(),
+					  {Params.tenantName});
+
+	csp::web::HttpPayload Payload;
+	Payload.AddHeader(CSP_TEXT("Content-Type"), CSP_TEXT("application/json"));
+	Payload.AddContent(csp::web::TypeToJsonString(Params.RequestBody));
+	Payload.SetBearerToken();
+
+	WebClient->SendRequest(csp::web::ERequestVerb::POST, Uri, Payload, ResponseHandler, CancellationToken);
 }
 
 

@@ -10,6 +10,7 @@
 namespace csp::services::generated::userservice
 {
 
+class AdoptMachineRequest;
 class AgentOverrideDto;
 class AgentOverrideRequest;
 class AnalyticsRecord;
@@ -30,6 +31,22 @@ class BillingSettingsHistoryDto;
 class BucketPermissionRuleDto;
 class BulkAssignRequest;
 class BulkAssignResultDto;
+class ByoAccessCheckDto;
+class ByoAccessCheckRowDto;
+class ByoHandoverDto;
+class ByoInventoryErrorDto;
+class ByoMachineAttemptDto;
+class ByoMachineDto;
+class ByoMachineDtoDataPage;
+class ByoMachineJobDto;
+class ByoMachineJobErrorDto;
+class ByoMachineJobSummaryDto;
+class ByoOperatorDetailsDto;
+class ByoOutputFieldErrorDto;
+class ByoProjectDto;
+class ByoProjectDtoDataPage;
+class ByoProjectInventoryDto;
+class ByoSetupErrorDto;
 class CdnFetchRequest;
 class ClaimHistoryDto;
 class ClaimHistoryDtoDataPage;
@@ -41,8 +58,10 @@ class CreateBillingMetricRequest;
 class CreateGcpLoadBalancerHostnameRequest;
 class CreateHostnameRequest;
 class CreateLegacyHostnameRequest;
+class CreateMachineRequest;
 class CreateMarketplaceHostnameRequest;
 class CreateMatrixTierPriceOverrideRequest;
+class CreateOrganizationRequest;
 class CreatePricingSheetExceptionRequest;
 class CreatePricingSheetRequest;
 class CreateTokenMatrixEntryRequest;
@@ -70,8 +89,10 @@ class EffortResourceUpsertResult;
 class EmailRedirectDto;
 class EncryptedValueDto;
 class EquipItemDto;
+class ExchangeKeyRequest;
 class ExchangeProfileRequest;
 class ExchangeTenancyRequest;
+class ExtendMachineLeaseRequest;
 class ForgotPasswordRequest;
 class GacValidationConfigDto;
 class Gender;
@@ -131,8 +152,21 @@ class MiningSessionSaveRequest;
 class MiningSessionSummaryDto;
 class MiningSessionSummaryDtoDataPage;
 class NamedFunction;
+class OneTimeKeyDto;
+class OneTimeKeyRequest;
+class OrganizationDto;
+class OrganizationDtoDataPage;
+class OrganizationExternalRefDto;
+class OrganizationGroupCreateRequest;
+class OrganizationGroupDto;
+class OrganizationGroupMemberDto;
+class OrganizationMemberFailure;
+class OrganizationMembersAddRequest;
+class OrganizationMembersAddResponse;
+class OrganizationTenantDto;
 class OrganizationTenantProvisionRequest;
 class OrganizationTenantProvisionResponse;
+class OrganizationTenantRequest;
 class PersonDto;
 class PersonUpsertRequest;
 class PlusAddressIdentitiesBatchRequest;
@@ -155,6 +189,9 @@ class QueueOutcomeDto;
 class QuotaFeatureTierConfigItem;
 class RefreshRequest;
 class RegisterExternalHostnameRequest;
+class RegisterOwnProjectRequest;
+class RegisterProjectRequest;
+class RenameOrganizationRequest;
 class RevokedJtiSetDto;
 class RosterConfigDto;
 class RosterSnapshotDto;
@@ -162,6 +199,7 @@ class ServiceVersionInfo;
 class SetEncryptedValueRequest;
 class SetMagnopusOwnedBatchRequest;
 class SetMagnopusOwnedRequest;
+class SetOrganizationOwnerRequest;
 class SettingsDto;
 class SocialIdentityCaptureRequest;
 class SocialIdentityDto;
@@ -173,6 +211,7 @@ class StripeCheckoutRequest;
 class StripeCheckoutSessionDto;
 class StripeCustomerDto;
 class StripeCustomerPortalDto;
+class SubmitTerraformOutputRequest;
 class SystemCreateRequest;
 class SystemDto;
 class SystemDtoDataPage;
@@ -215,6 +254,39 @@ class WazzupCapabilitiesDto;
 
 
 /// <summary>
+/// Take ownership of an orphan (plan §5.6, §7.1): what it is for, and how long we keep it.
+/// </summary>
+class AdoptMachineRequest : public csp::services::DtoBase
+{
+public:
+	AdoptMachineRequest();
+	virtual ~AdoptMachineRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// What the machine is for (S1). Required.
+	/// </summary>
+	utility::string_t GetPurpose() const;
+	void SetPurpose(const utility::string_t& Value);
+	bool HasPurpose() const;
+
+	/// <summary>
+	/// The lease in hours from now; omitted, the environment's default.
+	/// </summary>
+	int32_t GetLeaseHours() const;
+	void SetLeaseHours(int32_t Value);
+	bool HasLeaseHours() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Purpose;
+	std::optional<int32_t> m_LeaseHours;
+};
+
+/// <summary>
 /// One user's stored edit to one agent. Null fields mean "use the default".
 /// </summary>
 class AgentOverrideDto : public csp::services::DtoBase
@@ -224,7 +296,7 @@ public:
 	virtual ~AgentOverrideDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -298,7 +370,7 @@ public:
 	virtual ~AgentOverrideRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -353,7 +425,7 @@ public:
 	virtual ~AnalyticsRecord();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	utility::string_t GetId() const;
@@ -441,7 +513,7 @@ public:
 	virtual ~ApiKeyCreatedDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -486,7 +558,7 @@ public:
 	virtual ~ApiKeyDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -615,7 +687,7 @@ public:
 	virtual ~ApiKeySettingsDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -667,7 +739,7 @@ public:
 	virtual ~ApiVersion();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -708,7 +780,7 @@ public:
 	virtual ~ApplicationSecretDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -837,7 +909,7 @@ public:
 	virtual ~ApplicationSettingsDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -884,7 +956,7 @@ public:
 	virtual ~AssignmentDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -962,7 +1034,7 @@ public:
 	virtual ~AssignmentUpsertRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -1050,7 +1122,7 @@ public:
 	virtual ~AuthDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -1120,7 +1192,7 @@ public:
 	virtual ~AvatarManifestDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -1164,7 +1236,7 @@ public:
 	virtual ~BillingMetricDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -1269,7 +1341,7 @@ public:
 	virtual ~BillingMetricHistoryDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -1390,7 +1462,7 @@ public:
 	virtual ~BillingSettingsDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -1455,7 +1527,7 @@ public:
 	virtual ~BillingSettingsHistoryDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -1536,7 +1608,7 @@ public:
 	virtual ~BucketPermissionRuleDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -1574,7 +1646,7 @@ public:
 	virtual ~BulkAssignRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -1681,7 +1753,7 @@ public:
 	virtual ~BulkAssignResultDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -1738,6 +1810,1331 @@ protected:
 };
 
 /// <summary>
+/// An access check's result: the access table, as step 5 and the detail view show it.
+/// </summary>
+class ByoAccessCheckDto : public csp::services::DtoBase
+{
+public:
+	ByoAccessCheckDto();
+	virtual ~ByoAccessCheckDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// When the check ran.
+	/// </summary>
+	utility::string_t GetCheckedAt() const;
+	void SetCheckedAt(const utility::string_t& Value);
+	bool HasCheckedAt() const;
+
+	/// <summary>
+	/// Whether every required permission was granted.
+	/// </summary>
+	bool GetPassed() const;
+	void SetPassed(const bool& Value);
+	bool HasPassed() const;
+
+	/// <summary>
+	/// One row per permission, in display order.
+	/// </summary>
+	const std::vector<std::shared_ptr<ByoAccessCheckRowDto>>& GetRows() const;
+	void SetRows(const std::vector<std::shared_ptr<ByoAccessCheckRowDto>>& Value);
+	bool HasRows() const;
+
+	/// <summary>
+	/// What applies to the check as a whole, for example that grants may still be spreading.
+	/// </summary>
+	const std::vector<utility::string_t>& GetNotes() const;
+	void SetNotes(const std::vector<utility::string_t>& Value);
+	bool HasNotes() const;
+
+
+protected:
+	std::optional<utility::string_t> m_CheckedAt;
+	std::optional<bool> m_Passed;
+	std::optional<std::vector<std::shared_ptr<ByoAccessCheckRowDto>>> m_Rows;
+	std::optional<std::vector<utility::string_t>> m_Notes;
+};
+
+/// <summary>
+/// One permission in the access table.
+/// </summary>
+class ByoAccessCheckRowDto : public csp::services::DtoBase
+{
+public:
+	ByoAccessCheckRowDto();
+	virtual ~ByoAccessCheckRowDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The IAM permission.
+	/// </summary>
+	utility::string_t GetPermission() const;
+	void SetPermission(const utility::string_t& Value);
+	bool HasPermission() const;
+
+	/// <summary>
+	/// The role that grants it.
+	/// </summary>
+	utility::string_t GetRole() const;
+	void SetRole(const utility::string_t& Value);
+	bool HasRole() const;
+
+	/// <summary>
+	/// What we use it for.
+	/// </summary>
+	utility::string_t GetPurpose() const;
+	void SetPurpose(const utility::string_t& Value);
+	bool HasPurpose() const;
+
+	/// <summary>
+	/// Whether setup needs it; advisory rows never fail a check.
+	/// </summary>
+	bool GetRequired() const;
+	void SetRequired(const bool& Value);
+	bool HasRequired() const;
+
+	/// <summary>
+	/// Whether our account has it.
+	/// </summary>
+	bool GetGranted() const;
+	void SetGranted(const bool& Value);
+	bool HasGranted() const;
+
+	/// <summary>
+	/// What to change to grant it, with backticked spans for code; `null` when granted.
+	/// </summary>
+	utility::string_t GetFix() const;
+	void SetFix(const utility::string_t& Value);
+	bool HasFix() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Permission;
+	std::optional<utility::string_t> m_Role;
+	std::optional<utility::string_t> m_Purpose;
+	std::optional<bool> m_Required;
+	std::optional<bool> m_Granted;
+	std::optional<utility::string_t> m_Fix;
+};
+
+/// <summary>
+/// What the customer's module reported. Names follow Magnopus.Logic.ByoProvisioning.DataAccess.Model.ByoHandover.
+/// </summary>
+class ByoHandoverDto : public csp::services::DtoBase
+{
+public:
+	ByoHandoverDto();
+	virtual ~ByoHandoverDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The runtime account machines run as, in the customer's project.
+	/// </summary>
+	utility::string_t GetRuntimeServiceAccountEmail() const;
+	void SetRuntimeServiceAccountEmail(const utility::string_t& Value);
+	bool HasRuntimeServiceAccountEmail() const;
+
+	/// <summary>
+	/// The VPC machines attach to.
+	/// </summary>
+	utility::string_t GetNetwork() const;
+	void SetNetwork(const utility::string_t& Value);
+	bool HasNetwork() const;
+
+	/// <summary>
+	/// The tag the module's firewall rules target.
+	/// </summary>
+	utility::string_t GetNetworkTag() const;
+	void SetNetworkTag(const utility::string_t& Value);
+	bool HasNetworkTag() const;
+
+	/// <summary>
+	/// The subnet, or `null` on an auto-mode network.
+	/// </summary>
+	utility::string_t GetSubnet() const;
+	void SetSubnet(const utility::string_t& Value);
+	bool HasSubnet() const;
+
+	/// <summary>
+	/// The Cloud NAT region, or `null` when NAT is off.
+	/// </summary>
+	utility::string_t GetRegion() const;
+	void SetRegion(const utility::string_t& Value);
+	bool HasRegion() const;
+
+	/// <summary>
+	/// Whether outbound access is through Cloud NAT.
+	/// </summary>
+	bool GetNatEnabled() const;
+	void SetNatEnabled(const bool& Value);
+	bool HasNatEnabled() const;
+
+	/// <summary>
+	/// Every region with Cloud NAT, or `null` from a module older than v0.3.0.
+	/// </summary>
+	const std::vector<utility::string_t>& GetNatRegions() const;
+	void SetNatRegions(const std::vector<utility::string_t>& Value);
+	bool HasNatRegions() const;
+
+	/// <summary>
+	/// The inbound SSH rule's name, or `null` when the customer owns it.
+	/// </summary>
+	utility::string_t GetSshFirewallRule() const;
+	void SetSshFirewallRule(const utility::string_t& Value);
+	bool HasSshFirewallRule() const;
+
+	/// <summary>
+	/// Whether our operator may manage firewall rules, when reported.
+	/// </summary>
+	bool GetFirewallManagementGranted() const;
+	void SetFirewallManagementGranted(const bool& Value);
+	bool HasFirewallManagementGranted() const;
+
+	/// <summary>
+	/// The roles the module granted our operator, when reported.
+	/// </summary>
+	const std::vector<utility::string_t>& GetGrantedRoles() const;
+	void SetGrantedRoles(const std::vector<utility::string_t>& Value);
+	bool HasGrantedRoles() const;
+
+
+protected:
+	std::optional<utility::string_t> m_RuntimeServiceAccountEmail;
+	std::optional<utility::string_t> m_Network;
+	std::optional<utility::string_t> m_NetworkTag;
+	std::optional<utility::string_t> m_Subnet;
+	std::optional<utility::string_t> m_Region;
+	std::optional<bool> m_NatEnabled;
+	std::optional<std::vector<utility::string_t>> m_NatRegions;
+	std::optional<utility::string_t> m_SshFirewallRule;
+	std::optional<bool> m_FirewallManagementGranted;
+	std::optional<std::vector<utility::string_t>> m_GrantedRoles;
+};
+
+/// <summary>
+/// Why a project's last sweep failed.
+/// </summary>
+class ByoInventoryErrorDto : public csp::services::DtoBase
+{
+public:
+	ByoInventoryErrorDto();
+	virtual ~ByoInventoryErrorDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// What went wrong and what to do about it.
+	/// </summary>
+	utility::string_t GetMessage() const;
+	void SetMessage(const utility::string_t& Value);
+	bool HasMessage() const;
+
+	/// <summary>
+	/// When it failed.
+	/// </summary>
+	utility::string_t GetAt() const;
+	void SetAt(const utility::string_t& Value);
+	bool HasAt() const;
+
+	/// <summary>
+	/// `true` when the fix is Magnopus's, not the customer's.
+	/// </summary>
+	bool GetOurSide() const;
+	void SetOurSide(const bool& Value);
+	bool HasOurSide() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Message;
+	std::optional<utility::string_t> m_At;
+	std::optional<bool> m_OurSide;
+};
+
+/// <summary>
+/// One failed try in one zone (S5).
+/// </summary>
+class ByoMachineAttemptDto : public csp::services::DtoBase
+{
+public:
+	ByoMachineAttemptDto();
+	virtual ~ByoMachineAttemptDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The round.
+	/// </summary>
+	int32_t GetRound() const;
+	void SetRound(int32_t Value);
+	bool HasRound() const;
+
+	/// <summary>
+	/// The zone.
+	/// </summary>
+	utility::string_t GetZone() const;
+	void SetZone(const utility::string_t& Value);
+	bool HasZone() const;
+
+	/// <summary>
+	/// The failure class.
+	/// </summary>
+	utility::string_t GetClass() const;
+	void SetClass(const utility::string_t& Value);
+	bool HasClass() const;
+
+	/// <summary>
+	/// What happened, with Google's code.
+	/// </summary>
+	utility::string_t GetMessage() const;
+	void SetMessage(const utility::string_t& Value);
+	bool HasMessage() const;
+
+	/// <summary>
+	/// When.
+	/// </summary>
+	utility::string_t GetAt() const;
+	void SetAt(const utility::string_t& Value);
+	bool HasAt() const;
+
+
+protected:
+	std::optional<int32_t> m_Round;
+	std::optional<utility::string_t> m_Zone;
+	std::optional<utility::string_t> m_Class;
+	std::optional<utility::string_t> m_Message;
+	std::optional<utility::string_t> m_At;
+};
+
+/// <summary>
+/// One machine, as both surfaces return it (machine registry plan §6.3).
+/// </summary>
+class ByoMachineDto : public csp::services::DtoBase
+{
+public:
+	ByoMachineDto();
+	virtual ~ByoMachineDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The machine record's id, which the detail route addresses.
+	/// </summary>
+	utility::string_t GetId() const;
+	void SetId(const utility::string_t& Value);
+	bool HasId() const;
+
+	/// <summary>
+	/// The tenant whose project the machine is in.
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// The project record the machine was found in, for the link back to the project.
+	/// </summary>
+	utility::string_t GetProjectRecordId() const;
+	void SetProjectRecordId(const utility::string_t& Value);
+	bool HasProjectRecordId() const;
+
+	/// <summary>
+	/// The customer's GCP project id.
+	/// </summary>
+	utility::string_t GetGcpProjectId() const;
+	void SetGcpProjectId(const utility::string_t& Value);
+	bool HasGcpProjectId() const;
+
+	/// <summary>
+	/// The project's setup state, as the Magnopus.Logic.ByoProvisioning.DataAccess.Model.ByoProvisioningSetupState name. ⚠ <b>Detail only</b>: a list
+	/// would need a read per row. `null` in a list.
+	/// </summary>
+	utility::string_t GetProjectState() const;
+	void SetProjectState(const utility::string_t& Value);
+	bool HasProjectState() const;
+
+	/// <summary>
+	/// Google's numeric instance id.
+	/// </summary>
+	utility::string_t GetGcpInstanceId() const;
+	void SetGcpInstanceId(const utility::string_t& Value);
+	bool HasGcpInstanceId() const;
+
+	/// <summary>
+	/// The instance name.
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+	/// <summary>
+	/// The zone, such as `us-central1-a`.
+	/// </summary>
+	utility::string_t GetZone() const;
+	void SetZone(const utility::string_t& Value);
+	bool HasZone() const;
+
+	/// <summary>
+	/// The machine type, such as `g2-standard-8`.
+	/// </summary>
+	utility::string_t GetMachineType() const;
+	void SetMachineType(const utility::string_t& Value);
+	bool HasMachineType() const;
+
+	/// <summary>
+	/// The GPU type, or `null` for a CPU machine.
+	/// </summary>
+	utility::string_t GetGpuType() const;
+	void SetGpuType(const utility::string_t& Value);
+	bool HasGpuType() const;
+
+	/// <summary>
+	/// How many GPUs.
+	/// </summary>
+	int32_t GetGpuCount() const;
+	void SetGpuCount(int32_t Value);
+	bool HasGpuCount() const;
+
+	/// <summary>
+	/// The service account the machine runs as.
+	/// </summary>
+	utility::string_t GetServiceAccountEmail() const;
+	void SetServiceAccountEmail(const utility::string_t& Value);
+	bool HasServiceAccountEmail() const;
+
+	/// <summary>
+	/// The machine's network tags.
+	/// </summary>
+	const std::vector<utility::string_t>& GetNetworkTags() const;
+	void SetNetworkTags(const std::vector<utility::string_t>& Value);
+	bool HasNetworkTags() const;
+
+	/// <summary>
+	/// The machine's labels. The customer's own project's labels, so both surfaces show them.
+	/// </summary>
+	const std::map<utility::string_t, utility::string_t>& GetLabels() const;
+	void SetLabels(const std::map<utility::string_t, utility::string_t>& Value);
+	bool HasLabels() const;
+
+	/// <summary>
+	/// The internal IP.
+	/// </summary>
+	utility::string_t GetInternalIp() const;
+	void SetInternalIp(const utility::string_t& Value);
+	bool HasInternalIp() const;
+
+	/// <summary>
+	/// The external IP, or `null`.
+	/// </summary>
+	utility::string_t GetExternalIp() const;
+	void SetExternalIp(const utility::string_t& Value);
+	bool HasExternalIp() const;
+
+	/// <summary>
+	/// Google's status, as Google spells it: `RUNNING`, `TERMINATED` and so on. The UI groups them.
+	/// </summary>
+	utility::string_t GetGcpStatus() const;
+	void SetGcpStatus(const utility::string_t& Value);
+	bool HasGcpStatus() const;
+
+	/// <summary>
+	/// When Google created the instance.
+	/// </summary>
+	utility::string_t GetGcpCreatedAt() const;
+	void SetGcpCreatedAt(const utility::string_t& Value);
+	bool HasGcpCreatedAt() const;
+
+	/// <summary>
+	/// When it last started: "running for" counts from here.
+	/// </summary>
+	utility::string_t GetLastStartedAt() const;
+	void SetLastStartedAt(const utility::string_t& Value);
+	bool HasLastStartedAt() const;
+
+	/// <summary>
+	/// When it last stopped: "stopped since".
+	/// </summary>
+	utility::string_t GetLastStoppedAt() const;
+	void SetLastStoppedAt(const utility::string_t& Value);
+	bool HasLastStoppedAt() const;
+
+	/// <summary>
+	/// The Magnopus.Logic.ByoProvisioning.DataAccess.Model.MachineOrigin name: `Discovered`, `Provisioned` or `Adopted`.
+	/// </summary>
+	utility::string_t GetOrigin() const;
+	void SetOrigin(const utility::string_t& Value);
+	bool HasOrigin() const;
+
+	/// <summary>
+	/// The Magnopus.Logic.ByoProvisioning.DataAccess.Model.MachinePresence name: `Present`, `Gone` or `Unwatched`.
+	/// </summary>
+	utility::string_t GetPresence() const;
+	void SetPresence(const utility::string_t& Value);
+	bool HasPresence() const;
+
+	/// <summary>
+	/// Found by a sweep, never created through us, and still there. Derived here so the UI does not.
+	/// </summary>
+	bool GetIsOrphan() const;
+	void SetIsOrphan(const bool& Value);
+	bool HasIsOrphan() const;
+
+	/// <summary>
+	/// Why a sweep recorded it: `ServiceAccount`, `Label`, or both.
+	/// </summary>
+	const std::vector<utility::string_t>& GetMatchedBy() const;
+	void SetMatchedBy(const std::vector<utility::string_t>& Value);
+	bool HasMatchedBy() const;
+
+	/// <summary>
+	/// The sweep that first listed it.
+	/// </summary>
+	utility::string_t GetFirstSeenAt() const;
+	void SetFirstSeenAt(const utility::string_t& Value);
+	bool HasFirstSeenAt() const;
+
+	/// <summary>
+	/// The last sweep that listed it.
+	/// </summary>
+	utility::string_t GetLastSeenAt() const;
+	void SetLastSeenAt(const utility::string_t& Value);
+	bool HasLastSeenAt() const;
+
+	/// <summary>
+	/// When a sweep first stopped finding it, or `null`.
+	/// </summary>
+	utility::string_t GetGoneAt() const;
+	void SetGoneAt(const utility::string_t& Value);
+	bool HasGoneAt() const;
+
+	/// <summary>
+	/// Who created or adopted it through us, or `null` on a machine a sweep found.
+	/// </summary>
+	utility::string_t GetRequestedByEmail() const;
+	void SetRequestedByEmail(const utility::string_t& Value);
+	bool HasRequestedByEmail() const;
+
+	/// <summary>
+	/// When the create was asked for.
+	/// </summary>
+	utility::string_t GetRequestedAt() const;
+	void SetRequestedAt(const utility::string_t& Value);
+	bool HasRequestedAt() const;
+
+	/// <summary>
+	/// What it is for.
+	/// </summary>
+	utility::string_t GetPurpose() const;
+	void SetPurpose(const utility::string_t& Value);
+	bool HasPurpose() const;
+
+	/// <summary>
+	/// The template asked for. Nothing on the machine reads it yet.
+	/// </summary>
+	utility::string_t GetTemplate() const;
+	void SetTemplate(const utility::string_t& Value);
+	bool HasTemplate() const;
+
+	/// <summary>
+	/// The image release asked for. Nothing on the machine reads it yet.
+	/// </summary>
+	utility::string_t GetImageVersion() const;
+	void SetImageVersion(const utility::string_t& Value);
+	bool HasImageVersion() const;
+
+	/// <summary>
+	/// The node-definition release asked for. Nothing on the machine reads it yet.
+	/// </summary>
+	utility::string_t GetNodeDefinitionsVersion() const;
+	void SetNodeDefinitionsVersion(const utility::string_t& Value);
+	bool HasNodeDefinitionsVersion() const;
+
+	/// <summary>
+	/// When the lease runs out, or `null` on a machine a sweep found.
+	/// </summary>
+	utility::string_t GetLeaseExpiresAt() const;
+	void SetLeaseExpiresAt(const utility::string_t& Value);
+	bool HasLeaseExpiresAt() const;
+
+	/// <summary>
+	/// The lease has run out. Nothing enforces it until lane 6, so the list says so (Q56).
+	/// </summary>
+	bool GetIsPastLease() const;
+	void SetIsPastLease(const bool& Value);
+	bool HasIsPastLease() const;
+
+	/// <summary>
+	/// The action in flight, as the Magnopus.Logic.ByoProvisioning.DataAccess.Model.MachineJobAction name, or `null`.
+	/// </summary>
+	utility::string_t GetActiveJobAction() const;
+	void SetActiveJobAction(const utility::string_t& Value);
+	bool HasActiveJobAction() const;
+
+	std::shared_ptr<ByoMachineJobDto> GetActiveJob() const;
+	void SetActiveJob(const std::shared_ptr<ByoMachineJobDto>& Value);
+	bool HasActiveJob() const;
+
+	std::shared_ptr<ByoMachineJobSummaryDto> GetLastJob() const;
+	void SetLastJob(const std::shared_ptr<ByoMachineJobSummaryDto>& Value);
+	bool HasLastJob() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<utility::string_t> m_ProjectRecordId;
+	std::optional<utility::string_t> m_GcpProjectId;
+	std::optional<utility::string_t> m_ProjectState;
+	std::optional<utility::string_t> m_GcpInstanceId;
+	std::optional<utility::string_t> m_Name;
+	std::optional<utility::string_t> m_Zone;
+	std::optional<utility::string_t> m_MachineType;
+	std::optional<utility::string_t> m_GpuType;
+	std::optional<int32_t> m_GpuCount;
+	std::optional<utility::string_t> m_ServiceAccountEmail;
+	std::optional<std::vector<utility::string_t>> m_NetworkTags;
+	std::optional<std::map<utility::string_t, utility::string_t>> m_Labels;
+	std::optional<utility::string_t> m_InternalIp;
+	std::optional<utility::string_t> m_ExternalIp;
+	std::optional<utility::string_t> m_GcpStatus;
+	std::optional<utility::string_t> m_GcpCreatedAt;
+	std::optional<utility::string_t> m_LastStartedAt;
+	std::optional<utility::string_t> m_LastStoppedAt;
+	std::optional<utility::string_t> m_Origin;
+	std::optional<utility::string_t> m_Presence;
+	std::optional<bool> m_IsOrphan;
+	std::optional<std::vector<utility::string_t>> m_MatchedBy;
+	std::optional<utility::string_t> m_FirstSeenAt;
+	std::optional<utility::string_t> m_LastSeenAt;
+	std::optional<utility::string_t> m_GoneAt;
+	std::optional<utility::string_t> m_RequestedByEmail;
+	std::optional<utility::string_t> m_RequestedAt;
+	std::optional<utility::string_t> m_Purpose;
+	std::optional<utility::string_t> m_Template;
+	std::optional<utility::string_t> m_ImageVersion;
+	std::optional<utility::string_t> m_NodeDefinitionsVersion;
+	std::optional<utility::string_t> m_LeaseExpiresAt;
+	std::optional<bool> m_IsPastLease;
+	std::optional<utility::string_t> m_ActiveJobAction;
+	std::optional<std::shared_ptr<ByoMachineJobDto>> m_ActiveJob;
+	std::optional<std::shared_ptr<ByoMachineJobSummaryDto>> m_LastJob;
+};
+
+class ByoMachineDtoDataPage : public csp::services::DtoBase
+{
+public:
+	ByoMachineDtoDataPage();
+	virtual ~ByoMachineDtoDataPage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	const std::vector<std::shared_ptr<ByoMachineDto>>& GetItems() const;
+	void SetItems(const std::vector<std::shared_ptr<ByoMachineDto>>& Value);
+	bool HasItems() const;
+
+	int32_t GetSkip() const;
+	void SetSkip(int32_t Value);
+	bool HasSkip() const;
+
+	int32_t GetLimit() const;
+	void SetLimit(int32_t Value);
+	bool HasLimit() const;
+
+	int32_t GetItemCount() const;
+	void SetItemCount(int32_t Value);
+	bool HasItemCount() const;
+
+	int64_t GetItemTotalCount() const;
+	void SetItemTotalCount(int64_t Value);
+	bool HasItemTotalCount() const;
+
+
+protected:
+	std::optional<std::vector<std::shared_ptr<ByoMachineDto>>> m_Items;
+	std::optional<int32_t> m_Skip;
+	std::optional<int32_t> m_Limit;
+	std::optional<int32_t> m_ItemCount;
+	std::optional<int64_t> m_ItemTotalCount;
+};
+
+/// <summary>
+/// One machine job, as the API returns it (machine lifecycle plan §7.3).
+/// </summary>
+class ByoMachineJobDto : public csp::services::DtoBase
+{
+public:
+	ByoMachineJobDto();
+	virtual ~ByoMachineJobDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The job's id.
+	/// </summary>
+	utility::string_t GetId() const;
+	void SetId(const utility::string_t& Value);
+	bool HasId() const;
+
+	/// <summary>
+	/// What it does, as the Magnopus.Logic.ByoProvisioning.DataAccess.Model.MachineJobAction name.
+	/// </summary>
+	utility::string_t GetAction() const;
+	void SetAction(const utility::string_t& Value);
+	bool HasAction() const;
+
+	/// <summary>
+	/// Where it is, as the Magnopus.Logic.ByoProvisioning.DataAccess.Model.MachineJobState name.
+	/// </summary>
+	utility::string_t GetState() const;
+	void SetState(const utility::string_t& Value);
+	bool HasState() const;
+
+	/// <summary>
+	/// The last step that finished, or `null` before the first.
+	/// </summary>
+	utility::string_t GetStep() const;
+	void SetStep(const utility::string_t& Value);
+	bool HasStep() const;
+
+	/// <summary>
+	/// A hunt's round in progress, or `null` for any other action.
+	/// </summary>
+	int32_t GetRound() const;
+	void SetRound(int32_t Value);
+	bool HasRound() const;
+
+	/// <summary>
+	/// A hunt's rounds in all.
+	/// </summary>
+	int32_t GetRounds() const;
+	void SetRounds(int32_t Value);
+	bool HasRounds() const;
+
+	/// <summary>
+	/// When it is next due: a hunt's next round, or its next poll.
+	/// </summary>
+	utility::string_t GetNextAttemptAt() const;
+	void SetNextAttemptAt(const utility::string_t& Value);
+	bool HasNextAttemptAt() const;
+
+	/// <summary>
+	/// The zone an insert is in flight in, or `null`.
+	/// </summary>
+	utility::string_t GetCurrentZone() const;
+	void SetCurrentZone(const utility::string_t& Value);
+	bool HasCurrentZone() const;
+
+	/// <summary>
+	/// How many different zones a hunt has tried.
+	/// </summary>
+	int32_t GetZonesTried() const;
+	void SetZonesTried(int32_t Value);
+	bool HasZonesTried() const;
+
+	/// <summary>
+	/// How many zones a hunt may try each round.
+	/// </summary>
+	int32_t GetZonesPerRound() const;
+	void SetZonesPerRound(int32_t Value);
+	bool HasZonesPerRound() const;
+
+	std::shared_ptr<ByoMachineJobErrorDto> GetError() const;
+	void SetError(const std::shared_ptr<ByoMachineJobErrorDto>& Value);
+	bool HasError() const;
+
+	/// <summary>
+	/// A person asked it to stop, and it has not yet.
+	/// </summary>
+	bool GetCancelRequested() const;
+	void SetCancelRequested(const bool& Value);
+	bool HasCancelRequested() const;
+
+	/// <summary>
+	/// Who asked for it.
+	/// </summary>
+	utility::string_t GetRequestedByEmail() const;
+	void SetRequestedByEmail(const utility::string_t& Value);
+	bool HasRequestedByEmail() const;
+
+	/// <summary>
+	/// When it was asked for.
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	void SetCreatedAt(const utility::string_t& Value);
+	bool HasCreatedAt() const;
+
+	/// <summary>
+	/// When it ended, or `null`.
+	/// </summary>
+	utility::string_t GetFinishedAt() const;
+	void SetFinishedAt(const utility::string_t& Value);
+	bool HasFinishedAt() const;
+
+	/// <summary>
+	/// What the job chose not to do, or found already done: a firewall rule it left, and why (plan §5.5).
+	/// </summary>
+	const std::vector<utility::string_t>& GetNotes() const;
+	void SetNotes(const std::vector<utility::string_t>& Value);
+	bool HasNotes() const;
+
+	/// <summary>
+	/// A hunt's failed attempts, oldest first (S5). ⚠ <b>The jobs route only</b>: a list row leaves them out, as
+	/// `null`, to stay small.
+	/// </summary>
+	const std::vector<std::shared_ptr<ByoMachineAttemptDto>>& GetAttempts() const;
+	void SetAttempts(const std::vector<std::shared_ptr<ByoMachineAttemptDto>>& Value);
+	bool HasAttempts() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_Action;
+	std::optional<utility::string_t> m_State;
+	std::optional<utility::string_t> m_Step;
+	std::optional<int32_t> m_Round;
+	std::optional<int32_t> m_Rounds;
+	std::optional<utility::string_t> m_NextAttemptAt;
+	std::optional<utility::string_t> m_CurrentZone;
+	std::optional<int32_t> m_ZonesTried;
+	std::optional<int32_t> m_ZonesPerRound;
+	std::optional<std::shared_ptr<ByoMachineJobErrorDto>> m_Error;
+	std::optional<bool> m_CancelRequested;
+	std::optional<utility::string_t> m_RequestedByEmail;
+	std::optional<utility::string_t> m_CreatedAt;
+	std::optional<utility::string_t> m_FinishedAt;
+	std::optional<std::vector<utility::string_t>> m_Notes;
+	std::optional<std::vector<std::shared_ptr<ByoMachineAttemptDto>>> m_Attempts;
+};
+
+/// <summary>
+/// Why a job failed or was cancelled.
+/// </summary>
+class ByoMachineJobErrorDto : public csp::services::DtoBase
+{
+public:
+	ByoMachineJobErrorDto();
+	virtual ~ByoMachineJobErrorDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// What went wrong and what to do about it. Never Google's own text.
+	/// </summary>
+	utility::string_t GetMessage() const;
+	void SetMessage(const utility::string_t& Value);
+	bool HasMessage() const;
+
+	/// <summary>
+	/// The failure class (plan §5.2), or `null` for a cancel.
+	/// </summary>
+	utility::string_t GetClass() const;
+	void SetClass(const utility::string_t& Value);
+	bool HasClass() const;
+
+	/// <summary>
+	/// `true` when the fix is Magnopus's, not the customer's.
+	/// </summary>
+	bool GetOurSide() const;
+	void SetOurSide(const bool& Value);
+	bool HasOurSide() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Message;
+	std::optional<utility::string_t> m_Class;
+	std::optional<bool> m_OurSide;
+};
+
+/// <summary>
+/// How a machine's last job ended.
+/// </summary>
+class ByoMachineJobSummaryDto : public csp::services::DtoBase
+{
+public:
+	ByoMachineJobSummaryDto();
+	virtual ~ByoMachineJobSummaryDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The job's id.
+	/// </summary>
+	utility::string_t GetJobId() const;
+	void SetJobId(const utility::string_t& Value);
+	bool HasJobId() const;
+
+	/// <summary>
+	/// What it did.
+	/// </summary>
+	utility::string_t GetAction() const;
+	void SetAction(const utility::string_t& Value);
+	bool HasAction() const;
+
+	/// <summary>
+	/// `Completed`, `Failed` or `Cancelled`.
+	/// </summary>
+	utility::string_t GetOutcome() const;
+	void SetOutcome(const utility::string_t& Value);
+	bool HasOutcome() const;
+
+	std::shared_ptr<ByoMachineJobErrorDto> GetError() const;
+	void SetError(const std::shared_ptr<ByoMachineJobErrorDto>& Value);
+	bool HasError() const;
+
+	/// <summary>
+	/// When it ended.
+	/// </summary>
+	utility::string_t GetFinishedAt() const;
+	void SetFinishedAt(const utility::string_t& Value);
+	bool HasFinishedAt() const;
+
+
+protected:
+	std::optional<utility::string_t> m_JobId;
+	std::optional<utility::string_t> m_Action;
+	std::optional<utility::string_t> m_Outcome;
+	std::optional<std::shared_ptr<ByoMachineJobErrorDto>> m_Error;
+	std::optional<utility::string_t> m_FinishedAt;
+};
+
+/// <summary>
+/// What step 3 needs to show the customer (onboarding plan §1): our operator account, and the module inputs that
+/// grant it access to their project. The snippet itself is rendered by the UI from these, so the module source and
+/// version come from configuration and a module release needs no MagGyver deploy (§8.5).
+/// </summary>
+class ByoOperatorDetailsDto : public csp::services::DtoBase
+{
+public:
+	ByoOperatorDetailsDto();
+	virtual ~ByoOperatorDetailsDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	std::shared_ptr<ByoProjectDto> GetProject() const;
+	void SetProject(const std::shared_ptr<ByoProjectDto>& Value);
+	bool HasProject() const;
+
+	/// <summary>
+	/// Our operator account for this project.
+	/// </summary>
+	utility::string_t GetOperatorServiceAccountEmail() const;
+	void SetOperatorServiceAccountEmail(const utility::string_t& Value);
+	bool HasOperatorServiceAccountEmail() const;
+
+	/// <summary>
+	/// The account as an IAM member, ready for the module's `operator_members` list.
+	/// </summary>
+	utility::string_t GetOperatorMember() const;
+	void SetOperatorMember(const utility::string_t& Value);
+	bool HasOperatorMember() const;
+
+	/// <summary>
+	/// The module's `source`, ref included, for example `github.com/magnopus/...?ref=v0.3.0`.
+	/// </summary>
+	utility::string_t GetModuleSource() const;
+	void SetModuleSource(const utility::string_t& Value);
+	bool HasModuleSource() const;
+
+	/// <summary>
+	/// The module tag on its own, for display.
+	/// </summary>
+	utility::string_t GetModuleVersion() const;
+	void SetModuleVersion(const utility::string_t& Value);
+	bool HasModuleVersion() const;
+
+	/// <summary>
+	/// Where the customer reads the module's instructions.
+	/// </summary>
+	utility::string_t GetModuleReadmeUrl() const;
+	void SetModuleReadmeUrl(const utility::string_t& Value);
+	bool HasModuleReadmeUrl() const;
+
+
+protected:
+	std::optional<std::shared_ptr<ByoProjectDto>> m_Project;
+	std::optional<utility::string_t> m_OperatorServiceAccountEmail;
+	std::optional<utility::string_t> m_OperatorMember;
+	std::optional<utility::string_t> m_ModuleSource;
+	std::optional<utility::string_t> m_ModuleVersion;
+	std::optional<utility::string_t> m_ModuleReadmeUrl;
+};
+
+/// <summary>
+/// One reason a pasted output was refused.
+/// </summary>
+class ByoOutputFieldErrorDto : public csp::services::DtoBase
+{
+public:
+	ByoOutputFieldErrorDto();
+	virtual ~ByoOutputFieldErrorDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The module output's name, or `(output)` for the paste as a whole.
+	/// </summary>
+	utility::string_t GetField() const;
+	void SetField(const utility::string_t& Value);
+	bool HasField() const;
+
+	/// <summary>
+	/// What is wrong and what to do about it.
+	/// </summary>
+	utility::string_t GetProblem() const;
+	void SetProblem(const utility::string_t& Value);
+	bool HasProblem() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Field;
+	std::optional<utility::string_t> m_Problem;
+};
+
+/// <summary>
+/// One connected GCP project, as both surfaces return it.
+/// </summary>
+class ByoProjectDto : public csp::services::DtoBase
+{
+public:
+	ByoProjectDto();
+	virtual ~ByoProjectDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The project record's id, which the detail route and every later step address.
+	/// </summary>
+	utility::string_t GetId() const;
+	void SetId(const utility::string_t& Value);
+	bool HasId() const;
+
+	/// <summary>
+	/// The tenant the project serves.
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// The customer's GCP project id.
+	/// </summary>
+	utility::string_t GetGcpProjectId() const;
+	void SetGcpProjectId(const utility::string_t& Value);
+	bool HasGcpProjectId() const;
+
+	/// <summary>
+	/// The setup state, as the Magnopus.Logic.ByoProvisioning.DataAccess.Model.ByoProvisioningSetupState name. The UI maps it to the step to resume
+	/// at, which is how "Continue setup" knows where to go.
+	/// </summary>
+	utility::string_t GetState() const;
+	void SetState(const utility::string_t& Value);
+	bool HasState() const;
+
+	/// <summary>
+	/// Our operator account for this project, once step 2 has created it.
+	/// </summary>
+	utility::string_t GetOperatorServiceAccountEmail() const;
+	void SetOperatorServiceAccountEmail(const utility::string_t& Value);
+	bool HasOperatorServiceAccountEmail() const;
+
+	/// <summary>
+	/// When the project was connected.
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	void SetCreatedAt(const utility::string_t& Value);
+	bool HasCreatedAt() const;
+
+	/// <summary>
+	/// When the setup state last changed.
+	/// </summary>
+	utility::string_t GetStateChangedAt() const;
+	void SetStateChangedAt(const utility::string_t& Value);
+	bool HasStateChangedAt() const;
+
+	std::shared_ptr<ByoSetupErrorDto> GetLastError() const;
+	void SetLastError(const std::shared_ptr<ByoSetupErrorDto>& Value);
+	bool HasLastError() const;
+
+	std::shared_ptr<ByoHandoverDto> GetHandover() const;
+	void SetHandover(const std::shared_ptr<ByoHandoverDto>& Value);
+	bool HasHandover() const;
+
+	/// <summary>
+	/// Why the last pasted output was refused, one entry per output named; empty when it validated.
+	///
+	/// On a submit's response, also why <b>this</b> paste was refused when the project already had an accepted output
+	/// (Q39): the state and the stored output are then left as they were, and only the response carries the reasons.
+	/// </summary>
+	const std::vector<std::shared_ptr<ByoOutputFieldErrorDto>>& GetOutputValidationErrors() const;
+	void SetOutputValidationErrors(const std::vector<std::shared_ptr<ByoOutputFieldErrorDto>>& Value);
+	bool HasOutputValidationErrors() const;
+
+	/// <summary>
+	/// When an output was last pasted.
+	/// </summary>
+	utility::string_t GetTerraformOutputSubmittedAt() const;
+	void SetTerraformOutputSubmittedAt(const utility::string_t& Value);
+	bool HasTerraformOutputSubmittedAt() const;
+
+	/// <summary>
+	/// The last pasted output, so a resumed step 4 can show it again. ⚠ <b>Only on single-project responses</b>
+	/// (detail and the submit itself): it can be tens of kilobytes, and a list page would carry fifty of them.
+	/// `null` in a list.
+	/// </summary>
+	utility::string_t GetTerraformOutputRaw() const;
+	void SetTerraformOutputRaw(const utility::string_t& Value);
+	bool HasTerraformOutputRaw() const;
+
+	std::shared_ptr<ByoAccessCheckDto> GetLastAccessCheck() const;
+	void SetLastAccessCheck(const std::shared_ptr<ByoAccessCheckDto>& Value);
+	bool HasLastAccessCheck() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<utility::string_t> m_GcpProjectId;
+	std::optional<utility::string_t> m_State;
+	std::optional<utility::string_t> m_OperatorServiceAccountEmail;
+	std::optional<utility::string_t> m_CreatedAt;
+	std::optional<utility::string_t> m_StateChangedAt;
+	std::optional<std::shared_ptr<ByoSetupErrorDto>> m_LastError;
+	std::optional<std::shared_ptr<ByoHandoverDto>> m_Handover;
+	std::optional<std::vector<std::shared_ptr<ByoOutputFieldErrorDto>>> m_OutputValidationErrors;
+	std::optional<utility::string_t> m_TerraformOutputSubmittedAt;
+	std::optional<utility::string_t> m_TerraformOutputRaw;
+	std::optional<std::shared_ptr<ByoAccessCheckDto>> m_LastAccessCheck;
+};
+
+class ByoProjectDtoDataPage : public csp::services::DtoBase
+{
+public:
+	ByoProjectDtoDataPage();
+	virtual ~ByoProjectDtoDataPage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	const std::vector<std::shared_ptr<ByoProjectDto>>& GetItems() const;
+	void SetItems(const std::vector<std::shared_ptr<ByoProjectDto>>& Value);
+	bool HasItems() const;
+
+	int32_t GetSkip() const;
+	void SetSkip(int32_t Value);
+	bool HasSkip() const;
+
+	int32_t GetLimit() const;
+	void SetLimit(int32_t Value);
+	bool HasLimit() const;
+
+	int32_t GetItemCount() const;
+	void SetItemCount(int32_t Value);
+	bool HasItemCount() const;
+
+	int64_t GetItemTotalCount() const;
+	void SetItemTotalCount(int64_t Value);
+	bool HasItemTotalCount() const;
+
+
+protected:
+	std::optional<std::vector<std::shared_ptr<ByoProjectDto>>> m_Items;
+	std::optional<int32_t> m_Skip;
+	std::optional<int32_t> m_Limit;
+	std::optional<int32_t> m_ItemCount;
+	std::optional<int64_t> m_ItemTotalCount;
+};
+
+/// <summary>
+/// What the machine sweep last found in one project (plan §3.2): the list's banner and the project's machines card
+/// read it, so a project that cannot be read shows as an error, never as an empty list.
+/// </summary>
+class ByoProjectInventoryDto : public csp::services::DtoBase
+{
+public:
+	ByoProjectInventoryDto();
+	virtual ~ByoProjectInventoryDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The project record.
+	/// </summary>
+	utility::string_t GetProjectRecordId() const;
+	void SetProjectRecordId(const utility::string_t& Value);
+	bool HasProjectRecordId() const;
+
+	/// <summary>
+	/// The project's tenant.
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+	/// <summary>
+	/// The customer's GCP project id.
+	/// </summary>
+	utility::string_t GetGcpProjectId() const;
+	void SetGcpProjectId(const utility::string_t& Value);
+	bool HasGcpProjectId() const;
+
+	/// <summary>
+	/// The last sweep whose listing could be trusted, or `null` before the first.
+	/// </summary>
+	utility::string_t GetLastSweptAt() const;
+	void SetLastSweptAt(const utility::string_t& Value);
+	bool HasLastSweptAt() const;
+
+	/// <summary>
+	/// When the last sweep started.
+	/// </summary>
+	utility::string_t GetLastAttemptAt() const;
+	void SetLastAttemptAt(const utility::string_t& Value);
+	bool HasLastAttemptAt() const;
+
+	/// <summary>
+	/// When the project is next due.
+	/// </summary>
+	utility::string_t GetNextSweepAt() const;
+	void SetNextSweepAt(const utility::string_t& Value);
+	bool HasNextSweepAt() const;
+
+	std::shared_ptr<ByoInventoryErrorDto> GetLastError() const;
+	void SetLastError(const std::shared_ptr<ByoInventoryErrorDto>& Value);
+	bool HasLastError() const;
+
+	/// <summary>
+	/// Sweeps failed in a row.
+	/// </summary>
+	int32_t GetConsecutiveFailures() const;
+	void SetConsecutiveFailures(int32_t Value);
+	bool HasConsecutiveFailures() const;
+
+	/// <summary>
+	/// Zones Google could not answer for in the last listing. Machines there may be out of date.
+	/// </summary>
+	const std::vector<utility::string_t>& GetUnreachableZones() const;
+	void SetUnreachableZones(const std::vector<utility::string_t>& Value);
+	bool HasUnreachableZones() const;
+
+	/// <summary>
+	/// Present machines after the last sweep that did not fail.
+	/// </summary>
+	int64_t GetPresentCount() const;
+	void SetPresentCount(int64_t Value);
+	bool HasPresentCount() const;
+
+	/// <summary>
+	/// Of those, how many are orphans.
+	/// </summary>
+	int64_t GetOrphanCount() const;
+	void SetOrphanCount(int64_t Value);
+	bool HasOrphanCount() const;
+
+	/// <summary>
+	/// The last trusted sweep is more than three intervals old, or there has been none for that long. The banner
+	/// names the project, so a list that is out of date never looks current.
+	/// </summary>
+	bool GetIsStale() const;
+	void SetIsStale(const bool& Value);
+	bool HasIsStale() const;
+
+
+protected:
+	std::optional<utility::string_t> m_ProjectRecordId;
+	std::optional<utility::string_t> m_TenantName;
+	std::optional<utility::string_t> m_GcpProjectId;
+	std::optional<utility::string_t> m_LastSweptAt;
+	std::optional<utility::string_t> m_LastAttemptAt;
+	std::optional<utility::string_t> m_NextSweepAt;
+	std::optional<std::shared_ptr<ByoInventoryErrorDto>> m_LastError;
+	std::optional<int32_t> m_ConsecutiveFailures;
+	std::optional<std::vector<utility::string_t>> m_UnreachableZones;
+	std::optional<int64_t> m_PresentCount;
+	std::optional<int64_t> m_OrphanCount;
+	std::optional<bool> m_IsStale;
+};
+
+/// <summary>
+/// Why a setup step last failed.
+/// </summary>
+class ByoSetupErrorDto : public csp::services::DtoBase
+{
+public:
+	ByoSetupErrorDto();
+	virtual ~ByoSetupErrorDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The step that failed, for example `operator`.
+	/// </summary>
+	utility::string_t GetStep() const;
+	void SetStep(const utility::string_t& Value);
+	bool HasStep() const;
+
+	/// <summary>
+	/// What went wrong.
+	/// </summary>
+	utility::string_t GetMessage() const;
+	void SetMessage(const utility::string_t& Value);
+	bool HasMessage() const;
+
+	/// <summary>
+	/// When it failed.
+	/// </summary>
+	utility::string_t GetAt() const;
+	void SetAt(const utility::string_t& Value);
+	bool HasAt() const;
+
+	/// <summary>
+	/// Whether running the step again is safe.
+	/// </summary>
+	bool GetRetryable() const;
+	void SetRetryable(const bool& Value);
+	bool HasRetryable() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Step;
+	std::optional<utility::string_t> m_Message;
+	std::optional<utility::string_t> m_At;
+	std::optional<bool> m_Retryable;
+};
+
+/// <summary>
 /// Body of a CDN fetch.
 /// </summary>
 class CdnFetchRequest : public csp::services::DtoBase
@@ -1747,7 +3144,7 @@ public:
 	virtual ~CdnFetchRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -1798,7 +3195,7 @@ public:
 	virtual ~ClaimHistoryDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -1927,7 +3324,7 @@ public:
 	virtual ~ClaimHistoryDtoDataPage();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	const std::vector<std::shared_ptr<ClaimHistoryDto>>& GetItems() const;
@@ -1980,7 +3377,7 @@ public:
 	virtual ~ClaimOutcomeDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2055,7 +3452,7 @@ public:
 	virtual ~ControllerVersions();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2104,7 +3501,7 @@ public:
 	virtual ~CreateApiKeyRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2173,7 +3570,7 @@ public:
 	virtual ~CreateApplicationSecretRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2285,7 +3682,7 @@ public:
 	virtual ~CreateBillingMetricRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2379,7 +3776,7 @@ public:
 	virtual ~CreateGcpLoadBalancerHostnameRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2420,7 +3817,7 @@ public:
 	virtual ~CreateHostnameRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2453,7 +3850,7 @@ public:
 	virtual ~CreateLegacyHostnameRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2469,6 +3866,95 @@ protected:
 };
 
 /// <summary>
+/// Create a machine (plan §7.1). Operator surface only, and with no tenant: the project decides it.
+/// </summary>
+class CreateMachineRequest : public csp::services::DtoBase
+{
+public:
+	CreateMachineRequest();
+	virtual ~CreateMachineRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The instance name; omitted, it is made from the date and the record id.
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+	/// <summary>
+	/// The machine type, such as `g2-standard-8`. Required.
+	/// </summary>
+	utility::string_t GetMachineType() const;
+	void SetMachineType(const utility::string_t& Value);
+	bool HasMachineType() const;
+
+	/// <summary>
+	/// What the machine is for (S1). Required.
+	/// </summary>
+	utility::string_t GetPurpose() const;
+	void SetPurpose(const utility::string_t& Value);
+	bool HasPurpose() const;
+
+	/// <summary>
+	/// The lease in hours; omitted, the environment's default.
+	/// </summary>
+	int32_t GetLeaseHours() const;
+	void SetLeaseHours(int32_t Value);
+	bool HasLeaseHours() const;
+
+	/// <summary>
+	/// The template. Free text until lane 8.
+	/// </summary>
+	utility::string_t GetTemplate() const;
+	void SetTemplate(const utility::string_t& Value);
+	bool HasTemplate() const;
+
+	/// <summary>
+	/// The image release. Free text until lane 15.
+	/// </summary>
+	utility::string_t GetImageVersion() const;
+	void SetImageVersion(const utility::string_t& Value);
+	bool HasImageVersion() const;
+
+	/// <summary>
+	/// The node-definition release. Free text until lane 15.
+	/// </summary>
+	utility::string_t GetNodeDefinitionsVersion() const;
+	void SetNodeDefinitionsVersion(const utility::string_t& Value);
+	bool HasNodeDefinitionsVersion() const;
+
+	/// <summary>
+	/// How many rounds to try every zone; omitted, the environment's default.
+	/// </summary>
+	int32_t GetHuntRounds() const;
+	void SetHuntRounds(int32_t Value);
+	bool HasHuntRounds() const;
+
+	/// <summary>
+	/// The wait between rounds in seconds; omitted, the environment's default.
+	/// </summary>
+	int32_t GetRoundWaitSeconds() const;
+	void SetRoundWaitSeconds(int32_t Value);
+	bool HasRoundWaitSeconds() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Name;
+	std::optional<utility::string_t> m_MachineType;
+	std::optional<utility::string_t> m_Purpose;
+	std::optional<int32_t> m_LeaseHours;
+	std::optional<utility::string_t> m_Template;
+	std::optional<utility::string_t> m_ImageVersion;
+	std::optional<utility::string_t> m_NodeDefinitionsVersion;
+	std::optional<int32_t> m_HuntRounds;
+	std::optional<int32_t> m_RoundWaitSeconds;
+};
+
+/// <summary>
 /// Internal-service request to provision a marketplace app subdomain on a tenant. The User service runs the
 /// AWS DNS/cert/CloudFront flow for the given Magnopus.Service.User.Dtos.CreateMarketplaceHostnameRequest.Type and stores the resulting typed
 /// hostname on the tenant document. Idempotent: re-posting an already-present hostname returns its current status without re-issuing a certificate.
@@ -2481,7 +3967,7 @@ public:
 	virtual ~CreateMarketplaceHostnameRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2514,7 +4000,7 @@ public:
 	virtual ~CreateMatrixTierPriceOverrideRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2570,6 +4056,74 @@ protected:
 };
 
 /// <summary>
+/// Creates an organization over an existing tenant, which becomes its administrative tenant.
+/// </summary>
+class CreateOrganizationRequest : public csp::services::DtoBase
+{
+public:
+	CreateOrganizationRequest();
+	virtual ~CreateOrganizationRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The organization's name. Must be unique.
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+	/// <summary>
+	/// The tenant that becomes the organization's administrative tenant. Must exist and be unowned.
+	/// </summary>
+	utility::string_t GetAdministrativeTenantName() const;
+	void SetAdministrativeTenantName(const utility::string_t& Value);
+	bool HasAdministrativeTenantName() const;
+
+	/// <summary>
+	/// The owning user's id. Optional — a Magnopus-internal organization need not have one.
+	/// </summary>
+	utility::string_t GetOwnerUserId() const;
+	void SetOwnerUserId(const utility::string_t& Value);
+	bool HasOwnerUserId() const;
+
+	/// <summary>
+	/// The external reference's source, when the organization has one. Supply both this and
+	/// Magnopus.Logic.Organization.Dtos.CreateOrganizationRequest.ExternalId or neither.
+	/// </summary>
+	utility::string_t GetExternalRefSource() const;
+	void SetExternalRefSource(const utility::string_t& Value);
+	bool HasExternalRefSource() const;
+
+	/// <summary>
+	/// The identifier the external system knows this organization by.
+	/// </summary>
+	utility::string_t GetExternalId() const;
+	void SetExternalId(const utility::string_t& Value);
+	bool HasExternalId() const;
+
+	/// <summary>
+	/// The company URL fragment every tenant this organization owns is addressed under (the
+	/// `acme` in `nodey.global.acme.oko.live`). Optional here: an organization created by hand
+	/// usually has none yet, and the spin-up flow falls back to its administrative tenant's.
+	/// </summary>
+	utility::string_t GetCompanyUrlFragment() const;
+	void SetCompanyUrlFragment(const utility::string_t& Value);
+	bool HasCompanyUrlFragment() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Name;
+	std::optional<utility::string_t> m_AdministrativeTenantName;
+	std::optional<utility::string_t> m_OwnerUserId;
+	std::optional<utility::string_t> m_ExternalRefSource;
+	std::optional<utility::string_t> m_ExternalId;
+	std::optional<utility::string_t> m_CompanyUrlFragment;
+};
+
+/// <summary>
 /// Create request for a row-level exception on a pricing sheet.
 /// </summary>
 class CreatePricingSheetExceptionRequest : public csp::services::DtoBase
@@ -2579,7 +4133,7 @@ public:
 	virtual ~CreatePricingSheetExceptionRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2644,7 +4198,7 @@ public:
 	virtual ~CreatePricingSheetRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2685,7 +4239,7 @@ public:
 	virtual ~CreateTokenMatrixEntryRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2807,7 +4361,7 @@ public:
 	virtual ~CreateUserRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -2910,7 +4464,7 @@ public:
 	virtual ~CreateUserSocialRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3031,7 +4585,7 @@ public:
 	virtual ~CrossTenantSettingsDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3070,7 +4624,7 @@ public:
 	virtual ~DaigramCreateRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3096,7 +4650,7 @@ public:
 	virtual ~DaigramDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3186,7 +4740,7 @@ public:
 	virtual ~DaigramThumbnailRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3211,7 +4765,7 @@ public:
 	virtual ~DaigramUpdateRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3236,7 +4790,7 @@ public:
 	virtual ~DefaultSessionSettingsDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3277,7 +4831,7 @@ public:
 	virtual ~DefaultSettings();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3315,7 +4869,7 @@ public:
 	virtual ~DepartmentDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3370,7 +4924,7 @@ public:
 	virtual ~DepartmentUpsertRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3415,7 +4969,7 @@ public:
 	virtual ~EffortEdge();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3458,7 +5012,7 @@ public:
 	virtual ~EffortResourceBulkGetRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3495,7 +5049,7 @@ public:
 	virtual ~EffortResourceDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3671,7 +5225,7 @@ public:
 	virtual ~EffortResourceRemoveRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3715,7 +5269,7 @@ public:
 	virtual ~EffortResourceRemoveResult();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3769,7 +5323,7 @@ public:
 	virtual ~EffortResourceSearchRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3810,7 +5364,7 @@ public:
 	virtual ~EffortResourceSearchResponse();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -3843,7 +5397,7 @@ public:
 	virtual ~EffortResourceUpsertItem();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4004,7 +5558,7 @@ public:
 	virtual ~EffortResourceUpsertRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4029,7 +5583,7 @@ public:
 	virtual ~EffortResourceUpsertResult();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4070,7 +5624,7 @@ public:
 	virtual ~EmailRedirectDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4096,7 +5650,7 @@ public:
 	virtual ~EncryptedValueDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4139,7 +5693,7 @@ public:
 	virtual ~EquipItemDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4155,6 +5709,57 @@ protected:
 };
 
 /// <summary>
+/// A request object used to wrap the values used to create a one time key exchange request.
+/// </summary>
+class ExchangeKeyRequest : public csp::services::DtoBase
+{
+public:
+	ExchangeKeyRequest();
+	virtual ~ExchangeKeyRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// Optional. The user the caller expects the key to sign in. The key itself names its user, and that is the
+	/// user the exchange signs in; when this is sent it must match, or the exchange is refused.
+	/// </summary>
+	utility::string_t GetUserId() const;
+	void SetUserId(const utility::string_t& Value);
+	bool HasUserId() const;
+
+	/// <summary>
+	/// One time key to exchange for MGS token
+	/// </summary>
+	utility::string_t GetKey() const;
+	void SetKey(const utility::string_t& Value);
+	bool HasKey() const;
+
+	/// <summary>
+	/// The device unique identifier
+	/// </summary>
+	utility::string_t GetDeviceId() const;
+	void SetDeviceId(const utility::string_t& Value);
+	bool HasDeviceId() const;
+
+	/// <summary>
+	/// Optional. Where the caller will deliver the session (the federated login page sends its `redirect_uri`).
+	/// When provided, it is validated against the key's tenant exactly as Magnopus.Service.User.Dtos.LoginRequest.RedirectUri is.
+	/// </summary>
+	utility::string_t GetRedirectUri() const;
+	void SetRedirectUri(const utility::string_t& Value);
+	bool HasRedirectUri() const;
+
+
+protected:
+	std::optional<utility::string_t> m_UserId;
+	std::optional<utility::string_t> m_Key;
+	std::optional<utility::string_t> m_DeviceId;
+	std::optional<utility::string_t> m_RedirectUri;
+};
+
+/// <summary>
 /// Request to switch to a different plus-addressed identity within the SAME tenant.
 /// Requires an active SSO session with the correct provider for the domain.
 /// </summary>
@@ -4165,7 +5770,7 @@ public:
 	virtual ~ExchangeProfileRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4208,7 +5813,7 @@ public:
 	virtual ~ExchangeTenancyRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4251,6 +5856,39 @@ protected:
 };
 
 /// <summary>
+/// Move a machine's lease (plan §5.7, §7.1). The reason goes to the audit (S8).
+/// </summary>
+class ExtendMachineLeaseRequest : public csp::services::DtoBase
+{
+public:
+	ExtendMachineLeaseRequest();
+	virtual ~ExtendMachineLeaseRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The new lease in hours from now, at most the environment's maximum. Required.
+	/// </summary>
+	int32_t GetLeaseHours() const;
+	void SetLeaseHours(int32_t Value);
+	bool HasLeaseHours() const;
+
+	/// <summary>
+	/// Why the machine needs longer. Required.
+	/// </summary>
+	utility::string_t GetReason() const;
+	void SetReason(const utility::string_t& Value);
+	bool HasReason() const;
+
+
+protected:
+	std::optional<int32_t> m_LeaseHours;
+	std::optional<utility::string_t> m_Reason;
+};
+
+/// <summary>
 /// Object containing those properties necessary to reset a password via email address.
 /// </summary>
 class ForgotPasswordRequest : public csp::services::DtoBase
@@ -4260,7 +5898,7 @@ public:
 	virtual ~ForgotPasswordRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4293,7 +5931,7 @@ public:
 	virtual ~GacValidationConfigDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4361,7 +5999,7 @@ public:
 	virtual ~GroupDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4531,7 +6169,7 @@ public:
 	virtual ~GroupFilters();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4669,7 +6307,7 @@ public:
 	virtual ~GroupInviteDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4773,7 +6411,7 @@ public:
 	virtual ~GroupLiteDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4900,7 +6538,7 @@ public:
 	virtual ~GroupLiteDtoDataPage();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	const std::vector<std::shared_ptr<GroupLiteDto>>& GetItems() const;
@@ -4942,7 +6580,7 @@ public:
 	virtual ~GroupSummaryDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -4989,7 +6627,7 @@ public:
 	virtual ~HostnameDeprovisionResponse();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5079,7 +6717,7 @@ public:
 	virtual ~HostnameSsoDiffDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5116,7 +6754,7 @@ public:
 	virtual ~HostnameSsoSyncResultDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5153,7 +6791,7 @@ public:
 	virtual ~ImportTokenMatrixEntriesRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5187,7 +6825,7 @@ public:
 	virtual ~InitialSettingsDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5227,7 +6865,7 @@ public:
 	virtual ~InventoryItemDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5347,7 +6985,7 @@ public:
 	virtual ~InventoryItemDtoDataPage();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	const std::vector<std::shared_ptr<InventoryItemDto>>& GetItems() const;
@@ -5391,7 +7029,7 @@ public:
 	virtual ~JiraCreateMetaDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5445,7 +7083,7 @@ public:
 	virtual ~JiraCreateMetaField();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5558,7 +7196,7 @@ public:
 	virtual ~JiraCreateMetaIssueType();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5599,7 +7237,7 @@ public:
 	virtual ~JiraCreateMetaUpsertRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5640,7 +7278,7 @@ public:
 	virtual ~JiraFieldOption();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5676,7 +7314,7 @@ public:
 	virtual ~JiraLink();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5717,7 +7355,7 @@ public:
 	virtual ~JiraReferenceListDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5781,7 +7419,7 @@ public:
 	virtual ~JiraReferenceOption();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5854,7 +7492,7 @@ public:
 	virtual ~JiraReferenceUpsertRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5903,7 +7541,7 @@ public:
 	virtual ~JiraResourceBulkGetRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -5939,7 +7577,7 @@ public:
 	virtual ~JiraResourceDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6087,7 +7725,7 @@ public:
 	virtual ~JiraResourceSearchRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6128,7 +7766,7 @@ public:
 	virtual ~JiraResourceSearchResponse();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6162,7 +7800,7 @@ public:
 	virtual ~JiraResourceUpsertItem();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6301,7 +7939,7 @@ public:
 	virtual ~JiraResourceUpsertRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6326,7 +7964,7 @@ public:
 	virtual ~JiraResourceUpsertResult();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6367,7 +8005,7 @@ public:
 	virtual ~JiraSchemaUpsertResult();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6421,7 +8059,7 @@ public:
 	virtual ~JoinQueueRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6446,7 +8084,7 @@ public:
 	virtual ~LegacyObjectDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6495,7 +8133,7 @@ public:
 	virtual ~LegacyObjectPageDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6544,7 +8182,7 @@ public:
 	virtual ~LlmGenerateRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6634,7 +8272,7 @@ public:
 	virtual ~LlmGenerateResponse();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6709,7 +8347,7 @@ public:
 	virtual ~LlmMessage();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6742,7 +8380,7 @@ public:
 	virtual ~LlmProviderDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6791,7 +8429,7 @@ public:
 	virtual ~LoginGuestRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6837,7 +8475,7 @@ public:
 	virtual ~LoginRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -6916,7 +8554,7 @@ public:
 	virtual ~LoginSocialRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7014,7 +8652,7 @@ public:
 	virtual ~LogoutRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7049,7 +8687,7 @@ public:
 	virtual ~MarketplaceHostnameResponse();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7113,7 +8751,7 @@ public:
 	virtual ~MarketplaceTenantProvisionRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7192,7 +8830,7 @@ public:
 	virtual ~MarketplaceTenantProvisionResponse();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7266,7 +8904,7 @@ public:
 	virtual ~MatrixImportFailureDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7315,7 +8953,7 @@ public:
 	virtual ~MatrixImportResultDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7374,7 +9012,7 @@ public:
 	virtual ~MatrixTierPriceOverrideDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7455,7 +9093,7 @@ public:
 	virtual ~MatrixTierPriceOverrideHistoryDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7560,7 +9198,7 @@ public:
 	virtual ~MetagameProgressDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7602,7 +9240,7 @@ public:
 	virtual ~MetagameUpdate();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7635,7 +9273,7 @@ public:
 	virtual ~MiningSessionDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7742,7 +9380,7 @@ public:
 	virtual ~MiningSessionSaveRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7816,7 +9454,7 @@ public:
 	virtual ~MiningSessionSummaryDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7902,7 +9540,7 @@ public:
 	virtual ~MiningSessionSummaryDtoDataPage();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	const std::vector<std::shared_ptr<MiningSessionSummaryDto>>& GetItems() const;
@@ -7944,7 +9582,7 @@ public:
 	virtual ~NamedFunction();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -7976,6 +9614,563 @@ protected:
 };
 
 /// <summary>
+/// DTO for carrying one time key information
+/// </summary>
+class OneTimeKeyDto : public csp::services::DtoBase
+{
+public:
+	OneTimeKeyDto();
+	virtual ~OneTimeKeyDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The single use key
+	/// </summary>
+	utility::string_t GetOneTimeKey() const;
+	void SetOneTimeKey(const utility::string_t& Value);
+	bool HasOneTimeKey() const;
+
+	/// <summary>
+	/// The date and time one time key expires
+	/// </summary>
+	utility::string_t GetExpiresAt() const;
+	void SetExpiresAt(const utility::string_t& Value);
+	bool HasExpiresAt() const;
+
+
+protected:
+	std::optional<utility::string_t> m_OneTimeKey;
+	std::optional<utility::string_t> m_ExpiresAt;
+};
+
+/// <summary>
+/// A request object used to wrap the values used to create a one time key request.
+/// </summary>
+class OneTimeKeyRequest : public csp::services::DtoBase
+{
+public:
+	OneTimeKeyRequest();
+	virtual ~OneTimeKeyRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The unique identifier for the user requesting one time key.
+	/// </summary>
+	utility::string_t GetUserId() const;
+	void SetUserId(const utility::string_t& Value);
+	bool HasUserId() const;
+
+	/// <summary>
+	/// The device unique identifier
+	/// </summary>
+	utility::string_t GetDeviceId() const;
+	void SetDeviceId(const utility::string_t& Value);
+	bool HasDeviceId() const;
+
+
+protected:
+	std::optional<utility::string_t> m_UserId;
+	std::optional<utility::string_t> m_DeviceId;
+};
+
+/// <summary>
+/// An organization row for the operator browser and detail view.
+/// </summary>
+class OrganizationDto : public csp::services::DtoBase
+{
+public:
+	OrganizationDto();
+	virtual ~OrganizationDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The organization id.
+	/// </summary>
+	utility::string_t GetId() const;
+	void SetId(const utility::string_t& Value);
+	bool HasId() const;
+
+	/// <summary>
+	/// The organization's name.
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+	/// <summary>
+	/// The id of the organization's administrative tenant.
+	/// </summary>
+	utility::string_t GetAdministrativeTenantId() const;
+	void SetAdministrativeTenantId(const utility::string_t& Value);
+	bool HasAdministrativeTenantId() const;
+
+	/// <summary>
+	/// The name of the organization's administrative tenant.
+	/// </summary>
+	utility::string_t GetAdministrativeTenantName() const;
+	void SetAdministrativeTenantName(const utility::string_t& Value);
+	bool HasAdministrativeTenantName() const;
+
+	/// <summary>
+	/// The company URL fragment, when the organization has claimed one.
+	/// </summary>
+	utility::string_t GetCompanyUrlFragment() const;
+	void SetCompanyUrlFragment(const utility::string_t& Value);
+	bool HasCompanyUrlFragment() const;
+
+	/// <summary>
+	/// The owning user's id.
+	/// </summary>
+	utility::string_t GetOwnerUserId() const;
+	void SetOwnerUserId(const utility::string_t& Value);
+	bool HasOwnerUserId() const;
+
+	/// <summary>
+	/// The organization's external references, by source.
+	/// </summary>
+	const std::vector<std::shared_ptr<OrganizationExternalRefDto>>& GetExternalRefs() const;
+	void SetExternalRefs(const std::vector<std::shared_ptr<OrganizationExternalRefDto>>& Value);
+	bool HasExternalRefs() const;
+
+	/// <summary>
+	/// How many tenants this organization owns. Only populated on the detail read.
+	/// </summary>
+	int32_t GetTenantCount() const;
+	void SetTenantCount(int32_t Value);
+	bool HasTenantCount() const;
+
+	/// <summary>
+	/// The tenants this organization owns. Only populated on the detail read.
+	/// </summary>
+	const std::vector<std::shared_ptr<OrganizationTenantDto>>& GetTenants() const;
+	void SetTenants(const std::vector<std::shared_ptr<OrganizationTenantDto>>& Value);
+	bool HasTenants() const;
+
+	/// <summary>
+	/// When the organization was created.
+	/// </summary>
+	utility::string_t GetCreatedAt() const;
+	void SetCreatedAt(const utility::string_t& Value);
+	bool HasCreatedAt() const;
+
+	/// <summary>
+	/// When the organization was last updated.
+	/// </summary>
+	utility::string_t GetUpdatedAt() const;
+	void SetUpdatedAt(const utility::string_t& Value);
+	bool HasUpdatedAt() const;
+
+	/// <summary>
+	/// The tier assigned AT THIS ORGANIZATION, or null when it carries no assignment of its own.
+	///
+	/// ⚠⚠ <b>Null is a finding, not a blank.</b> Post-D7 the organization's tier is the tier every
+	/// tenant under it resolves to — so an organization with no assignment means every workspace spun
+	/// up under it falls through to `Quotas:DefaultTierName`, whatever the customer is paying.
+	/// `MarketplacePlanTierService.AssignTierForPlan` has exactly two callers (provisioning, and a
+	/// plan change) and the organization <b>backfill is neither</b>, so a backfilled organization is
+	/// null here until its customer's next plan change. The view must say so rather than render an
+	/// empty cell.
+	/// <b>Read from the organization's own row, deliberately not the way tier 2 reads it.</b>`org-billing-tab.js` asks for the ADMINISTRATIVE
+	/// TENANT's enforced tier, because `CanAccessOrganizationTierAssignment` refuses a tier-2 caller by design (D21 — a tenant admin reading their
+	/// organization's tier is reading across their siblings). MAG_SUP is admitted, so tier 3 can ask the truthful question, and should: the two
+	/// numbers are equal only BECAUSE D4 put the tier there, and pre-G73 they silently diverged.
+	/// </summary>
+	utility::string_t GetTierName() const;
+	void SetTierName(const utility::string_t& Value);
+	bool HasTierName() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_Name;
+	std::optional<utility::string_t> m_AdministrativeTenantId;
+	std::optional<utility::string_t> m_AdministrativeTenantName;
+	std::optional<utility::string_t> m_CompanyUrlFragment;
+	std::optional<utility::string_t> m_OwnerUserId;
+	std::optional<std::vector<std::shared_ptr<OrganizationExternalRefDto>>> m_ExternalRefs;
+	std::optional<int32_t> m_TenantCount;
+	std::optional<std::vector<std::shared_ptr<OrganizationTenantDto>>> m_Tenants;
+	std::optional<utility::string_t> m_CreatedAt;
+	std::optional<utility::string_t> m_UpdatedAt;
+	std::optional<utility::string_t> m_TierName;
+};
+
+class OrganizationDtoDataPage : public csp::services::DtoBase
+{
+public:
+	OrganizationDtoDataPage();
+	virtual ~OrganizationDtoDataPage();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	const std::vector<std::shared_ptr<OrganizationDto>>& GetItems() const;
+	void SetItems(const std::vector<std::shared_ptr<OrganizationDto>>& Value);
+	bool HasItems() const;
+
+	int32_t GetSkip() const;
+	void SetSkip(int32_t Value);
+	bool HasSkip() const;
+
+	int32_t GetLimit() const;
+	void SetLimit(int32_t Value);
+	bool HasLimit() const;
+
+	int32_t GetItemCount() const;
+	void SetItemCount(int32_t Value);
+	bool HasItemCount() const;
+
+	int64_t GetItemTotalCount() const;
+	void SetItemTotalCount(int64_t Value);
+	bool HasItemTotalCount() const;
+
+
+protected:
+	std::optional<std::vector<std::shared_ptr<OrganizationDto>>> m_Items;
+	std::optional<int32_t> m_Skip;
+	std::optional<int32_t> m_Limit;
+	std::optional<int32_t> m_ItemCount;
+	std::optional<int64_t> m_ItemTotalCount;
+};
+
+/// <summary>
+/// One external reference on an organization.
+/// </summary>
+class OrganizationExternalRefDto : public csp::services::DtoBase
+{
+public:
+	OrganizationExternalRefDto();
+	virtual ~OrganizationExternalRefDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The owning system.
+	/// </summary>
+	utility::string_t GetSource() const;
+	void SetSource(const utility::string_t& Value);
+	bool HasSource() const;
+
+	/// <summary>
+	/// The identifier that system knows the organization by.
+	/// </summary>
+	utility::string_t GetExternalId() const;
+	void SetExternalId(const utility::string_t& Value);
+	bool HasExternalId() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Source;
+	std::optional<utility::string_t> m_ExternalId;
+};
+
+/// <summary>
+/// Create an organization group.
+/// </summary>
+class OrganizationGroupCreateRequest : public csp::services::DtoBase
+{
+public:
+	OrganizationGroupCreateRequest();
+	virtual ~OrganizationGroupCreateRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The group's name.
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Name;
+};
+
+/// <summary>
+/// One of an organization's groups of people (CHS-5995, G141): an `org-membership` group in its administrative tenant.
+/// </summary>
+class OrganizationGroupDto : public csp::services::DtoBase
+{
+public:
+	OrganizationGroupDto();
+	virtual ~OrganizationGroupDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The group id.
+	/// </summary>
+	utility::string_t GetId() const;
+	void SetId(const utility::string_t& Value);
+	bool HasId() const;
+
+	/// <summary>
+	/// Its name.
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+	/// <summary>
+	/// The administrative-tenant profile that owns it, and so is always one of its members.
+	/// </summary>
+	utility::string_t GetGroupOwnerId() const;
+	void SetGroupOwnerId(const utility::string_t& Value);
+	bool HasGroupOwnerId() const;
+
+	/// <summary>
+	/// Its members: profile ids in the administrative tenant.
+	/// </summary>
+	const std::vector<utility::string_t>& GetUsers() const;
+	void SetUsers(const std::vector<utility::string_t>& Value);
+	bool HasUsers() const;
+
+	/// <summary>
+	/// Its members with their names, on the list only. Resolved here because the caller may be an operator on MAG_SUP, whose
+	/// own user lookups can't see the administrative tenant's people.
+	/// </summary>
+	const std::vector<std::shared_ptr<OrganizationGroupMemberDto>>& GetMembers() const;
+	void SetMembers(const std::vector<std::shared_ptr<OrganizationGroupMemberDto>>& Value);
+	bool HasMembers() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_Name;
+	std::optional<utility::string_t> m_GroupOwnerId;
+	std::optional<std::vector<utility::string_t>> m_Users;
+	std::optional<std::vector<std::shared_ptr<OrganizationGroupMemberDto>>> m_Members;
+};
+
+/// <summary>
+/// One member of an organization group, as the People tab shows them.
+/// </summary>
+class OrganizationGroupMemberDto : public csp::services::DtoBase
+{
+public:
+	OrganizationGroupMemberDto();
+	virtual ~OrganizationGroupMemberDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// Their profile id in the administrative tenant.
+	/// </summary>
+	utility::string_t GetId() const;
+	void SetId(const utility::string_t& Value);
+	bool HasId() const;
+
+	/// <summary>
+	/// Their display name.
+	/// </summary>
+	utility::string_t GetDisplayName() const;
+	void SetDisplayName(const utility::string_t& Value);
+	bool HasDisplayName() const;
+
+	/// <summary>
+	/// Their email.
+	/// </summary>
+	utility::string_t GetEmail() const;
+	void SetEmail(const utility::string_t& Value);
+	bool HasEmail() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_DisplayName;
+	std::optional<utility::string_t> m_Email;
+};
+
+/// <summary>
+/// One person who could not be added to a workspace.
+/// </summary>
+class OrganizationMemberFailure : public csp::services::DtoBase
+{
+public:
+	OrganizationMemberFailure();
+	virtual ~OrganizationMemberFailure();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// Their email.
+	/// </summary>
+	utility::string_t GetEmail() const;
+	void SetEmail(const utility::string_t& Value);
+	bool HasEmail() const;
+
+	/// <summary>
+	/// Why, as the profile service put it.
+	/// </summary>
+	utility::string_t GetReason() const;
+	void SetReason(const utility::string_t& Value);
+	bool HasReason() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Email;
+	std::optional<utility::string_t> m_Reason;
+};
+
+/// <summary>
+/// Add the people in some of an organization's groups to one of its workspaces (CHS-5995, ask 3, US5).
+/// </summary>
+class OrganizationMembersAddRequest : public csp::services::DtoBase
+{
+public:
+	OrganizationMembersAddRequest();
+	virtual ~OrganizationMembersAddRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The `org-membership` groups whose members to add.
+	/// </summary>
+	const std::vector<utility::string_t>& GetGroupIds() const;
+	void SetGroupIds(const std::vector<utility::string_t>& Value);
+	bool HasGroupIds() const;
+
+
+protected:
+	std::optional<std::vector<utility::string_t>> m_GroupIds;
+};
+
+/// <summary>
+/// What adding an organization's groups to a workspace did, person by person.
+/// </summary>
+class OrganizationMembersAddResponse : public csp::services::DtoBase
+{
+public:
+	OrganizationMembersAddResponse();
+	virtual ~OrganizationMembersAddResponse();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// Emails given a new profile in the workspace.
+	/// </summary>
+	const std::vector<utility::string_t>& GetAdded() const;
+	void SetAdded(const std::vector<utility::string_t>& Value);
+	bool HasAdded() const;
+
+	/// <summary>
+	/// Emails that already had a profile there, left untouched.
+	/// </summary>
+	const std::vector<utility::string_t>& GetAlreadyMembers() const;
+	void SetAlreadyMembers(const std::vector<utility::string_t>& Value);
+	bool HasAlreadyMembers() const;
+
+	/// <summary>
+	/// Emails that could not be added, with the reason. One person failing never stops the rest.
+	/// </summary>
+	const std::vector<std::shared_ptr<OrganizationMemberFailure>>& GetFailed() const;
+	void SetFailed(const std::vector<std::shared_ptr<OrganizationMemberFailure>>& Value);
+	bool HasFailed() const;
+
+
+protected:
+	std::optional<std::vector<utility::string_t>> m_Added;
+	std::optional<std::vector<utility::string_t>> m_AlreadyMembers;
+	std::optional<std::vector<std::shared_ptr<OrganizationMemberFailure>>> m_Failed;
+};
+
+/// <summary>
+/// A tenant owned by an organization, as the organization view needs it.
+/// </summary>
+class OrganizationTenantDto : public csp::services::DtoBase
+{
+public:
+	OrganizationTenantDto();
+	virtual ~OrganizationTenantDto();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The tenant id.
+	/// </summary>
+	utility::string_t GetId() const;
+	void SetId(const utility::string_t& Value);
+	bool HasId() const;
+
+	/// <summary>
+	/// The tenant name.
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+	/// <summary>
+	/// The tenant's display name, when it has one.
+	/// </summary>
+	utility::string_t GetDisplayName() const;
+	void SetDisplayName(const utility::string_t& Value);
+	bool HasDisplayName() const;
+
+	/// <summary>
+	/// Whether the tenant is locked.
+	/// </summary>
+	bool GetLocked() const;
+	void SetLocked(const bool& Value);
+	bool HasLocked() const;
+
+	/// <summary>
+	/// Whether this is the organization's administrative tenant.
+	/// </summary>
+	bool GetIsAdministrativeTenant() const;
+	void SetIsAdministrativeTenant(const bool& Value);
+	bool HasIsAdministrativeTenant() const;
+
+	/// <summary>
+	/// How far this workspace got through its spin-up, or null when it did not go through that flow —
+	/// a marketplace-born tenant, or one associated by hand.
+	///
+	/// ⚠ <b>G81: this was absent from the tier-3 response entirely</b>, while `GET my-organization`
+	/// has carried it since Lane E. So the customer could see a workspace stranded at
+	/// `TenantCreated` and the operator supporting them could not. Same spelling as the tier-2
+	/// field, deliberately, so the two surfaces cannot name one state two ways.
+	/// </summary>
+	utility::string_t GetSpinUpState() const;
+	void SetSpinUpState(const utility::string_t& Value);
+	bool HasSpinUpState() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Id;
+	std::optional<utility::string_t> m_Name;
+	std::optional<utility::string_t> m_DisplayName;
+	std::optional<bool> m_Locked;
+	std::optional<bool> m_IsAdministrativeTenant;
+	std::optional<utility::string_t> m_SpinUpState;
+};
+
+/// <summary>
 /// Internal-service request to provision a tenant + admin for an <b>organization-initiated</b> spin-up:
 /// an org admin creating a further workspace under an organization that already has a subscription.
 ///
@@ -7993,7 +10188,7 @@ public:
 	virtual ~OrganizationTenantProvisionRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -8014,12 +10209,21 @@ public:
 	bool HasProjectUrlFragment() const;
 
 	/// <summary>
-	/// The admin email for the new tenant — in practice the requesting org admin's own address, so that
-	/// they can sign in to the new workspace with the identity they already use.
+	/// The admin email for the new tenant. Must belong to a confirmed member of
+	/// Magnopus.Service.User.Dtos.OrganizationTenantProvisionRequest.AdministrativeTenantName: the new admin profile is created confirmed, so that
+	/// confirmation has to be one the person already made, never one this request asserts (G110).
 	/// </summary>
 	utility::string_t GetAdminEmail() const;
 	void SetAdminEmail(const utility::string_t& Value);
 	bool HasAdminEmail() const;
+
+	/// <summary>
+	/// The organization's administrative tenant, in which Magnopus.Service.User.Dtos.OrganizationTenantProvisionRequest.AdminEmail must already have
+	/// a confirmed, unarchived, unlocked profile. Required: without it the provisioner refuses rather than trusting the email.
+	/// </summary>
+	utility::string_t GetAdministrativeTenantName() const;
+	void SetAdministrativeTenantName(const utility::string_t& Value);
+	bool HasAdministrativeTenantName() const;
 
 	/// <summary>
 	/// Optional display/company name for the tenant.
@@ -8028,12 +10232,22 @@ public:
 	void SetCompanyName(const utility::string_t& Value);
 	bool HasCompanyName() const;
 
+	/// <summary>
+	/// Optional human-readable workspace name, stored as `TenantDocument.DisplayName`. The caller resolves
+	/// any default; blank leaves the display name unset.
+	/// </summary>
+	utility::string_t GetDisplayName() const;
+	void SetDisplayName(const utility::string_t& Value);
+	bool HasDisplayName() const;
+
 
 protected:
 	std::optional<utility::string_t> m_CompanyUrlFragment;
 	std::optional<utility::string_t> m_ProjectUrlFragment;
 	std::optional<utility::string_t> m_AdminEmail;
+	std::optional<utility::string_t> m_AdministrativeTenantName;
 	std::optional<utility::string_t> m_CompanyName;
+	std::optional<utility::string_t> m_DisplayName;
 };
 
 /// <summary>
@@ -8054,7 +10268,7 @@ public:
 	virtual ~OrganizationTenantProvisionResponse();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -8086,6 +10300,31 @@ protected:
 };
 
 /// <summary>
+/// Names a tenant to associate with, or promote within, an organization.
+/// </summary>
+class OrganizationTenantRequest : public csp::services::DtoBase
+{
+public:
+	OrganizationTenantRequest();
+	virtual ~OrganizationTenantRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The tenant's name.
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+
+protected:
+	std::optional<utility::string_t> m_TenantName;
+};
+
+/// <summary>
 /// Somebody on the roster, as the grid sees them.
 /// </summary>
 class PersonDto : public csp::services::DtoBase
@@ -8095,7 +10334,7 @@ public:
 	virtual ~PersonDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -8174,7 +10413,7 @@ public:
 	virtual ~PersonUpsertRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -8255,7 +10494,7 @@ public:
 	virtual ~PlusAddressIdentitiesBatchRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -8281,7 +10520,7 @@ public:
 	virtual ~PlusAddressIdentitiesBatchResponse();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -8312,7 +10551,7 @@ public:
 	virtual ~PlusAddressIdentityDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -8364,7 +10603,7 @@ public:
 	virtual ~PlusAddressingDomainEntry();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -8404,7 +10643,7 @@ public:
 	virtual ~PricingSheetDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -8483,7 +10722,7 @@ public:
 	virtual ~PricingSheetExceptionDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -8564,7 +10803,7 @@ public:
 	virtual ~PricingSheetExceptionHistoryDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -8669,7 +10908,7 @@ public:
 	virtual ~PricingSheetHistoryDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -8763,7 +11002,7 @@ public:
 	virtual ~ProblemDetails();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	utility::string_t GetType() const;
@@ -8814,7 +11053,7 @@ public:
 	virtual ~ProfileAdminLiteDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -8882,7 +11121,7 @@ public:
 	virtual ~ProfileDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9049,7 +11288,7 @@ public:
 	virtual ~ProfileDtoDataPage();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	const std::vector<std::shared_ptr<ProfileDto>>& GetItems() const;
@@ -9091,7 +11330,7 @@ public:
 	virtual ~ProfileLiteDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9144,7 +11383,7 @@ public:
 	virtual ~ProjectDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9193,7 +11432,7 @@ public:
 	virtual ~ProjectUpsertRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9244,7 +11483,7 @@ public:
 	virtual ~QueueEntryDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9322,7 +11561,7 @@ public:
 	virtual ~QueueOutcomeDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9380,7 +11619,7 @@ public:
 	virtual ~QuotaFeatureTierConfigItem();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9454,7 +11693,7 @@ public:
 	virtual ~RefreshRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9504,7 +11743,7 @@ public:
 	virtual ~RegisterExternalHostnameRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9537,6 +11776,91 @@ protected:
 };
 
 /// <summary>
+/// The tenant surface's registration body. ⚠ <b>No tenant field, on purpose</b>: the tenant is always the
+/// caller's, from the token. `ByoProvisioningAuthorizationTests` asserts this type never grows one.
+/// </summary>
+class RegisterOwnProjectRequest : public csp::services::DtoBase
+{
+public:
+	RegisterOwnProjectRequest();
+	virtual ~RegisterOwnProjectRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The customer's GCP project id. Normalized and validated server-side.
+	/// </summary>
+	utility::string_t GetGcpProjectId() const;
+	void SetGcpProjectId(const utility::string_t& Value);
+	bool HasGcpProjectId() const;
+
+
+protected:
+	std::optional<utility::string_t> m_GcpProjectId;
+};
+
+/// <summary>
+/// The operator surface's registration body: a Magnopus operator connects a project on a customer's behalf, so
+/// the tenant is named.
+/// </summary>
+class RegisterProjectRequest : public csp::services::DtoBase
+{
+public:
+	RegisterProjectRequest();
+	virtual ~RegisterProjectRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The customer's GCP project id. Normalized and validated server-side.
+	/// </summary>
+	utility::string_t GetGcpProjectId() const;
+	void SetGcpProjectId(const utility::string_t& Value);
+	bool HasGcpProjectId() const;
+
+	/// <summary>
+	/// The tenant the project is for. Must exist.
+	/// </summary>
+	utility::string_t GetTenantName() const;
+	void SetTenantName(const utility::string_t& Value);
+	bool HasTenantName() const;
+
+
+protected:
+	std::optional<utility::string_t> m_GcpProjectId;
+	std::optional<utility::string_t> m_TenantName;
+};
+
+/// <summary>
+/// Renames an organization.
+/// </summary>
+class RenameOrganizationRequest : public csp::services::DtoBase
+{
+public:
+	RenameOrganizationRequest();
+	virtual ~RenameOrganizationRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The new name. Must be unique.
+	/// </summary>
+	utility::string_t GetName() const;
+	void SetName(const utility::string_t& Value);
+	bool HasName() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Name;
+};
+
+/// <summary>
 /// DTO for the revoked JTI set sync endpoint, consumed by Nodey polling
 /// </summary>
 class RevokedJtiSetDto : public csp::services::DtoBase
@@ -9546,7 +11870,7 @@ public:
 	virtual ~RevokedJtiSetDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9582,7 +11906,7 @@ public:
 	virtual ~RosterConfigDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9669,7 +11993,7 @@ public:
 	virtual ~RosterSnapshotDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	std::shared_ptr<RosterConfigDto> GetConfig() const;
@@ -9727,7 +12051,7 @@ public:
 	virtual ~ServiceVersionInfo();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9784,7 +12108,7 @@ public:
 	virtual ~SetEncryptedValueRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9809,7 +12133,7 @@ public:
 	virtual ~SetMagnopusOwnedBatchRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9842,7 +12166,7 @@ public:
 	virtual ~SetMagnopusOwnedRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9858,6 +12182,31 @@ protected:
 };
 
 /// <summary>
+/// Transfers organization ownership.
+/// </summary>
+class SetOrganizationOwnerRequest : public csp::services::DtoBase
+{
+public:
+	SetOrganizationOwnerRequest();
+	virtual ~SetOrganizationOwnerRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The new owner's user id.
+	/// </summary>
+	utility::string_t GetOwnerUserId() const;
+	void SetOwnerUserId(const utility::string_t& Value);
+	bool HasOwnerUserId() const;
+
+
+protected:
+	std::optional<utility::string_t> m_OwnerUserId;
+};
+
+/// <summary>
 /// User Settings data transform object
 /// </summary>
 class SettingsDto : public csp::services::DtoBase
@@ -9867,7 +12216,7 @@ public:
 	virtual ~SettingsDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9909,7 +12258,7 @@ public:
 	virtual ~SocialIdentityCaptureRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -9967,7 +12316,7 @@ public:
 	virtual ~SocialIdentityDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10004,7 +12353,7 @@ public:
 	virtual ~SocialProviderIdDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10037,7 +12386,7 @@ public:
 	virtual ~SocialProviderInfo();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10124,7 +12473,7 @@ public:
 	virtual ~StringDataPage();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	const std::vector<utility::string_t>& GetItems() const;
@@ -10166,7 +12515,7 @@ public:
 	virtual ~StripeCheckoutRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10191,7 +12540,7 @@ public:
 	virtual ~StripeCheckoutSessionDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10215,7 +12564,7 @@ public:
 	virtual ~StripeCustomerDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10253,7 +12602,7 @@ public:
 	virtual ~StripeCustomerPortalDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10265,6 +12614,32 @@ public:
 
 protected:
 	std::optional<utility::string_t> m_CustomerPortalUrl;
+};
+
+/// <summary>
+/// Step 4's body, on both surfaces: what `terraform output -json` printed, as one string. A JSON field rather
+/// than a raw text body so it binds like every other request; the server parses it. ⚠ No tenant field, on purpose.
+/// </summary>
+class SubmitTerraformOutputRequest : public csp::services::DtoBase
+{
+public:
+	SubmitTerraformOutputRequest();
+	virtual ~SubmitTerraformOutputRequest();
+
+	utility::string_t ToJson() const override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
+
+
+	/// <summary>
+	/// The pasted output, verbatim. At most 64 KB.
+	/// </summary>
+	utility::string_t GetOutput() const;
+	void SetOutput(const utility::string_t& Value);
+	bool HasOutput() const;
+
+
+protected:
+	std::optional<utility::string_t> m_Output;
 };
 
 /// <summary>
@@ -10282,7 +12657,7 @@ public:
 	virtual ~SystemCreateRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10351,7 +12726,7 @@ public:
 	virtual ~SystemDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10540,7 +12915,7 @@ public:
 	virtual ~SystemDtoDataPage();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	const std::vector<std::shared_ptr<SystemDto>>& GetItems() const;
@@ -10592,7 +12967,7 @@ public:
 	virtual ~SystemThumbnailRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10625,7 +13000,7 @@ public:
 	virtual ~SystemUpdateRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10690,7 +13065,7 @@ public:
 	virtual ~TakeBatonRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10716,7 +13091,7 @@ public:
 	virtual ~TenancyLiteDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10766,7 +13141,7 @@ public:
 	virtual ~TenantAdminAccount();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10806,7 +13181,7 @@ public:
 	virtual ~TenantCleanupFilters();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10889,7 +13264,7 @@ public:
 	virtual ~TenantClientSettingsDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -10928,7 +13303,7 @@ public:
 	virtual ~TenantDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -11211,7 +13586,7 @@ public:
 	virtual ~TenantDtoDataPage();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	const std::vector<std::shared_ptr<TenantDto>>& GetItems() const;
@@ -11253,7 +13628,7 @@ public:
 	virtual ~TenantEmailSettingsDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -11319,7 +13694,7 @@ public:
 	virtual ~TenantEmailTemplateSettingsDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -11409,7 +13784,7 @@ public:
 	virtual ~TenantSecretKeyInfoDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -11443,7 +13818,7 @@ public:
 	virtual ~TenantSelfDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -11528,7 +13903,7 @@ public:
 	virtual ~TenantUpdateRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -11737,7 +14112,7 @@ public:
 	virtual ~TokenMatrixEntryDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -11869,7 +14244,7 @@ public:
 	virtual ~TokenMatrixEntryDtoDataPage();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	const std::vector<std::shared_ptr<TokenMatrixEntryDto>>& GetItems() const;
@@ -11911,7 +14286,7 @@ public:
 	virtual ~TokenMatrixEntryHistoryDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12069,7 +14444,7 @@ public:
 	virtual ~TokenOptions();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12111,7 +14486,7 @@ public:
 	virtual ~TokenResetPasswordRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12144,7 +14519,7 @@ public:
 	virtual ~TypedHostname();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12284,7 +14659,7 @@ public:
 	virtual ~UpdateApplicationSecretRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12387,7 +14762,7 @@ public:
 	virtual ~UpdateBillingMetricRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12469,7 +14844,7 @@ public:
 	virtual ~UpdateEmailSettingsRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12503,7 +14878,7 @@ public:
 	virtual ~UpdateMatrixTierPriceOverrideRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12553,7 +14928,7 @@ public:
 	virtual ~UpdatePricingSheetExceptionRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12603,7 +14978,7 @@ public:
 	virtual ~UpdatePricingSheetRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12652,7 +15027,7 @@ public:
 	virtual ~UpdateRolesRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12678,7 +15053,7 @@ public:
 	virtual ~UpdateTenantLiteRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12727,7 +15102,7 @@ public:
 	virtual ~UpdateTokenMatrixEntryRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12849,7 +15224,7 @@ public:
 	virtual ~UpgradeGuestRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -12940,7 +15315,7 @@ public:
 	virtual ~UpgradeGuestSocialRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -13033,7 +15408,7 @@ public:
 	virtual ~UpsertBillingSettingsRequest();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -13074,7 +15449,7 @@ public:
 	virtual ~UserQuery();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -13230,7 +15605,7 @@ public:
 	virtual ~UserRolesDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>
@@ -13262,7 +15637,7 @@ public:
 	virtual ~WazzupCapabilitiesDto();
 
 	utility::string_t ToJson() const override;
-	void FromJson(const utility::string_t& Json) override;
+	void FromJson(const utility::string_t& Json, csp::common::LogSystem& LogSystem) override;
 
 
 	/// <summary>

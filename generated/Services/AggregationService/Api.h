@@ -335,6 +335,498 @@ public:
 									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
+class ByoProvisioningAdminMachineActionsApi final : public IByoProvisioningAdminMachineActionsApiBase
+{
+public:
+	ByoProvisioningAdminMachineActionsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
+	virtual ~ByoProvisioningAdminMachineActionsApi();
+
+
+
+	/// <summary>
+	/// Creates a machine in a project: records it and its create job, and answers <b>202</b> with the machine. The hunt
+	/// runs afterwards; its progress is on the machine's job in flight. <b>400</b> for a bad request; <b>409</b> when the
+	/// project's access is not ready, the name is taken, or the project is at its ceiling.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/projects/{projectId}/machines
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminProjectsProjectIdMachinesPost(const byo_provisioningAdminProjectsProjectIdMachinesPostParams& Params,
+															csp::services::ApiResponseHandlerBase* ResponseHandler,
+															csp::common::CancellationToken& CancellationToken
+															= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Asks a create in flight to stop. An insert already running finishes first, and anything it made is deleted.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/cancel
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminMachinesIdCancelPost(const byo_provisioningAdminMachinesIdCancelPostParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken
+												   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Starts the machine's last failed action again, as a new job.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/retry
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminMachinesIdRetryPost(const byo_provisioningAdminMachinesIdRetryPostParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken
+												  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Puts away a create that ended without making a machine. It moves to the Gone view, with its reason.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/dismiss
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminMachinesIdDismissPost(const byo_provisioningAdminMachinesIdDismissPostParams& Params,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken
+													= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Starts a stopped machine Magnopus created or took over. <b>409</b> while another action is in progress, or
+	/// unless it is stopped.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/start
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminMachinesIdStartPost(const byo_provisioningAdminMachinesIdStartPostParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken
+												  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Stops a running machine Magnopus created or took over. <b>409</b> unless it is running.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/stop
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminMachinesIdStopPost(const byo_provisioningAdminMachinesIdStopPostParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken
+												 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Deletes a machine Magnopus created or took over, and the spike's firewall rules for it. Work in flight on it is
+	/// lost. <b>409</b> for an orphan, which must be adopted first.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/delete
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminMachinesIdDeletePost(const byo_provisioningAdminMachinesIdDeletePostParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken
+												   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Takes ownership of an orphan: labels it as ours, with a purpose and a lease. <b>400</b> without a purpose;
+	/// <b>409</b> unless it is a present orphan.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/adopt
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminMachinesIdAdoptPost(const byo_provisioningAdminMachinesIdAdoptPostParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken
+												  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Moves a machine's lease, on its record and its label. The reason is audited with who asked. <b>400</b> without
+	/// a reason, or for a lease outside 1 hour to the environment's maximum.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/lease
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminMachinesIdLeasePost(const byo_provisioningAdminMachinesIdLeasePostParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken
+												  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// The machine's jobs, newest first, with every hunt attempt: where it tried and why each failed (S5).
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/admin/machines/{id}/jobs
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminMachinesIdJobsGet(const byo_provisioningAdminMachinesIdJobsGetParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken
+												= csp::common::CancellationToken::Dummy()) const override;
+};
+
+class ByoProvisioningAdminMachinesApi final : public IByoProvisioningAdminMachinesApiBase
+{
+public:
+	ByoProvisioningAdminMachinesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
+	virtual ~ByoProvisioningAdminMachinesApi();
+
+
+
+	/// <summary>
+	/// Every tenant's machines, or one tenant's when tenantName is given, in one view and sort.
+	/// Reads our records only; Google is never called per page.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/admin/machines
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminMachinesGet(const byo_provisioningAdminMachinesGetParams& Params,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// What the sweep last found in each project, every tenant's or one's: when, what failed, which zones Google could
+	/// not answer for, and the counts. The list's banner and the project's machines card read it.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/admin/machines/inventory
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminMachinesInventoryGet(const byo_provisioningAdminMachinesInventoryGetParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken
+												   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// <b>Sweep now</b>: lists one project's machines straight away rather than at its next turn, and returns what the
+	///             sweep found. It takes the same claim the timer does. <b>409</b> while a sweep holds the project, within 30 seconds
+	///             of the last attempt, or when the project's access is not ready. A Google failure is still <b>200</b>: it is
+	///             recorded on the returned row, as the timer records it.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/inventory/{projectId}/sweep
+	/// Takes no request cancellation token, like the access check: the sweep changes nothing in Google, but finishing it
+	/// records its result and releases its claim for whoever looks next.
+	/// </remarks>
+	void byo_provisioningAdminMachinesInventoryProjectIdSweepPost(const byo_provisioningAdminMachinesInventoryProjectIdSweepPostParams& Params,
+																  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																  csp::common::CancellationToken& CancellationToken
+																  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// One machine, in any tenant, with its project's state for the link back.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/admin/machines/{id}
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminMachinesIdGet(const byo_provisioningAdminMachinesIdGetParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken
+											= csp::common::CancellationToken::Dummy()) const override;
+};
+
+class ByoProvisioningAdminProjectsApi final : public IByoProvisioningAdminProjectsApiBase
+{
+public:
+	ByoProvisioningAdminProjectsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
+	virtual ~ByoProvisioningAdminProjectsApi();
+
+
+
+	/// <summary>
+	/// Every tenant's projects, or one tenant's when tenantName is given. Paged, most recently
+	/// changed first; search is a contains-match on the GCP project id and tenant name.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/admin/projects
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminProjectsGet(const byo_provisioningAdminProjectsGetParams& Params,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Connects a GCP project to a tenant and starts its setup. <b>201</b> with the project; <b>409</b> when the
+	/// project is already connected (decided by the unique index), with the existing project in the body, owning
+	/// tenant included, so the operator can see where it went.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/projects
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminProjectsPost(const byo_provisioningAdminProjectsPostParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken
+										   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// One project, in any tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/admin/projects/{id}
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminProjectsIdGet(const byo_provisioningAdminProjectsIdGetParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken
+											= csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Offboards a project in any tenant: moves it to `Removing`, deletes its operator account, then moves it to
+	/// `Removed`. <b>200</b> with the removed project. Idempotent: a removal that failed partway (<b>500</b>, the
+	/// project left in `Removing` with its last error) is finished by calling this again. <b>409</b> while another
+	/// change to the project is in progress.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/byo-provisioning/admin/projects/{id}
+	/// Takes no request cancellation token, like the operator step: a client that disconnects must not leave a GCP
+	/// delete half done. Removing again would finish it, but finishing it now saves the retry.
+	/// </remarks>
+	void byo_provisioningAdminProjectsIdDelete(const byo_provisioningAdminProjectsIdDeleteParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken
+											   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Step 2, in any tenant: ensures the project's operator account exists and returns what step 3 shows. Idempotent;
+	/// a project already past this step gets its details back unchanged. <b>409</b> while the project is being removed.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/projects/{id}/operator
+	/// Takes no request cancellation token on purpose: a client that disconnects must not abandon a GCP create
+	/// halfway. The step is idempotent either way, but finishing it saves a retry.
+	/// </remarks>
+	void byo_provisioningAdminProjectsIdOperatorPost(const byo_provisioningAdminProjectsIdOperatorPostParams& Params,
+													 csp::services::ApiResponseHandlerBase* ResponseHandler,
+													 csp::common::CancellationToken& CancellationToken
+													 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Step 4, in any tenant: validates and stores the customer's `terraform output -json`. <b>200</b> whether or
+	/// not it validated: the returned project's state and `outputValidationErrors` say which. <b>409</b> when
+	/// the project is not at a step that accepts an output, or another change to it is in progress.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/projects/{id}/terraform-output
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningAdminProjectsIdTerraform_outputPost(const byo_provisioningAdminProjectsIdTerraform_outputPostParams& Params,
+															 csp::services::ApiResponseHandlerBase* ResponseHandler,
+															 csp::common::CancellationToken& CancellationToken
+															 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Step 5, in any tenant: checks every permission the project's operator account needs, acting as that account.
+	/// <b>200</b> whether or not access is complete: the returned project's `lastAccessCheck` says which.
+	/// <b>409</b> before an output has been accepted, while the project is being removed, or while another change to
+	/// it is in progress. <b>500</b> when the check could not run at all, recorded as the project's last error.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/projects/{id}/access-check
+	/// Takes no request cancellation token, like the operator step: the check is read-only, but finishing it records
+	/// its result for whoever looks next.
+	/// </remarks>
+	void byo_provisioningAdminProjectsIdAccess_checkPost(const byo_provisioningAdminProjectsIdAccess_checkPostParams& Params,
+														 csp::services::ApiResponseHandlerBase* ResponseHandler,
+														 csp::common::CancellationToken& CancellationToken
+														 = csp::common::CancellationToken::Dummy()) const override;
+};
+
+class ByoProvisioningMachinesApi final : public IByoProvisioningMachinesApiBase
+{
+public:
+	ByoProvisioningMachinesApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
+	virtual ~ByoProvisioningMachinesApi();
+
+
+
+	/// <summary>
+	/// The caller's tenant's machines, in one view and sort.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/machines
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningMachinesGet(const byo_provisioningMachinesGetParams& Params,
+									 csp::services::ApiResponseHandlerBase* ResponseHandler,
+									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// What the sweep last found in each of the caller's tenant's projects.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/machines/inventory
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningMachinesInventoryGet(const byo_provisioningMachinesInventoryGetParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken
+											  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// One of the caller's tenant's machines. Another tenant's id is 404, not 403.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/machines/{id}
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningMachinesIdGet(const byo_provisioningMachinesIdGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+};
+
+class ByoProvisioningProjectsApi final : public IByoProvisioningProjectsApiBase
+{
+public:
+	ByoProvisioningProjectsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
+	virtual ~ByoProvisioningProjectsApi();
+
+
+
+	/// <summary>
+	/// The caller's tenant's projects. Paged, most recently changed first.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/projects
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningProjectsGet(const byo_provisioningProjectsGetParams& Params,
+									 csp::services::ApiResponseHandlerBase* ResponseHandler,
+									 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Connects a GCP project to the caller's tenant. <b>201</b> with the project. <b>409</b> when it is already
+	/// connected: with the project in the body when it is this tenant's (so setup resumes), and with no body when
+	/// it is another tenant's, which this surface is never told (Q7).
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/projects
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningProjectsPost(const byo_provisioningProjectsPostParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// One of the caller's tenant's projects. Another tenant's id is 404, not 403.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/projects/{id}
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningProjectsIdGet(const byo_provisioningProjectsIdGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Offboards one of the caller's tenant's projects: deletes our operator account for it and marks it removed,
+	/// which frees the slot it took under the tenant's cap. <b>200</b> with the removed project. Idempotent; a removal
+	/// that failed partway is finished by calling this again. Another tenant's id is 404.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/byo-provisioning/projects/{id}
+	/// No request cancellation token, for the reason the operator surface's twin gives.
+	/// </remarks>
+	void byo_provisioningProjectsIdDelete(const byo_provisioningProjectsIdDeleteParams& Params,
+										  csp::services::ApiResponseHandlerBase* ResponseHandler,
+										  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Step 2, for one of the caller's tenant's projects: ensures its operator account exists and returns what step 3
+	/// shows. Idempotent. Another tenant's id is 404.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/projects/{id}/operator
+	/// No request cancellation token, for the reason the operator surface's twin gives.
+	/// </remarks>
+	void byo_provisioningProjectsIdOperatorPost(const byo_provisioningProjectsIdOperatorPostParams& Params,
+												csp::services::ApiResponseHandlerBase* ResponseHandler,
+												csp::common::CancellationToken& CancellationToken
+												= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Step 4, for one of the caller's tenant's projects: validates and stores the pasted `terraform output -json`.
+	/// <b>200</b> whether or not it validated; the returned state and errors say which. Another tenant's id is 404.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/projects/{id}/terraform-output
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	void byo_provisioningProjectsIdTerraform_outputPost(const byo_provisioningProjectsIdTerraform_outputPostParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken
+														= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Step 5, for one of the caller's tenant's projects: checks every permission our operator account needs in it.
+	/// <b>200</b> whether or not access is complete; the returned project's `lastAccessCheck` lists each
+	/// permission and how to fix a missing one. Also how "Check again" re-checks. Another tenant's id is 404.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/projects/{id}/access-check
+	/// No request cancellation token, for the reason the operator surface's twin gives.
+	/// </remarks>
+	void byo_provisioningProjectsIdAccess_checkPost(const byo_provisioningProjectsIdAccess_checkPostParams& Params,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken
+													= csp::common::CancellationToken::Dummy()) const override;
+};
+
 class CacheApi final : public ICacheApiBase
 {
 public:
@@ -1504,12 +1996,222 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// POST /api/v1/inspector/executions/self-report
-	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// Also accepts the scoped run token (Magnopus.Logic.AccessControl.NodeyApplicationRolesConstants.GraphStatusUpdate),
+	/// which carries the same user and tenant claims, so a run that outlives the user's JWT still reports.
 	/// </remarks>
 	void inspectorExecutionsSelf_reportPost(const inspectorExecutionsSelf_reportPostParams& Params,
 											csp::services::ApiResponseHandlerBase* ResponseHandler,
 											csp::common::CancellationToken& CancellationToken
 											= csp::common::CancellationToken::Dummy()) const override;
+};
+
+class InspectorInsightsApi final : public IInspectorInsightsApiBase
+{
+public:
+	InspectorInsightsApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
+	virtual ~InspectorInsightsApi();
+
+
+
+	/// <summary>
+	/// Get the environment's analytics source as seen by the session tenant. The connection string is never returned.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/insights/source
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsSourceGet(const inspectorInsightsSourceGetParams& Params,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Ping the environment's analytics source and read its estimated count.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/insights/source/test
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsSourceTestPost(const inspectorInsightsSourceTestPostParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get the distinct values for the filter dropdowns over the filter's window.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/insights/filter-values
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsFilter_valuesPost(const inspectorInsightsFilter_valuesPostParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken
+											= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get the headline numbers for a filter.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/insights/summary
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsSummaryPost(const inspectorInsightsSummaryPostParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get events and active users per bucket. The bucket is chosen from the window when omitted.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/insights/timeseries
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsTimeseriesPost(const inspectorInsightsTimeseriesPostParams& Params,
+										 csp::services::ApiResponseHandlerBase* ResponseHandler,
+										 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get the top values of one dimension plus the long tail.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/insights/breakdown
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsBreakdownPost(const inspectorInsightsBreakdownPostParams& Params,
+										csp::services::ApiResponseHandlerBase* ResponseHandler,
+										csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get one keyset page of records. Pass the previous response's `nextCursor` to continue.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/insights/records
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsRecordsPost(const inspectorInsightsRecordsPostParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get the number of matching records.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/insights/records/count
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsRecordsCountPost(const inspectorInsightsRecordsCountPostParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken
+										   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get one record with its full metadata. `t` is the record's timestamp (epoch ms) from the list row.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/insights/records/{id}
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsRecordsIdGet(const inspectorInsightsRecordsIdGetParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Stream every matching record as NDJSON, ending with a `{"_end":true,...}` trailer.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/insights/records/stream
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsRecordsStreamPost(const inspectorInsightsRecordsStreamPostParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken
+											= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Download every matching record as CSV, streamed.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/insights/records/export
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsRecordsExportPost(const inspectorInsightsRecordsExportPostParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken
+											= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get a user's experiences, most recent first.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/insights/users/{userId}/journey
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsUsersUserIdJourneyPost(const inspectorInsightsUsersUserIdJourneyPostParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken
+												 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get one keyset page of a user's records.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/insights/users/{userId}/records
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsUsersUserIdRecordsPost(const inspectorInsightsUsersUserIdRecordsPostParams& Params,
+												 csp::services::ApiResponseHandlerBase* ResponseHandler,
+												 csp::common::CancellationToken& CancellationToken
+												 = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get stats for one experience: totals, top interactions and daily activity.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/insights/experiences/{experienceId}
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsExperiencesExperienceIdPost(const inspectorInsightsExperiencesExperienceIdPostParams& Params,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken
+													  = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Get session statistics per experience. A session ends after `gapMinutes` without activity.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/insights/sessions
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void inspectorInsightsSessionsPost(const inspectorInsightsSessionsPostParams& Params,
+									   csp::services::ApiResponseHandlerBase* ResponseHandler,
+									   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class InspectorMarketplaceApi final : public IInspectorMarketplaceApiBase
@@ -2109,6 +2811,79 @@ public:
 	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service,magnopus-agent
 	/// </remarks>
 	void watchtowerJiraReferenceUpsertPost(const watchtowerJiraReferenceUpsertPostParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken
+										   = csp::common::CancellationToken::Dummy()) const override;
+};
+
+class LoraTrainingJobApi final : public ILoraTrainingJobApiBase
+{
+public:
+	LoraTrainingJobApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
+	virtual ~LoraTrainingJobApi();
+
+
+
+	/// <summary>
+	/// Creates a new LORA training job. Called by Musubi when dispatching a training pipeline.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/lora-training-jobs
+	/// Authorization: graph-status-update
+	/// </remarks>
+	void lora_training_jobsPost(const lora_training_jobsPostParams& Params,
+								csp::services::ApiResponseHandlerBase* ResponseHandler,
+								csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Lists LORA training jobs owned by the current tenant and user.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/lora-training-jobs
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void lora_training_jobsGet(const lora_training_jobsGetParams& Params,
+							   csp::services::ApiResponseHandlerBase* ResponseHandler,
+							   csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Retrieves a single LORA training job scoped to the current tenant and user.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/lora-training-jobs/{jobId}
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void lora_training_jobsJobIdGet(const lora_training_jobsJobIdGetParams& Params,
+									csp::services::ApiResponseHandlerBase* ResponseHandler,
+									csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Updates the status and progress of a LORA training job. Called by Musubi runners.
+	/// </summary>
+	/// <remarks>
+	/// PATCH /api/v1/lora-training-jobs/{jobId}/status
+	/// Authorization: graph-status-update
+	/// </remarks>
+	void lora_training_jobsJobIdStatusPatch(const lora_training_jobsJobIdStatusPatchParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken
+											= csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Cancels a queued or running LORA training job for the current owner.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/lora-training-jobs/{jobId}/cancel
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	void lora_training_jobsJobIdCancelPost(const lora_training_jobsJobIdCancelPostParams& Params,
 										   csp::services::ApiResponseHandlerBase* ResponseHandler,
 										   csp::common::CancellationToken& CancellationToken
 										   = csp::common::CancellationToken::Dummy()) const override;
@@ -2782,6 +3557,52 @@ public:
 	void my_organizationPut(const my_organizationPutParams& Params,
 							csp::services::ApiResponseHandlerBase* ResponseHandler,
 							csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// The workspaces of this organization that the caller belongs to, each with its app links (CHS-5996, "4-lite").
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/my-organization/workspaces
+	///
+	/// <b>Every member, not only admins.</b> This is the one organization read an end user may make, and it is a
+	///             separate, deliberately narrower read rather than a relaxation of
+	///             M:Olympus.Service.Aggregation.Controllers.MyOrganizationController.Get: ⚠ do not loosen `ResolveAdministeredOrganization`'s
+	///             `IsAdmin()` check to reach it, because its callers depend on it.
+	/// <b>What a caller can see, and why it cannot be widened from the request.</b> The organization is the one the
+	///             caller's <i>current</i> tenant administers. The workspaces are that organization's tenants where the caller's
+	///             <i>own</i> email has a profile, read through the User service with the caller's own token (it takes the email
+	///             from that token and refuses any user id but the caller's). The route takes no email, organization id or
+	///             tenant, so there is nothing to vary and nobody else's membership to enumerate.
+	/// <b>404 is the ordinary answer</b>, as for M:Olympus.Service.Aggregation.Controllers.MyOrganizationController.Get: almost every tenant
+	/// administers no organization,
+	///             and the Apps page asks this of every user to decide whether to show the list at all.
+	/// </remarks>
+	void my_organizationWorkspacesGet(const my_organizationWorkspacesGetParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Set the organization's member policy (CHS-5995, plan Q4): whether a person who is added to one of its
+	/// workspaces and arrives already confirmed is sent an "added to {workspace}" email, or nothing.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/my-organization/member-settings
+	///
+	/// Stored on the organization's <b>administrative</b> tenant, which is where the User service reads it, so one
+	///             setting governs every workspace. The tenant is resolved from the caller's, never from the body: the same
+	///             rule, and the same refusals, as
+	///             M:Olympus.Service.Aggregation.Controllers.MyOrganizationController.Rename(Olympus.Service.Aggregation.Controllers.RenameMyOrganizationRequest).
+	/// A tier-2 verb by D38's own test: it reaches into nothing outside the organization and settles no
+	///             undesigned question.
+	/// </remarks>
+	void my_organizationMember_settingsPut(const my_organizationMember_settingsPutParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken
+										   = csp::common::CancellationToken::Dummy()) const override;
 };
 
 class NodeDefinitionApi final : public INodeDefinitionApiBase
@@ -2836,6 +3657,67 @@ public:
 					 csp::common::CancellationToken& CancellationToken = csp::common::CancellationToken::Dummy()) const override;
 };
 
+class OrganizationGroupApi final : public IOrganizationGroupApiBase
+{
+public:
+	OrganizationGroupApi(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition);
+	virtual ~OrganizationGroupApi();
+
+
+
+	/// <summary>
+	/// The organization's groups, with their members.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/organizations/{organizationId}/groups
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void organizationsOrganizationIdGroupsGet(const organizationsOrganizationIdGroupsGetParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken
+											  = csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Create a group.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/organizations/{organizationId}/groups
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void organizationsOrganizationIdGroupsPost(const organizationsOrganizationIdGroupsPostParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken
+											   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
+	/// Add one of the administrative tenant's users to a group.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/organizations/{organizationId}/groups/{groupId}/users/{userId}
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void organizationsOrganizationIdGroupsGroupIdUsersUserIdPut(const organizationsOrganizationIdGroupsGroupIdUsersUserIdPutParams& Params,
+																csp::services::ApiResponseHandlerBase* ResponseHandler,
+																csp::common::CancellationToken& CancellationToken
+																= csp::common::CancellationToken::Dummy()) const override;
+
+
+	/// <summary>
+	/// Take someone out of a group. Workspaces they were already added to keep them (plan §8).
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/organizations/{organizationId}/groups/{groupId}/users/{userId}
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
+	/// </remarks>
+	void organizationsOrganizationIdGroupsGroupIdUsersUserIdDelete(const organizationsOrganizationIdGroupsGroupIdUsersUserIdDeleteParams& Params,
+																   csp::services::ApiResponseHandlerBase* ResponseHandler,
+																   csp::common::CancellationToken& CancellationToken
+																   = csp::common::CancellationToken::Dummy()) const override;
+};
+
 class OrganizationTenantApi final : public IOrganizationTenantApiBase
 {
 public:
@@ -2849,7 +3731,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// POST /api/v1/organizations/{organizationId}/tenants/spin-up
-	/// !AUTHORIZATION REQUIREMENTS NOT SET!
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void organizationsOrganizationIdTenantsSpin_upPost(const organizationsOrganizationIdTenantsSpin_upPostParams& Params,
 													   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -2872,7 +3754,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/organizations/{organizationId}/tenants/check-address
-	/// !AUTHORIZATION REQUIREMENTS NOT SET!
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void organizationsOrganizationIdTenantsCheck_addressGet(const organizationsOrganizationIdTenantsCheck_addressGetParams& Params,
 															csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -2886,7 +3768,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	/// POST /api/v1/organizations/{organizationId}/tenants/{tenantId}/prepare
-	/// !AUTHORIZATION REQUIREMENTS NOT SET!
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void organizationsOrganizationIdTenantsTenantIdPreparePost(const organizationsOrganizationIdTenantsTenantIdPreparePostParams& Params,
 															   csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -2911,11 +3793,29 @@ public:
 
 
 	/// <summary>
+	/// Add the people in some of the organization's groups to this workspace (CHS-5995, plan §3.3), as `enduser`.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/organizations/{organizationId}/tenants/{tenantId}/members
+	///
+	/// The organization-level "add a group to a workspace" verb. Gated like every per-workspace verb here: the caller
+	///             administers the organization, and the organization owns the tenant. Which groups count is the User service's
+	///             call, from the tenant's organization, so a group id from anywhere else is refused there.
+	/// Additive only. Removing people, per-person matrices and group-scoped roles are deferred (plan §8).
+	/// </remarks>
+	void organizationsOrganizationIdTenantsTenantIdMembersPost(const organizationsOrganizationIdTenantsTenantIdMembersPostParams& Params,
+															   csp::services::ApiResponseHandlerBase* ResponseHandler,
+															   csp::common::CancellationToken& CancellationToken
+															   = csp::common::CancellationToken::Dummy()) const override;
+
+
+
+	/// <summary>
 	/// Where a spin-up has got to. The endpoint the stepper polls.
 	/// </summary>
 	/// <remarks>
 	/// GET /api/v1/organizations/{organizationId}/tenants/{tenantId}/status
-	/// !AUTHORIZATION REQUIREMENTS NOT SET!
+	/// Authorization: magnopus-admin,magnopus-support,admin,support,internal-service
 	/// </remarks>
 	void organizationsOrganizationIdTenantsTenantIdStatusGet(const organizationsOrganizationIdTenantsTenantIdStatusGetParams& Params,
 															 csp::services::ApiResponseHandlerBase* ResponseHandler,

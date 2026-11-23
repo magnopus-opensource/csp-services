@@ -265,7 +265,7 @@ public:
 
 	/// <summary>
 	/// List secret definitions for an application.
-	/// Magnopus-admin / magnopus-support: returns all definitions with AllowedTenants field.
+	/// Magnopus-admin / magnopus-support / internal-service: returns all definitions with AllowedTenants field.
 	/// Tenant users: returns only definitions visible to their tenant, without AllowedTenants.
 	/// </summary>
 	/// <remarks>
@@ -981,6 +981,46 @@ public:
 	virtual void usersRefreshPost(const usersRefreshPostParams& Params,
 								  csp::services::ApiResponseHandlerBase* ResponseHandler,
 								  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct usersOnetimekeyPostParams
+	{
+		const std::shared_ptr<OneTimeKeyRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Provides a onetime key that can be exchanged for MGS token
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/users/onetimekey
+	/// Authorization: magnopus-admin,admin,support,internal-service,external-service,monitor,creator,enduser,tester,account-manager,limited-creator
+	/// </remarks>
+	virtual void usersOnetimekeyPost(const usersOnetimekeyPostParams& Params,
+									 csp::services::ApiResponseHandlerBase* ResponseHandler,
+									 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct usersKeyexchangePostParams
+	{
+		const std::shared_ptr<ExchangeKeyRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Provides ability to exchange one time key for authentication tokens (access token and refresh token)
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/users/keyexchange
+	/// Authorization: Anonymous
+	/// </remarks>
+	virtual void usersKeyexchangePost(const usersKeyexchangePostParams& Params,
+									  csp::services::ApiResponseHandlerBase* ResponseHandler,
+									  csp::common::CancellationToken& CancellationToken) const
 		= 0;
 
 
@@ -2189,6 +2229,746 @@ public:
 
 protected:
 	virtual ~IBillingMatrixApiBase() = default;
+};
+
+class IByoProvisioningAdminMachineActionsApiBase : public csp::services::ApiBase
+{
+public:
+	IByoProvisioningAdminMachineActionsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
+	{
+	}
+
+
+
+	struct byo_provisioningAdminProjectsProjectIdMachinesPostParams
+	{
+		const utility::string_t& projectId;
+		const std::shared_ptr<CreateMachineRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Creates a machine in a project: records it and its create job, and answers <b>202</b> with the machine. The hunt
+	/// runs afterwards; its progress is on the machine's job in flight. <b>400</b> for a bad request; <b>409</b> when the
+	/// project's access is not ready, the name is taken, or the project is at its ceiling.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/projects/{projectId}/machines
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminProjectsProjectIdMachinesPost(const byo_provisioningAdminProjectsProjectIdMachinesPostParams& Params,
+																	csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminMachinesIdCancelPostParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// Asks a create in flight to stop. An insert already running finishes first, and anything it made is deleted.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/cancel
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminMachinesIdCancelPost(const byo_provisioningAdminMachinesIdCancelPostParams& Params,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminMachinesIdRetryPostParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// Starts the machine's last failed action again, as a new job.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/retry
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminMachinesIdRetryPost(const byo_provisioningAdminMachinesIdRetryPostParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminMachinesIdDismissPostParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// Puts away a create that ended without making a machine. It moves to the Gone view, with its reason.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/dismiss
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminMachinesIdDismissPost(const byo_provisioningAdminMachinesIdDismissPostParams& Params,
+															csp::services::ApiResponseHandlerBase* ResponseHandler,
+															csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminMachinesIdStartPostParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// Starts a stopped machine Magnopus created or took over. <b>409</b> while another action is in progress, or
+	/// unless it is stopped.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/start
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminMachinesIdStartPost(const byo_provisioningAdminMachinesIdStartPostParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminMachinesIdStopPostParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// Stops a running machine Magnopus created or took over. <b>409</b> unless it is running.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/stop
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminMachinesIdStopPost(const byo_provisioningAdminMachinesIdStopPostParams& Params,
+														 csp::services::ApiResponseHandlerBase* ResponseHandler,
+														 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminMachinesIdDeletePostParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// Deletes a machine Magnopus created or took over, and the spike's firewall rules for it. Work in flight on it is
+	/// lost. <b>409</b> for an orphan, which must be adopted first.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/delete
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminMachinesIdDeletePost(const byo_provisioningAdminMachinesIdDeletePostParams& Params,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminMachinesIdAdoptPostParams
+	{
+		const utility::string_t& id;
+		const std::shared_ptr<AdoptMachineRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Takes ownership of an orphan: labels it as ours, with a purpose and a lease. <b>400</b> without a purpose;
+	/// <b>409</b> unless it is a present orphan.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/adopt
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminMachinesIdAdoptPost(const byo_provisioningAdminMachinesIdAdoptPostParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminMachinesIdLeasePostParams
+	{
+		const utility::string_t& id;
+		const std::shared_ptr<ExtendMachineLeaseRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Moves a machine's lease, on its record and its label. The reason is audited with who asked. <b>400</b> without
+	/// a reason, or for a lease outside 1 hour to the environment's maximum.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/{id}/lease
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminMachinesIdLeasePost(const byo_provisioningAdminMachinesIdLeasePostParams& Params,
+														  csp::services::ApiResponseHandlerBase* ResponseHandler,
+														  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminMachinesIdJobsGetParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// The machine's jobs, newest first, with every hunt attempt: where it tried and why each failed (S5).
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/admin/machines/{id}/jobs
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminMachinesIdJobsGet(const byo_provisioningAdminMachinesIdJobsGetParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IByoProvisioningAdminMachineActionsApiBase() = default;
+};
+
+class IByoProvisioningAdminMachinesApiBase : public csp::services::ApiBase
+{
+public:
+	IByoProvisioningAdminMachinesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
+	{
+	}
+
+
+
+	struct byo_provisioningAdminMachinesGetParams
+	{
+		const std::optional<utility::string_t>& tenantName;
+		const std::optional<utility::string_t>& View;
+		const std::optional<utility::string_t>& Sort;
+		const std::optional<utility::string_t>& Search;
+		const std::optional<utility::string_t>& ProjectId;
+		const std::optional<int32_t>& Skip;
+		const std::optional<int32_t>& Limit;
+	};
+
+
+	/// <summary>
+	/// Every tenant's machines, or one tenant's when tenantName is given, in one view and sort.
+	/// Reads our records only; Google is never called per page.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/admin/machines
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminMachinesGet(const byo_provisioningAdminMachinesGetParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminMachinesInventoryGetParams
+	{
+		const std::optional<utility::string_t>& tenantName;
+	};
+
+
+	/// <summary>
+	/// What the sweep last found in each project, every tenant's or one's: when, what failed, which zones Google could
+	/// not answer for, and the counts. The list's banner and the project's machines card read it.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/admin/machines/inventory
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminMachinesInventoryGet(const byo_provisioningAdminMachinesInventoryGetParams& Params,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminMachinesInventoryProjectIdSweepPostParams
+	{
+		const utility::string_t& projectId;
+	};
+
+
+	/// <summary>
+	/// <b>Sweep now</b>: lists one project's machines straight away rather than at its next turn, and returns what the
+	///             sweep found. It takes the same claim the timer does. <b>409</b> while a sweep holds the project, within 30 seconds
+	///             of the last attempt, or when the project's access is not ready. A Google failure is still <b>200</b>: it is
+	///             recorded on the returned row, as the timer records it.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/machines/inventory/{projectId}/sweep
+	/// Takes no request cancellation token, like the access check: the sweep changes nothing in Google, but finishing it
+	/// records its result and releases its claim for whoever looks next.
+	/// </remarks>
+	virtual void
+		byo_provisioningAdminMachinesInventoryProjectIdSweepPost(const byo_provisioningAdminMachinesInventoryProjectIdSweepPostParams& Params,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminMachinesIdGetParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// One machine, in any tenant, with its project's state for the link back.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/admin/machines/{id}
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminMachinesIdGet(const byo_provisioningAdminMachinesIdGetParams& Params,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IByoProvisioningAdminMachinesApiBase() = default;
+};
+
+class IByoProvisioningAdminProjectsApiBase : public csp::services::ApiBase
+{
+public:
+	IByoProvisioningAdminProjectsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
+	{
+	}
+
+
+
+	struct byo_provisioningAdminProjectsGetParams
+	{
+		const std::optional<utility::string_t>& tenantName;
+		const std::optional<utility::string_t>& search;
+		const std::optional<int32_t>& Skip;
+		const std::optional<int32_t>& Limit;
+	};
+
+
+	/// <summary>
+	/// Every tenant's projects, or one tenant's when tenantName is given. Paged, most recently
+	/// changed first; search is a contains-match on the GCP project id and tenant name.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/admin/projects
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminProjectsGet(const byo_provisioningAdminProjectsGetParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct byo_provisioningAdminProjectsPostParams
+	{
+		const std::shared_ptr<RegisterProjectRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Connects a GCP project to a tenant and starts its setup. <b>201</b> with the project; <b>409</b> when the
+	/// project is already connected (decided by the unique index), with the existing project in the body, owning
+	/// tenant included, so the operator can see where it went.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/projects
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminProjectsPost(const byo_provisioningAdminProjectsPostParams& Params,
+												   csp::services::ApiResponseHandlerBase* ResponseHandler,
+												   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminProjectsIdGetParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// One project, in any tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/admin/projects/{id}
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminProjectsIdGet(const byo_provisioningAdminProjectsIdGetParams& Params,
+													csp::services::ApiResponseHandlerBase* ResponseHandler,
+													csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct byo_provisioningAdminProjectsIdDeleteParams
+	{
+		const utility::string_t& id;
+		const std::optional<bool>& confirm;
+	};
+
+
+	/// <summary>
+	/// Offboards a project in any tenant: moves it to `Removing`, deletes its operator account, then moves it to
+	/// `Removed`. <b>200</b> with the removed project. Idempotent: a removal that failed partway (<b>500</b>, the
+	/// project left in `Removing` with its last error) is finished by calling this again. <b>409</b> while another
+	/// change to the project is in progress.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/byo-provisioning/admin/projects/{id}
+	/// Takes no request cancellation token, like the operator step: a client that disconnects must not leave a GCP
+	/// delete half done. Removing again would finish it, but finishing it now saves the retry.
+	/// </remarks>
+	virtual void byo_provisioningAdminProjectsIdDelete(const byo_provisioningAdminProjectsIdDeleteParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminProjectsIdOperatorPostParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// Step 2, in any tenant: ensures the project's operator account exists and returns what step 3 shows. Idempotent;
+	/// a project already past this step gets its details back unchanged. <b>409</b> while the project is being removed.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/projects/{id}/operator
+	/// Takes no request cancellation token on purpose: a client that disconnects must not abandon a GCP create
+	/// halfway. The step is idempotent either way, but finishing it saves a retry.
+	/// </remarks>
+	virtual void byo_provisioningAdminProjectsIdOperatorPost(const byo_provisioningAdminProjectsIdOperatorPostParams& Params,
+															 csp::services::ApiResponseHandlerBase* ResponseHandler,
+															 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminProjectsIdTerraform_outputPostParams
+	{
+		const utility::string_t& id;
+		const std::shared_ptr<SubmitTerraformOutputRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Step 4, in any tenant: validates and stores the customer's `terraform output -json`. <b>200</b> whether or
+	/// not it validated: the returned project's state and `outputValidationErrors` say which. <b>409</b> when
+	/// the project is not at a step that accepts an output, or another change to it is in progress.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/projects/{id}/terraform-output
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningAdminProjectsIdTerraform_outputPost(const byo_provisioningAdminProjectsIdTerraform_outputPostParams& Params,
+																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningAdminProjectsIdAccess_checkPostParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// Step 5, in any tenant: checks every permission the project's operator account needs, acting as that account.
+	/// <b>200</b> whether or not access is complete: the returned project's `lastAccessCheck` says which.
+	/// <b>409</b> before an output has been accepted, while the project is being removed, or while another change to
+	/// it is in progress. <b>500</b> when the check could not run at all, recorded as the project's last error.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/admin/projects/{id}/access-check
+	/// Takes no request cancellation token, like the operator step: the check is read-only, but finishing it records
+	/// its result for whoever looks next.
+	/// </remarks>
+	virtual void byo_provisioningAdminProjectsIdAccess_checkPost(const byo_provisioningAdminProjectsIdAccess_checkPostParams& Params,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IByoProvisioningAdminProjectsApiBase() = default;
+};
+
+class IByoProvisioningMachinesApiBase : public csp::services::ApiBase
+{
+public:
+	IByoProvisioningMachinesApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
+	{
+	}
+
+
+
+	struct byo_provisioningMachinesGetParams
+	{
+		const std::optional<utility::string_t>& View;
+		const std::optional<utility::string_t>& Sort;
+		const std::optional<utility::string_t>& Search;
+		const std::optional<utility::string_t>& ProjectId;
+		const std::optional<int32_t>& Skip;
+		const std::optional<int32_t>& Limit;
+	};
+
+
+	/// <summary>
+	/// The caller's tenant's machines, in one view and sort.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/machines
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningMachinesGet(const byo_provisioningMachinesGetParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningMachinesInventoryGetParams
+	{
+	};
+
+
+	/// <summary>
+	/// What the sweep last found in each of the caller's tenant's projects.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/machines/inventory
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningMachinesInventoryGet(const byo_provisioningMachinesInventoryGetParams& Params,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningMachinesIdGetParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// One of the caller's tenant's machines. Another tenant's id is 404, not 403.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/machines/{id}
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningMachinesIdGet(const byo_provisioningMachinesIdGetParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IByoProvisioningMachinesApiBase() = default;
+};
+
+class IByoProvisioningProjectsApiBase : public csp::services::ApiBase
+{
+public:
+	IByoProvisioningProjectsApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
+	{
+	}
+
+
+
+	struct byo_provisioningProjectsGetParams
+	{
+		const std::optional<utility::string_t>& search;
+		const std::optional<int32_t>& Skip;
+		const std::optional<int32_t>& Limit;
+	};
+
+
+	/// <summary>
+	/// The caller's tenant's projects. Paged, most recently changed first.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/projects
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningProjectsGet(const byo_provisioningProjectsGetParams& Params,
+											 csp::services::ApiResponseHandlerBase* ResponseHandler,
+											 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct byo_provisioningProjectsPostParams
+	{
+		const std::shared_ptr<RegisterOwnProjectRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Connects a GCP project to the caller's tenant. <b>201</b> with the project. <b>409</b> when it is already
+	/// connected: with the project in the body when it is this tenant's (so setup resumes), and with no body when
+	/// it is another tenant's, which this surface is never told (Q7).
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/projects
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningProjectsPost(const byo_provisioningProjectsPostParams& Params,
+											  csp::services::ApiResponseHandlerBase* ResponseHandler,
+											  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningProjectsIdGetParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// One of the caller's tenant's projects. Another tenant's id is 404, not 403.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/byo-provisioning/projects/{id}
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningProjectsIdGet(const byo_provisioningProjectsIdGetParams& Params,
+											   csp::services::ApiResponseHandlerBase* ResponseHandler,
+											   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct byo_provisioningProjectsIdDeleteParams
+	{
+		const utility::string_t& id;
+		const std::optional<bool>& confirm;
+	};
+
+
+	/// <summary>
+	/// Offboards one of the caller's tenant's projects: deletes our operator account for it and marks it removed,
+	/// which frees the slot it took under the tenant's cap. <b>200</b> with the removed project. Idempotent; a removal
+	/// that failed partway is finished by calling this again. Another tenant's id is 404.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/byo-provisioning/projects/{id}
+	/// No request cancellation token, for the reason the operator surface's twin gives.
+	/// </remarks>
+	virtual void byo_provisioningProjectsIdDelete(const byo_provisioningProjectsIdDeleteParams& Params,
+												  csp::services::ApiResponseHandlerBase* ResponseHandler,
+												  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningProjectsIdOperatorPostParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// Step 2, for one of the caller's tenant's projects: ensures its operator account exists and returns what step 3
+	/// shows. Idempotent. Another tenant's id is 404.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/projects/{id}/operator
+	/// No request cancellation token, for the reason the operator surface's twin gives.
+	/// </remarks>
+	virtual void byo_provisioningProjectsIdOperatorPost(const byo_provisioningProjectsIdOperatorPostParams& Params,
+														csp::services::ApiResponseHandlerBase* ResponseHandler,
+														csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningProjectsIdTerraform_outputPostParams
+	{
+		const utility::string_t& id;
+		const std::shared_ptr<SubmitTerraformOutputRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Step 4, for one of the caller's tenant's projects: validates and stores the pasted `terraform output -json`.
+	/// <b>200</b> whether or not it validated; the returned state and errors say which. Another tenant's id is 404.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/projects/{id}/terraform-output
+	/// Authorization: admin,support,magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void byo_provisioningProjectsIdTerraform_outputPost(const byo_provisioningProjectsIdTerraform_outputPostParams& Params,
+																csp::services::ApiResponseHandlerBase* ResponseHandler,
+																csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct byo_provisioningProjectsIdAccess_checkPostParams
+	{
+		const utility::string_t& id;
+	};
+
+
+	/// <summary>
+	/// Step 5, for one of the caller's tenant's projects: checks every permission our operator account needs in it.
+	/// <b>200</b> whether or not access is complete; the returned project's `lastAccessCheck` lists each
+	/// permission and how to fix a missing one. Also how "Check again" re-checks. Another tenant's id is 404.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/byo-provisioning/projects/{id}/access-check
+	/// No request cancellation token, for the reason the operator surface's twin gives.
+	/// </remarks>
+	virtual void byo_provisioningProjectsIdAccess_checkPost(const byo_provisioningProjectsIdAccess_checkPostParams& Params,
+															csp::services::ApiResponseHandlerBase* ResponseHandler,
+															csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IByoProvisioningProjectsApiBase() = default;
 };
 
 class ICacheApiBase : public csp::services::ApiBase
@@ -3610,6 +4390,186 @@ protected:
 	virtual ~IGroupApiBase() = default;
 };
 
+class IInspectorOrganizationApiBase : public csp::services::ApiBase
+{
+public:
+	IInspectorOrganizationApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
+	{
+	}
+
+
+
+	struct inspectorOrganizationsGetParams
+	{
+		const std::optional<utility::string_t>& search;
+		const std::optional<int64_t>& modifiedSince;
+		const std::optional<int32_t>& skip;
+		const std::optional<int32_t>& limit;
+	};
+
+
+	/// <summary>
+	/// List / search organizations across all tenants. Only accessible from the MAG_SUP tenant.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/organizations
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorOrganizationsGet(const inspectorOrganizationsGetParams& Params,
+										   csp::services::ApiResponseHandlerBase* ResponseHandler,
+										   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct inspectorOrganizationsPostParams
+	{
+		const std::shared_ptr<CreateOrganizationRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Create an organization over an existing, unowned tenant, which becomes its administrative tenant.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/organizations
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorOrganizationsPost(const inspectorOrganizationsPostParams& Params,
+											csp::services::ApiResponseHandlerBase* ResponseHandler,
+											csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorOrganizationsOrganizationIdGetParams
+	{
+		const utility::string_t& organizationId;
+	};
+
+
+	/// <summary>
+	/// Read one organization with the tenants it owns.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/inspector/organizations/{organizationId}
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorOrganizationsOrganizationIdGet(const inspectorOrganizationsOrganizationIdGetParams& Params,
+														 csp::services::ApiResponseHandlerBase* ResponseHandler,
+														 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct inspectorOrganizationsOrganizationIdPutParams
+	{
+		const utility::string_t& organizationId;
+		const std::shared_ptr<RenameOrganizationRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Rename an organization.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/inspector/organizations/{organizationId}
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorOrganizationsOrganizationIdPut(const inspectorOrganizationsOrganizationIdPutParams& Params,
+														 csp::services::ApiResponseHandlerBase* ResponseHandler,
+														 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorOrganizationsOrganizationIdTenantsPostParams
+	{
+		const utility::string_t& organizationId;
+		const std::shared_ptr<OrganizationTenantRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Bring an existing tenant under this organization.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/inspector/organizations/{organizationId}/tenants
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorOrganizationsOrganizationIdTenantsPost(const inspectorOrganizationsOrganizationIdTenantsPostParams& Params,
+																 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorOrganizationsOrganizationIdTenantsTenantNameDeleteParams
+	{
+		const utility::string_t& organizationId;
+		const utility::string_t& tenantName;
+	};
+
+
+	/// <summary>
+	/// Remove a tenant from this organization. Refused for the administrative tenant while others remain.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/inspector/organizations/{organizationId}/tenants/{tenantName}
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void
+		inspectorOrganizationsOrganizationIdTenantsTenantNameDelete(const inspectorOrganizationsOrganizationIdTenantsTenantNameDeleteParams& Params,
+																	csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorOrganizationsOrganizationIdAdministrative_tenantPutParams
+	{
+		const utility::string_t& organizationId;
+		const std::shared_ptr<OrganizationTenantRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Repoint the organization's administrative tenant at another tenant it already owns.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/inspector/organizations/{organizationId}/administrative-tenant
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void
+		inspectorOrganizationsOrganizationIdAdministrative_tenantPut(const inspectorOrganizationsOrganizationIdAdministrative_tenantPutParams& Params,
+																	 csp::services::ApiResponseHandlerBase* ResponseHandler,
+																	 csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct inspectorOrganizationsOrganizationIdOwnerPutParams
+	{
+		const utility::string_t& organizationId;
+		const std::shared_ptr<SetOrganizationOwnerRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Transfer ownership of the organization to another user.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/inspector/organizations/{organizationId}/owner
+	/// Authorization: magnopus-admin,magnopus-support
+	/// </remarks>
+	virtual void inspectorOrganizationsOrganizationIdOwnerPut(const inspectorOrganizationsOrganizationIdOwnerPutParams& Params,
+															  csp::services::ApiResponseHandlerBase* ResponseHandler,
+															  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IInspectorOrganizationApiBase() = default;
+};
+
 class IInventoryApiBase : public csp::services::ApiBase
 {
 public:
@@ -4045,6 +5005,137 @@ public:
 
 protected:
 	virtual ~INtpApiBase() = default;
+};
+
+class IOrganizationGroupApiBase : public csp::services::ApiBase
+{
+public:
+	IOrganizationGroupApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
+	{
+	}
+
+
+
+	struct organizationsOrganizationIdGroupsGetParams
+	{
+		const utility::string_t& organizationId;
+	};
+
+
+	/// <summary>
+	/// The organization's groups, with their members.
+	/// </summary>
+	/// <remarks>
+	/// GET /api/v1/organizations/{organizationId}/groups
+	/// Authorization: magnopus-admin,magnopus-support,internal-service
+	/// </remarks>
+	virtual void organizationsOrganizationIdGroupsGet(const organizationsOrganizationIdGroupsGetParams& Params,
+													  csp::services::ApiResponseHandlerBase* ResponseHandler,
+													  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct organizationsOrganizationIdGroupsPostParams
+	{
+		const utility::string_t& organizationId;
+		const std::shared_ptr<OrganizationGroupCreateRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Create a group in the organization's administrative tenant.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/organizations/{organizationId}/groups
+	/// Authorization: magnopus-admin,magnopus-support,internal-service
+	/// </remarks>
+	virtual void organizationsOrganizationIdGroupsPost(const organizationsOrganizationIdGroupsPostParams& Params,
+													   csp::services::ApiResponseHandlerBase* ResponseHandler,
+													   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+	struct organizationsOrganizationIdGroupsGroupIdUsersUserIdPutParams
+	{
+		const utility::string_t& organizationId;
+		const utility::string_t& groupId;
+		const utility::string_t& userId;
+	};
+
+
+	/// <summary>
+	/// Add an administrative-tenant user to one of the organization's groups.
+	/// </summary>
+	/// <remarks>
+	/// PUT /api/v1/organizations/{organizationId}/groups/{groupId}/users/{userId}
+	/// Authorization: magnopus-admin,magnopus-support,internal-service
+	/// </remarks>
+	virtual void organizationsOrganizationIdGroupsGroupIdUsersUserIdPut(const organizationsOrganizationIdGroupsGroupIdUsersUserIdPutParams& Params,
+																		csp::services::ApiResponseHandlerBase* ResponseHandler,
+																		csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+	struct organizationsOrganizationIdGroupsGroupIdUsersUserIdDeleteParams
+	{
+		const utility::string_t& organizationId;
+		const utility::string_t& groupId;
+		const utility::string_t& userId;
+	};
+
+
+	/// <summary>
+	/// Take someone out of one of the organization's groups.
+	/// </summary>
+	/// <remarks>
+	/// DELETE /api/v1/organizations/{organizationId}/groups/{groupId}/users/{userId}
+	/// Authorization: magnopus-admin,magnopus-support,internal-service
+	/// </remarks>
+	virtual void
+		organizationsOrganizationIdGroupsGroupIdUsersUserIdDelete(const organizationsOrganizationIdGroupsGroupIdUsersUserIdDeleteParams& Params,
+																  csp::services::ApiResponseHandlerBase* ResponseHandler,
+																  csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IOrganizationGroupApiBase() = default;
+};
+
+class IOrganizationMemberApiBase : public csp::services::ApiBase
+{
+public:
+	IOrganizationMemberApiBase(csp::web::WebClient* InWebClient, const csp::ServiceDefinition& InServiceDefinition)
+		: csp::services::ApiBase(InWebClient, InServiceDefinition)
+	{
+	}
+
+
+
+	struct tenantsTenantNameOrganization_membersPostParams
+	{
+		const utility::string_t& tenantName;
+		const std::shared_ptr<OrganizationMembersAddRequest>& RequestBody;
+	};
+
+
+	/// <summary>
+	/// Add every member of the named organization groups to the workspace, passwordless and as `enduser`.
+	/// </summary>
+	/// <remarks>
+	/// POST /api/v1/tenants/{tenantName}/organization-members
+	/// Authorization: magnopus-admin,magnopus-support,internal-service
+	/// </remarks>
+	virtual void tenantsTenantNameOrganization_membersPost(const tenantsTenantNameOrganization_membersPostParams& Params,
+														   csp::services::ApiResponseHandlerBase* ResponseHandler,
+														   csp::common::CancellationToken& CancellationToken) const
+		= 0;
+
+
+
+protected:
+	virtual ~IOrganizationMemberApiBase() = default;
 };
 
 class IPeopleApiBase : public csp::services::ApiBase
