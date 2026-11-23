@@ -314,6 +314,18 @@ public:
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 	MOCK_METHOD(void,
+				usersOnetimekeyPost,
+				(const usersOnetimekeyPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				usersKeyexchangePost,
+				(const usersKeyexchangePostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
 				usersExchange_tenancyPost,
 				(const usersExchange_tenancyPostParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
@@ -676,6 +688,237 @@ public:
 	MOCK_METHOD(void,
 				billing_matrixEpochGet,
 				(const billing_matrixEpochGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class ByoProvisioningAdminMachineActionsApiMock final : public IByoProvisioningAdminMachineActionsApiBase
+{
+public:
+	ByoProvisioningAdminMachineActionsApiMock() : IByoProvisioningAdminMachineActionsApiBase(nullptr, csp::ServiceDefinition {})
+	{
+	}
+
+	MOCK_METHOD(void,
+				byo_provisioningAdminProjectsProjectIdMachinesPost,
+				(const byo_provisioningAdminProjectsProjectIdMachinesPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminMachinesIdCancelPost,
+				(const byo_provisioningAdminMachinesIdCancelPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminMachinesIdRetryPost,
+				(const byo_provisioningAdminMachinesIdRetryPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminMachinesIdDismissPost,
+				(const byo_provisioningAdminMachinesIdDismissPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminMachinesIdStartPost,
+				(const byo_provisioningAdminMachinesIdStartPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminMachinesIdStopPost,
+				(const byo_provisioningAdminMachinesIdStopPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminMachinesIdDeletePost,
+				(const byo_provisioningAdminMachinesIdDeletePostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminMachinesIdAdoptPost,
+				(const byo_provisioningAdminMachinesIdAdoptPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminMachinesIdLeasePost,
+				(const byo_provisioningAdminMachinesIdLeasePostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminMachinesIdJobsGet,
+				(const byo_provisioningAdminMachinesIdJobsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class ByoProvisioningAdminMachinesApiMock final : public IByoProvisioningAdminMachinesApiBase
+{
+public:
+	ByoProvisioningAdminMachinesApiMock() : IByoProvisioningAdminMachinesApiBase(nullptr, csp::ServiceDefinition {})
+	{
+	}
+
+	MOCK_METHOD(void,
+				byo_provisioningAdminMachinesGet,
+				(const byo_provisioningAdminMachinesGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminMachinesInventoryGet,
+				(const byo_provisioningAdminMachinesInventoryGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminMachinesInventoryProjectIdSweepPost,
+				(const byo_provisioningAdminMachinesInventoryProjectIdSweepPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminMachinesIdGet,
+				(const byo_provisioningAdminMachinesIdGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class ByoProvisioningAdminProjectsApiMock final : public IByoProvisioningAdminProjectsApiBase
+{
+public:
+	ByoProvisioningAdminProjectsApiMock() : IByoProvisioningAdminProjectsApiBase(nullptr, csp::ServiceDefinition {})
+	{
+	}
+
+	MOCK_METHOD(void,
+				byo_provisioningAdminProjectsGet,
+				(const byo_provisioningAdminProjectsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminProjectsPost,
+				(const byo_provisioningAdminProjectsPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminProjectsIdGet,
+				(const byo_provisioningAdminProjectsIdGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminProjectsIdDelete,
+				(const byo_provisioningAdminProjectsIdDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminProjectsIdOperatorPost,
+				(const byo_provisioningAdminProjectsIdOperatorPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminProjectsIdTerraform_outputPost,
+				(const byo_provisioningAdminProjectsIdTerraform_outputPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningAdminProjectsIdAccess_checkPost,
+				(const byo_provisioningAdminProjectsIdAccess_checkPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class ByoProvisioningMachinesApiMock final : public IByoProvisioningMachinesApiBase
+{
+public:
+	ByoProvisioningMachinesApiMock() : IByoProvisioningMachinesApiBase(nullptr, csp::ServiceDefinition {})
+	{
+	}
+
+	MOCK_METHOD(void,
+				byo_provisioningMachinesGet,
+				(const byo_provisioningMachinesGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningMachinesInventoryGet,
+				(const byo_provisioningMachinesInventoryGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningMachinesIdGet,
+				(const byo_provisioningMachinesIdGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class ByoProvisioningProjectsApiMock final : public IByoProvisioningProjectsApiBase
+{
+public:
+	ByoProvisioningProjectsApiMock() : IByoProvisioningProjectsApiBase(nullptr, csp::ServiceDefinition {})
+	{
+	}
+
+	MOCK_METHOD(void,
+				byo_provisioningProjectsGet,
+				(const byo_provisioningProjectsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningProjectsPost,
+				(const byo_provisioningProjectsPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningProjectsIdGet,
+				(const byo_provisioningProjectsIdGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningProjectsIdDelete,
+				(const byo_provisioningProjectsIdDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningProjectsIdOperatorPost,
+				(const byo_provisioningProjectsIdOperatorPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningProjectsIdTerraform_outputPost,
+				(const byo_provisioningProjectsIdTerraform_outputPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				byo_provisioningProjectsIdAccess_checkPost,
+				(const byo_provisioningProjectsIdAccess_checkPostParams&,
 				 csp::services::ApiResponseHandlerBase* ResponseHandler,
 				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
@@ -1135,6 +1378,63 @@ public:
 				(const, override));
 };
 
+class InspectorOrganizationApiMock final : public IInspectorOrganizationApiBase
+{
+public:
+	InspectorOrganizationApiMock() : IInspectorOrganizationApiBase(nullptr, csp::ServiceDefinition {})
+	{
+	}
+
+	MOCK_METHOD(void,
+				inspectorOrganizationsGet,
+				(const inspectorOrganizationsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorOrganizationsPost,
+				(const inspectorOrganizationsPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorOrganizationsOrganizationIdGet,
+				(const inspectorOrganizationsOrganizationIdGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorOrganizationsOrganizationIdPut,
+				(const inspectorOrganizationsOrganizationIdPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorOrganizationsOrganizationIdTenantsPost,
+				(const inspectorOrganizationsOrganizationIdTenantsPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorOrganizationsOrganizationIdTenantsTenantNameDelete,
+				(const inspectorOrganizationsOrganizationIdTenantsTenantNameDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorOrganizationsOrganizationIdAdministrative_tenantPut,
+				(const inspectorOrganizationsOrganizationIdAdministrative_tenantPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				inspectorOrganizationsOrganizationIdOwnerPut,
+				(const inspectorOrganizationsOrganizationIdOwnerPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
 class InventoryApiMock final : public IInventoryApiBase
 {
 public:
@@ -1259,6 +1559,54 @@ public:
 	MOCK_METHOD(void,
 				datetimeGet,
 				(const datetimeGetParams&, csp::services::ApiResponseHandlerBase* ResponseHandler, csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class OrganizationGroupApiMock final : public IOrganizationGroupApiBase
+{
+public:
+	OrganizationGroupApiMock() : IOrganizationGroupApiBase(nullptr, csp::ServiceDefinition {})
+	{
+	}
+
+	MOCK_METHOD(void,
+				organizationsOrganizationIdGroupsGet,
+				(const organizationsOrganizationIdGroupsGetParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				organizationsOrganizationIdGroupsPost,
+				(const organizationsOrganizationIdGroupsPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				organizationsOrganizationIdGroupsGroupIdUsersUserIdPut,
+				(const organizationsOrganizationIdGroupsGroupIdUsersUserIdPutParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+	MOCK_METHOD(void,
+				organizationsOrganizationIdGroupsGroupIdUsersUserIdDelete,
+				(const organizationsOrganizationIdGroupsGroupIdUsersUserIdDeleteParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
+				(const, override));
+};
+
+class OrganizationMemberApiMock final : public IOrganizationMemberApiBase
+{
+public:
+	OrganizationMemberApiMock() : IOrganizationMemberApiBase(nullptr, csp::ServiceDefinition {})
+	{
+	}
+
+	MOCK_METHOD(void,
+				tenantsTenantNameOrganization_membersPost,
+				(const tenantsTenantNameOrganization_membersPostParams&,
+				 csp::services::ApiResponseHandlerBase* ResponseHandler,
+				 csp::common::CancellationToken& CancellationToken),
 				(const, override));
 };
 

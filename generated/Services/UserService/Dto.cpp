@@ -2,12 +2,13 @@
 
 #include "Dto.h"
 
+#include "CSP/Common/Systems/Log/LogSystem.h"
 #include "Common/Web/Json.h"
 #include "Common/Web/Json_HttpPayload.h"
-#include "Debug/Logging.h"
 
 #include "Json/JsonParseHelper.h"
 #include <optional>
+#include <stdexcept>
 
 
 using namespace csp::web;
@@ -16,6 +17,99 @@ using namespace csp::web;
 namespace csp::services::generated::userservice
 {
 
+
+AdoptMachineRequest::AdoptMachineRequest()
+{
+}
+AdoptMachineRequest::~AdoptMachineRequest()
+{
+}
+
+utility::string_t AdoptMachineRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Purpose.has_value())
+	{
+		rapidjson::Value PurposeValue(TypeToJsonValue(m_Purpose, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("purpose", PurposeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LeaseHours.has_value())
+	{
+		rapidjson::Value LeaseHoursValue(TypeToJsonValue(m_LeaseHours, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("leaseHours", LeaseHoursValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void AdoptMachineRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AdoptMachineRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("purpose"))
+	{
+		const rapidjson::Value& PurposeValue = JsonDoc["purpose"];
+
+		if (PurposeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(PurposeValue, m_Purpose, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("leaseHours"))
+	{
+		const rapidjson::Value& LeaseHoursValue = JsonDoc["leaseHours"];
+
+		if (LeaseHoursValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LeaseHoursValue, m_LeaseHours, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t AdoptMachineRequest::GetPurpose() const
+{
+	return m_Purpose.value();
+}
+
+bool AdoptMachineRequest::HasPurpose() const
+{
+	return m_Purpose.has_value();
+}
+void AdoptMachineRequest::SetPurpose(const utility::string_t& Value)
+{
+	m_Purpose = Value;
+}
+int32_t AdoptMachineRequest::GetLeaseHours() const
+{
+	return m_LeaseHours.value();
+}
+
+bool AdoptMachineRequest::HasLeaseHours() const
+{
+	return m_LeaseHours.has_value();
+}
+void AdoptMachineRequest::SetLeaseHours(int32_t Value)
+{
+	m_LeaseHours = Value;
+}
 
 AgentOverrideDto::AgentOverrideDto()
 {
@@ -75,7 +169,7 @@ utility::string_t AgentOverrideDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void AgentOverrideDto::FromJson(const utility::string_t& Val)
+void AgentOverrideDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -84,7 +178,7 @@ void AgentOverrideDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AgentOverrideDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AgentOverrideDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -97,7 +191,7 @@ void AgentOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (AgentIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AgentIdValue, m_AgentId);
+			JsonValueToType(AgentIdValue, m_AgentId, LogSystem);
 		}
 	}
 
@@ -107,7 +201,7 @@ void AgentOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (ProviderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderValue, m_Provider);
+			JsonValueToType(ProviderValue, m_Provider, LogSystem);
 		}
 	}
 
@@ -117,7 +211,7 @@ void AgentOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (ModelValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ModelValue, m_Model);
+			JsonValueToType(ModelValue, m_Model, LogSystem);
 		}
 	}
 
@@ -127,7 +221,7 @@ void AgentOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (SystemInstructionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SystemInstructionValue, m_SystemInstruction);
+			JsonValueToType(SystemInstructionValue, m_SystemInstruction, LogSystem);
 		}
 	}
 
@@ -137,7 +231,7 @@ void AgentOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (TemperatureValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TemperatureValue, m_Temperature);
+			JsonValueToType(TemperatureValue, m_Temperature, LogSystem);
 		}
 	}
 
@@ -147,11 +241,11 @@ void AgentOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member updatedAt is null!");
 		}
 	}
 
@@ -161,7 +255,7 @@ void AgentOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (EncodingValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EncodingValue, m_Encoding);
+			JsonValueToType(EncodingValue, m_Encoding, LogSystem);
 		}
 	}
 }
@@ -305,7 +399,7 @@ utility::string_t AgentOverrideRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void AgentOverrideRequest::FromJson(const utility::string_t& Val)
+void AgentOverrideRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -314,7 +408,7 @@ void AgentOverrideRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AgentOverrideRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AgentOverrideRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -327,7 +421,7 @@ void AgentOverrideRequest::FromJson(const utility::string_t& Val)
 
 		if (ProviderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderValue, m_Provider);
+			JsonValueToType(ProviderValue, m_Provider, LogSystem);
 		}
 	}
 
@@ -337,7 +431,7 @@ void AgentOverrideRequest::FromJson(const utility::string_t& Val)
 
 		if (ModelValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ModelValue, m_Model);
+			JsonValueToType(ModelValue, m_Model, LogSystem);
 		}
 	}
 
@@ -347,7 +441,7 @@ void AgentOverrideRequest::FromJson(const utility::string_t& Val)
 
 		if (SystemInstructionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SystemInstructionValue, m_SystemInstruction);
+			JsonValueToType(SystemInstructionValue, m_SystemInstruction, LogSystem);
 		}
 	}
 
@@ -357,7 +451,7 @@ void AgentOverrideRequest::FromJson(const utility::string_t& Val)
 
 		if (TemperatureValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TemperatureValue, m_Temperature);
+			JsonValueToType(TemperatureValue, m_Temperature, LogSystem);
 		}
 	}
 
@@ -367,7 +461,7 @@ void AgentOverrideRequest::FromJson(const utility::string_t& Val)
 
 		if (EncodingValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EncodingValue, m_Encoding);
+			JsonValueToType(EncodingValue, m_Encoding, LogSystem);
 		}
 	}
 }
@@ -545,7 +639,7 @@ utility::string_t AnalyticsRecord::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void AnalyticsRecord::FromJson(const utility::string_t& Val)
+void AnalyticsRecord::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -554,7 +648,7 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AnalyticsRecord::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AnalyticsRecord::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -567,7 +661,7 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -577,7 +671,7 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (CreatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedByValue, m_CreatedBy);
+			JsonValueToType(CreatedByValue, m_CreatedBy, LogSystem);
 		}
 	}
 
@@ -587,11 +681,11 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -601,11 +695,11 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (TimestampValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TimestampValue, m_Timestamp);
+			JsonValueToType(TimestampValue, m_Timestamp, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member timestamp is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member timestamp is null!");
 		}
 	}
 
@@ -615,11 +709,11 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (ProductIdentifierValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProductIdentifierValue, m_ProductIdentifier);
+			JsonValueToType(ProductIdentifierValue, m_ProductIdentifier, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member productIdentifier is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member productIdentifier is null!");
 		}
 	}
 
@@ -629,7 +723,7 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (ProductContextValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProductContextValue, m_ProductContext);
+			JsonValueToType(ProductContextValue, m_ProductContext, LogSystem);
 		}
 	}
 
@@ -639,7 +733,7 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (ProductContextSectionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProductContextSectionValue, m_ProductContextSection);
+			JsonValueToType(ProductContextSectionValue, m_ProductContextSection, LogSystem);
 		}
 	}
 
@@ -649,7 +743,7 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (VersionMatrixValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionMatrixValue, m_VersionMatrix);
+			JsonValueToType(VersionMatrixValue, m_VersionMatrix, LogSystem);
 		}
 	}
 
@@ -659,7 +753,7 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (TenantNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantNameValue, m_TenantName);
+			JsonValueToType(TenantNameValue, m_TenantName, LogSystem);
 		}
 	}
 
@@ -669,7 +763,7 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 	}
 
@@ -679,11 +773,11 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (CategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CategoryValue, m_Category);
+			JsonValueToType(CategoryValue, m_Category, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member category is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member category is null!");
 		}
 	}
 
@@ -693,7 +787,7 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (SubCategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SubCategoryValue, m_SubCategory);
+			JsonValueToType(SubCategoryValue, m_SubCategory, LogSystem);
 		}
 	}
 
@@ -703,11 +797,11 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (InteractionTypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(InteractionTypeValue, m_InteractionType);
+			JsonValueToType(InteractionTypeValue, m_InteractionType, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member interactionType is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member interactionType is null!");
 		}
 	}
 
@@ -717,7 +811,7 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (MetadataValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MetadataValue, m_Metadata);
+			JsonValueToType(MetadataValue, m_Metadata, LogSystem);
 		}
 	}
 
@@ -727,7 +821,7 @@ void AnalyticsRecord::FromJson(const utility::string_t& Val)
 
 		if (ServiceNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ServiceNameValue, m_ServiceName);
+			JsonValueToType(ServiceNameValue, m_ServiceName, LogSystem);
 		}
 	}
 }
@@ -953,7 +1047,7 @@ utility::string_t ApiKeyCreatedDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ApiKeyCreatedDto::FromJson(const utility::string_t& Val)
+void ApiKeyCreatedDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -962,7 +1056,7 @@ void ApiKeyCreatedDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApiKeyCreatedDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApiKeyCreatedDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -975,7 +1069,7 @@ void ApiKeyCreatedDto::FromJson(const utility::string_t& Val)
 
 		if (JtiValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(JtiValue, m_Jti);
+			JsonValueToType(JtiValue, m_Jti, LogSystem);
 		}
 	}
 
@@ -985,7 +1079,7 @@ void ApiKeyCreatedDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -995,7 +1089,7 @@ void ApiKeyCreatedDto::FromJson(const utility::string_t& Val)
 
 		if (TokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokenValue, m_Token);
+			JsonValueToType(TokenValue, m_Token, LogSystem);
 		}
 	}
 
@@ -1005,11 +1099,11 @@ void ApiKeyCreatedDto::FromJson(const utility::string_t& Val)
 
 		if (ExpiresAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ExpiresAtValue, m_ExpiresAt);
+			JsonValueToType(ExpiresAtValue, m_ExpiresAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member expiresAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member expiresAt is null!");
 		}
 	}
 }
@@ -1164,7 +1258,7 @@ utility::string_t ApiKeyDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ApiKeyDto::FromJson(const utility::string_t& Val)
+void ApiKeyDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -1173,7 +1267,7 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApiKeyDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApiKeyDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -1186,7 +1280,7 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (JtiValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(JtiValue, m_Jti);
+			JsonValueToType(JtiValue, m_Jti, LogSystem);
 		}
 	}
 
@@ -1196,7 +1290,7 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -1206,7 +1300,7 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 	}
 
@@ -1216,7 +1310,7 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedByValue, m_CreatedBy);
+			JsonValueToType(CreatedByValue, m_CreatedBy, LogSystem);
 		}
 	}
 
@@ -1226,7 +1320,7 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (RolesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RolesValue, m_Roles);
+			JsonValueToType(RolesValue, m_Roles, LogSystem);
 		}
 	}
 
@@ -1236,7 +1330,7 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (AllowedIpsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedIpsValue, m_AllowedIps);
+			JsonValueToType(AllowedIpsValue, m_AllowedIps, LogSystem);
 		}
 	}
 
@@ -1246,11 +1340,11 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (ExpiresAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ExpiresAtValue, m_ExpiresAt);
+			JsonValueToType(ExpiresAtValue, m_ExpiresAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member expiresAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member expiresAt is null!");
 		}
 	}
 
@@ -1260,11 +1354,11 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (IsRevokedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsRevokedValue, m_IsRevoked);
+			JsonValueToType(IsRevokedValue, m_IsRevoked, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isRevoked is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isRevoked is null!");
 		}
 	}
 
@@ -1274,7 +1368,7 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (RevokedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RevokedAtValue, m_RevokedAt);
+			JsonValueToType(RevokedAtValue, m_RevokedAt, LogSystem);
 		}
 	}
 
@@ -1284,7 +1378,7 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (RevocationReasonValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RevocationReasonValue, m_RevocationReason);
+			JsonValueToType(RevocationReasonValue, m_RevocationReason, LogSystem);
 		}
 	}
 
@@ -1294,11 +1388,11 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (UsageCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UsageCountValue, m_UsageCount);
+			JsonValueToType(UsageCountValue, m_UsageCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member usageCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member usageCount is null!");
 		}
 	}
 
@@ -1308,7 +1402,7 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (LastUsedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LastUsedAtValue, m_LastUsedAt);
+			JsonValueToType(LastUsedAtValue, m_LastUsedAt, LogSystem);
 		}
 	}
 
@@ -1318,7 +1412,7 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (UsageLimitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UsageLimitValue, m_UsageLimit);
+			JsonValueToType(UsageLimitValue, m_UsageLimit, LogSystem);
 		}
 	}
 
@@ -1328,11 +1422,11 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (RevokedUsageAttemptsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RevokedUsageAttemptsValue, m_RevokedUsageAttempts);
+			JsonValueToType(RevokedUsageAttemptsValue, m_RevokedUsageAttempts, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member revokedUsageAttempts is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member revokedUsageAttempts is null!");
 		}
 	}
 
@@ -1342,7 +1436,7 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (LastRevokedUsageAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LastRevokedUsageAtValue, m_LastRevokedUsageAt);
+			JsonValueToType(LastRevokedUsageAtValue, m_LastRevokedUsageAt, LogSystem);
 		}
 	}
 
@@ -1352,11 +1446,11 @@ void ApiKeyDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 }
@@ -1553,7 +1647,7 @@ utility::string_t ApiKeySettingsDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ApiKeySettingsDto::FromJson(const utility::string_t& Val)
+void ApiKeySettingsDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -1562,7 +1656,7 @@ void ApiKeySettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApiKeySettingsDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApiKeySettingsDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -1575,11 +1669,11 @@ void ApiKeySettingsDto::FromJson(const utility::string_t& Val)
 
 		if (MaxActiveKeysPerUserValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MaxActiveKeysPerUserValue, m_MaxActiveKeysPerUser);
+			JsonValueToType(MaxActiveKeysPerUserValue, m_MaxActiveKeysPerUser, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member maxActiveKeysPerUser is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member maxActiveKeysPerUser is null!");
 		}
 	}
 
@@ -1589,11 +1683,11 @@ void ApiKeySettingsDto::FromJson(const utility::string_t& Val)
 
 		if (DefaultExpiryDaysValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DefaultExpiryDaysValue, m_DefaultExpiryDays);
+			JsonValueToType(DefaultExpiryDaysValue, m_DefaultExpiryDays, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member defaultExpiryDays is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member defaultExpiryDays is null!");
 		}
 	}
 
@@ -1603,11 +1697,11 @@ void ApiKeySettingsDto::FromJson(const utility::string_t& Val)
 
 		if (MaxExpiryDaysValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MaxExpiryDaysValue, m_MaxExpiryDays);
+			JsonValueToType(MaxExpiryDaysValue, m_MaxExpiryDays, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member maxExpiryDays is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member maxExpiryDays is null!");
 		}
 	}
 
@@ -1617,7 +1711,7 @@ void ApiKeySettingsDto::FromJson(const utility::string_t& Val)
 
 		if (ExpiryPresetDaysValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ExpiryPresetDaysValue, m_ExpiryPresetDays);
+			JsonValueToType(ExpiryPresetDaysValue, m_ExpiryPresetDays, LogSystem);
 		}
 	}
 
@@ -1627,7 +1721,7 @@ void ApiKeySettingsDto::FromJson(const utility::string_t& Val)
 
 		if (AllowedRolesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedRolesValue, m_AllowedRoles);
+			JsonValueToType(AllowedRolesValue, m_AllowedRoles, LogSystem);
 		}
 	}
 }
@@ -1713,7 +1807,7 @@ utility::string_t ApiVersion::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ApiVersion::FromJson(const utility::string_t& Val)
+void ApiVersion::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -1722,7 +1816,7 @@ void ApiVersion::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApiVersion::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApiVersion::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -1735,7 +1829,7 @@ void ApiVersion::FromJson(const utility::string_t& Val)
 
 		if (VersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionValue, m_Version);
+			JsonValueToType(VersionValue, m_Version, LogSystem);
 		}
 	}
 
@@ -1745,7 +1839,7 @@ void ApiVersion::FromJson(const utility::string_t& Val)
 
 		if (DeprecationDatetimeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeprecationDatetimeValue, m_DeprecationDatetime);
+			JsonValueToType(DeprecationDatetimeValue, m_DeprecationDatetime, LogSystem);
 		}
 	}
 
@@ -1755,7 +1849,7 @@ void ApiVersion::FromJson(const utility::string_t& Val)
 
 		if (EndOfLifeDatetimeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EndOfLifeDatetimeValue, m_EndOfLifeDatetime);
+			JsonValueToType(EndOfLifeDatetimeValue, m_EndOfLifeDatetime, LogSystem);
 		}
 	}
 }
@@ -1907,7 +2001,7 @@ utility::string_t ApplicationSecretDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ApplicationSecretDto::FromJson(const utility::string_t& Val)
+void ApplicationSecretDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -1916,7 +2010,7 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApplicationSecretDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApplicationSecretDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -1929,7 +2023,7 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -1939,7 +2033,7 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (ApplicationNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ApplicationNameValue, m_ApplicationName);
+			JsonValueToType(ApplicationNameValue, m_ApplicationName, LogSystem);
 		}
 	}
 
@@ -1949,7 +2043,7 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -1959,7 +2053,7 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (EnvVarNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnvVarNameValue, m_EnvVarName);
+			JsonValueToType(EnvVarNameValue, m_EnvVarName, LogSystem);
 		}
 	}
 
@@ -1969,7 +2063,7 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -1979,7 +2073,7 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (CategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CategoryValue, m_Category);
+			JsonValueToType(CategoryValue, m_Category, LogSystem);
 		}
 	}
 
@@ -1989,11 +2083,11 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (SortOrderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortOrderValue, m_SortOrder);
+			JsonValueToType(SortOrderValue, m_SortOrder, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sortOrder is null!");
 		}
 	}
 
@@ -2003,7 +2097,7 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (SecretTypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SecretTypeValue, m_SecretType);
+			JsonValueToType(SecretTypeValue, m_SecretType, LogSystem);
 		}
 	}
 
@@ -2013,11 +2107,11 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (ValidationConfigValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ValidationConfigValue, m_ValidationConfig);
+			JsonValueToType(ValidationConfigValue, m_ValidationConfig, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member validationConfig is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member validationConfig is null!");
 		}
 	}
 
@@ -2027,7 +2121,7 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (QuotaFeatureNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(QuotaFeatureNameValue, m_QuotaFeatureName);
+			JsonValueToType(QuotaFeatureNameValue, m_QuotaFeatureName, LogSystem);
 		}
 	}
 
@@ -2037,7 +2131,7 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (AllowedTenantsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedTenantsValue, m_AllowedTenants);
+			JsonValueToType(AllowedTenantsValue, m_AllowedTenants, LogSystem);
 		}
 	}
 
@@ -2047,11 +2141,11 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (ChargeCorkageValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChargeCorkageValue, m_ChargeCorkage);
+			JsonValueToType(ChargeCorkageValue, m_ChargeCorkage, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member chargeCorkage is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member chargeCorkage is null!");
 		}
 	}
 
@@ -2061,7 +2155,7 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (CorkageFeeUnitsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CorkageFeeUnitsValue, m_CorkageFeeUnits);
+			JsonValueToType(CorkageFeeUnitsValue, m_CorkageFeeUnits, LogSystem);
 		}
 	}
 
@@ -2071,11 +2165,11 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -2085,11 +2179,11 @@ void ApplicationSecretDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member updatedAt is null!");
 		}
 	}
 }
@@ -2311,7 +2405,7 @@ utility::string_t ApplicationSettingsDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ApplicationSettingsDto::FromJson(const utility::string_t& Val)
+void ApplicationSettingsDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -2320,7 +2414,7 @@ void ApplicationSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApplicationSettingsDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ApplicationSettingsDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -2333,7 +2427,7 @@ void ApplicationSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (ApplicationNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ApplicationNameValue, m_ApplicationName);
+			JsonValueToType(ApplicationNameValue, m_ApplicationName, LogSystem);
 		}
 	}
 
@@ -2343,7 +2437,7 @@ void ApplicationSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (ContextValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ContextValue, m_Context);
+			JsonValueToType(ContextValue, m_Context, LogSystem);
 		}
 	}
 
@@ -2353,7 +2447,7 @@ void ApplicationSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (AllowAnonymousValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowAnonymousValue, m_AllowAnonymous);
+			JsonValueToType(AllowAnonymousValue, m_AllowAnonymous, LogSystem);
 		}
 	}
 
@@ -2363,11 +2457,11 @@ void ApplicationSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (SettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SettingsValue, m_Settings);
+			JsonValueToType(SettingsValue, m_Settings, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member settings is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member settings is null!");
 		}
 	}
 }
@@ -2470,7 +2564,7 @@ utility::string_t AssignmentDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void AssignmentDto::FromJson(const utility::string_t& Val)
+void AssignmentDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -2479,7 +2573,7 @@ void AssignmentDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AssignmentDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AssignmentDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -2492,7 +2586,7 @@ void AssignmentDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -2502,7 +2596,7 @@ void AssignmentDto::FromJson(const utility::string_t& Val)
 
 		if (PersonIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PersonIdValue, m_PersonId);
+			JsonValueToType(PersonIdValue, m_PersonId, LogSystem);
 		}
 	}
 
@@ -2512,7 +2606,7 @@ void AssignmentDto::FromJson(const utility::string_t& Val)
 
 		if (ProjectIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectIdValue, m_ProjectId);
+			JsonValueToType(ProjectIdValue, m_ProjectId, LogSystem);
 		}
 	}
 
@@ -2522,7 +2616,7 @@ void AssignmentDto::FromJson(const utility::string_t& Val)
 
 		if (DateValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DateValue, m_Date);
+			JsonValueToType(DateValue, m_Date, LogSystem);
 		}
 	}
 
@@ -2532,11 +2626,11 @@ void AssignmentDto::FromJson(const utility::string_t& Val)
 
 		if (HoursValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HoursValue, m_Hours);
+			JsonValueToType(HoursValue, m_Hours, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member hours is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member hours is null!");
 		}
 	}
 
@@ -2546,7 +2640,7 @@ void AssignmentDto::FromJson(const utility::string_t& Val)
 
 		if (KindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KindValue, m_Kind);
+			JsonValueToType(KindValue, m_Kind, LogSystem);
 		}
 	}
 }
@@ -2683,7 +2777,7 @@ utility::string_t AssignmentUpsertRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void AssignmentUpsertRequest::FromJson(const utility::string_t& Val)
+void AssignmentUpsertRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -2692,7 +2786,7 @@ void AssignmentUpsertRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AssignmentUpsertRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AssignmentUpsertRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -2705,11 +2799,11 @@ void AssignmentUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (PersonIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PersonIdValue, m_PersonId);
+			JsonValueToType(PersonIdValue, m_PersonId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member personId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member personId is null!");
 		}
 	}
 
@@ -2719,7 +2813,7 @@ void AssignmentUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (ProjectIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectIdValue, m_ProjectId);
+			JsonValueToType(ProjectIdValue, m_ProjectId, LogSystem);
 		}
 	}
 
@@ -2729,11 +2823,11 @@ void AssignmentUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (DateValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DateValue, m_Date);
+			JsonValueToType(DateValue, m_Date, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member date is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member date is null!");
 		}
 	}
 
@@ -2743,11 +2837,11 @@ void AssignmentUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (HoursValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HoursValue, m_Hours);
+			JsonValueToType(HoursValue, m_Hours, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member hours is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member hours is null!");
 		}
 	}
 
@@ -2757,7 +2851,7 @@ void AssignmentUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (ReplacesAssignmentIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReplacesAssignmentIdValue, m_ReplacesAssignmentId);
+			JsonValueToType(ReplacesAssignmentIdValue, m_ReplacesAssignmentId, LogSystem);
 		}
 	}
 
@@ -2767,7 +2861,7 @@ void AssignmentUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (KindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KindValue, m_Kind);
+			JsonValueToType(KindValue, m_Kind, LogSystem);
 		}
 	}
 }
@@ -2910,7 +3004,7 @@ utility::string_t AuthDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void AuthDto::FromJson(const utility::string_t& Val)
+void AuthDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -2919,7 +3013,7 @@ void AuthDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AuthDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AuthDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -2932,7 +3026,7 @@ void AuthDto::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 	}
 
@@ -2942,7 +3036,7 @@ void AuthDto::FromJson(const utility::string_t& Val)
 
 		if (AccessTokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AccessTokenValue, m_AccessToken);
+			JsonValueToType(AccessTokenValue, m_AccessToken, LogSystem);
 		}
 	}
 
@@ -2952,7 +3046,7 @@ void AuthDto::FromJson(const utility::string_t& Val)
 
 		if (AccessTokenExpiresAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AccessTokenExpiresAtValue, m_AccessTokenExpiresAt);
+			JsonValueToType(AccessTokenExpiresAtValue, m_AccessTokenExpiresAt, LogSystem);
 		}
 	}
 
@@ -2962,7 +3056,7 @@ void AuthDto::FromJson(const utility::string_t& Val)
 
 		if (RefreshTokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RefreshTokenValue, m_RefreshToken);
+			JsonValueToType(RefreshTokenValue, m_RefreshToken, LogSystem);
 		}
 	}
 
@@ -2972,7 +3066,7 @@ void AuthDto::FromJson(const utility::string_t& Val)
 
 		if (RefreshTokenExpiresAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RefreshTokenExpiresAtValue, m_RefreshTokenExpiresAt);
+			JsonValueToType(RefreshTokenExpiresAtValue, m_RefreshTokenExpiresAt, LogSystem);
 		}
 	}
 
@@ -2982,7 +3076,7 @@ void AuthDto::FromJson(const utility::string_t& Val)
 
 		if (DeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeviceIdValue, m_DeviceId);
+			JsonValueToType(DeviceIdValue, m_DeviceId, LogSystem);
 		}
 	}
 
@@ -2992,11 +3086,11 @@ void AuthDto::FromJson(const utility::string_t& Val)
 
 		if (DefaultSettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DefaultSettingsValue, m_DefaultSettings);
+			JsonValueToType(DefaultSettingsValue, m_DefaultSettings, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member defaultSettings is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member defaultSettings is null!");
 		}
 	}
 }
@@ -3134,7 +3228,7 @@ utility::string_t AvatarManifestDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void AvatarManifestDto::FromJson(const utility::string_t& Val)
+void AvatarManifestDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -3143,7 +3237,7 @@ void AvatarManifestDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AvatarManifestDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "AvatarManifestDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -3156,7 +3250,7 @@ void AvatarManifestDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -3166,7 +3260,7 @@ void AvatarManifestDto::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 	}
 
@@ -3176,11 +3270,11 @@ void AvatarManifestDto::FromJson(const utility::string_t& Val)
 
 		if (GenderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GenderValue, m_Gender);
+			JsonValueToType(GenderValue, m_Gender, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member gender is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member gender is null!");
 		}
 	}
 
@@ -3190,7 +3284,7 @@ void AvatarManifestDto::FromJson(const utility::string_t& Val)
 
 		if (ExternalUriValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ExternalUriValue, m_ExternalUri);
+			JsonValueToType(ExternalUriValue, m_ExternalUri, LogSystem);
 		}
 	}
 }
@@ -3323,7 +3417,7 @@ utility::string_t BillingMetricDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void BillingMetricDto::FromJson(const utility::string_t& Val)
+void BillingMetricDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -3332,7 +3426,7 @@ void BillingMetricDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BillingMetricDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BillingMetricDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -3345,7 +3439,7 @@ void BillingMetricDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -3355,7 +3449,7 @@ void BillingMetricDto::FromJson(const utility::string_t& Val)
 
 		if (MetricKeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MetricKeyValue, m_MetricKey);
+			JsonValueToType(MetricKeyValue, m_MetricKey, LogSystem);
 		}
 	}
 
@@ -3365,7 +3459,7 @@ void BillingMetricDto::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -3375,7 +3469,7 @@ void BillingMetricDto::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -3385,7 +3479,7 @@ void BillingMetricDto::FromJson(const utility::string_t& Val)
 
 		if (GoogleMetricIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GoogleMetricIdValue, m_GoogleMetricId);
+			JsonValueToType(GoogleMetricIdValue, m_GoogleMetricId, LogSystem);
 		}
 	}
 
@@ -3395,7 +3489,7 @@ void BillingMetricDto::FromJson(const utility::string_t& Val)
 
 		if (UnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UnitValue, m_Unit);
+			JsonValueToType(UnitValue, m_Unit, LogSystem);
 		}
 	}
 
@@ -3405,7 +3499,7 @@ void BillingMetricDto::FromJson(const utility::string_t& Val)
 
 		if (CategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CategoryValue, m_Category);
+			JsonValueToType(CategoryValue, m_Category, LogSystem);
 		}
 	}
 
@@ -3415,11 +3509,11 @@ void BillingMetricDto::FromJson(const utility::string_t& Val)
 
 		if (SortOrderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortOrderValue, m_SortOrder);
+			JsonValueToType(SortOrderValue, m_SortOrder, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sortOrder is null!");
 		}
 	}
 
@@ -3429,11 +3523,11 @@ void BillingMetricDto::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -3443,11 +3537,11 @@ void BillingMetricDto::FromJson(const utility::string_t& Val)
 
 		if (VersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionValue, m_Version);
+			JsonValueToType(VersionValue, m_Version, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member version is null!");
 		}
 	}
 
@@ -3457,7 +3551,7 @@ void BillingMetricDto::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -3701,7 +3795,7 @@ utility::string_t BillingMetricHistoryDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
+void BillingMetricHistoryDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -3710,7 +3804,7 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BillingMetricHistoryDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BillingMetricHistoryDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -3723,7 +3817,7 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (MetricKeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MetricKeyValue, m_MetricKey);
+			JsonValueToType(MetricKeyValue, m_MetricKey, LogSystem);
 		}
 	}
 
@@ -3733,11 +3827,11 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (VersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionValue, m_Version);
+			JsonValueToType(VersionValue, m_Version, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member version is null!");
 		}
 	}
 
@@ -3747,11 +3841,11 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ParentVersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ParentVersionValue, m_ParentVersion);
+			JsonValueToType(ParentVersionValue, m_ParentVersion, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member parentVersion is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member parentVersion is null!");
 		}
 	}
 
@@ -3761,7 +3855,7 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -3771,7 +3865,7 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -3781,7 +3875,7 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (GoogleMetricIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GoogleMetricIdValue, m_GoogleMetricId);
+			JsonValueToType(GoogleMetricIdValue, m_GoogleMetricId, LogSystem);
 		}
 	}
 
@@ -3791,7 +3885,7 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (UnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UnitValue, m_Unit);
+			JsonValueToType(UnitValue, m_Unit, LogSystem);
 		}
 	}
 
@@ -3801,7 +3895,7 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CategoryValue, m_Category);
+			JsonValueToType(CategoryValue, m_Category, LogSystem);
 		}
 	}
 
@@ -3811,11 +3905,11 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (SortOrderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortOrderValue, m_SortOrder);
+			JsonValueToType(SortOrderValue, m_SortOrder, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sortOrder is null!");
 		}
 	}
 
@@ -3825,11 +3919,11 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -3839,7 +3933,7 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 
@@ -3849,11 +3943,11 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -3863,7 +3957,7 @@ void BillingMetricHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedByValue, m_CreatedBy);
+			JsonValueToType(CreatedByValue, m_CreatedBy, LogSystem);
 		}
 	}
 }
@@ -4091,7 +4185,7 @@ utility::string_t BillingSettingsDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void BillingSettingsDto::FromJson(const utility::string_t& Val)
+void BillingSettingsDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -4100,7 +4194,7 @@ void BillingSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BillingSettingsDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BillingSettingsDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -4113,7 +4207,7 @@ void BillingSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -4123,7 +4217,7 @@ void BillingSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (KeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KeyValue, m_Key);
+			JsonValueToType(KeyValue, m_Key, LogSystem);
 		}
 	}
 
@@ -4133,7 +4227,7 @@ void BillingSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (ValuesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ValuesValue, m_Values);
+			JsonValueToType(ValuesValue, m_Values, LogSystem);
 		}
 	}
 
@@ -4143,11 +4237,11 @@ void BillingSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -4157,11 +4251,11 @@ void BillingSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (VersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionValue, m_Version);
+			JsonValueToType(VersionValue, m_Version, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member version is null!");
 		}
 	}
 
@@ -4171,7 +4265,7 @@ void BillingSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -4320,7 +4414,7 @@ utility::string_t BillingSettingsHistoryDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void BillingSettingsHistoryDto::FromJson(const utility::string_t& Val)
+void BillingSettingsHistoryDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -4329,7 +4423,7 @@ void BillingSettingsHistoryDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BillingSettingsHistoryDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BillingSettingsHistoryDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -4342,7 +4436,7 @@ void BillingSettingsHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (KeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KeyValue, m_Key);
+			JsonValueToType(KeyValue, m_Key, LogSystem);
 		}
 	}
 
@@ -4352,11 +4446,11 @@ void BillingSettingsHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (VersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionValue, m_Version);
+			JsonValueToType(VersionValue, m_Version, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member version is null!");
 		}
 	}
 
@@ -4366,11 +4460,11 @@ void BillingSettingsHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ParentVersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ParentVersionValue, m_ParentVersion);
+			JsonValueToType(ParentVersionValue, m_ParentVersion, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member parentVersion is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member parentVersion is null!");
 		}
 	}
 
@@ -4380,7 +4474,7 @@ void BillingSettingsHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ValuesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ValuesValue, m_Values);
+			JsonValueToType(ValuesValue, m_Values, LogSystem);
 		}
 	}
 
@@ -4390,11 +4484,11 @@ void BillingSettingsHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -4404,7 +4498,7 @@ void BillingSettingsHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 
@@ -4414,11 +4508,11 @@ void BillingSettingsHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -4428,7 +4522,7 @@ void BillingSettingsHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedByValue, m_CreatedBy);
+			JsonValueToType(CreatedByValue, m_CreatedBy, LogSystem);
 		}
 	}
 }
@@ -4567,7 +4661,7 @@ utility::string_t BucketPermissionRuleDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void BucketPermissionRuleDto::FromJson(const utility::string_t& Val)
+void BucketPermissionRuleDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -4576,7 +4670,7 @@ void BucketPermissionRuleDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BucketPermissionRuleDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BucketPermissionRuleDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -4589,7 +4683,7 @@ void BucketPermissionRuleDto::FromJson(const utility::string_t& Val)
 
 		if (BucketNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(BucketNameValue, m_BucketName);
+			JsonValueToType(BucketNameValue, m_BucketName, LogSystem);
 		}
 	}
 
@@ -4599,7 +4693,7 @@ void BucketPermissionRuleDto::FromJson(const utility::string_t& Val)
 
 		if (PermissionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PermissionsValue, m_Permissions);
+			JsonValueToType(PermissionsValue, m_Permissions, LogSystem);
 		}
 	}
 }
@@ -4696,7 +4790,7 @@ utility::string_t BulkAssignRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void BulkAssignRequest::FromJson(const utility::string_t& Val)
+void BulkAssignRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -4705,7 +4799,7 @@ void BulkAssignRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BulkAssignRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BulkAssignRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -4718,11 +4812,11 @@ void BulkAssignRequest::FromJson(const utility::string_t& Val)
 
 		if (PersonIdsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PersonIdsValue, m_PersonIds);
+			JsonValueToType(PersonIdsValue, m_PersonIds, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member personIds is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member personIds is null!");
 		}
 	}
 
@@ -4732,7 +4826,7 @@ void BulkAssignRequest::FromJson(const utility::string_t& Val)
 
 		if (ProjectIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectIdValue, m_ProjectId);
+			JsonValueToType(ProjectIdValue, m_ProjectId, LogSystem);
 		}
 	}
 
@@ -4742,11 +4836,11 @@ void BulkAssignRequest::FromJson(const utility::string_t& Val)
 
 		if (FromValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FromValue, m_From);
+			JsonValueToType(FromValue, m_From, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member from is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member from is null!");
 		}
 	}
 
@@ -4756,11 +4850,11 @@ void BulkAssignRequest::FromJson(const utility::string_t& Val)
 
 		if (ToValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ToValue, m_To);
+			JsonValueToType(ToValue, m_To, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member to is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member to is null!");
 		}
 	}
 
@@ -4770,11 +4864,11 @@ void BulkAssignRequest::FromJson(const utility::string_t& Val)
 
 		if (HoursPerDayValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HoursPerDayValue, m_HoursPerDay);
+			JsonValueToType(HoursPerDayValue, m_HoursPerDay, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member hoursPerDay is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member hoursPerDay is null!");
 		}
 	}
 
@@ -4784,11 +4878,11 @@ void BulkAssignRequest::FromJson(const utility::string_t& Val)
 
 		if (WeekdaysOnlyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(WeekdaysOnlyValue, m_WeekdaysOnly);
+			JsonValueToType(WeekdaysOnlyValue, m_WeekdaysOnly, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member weekdaysOnly is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member weekdaysOnly is null!");
 		}
 	}
 
@@ -4798,11 +4892,11 @@ void BulkAssignRequest::FromJson(const utility::string_t& Val)
 
 		if (OverwriteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OverwriteValue, m_Overwrite);
+			JsonValueToType(OverwriteValue, m_Overwrite, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member overwrite is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member overwrite is null!");
 		}
 	}
 
@@ -4812,7 +4906,7 @@ void BulkAssignRequest::FromJson(const utility::string_t& Val)
 
 		if (KindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KindValue, m_Kind);
+			JsonValueToType(KindValue, m_Kind, LogSystem);
 		}
 	}
 }
@@ -4969,7 +5063,7 @@ utility::string_t BulkAssignResultDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void BulkAssignResultDto::FromJson(const utility::string_t& Val)
+void BulkAssignResultDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -4978,7 +5072,7 @@ void BulkAssignResultDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BulkAssignResultDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "BulkAssignResultDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -4991,11 +5085,11 @@ void BulkAssignResultDto::FromJson(const utility::string_t& Val)
 
 		if (AppliedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AppliedValue, m_Applied);
+			JsonValueToType(AppliedValue, m_Applied, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member applied is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member applied is null!");
 		}
 	}
 
@@ -5005,7 +5099,7 @@ void BulkAssignResultDto::FromJson(const utility::string_t& Val)
 
 		if (WrittenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(WrittenValue, m_Written);
+			JsonValueToType(WrittenValue, m_Written, LogSystem);
 		}
 	}
 
@@ -5015,7 +5109,7 @@ void BulkAssignResultDto::FromJson(const utility::string_t& Val)
 
 		if (ReplacedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReplacedValue, m_Replaced);
+			JsonValueToType(ReplacedValue, m_Replaced, LogSystem);
 		}
 	}
 
@@ -5025,7 +5119,7 @@ void BulkAssignResultDto::FromJson(const utility::string_t& Val)
 
 		if (ConflictsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ConflictsValue, m_Conflicts);
+			JsonValueToType(ConflictsValue, m_Conflicts, LogSystem);
 		}
 	}
 
@@ -5035,7 +5129,7 @@ void BulkAssignResultDto::FromJson(const utility::string_t& Val)
 
 		if (SharedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SharedValue, m_Shared);
+			JsonValueToType(SharedValue, m_Shared, LogSystem);
 		}
 	}
 }
@@ -5107,6 +5201,4748 @@ void BulkAssignResultDto::SetShared(const std::vector<std::shared_ptr<Assignment
 	m_Shared = Value;
 }
 
+ByoAccessCheckDto::ByoAccessCheckDto()
+{
+}
+ByoAccessCheckDto::~ByoAccessCheckDto()
+{
+}
+
+utility::string_t ByoAccessCheckDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_CheckedAt.has_value())
+	{
+		rapidjson::Value CheckedAtValue(TypeToJsonValue(m_CheckedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("checkedAt", CheckedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Passed.has_value())
+	{
+		rapidjson::Value PassedValue(TypeToJsonValue(m_Passed, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("passed", PassedValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Rows.has_value())
+	{
+		rapidjson::Value RowsValue(TypeToJsonValue(m_Rows, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("rows", RowsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Notes.has_value())
+	{
+		rapidjson::Value NotesValue(TypeToJsonValue(m_Notes, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("notes", NotesValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoAccessCheckDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoAccessCheckDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("checkedAt"))
+	{
+		const rapidjson::Value& CheckedAtValue = JsonDoc["checkedAt"];
+
+		if (CheckedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CheckedAtValue, m_CheckedAt, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member checkedAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("passed"))
+	{
+		const rapidjson::Value& PassedValue = JsonDoc["passed"];
+
+		if (PassedValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(PassedValue, m_Passed, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member passed is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("rows"))
+	{
+		const rapidjson::Value& RowsValue = JsonDoc["rows"];
+
+		if (RowsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RowsValue, m_Rows, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("notes"))
+	{
+		const rapidjson::Value& NotesValue = JsonDoc["notes"];
+
+		if (NotesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NotesValue, m_Notes, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t ByoAccessCheckDto::GetCheckedAt() const
+{
+	return m_CheckedAt.value();
+}
+
+bool ByoAccessCheckDto::HasCheckedAt() const
+{
+	return m_CheckedAt.has_value();
+}
+void ByoAccessCheckDto::SetCheckedAt(const utility::string_t& Value)
+{
+	m_CheckedAt = Value;
+}
+bool ByoAccessCheckDto::GetPassed() const
+{
+	return m_Passed.value();
+}
+
+bool ByoAccessCheckDto::HasPassed() const
+{
+	return m_Passed.has_value();
+}
+void ByoAccessCheckDto::SetPassed(const bool& Value)
+{
+	m_Passed = Value;
+}
+const std::vector<std::shared_ptr<ByoAccessCheckRowDto>>& ByoAccessCheckDto::GetRows() const
+{
+	return m_Rows.value();
+}
+
+bool ByoAccessCheckDto::HasRows() const
+{
+	return m_Rows.has_value();
+}
+void ByoAccessCheckDto::SetRows(const std::vector<std::shared_ptr<ByoAccessCheckRowDto>>& Value)
+{
+	m_Rows = Value;
+}
+const std::vector<utility::string_t>& ByoAccessCheckDto::GetNotes() const
+{
+	return m_Notes.value();
+}
+
+bool ByoAccessCheckDto::HasNotes() const
+{
+	return m_Notes.has_value();
+}
+void ByoAccessCheckDto::SetNotes(const std::vector<utility::string_t>& Value)
+{
+	m_Notes = Value;
+}
+
+ByoAccessCheckRowDto::ByoAccessCheckRowDto()
+{
+}
+ByoAccessCheckRowDto::~ByoAccessCheckRowDto()
+{
+}
+
+utility::string_t ByoAccessCheckRowDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Permission.has_value())
+	{
+		rapidjson::Value PermissionValue(TypeToJsonValue(m_Permission, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("permission", PermissionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Role.has_value())
+	{
+		rapidjson::Value RoleValue(TypeToJsonValue(m_Role, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("role", RoleValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Purpose.has_value())
+	{
+		rapidjson::Value PurposeValue(TypeToJsonValue(m_Purpose, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("purpose", PurposeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Required.has_value())
+	{
+		rapidjson::Value RequiredValue(TypeToJsonValue(m_Required, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("required", RequiredValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Granted.has_value())
+	{
+		rapidjson::Value GrantedValue(TypeToJsonValue(m_Granted, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("granted", GrantedValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Fix.has_value())
+	{
+		rapidjson::Value FixValue(TypeToJsonValue(m_Fix, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("fix", FixValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoAccessCheckRowDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoAccessCheckRowDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("permission"))
+	{
+		const rapidjson::Value& PermissionValue = JsonDoc["permission"];
+
+		if (PermissionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(PermissionValue, m_Permission, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("role"))
+	{
+		const rapidjson::Value& RoleValue = JsonDoc["role"];
+
+		if (RoleValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RoleValue, m_Role, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("purpose"))
+	{
+		const rapidjson::Value& PurposeValue = JsonDoc["purpose"];
+
+		if (PurposeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(PurposeValue, m_Purpose, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("required"))
+	{
+		const rapidjson::Value& RequiredValue = JsonDoc["required"];
+
+		if (RequiredValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RequiredValue, m_Required, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member required is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("granted"))
+	{
+		const rapidjson::Value& GrantedValue = JsonDoc["granted"];
+
+		if (GrantedValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GrantedValue, m_Granted, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member granted is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("fix"))
+	{
+		const rapidjson::Value& FixValue = JsonDoc["fix"];
+
+		if (FixValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FixValue, m_Fix, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t ByoAccessCheckRowDto::GetPermission() const
+{
+	return m_Permission.value();
+}
+
+bool ByoAccessCheckRowDto::HasPermission() const
+{
+	return m_Permission.has_value();
+}
+void ByoAccessCheckRowDto::SetPermission(const utility::string_t& Value)
+{
+	m_Permission = Value;
+}
+utility::string_t ByoAccessCheckRowDto::GetRole() const
+{
+	return m_Role.value();
+}
+
+bool ByoAccessCheckRowDto::HasRole() const
+{
+	return m_Role.has_value();
+}
+void ByoAccessCheckRowDto::SetRole(const utility::string_t& Value)
+{
+	m_Role = Value;
+}
+utility::string_t ByoAccessCheckRowDto::GetPurpose() const
+{
+	return m_Purpose.value();
+}
+
+bool ByoAccessCheckRowDto::HasPurpose() const
+{
+	return m_Purpose.has_value();
+}
+void ByoAccessCheckRowDto::SetPurpose(const utility::string_t& Value)
+{
+	m_Purpose = Value;
+}
+bool ByoAccessCheckRowDto::GetRequired() const
+{
+	return m_Required.value();
+}
+
+bool ByoAccessCheckRowDto::HasRequired() const
+{
+	return m_Required.has_value();
+}
+void ByoAccessCheckRowDto::SetRequired(const bool& Value)
+{
+	m_Required = Value;
+}
+bool ByoAccessCheckRowDto::GetGranted() const
+{
+	return m_Granted.value();
+}
+
+bool ByoAccessCheckRowDto::HasGranted() const
+{
+	return m_Granted.has_value();
+}
+void ByoAccessCheckRowDto::SetGranted(const bool& Value)
+{
+	m_Granted = Value;
+}
+utility::string_t ByoAccessCheckRowDto::GetFix() const
+{
+	return m_Fix.value();
+}
+
+bool ByoAccessCheckRowDto::HasFix() const
+{
+	return m_Fix.has_value();
+}
+void ByoAccessCheckRowDto::SetFix(const utility::string_t& Value)
+{
+	m_Fix = Value;
+}
+
+ByoHandoverDto::ByoHandoverDto()
+{
+}
+ByoHandoverDto::~ByoHandoverDto()
+{
+}
+
+utility::string_t ByoHandoverDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_RuntimeServiceAccountEmail.has_value())
+	{
+		rapidjson::Value RuntimeServiceAccountEmailValue(TypeToJsonValue(m_RuntimeServiceAccountEmail, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("runtimeServiceAccountEmail", RuntimeServiceAccountEmailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Network.has_value())
+	{
+		rapidjson::Value NetworkValue(TypeToJsonValue(m_Network, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("network", NetworkValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_NetworkTag.has_value())
+	{
+		rapidjson::Value NetworkTagValue(TypeToJsonValue(m_NetworkTag, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("networkTag", NetworkTagValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Subnet.has_value())
+	{
+		rapidjson::Value SubnetValue(TypeToJsonValue(m_Subnet, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("subnet", SubnetValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Region.has_value())
+	{
+		rapidjson::Value RegionValue(TypeToJsonValue(m_Region, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("region", RegionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_NatEnabled.has_value())
+	{
+		rapidjson::Value NatEnabledValue(TypeToJsonValue(m_NatEnabled, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("natEnabled", NatEnabledValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_NatRegions.has_value())
+	{
+		rapidjson::Value NatRegionsValue(TypeToJsonValue(m_NatRegions, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("natRegions", NatRegionsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SshFirewallRule.has_value())
+	{
+		rapidjson::Value SshFirewallRuleValue(TypeToJsonValue(m_SshFirewallRule, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("sshFirewallRule", SshFirewallRuleValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_FirewallManagementGranted.has_value())
+	{
+		rapidjson::Value FirewallManagementGrantedValue(TypeToJsonValue(m_FirewallManagementGranted, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("firewallManagementGranted", FirewallManagementGrantedValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_GrantedRoles.has_value())
+	{
+		rapidjson::Value GrantedRolesValue(TypeToJsonValue(m_GrantedRoles, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("grantedRoles", GrantedRolesValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoHandoverDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoHandoverDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("runtimeServiceAccountEmail"))
+	{
+		const rapidjson::Value& RuntimeServiceAccountEmailValue = JsonDoc["runtimeServiceAccountEmail"];
+
+		if (RuntimeServiceAccountEmailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RuntimeServiceAccountEmailValue, m_RuntimeServiceAccountEmail, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("network"))
+	{
+		const rapidjson::Value& NetworkValue = JsonDoc["network"];
+
+		if (NetworkValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NetworkValue, m_Network, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("networkTag"))
+	{
+		const rapidjson::Value& NetworkTagValue = JsonDoc["networkTag"];
+
+		if (NetworkTagValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NetworkTagValue, m_NetworkTag, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("subnet"))
+	{
+		const rapidjson::Value& SubnetValue = JsonDoc["subnet"];
+
+		if (SubnetValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SubnetValue, m_Subnet, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("region"))
+	{
+		const rapidjson::Value& RegionValue = JsonDoc["region"];
+
+		if (RegionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RegionValue, m_Region, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("natEnabled"))
+	{
+		const rapidjson::Value& NatEnabledValue = JsonDoc["natEnabled"];
+
+		if (NatEnabledValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NatEnabledValue, m_NatEnabled, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member natEnabled is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("natRegions"))
+	{
+		const rapidjson::Value& NatRegionsValue = JsonDoc["natRegions"];
+
+		if (NatRegionsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NatRegionsValue, m_NatRegions, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("sshFirewallRule"))
+	{
+		const rapidjson::Value& SshFirewallRuleValue = JsonDoc["sshFirewallRule"];
+
+		if (SshFirewallRuleValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SshFirewallRuleValue, m_SshFirewallRule, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("firewallManagementGranted"))
+	{
+		const rapidjson::Value& FirewallManagementGrantedValue = JsonDoc["firewallManagementGranted"];
+
+		if (FirewallManagementGrantedValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FirewallManagementGrantedValue, m_FirewallManagementGranted, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("grantedRoles"))
+	{
+		const rapidjson::Value& GrantedRolesValue = JsonDoc["grantedRoles"];
+
+		if (GrantedRolesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GrantedRolesValue, m_GrantedRoles, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t ByoHandoverDto::GetRuntimeServiceAccountEmail() const
+{
+	return m_RuntimeServiceAccountEmail.value();
+}
+
+bool ByoHandoverDto::HasRuntimeServiceAccountEmail() const
+{
+	return m_RuntimeServiceAccountEmail.has_value();
+}
+void ByoHandoverDto::SetRuntimeServiceAccountEmail(const utility::string_t& Value)
+{
+	m_RuntimeServiceAccountEmail = Value;
+}
+utility::string_t ByoHandoverDto::GetNetwork() const
+{
+	return m_Network.value();
+}
+
+bool ByoHandoverDto::HasNetwork() const
+{
+	return m_Network.has_value();
+}
+void ByoHandoverDto::SetNetwork(const utility::string_t& Value)
+{
+	m_Network = Value;
+}
+utility::string_t ByoHandoverDto::GetNetworkTag() const
+{
+	return m_NetworkTag.value();
+}
+
+bool ByoHandoverDto::HasNetworkTag() const
+{
+	return m_NetworkTag.has_value();
+}
+void ByoHandoverDto::SetNetworkTag(const utility::string_t& Value)
+{
+	m_NetworkTag = Value;
+}
+utility::string_t ByoHandoverDto::GetSubnet() const
+{
+	return m_Subnet.value();
+}
+
+bool ByoHandoverDto::HasSubnet() const
+{
+	return m_Subnet.has_value();
+}
+void ByoHandoverDto::SetSubnet(const utility::string_t& Value)
+{
+	m_Subnet = Value;
+}
+utility::string_t ByoHandoverDto::GetRegion() const
+{
+	return m_Region.value();
+}
+
+bool ByoHandoverDto::HasRegion() const
+{
+	return m_Region.has_value();
+}
+void ByoHandoverDto::SetRegion(const utility::string_t& Value)
+{
+	m_Region = Value;
+}
+bool ByoHandoverDto::GetNatEnabled() const
+{
+	return m_NatEnabled.value();
+}
+
+bool ByoHandoverDto::HasNatEnabled() const
+{
+	return m_NatEnabled.has_value();
+}
+void ByoHandoverDto::SetNatEnabled(const bool& Value)
+{
+	m_NatEnabled = Value;
+}
+const std::vector<utility::string_t>& ByoHandoverDto::GetNatRegions() const
+{
+	return m_NatRegions.value();
+}
+
+bool ByoHandoverDto::HasNatRegions() const
+{
+	return m_NatRegions.has_value();
+}
+void ByoHandoverDto::SetNatRegions(const std::vector<utility::string_t>& Value)
+{
+	m_NatRegions = Value;
+}
+utility::string_t ByoHandoverDto::GetSshFirewallRule() const
+{
+	return m_SshFirewallRule.value();
+}
+
+bool ByoHandoverDto::HasSshFirewallRule() const
+{
+	return m_SshFirewallRule.has_value();
+}
+void ByoHandoverDto::SetSshFirewallRule(const utility::string_t& Value)
+{
+	m_SshFirewallRule = Value;
+}
+bool ByoHandoverDto::GetFirewallManagementGranted() const
+{
+	return m_FirewallManagementGranted.value();
+}
+
+bool ByoHandoverDto::HasFirewallManagementGranted() const
+{
+	return m_FirewallManagementGranted.has_value();
+}
+void ByoHandoverDto::SetFirewallManagementGranted(const bool& Value)
+{
+	m_FirewallManagementGranted = Value;
+}
+const std::vector<utility::string_t>& ByoHandoverDto::GetGrantedRoles() const
+{
+	return m_GrantedRoles.value();
+}
+
+bool ByoHandoverDto::HasGrantedRoles() const
+{
+	return m_GrantedRoles.has_value();
+}
+void ByoHandoverDto::SetGrantedRoles(const std::vector<utility::string_t>& Value)
+{
+	m_GrantedRoles = Value;
+}
+
+ByoInventoryErrorDto::ByoInventoryErrorDto()
+{
+}
+ByoInventoryErrorDto::~ByoInventoryErrorDto()
+{
+}
+
+utility::string_t ByoInventoryErrorDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Message.has_value())
+	{
+		rapidjson::Value MessageValue(TypeToJsonValue(m_Message, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("message", MessageValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_At.has_value())
+	{
+		rapidjson::Value AtValue(TypeToJsonValue(m_At, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("at", AtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_OurSide.has_value())
+	{
+		rapidjson::Value OurSideValue(TypeToJsonValue(m_OurSide, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("ourSide", OurSideValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoInventoryErrorDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoInventoryErrorDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("message"))
+	{
+		const rapidjson::Value& MessageValue = JsonDoc["message"];
+
+		if (MessageValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MessageValue, m_Message, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("at"))
+	{
+		const rapidjson::Value& AtValue = JsonDoc["at"];
+
+		if (AtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AtValue, m_At, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member at is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("ourSide"))
+	{
+		const rapidjson::Value& OurSideValue = JsonDoc["ourSide"];
+
+		if (OurSideValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OurSideValue, m_OurSide, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member ourSide is null!");
+		}
+	}
+}
+
+
+utility::string_t ByoInventoryErrorDto::GetMessage() const
+{
+	return m_Message.value();
+}
+
+bool ByoInventoryErrorDto::HasMessage() const
+{
+	return m_Message.has_value();
+}
+void ByoInventoryErrorDto::SetMessage(const utility::string_t& Value)
+{
+	m_Message = Value;
+}
+utility::string_t ByoInventoryErrorDto::GetAt() const
+{
+	return m_At.value();
+}
+
+bool ByoInventoryErrorDto::HasAt() const
+{
+	return m_At.has_value();
+}
+void ByoInventoryErrorDto::SetAt(const utility::string_t& Value)
+{
+	m_At = Value;
+}
+bool ByoInventoryErrorDto::GetOurSide() const
+{
+	return m_OurSide.value();
+}
+
+bool ByoInventoryErrorDto::HasOurSide() const
+{
+	return m_OurSide.has_value();
+}
+void ByoInventoryErrorDto::SetOurSide(const bool& Value)
+{
+	m_OurSide = Value;
+}
+
+ByoMachineAttemptDto::ByoMachineAttemptDto()
+{
+}
+ByoMachineAttemptDto::~ByoMachineAttemptDto()
+{
+}
+
+utility::string_t ByoMachineAttemptDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Round.has_value())
+	{
+		rapidjson::Value RoundValue(TypeToJsonValue(m_Round, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("round", RoundValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Zone.has_value())
+	{
+		rapidjson::Value ZoneValue(TypeToJsonValue(m_Zone, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("zone", ZoneValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Class.has_value())
+	{
+		rapidjson::Value ClassValue(TypeToJsonValue(m_Class, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("class", ClassValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Message.has_value())
+	{
+		rapidjson::Value MessageValue(TypeToJsonValue(m_Message, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("message", MessageValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_At.has_value())
+	{
+		rapidjson::Value AtValue(TypeToJsonValue(m_At, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("at", AtValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoMachineAttemptDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoMachineAttemptDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("round"))
+	{
+		const rapidjson::Value& RoundValue = JsonDoc["round"];
+
+		if (RoundValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RoundValue, m_Round, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member round is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("zone"))
+	{
+		const rapidjson::Value& ZoneValue = JsonDoc["zone"];
+
+		if (ZoneValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ZoneValue, m_Zone, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("class"))
+	{
+		const rapidjson::Value& ClassValue = JsonDoc["class"];
+
+		if (ClassValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ClassValue, m_Class, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("message"))
+	{
+		const rapidjson::Value& MessageValue = JsonDoc["message"];
+
+		if (MessageValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MessageValue, m_Message, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("at"))
+	{
+		const rapidjson::Value& AtValue = JsonDoc["at"];
+
+		if (AtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AtValue, m_At, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member at is null!");
+		}
+	}
+}
+
+
+int32_t ByoMachineAttemptDto::GetRound() const
+{
+	return m_Round.value();
+}
+
+bool ByoMachineAttemptDto::HasRound() const
+{
+	return m_Round.has_value();
+}
+void ByoMachineAttemptDto::SetRound(int32_t Value)
+{
+	m_Round = Value;
+}
+utility::string_t ByoMachineAttemptDto::GetZone() const
+{
+	return m_Zone.value();
+}
+
+bool ByoMachineAttemptDto::HasZone() const
+{
+	return m_Zone.has_value();
+}
+void ByoMachineAttemptDto::SetZone(const utility::string_t& Value)
+{
+	m_Zone = Value;
+}
+utility::string_t ByoMachineAttemptDto::GetClass() const
+{
+	return m_Class.value();
+}
+
+bool ByoMachineAttemptDto::HasClass() const
+{
+	return m_Class.has_value();
+}
+void ByoMachineAttemptDto::SetClass(const utility::string_t& Value)
+{
+	m_Class = Value;
+}
+utility::string_t ByoMachineAttemptDto::GetMessage() const
+{
+	return m_Message.value();
+}
+
+bool ByoMachineAttemptDto::HasMessage() const
+{
+	return m_Message.has_value();
+}
+void ByoMachineAttemptDto::SetMessage(const utility::string_t& Value)
+{
+	m_Message = Value;
+}
+utility::string_t ByoMachineAttemptDto::GetAt() const
+{
+	return m_At.value();
+}
+
+bool ByoMachineAttemptDto::HasAt() const
+{
+	return m_At.has_value();
+}
+void ByoMachineAttemptDto::SetAt(const utility::string_t& Value)
+{
+	m_At = Value;
+}
+
+ByoMachineDto::ByoMachineDto()
+{
+}
+ByoMachineDto::~ByoMachineDto()
+{
+}
+
+utility::string_t ByoMachineDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Id.has_value())
+	{
+		rapidjson::Value IdValue(TypeToJsonValue(m_Id, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("id", IdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TenantName.has_value())
+	{
+		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ProjectRecordId.has_value())
+	{
+		rapidjson::Value ProjectRecordIdValue(TypeToJsonValue(m_ProjectRecordId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("projectRecordId", ProjectRecordIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_GcpProjectId.has_value())
+	{
+		rapidjson::Value GcpProjectIdValue(TypeToJsonValue(m_GcpProjectId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("gcpProjectId", GcpProjectIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ProjectState.has_value())
+	{
+		rapidjson::Value ProjectStateValue(TypeToJsonValue(m_ProjectState, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("projectState", ProjectStateValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_GcpInstanceId.has_value())
+	{
+		rapidjson::Value GcpInstanceIdValue(TypeToJsonValue(m_GcpInstanceId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("gcpInstanceId", GcpInstanceIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Name.has_value())
+	{
+		rapidjson::Value NameValue(TypeToJsonValue(m_Name, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("name", NameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Zone.has_value())
+	{
+		rapidjson::Value ZoneValue(TypeToJsonValue(m_Zone, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("zone", ZoneValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_MachineType.has_value())
+	{
+		rapidjson::Value MachineTypeValue(TypeToJsonValue(m_MachineType, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("machineType", MachineTypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_GpuType.has_value())
+	{
+		rapidjson::Value GpuTypeValue(TypeToJsonValue(m_GpuType, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("gpuType", GpuTypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_GpuCount.has_value())
+	{
+		rapidjson::Value GpuCountValue(TypeToJsonValue(m_GpuCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("gpuCount", GpuCountValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ServiceAccountEmail.has_value())
+	{
+		rapidjson::Value ServiceAccountEmailValue(TypeToJsonValue(m_ServiceAccountEmail, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("serviceAccountEmail", ServiceAccountEmailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_NetworkTags.has_value())
+	{
+		rapidjson::Value NetworkTagsValue(TypeToJsonValue(m_NetworkTags, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("networkTags", NetworkTagsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Labels.has_value())
+	{
+		rapidjson::Value LabelsValue(TypeToJsonValue(m_Labels, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("labels", LabelsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_InternalIp.has_value())
+	{
+		rapidjson::Value InternalIpValue(TypeToJsonValue(m_InternalIp, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("internalIp", InternalIpValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ExternalIp.has_value())
+	{
+		rapidjson::Value ExternalIpValue(TypeToJsonValue(m_ExternalIp, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("externalIp", ExternalIpValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_GcpStatus.has_value())
+	{
+		rapidjson::Value GcpStatusValue(TypeToJsonValue(m_GcpStatus, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("gcpStatus", GcpStatusValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_GcpCreatedAt.has_value())
+	{
+		rapidjson::Value GcpCreatedAtValue(TypeToJsonValue(m_GcpCreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("gcpCreatedAt", GcpCreatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LastStartedAt.has_value())
+	{
+		rapidjson::Value LastStartedAtValue(TypeToJsonValue(m_LastStartedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("lastStartedAt", LastStartedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LastStoppedAt.has_value())
+	{
+		rapidjson::Value LastStoppedAtValue(TypeToJsonValue(m_LastStoppedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("lastStoppedAt", LastStoppedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Origin.has_value())
+	{
+		rapidjson::Value OriginValue(TypeToJsonValue(m_Origin, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("origin", OriginValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Presence.has_value())
+	{
+		rapidjson::Value PresenceValue(TypeToJsonValue(m_Presence, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("presence", PresenceValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_IsOrphan.has_value())
+	{
+		rapidjson::Value IsOrphanValue(TypeToJsonValue(m_IsOrphan, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("isOrphan", IsOrphanValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_MatchedBy.has_value())
+	{
+		rapidjson::Value MatchedByValue(TypeToJsonValue(m_MatchedBy, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("matchedBy", MatchedByValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_FirstSeenAt.has_value())
+	{
+		rapidjson::Value FirstSeenAtValue(TypeToJsonValue(m_FirstSeenAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("firstSeenAt", FirstSeenAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LastSeenAt.has_value())
+	{
+		rapidjson::Value LastSeenAtValue(TypeToJsonValue(m_LastSeenAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("lastSeenAt", LastSeenAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_GoneAt.has_value())
+	{
+		rapidjson::Value GoneAtValue(TypeToJsonValue(m_GoneAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("goneAt", GoneAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RequestedByEmail.has_value())
+	{
+		rapidjson::Value RequestedByEmailValue(TypeToJsonValue(m_RequestedByEmail, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("requestedByEmail", RequestedByEmailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RequestedAt.has_value())
+	{
+		rapidjson::Value RequestedAtValue(TypeToJsonValue(m_RequestedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("requestedAt", RequestedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Purpose.has_value())
+	{
+		rapidjson::Value PurposeValue(TypeToJsonValue(m_Purpose, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("purpose", PurposeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Template.has_value())
+	{
+		rapidjson::Value TemplateValue(TypeToJsonValue(m_Template, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("template", TemplateValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ImageVersion.has_value())
+	{
+		rapidjson::Value ImageVersionValue(TypeToJsonValue(m_ImageVersion, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("imageVersion", ImageVersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_NodeDefinitionsVersion.has_value())
+	{
+		rapidjson::Value NodeDefinitionsVersionValue(TypeToJsonValue(m_NodeDefinitionsVersion, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("nodeDefinitionsVersion", NodeDefinitionsVersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LeaseExpiresAt.has_value())
+	{
+		rapidjson::Value LeaseExpiresAtValue(TypeToJsonValue(m_LeaseExpiresAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("leaseExpiresAt", LeaseExpiresAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_IsPastLease.has_value())
+	{
+		rapidjson::Value IsPastLeaseValue(TypeToJsonValue(m_IsPastLease, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("isPastLease", IsPastLeaseValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ActiveJobAction.has_value())
+	{
+		rapidjson::Value ActiveJobActionValue(TypeToJsonValue(m_ActiveJobAction, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("activeJobAction", ActiveJobActionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ActiveJob.has_value())
+	{
+		rapidjson::Value ActiveJobValue(TypeToJsonValue(m_ActiveJob, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("activeJob", ActiveJobValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LastJob.has_value())
+	{
+		rapidjson::Value LastJobValue(TypeToJsonValue(m_LastJob, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("lastJob", LastJobValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoMachineDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoMachineDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("id"))
+	{
+		const rapidjson::Value& IdValue = JsonDoc["id"];
+
+		if (IdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IdValue, m_Id, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("tenantName"))
+	{
+		const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+
+		if (TenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantNameValue, m_TenantName, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("projectRecordId"))
+	{
+		const rapidjson::Value& ProjectRecordIdValue = JsonDoc["projectRecordId"];
+
+		if (ProjectRecordIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ProjectRecordIdValue, m_ProjectRecordId, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("gcpProjectId"))
+	{
+		const rapidjson::Value& GcpProjectIdValue = JsonDoc["gcpProjectId"];
+
+		if (GcpProjectIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GcpProjectIdValue, m_GcpProjectId, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("projectState"))
+	{
+		const rapidjson::Value& ProjectStateValue = JsonDoc["projectState"];
+
+		if (ProjectStateValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ProjectStateValue, m_ProjectState, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("gcpInstanceId"))
+	{
+		const rapidjson::Value& GcpInstanceIdValue = JsonDoc["gcpInstanceId"];
+
+		if (GcpInstanceIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GcpInstanceIdValue, m_GcpInstanceId, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("name"))
+	{
+		const rapidjson::Value& NameValue = JsonDoc["name"];
+
+		if (NameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NameValue, m_Name, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("zone"))
+	{
+		const rapidjson::Value& ZoneValue = JsonDoc["zone"];
+
+		if (ZoneValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ZoneValue, m_Zone, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("machineType"))
+	{
+		const rapidjson::Value& MachineTypeValue = JsonDoc["machineType"];
+
+		if (MachineTypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MachineTypeValue, m_MachineType, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("gpuType"))
+	{
+		const rapidjson::Value& GpuTypeValue = JsonDoc["gpuType"];
+
+		if (GpuTypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GpuTypeValue, m_GpuType, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("gpuCount"))
+	{
+		const rapidjson::Value& GpuCountValue = JsonDoc["gpuCount"];
+
+		if (GpuCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GpuCountValue, m_GpuCount, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member gpuCount is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("serviceAccountEmail"))
+	{
+		const rapidjson::Value& ServiceAccountEmailValue = JsonDoc["serviceAccountEmail"];
+
+		if (ServiceAccountEmailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ServiceAccountEmailValue, m_ServiceAccountEmail, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("networkTags"))
+	{
+		const rapidjson::Value& NetworkTagsValue = JsonDoc["networkTags"];
+
+		if (NetworkTagsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NetworkTagsValue, m_NetworkTags, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("labels"))
+	{
+		const rapidjson::Value& LabelsValue = JsonDoc["labels"];
+
+		if (LabelsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LabelsValue, m_Labels, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("internalIp"))
+	{
+		const rapidjson::Value& InternalIpValue = JsonDoc["internalIp"];
+
+		if (InternalIpValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(InternalIpValue, m_InternalIp, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("externalIp"))
+	{
+		const rapidjson::Value& ExternalIpValue = JsonDoc["externalIp"];
+
+		if (ExternalIpValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExternalIpValue, m_ExternalIp, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("gcpStatus"))
+	{
+		const rapidjson::Value& GcpStatusValue = JsonDoc["gcpStatus"];
+
+		if (GcpStatusValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GcpStatusValue, m_GcpStatus, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("gcpCreatedAt"))
+	{
+		const rapidjson::Value& GcpCreatedAtValue = JsonDoc["gcpCreatedAt"];
+
+		if (GcpCreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GcpCreatedAtValue, m_GcpCreatedAt, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("lastStartedAt"))
+	{
+		const rapidjson::Value& LastStartedAtValue = JsonDoc["lastStartedAt"];
+
+		if (LastStartedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LastStartedAtValue, m_LastStartedAt, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("lastStoppedAt"))
+	{
+		const rapidjson::Value& LastStoppedAtValue = JsonDoc["lastStoppedAt"];
+
+		if (LastStoppedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LastStoppedAtValue, m_LastStoppedAt, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("origin"))
+	{
+		const rapidjson::Value& OriginValue = JsonDoc["origin"];
+
+		if (OriginValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OriginValue, m_Origin, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("presence"))
+	{
+		const rapidjson::Value& PresenceValue = JsonDoc["presence"];
+
+		if (PresenceValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(PresenceValue, m_Presence, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("isOrphan"))
+	{
+		const rapidjson::Value& IsOrphanValue = JsonDoc["isOrphan"];
+
+		if (IsOrphanValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IsOrphanValue, m_IsOrphan, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isOrphan is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("matchedBy"))
+	{
+		const rapidjson::Value& MatchedByValue = JsonDoc["matchedBy"];
+
+		if (MatchedByValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MatchedByValue, m_MatchedBy, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("firstSeenAt"))
+	{
+		const rapidjson::Value& FirstSeenAtValue = JsonDoc["firstSeenAt"];
+
+		if (FirstSeenAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FirstSeenAtValue, m_FirstSeenAt, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member firstSeenAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("lastSeenAt"))
+	{
+		const rapidjson::Value& LastSeenAtValue = JsonDoc["lastSeenAt"];
+
+		if (LastSeenAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LastSeenAtValue, m_LastSeenAt, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member lastSeenAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("goneAt"))
+	{
+		const rapidjson::Value& GoneAtValue = JsonDoc["goneAt"];
+
+		if (GoneAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GoneAtValue, m_GoneAt, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("requestedByEmail"))
+	{
+		const rapidjson::Value& RequestedByEmailValue = JsonDoc["requestedByEmail"];
+
+		if (RequestedByEmailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RequestedByEmailValue, m_RequestedByEmail, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("requestedAt"))
+	{
+		const rapidjson::Value& RequestedAtValue = JsonDoc["requestedAt"];
+
+		if (RequestedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RequestedAtValue, m_RequestedAt, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("purpose"))
+	{
+		const rapidjson::Value& PurposeValue = JsonDoc["purpose"];
+
+		if (PurposeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(PurposeValue, m_Purpose, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("template"))
+	{
+		const rapidjson::Value& TemplateValue = JsonDoc["template"];
+
+		if (TemplateValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TemplateValue, m_Template, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("imageVersion"))
+	{
+		const rapidjson::Value& ImageVersionValue = JsonDoc["imageVersion"];
+
+		if (ImageVersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ImageVersionValue, m_ImageVersion, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("nodeDefinitionsVersion"))
+	{
+		const rapidjson::Value& NodeDefinitionsVersionValue = JsonDoc["nodeDefinitionsVersion"];
+
+		if (NodeDefinitionsVersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NodeDefinitionsVersionValue, m_NodeDefinitionsVersion, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("leaseExpiresAt"))
+	{
+		const rapidjson::Value& LeaseExpiresAtValue = JsonDoc["leaseExpiresAt"];
+
+		if (LeaseExpiresAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LeaseExpiresAtValue, m_LeaseExpiresAt, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("isPastLease"))
+	{
+		const rapidjson::Value& IsPastLeaseValue = JsonDoc["isPastLease"];
+
+		if (IsPastLeaseValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IsPastLeaseValue, m_IsPastLease, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isPastLease is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("activeJobAction"))
+	{
+		const rapidjson::Value& ActiveJobActionValue = JsonDoc["activeJobAction"];
+
+		if (ActiveJobActionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ActiveJobActionValue, m_ActiveJobAction, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("activeJob"))
+	{
+		const rapidjson::Value& ActiveJobValue = JsonDoc["activeJob"];
+
+		if (ActiveJobValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ActiveJobValue, m_ActiveJob, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member activeJob is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("lastJob"))
+	{
+		const rapidjson::Value& LastJobValue = JsonDoc["lastJob"];
+
+		if (LastJobValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LastJobValue, m_LastJob, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member lastJob is null!");
+		}
+	}
+}
+
+
+utility::string_t ByoMachineDto::GetId() const
+{
+	return m_Id.value();
+}
+
+bool ByoMachineDto::HasId() const
+{
+	return m_Id.has_value();
+}
+void ByoMachineDto::SetId(const utility::string_t& Value)
+{
+	m_Id = Value;
+}
+utility::string_t ByoMachineDto::GetTenantName() const
+{
+	return m_TenantName.value();
+}
+
+bool ByoMachineDto::HasTenantName() const
+{
+	return m_TenantName.has_value();
+}
+void ByoMachineDto::SetTenantName(const utility::string_t& Value)
+{
+	m_TenantName = Value;
+}
+utility::string_t ByoMachineDto::GetProjectRecordId() const
+{
+	return m_ProjectRecordId.value();
+}
+
+bool ByoMachineDto::HasProjectRecordId() const
+{
+	return m_ProjectRecordId.has_value();
+}
+void ByoMachineDto::SetProjectRecordId(const utility::string_t& Value)
+{
+	m_ProjectRecordId = Value;
+}
+utility::string_t ByoMachineDto::GetGcpProjectId() const
+{
+	return m_GcpProjectId.value();
+}
+
+bool ByoMachineDto::HasGcpProjectId() const
+{
+	return m_GcpProjectId.has_value();
+}
+void ByoMachineDto::SetGcpProjectId(const utility::string_t& Value)
+{
+	m_GcpProjectId = Value;
+}
+utility::string_t ByoMachineDto::GetProjectState() const
+{
+	return m_ProjectState.value();
+}
+
+bool ByoMachineDto::HasProjectState() const
+{
+	return m_ProjectState.has_value();
+}
+void ByoMachineDto::SetProjectState(const utility::string_t& Value)
+{
+	m_ProjectState = Value;
+}
+utility::string_t ByoMachineDto::GetGcpInstanceId() const
+{
+	return m_GcpInstanceId.value();
+}
+
+bool ByoMachineDto::HasGcpInstanceId() const
+{
+	return m_GcpInstanceId.has_value();
+}
+void ByoMachineDto::SetGcpInstanceId(const utility::string_t& Value)
+{
+	m_GcpInstanceId = Value;
+}
+utility::string_t ByoMachineDto::GetName() const
+{
+	return m_Name.value();
+}
+
+bool ByoMachineDto::HasName() const
+{
+	return m_Name.has_value();
+}
+void ByoMachineDto::SetName(const utility::string_t& Value)
+{
+	m_Name = Value;
+}
+utility::string_t ByoMachineDto::GetZone() const
+{
+	return m_Zone.value();
+}
+
+bool ByoMachineDto::HasZone() const
+{
+	return m_Zone.has_value();
+}
+void ByoMachineDto::SetZone(const utility::string_t& Value)
+{
+	m_Zone = Value;
+}
+utility::string_t ByoMachineDto::GetMachineType() const
+{
+	return m_MachineType.value();
+}
+
+bool ByoMachineDto::HasMachineType() const
+{
+	return m_MachineType.has_value();
+}
+void ByoMachineDto::SetMachineType(const utility::string_t& Value)
+{
+	m_MachineType = Value;
+}
+utility::string_t ByoMachineDto::GetGpuType() const
+{
+	return m_GpuType.value();
+}
+
+bool ByoMachineDto::HasGpuType() const
+{
+	return m_GpuType.has_value();
+}
+void ByoMachineDto::SetGpuType(const utility::string_t& Value)
+{
+	m_GpuType = Value;
+}
+int32_t ByoMachineDto::GetGpuCount() const
+{
+	return m_GpuCount.value();
+}
+
+bool ByoMachineDto::HasGpuCount() const
+{
+	return m_GpuCount.has_value();
+}
+void ByoMachineDto::SetGpuCount(int32_t Value)
+{
+	m_GpuCount = Value;
+}
+utility::string_t ByoMachineDto::GetServiceAccountEmail() const
+{
+	return m_ServiceAccountEmail.value();
+}
+
+bool ByoMachineDto::HasServiceAccountEmail() const
+{
+	return m_ServiceAccountEmail.has_value();
+}
+void ByoMachineDto::SetServiceAccountEmail(const utility::string_t& Value)
+{
+	m_ServiceAccountEmail = Value;
+}
+const std::vector<utility::string_t>& ByoMachineDto::GetNetworkTags() const
+{
+	return m_NetworkTags.value();
+}
+
+bool ByoMachineDto::HasNetworkTags() const
+{
+	return m_NetworkTags.has_value();
+}
+void ByoMachineDto::SetNetworkTags(const std::vector<utility::string_t>& Value)
+{
+	m_NetworkTags = Value;
+}
+const std::map<utility::string_t, utility::string_t>& ByoMachineDto::GetLabels() const
+{
+	return m_Labels.value();
+}
+
+bool ByoMachineDto::HasLabels() const
+{
+	return m_Labels.has_value();
+}
+void ByoMachineDto::SetLabels(const std::map<utility::string_t, utility::string_t>& Value)
+{
+	m_Labels = Value;
+}
+utility::string_t ByoMachineDto::GetInternalIp() const
+{
+	return m_InternalIp.value();
+}
+
+bool ByoMachineDto::HasInternalIp() const
+{
+	return m_InternalIp.has_value();
+}
+void ByoMachineDto::SetInternalIp(const utility::string_t& Value)
+{
+	m_InternalIp = Value;
+}
+utility::string_t ByoMachineDto::GetExternalIp() const
+{
+	return m_ExternalIp.value();
+}
+
+bool ByoMachineDto::HasExternalIp() const
+{
+	return m_ExternalIp.has_value();
+}
+void ByoMachineDto::SetExternalIp(const utility::string_t& Value)
+{
+	m_ExternalIp = Value;
+}
+utility::string_t ByoMachineDto::GetGcpStatus() const
+{
+	return m_GcpStatus.value();
+}
+
+bool ByoMachineDto::HasGcpStatus() const
+{
+	return m_GcpStatus.has_value();
+}
+void ByoMachineDto::SetGcpStatus(const utility::string_t& Value)
+{
+	m_GcpStatus = Value;
+}
+utility::string_t ByoMachineDto::GetGcpCreatedAt() const
+{
+	return m_GcpCreatedAt.value();
+}
+
+bool ByoMachineDto::HasGcpCreatedAt() const
+{
+	return m_GcpCreatedAt.has_value();
+}
+void ByoMachineDto::SetGcpCreatedAt(const utility::string_t& Value)
+{
+	m_GcpCreatedAt = Value;
+}
+utility::string_t ByoMachineDto::GetLastStartedAt() const
+{
+	return m_LastStartedAt.value();
+}
+
+bool ByoMachineDto::HasLastStartedAt() const
+{
+	return m_LastStartedAt.has_value();
+}
+void ByoMachineDto::SetLastStartedAt(const utility::string_t& Value)
+{
+	m_LastStartedAt = Value;
+}
+utility::string_t ByoMachineDto::GetLastStoppedAt() const
+{
+	return m_LastStoppedAt.value();
+}
+
+bool ByoMachineDto::HasLastStoppedAt() const
+{
+	return m_LastStoppedAt.has_value();
+}
+void ByoMachineDto::SetLastStoppedAt(const utility::string_t& Value)
+{
+	m_LastStoppedAt = Value;
+}
+utility::string_t ByoMachineDto::GetOrigin() const
+{
+	return m_Origin.value();
+}
+
+bool ByoMachineDto::HasOrigin() const
+{
+	return m_Origin.has_value();
+}
+void ByoMachineDto::SetOrigin(const utility::string_t& Value)
+{
+	m_Origin = Value;
+}
+utility::string_t ByoMachineDto::GetPresence() const
+{
+	return m_Presence.value();
+}
+
+bool ByoMachineDto::HasPresence() const
+{
+	return m_Presence.has_value();
+}
+void ByoMachineDto::SetPresence(const utility::string_t& Value)
+{
+	m_Presence = Value;
+}
+bool ByoMachineDto::GetIsOrphan() const
+{
+	return m_IsOrphan.value();
+}
+
+bool ByoMachineDto::HasIsOrphan() const
+{
+	return m_IsOrphan.has_value();
+}
+void ByoMachineDto::SetIsOrphan(const bool& Value)
+{
+	m_IsOrphan = Value;
+}
+const std::vector<utility::string_t>& ByoMachineDto::GetMatchedBy() const
+{
+	return m_MatchedBy.value();
+}
+
+bool ByoMachineDto::HasMatchedBy() const
+{
+	return m_MatchedBy.has_value();
+}
+void ByoMachineDto::SetMatchedBy(const std::vector<utility::string_t>& Value)
+{
+	m_MatchedBy = Value;
+}
+utility::string_t ByoMachineDto::GetFirstSeenAt() const
+{
+	return m_FirstSeenAt.value();
+}
+
+bool ByoMachineDto::HasFirstSeenAt() const
+{
+	return m_FirstSeenAt.has_value();
+}
+void ByoMachineDto::SetFirstSeenAt(const utility::string_t& Value)
+{
+	m_FirstSeenAt = Value;
+}
+utility::string_t ByoMachineDto::GetLastSeenAt() const
+{
+	return m_LastSeenAt.value();
+}
+
+bool ByoMachineDto::HasLastSeenAt() const
+{
+	return m_LastSeenAt.has_value();
+}
+void ByoMachineDto::SetLastSeenAt(const utility::string_t& Value)
+{
+	m_LastSeenAt = Value;
+}
+utility::string_t ByoMachineDto::GetGoneAt() const
+{
+	return m_GoneAt.value();
+}
+
+bool ByoMachineDto::HasGoneAt() const
+{
+	return m_GoneAt.has_value();
+}
+void ByoMachineDto::SetGoneAt(const utility::string_t& Value)
+{
+	m_GoneAt = Value;
+}
+utility::string_t ByoMachineDto::GetRequestedByEmail() const
+{
+	return m_RequestedByEmail.value();
+}
+
+bool ByoMachineDto::HasRequestedByEmail() const
+{
+	return m_RequestedByEmail.has_value();
+}
+void ByoMachineDto::SetRequestedByEmail(const utility::string_t& Value)
+{
+	m_RequestedByEmail = Value;
+}
+utility::string_t ByoMachineDto::GetRequestedAt() const
+{
+	return m_RequestedAt.value();
+}
+
+bool ByoMachineDto::HasRequestedAt() const
+{
+	return m_RequestedAt.has_value();
+}
+void ByoMachineDto::SetRequestedAt(const utility::string_t& Value)
+{
+	m_RequestedAt = Value;
+}
+utility::string_t ByoMachineDto::GetPurpose() const
+{
+	return m_Purpose.value();
+}
+
+bool ByoMachineDto::HasPurpose() const
+{
+	return m_Purpose.has_value();
+}
+void ByoMachineDto::SetPurpose(const utility::string_t& Value)
+{
+	m_Purpose = Value;
+}
+utility::string_t ByoMachineDto::GetTemplate() const
+{
+	return m_Template.value();
+}
+
+bool ByoMachineDto::HasTemplate() const
+{
+	return m_Template.has_value();
+}
+void ByoMachineDto::SetTemplate(const utility::string_t& Value)
+{
+	m_Template = Value;
+}
+utility::string_t ByoMachineDto::GetImageVersion() const
+{
+	return m_ImageVersion.value();
+}
+
+bool ByoMachineDto::HasImageVersion() const
+{
+	return m_ImageVersion.has_value();
+}
+void ByoMachineDto::SetImageVersion(const utility::string_t& Value)
+{
+	m_ImageVersion = Value;
+}
+utility::string_t ByoMachineDto::GetNodeDefinitionsVersion() const
+{
+	return m_NodeDefinitionsVersion.value();
+}
+
+bool ByoMachineDto::HasNodeDefinitionsVersion() const
+{
+	return m_NodeDefinitionsVersion.has_value();
+}
+void ByoMachineDto::SetNodeDefinitionsVersion(const utility::string_t& Value)
+{
+	m_NodeDefinitionsVersion = Value;
+}
+utility::string_t ByoMachineDto::GetLeaseExpiresAt() const
+{
+	return m_LeaseExpiresAt.value();
+}
+
+bool ByoMachineDto::HasLeaseExpiresAt() const
+{
+	return m_LeaseExpiresAt.has_value();
+}
+void ByoMachineDto::SetLeaseExpiresAt(const utility::string_t& Value)
+{
+	m_LeaseExpiresAt = Value;
+}
+bool ByoMachineDto::GetIsPastLease() const
+{
+	return m_IsPastLease.value();
+}
+
+bool ByoMachineDto::HasIsPastLease() const
+{
+	return m_IsPastLease.has_value();
+}
+void ByoMachineDto::SetIsPastLease(const bool& Value)
+{
+	m_IsPastLease = Value;
+}
+utility::string_t ByoMachineDto::GetActiveJobAction() const
+{
+	return m_ActiveJobAction.value();
+}
+
+bool ByoMachineDto::HasActiveJobAction() const
+{
+	return m_ActiveJobAction.has_value();
+}
+void ByoMachineDto::SetActiveJobAction(const utility::string_t& Value)
+{
+	m_ActiveJobAction = Value;
+}
+std::shared_ptr<ByoMachineJobDto> ByoMachineDto::GetActiveJob() const
+{
+	return m_ActiveJob.value();
+}
+
+bool ByoMachineDto::HasActiveJob() const
+{
+	return m_ActiveJob.has_value();
+}
+void ByoMachineDto::SetActiveJob(const std::shared_ptr<ByoMachineJobDto>& Value)
+{
+	m_ActiveJob = Value;
+}
+std::shared_ptr<ByoMachineJobSummaryDto> ByoMachineDto::GetLastJob() const
+{
+	return m_LastJob.value();
+}
+
+bool ByoMachineDto::HasLastJob() const
+{
+	return m_LastJob.has_value();
+}
+void ByoMachineDto::SetLastJob(const std::shared_ptr<ByoMachineJobSummaryDto>& Value)
+{
+	m_LastJob = Value;
+}
+
+ByoMachineDtoDataPage::ByoMachineDtoDataPage()
+{
+}
+ByoMachineDtoDataPage::~ByoMachineDtoDataPage()
+{
+}
+
+utility::string_t ByoMachineDtoDataPage::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Items.has_value())
+	{
+		rapidjson::Value ItemsValue(TypeToJsonValue(m_Items, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("items", ItemsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Skip.has_value())
+	{
+		rapidjson::Value SkipValue(TypeToJsonValue(m_Skip, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("skip", SkipValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Limit.has_value())
+	{
+		rapidjson::Value LimitValue(TypeToJsonValue(m_Limit, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("limit", LimitValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemCount.has_value())
+	{
+		rapidjson::Value ItemCountValue(TypeToJsonValue(m_ItemCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemCount", ItemCountValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemTotalCount.has_value())
+	{
+		rapidjson::Value ItemTotalCountValue(TypeToJsonValue(m_ItemTotalCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoMachineDtoDataPage::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoMachineDtoDataPage::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("items"))
+	{
+		const rapidjson::Value& ItemsValue = JsonDoc["items"];
+
+		if (ItemsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("skip"))
+	{
+		const rapidjson::Value& SkipValue = JsonDoc["skip"];
+
+		if (SkipValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SkipValue, m_Skip, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skip is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("limit"))
+	{
+		const rapidjson::Value& LimitValue = JsonDoc["limit"];
+
+		if (LimitValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LimitValue, m_Limit, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("itemCount"))
+	{
+		const rapidjson::Value& ItemCountValue = JsonDoc["itemCount"];
+
+		if (ItemCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemCountValue, m_ItemCount, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemCount is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("itemTotalCount"))
+	{
+		const rapidjson::Value& ItemTotalCountValue = JsonDoc["itemTotalCount"];
+
+		if (ItemTotalCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemTotalCount is null!");
+		}
+	}
+}
+
+
+const std::vector<std::shared_ptr<ByoMachineDto>>& ByoMachineDtoDataPage::GetItems() const
+{
+	return m_Items.value();
+}
+
+bool ByoMachineDtoDataPage::HasItems() const
+{
+	return m_Items.has_value();
+}
+void ByoMachineDtoDataPage::SetItems(const std::vector<std::shared_ptr<ByoMachineDto>>& Value)
+{
+	m_Items = Value;
+}
+int32_t ByoMachineDtoDataPage::GetSkip() const
+{
+	return m_Skip.value();
+}
+
+bool ByoMachineDtoDataPage::HasSkip() const
+{
+	return m_Skip.has_value();
+}
+void ByoMachineDtoDataPage::SetSkip(int32_t Value)
+{
+	m_Skip = Value;
+}
+int32_t ByoMachineDtoDataPage::GetLimit() const
+{
+	return m_Limit.value();
+}
+
+bool ByoMachineDtoDataPage::HasLimit() const
+{
+	return m_Limit.has_value();
+}
+void ByoMachineDtoDataPage::SetLimit(int32_t Value)
+{
+	m_Limit = Value;
+}
+int32_t ByoMachineDtoDataPage::GetItemCount() const
+{
+	return m_ItemCount.value();
+}
+
+bool ByoMachineDtoDataPage::HasItemCount() const
+{
+	return m_ItemCount.has_value();
+}
+void ByoMachineDtoDataPage::SetItemCount(int32_t Value)
+{
+	m_ItemCount = Value;
+}
+int64_t ByoMachineDtoDataPage::GetItemTotalCount() const
+{
+	return m_ItemTotalCount.value();
+}
+
+bool ByoMachineDtoDataPage::HasItemTotalCount() const
+{
+	return m_ItemTotalCount.has_value();
+}
+void ByoMachineDtoDataPage::SetItemTotalCount(int64_t Value)
+{
+	m_ItemTotalCount = Value;
+}
+
+ByoMachineJobDto::ByoMachineJobDto()
+{
+}
+ByoMachineJobDto::~ByoMachineJobDto()
+{
+}
+
+utility::string_t ByoMachineJobDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Id.has_value())
+	{
+		rapidjson::Value IdValue(TypeToJsonValue(m_Id, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("id", IdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Action.has_value())
+	{
+		rapidjson::Value ActionValue(TypeToJsonValue(m_Action, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("action", ActionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_State.has_value())
+	{
+		rapidjson::Value StateValue(TypeToJsonValue(m_State, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("state", StateValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Step.has_value())
+	{
+		rapidjson::Value StepValue(TypeToJsonValue(m_Step, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("step", StepValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Round.has_value())
+	{
+		rapidjson::Value RoundValue(TypeToJsonValue(m_Round, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("round", RoundValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Rounds.has_value())
+	{
+		rapidjson::Value RoundsValue(TypeToJsonValue(m_Rounds, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("rounds", RoundsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_NextAttemptAt.has_value())
+	{
+		rapidjson::Value NextAttemptAtValue(TypeToJsonValue(m_NextAttemptAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("nextAttemptAt", NextAttemptAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CurrentZone.has_value())
+	{
+		rapidjson::Value CurrentZoneValue(TypeToJsonValue(m_CurrentZone, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("currentZone", CurrentZoneValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ZonesTried.has_value())
+	{
+		rapidjson::Value ZonesTriedValue(TypeToJsonValue(m_ZonesTried, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("zonesTried", ZonesTriedValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ZonesPerRound.has_value())
+	{
+		rapidjson::Value ZonesPerRoundValue(TypeToJsonValue(m_ZonesPerRound, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("zonesPerRound", ZonesPerRoundValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Error.has_value())
+	{
+		rapidjson::Value ErrorValue(TypeToJsonValue(m_Error, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("error", ErrorValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CancelRequested.has_value())
+	{
+		rapidjson::Value CancelRequestedValue(TypeToJsonValue(m_CancelRequested, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("cancelRequested", CancelRequestedValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RequestedByEmail.has_value())
+	{
+		rapidjson::Value RequestedByEmailValue(TypeToJsonValue(m_RequestedByEmail, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("requestedByEmail", RequestedByEmailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_FinishedAt.has_value())
+	{
+		rapidjson::Value FinishedAtValue(TypeToJsonValue(m_FinishedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("finishedAt", FinishedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Notes.has_value())
+	{
+		rapidjson::Value NotesValue(TypeToJsonValue(m_Notes, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("notes", NotesValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Attempts.has_value())
+	{
+		rapidjson::Value AttemptsValue(TypeToJsonValue(m_Attempts, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("attempts", AttemptsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoMachineJobDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoMachineJobDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("id"))
+	{
+		const rapidjson::Value& IdValue = JsonDoc["id"];
+
+		if (IdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IdValue, m_Id, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("action"))
+	{
+		const rapidjson::Value& ActionValue = JsonDoc["action"];
+
+		if (ActionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ActionValue, m_Action, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("state"))
+	{
+		const rapidjson::Value& StateValue = JsonDoc["state"];
+
+		if (StateValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StateValue, m_State, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("step"))
+	{
+		const rapidjson::Value& StepValue = JsonDoc["step"];
+
+		if (StepValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StepValue, m_Step, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("round"))
+	{
+		const rapidjson::Value& RoundValue = JsonDoc["round"];
+
+		if (RoundValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RoundValue, m_Round, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("rounds"))
+	{
+		const rapidjson::Value& RoundsValue = JsonDoc["rounds"];
+
+		if (RoundsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RoundsValue, m_Rounds, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("nextAttemptAt"))
+	{
+		const rapidjson::Value& NextAttemptAtValue = JsonDoc["nextAttemptAt"];
+
+		if (NextAttemptAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NextAttemptAtValue, m_NextAttemptAt, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member nextAttemptAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("currentZone"))
+	{
+		const rapidjson::Value& CurrentZoneValue = JsonDoc["currentZone"];
+
+		if (CurrentZoneValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CurrentZoneValue, m_CurrentZone, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("zonesTried"))
+	{
+		const rapidjson::Value& ZonesTriedValue = JsonDoc["zonesTried"];
+
+		if (ZonesTriedValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ZonesTriedValue, m_ZonesTried, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member zonesTried is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("zonesPerRound"))
+	{
+		const rapidjson::Value& ZonesPerRoundValue = JsonDoc["zonesPerRound"];
+
+		if (ZonesPerRoundValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ZonesPerRoundValue, m_ZonesPerRound, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member zonesPerRound is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("error"))
+	{
+		const rapidjson::Value& ErrorValue = JsonDoc["error"];
+
+		if (ErrorValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ErrorValue, m_Error, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member error is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("cancelRequested"))
+	{
+		const rapidjson::Value& CancelRequestedValue = JsonDoc["cancelRequested"];
+
+		if (CancelRequestedValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CancelRequestedValue, m_CancelRequested, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member cancelRequested is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("requestedByEmail"))
+	{
+		const rapidjson::Value& RequestedByEmailValue = JsonDoc["requestedByEmail"];
+
+		if (RequestedByEmailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RequestedByEmailValue, m_RequestedByEmail, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("finishedAt"))
+	{
+		const rapidjson::Value& FinishedAtValue = JsonDoc["finishedAt"];
+
+		if (FinishedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FinishedAtValue, m_FinishedAt, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("notes"))
+	{
+		const rapidjson::Value& NotesValue = JsonDoc["notes"];
+
+		if (NotesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NotesValue, m_Notes, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("attempts"))
+	{
+		const rapidjson::Value& AttemptsValue = JsonDoc["attempts"];
+
+		if (AttemptsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AttemptsValue, m_Attempts, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t ByoMachineJobDto::GetId() const
+{
+	return m_Id.value();
+}
+
+bool ByoMachineJobDto::HasId() const
+{
+	return m_Id.has_value();
+}
+void ByoMachineJobDto::SetId(const utility::string_t& Value)
+{
+	m_Id = Value;
+}
+utility::string_t ByoMachineJobDto::GetAction() const
+{
+	return m_Action.value();
+}
+
+bool ByoMachineJobDto::HasAction() const
+{
+	return m_Action.has_value();
+}
+void ByoMachineJobDto::SetAction(const utility::string_t& Value)
+{
+	m_Action = Value;
+}
+utility::string_t ByoMachineJobDto::GetState() const
+{
+	return m_State.value();
+}
+
+bool ByoMachineJobDto::HasState() const
+{
+	return m_State.has_value();
+}
+void ByoMachineJobDto::SetState(const utility::string_t& Value)
+{
+	m_State = Value;
+}
+utility::string_t ByoMachineJobDto::GetStep() const
+{
+	return m_Step.value();
+}
+
+bool ByoMachineJobDto::HasStep() const
+{
+	return m_Step.has_value();
+}
+void ByoMachineJobDto::SetStep(const utility::string_t& Value)
+{
+	m_Step = Value;
+}
+int32_t ByoMachineJobDto::GetRound() const
+{
+	return m_Round.value();
+}
+
+bool ByoMachineJobDto::HasRound() const
+{
+	return m_Round.has_value();
+}
+void ByoMachineJobDto::SetRound(int32_t Value)
+{
+	m_Round = Value;
+}
+int32_t ByoMachineJobDto::GetRounds() const
+{
+	return m_Rounds.value();
+}
+
+bool ByoMachineJobDto::HasRounds() const
+{
+	return m_Rounds.has_value();
+}
+void ByoMachineJobDto::SetRounds(int32_t Value)
+{
+	m_Rounds = Value;
+}
+utility::string_t ByoMachineJobDto::GetNextAttemptAt() const
+{
+	return m_NextAttemptAt.value();
+}
+
+bool ByoMachineJobDto::HasNextAttemptAt() const
+{
+	return m_NextAttemptAt.has_value();
+}
+void ByoMachineJobDto::SetNextAttemptAt(const utility::string_t& Value)
+{
+	m_NextAttemptAt = Value;
+}
+utility::string_t ByoMachineJobDto::GetCurrentZone() const
+{
+	return m_CurrentZone.value();
+}
+
+bool ByoMachineJobDto::HasCurrentZone() const
+{
+	return m_CurrentZone.has_value();
+}
+void ByoMachineJobDto::SetCurrentZone(const utility::string_t& Value)
+{
+	m_CurrentZone = Value;
+}
+int32_t ByoMachineJobDto::GetZonesTried() const
+{
+	return m_ZonesTried.value();
+}
+
+bool ByoMachineJobDto::HasZonesTried() const
+{
+	return m_ZonesTried.has_value();
+}
+void ByoMachineJobDto::SetZonesTried(int32_t Value)
+{
+	m_ZonesTried = Value;
+}
+int32_t ByoMachineJobDto::GetZonesPerRound() const
+{
+	return m_ZonesPerRound.value();
+}
+
+bool ByoMachineJobDto::HasZonesPerRound() const
+{
+	return m_ZonesPerRound.has_value();
+}
+void ByoMachineJobDto::SetZonesPerRound(int32_t Value)
+{
+	m_ZonesPerRound = Value;
+}
+std::shared_ptr<ByoMachineJobErrorDto> ByoMachineJobDto::GetError() const
+{
+	return m_Error.value();
+}
+
+bool ByoMachineJobDto::HasError() const
+{
+	return m_Error.has_value();
+}
+void ByoMachineJobDto::SetError(const std::shared_ptr<ByoMachineJobErrorDto>& Value)
+{
+	m_Error = Value;
+}
+bool ByoMachineJobDto::GetCancelRequested() const
+{
+	return m_CancelRequested.value();
+}
+
+bool ByoMachineJobDto::HasCancelRequested() const
+{
+	return m_CancelRequested.has_value();
+}
+void ByoMachineJobDto::SetCancelRequested(const bool& Value)
+{
+	m_CancelRequested = Value;
+}
+utility::string_t ByoMachineJobDto::GetRequestedByEmail() const
+{
+	return m_RequestedByEmail.value();
+}
+
+bool ByoMachineJobDto::HasRequestedByEmail() const
+{
+	return m_RequestedByEmail.has_value();
+}
+void ByoMachineJobDto::SetRequestedByEmail(const utility::string_t& Value)
+{
+	m_RequestedByEmail = Value;
+}
+utility::string_t ByoMachineJobDto::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool ByoMachineJobDto::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
+}
+void ByoMachineJobDto::SetCreatedAt(const utility::string_t& Value)
+{
+	m_CreatedAt = Value;
+}
+utility::string_t ByoMachineJobDto::GetFinishedAt() const
+{
+	return m_FinishedAt.value();
+}
+
+bool ByoMachineJobDto::HasFinishedAt() const
+{
+	return m_FinishedAt.has_value();
+}
+void ByoMachineJobDto::SetFinishedAt(const utility::string_t& Value)
+{
+	m_FinishedAt = Value;
+}
+const std::vector<utility::string_t>& ByoMachineJobDto::GetNotes() const
+{
+	return m_Notes.value();
+}
+
+bool ByoMachineJobDto::HasNotes() const
+{
+	return m_Notes.has_value();
+}
+void ByoMachineJobDto::SetNotes(const std::vector<utility::string_t>& Value)
+{
+	m_Notes = Value;
+}
+const std::vector<std::shared_ptr<ByoMachineAttemptDto>>& ByoMachineJobDto::GetAttempts() const
+{
+	return m_Attempts.value();
+}
+
+bool ByoMachineJobDto::HasAttempts() const
+{
+	return m_Attempts.has_value();
+}
+void ByoMachineJobDto::SetAttempts(const std::vector<std::shared_ptr<ByoMachineAttemptDto>>& Value)
+{
+	m_Attempts = Value;
+}
+
+ByoMachineJobErrorDto::ByoMachineJobErrorDto()
+{
+}
+ByoMachineJobErrorDto::~ByoMachineJobErrorDto()
+{
+}
+
+utility::string_t ByoMachineJobErrorDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Message.has_value())
+	{
+		rapidjson::Value MessageValue(TypeToJsonValue(m_Message, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("message", MessageValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Class.has_value())
+	{
+		rapidjson::Value ClassValue(TypeToJsonValue(m_Class, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("class", ClassValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_OurSide.has_value())
+	{
+		rapidjson::Value OurSideValue(TypeToJsonValue(m_OurSide, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("ourSide", OurSideValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoMachineJobErrorDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoMachineJobErrorDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("message"))
+	{
+		const rapidjson::Value& MessageValue = JsonDoc["message"];
+
+		if (MessageValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MessageValue, m_Message, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("class"))
+	{
+		const rapidjson::Value& ClassValue = JsonDoc["class"];
+
+		if (ClassValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ClassValue, m_Class, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("ourSide"))
+	{
+		const rapidjson::Value& OurSideValue = JsonDoc["ourSide"];
+
+		if (OurSideValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OurSideValue, m_OurSide, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member ourSide is null!");
+		}
+	}
+}
+
+
+utility::string_t ByoMachineJobErrorDto::GetMessage() const
+{
+	return m_Message.value();
+}
+
+bool ByoMachineJobErrorDto::HasMessage() const
+{
+	return m_Message.has_value();
+}
+void ByoMachineJobErrorDto::SetMessage(const utility::string_t& Value)
+{
+	m_Message = Value;
+}
+utility::string_t ByoMachineJobErrorDto::GetClass() const
+{
+	return m_Class.value();
+}
+
+bool ByoMachineJobErrorDto::HasClass() const
+{
+	return m_Class.has_value();
+}
+void ByoMachineJobErrorDto::SetClass(const utility::string_t& Value)
+{
+	m_Class = Value;
+}
+bool ByoMachineJobErrorDto::GetOurSide() const
+{
+	return m_OurSide.value();
+}
+
+bool ByoMachineJobErrorDto::HasOurSide() const
+{
+	return m_OurSide.has_value();
+}
+void ByoMachineJobErrorDto::SetOurSide(const bool& Value)
+{
+	m_OurSide = Value;
+}
+
+ByoMachineJobSummaryDto::ByoMachineJobSummaryDto()
+{
+}
+ByoMachineJobSummaryDto::~ByoMachineJobSummaryDto()
+{
+}
+
+utility::string_t ByoMachineJobSummaryDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_JobId.has_value())
+	{
+		rapidjson::Value JobIdValue(TypeToJsonValue(m_JobId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("jobId", JobIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Action.has_value())
+	{
+		rapidjson::Value ActionValue(TypeToJsonValue(m_Action, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("action", ActionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Outcome.has_value())
+	{
+		rapidjson::Value OutcomeValue(TypeToJsonValue(m_Outcome, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("outcome", OutcomeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Error.has_value())
+	{
+		rapidjson::Value ErrorValue(TypeToJsonValue(m_Error, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("error", ErrorValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_FinishedAt.has_value())
+	{
+		rapidjson::Value FinishedAtValue(TypeToJsonValue(m_FinishedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("finishedAt", FinishedAtValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoMachineJobSummaryDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoMachineJobSummaryDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("jobId"))
+	{
+		const rapidjson::Value& JobIdValue = JsonDoc["jobId"];
+
+		if (JobIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(JobIdValue, m_JobId, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("action"))
+	{
+		const rapidjson::Value& ActionValue = JsonDoc["action"];
+
+		if (ActionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ActionValue, m_Action, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("outcome"))
+	{
+		const rapidjson::Value& OutcomeValue = JsonDoc["outcome"];
+
+		if (OutcomeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OutcomeValue, m_Outcome, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("error"))
+	{
+		const rapidjson::Value& ErrorValue = JsonDoc["error"];
+
+		if (ErrorValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ErrorValue, m_Error, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member error is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("finishedAt"))
+	{
+		const rapidjson::Value& FinishedAtValue = JsonDoc["finishedAt"];
+
+		if (FinishedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FinishedAtValue, m_FinishedAt, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member finishedAt is null!");
+		}
+	}
+}
+
+
+utility::string_t ByoMachineJobSummaryDto::GetJobId() const
+{
+	return m_JobId.value();
+}
+
+bool ByoMachineJobSummaryDto::HasJobId() const
+{
+	return m_JobId.has_value();
+}
+void ByoMachineJobSummaryDto::SetJobId(const utility::string_t& Value)
+{
+	m_JobId = Value;
+}
+utility::string_t ByoMachineJobSummaryDto::GetAction() const
+{
+	return m_Action.value();
+}
+
+bool ByoMachineJobSummaryDto::HasAction() const
+{
+	return m_Action.has_value();
+}
+void ByoMachineJobSummaryDto::SetAction(const utility::string_t& Value)
+{
+	m_Action = Value;
+}
+utility::string_t ByoMachineJobSummaryDto::GetOutcome() const
+{
+	return m_Outcome.value();
+}
+
+bool ByoMachineJobSummaryDto::HasOutcome() const
+{
+	return m_Outcome.has_value();
+}
+void ByoMachineJobSummaryDto::SetOutcome(const utility::string_t& Value)
+{
+	m_Outcome = Value;
+}
+std::shared_ptr<ByoMachineJobErrorDto> ByoMachineJobSummaryDto::GetError() const
+{
+	return m_Error.value();
+}
+
+bool ByoMachineJobSummaryDto::HasError() const
+{
+	return m_Error.has_value();
+}
+void ByoMachineJobSummaryDto::SetError(const std::shared_ptr<ByoMachineJobErrorDto>& Value)
+{
+	m_Error = Value;
+}
+utility::string_t ByoMachineJobSummaryDto::GetFinishedAt() const
+{
+	return m_FinishedAt.value();
+}
+
+bool ByoMachineJobSummaryDto::HasFinishedAt() const
+{
+	return m_FinishedAt.has_value();
+}
+void ByoMachineJobSummaryDto::SetFinishedAt(const utility::string_t& Value)
+{
+	m_FinishedAt = Value;
+}
+
+ByoOperatorDetailsDto::ByoOperatorDetailsDto()
+{
+}
+ByoOperatorDetailsDto::~ByoOperatorDetailsDto()
+{
+}
+
+utility::string_t ByoOperatorDetailsDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Project.has_value())
+	{
+		rapidjson::Value ProjectValue(TypeToJsonValue(m_Project, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("project", ProjectValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_OperatorServiceAccountEmail.has_value())
+	{
+		rapidjson::Value OperatorServiceAccountEmailValue(TypeToJsonValue(m_OperatorServiceAccountEmail, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("operatorServiceAccountEmail", OperatorServiceAccountEmailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_OperatorMember.has_value())
+	{
+		rapidjson::Value OperatorMemberValue(TypeToJsonValue(m_OperatorMember, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("operatorMember", OperatorMemberValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ModuleSource.has_value())
+	{
+		rapidjson::Value ModuleSourceValue(TypeToJsonValue(m_ModuleSource, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("moduleSource", ModuleSourceValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ModuleVersion.has_value())
+	{
+		rapidjson::Value ModuleVersionValue(TypeToJsonValue(m_ModuleVersion, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("moduleVersion", ModuleVersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ModuleReadmeUrl.has_value())
+	{
+		rapidjson::Value ModuleReadmeUrlValue(TypeToJsonValue(m_ModuleReadmeUrl, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("moduleReadmeUrl", ModuleReadmeUrlValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoOperatorDetailsDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoOperatorDetailsDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("project"))
+	{
+		const rapidjson::Value& ProjectValue = JsonDoc["project"];
+
+		if (ProjectValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ProjectValue, m_Project, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member project is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("operatorServiceAccountEmail"))
+	{
+		const rapidjson::Value& OperatorServiceAccountEmailValue = JsonDoc["operatorServiceAccountEmail"];
+
+		if (OperatorServiceAccountEmailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OperatorServiceAccountEmailValue, m_OperatorServiceAccountEmail, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("operatorMember"))
+	{
+		const rapidjson::Value& OperatorMemberValue = JsonDoc["operatorMember"];
+
+		if (OperatorMemberValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OperatorMemberValue, m_OperatorMember, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("moduleSource"))
+	{
+		const rapidjson::Value& ModuleSourceValue = JsonDoc["moduleSource"];
+
+		if (ModuleSourceValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ModuleSourceValue, m_ModuleSource, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("moduleVersion"))
+	{
+		const rapidjson::Value& ModuleVersionValue = JsonDoc["moduleVersion"];
+
+		if (ModuleVersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ModuleVersionValue, m_ModuleVersion, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("moduleReadmeUrl"))
+	{
+		const rapidjson::Value& ModuleReadmeUrlValue = JsonDoc["moduleReadmeUrl"];
+
+		if (ModuleReadmeUrlValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ModuleReadmeUrlValue, m_ModuleReadmeUrl, LogSystem);
+		}
+	}
+}
+
+
+std::shared_ptr<ByoProjectDto> ByoOperatorDetailsDto::GetProject() const
+{
+	return m_Project.value();
+}
+
+bool ByoOperatorDetailsDto::HasProject() const
+{
+	return m_Project.has_value();
+}
+void ByoOperatorDetailsDto::SetProject(const std::shared_ptr<ByoProjectDto>& Value)
+{
+	m_Project = Value;
+}
+utility::string_t ByoOperatorDetailsDto::GetOperatorServiceAccountEmail() const
+{
+	return m_OperatorServiceAccountEmail.value();
+}
+
+bool ByoOperatorDetailsDto::HasOperatorServiceAccountEmail() const
+{
+	return m_OperatorServiceAccountEmail.has_value();
+}
+void ByoOperatorDetailsDto::SetOperatorServiceAccountEmail(const utility::string_t& Value)
+{
+	m_OperatorServiceAccountEmail = Value;
+}
+utility::string_t ByoOperatorDetailsDto::GetOperatorMember() const
+{
+	return m_OperatorMember.value();
+}
+
+bool ByoOperatorDetailsDto::HasOperatorMember() const
+{
+	return m_OperatorMember.has_value();
+}
+void ByoOperatorDetailsDto::SetOperatorMember(const utility::string_t& Value)
+{
+	m_OperatorMember = Value;
+}
+utility::string_t ByoOperatorDetailsDto::GetModuleSource() const
+{
+	return m_ModuleSource.value();
+}
+
+bool ByoOperatorDetailsDto::HasModuleSource() const
+{
+	return m_ModuleSource.has_value();
+}
+void ByoOperatorDetailsDto::SetModuleSource(const utility::string_t& Value)
+{
+	m_ModuleSource = Value;
+}
+utility::string_t ByoOperatorDetailsDto::GetModuleVersion() const
+{
+	return m_ModuleVersion.value();
+}
+
+bool ByoOperatorDetailsDto::HasModuleVersion() const
+{
+	return m_ModuleVersion.has_value();
+}
+void ByoOperatorDetailsDto::SetModuleVersion(const utility::string_t& Value)
+{
+	m_ModuleVersion = Value;
+}
+utility::string_t ByoOperatorDetailsDto::GetModuleReadmeUrl() const
+{
+	return m_ModuleReadmeUrl.value();
+}
+
+bool ByoOperatorDetailsDto::HasModuleReadmeUrl() const
+{
+	return m_ModuleReadmeUrl.has_value();
+}
+void ByoOperatorDetailsDto::SetModuleReadmeUrl(const utility::string_t& Value)
+{
+	m_ModuleReadmeUrl = Value;
+}
+
+ByoOutputFieldErrorDto::ByoOutputFieldErrorDto()
+{
+}
+ByoOutputFieldErrorDto::~ByoOutputFieldErrorDto()
+{
+}
+
+utility::string_t ByoOutputFieldErrorDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Field.has_value())
+	{
+		rapidjson::Value FieldValue(TypeToJsonValue(m_Field, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("field", FieldValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Problem.has_value())
+	{
+		rapidjson::Value ProblemValue(TypeToJsonValue(m_Problem, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("problem", ProblemValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoOutputFieldErrorDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoOutputFieldErrorDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("field"))
+	{
+		const rapidjson::Value& FieldValue = JsonDoc["field"];
+
+		if (FieldValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FieldValue, m_Field, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("problem"))
+	{
+		const rapidjson::Value& ProblemValue = JsonDoc["problem"];
+
+		if (ProblemValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ProblemValue, m_Problem, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t ByoOutputFieldErrorDto::GetField() const
+{
+	return m_Field.value();
+}
+
+bool ByoOutputFieldErrorDto::HasField() const
+{
+	return m_Field.has_value();
+}
+void ByoOutputFieldErrorDto::SetField(const utility::string_t& Value)
+{
+	m_Field = Value;
+}
+utility::string_t ByoOutputFieldErrorDto::GetProblem() const
+{
+	return m_Problem.value();
+}
+
+bool ByoOutputFieldErrorDto::HasProblem() const
+{
+	return m_Problem.has_value();
+}
+void ByoOutputFieldErrorDto::SetProblem(const utility::string_t& Value)
+{
+	m_Problem = Value;
+}
+
+ByoProjectDto::ByoProjectDto()
+{
+}
+ByoProjectDto::~ByoProjectDto()
+{
+}
+
+utility::string_t ByoProjectDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Id.has_value())
+	{
+		rapidjson::Value IdValue(TypeToJsonValue(m_Id, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("id", IdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TenantName.has_value())
+	{
+		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_GcpProjectId.has_value())
+	{
+		rapidjson::Value GcpProjectIdValue(TypeToJsonValue(m_GcpProjectId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("gcpProjectId", GcpProjectIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_State.has_value())
+	{
+		rapidjson::Value StateValue(TypeToJsonValue(m_State, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("state", StateValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_OperatorServiceAccountEmail.has_value())
+	{
+		rapidjson::Value OperatorServiceAccountEmailValue(TypeToJsonValue(m_OperatorServiceAccountEmail, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("operatorServiceAccountEmail", OperatorServiceAccountEmailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_StateChangedAt.has_value())
+	{
+		rapidjson::Value StateChangedAtValue(TypeToJsonValue(m_StateChangedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("stateChangedAt", StateChangedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LastError.has_value())
+	{
+		rapidjson::Value LastErrorValue(TypeToJsonValue(m_LastError, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("lastError", LastErrorValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Handover.has_value())
+	{
+		rapidjson::Value HandoverValue(TypeToJsonValue(m_Handover, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("handover", HandoverValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_OutputValidationErrors.has_value())
+	{
+		rapidjson::Value OutputValidationErrorsValue(TypeToJsonValue(m_OutputValidationErrors, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("outputValidationErrors", OutputValidationErrorsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TerraformOutputSubmittedAt.has_value())
+	{
+		rapidjson::Value TerraformOutputSubmittedAtValue(TypeToJsonValue(m_TerraformOutputSubmittedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("terraformOutputSubmittedAt", TerraformOutputSubmittedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TerraformOutputRaw.has_value())
+	{
+		rapidjson::Value TerraformOutputRawValue(TypeToJsonValue(m_TerraformOutputRaw, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("terraformOutputRaw", TerraformOutputRawValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LastAccessCheck.has_value())
+	{
+		rapidjson::Value LastAccessCheckValue(TypeToJsonValue(m_LastAccessCheck, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("lastAccessCheck", LastAccessCheckValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoProjectDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoProjectDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("id"))
+	{
+		const rapidjson::Value& IdValue = JsonDoc["id"];
+
+		if (IdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IdValue, m_Id, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("tenantName"))
+	{
+		const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+
+		if (TenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantNameValue, m_TenantName, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("gcpProjectId"))
+	{
+		const rapidjson::Value& GcpProjectIdValue = JsonDoc["gcpProjectId"];
+
+		if (GcpProjectIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GcpProjectIdValue, m_GcpProjectId, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("state"))
+	{
+		const rapidjson::Value& StateValue = JsonDoc["state"];
+
+		if (StateValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StateValue, m_State, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("operatorServiceAccountEmail"))
+	{
+		const rapidjson::Value& OperatorServiceAccountEmailValue = JsonDoc["operatorServiceAccountEmail"];
+
+		if (OperatorServiceAccountEmailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OperatorServiceAccountEmailValue, m_OperatorServiceAccountEmail, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("stateChangedAt"))
+	{
+		const rapidjson::Value& StateChangedAtValue = JsonDoc["stateChangedAt"];
+
+		if (StateChangedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StateChangedAtValue, m_StateChangedAt, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member stateChangedAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("lastError"))
+	{
+		const rapidjson::Value& LastErrorValue = JsonDoc["lastError"];
+
+		if (LastErrorValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LastErrorValue, m_LastError, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member lastError is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("handover"))
+	{
+		const rapidjson::Value& HandoverValue = JsonDoc["handover"];
+
+		if (HandoverValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(HandoverValue, m_Handover, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member handover is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("outputValidationErrors"))
+	{
+		const rapidjson::Value& OutputValidationErrorsValue = JsonDoc["outputValidationErrors"];
+
+		if (OutputValidationErrorsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OutputValidationErrorsValue, m_OutputValidationErrors, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("terraformOutputSubmittedAt"))
+	{
+		const rapidjson::Value& TerraformOutputSubmittedAtValue = JsonDoc["terraformOutputSubmittedAt"];
+
+		if (TerraformOutputSubmittedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TerraformOutputSubmittedAtValue, m_TerraformOutputSubmittedAt, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("terraformOutputRaw"))
+	{
+		const rapidjson::Value& TerraformOutputRawValue = JsonDoc["terraformOutputRaw"];
+
+		if (TerraformOutputRawValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TerraformOutputRawValue, m_TerraformOutputRaw, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("lastAccessCheck"))
+	{
+		const rapidjson::Value& LastAccessCheckValue = JsonDoc["lastAccessCheck"];
+
+		if (LastAccessCheckValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LastAccessCheckValue, m_LastAccessCheck, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member lastAccessCheck is null!");
+		}
+	}
+}
+
+
+utility::string_t ByoProjectDto::GetId() const
+{
+	return m_Id.value();
+}
+
+bool ByoProjectDto::HasId() const
+{
+	return m_Id.has_value();
+}
+void ByoProjectDto::SetId(const utility::string_t& Value)
+{
+	m_Id = Value;
+}
+utility::string_t ByoProjectDto::GetTenantName() const
+{
+	return m_TenantName.value();
+}
+
+bool ByoProjectDto::HasTenantName() const
+{
+	return m_TenantName.has_value();
+}
+void ByoProjectDto::SetTenantName(const utility::string_t& Value)
+{
+	m_TenantName = Value;
+}
+utility::string_t ByoProjectDto::GetGcpProjectId() const
+{
+	return m_GcpProjectId.value();
+}
+
+bool ByoProjectDto::HasGcpProjectId() const
+{
+	return m_GcpProjectId.has_value();
+}
+void ByoProjectDto::SetGcpProjectId(const utility::string_t& Value)
+{
+	m_GcpProjectId = Value;
+}
+utility::string_t ByoProjectDto::GetState() const
+{
+	return m_State.value();
+}
+
+bool ByoProjectDto::HasState() const
+{
+	return m_State.has_value();
+}
+void ByoProjectDto::SetState(const utility::string_t& Value)
+{
+	m_State = Value;
+}
+utility::string_t ByoProjectDto::GetOperatorServiceAccountEmail() const
+{
+	return m_OperatorServiceAccountEmail.value();
+}
+
+bool ByoProjectDto::HasOperatorServiceAccountEmail() const
+{
+	return m_OperatorServiceAccountEmail.has_value();
+}
+void ByoProjectDto::SetOperatorServiceAccountEmail(const utility::string_t& Value)
+{
+	m_OperatorServiceAccountEmail = Value;
+}
+utility::string_t ByoProjectDto::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool ByoProjectDto::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
+}
+void ByoProjectDto::SetCreatedAt(const utility::string_t& Value)
+{
+	m_CreatedAt = Value;
+}
+utility::string_t ByoProjectDto::GetStateChangedAt() const
+{
+	return m_StateChangedAt.value();
+}
+
+bool ByoProjectDto::HasStateChangedAt() const
+{
+	return m_StateChangedAt.has_value();
+}
+void ByoProjectDto::SetStateChangedAt(const utility::string_t& Value)
+{
+	m_StateChangedAt = Value;
+}
+std::shared_ptr<ByoSetupErrorDto> ByoProjectDto::GetLastError() const
+{
+	return m_LastError.value();
+}
+
+bool ByoProjectDto::HasLastError() const
+{
+	return m_LastError.has_value();
+}
+void ByoProjectDto::SetLastError(const std::shared_ptr<ByoSetupErrorDto>& Value)
+{
+	m_LastError = Value;
+}
+std::shared_ptr<ByoHandoverDto> ByoProjectDto::GetHandover() const
+{
+	return m_Handover.value();
+}
+
+bool ByoProjectDto::HasHandover() const
+{
+	return m_Handover.has_value();
+}
+void ByoProjectDto::SetHandover(const std::shared_ptr<ByoHandoverDto>& Value)
+{
+	m_Handover = Value;
+}
+const std::vector<std::shared_ptr<ByoOutputFieldErrorDto>>& ByoProjectDto::GetOutputValidationErrors() const
+{
+	return m_OutputValidationErrors.value();
+}
+
+bool ByoProjectDto::HasOutputValidationErrors() const
+{
+	return m_OutputValidationErrors.has_value();
+}
+void ByoProjectDto::SetOutputValidationErrors(const std::vector<std::shared_ptr<ByoOutputFieldErrorDto>>& Value)
+{
+	m_OutputValidationErrors = Value;
+}
+utility::string_t ByoProjectDto::GetTerraformOutputSubmittedAt() const
+{
+	return m_TerraformOutputSubmittedAt.value();
+}
+
+bool ByoProjectDto::HasTerraformOutputSubmittedAt() const
+{
+	return m_TerraformOutputSubmittedAt.has_value();
+}
+void ByoProjectDto::SetTerraformOutputSubmittedAt(const utility::string_t& Value)
+{
+	m_TerraformOutputSubmittedAt = Value;
+}
+utility::string_t ByoProjectDto::GetTerraformOutputRaw() const
+{
+	return m_TerraformOutputRaw.value();
+}
+
+bool ByoProjectDto::HasTerraformOutputRaw() const
+{
+	return m_TerraformOutputRaw.has_value();
+}
+void ByoProjectDto::SetTerraformOutputRaw(const utility::string_t& Value)
+{
+	m_TerraformOutputRaw = Value;
+}
+std::shared_ptr<ByoAccessCheckDto> ByoProjectDto::GetLastAccessCheck() const
+{
+	return m_LastAccessCheck.value();
+}
+
+bool ByoProjectDto::HasLastAccessCheck() const
+{
+	return m_LastAccessCheck.has_value();
+}
+void ByoProjectDto::SetLastAccessCheck(const std::shared_ptr<ByoAccessCheckDto>& Value)
+{
+	m_LastAccessCheck = Value;
+}
+
+ByoProjectDtoDataPage::ByoProjectDtoDataPage()
+{
+}
+ByoProjectDtoDataPage::~ByoProjectDtoDataPage()
+{
+}
+
+utility::string_t ByoProjectDtoDataPage::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Items.has_value())
+	{
+		rapidjson::Value ItemsValue(TypeToJsonValue(m_Items, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("items", ItemsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Skip.has_value())
+	{
+		rapidjson::Value SkipValue(TypeToJsonValue(m_Skip, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("skip", SkipValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Limit.has_value())
+	{
+		rapidjson::Value LimitValue(TypeToJsonValue(m_Limit, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("limit", LimitValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemCount.has_value())
+	{
+		rapidjson::Value ItemCountValue(TypeToJsonValue(m_ItemCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemCount", ItemCountValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemTotalCount.has_value())
+	{
+		rapidjson::Value ItemTotalCountValue(TypeToJsonValue(m_ItemTotalCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoProjectDtoDataPage::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoProjectDtoDataPage::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("items"))
+	{
+		const rapidjson::Value& ItemsValue = JsonDoc["items"];
+
+		if (ItemsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("skip"))
+	{
+		const rapidjson::Value& SkipValue = JsonDoc["skip"];
+
+		if (SkipValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SkipValue, m_Skip, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skip is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("limit"))
+	{
+		const rapidjson::Value& LimitValue = JsonDoc["limit"];
+
+		if (LimitValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LimitValue, m_Limit, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("itemCount"))
+	{
+		const rapidjson::Value& ItemCountValue = JsonDoc["itemCount"];
+
+		if (ItemCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemCountValue, m_ItemCount, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemCount is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("itemTotalCount"))
+	{
+		const rapidjson::Value& ItemTotalCountValue = JsonDoc["itemTotalCount"];
+
+		if (ItemTotalCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemTotalCount is null!");
+		}
+	}
+}
+
+
+const std::vector<std::shared_ptr<ByoProjectDto>>& ByoProjectDtoDataPage::GetItems() const
+{
+	return m_Items.value();
+}
+
+bool ByoProjectDtoDataPage::HasItems() const
+{
+	return m_Items.has_value();
+}
+void ByoProjectDtoDataPage::SetItems(const std::vector<std::shared_ptr<ByoProjectDto>>& Value)
+{
+	m_Items = Value;
+}
+int32_t ByoProjectDtoDataPage::GetSkip() const
+{
+	return m_Skip.value();
+}
+
+bool ByoProjectDtoDataPage::HasSkip() const
+{
+	return m_Skip.has_value();
+}
+void ByoProjectDtoDataPage::SetSkip(int32_t Value)
+{
+	m_Skip = Value;
+}
+int32_t ByoProjectDtoDataPage::GetLimit() const
+{
+	return m_Limit.value();
+}
+
+bool ByoProjectDtoDataPage::HasLimit() const
+{
+	return m_Limit.has_value();
+}
+void ByoProjectDtoDataPage::SetLimit(int32_t Value)
+{
+	m_Limit = Value;
+}
+int32_t ByoProjectDtoDataPage::GetItemCount() const
+{
+	return m_ItemCount.value();
+}
+
+bool ByoProjectDtoDataPage::HasItemCount() const
+{
+	return m_ItemCount.has_value();
+}
+void ByoProjectDtoDataPage::SetItemCount(int32_t Value)
+{
+	m_ItemCount = Value;
+}
+int64_t ByoProjectDtoDataPage::GetItemTotalCount() const
+{
+	return m_ItemTotalCount.value();
+}
+
+bool ByoProjectDtoDataPage::HasItemTotalCount() const
+{
+	return m_ItemTotalCount.has_value();
+}
+void ByoProjectDtoDataPage::SetItemTotalCount(int64_t Value)
+{
+	m_ItemTotalCount = Value;
+}
+
+ByoProjectInventoryDto::ByoProjectInventoryDto()
+{
+}
+ByoProjectInventoryDto::~ByoProjectInventoryDto()
+{
+}
+
+utility::string_t ByoProjectInventoryDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_ProjectRecordId.has_value())
+	{
+		rapidjson::Value ProjectRecordIdValue(TypeToJsonValue(m_ProjectRecordId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("projectRecordId", ProjectRecordIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TenantName.has_value())
+	{
+		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_GcpProjectId.has_value())
+	{
+		rapidjson::Value GcpProjectIdValue(TypeToJsonValue(m_GcpProjectId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("gcpProjectId", GcpProjectIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LastSweptAt.has_value())
+	{
+		rapidjson::Value LastSweptAtValue(TypeToJsonValue(m_LastSweptAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("lastSweptAt", LastSweptAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LastAttemptAt.has_value())
+	{
+		rapidjson::Value LastAttemptAtValue(TypeToJsonValue(m_LastAttemptAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("lastAttemptAt", LastAttemptAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_NextSweepAt.has_value())
+	{
+		rapidjson::Value NextSweepAtValue(TypeToJsonValue(m_NextSweepAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("nextSweepAt", NextSweepAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LastError.has_value())
+	{
+		rapidjson::Value LastErrorValue(TypeToJsonValue(m_LastError, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("lastError", LastErrorValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ConsecutiveFailures.has_value())
+	{
+		rapidjson::Value ConsecutiveFailuresValue(TypeToJsonValue(m_ConsecutiveFailures, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("consecutiveFailures", ConsecutiveFailuresValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UnreachableZones.has_value())
+	{
+		rapidjson::Value UnreachableZonesValue(TypeToJsonValue(m_UnreachableZones, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("unreachableZones", UnreachableZonesValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_PresentCount.has_value())
+	{
+		rapidjson::Value PresentCountValue(TypeToJsonValue(m_PresentCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("presentCount", PresentCountValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_OrphanCount.has_value())
+	{
+		rapidjson::Value OrphanCountValue(TypeToJsonValue(m_OrphanCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("orphanCount", OrphanCountValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_IsStale.has_value())
+	{
+		rapidjson::Value IsStaleValue(TypeToJsonValue(m_IsStale, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("isStale", IsStaleValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoProjectInventoryDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoProjectInventoryDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("projectRecordId"))
+	{
+		const rapidjson::Value& ProjectRecordIdValue = JsonDoc["projectRecordId"];
+
+		if (ProjectRecordIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ProjectRecordIdValue, m_ProjectRecordId, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("tenantName"))
+	{
+		const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+
+		if (TenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantNameValue, m_TenantName, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("gcpProjectId"))
+	{
+		const rapidjson::Value& GcpProjectIdValue = JsonDoc["gcpProjectId"];
+
+		if (GcpProjectIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GcpProjectIdValue, m_GcpProjectId, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("lastSweptAt"))
+	{
+		const rapidjson::Value& LastSweptAtValue = JsonDoc["lastSweptAt"];
+
+		if (LastSweptAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LastSweptAtValue, m_LastSweptAt, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("lastAttemptAt"))
+	{
+		const rapidjson::Value& LastAttemptAtValue = JsonDoc["lastAttemptAt"];
+
+		if (LastAttemptAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LastAttemptAtValue, m_LastAttemptAt, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("nextSweepAt"))
+	{
+		const rapidjson::Value& NextSweepAtValue = JsonDoc["nextSweepAt"];
+
+		if (NextSweepAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NextSweepAtValue, m_NextSweepAt, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member nextSweepAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("lastError"))
+	{
+		const rapidjson::Value& LastErrorValue = JsonDoc["lastError"];
+
+		if (LastErrorValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LastErrorValue, m_LastError, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member lastError is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("consecutiveFailures"))
+	{
+		const rapidjson::Value& ConsecutiveFailuresValue = JsonDoc["consecutiveFailures"];
+
+		if (ConsecutiveFailuresValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ConsecutiveFailuresValue, m_ConsecutiveFailures, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member consecutiveFailures is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("unreachableZones"))
+	{
+		const rapidjson::Value& UnreachableZonesValue = JsonDoc["unreachableZones"];
+
+		if (UnreachableZonesValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UnreachableZonesValue, m_UnreachableZones, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("presentCount"))
+	{
+		const rapidjson::Value& PresentCountValue = JsonDoc["presentCount"];
+
+		if (PresentCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(PresentCountValue, m_PresentCount, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member presentCount is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("orphanCount"))
+	{
+		const rapidjson::Value& OrphanCountValue = JsonDoc["orphanCount"];
+
+		if (OrphanCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OrphanCountValue, m_OrphanCount, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member orphanCount is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("isStale"))
+	{
+		const rapidjson::Value& IsStaleValue = JsonDoc["isStale"];
+
+		if (IsStaleValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IsStaleValue, m_IsStale, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isStale is null!");
+		}
+	}
+}
+
+
+utility::string_t ByoProjectInventoryDto::GetProjectRecordId() const
+{
+	return m_ProjectRecordId.value();
+}
+
+bool ByoProjectInventoryDto::HasProjectRecordId() const
+{
+	return m_ProjectRecordId.has_value();
+}
+void ByoProjectInventoryDto::SetProjectRecordId(const utility::string_t& Value)
+{
+	m_ProjectRecordId = Value;
+}
+utility::string_t ByoProjectInventoryDto::GetTenantName() const
+{
+	return m_TenantName.value();
+}
+
+bool ByoProjectInventoryDto::HasTenantName() const
+{
+	return m_TenantName.has_value();
+}
+void ByoProjectInventoryDto::SetTenantName(const utility::string_t& Value)
+{
+	m_TenantName = Value;
+}
+utility::string_t ByoProjectInventoryDto::GetGcpProjectId() const
+{
+	return m_GcpProjectId.value();
+}
+
+bool ByoProjectInventoryDto::HasGcpProjectId() const
+{
+	return m_GcpProjectId.has_value();
+}
+void ByoProjectInventoryDto::SetGcpProjectId(const utility::string_t& Value)
+{
+	m_GcpProjectId = Value;
+}
+utility::string_t ByoProjectInventoryDto::GetLastSweptAt() const
+{
+	return m_LastSweptAt.value();
+}
+
+bool ByoProjectInventoryDto::HasLastSweptAt() const
+{
+	return m_LastSweptAt.has_value();
+}
+void ByoProjectInventoryDto::SetLastSweptAt(const utility::string_t& Value)
+{
+	m_LastSweptAt = Value;
+}
+utility::string_t ByoProjectInventoryDto::GetLastAttemptAt() const
+{
+	return m_LastAttemptAt.value();
+}
+
+bool ByoProjectInventoryDto::HasLastAttemptAt() const
+{
+	return m_LastAttemptAt.has_value();
+}
+void ByoProjectInventoryDto::SetLastAttemptAt(const utility::string_t& Value)
+{
+	m_LastAttemptAt = Value;
+}
+utility::string_t ByoProjectInventoryDto::GetNextSweepAt() const
+{
+	return m_NextSweepAt.value();
+}
+
+bool ByoProjectInventoryDto::HasNextSweepAt() const
+{
+	return m_NextSweepAt.has_value();
+}
+void ByoProjectInventoryDto::SetNextSweepAt(const utility::string_t& Value)
+{
+	m_NextSweepAt = Value;
+}
+std::shared_ptr<ByoInventoryErrorDto> ByoProjectInventoryDto::GetLastError() const
+{
+	return m_LastError.value();
+}
+
+bool ByoProjectInventoryDto::HasLastError() const
+{
+	return m_LastError.has_value();
+}
+void ByoProjectInventoryDto::SetLastError(const std::shared_ptr<ByoInventoryErrorDto>& Value)
+{
+	m_LastError = Value;
+}
+int32_t ByoProjectInventoryDto::GetConsecutiveFailures() const
+{
+	return m_ConsecutiveFailures.value();
+}
+
+bool ByoProjectInventoryDto::HasConsecutiveFailures() const
+{
+	return m_ConsecutiveFailures.has_value();
+}
+void ByoProjectInventoryDto::SetConsecutiveFailures(int32_t Value)
+{
+	m_ConsecutiveFailures = Value;
+}
+const std::vector<utility::string_t>& ByoProjectInventoryDto::GetUnreachableZones() const
+{
+	return m_UnreachableZones.value();
+}
+
+bool ByoProjectInventoryDto::HasUnreachableZones() const
+{
+	return m_UnreachableZones.has_value();
+}
+void ByoProjectInventoryDto::SetUnreachableZones(const std::vector<utility::string_t>& Value)
+{
+	m_UnreachableZones = Value;
+}
+int64_t ByoProjectInventoryDto::GetPresentCount() const
+{
+	return m_PresentCount.value();
+}
+
+bool ByoProjectInventoryDto::HasPresentCount() const
+{
+	return m_PresentCount.has_value();
+}
+void ByoProjectInventoryDto::SetPresentCount(int64_t Value)
+{
+	m_PresentCount = Value;
+}
+int64_t ByoProjectInventoryDto::GetOrphanCount() const
+{
+	return m_OrphanCount.value();
+}
+
+bool ByoProjectInventoryDto::HasOrphanCount() const
+{
+	return m_OrphanCount.has_value();
+}
+void ByoProjectInventoryDto::SetOrphanCount(int64_t Value)
+{
+	m_OrphanCount = Value;
+}
+bool ByoProjectInventoryDto::GetIsStale() const
+{
+	return m_IsStale.value();
+}
+
+bool ByoProjectInventoryDto::HasIsStale() const
+{
+	return m_IsStale.has_value();
+}
+void ByoProjectInventoryDto::SetIsStale(const bool& Value)
+{
+	m_IsStale = Value;
+}
+
+ByoSetupErrorDto::ByoSetupErrorDto()
+{
+}
+ByoSetupErrorDto::~ByoSetupErrorDto()
+{
+}
+
+utility::string_t ByoSetupErrorDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Step.has_value())
+	{
+		rapidjson::Value StepValue(TypeToJsonValue(m_Step, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("step", StepValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Message.has_value())
+	{
+		rapidjson::Value MessageValue(TypeToJsonValue(m_Message, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("message", MessageValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_At.has_value())
+	{
+		rapidjson::Value AtValue(TypeToJsonValue(m_At, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("at", AtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Retryable.has_value())
+	{
+		rapidjson::Value RetryableValue(TypeToJsonValue(m_Retryable, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("retryable", RetryableValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ByoSetupErrorDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ByoSetupErrorDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("step"))
+	{
+		const rapidjson::Value& StepValue = JsonDoc["step"];
+
+		if (StepValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(StepValue, m_Step, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("message"))
+	{
+		const rapidjson::Value& MessageValue = JsonDoc["message"];
+
+		if (MessageValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MessageValue, m_Message, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("at"))
+	{
+		const rapidjson::Value& AtValue = JsonDoc["at"];
+
+		if (AtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AtValue, m_At, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member at is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("retryable"))
+	{
+		const rapidjson::Value& RetryableValue = JsonDoc["retryable"];
+
+		if (RetryableValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RetryableValue, m_Retryable, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member retryable is null!");
+		}
+	}
+}
+
+
+utility::string_t ByoSetupErrorDto::GetStep() const
+{
+	return m_Step.value();
+}
+
+bool ByoSetupErrorDto::HasStep() const
+{
+	return m_Step.has_value();
+}
+void ByoSetupErrorDto::SetStep(const utility::string_t& Value)
+{
+	m_Step = Value;
+}
+utility::string_t ByoSetupErrorDto::GetMessage() const
+{
+	return m_Message.value();
+}
+
+bool ByoSetupErrorDto::HasMessage() const
+{
+	return m_Message.has_value();
+}
+void ByoSetupErrorDto::SetMessage(const utility::string_t& Value)
+{
+	m_Message = Value;
+}
+utility::string_t ByoSetupErrorDto::GetAt() const
+{
+	return m_At.value();
+}
+
+bool ByoSetupErrorDto::HasAt() const
+{
+	return m_At.has_value();
+}
+void ByoSetupErrorDto::SetAt(const utility::string_t& Value)
+{
+	m_At = Value;
+}
+bool ByoSetupErrorDto::GetRetryable() const
+{
+	return m_Retryable.value();
+}
+
+bool ByoSetupErrorDto::HasRetryable() const
+{
+	return m_Retryable.has_value();
+}
+void ByoSetupErrorDto::SetRetryable(const bool& Value)
+{
+	m_Retryable = Value;
+}
+
 CdnFetchRequest::CdnFetchRequest()
 {
 }
@@ -5141,7 +9977,7 @@ utility::string_t CdnFetchRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CdnFetchRequest::FromJson(const utility::string_t& Val)
+void CdnFetchRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -5150,7 +9986,7 @@ void CdnFetchRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CdnFetchRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CdnFetchRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -5163,7 +9999,7 @@ void CdnFetchRequest::FromJson(const utility::string_t& Val)
 
 		if (UriValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UriValue, m_Uri);
+			JsonValueToType(UriValue, m_Uri, LogSystem);
 		}
 	}
 
@@ -5173,7 +10009,7 @@ void CdnFetchRequest::FromJson(const utility::string_t& Val)
 
 		if (TenantTokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantTokenValue, m_TenantToken);
+			JsonValueToType(TenantTokenValue, m_TenantToken, LogSystem);
 		}
 	}
 
@@ -5183,7 +10019,7 @@ void CdnFetchRequest::FromJson(const utility::string_t& Val)
 
 		if (TenantValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantValue, m_Tenant);
+			JsonValueToType(TenantValue, m_Tenant, LogSystem);
 		}
 	}
 }
@@ -5317,7 +10153,7 @@ utility::string_t ClaimHistoryDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ClaimHistoryDto::FromJson(const utility::string_t& Val)
+void ClaimHistoryDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -5326,7 +10162,7 @@ void ClaimHistoryDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ClaimHistoryDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ClaimHistoryDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -5339,7 +10175,7 @@ void ClaimHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -5349,7 +10185,7 @@ void ClaimHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (SystemIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SystemIdValue, m_SystemId);
+			JsonValueToType(SystemIdValue, m_SystemId, LogSystem);
 		}
 	}
 
@@ -5359,7 +10195,7 @@ void ClaimHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (HolderIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HolderIdValue, m_HolderId);
+			JsonValueToType(HolderIdValue, m_HolderId, LogSystem);
 		}
 	}
 
@@ -5369,7 +10205,7 @@ void ClaimHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (HolderNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HolderNameValue, m_HolderName);
+			JsonValueToType(HolderNameValue, m_HolderName, LogSystem);
 		}
 	}
 
@@ -5379,7 +10215,7 @@ void ClaimHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (NoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NoteValue, m_Note);
+			JsonValueToType(NoteValue, m_Note, LogSystem);
 		}
 	}
 
@@ -5389,7 +10225,7 @@ void ClaimHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ReleaseNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReleaseNoteValue, m_ReleaseNote);
+			JsonValueToType(ReleaseNoteValue, m_ReleaseNote, LogSystem);
 		}
 	}
 
@@ -5399,11 +10235,11 @@ void ClaimHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (TakenAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TakenAtValue, m_TakenAt);
+			JsonValueToType(TakenAtValue, m_TakenAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member takenAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member takenAt is null!");
 		}
 	}
 
@@ -5413,7 +10249,7 @@ void ClaimHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ReleasedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReleasedAtValue, m_ReleasedAt);
+			JsonValueToType(ReleasedAtValue, m_ReleasedAt, LogSystem);
 		}
 	}
 
@@ -5423,7 +10259,7 @@ void ClaimHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (DurationMsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DurationMsValue, m_DurationMs);
+			JsonValueToType(DurationMsValue, m_DurationMs, LogSystem);
 		}
 	}
 
@@ -5433,7 +10269,7 @@ void ClaimHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ReleasedByUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReleasedByUserIdValue, m_ReleasedByUserId);
+			JsonValueToType(ReleasedByUserIdValue, m_ReleasedByUserId, LogSystem);
 		}
 	}
 
@@ -5443,11 +10279,11 @@ void ClaimHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ForcedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ForcedValue, m_Forced);
+			JsonValueToType(ForcedValue, m_Forced, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member forced is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member forced is null!");
 		}
 	}
 
@@ -5457,7 +10293,7 @@ void ClaimHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (HolderKindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HolderKindValue, m_HolderKind);
+			JsonValueToType(HolderKindValue, m_HolderKind, LogSystem);
 		}
 	}
 }
@@ -5666,7 +10502,7 @@ utility::string_t ClaimHistoryDtoDataPage::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ClaimHistoryDtoDataPage::FromJson(const utility::string_t& Val)
+void ClaimHistoryDtoDataPage::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -5675,7 +10511,7 @@ void ClaimHistoryDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ClaimHistoryDtoDataPage::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ClaimHistoryDtoDataPage::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -5688,7 +10524,7 @@ void ClaimHistoryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 	}
 
@@ -5698,11 +10534,11 @@ void ClaimHistoryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (SkipValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SkipValue, m_Skip);
+			JsonValueToType(SkipValue, m_Skip, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skip is null!");
 		}
 	}
 
@@ -5712,7 +10548,7 @@ void ClaimHistoryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (LimitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LimitValue, m_Limit);
+			JsonValueToType(LimitValue, m_Limit, LogSystem);
 		}
 	}
 
@@ -5722,11 +10558,11 @@ void ClaimHistoryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemCountValue, m_ItemCount);
+			JsonValueToType(ItemCountValue, m_ItemCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemCount is null!");
 		}
 	}
 
@@ -5736,11 +10572,11 @@ void ClaimHistoryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemTotalCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemTotalCount is null!");
 		}
 	}
 }
@@ -5864,7 +10700,7 @@ utility::string_t ClaimOutcomeDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ClaimOutcomeDto::FromJson(const utility::string_t& Val)
+void ClaimOutcomeDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -5873,7 +10709,7 @@ void ClaimOutcomeDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ClaimOutcomeDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ClaimOutcomeDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -5886,7 +10722,7 @@ void ClaimOutcomeDto::FromJson(const utility::string_t& Val)
 
 		if (OutcomeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OutcomeValue, m_Outcome);
+			JsonValueToType(OutcomeValue, m_Outcome, LogSystem);
 		}
 	}
 
@@ -5896,11 +10732,11 @@ void ClaimOutcomeDto::FromJson(const utility::string_t& Val)
 
 		if (SystemValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SystemValue, m_System);
+			JsonValueToType(SystemValue, m_System, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member system is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member system is null!");
 		}
 	}
 
@@ -5910,7 +10746,7 @@ void ClaimOutcomeDto::FromJson(const utility::string_t& Val)
 
 		if (ClaimIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ClaimIdValue, m_ClaimId);
+			JsonValueToType(ClaimIdValue, m_ClaimId, LogSystem);
 		}
 	}
 
@@ -5920,7 +10756,7 @@ void ClaimOutcomeDto::FromJson(const utility::string_t& Val)
 
 		if (MissedByMsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MissedByMsValue, m_MissedByMs);
+			JsonValueToType(MissedByMsValue, m_MissedByMs, LogSystem);
 		}
 	}
 
@@ -5930,11 +10766,11 @@ void ClaimOutcomeDto::FromJson(const utility::string_t& Val)
 
 		if (ForcedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ForcedValue, m_Forced);
+			JsonValueToType(ForcedValue, m_Forced, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member forced is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member forced is null!");
 		}
 	}
 
@@ -5944,7 +10780,7 @@ void ClaimOutcomeDto::FromJson(const utility::string_t& Val)
 
 		if (MessageValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MessageValue, m_Message);
+			JsonValueToType(MessageValue, m_Message, LogSystem);
 		}
 	}
 }
@@ -6069,7 +10905,7 @@ utility::string_t ControllerVersions::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ControllerVersions::FromJson(const utility::string_t& Val)
+void ControllerVersions::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -6078,7 +10914,7 @@ void ControllerVersions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ControllerVersions::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ControllerVersions::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -6091,7 +10927,7 @@ void ControllerVersions::FromJson(const utility::string_t& Val)
 
 		if (ReverseProxyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReverseProxyValue, m_ReverseProxy);
+			JsonValueToType(ReverseProxyValue, m_ReverseProxy, LogSystem);
 		}
 	}
 
@@ -6101,7 +10937,7 @@ void ControllerVersions::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -6111,7 +10947,7 @@ void ControllerVersions::FromJson(const utility::string_t& Val)
 
 		if (ApiVersionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ApiVersionsValue, m_ApiVersions);
+			JsonValueToType(ApiVersionsValue, m_ApiVersions, LogSystem);
 		}
 	}
 
@@ -6121,7 +10957,7 @@ void ControllerVersions::FromJson(const utility::string_t& Val)
 
 		if (CurrentApiVersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CurrentApiVersionValue, m_CurrentApiVersion);
+			JsonValueToType(CurrentApiVersionValue, m_CurrentApiVersion, LogSystem);
 		}
 	}
 }
@@ -6232,7 +11068,7 @@ utility::string_t CreateApiKeyRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CreateApiKeyRequest::FromJson(const utility::string_t& Val)
+void CreateApiKeyRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -6241,7 +11077,7 @@ void CreateApiKeyRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateApiKeyRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateApiKeyRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -6254,11 +11090,11 @@ void CreateApiKeyRequest::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member name is null!");
 		}
 	}
 
@@ -6268,7 +11104,7 @@ void CreateApiKeyRequest::FromJson(const utility::string_t& Val)
 
 		if (ExpiryDaysValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ExpiryDaysValue, m_ExpiryDays);
+			JsonValueToType(ExpiryDaysValue, m_ExpiryDays, LogSystem);
 		}
 	}
 
@@ -6278,11 +11114,11 @@ void CreateApiKeyRequest::FromJson(const utility::string_t& Val)
 
 		if (RolesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RolesValue, m_Roles);
+			JsonValueToType(RolesValue, m_Roles, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member roles is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member roles is null!");
 		}
 	}
 
@@ -6292,7 +11128,7 @@ void CreateApiKeyRequest::FromJson(const utility::string_t& Val)
 
 		if (TargetUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TargetUserIdValue, m_TargetUserId);
+			JsonValueToType(TargetUserIdValue, m_TargetUserId, LogSystem);
 		}
 	}
 
@@ -6302,7 +11138,7 @@ void CreateApiKeyRequest::FromJson(const utility::string_t& Val)
 
 		if (AllowedIpsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedIpsValue, m_AllowedIps);
+			JsonValueToType(AllowedIpsValue, m_AllowedIps, LogSystem);
 		}
 	}
 
@@ -6312,7 +11148,7 @@ void CreateApiKeyRequest::FromJson(const utility::string_t& Val)
 
 		if (UsageLimitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UsageLimitValue, m_UsageLimit);
+			JsonValueToType(UsageLimitValue, m_UsageLimit, LogSystem);
 		}
 	}
 }
@@ -6485,7 +11321,7 @@ utility::string_t CreateApplicationSecretRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
+void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -6494,7 +11330,7 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateApplicationSecretRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateApplicationSecretRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -6507,11 +11343,11 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member displayName is null!");
 		}
 	}
 
@@ -6521,11 +11357,11 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (EnvVarNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnvVarNameValue, m_EnvVarName);
+			JsonValueToType(EnvVarNameValue, m_EnvVarName, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member envVarName is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member envVarName is null!");
 		}
 	}
 
@@ -6535,7 +11371,7 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -6545,7 +11381,7 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (CategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CategoryValue, m_Category);
+			JsonValueToType(CategoryValue, m_Category, LogSystem);
 		}
 	}
 
@@ -6555,11 +11391,11 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (SortOrderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortOrderValue, m_SortOrder);
+			JsonValueToType(SortOrderValue, m_SortOrder, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sortOrder is null!");
 		}
 	}
 
@@ -6569,7 +11405,7 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (SecretTypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SecretTypeValue, m_SecretType);
+			JsonValueToType(SecretTypeValue, m_SecretType, LogSystem);
 		}
 	}
 
@@ -6579,11 +11415,11 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (ValidationConfigValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ValidationConfigValue, m_ValidationConfig);
+			JsonValueToType(ValidationConfigValue, m_ValidationConfig, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member validationConfig is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member validationConfig is null!");
 		}
 	}
 
@@ -6593,7 +11429,7 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (QuotaFeatureNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(QuotaFeatureNameValue, m_QuotaFeatureName);
+			JsonValueToType(QuotaFeatureNameValue, m_QuotaFeatureName, LogSystem);
 		}
 	}
 
@@ -6603,7 +11439,7 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (AllowedTenantsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedTenantsValue, m_AllowedTenants);
+			JsonValueToType(AllowedTenantsValue, m_AllowedTenants, LogSystem);
 		}
 	}
 
@@ -6613,11 +11449,11 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (ChargeCorkageValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChargeCorkageValue, m_ChargeCorkage);
+			JsonValueToType(ChargeCorkageValue, m_ChargeCorkage, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member chargeCorkage is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member chargeCorkage is null!");
 		}
 	}
 
@@ -6627,7 +11463,7 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (CorkageFeeUnitsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CorkageFeeUnitsValue, m_CorkageFeeUnits);
+			JsonValueToType(CorkageFeeUnitsValue, m_CorkageFeeUnits, LogSystem);
 		}
 	}
 
@@ -6637,7 +11473,7 @@ void CreateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (TierConfigsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TierConfigsValue, m_TierConfigs);
+			JsonValueToType(TierConfigsValue, m_TierConfigs, LogSystem);
 		}
 	}
 }
@@ -6870,7 +11706,7 @@ utility::string_t CreateBillingMetricRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CreateBillingMetricRequest::FromJson(const utility::string_t& Val)
+void CreateBillingMetricRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -6879,7 +11715,7 @@ void CreateBillingMetricRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateBillingMetricRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateBillingMetricRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -6892,11 +11728,11 @@ void CreateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (MetricKeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MetricKeyValue, m_MetricKey);
+			JsonValueToType(MetricKeyValue, m_MetricKey, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member metricKey is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member metricKey is null!");
 		}
 	}
 
@@ -6906,11 +11742,11 @@ void CreateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member displayName is null!");
 		}
 	}
 
@@ -6920,7 +11756,7 @@ void CreateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -6930,7 +11766,7 @@ void CreateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (GoogleMetricIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GoogleMetricIdValue, m_GoogleMetricId);
+			JsonValueToType(GoogleMetricIdValue, m_GoogleMetricId, LogSystem);
 		}
 	}
 
@@ -6940,7 +11776,7 @@ void CreateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (UnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UnitValue, m_Unit);
+			JsonValueToType(UnitValue, m_Unit, LogSystem);
 		}
 	}
 
@@ -6950,7 +11786,7 @@ void CreateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (CategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CategoryValue, m_Category);
+			JsonValueToType(CategoryValue, m_Category, LogSystem);
 		}
 	}
 
@@ -6960,11 +11796,11 @@ void CreateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (SortOrderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortOrderValue, m_SortOrder);
+			JsonValueToType(SortOrderValue, m_SortOrder, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sortOrder is null!");
 		}
 	}
 
@@ -6974,11 +11810,11 @@ void CreateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -6988,7 +11824,7 @@ void CreateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -7146,7 +11982,7 @@ utility::string_t CreateGcpLoadBalancerHostnameRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CreateGcpLoadBalancerHostnameRequest::FromJson(const utility::string_t& Val)
+void CreateGcpLoadBalancerHostnameRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -7155,7 +11991,7 @@ void CreateGcpLoadBalancerHostnameRequest::FromJson(const utility::string_t& Val
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateGcpLoadBalancerHostnameRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateGcpLoadBalancerHostnameRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -7168,11 +12004,11 @@ void CreateGcpLoadBalancerHostnameRequest::FromJson(const utility::string_t& Val
 
 		if (HostnameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HostnameValue, m_Hostname);
+			JsonValueToType(HostnameValue, m_Hostname, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member hostname is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member hostname is null!");
 		}
 	}
 
@@ -7182,11 +12018,11 @@ void CreateGcpLoadBalancerHostnameRequest::FromJson(const utility::string_t& Val
 
 		if (IpAddressValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IpAddressValue, m_IpAddress);
+			JsonValueToType(IpAddressValue, m_IpAddress, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member ipAddress is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member ipAddress is null!");
 		}
 	}
 
@@ -7196,11 +12032,11 @@ void CreateGcpLoadBalancerHostnameRequest::FromJson(const utility::string_t& Val
 
 		if (TypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TypeValue, m_Type);
+			JsonValueToType(TypeValue, m_Type, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member type is null!");
 		}
 	}
 }
@@ -7274,7 +12110,7 @@ utility::string_t CreateHostnameRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CreateHostnameRequest::FromJson(const utility::string_t& Val)
+void CreateHostnameRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -7283,7 +12119,7 @@ void CreateHostnameRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateHostnameRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateHostnameRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -7296,11 +12132,11 @@ void CreateHostnameRequest::FromJson(const utility::string_t& Val)
 
 		if (HostnameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HostnameValue, m_Hostname);
+			JsonValueToType(HostnameValue, m_Hostname, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member hostname is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member hostname is null!");
 		}
 	}
 
@@ -7310,11 +12146,11 @@ void CreateHostnameRequest::FromJson(const utility::string_t& Val)
 
 		if (TypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TypeValue, m_Type);
+			JsonValueToType(TypeValue, m_Type, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member type is null!");
 		}
 	}
 }
@@ -7369,7 +12205,7 @@ utility::string_t CreateLegacyHostnameRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CreateLegacyHostnameRequest::FromJson(const utility::string_t& Val)
+void CreateLegacyHostnameRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -7378,7 +12214,7 @@ void CreateLegacyHostnameRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateLegacyHostnameRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateLegacyHostnameRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -7391,11 +12227,11 @@ void CreateLegacyHostnameRequest::FromJson(const utility::string_t& Val)
 
 		if (HostnameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HostnameValue, m_Hostname);
+			JsonValueToType(HostnameValue, m_Hostname, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member hostname is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member hostname is null!");
 		}
 	}
 }
@@ -7413,6 +12249,302 @@ bool CreateLegacyHostnameRequest::HasHostname() const
 void CreateLegacyHostnameRequest::SetHostname(const utility::string_t& Value)
 {
 	m_Hostname = Value;
+}
+
+CreateMachineRequest::CreateMachineRequest()
+{
+}
+CreateMachineRequest::~CreateMachineRequest()
+{
+}
+
+utility::string_t CreateMachineRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Name.has_value())
+	{
+		rapidjson::Value NameValue(TypeToJsonValue(m_Name, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("name", NameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_MachineType.has_value())
+	{
+		rapidjson::Value MachineTypeValue(TypeToJsonValue(m_MachineType, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("machineType", MachineTypeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Purpose.has_value())
+	{
+		rapidjson::Value PurposeValue(TypeToJsonValue(m_Purpose, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("purpose", PurposeValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_LeaseHours.has_value())
+	{
+		rapidjson::Value LeaseHoursValue(TypeToJsonValue(m_LeaseHours, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("leaseHours", LeaseHoursValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Template.has_value())
+	{
+		rapidjson::Value TemplateValue(TypeToJsonValue(m_Template, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("template", TemplateValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ImageVersion.has_value())
+	{
+		rapidjson::Value ImageVersionValue(TypeToJsonValue(m_ImageVersion, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("imageVersion", ImageVersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_NodeDefinitionsVersion.has_value())
+	{
+		rapidjson::Value NodeDefinitionsVersionValue(TypeToJsonValue(m_NodeDefinitionsVersion, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("nodeDefinitionsVersion", NodeDefinitionsVersionValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_HuntRounds.has_value())
+	{
+		rapidjson::Value HuntRoundsValue(TypeToJsonValue(m_HuntRounds, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("huntRounds", HuntRoundsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RoundWaitSeconds.has_value())
+	{
+		rapidjson::Value RoundWaitSecondsValue(TypeToJsonValue(m_RoundWaitSeconds, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("roundWaitSeconds", RoundWaitSecondsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void CreateMachineRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateMachineRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("name"))
+	{
+		const rapidjson::Value& NameValue = JsonDoc["name"];
+
+		if (NameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NameValue, m_Name, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("machineType"))
+	{
+		const rapidjson::Value& MachineTypeValue = JsonDoc["machineType"];
+
+		if (MachineTypeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MachineTypeValue, m_MachineType, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("purpose"))
+	{
+		const rapidjson::Value& PurposeValue = JsonDoc["purpose"];
+
+		if (PurposeValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(PurposeValue, m_Purpose, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("leaseHours"))
+	{
+		const rapidjson::Value& LeaseHoursValue = JsonDoc["leaseHours"];
+
+		if (LeaseHoursValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LeaseHoursValue, m_LeaseHours, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("template"))
+	{
+		const rapidjson::Value& TemplateValue = JsonDoc["template"];
+
+		if (TemplateValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TemplateValue, m_Template, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("imageVersion"))
+	{
+		const rapidjson::Value& ImageVersionValue = JsonDoc["imageVersion"];
+
+		if (ImageVersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ImageVersionValue, m_ImageVersion, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("nodeDefinitionsVersion"))
+	{
+		const rapidjson::Value& NodeDefinitionsVersionValue = JsonDoc["nodeDefinitionsVersion"];
+
+		if (NodeDefinitionsVersionValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NodeDefinitionsVersionValue, m_NodeDefinitionsVersion, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("huntRounds"))
+	{
+		const rapidjson::Value& HuntRoundsValue = JsonDoc["huntRounds"];
+
+		if (HuntRoundsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(HuntRoundsValue, m_HuntRounds, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("roundWaitSeconds"))
+	{
+		const rapidjson::Value& RoundWaitSecondsValue = JsonDoc["roundWaitSeconds"];
+
+		if (RoundWaitSecondsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RoundWaitSecondsValue, m_RoundWaitSeconds, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t CreateMachineRequest::GetName() const
+{
+	return m_Name.value();
+}
+
+bool CreateMachineRequest::HasName() const
+{
+	return m_Name.has_value();
+}
+void CreateMachineRequest::SetName(const utility::string_t& Value)
+{
+	m_Name = Value;
+}
+utility::string_t CreateMachineRequest::GetMachineType() const
+{
+	return m_MachineType.value();
+}
+
+bool CreateMachineRequest::HasMachineType() const
+{
+	return m_MachineType.has_value();
+}
+void CreateMachineRequest::SetMachineType(const utility::string_t& Value)
+{
+	m_MachineType = Value;
+}
+utility::string_t CreateMachineRequest::GetPurpose() const
+{
+	return m_Purpose.value();
+}
+
+bool CreateMachineRequest::HasPurpose() const
+{
+	return m_Purpose.has_value();
+}
+void CreateMachineRequest::SetPurpose(const utility::string_t& Value)
+{
+	m_Purpose = Value;
+}
+int32_t CreateMachineRequest::GetLeaseHours() const
+{
+	return m_LeaseHours.value();
+}
+
+bool CreateMachineRequest::HasLeaseHours() const
+{
+	return m_LeaseHours.has_value();
+}
+void CreateMachineRequest::SetLeaseHours(int32_t Value)
+{
+	m_LeaseHours = Value;
+}
+utility::string_t CreateMachineRequest::GetTemplate() const
+{
+	return m_Template.value();
+}
+
+bool CreateMachineRequest::HasTemplate() const
+{
+	return m_Template.has_value();
+}
+void CreateMachineRequest::SetTemplate(const utility::string_t& Value)
+{
+	m_Template = Value;
+}
+utility::string_t CreateMachineRequest::GetImageVersion() const
+{
+	return m_ImageVersion.value();
+}
+
+bool CreateMachineRequest::HasImageVersion() const
+{
+	return m_ImageVersion.has_value();
+}
+void CreateMachineRequest::SetImageVersion(const utility::string_t& Value)
+{
+	m_ImageVersion = Value;
+}
+utility::string_t CreateMachineRequest::GetNodeDefinitionsVersion() const
+{
+	return m_NodeDefinitionsVersion.value();
+}
+
+bool CreateMachineRequest::HasNodeDefinitionsVersion() const
+{
+	return m_NodeDefinitionsVersion.has_value();
+}
+void CreateMachineRequest::SetNodeDefinitionsVersion(const utility::string_t& Value)
+{
+	m_NodeDefinitionsVersion = Value;
+}
+int32_t CreateMachineRequest::GetHuntRounds() const
+{
+	return m_HuntRounds.value();
+}
+
+bool CreateMachineRequest::HasHuntRounds() const
+{
+	return m_HuntRounds.has_value();
+}
+void CreateMachineRequest::SetHuntRounds(int32_t Value)
+{
+	m_HuntRounds = Value;
+}
+int32_t CreateMachineRequest::GetRoundWaitSeconds() const
+{
+	return m_RoundWaitSeconds.value();
+}
+
+bool CreateMachineRequest::HasRoundWaitSeconds() const
+{
+	return m_RoundWaitSeconds.has_value();
+}
+void CreateMachineRequest::SetRoundWaitSeconds(int32_t Value)
+{
+	m_RoundWaitSeconds = Value;
 }
 
 CreateMarketplaceHostnameRequest::CreateMarketplaceHostnameRequest()
@@ -7443,7 +12575,7 @@ utility::string_t CreateMarketplaceHostnameRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CreateMarketplaceHostnameRequest::FromJson(const utility::string_t& Val)
+void CreateMarketplaceHostnameRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -7452,7 +12584,7 @@ void CreateMarketplaceHostnameRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateMarketplaceHostnameRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateMarketplaceHostnameRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -7465,11 +12597,11 @@ void CreateMarketplaceHostnameRequest::FromJson(const utility::string_t& Val)
 
 		if (HostnameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HostnameValue, m_Hostname);
+			JsonValueToType(HostnameValue, m_Hostname, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member hostname is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member hostname is null!");
 		}
 	}
 
@@ -7479,11 +12611,11 @@ void CreateMarketplaceHostnameRequest::FromJson(const utility::string_t& Val)
 
 		if (TypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TypeValue, m_Type);
+			JsonValueToType(TypeValue, m_Type, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member type is null!");
 		}
 	}
 }
@@ -7568,7 +12700,7 @@ utility::string_t CreateMatrixTierPriceOverrideRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CreateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val)
+void CreateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -7577,7 +12709,7 @@ void CreateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateMatrixTierPriceOverrideRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateMatrixTierPriceOverrideRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -7590,11 +12722,11 @@ void CreateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val
 
 		if (MatrixEntryIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MatrixEntryIdValue, m_MatrixEntryId);
+			JsonValueToType(MatrixEntryIdValue, m_MatrixEntryId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member matrixEntryId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member matrixEntryId is null!");
 		}
 	}
 
@@ -7604,11 +12736,11 @@ void CreateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val
 
 		if (TierIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TierIdValue, m_TierId);
+			JsonValueToType(TierIdValue, m_TierId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member tierId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member tierId is null!");
 		}
 	}
 
@@ -7618,7 +12750,7 @@ void CreateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val
 
 		if (TokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokensValue, m_Tokens);
+			JsonValueToType(TokensValue, m_Tokens, LogSystem);
 		}
 	}
 
@@ -7628,7 +12760,7 @@ void CreateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val
 
 		if (RatePerUnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RatePerUnitValue, m_RatePerUnit);
+			JsonValueToType(RatePerUnitValue, m_RatePerUnit, LogSystem);
 		}
 	}
 
@@ -7638,11 +12770,11 @@ void CreateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -7652,7 +12784,7 @@ void CreateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -7737,6 +12869,215 @@ void CreateMatrixTierPriceOverrideRequest::SetChangeNote(const utility::string_t
 	m_ChangeNote = Value;
 }
 
+CreateOrganizationRequest::CreateOrganizationRequest()
+{
+}
+CreateOrganizationRequest::~CreateOrganizationRequest()
+{
+}
+
+utility::string_t CreateOrganizationRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Name.has_value())
+	{
+		rapidjson::Value NameValue(TypeToJsonValue(m_Name, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("name", NameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AdministrativeTenantName.has_value())
+	{
+		rapidjson::Value AdministrativeTenantNameValue(TypeToJsonValue(m_AdministrativeTenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("administrativeTenantName", AdministrativeTenantNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_OwnerUserId.has_value())
+	{
+		rapidjson::Value OwnerUserIdValue(TypeToJsonValue(m_OwnerUserId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("ownerUserId", OwnerUserIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ExternalRefSource.has_value())
+	{
+		rapidjson::Value ExternalRefSourceValue(TypeToJsonValue(m_ExternalRefSource, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("externalRefSource", ExternalRefSourceValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ExternalId.has_value())
+	{
+		rapidjson::Value ExternalIdValue(TypeToJsonValue(m_ExternalId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("externalId", ExternalIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CompanyUrlFragment.has_value())
+	{
+		rapidjson::Value CompanyUrlFragmentValue(TypeToJsonValue(m_CompanyUrlFragment, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("companyUrlFragment", CompanyUrlFragmentValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void CreateOrganizationRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateOrganizationRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("name"))
+	{
+		const rapidjson::Value& NameValue = JsonDoc["name"];
+
+		if (NameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NameValue, m_Name, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("administrativeTenantName"))
+	{
+		const rapidjson::Value& AdministrativeTenantNameValue = JsonDoc["administrativeTenantName"];
+
+		if (AdministrativeTenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AdministrativeTenantNameValue, m_AdministrativeTenantName, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("ownerUserId"))
+	{
+		const rapidjson::Value& OwnerUserIdValue = JsonDoc["ownerUserId"];
+
+		if (OwnerUserIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OwnerUserIdValue, m_OwnerUserId, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("externalRefSource"))
+	{
+		const rapidjson::Value& ExternalRefSourceValue = JsonDoc["externalRefSource"];
+
+		if (ExternalRefSourceValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExternalRefSourceValue, m_ExternalRefSource, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("externalId"))
+	{
+		const rapidjson::Value& ExternalIdValue = JsonDoc["externalId"];
+
+		if (ExternalIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExternalIdValue, m_ExternalId, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("companyUrlFragment"))
+	{
+		const rapidjson::Value& CompanyUrlFragmentValue = JsonDoc["companyUrlFragment"];
+
+		if (CompanyUrlFragmentValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CompanyUrlFragmentValue, m_CompanyUrlFragment, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t CreateOrganizationRequest::GetName() const
+{
+	return m_Name.value();
+}
+
+bool CreateOrganizationRequest::HasName() const
+{
+	return m_Name.has_value();
+}
+void CreateOrganizationRequest::SetName(const utility::string_t& Value)
+{
+	m_Name = Value;
+}
+utility::string_t CreateOrganizationRequest::GetAdministrativeTenantName() const
+{
+	return m_AdministrativeTenantName.value();
+}
+
+bool CreateOrganizationRequest::HasAdministrativeTenantName() const
+{
+	return m_AdministrativeTenantName.has_value();
+}
+void CreateOrganizationRequest::SetAdministrativeTenantName(const utility::string_t& Value)
+{
+	m_AdministrativeTenantName = Value;
+}
+utility::string_t CreateOrganizationRequest::GetOwnerUserId() const
+{
+	return m_OwnerUserId.value();
+}
+
+bool CreateOrganizationRequest::HasOwnerUserId() const
+{
+	return m_OwnerUserId.has_value();
+}
+void CreateOrganizationRequest::SetOwnerUserId(const utility::string_t& Value)
+{
+	m_OwnerUserId = Value;
+}
+utility::string_t CreateOrganizationRequest::GetExternalRefSource() const
+{
+	return m_ExternalRefSource.value();
+}
+
+bool CreateOrganizationRequest::HasExternalRefSource() const
+{
+	return m_ExternalRefSource.has_value();
+}
+void CreateOrganizationRequest::SetExternalRefSource(const utility::string_t& Value)
+{
+	m_ExternalRefSource = Value;
+}
+utility::string_t CreateOrganizationRequest::GetExternalId() const
+{
+	return m_ExternalId.value();
+}
+
+bool CreateOrganizationRequest::HasExternalId() const
+{
+	return m_ExternalId.has_value();
+}
+void CreateOrganizationRequest::SetExternalId(const utility::string_t& Value)
+{
+	m_ExternalId = Value;
+}
+utility::string_t CreateOrganizationRequest::GetCompanyUrlFragment() const
+{
+	return m_CompanyUrlFragment.value();
+}
+
+bool CreateOrganizationRequest::HasCompanyUrlFragment() const
+{
+	return m_CompanyUrlFragment.has_value();
+}
+void CreateOrganizationRequest::SetCompanyUrlFragment(const utility::string_t& Value)
+{
+	m_CompanyUrlFragment = Value;
+}
+
 CreatePricingSheetExceptionRequest::CreatePricingSheetExceptionRequest()
 {
 }
@@ -7789,7 +13130,7 @@ utility::string_t CreatePricingSheetExceptionRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CreatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
+void CreatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -7798,7 +13139,7 @@ void CreatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreatePricingSheetExceptionRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreatePricingSheetExceptionRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -7811,11 +13152,11 @@ void CreatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
 
 		if (PricingSheetIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PricingSheetIdValue, m_PricingSheetId);
+			JsonValueToType(PricingSheetIdValue, m_PricingSheetId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member pricingSheetId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member pricingSheetId is null!");
 		}
 	}
 
@@ -7825,11 +13166,11 @@ void CreatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
 
 		if (MatrixEntryIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MatrixEntryIdValue, m_MatrixEntryId);
+			JsonValueToType(MatrixEntryIdValue, m_MatrixEntryId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member matrixEntryId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member matrixEntryId is null!");
 		}
 	}
 
@@ -7839,7 +13180,7 @@ void CreatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
 
 		if (TokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokensValue, m_Tokens);
+			JsonValueToType(TokensValue, m_Tokens, LogSystem);
 		}
 	}
 
@@ -7849,7 +13190,7 @@ void CreatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
 
 		if (RatePerUnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RatePerUnitValue, m_RatePerUnit);
+			JsonValueToType(RatePerUnitValue, m_RatePerUnit, LogSystem);
 		}
 	}
 
@@ -7859,11 +13200,11 @@ void CreatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -7873,7 +13214,7 @@ void CreatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -7992,7 +13333,7 @@ utility::string_t CreatePricingSheetRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CreatePricingSheetRequest::FromJson(const utility::string_t& Val)
+void CreatePricingSheetRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -8001,7 +13342,7 @@ void CreatePricingSheetRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreatePricingSheetRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreatePricingSheetRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -8014,11 +13355,11 @@ void CreatePricingSheetRequest::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member name is null!");
 		}
 	}
 
@@ -8028,11 +13369,11 @@ void CreatePricingSheetRequest::FromJson(const utility::string_t& Val)
 
 		if (MultiplierValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MultiplierValue, m_Multiplier);
+			JsonValueToType(MultiplierValue, m_Multiplier, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member multiplier is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member multiplier is null!");
 		}
 	}
 
@@ -8042,7 +13383,7 @@ void CreatePricingSheetRequest::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -8182,7 +13523,7 @@ utility::string_t CreateTokenMatrixEntryRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
+void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -8191,7 +13532,7 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateTokenMatrixEntryRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateTokenMatrixEntryRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -8204,7 +13545,7 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (NodeKeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NodeKeyValue, m_NodeKey);
+			JsonValueToType(NodeKeyValue, m_NodeKey, LogSystem);
 		}
 	}
 
@@ -8214,7 +13555,7 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (DimensionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DimensionsValue, m_Dimensions);
+			JsonValueToType(DimensionsValue, m_Dimensions, LogSystem);
 		}
 	}
 
@@ -8224,11 +13565,11 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (CostKindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CostKindValue, m_CostKind);
+			JsonValueToType(CostKindValue, m_CostKind, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member costKind is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member costKind is null!");
 		}
 	}
 
@@ -8238,7 +13579,7 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (TokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokensValue, m_Tokens);
+			JsonValueToType(TokensValue, m_Tokens, LogSystem);
 		}
 	}
 
@@ -8248,7 +13589,7 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (RatePerUnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RatePerUnitValue, m_RatePerUnit);
+			JsonValueToType(RatePerUnitValue, m_RatePerUnit, LogSystem);
 		}
 	}
 
@@ -8258,7 +13599,7 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (UnitDimensionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UnitDimensionValue, m_UnitDimension);
+			JsonValueToType(UnitDimensionValue, m_UnitDimension, LogSystem);
 		}
 	}
 
@@ -8268,11 +13609,11 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (TargetMetricValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TargetMetricValue, m_TargetMetric);
+			JsonValueToType(TargetMetricValue, m_TargetMetric, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member targetMetric is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member targetMetric is null!");
 		}
 	}
 
@@ -8282,7 +13623,7 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (CategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CategoryValue, m_Category);
+			JsonValueToType(CategoryValue, m_Category, LogSystem);
 		}
 	}
 
@@ -8292,11 +13633,11 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (SortOrderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortOrderValue, m_SortOrder);
+			JsonValueToType(SortOrderValue, m_SortOrder, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sortOrder is null!");
 		}
 	}
 
@@ -8306,7 +13647,7 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -8316,7 +13657,7 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -8326,11 +13667,11 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -8340,7 +13681,7 @@ void CreateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -8598,7 +13939,7 @@ utility::string_t CreateUserRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CreateUserRequest::FromJson(const utility::string_t& Val)
+void CreateUserRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -8607,7 +13948,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateUserRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateUserRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -8620,7 +13961,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 
 		if (TenantValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantValue, m_Tenant);
+			JsonValueToType(TenantValue, m_Tenant, LogSystem);
 		}
 	}
 
@@ -8630,7 +13971,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 
 		if (EmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailValue, m_Email);
+			JsonValueToType(EmailValue, m_Email, LogSystem);
 		}
 	}
 
@@ -8640,7 +13981,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 
 		if (PasswordValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PasswordValue, m_Password);
+			JsonValueToType(PasswordValue, m_Password, LogSystem);
 		}
 	}
 
@@ -8650,7 +13991,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 
 		if (UserNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserNameValue, m_UserName);
+			JsonValueToType(UserNameValue, m_UserName, LogSystem);
 		}
 	}
 
@@ -8660,7 +14001,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -8670,7 +14011,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 
 		if (GuestDeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GuestDeviceIdValue, m_GuestDeviceId);
+			JsonValueToType(GuestDeviceIdValue, m_GuestDeviceId, LogSystem);
 		}
 	}
 
@@ -8680,7 +14021,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 
 		if (AvatarIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AvatarIdValue, m_AvatarId);
+			JsonValueToType(AvatarIdValue, m_AvatarId, LogSystem);
 		}
 	}
 
@@ -8690,7 +14031,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 
 		if (InviteTokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(InviteTokenValue, m_InviteToken);
+			JsonValueToType(InviteTokenValue, m_InviteToken, LogSystem);
 		}
 	}
 
@@ -8700,7 +14041,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 
 		if (RedirectUrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RedirectUrlValue, m_RedirectUrl);
+			JsonValueToType(RedirectUrlValue, m_RedirectUrl, LogSystem);
 		}
 	}
 
@@ -8710,7 +14051,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 
 		if (VerifiedAgeEighteenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen);
+			JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen, LogSystem);
 		}
 	}
 
@@ -8720,7 +14061,7 @@ void CreateUserRequest::FromJson(const utility::string_t& Val)
 
 		if (InitialSettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(InitialSettingsValue, m_InitialSettings);
+			JsonValueToType(InitialSettingsValue, m_InitialSettings, LogSystem);
 		}
 	}
 }
@@ -8964,7 +14305,7 @@ utility::string_t CreateUserSocialRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
+void CreateUserSocialRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -8973,7 +14314,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateUserSocialRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CreateUserSocialRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -8986,7 +14327,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (TenantValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantValue, m_Tenant);
+			JsonValueToType(TenantValue, m_Tenant, LogSystem);
 		}
 	}
 
@@ -8996,11 +14337,11 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (ProviderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderValue, m_Provider);
+			JsonValueToType(ProviderValue, m_Provider, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member provider is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member provider is null!");
 		}
 	}
 
@@ -9010,11 +14351,11 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (TokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokenValue, m_Token);
+			JsonValueToType(TokenValue, m_Token, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member token is null!");
 		}
 	}
 
@@ -9024,7 +14365,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (PasswordValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PasswordValue, m_Password);
+			JsonValueToType(PasswordValue, m_Password, LogSystem);
 		}
 	}
 
@@ -9034,7 +14375,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (UserNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserNameValue, m_UserName);
+			JsonValueToType(UserNameValue, m_UserName, LogSystem);
 		}
 	}
 
@@ -9044,7 +14385,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -9054,7 +14395,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (AvatarIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AvatarIdValue, m_AvatarId);
+			JsonValueToType(AvatarIdValue, m_AvatarId, LogSystem);
 		}
 	}
 
@@ -9064,7 +14405,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (InviteTokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(InviteTokenValue, m_InviteToken);
+			JsonValueToType(InviteTokenValue, m_InviteToken, LogSystem);
 		}
 	}
 
@@ -9074,7 +14415,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (RedirectUrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RedirectUrlValue, m_RedirectUrl);
+			JsonValueToType(RedirectUrlValue, m_RedirectUrl, LogSystem);
 		}
 	}
 
@@ -9084,7 +14425,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (VerifiedAgeEighteenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen);
+			JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen, LogSystem);
 		}
 	}
 
@@ -9094,7 +14435,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (OAuthRedirectUriValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OAuthRedirectUriValue, m_OAuthRedirectUri);
+			JsonValueToType(OAuthRedirectUriValue, m_OAuthRedirectUri, LogSystem);
 		}
 	}
 
@@ -9104,7 +14445,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (OptionalProviderUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId);
+			JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId, LogSystem);
 		}
 	}
 
@@ -9114,7 +14455,7 @@ void CreateUserSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (InitialSettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(InitialSettingsValue, m_InitialSettings);
+			JsonValueToType(InitialSettingsValue, m_InitialSettings, LogSystem);
 		}
 	}
 }
@@ -9324,7 +14665,7 @@ utility::string_t CrossTenantSettingsDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void CrossTenantSettingsDto::FromJson(const utility::string_t& Val)
+void CrossTenantSettingsDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -9333,7 +14674,7 @@ void CrossTenantSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CrossTenantSettingsDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "CrossTenantSettingsDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -9346,7 +14687,7 @@ void CrossTenantSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (EmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailValue, m_Email);
+			JsonValueToType(EmailValue, m_Email, LogSystem);
 		}
 	}
 
@@ -9356,7 +14697,7 @@ void CrossTenantSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (ContextValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ContextValue, m_Context);
+			JsonValueToType(ContextValue, m_Context, LogSystem);
 		}
 	}
 
@@ -9366,11 +14707,11 @@ void CrossTenantSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (SettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SettingsValue, m_Settings);
+			JsonValueToType(SettingsValue, m_Settings, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member settings is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member settings is null!");
 		}
 	}
 }
@@ -9430,7 +14771,7 @@ utility::string_t DaigramCreateRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void DaigramCreateRequest::FromJson(const utility::string_t& Val)
+void DaigramCreateRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -9439,7 +14780,7 @@ void DaigramCreateRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DaigramCreateRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DaigramCreateRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -9452,11 +14793,11 @@ void DaigramCreateRequest::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member name is null!");
 		}
 	}
 }
@@ -9546,7 +14887,7 @@ utility::string_t DaigramDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void DaigramDto::FromJson(const utility::string_t& Val)
+void DaigramDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -9555,7 +14896,7 @@ void DaigramDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DaigramDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DaigramDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -9568,7 +14909,7 @@ void DaigramDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -9578,7 +14919,7 @@ void DaigramDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -9588,7 +14929,7 @@ void DaigramDto::FromJson(const utility::string_t& Val)
 
 		if (OwnerIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OwnerIdValue, m_OwnerId);
+			JsonValueToType(OwnerIdValue, m_OwnerId, LogSystem);
 		}
 	}
 
@@ -9598,7 +14939,7 @@ void DaigramDto::FromJson(const utility::string_t& Val)
 
 		if (GroupIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GroupIdValue, m_GroupId);
+			JsonValueToType(GroupIdValue, m_GroupId, LogSystem);
 		}
 	}
 
@@ -9608,7 +14949,7 @@ void DaigramDto::FromJson(const utility::string_t& Val)
 
 		if (ScopeIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ScopeIdValue, m_ScopeId);
+			JsonValueToType(ScopeIdValue, m_ScopeId, LogSystem);
 		}
 	}
 
@@ -9618,7 +14959,7 @@ void DaigramDto::FromJson(const utility::string_t& Val)
 
 		if (ThumbnailPrototypeIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ThumbnailPrototypeIdValue, m_ThumbnailPrototypeId);
+			JsonValueToType(ThumbnailPrototypeIdValue, m_ThumbnailPrototypeId, LogSystem);
 		}
 	}
 
@@ -9628,11 +14969,11 @@ void DaigramDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -9642,11 +14983,11 @@ void DaigramDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member updatedAt is null!");
 		}
 	}
 
@@ -9656,7 +14997,7 @@ void DaigramDto::FromJson(const utility::string_t& Val)
 
 		if (RoleValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RoleValue, m_Role);
+			JsonValueToType(RoleValue, m_Role, LogSystem);
 		}
 	}
 }
@@ -9802,7 +15143,7 @@ utility::string_t DaigramThumbnailRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void DaigramThumbnailRequest::FromJson(const utility::string_t& Val)
+void DaigramThumbnailRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -9811,7 +15152,7 @@ void DaigramThumbnailRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DaigramThumbnailRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DaigramThumbnailRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -9824,11 +15165,11 @@ void DaigramThumbnailRequest::FromJson(const utility::string_t& Val)
 
 		if (ThumbnailPrototypeIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ThumbnailPrototypeIdValue, m_ThumbnailPrototypeId);
+			JsonValueToType(ThumbnailPrototypeIdValue, m_ThumbnailPrototypeId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member thumbnailPrototypeId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member thumbnailPrototypeId is null!");
 		}
 	}
 }
@@ -9870,7 +15211,7 @@ utility::string_t DaigramUpdateRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void DaigramUpdateRequest::FromJson(const utility::string_t& Val)
+void DaigramUpdateRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -9879,7 +15220,7 @@ void DaigramUpdateRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DaigramUpdateRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DaigramUpdateRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -9892,11 +15233,11 @@ void DaigramUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member name is null!");
 		}
 	}
 }
@@ -9950,7 +15291,7 @@ utility::string_t DefaultSessionSettingsDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void DefaultSessionSettingsDto::FromJson(const utility::string_t& Val)
+void DefaultSessionSettingsDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -9959,7 +15300,7 @@ void DefaultSessionSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DefaultSessionSettingsDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DefaultSessionSettingsDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -9972,7 +15313,7 @@ void DefaultSessionSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (ApplicationNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ApplicationNameValue, m_ApplicationName);
+			JsonValueToType(ApplicationNameValue, m_ApplicationName, LogSystem);
 		}
 	}
 
@@ -9982,7 +15323,7 @@ void DefaultSessionSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (ApplicationSettingsContextsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ApplicationSettingsContextsValue, m_ApplicationSettingsContexts);
+			JsonValueToType(ApplicationSettingsContextsValue, m_ApplicationSettingsContexts, LogSystem);
 		}
 	}
 
@@ -9992,7 +15333,7 @@ void DefaultSessionSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (UserSettingsContextsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserSettingsContextsValue, m_UserSettingsContexts);
+			JsonValueToType(UserSettingsContextsValue, m_UserSettingsContexts, LogSystem);
 		}
 	}
 }
@@ -10066,7 +15407,7 @@ utility::string_t DefaultSettings::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void DefaultSettings::FromJson(const utility::string_t& Val)
+void DefaultSettings::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -10075,7 +15416,7 @@ void DefaultSettings::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DefaultSettings::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DefaultSettings::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -10088,7 +15429,7 @@ void DefaultSettings::FromJson(const utility::string_t& Val)
 
 		if (DefaultApplicationSettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DefaultApplicationSettingsValue, m_DefaultApplicationSettings);
+			JsonValueToType(DefaultApplicationSettingsValue, m_DefaultApplicationSettings, LogSystem);
 		}
 	}
 
@@ -10098,7 +15439,7 @@ void DefaultSettings::FromJson(const utility::string_t& Val)
 
 		if (DefaultUserSettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DefaultUserSettingsValue, m_DefaultUserSettings);
+			JsonValueToType(DefaultUserSettingsValue, m_DefaultUserSettings, LogSystem);
 		}
 	}
 }
@@ -10171,7 +15512,7 @@ utility::string_t DepartmentDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void DepartmentDto::FromJson(const utility::string_t& Val)
+void DepartmentDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -10180,7 +15521,7 @@ void DepartmentDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DepartmentDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DepartmentDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -10193,7 +15534,7 @@ void DepartmentDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -10203,7 +15544,7 @@ void DepartmentDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -10213,11 +15554,11 @@ void DepartmentDto::FromJson(const utility::string_t& Val)
 
 		if (SortOrderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortOrderValue, m_SortOrder);
+			JsonValueToType(SortOrderValue, m_SortOrder, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sortOrder is null!");
 		}
 	}
 
@@ -10227,7 +15568,7 @@ void DepartmentDto::FromJson(const utility::string_t& Val)
 
 		if (TitleLadderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TitleLadderValue, m_TitleLadder);
+			JsonValueToType(TitleLadderValue, m_TitleLadder, LogSystem);
 		}
 	}
 }
@@ -10320,7 +15661,7 @@ utility::string_t DepartmentUpsertRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void DepartmentUpsertRequest::FromJson(const utility::string_t& Val)
+void DepartmentUpsertRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -10329,7 +15670,7 @@ void DepartmentUpsertRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DepartmentUpsertRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "DepartmentUpsertRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -10342,11 +15683,11 @@ void DepartmentUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member name is null!");
 		}
 	}
 
@@ -10356,11 +15697,11 @@ void DepartmentUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (SortOrderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortOrderValue, m_SortOrder);
+			JsonValueToType(SortOrderValue, m_SortOrder, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sortOrder is null!");
 		}
 	}
 
@@ -10370,7 +15711,7 @@ void DepartmentUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (TitleLadderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TitleLadderValue, m_TitleLadder);
+			JsonValueToType(TitleLadderValue, m_TitleLadder, LogSystem);
 		}
 	}
 }
@@ -10450,7 +15791,7 @@ utility::string_t EffortEdge::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void EffortEdge::FromJson(const utility::string_t& Val)
+void EffortEdge::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -10459,7 +15800,7 @@ void EffortEdge::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortEdge::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortEdge::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -10472,7 +15813,7 @@ void EffortEdge::FromJson(const utility::string_t& Val)
 
 		if (TypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TypeValue, m_Type);
+			JsonValueToType(TypeValue, m_Type, LogSystem);
 		}
 	}
 
@@ -10482,7 +15823,7 @@ void EffortEdge::FromJson(const utility::string_t& Val)
 
 		if (FromValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FromValue, m_From);
+			JsonValueToType(FromValue, m_From, LogSystem);
 		}
 	}
 
@@ -10492,7 +15833,7 @@ void EffortEdge::FromJson(const utility::string_t& Val)
 
 		if (ToValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ToValue, m_To);
+			JsonValueToType(ToValue, m_To, LogSystem);
 		}
 	}
 }
@@ -10566,7 +15907,7 @@ utility::string_t EffortResourceBulkGetRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void EffortResourceBulkGetRequest::FromJson(const utility::string_t& Val)
+void EffortResourceBulkGetRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -10575,7 +15916,7 @@ void EffortResourceBulkGetRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceBulkGetRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceBulkGetRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -10588,7 +15929,7 @@ void EffortResourceBulkGetRequest::FromJson(const utility::string_t& Val)
 
 		if (FamilyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FamilyValue, m_Family);
+			JsonValueToType(FamilyValue, m_Family, LogSystem);
 		}
 	}
 
@@ -10598,11 +15939,11 @@ void EffortResourceBulkGetRequest::FromJson(const utility::string_t& Val)
 
 		if (KeysValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KeysValue, m_Keys);
+			JsonValueToType(KeysValue, m_Keys, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member keys is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member keys is null!");
 		}
 	}
 }
@@ -10765,7 +16106,7 @@ utility::string_t EffortResourceDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void EffortResourceDto::FromJson(const utility::string_t& Val)
+void EffortResourceDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -10774,7 +16115,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -10787,7 +16128,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (FamilyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FamilyValue, m_Family);
+			JsonValueToType(FamilyValue, m_Family, LogSystem);
 		}
 	}
 
@@ -10797,7 +16138,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (KindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KindValue, m_Kind);
+			JsonValueToType(KindValue, m_Kind, LogSystem);
 		}
 	}
 
@@ -10807,7 +16148,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (KeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KeyValue, m_Key);
+			JsonValueToType(KeyValue, m_Key, LogSystem);
 		}
 	}
 
@@ -10817,7 +16158,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (TitleValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TitleValue, m_Title);
+			JsonValueToType(TitleValue, m_Title, LogSystem);
 		}
 	}
 
@@ -10827,7 +16168,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (SummaryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SummaryValue, m_Summary);
+			JsonValueToType(SummaryValue, m_Summary, LogSystem);
 		}
 	}
 
@@ -10837,7 +16178,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (GenreValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GenreValue, m_Genre);
+			JsonValueToType(GenreValue, m_Genre, LogSystem);
 		}
 	}
 
@@ -10847,7 +16188,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (StatusValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusValue, m_Status);
+			JsonValueToType(StatusValue, m_Status, LogSystem);
 		}
 	}
 
@@ -10857,7 +16198,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (StatusCategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusCategoryValue, m_StatusCategory);
+			JsonValueToType(StatusCategoryValue, m_StatusCategory, LogSystem);
 		}
 	}
 
@@ -10867,7 +16208,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (OwnerValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OwnerValue, m_Owner);
+			JsonValueToType(OwnerValue, m_Owner, LogSystem);
 		}
 	}
 
@@ -10877,7 +16218,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (OccurredAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OccurredAtValue, m_OccurredAt);
+			JsonValueToType(OccurredAtValue, m_OccurredAt, LogSystem);
 		}
 	}
 
@@ -10887,7 +16228,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (SourcePathValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SourcePathValue, m_SourcePath);
+			JsonValueToType(SourcePathValue, m_SourcePath, LogSystem);
 		}
 	}
 
@@ -10897,7 +16238,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (SourceUrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SourceUrlValue, m_SourceUrl);
+			JsonValueToType(SourceUrlValue, m_SourceUrl, LogSystem);
 		}
 	}
 
@@ -10907,7 +16248,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (EvidenceValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EvidenceValue, m_Evidence);
+			JsonValueToType(EvidenceValue, m_Evidence, LogSystem);
 		}
 	}
 
@@ -10917,7 +16258,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (ContentHashValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ContentHashValue, m_ContentHash);
+			JsonValueToType(ContentHashValue, m_ContentHash, LogSystem);
 		}
 	}
 
@@ -10927,11 +16268,11 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (ProvenanceTierValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProvenanceTierValue, m_ProvenanceTier);
+			JsonValueToType(ProvenanceTierValue, m_ProvenanceTier, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member provenanceTier is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member provenanceTier is null!");
 		}
 	}
 
@@ -10941,7 +16282,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (EdgesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EdgesValue, m_Edges);
+			JsonValueToType(EdgesValue, m_Edges, LogSystem);
 		}
 	}
 
@@ -10951,7 +16292,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (TagsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TagsValue, m_Tags);
+			JsonValueToType(TagsValue, m_Tags, LogSystem);
 		}
 	}
 
@@ -10961,11 +16302,11 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member updatedAt is null!");
 		}
 	}
 
@@ -10975,7 +16316,7 @@ void EffortResourceDto::FromJson(const utility::string_t& Val)
 
 		if (DeletedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeletedAtValue, m_DeletedAt);
+			JsonValueToType(DeletedAtValue, m_DeletedAt, LogSystem);
 		}
 	}
 }
@@ -11263,7 +16604,7 @@ utility::string_t EffortResourceRemoveRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void EffortResourceRemoveRequest::FromJson(const utility::string_t& Val)
+void EffortResourceRemoveRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -11272,7 +16613,7 @@ void EffortResourceRemoveRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceRemoveRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceRemoveRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -11285,7 +16626,7 @@ void EffortResourceRemoveRequest::FromJson(const utility::string_t& Val)
 
 		if (FamilyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FamilyValue, m_Family);
+			JsonValueToType(FamilyValue, m_Family, LogSystem);
 		}
 	}
 
@@ -11295,11 +16636,11 @@ void EffortResourceRemoveRequest::FromJson(const utility::string_t& Val)
 
 		if (KeysValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KeysValue, m_Keys);
+			JsonValueToType(KeysValue, m_Keys, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member keys is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member keys is null!");
 		}
 	}
 
@@ -11309,11 +16650,11 @@ void EffortResourceRemoveRequest::FromJson(const utility::string_t& Val)
 
 		if (ProvenanceTierValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProvenanceTierValue, m_ProvenanceTier);
+			JsonValueToType(ProvenanceTierValue, m_ProvenanceTier, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member provenanceTier is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member provenanceTier is null!");
 		}
 	}
 }
@@ -11399,7 +16740,7 @@ utility::string_t EffortResourceRemoveResult::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void EffortResourceRemoveResult::FromJson(const utility::string_t& Val)
+void EffortResourceRemoveResult::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -11408,7 +16749,7 @@ void EffortResourceRemoveResult::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceRemoveResult::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceRemoveResult::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -11421,11 +16762,11 @@ void EffortResourceRemoveResult::FromJson(const utility::string_t& Val)
 
 		if (RemovedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RemovedValue, m_Removed);
+			JsonValueToType(RemovedValue, m_Removed, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member removed is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member removed is null!");
 		}
 	}
 
@@ -11435,11 +16776,11 @@ void EffortResourceRemoveResult::FromJson(const utility::string_t& Val)
 
 		if (AlreadyRemovedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AlreadyRemovedValue, m_AlreadyRemoved);
+			JsonValueToType(AlreadyRemovedValue, m_AlreadyRemoved, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member alreadyRemoved is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member alreadyRemoved is null!");
 		}
 	}
 
@@ -11449,7 +16790,7 @@ void EffortResourceRemoveResult::FromJson(const utility::string_t& Val)
 
 		if (GatedKeysValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GatedKeysValue, m_GatedKeys);
+			JsonValueToType(GatedKeysValue, m_GatedKeys, LogSystem);
 		}
 	}
 
@@ -11459,7 +16800,7 @@ void EffortResourceRemoveResult::FromJson(const utility::string_t& Val)
 
 		if (MissingKeysValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MissingKeysValue, m_MissingKeys);
+			JsonValueToType(MissingKeysValue, m_MissingKeys, LogSystem);
 		}
 	}
 }
@@ -11552,7 +16893,7 @@ utility::string_t EffortResourceSearchRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void EffortResourceSearchRequest::FromJson(const utility::string_t& Val)
+void EffortResourceSearchRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -11561,7 +16902,7 @@ void EffortResourceSearchRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceSearchRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceSearchRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -11574,11 +16915,11 @@ void EffortResourceSearchRequest::FromJson(const utility::string_t& Val)
 
 		if (TagsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TagsValue, m_Tags);
+			JsonValueToType(TagsValue, m_Tags, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member tags is null!");
 		}
 	}
 
@@ -11588,7 +16929,7 @@ void EffortResourceSearchRequest::FromJson(const utility::string_t& Val)
 
 		if (FamilyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FamilyValue, m_Family);
+			JsonValueToType(FamilyValue, m_Family, LogSystem);
 		}
 	}
 
@@ -11598,7 +16939,7 @@ void EffortResourceSearchRequest::FromJson(const utility::string_t& Val)
 
 		if (SinceValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SinceValue, m_Since);
+			JsonValueToType(SinceValue, m_Since, LogSystem);
 		}
 	}
 }
@@ -11672,7 +17013,7 @@ utility::string_t EffortResourceSearchResponse::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void EffortResourceSearchResponse::FromJson(const utility::string_t& Val)
+void EffortResourceSearchResponse::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -11681,7 +17022,7 @@ void EffortResourceSearchResponse::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceSearchResponse::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceSearchResponse::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -11694,7 +17035,7 @@ void EffortResourceSearchResponse::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 	}
 
@@ -11704,11 +17045,11 @@ void EffortResourceSearchResponse::FromJson(const utility::string_t& Val)
 
 		if (SinceValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SinceValue, m_Since);
+			JsonValueToType(SinceValue, m_Since, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member since is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member since is null!");
 		}
 	}
 }
@@ -11859,7 +17200,7 @@ utility::string_t EffortResourceUpsertItem::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
+void EffortResourceUpsertItem::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -11868,7 +17209,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceUpsertItem::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceUpsertItem::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -11881,11 +17222,11 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (KeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KeyValue, m_Key);
+			JsonValueToType(KeyValue, m_Key, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member key is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member key is null!");
 		}
 	}
 
@@ -11895,7 +17236,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (FamilyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FamilyValue, m_Family);
+			JsonValueToType(FamilyValue, m_Family, LogSystem);
 		}
 	}
 
@@ -11905,7 +17246,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (KindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KindValue, m_Kind);
+			JsonValueToType(KindValue, m_Kind, LogSystem);
 		}
 	}
 
@@ -11915,7 +17256,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (TagsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TagsValue, m_Tags);
+			JsonValueToType(TagsValue, m_Tags, LogSystem);
 		}
 	}
 
@@ -11925,7 +17266,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (TitleValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TitleValue, m_Title);
+			JsonValueToType(TitleValue, m_Title, LogSystem);
 		}
 	}
 
@@ -11935,7 +17276,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (SummaryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SummaryValue, m_Summary);
+			JsonValueToType(SummaryValue, m_Summary, LogSystem);
 		}
 	}
 
@@ -11945,7 +17286,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (GenreValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GenreValue, m_Genre);
+			JsonValueToType(GenreValue, m_Genre, LogSystem);
 		}
 	}
 
@@ -11955,7 +17296,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (StatusValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusValue, m_Status);
+			JsonValueToType(StatusValue, m_Status, LogSystem);
 		}
 	}
 
@@ -11965,7 +17306,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (StatusCategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusCategoryValue, m_StatusCategory);
+			JsonValueToType(StatusCategoryValue, m_StatusCategory, LogSystem);
 		}
 	}
 
@@ -11975,7 +17316,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (OwnerValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OwnerValue, m_Owner);
+			JsonValueToType(OwnerValue, m_Owner, LogSystem);
 		}
 	}
 
@@ -11985,7 +17326,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (OccurredAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OccurredAtValue, m_OccurredAt);
+			JsonValueToType(OccurredAtValue, m_OccurredAt, LogSystem);
 		}
 	}
 
@@ -11995,7 +17336,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (SourcePathValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SourcePathValue, m_SourcePath);
+			JsonValueToType(SourcePathValue, m_SourcePath, LogSystem);
 		}
 	}
 
@@ -12005,7 +17346,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (SourceUrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SourceUrlValue, m_SourceUrl);
+			JsonValueToType(SourceUrlValue, m_SourceUrl, LogSystem);
 		}
 	}
 
@@ -12015,7 +17356,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (EvidenceValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EvidenceValue, m_Evidence);
+			JsonValueToType(EvidenceValue, m_Evidence, LogSystem);
 		}
 	}
 
@@ -12025,7 +17366,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (ContentHashValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ContentHashValue, m_ContentHash);
+			JsonValueToType(ContentHashValue, m_ContentHash, LogSystem);
 		}
 	}
 
@@ -12035,11 +17376,11 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (ProvenanceTierValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProvenanceTierValue, m_ProvenanceTier);
+			JsonValueToType(ProvenanceTierValue, m_ProvenanceTier, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member provenanceTier is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member provenanceTier is null!");
 		}
 	}
 
@@ -12049,7 +17390,7 @@ void EffortResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (EdgesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EdgesValue, m_Edges);
+			JsonValueToType(EdgesValue, m_Edges, LogSystem);
 		}
 	}
 }
@@ -12299,7 +17640,7 @@ utility::string_t EffortResourceUpsertRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void EffortResourceUpsertRequest::FromJson(const utility::string_t& Val)
+void EffortResourceUpsertRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -12308,7 +17649,7 @@ void EffortResourceUpsertRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceUpsertRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceUpsertRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -12321,11 +17662,11 @@ void EffortResourceUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member items is null!");
 		}
 	}
 }
@@ -12379,7 +17720,7 @@ utility::string_t EffortResourceUpsertResult::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void EffortResourceUpsertResult::FromJson(const utility::string_t& Val)
+void EffortResourceUpsertResult::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -12388,7 +17729,7 @@ void EffortResourceUpsertResult::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceUpsertResult::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EffortResourceUpsertResult::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -12401,11 +17742,11 @@ void EffortResourceUpsertResult::FromJson(const utility::string_t& Val)
 
 		if (CreatedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedValue, m_Created);
+			JsonValueToType(CreatedValue, m_Created, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member created is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member created is null!");
 		}
 	}
 
@@ -12415,11 +17756,11 @@ void EffortResourceUpsertResult::FromJson(const utility::string_t& Val)
 
 		if (UpdatedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedValue, m_Updated);
+			JsonValueToType(UpdatedValue, m_Updated, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member updated is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member updated is null!");
 		}
 	}
 
@@ -12429,11 +17770,11 @@ void EffortResourceUpsertResult::FromJson(const utility::string_t& Val)
 
 		if (SkippedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SkippedValue, m_Skipped);
+			JsonValueToType(SkippedValue, m_Skipped, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member skipped is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skipped is null!");
 		}
 	}
 }
@@ -12501,7 +17842,7 @@ utility::string_t EmailRedirectDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void EmailRedirectDto::FromJson(const utility::string_t& Val)
+void EmailRedirectDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -12510,7 +17851,7 @@ void EmailRedirectDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EmailRedirectDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EmailRedirectDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -12523,7 +17864,7 @@ void EmailRedirectDto::FromJson(const utility::string_t& Val)
 
 		if (PatternValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PatternValue, m_Pattern);
+			JsonValueToType(PatternValue, m_Pattern, LogSystem);
 		}
 	}
 }
@@ -12577,7 +17918,7 @@ utility::string_t EncryptedValueDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void EncryptedValueDto::FromJson(const utility::string_t& Val)
+void EncryptedValueDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -12586,7 +17927,7 @@ void EncryptedValueDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EncryptedValueDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EncryptedValueDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -12599,11 +17940,11 @@ void EncryptedValueDto::FromJson(const utility::string_t& Val)
 
 		if (KeyNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KeyNameValue, m_KeyName);
+			JsonValueToType(KeyNameValue, m_KeyName, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member keyName is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member keyName is null!");
 		}
 	}
 
@@ -12613,7 +17954,7 @@ void EncryptedValueDto::FromJson(const utility::string_t& Val)
 
 		if (ValueValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ValueValue, m_Value);
+			JsonValueToType(ValueValue, m_Value, LogSystem);
 		}
 	}
 
@@ -12623,11 +17964,11 @@ void EncryptedValueDto::FromJson(const utility::string_t& Val)
 
 		if (IsMagnopusOwnedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsMagnopusOwnedValue, m_IsMagnopusOwned);
+			JsonValueToType(IsMagnopusOwnedValue, m_IsMagnopusOwned, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isMagnopusOwned is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isMagnopusOwned is null!");
 		}
 	}
 }
@@ -12695,7 +18036,7 @@ utility::string_t EquipItemDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void EquipItemDto::FromJson(const utility::string_t& Val)
+void EquipItemDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -12704,7 +18045,7 @@ void EquipItemDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EquipItemDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "EquipItemDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -12717,11 +18058,11 @@ void EquipItemDto::FromJson(const utility::string_t& Val)
 
 		if (IsEquippedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsEquippedValue, m_IsEquipped);
+			JsonValueToType(IsEquippedValue, m_IsEquipped, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isEquipped is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isEquipped is null!");
 		}
 	}
 }
@@ -12739,6 +18080,165 @@ bool EquipItemDto::HasIsEquipped() const
 void EquipItemDto::SetIsEquipped(const bool& Value)
 {
 	m_IsEquipped = Value;
+}
+
+ExchangeKeyRequest::ExchangeKeyRequest()
+{
+}
+ExchangeKeyRequest::~ExchangeKeyRequest()
+{
+}
+
+utility::string_t ExchangeKeyRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_UserId.has_value())
+	{
+		rapidjson::Value UserIdValue(TypeToJsonValue(m_UserId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("userId", UserIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Key.has_value())
+	{
+		rapidjson::Value KeyValue(TypeToJsonValue(m_Key, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("key", KeyValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DeviceId.has_value())
+	{
+		rapidjson::Value DeviceIdValue(TypeToJsonValue(m_DeviceId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("deviceId", DeviceIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_RedirectUri.has_value())
+	{
+		rapidjson::Value RedirectUriValue(TypeToJsonValue(m_RedirectUri, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("redirectUri", RedirectUriValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ExchangeKeyRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ExchangeKeyRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("userId"))
+	{
+		const rapidjson::Value& UserIdValue = JsonDoc["userId"];
+
+		if (UserIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("key"))
+	{
+		const rapidjson::Value& KeyValue = JsonDoc["key"];
+
+		if (KeyValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(KeyValue, m_Key, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member key is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("deviceId"))
+	{
+		const rapidjson::Value& DeviceIdValue = JsonDoc["deviceId"];
+
+		if (DeviceIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DeviceIdValue, m_DeviceId, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member deviceId is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("redirectUri"))
+	{
+		const rapidjson::Value& RedirectUriValue = JsonDoc["redirectUri"];
+
+		if (RedirectUriValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(RedirectUriValue, m_RedirectUri, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t ExchangeKeyRequest::GetUserId() const
+{
+	return m_UserId.value();
+}
+
+bool ExchangeKeyRequest::HasUserId() const
+{
+	return m_UserId.has_value();
+}
+void ExchangeKeyRequest::SetUserId(const utility::string_t& Value)
+{
+	m_UserId = Value;
+}
+utility::string_t ExchangeKeyRequest::GetKey() const
+{
+	return m_Key.value();
+}
+
+bool ExchangeKeyRequest::HasKey() const
+{
+	return m_Key.has_value();
+}
+void ExchangeKeyRequest::SetKey(const utility::string_t& Value)
+{
+	m_Key = Value;
+}
+utility::string_t ExchangeKeyRequest::GetDeviceId() const
+{
+	return m_DeviceId.value();
+}
+
+bool ExchangeKeyRequest::HasDeviceId() const
+{
+	return m_DeviceId.has_value();
+}
+void ExchangeKeyRequest::SetDeviceId(const utility::string_t& Value)
+{
+	m_DeviceId = Value;
+}
+utility::string_t ExchangeKeyRequest::GetRedirectUri() const
+{
+	return m_RedirectUri.value();
+}
+
+bool ExchangeKeyRequest::HasRedirectUri() const
+{
+	return m_RedirectUri.has_value();
+}
+void ExchangeKeyRequest::SetRedirectUri(const utility::string_t& Value)
+{
+	m_RedirectUri = Value;
 }
 
 ExchangeProfileRequest::ExchangeProfileRequest()
@@ -12775,7 +18275,7 @@ utility::string_t ExchangeProfileRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ExchangeProfileRequest::FromJson(const utility::string_t& Val)
+void ExchangeProfileRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -12784,7 +18284,7 @@ void ExchangeProfileRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ExchangeProfileRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ExchangeProfileRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -12797,11 +18297,11 @@ void ExchangeProfileRequest::FromJson(const utility::string_t& Val)
 
 		if (RefreshTokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RefreshTokenValue, m_RefreshToken);
+			JsonValueToType(RefreshTokenValue, m_RefreshToken, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member refreshToken is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member refreshToken is null!");
 		}
 	}
 
@@ -12811,11 +18311,11 @@ void ExchangeProfileRequest::FromJson(const utility::string_t& Val)
 
 		if (TargetEmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TargetEmailValue, m_TargetEmail);
+			JsonValueToType(TargetEmailValue, m_TargetEmail, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member targetEmail is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member targetEmail is null!");
 		}
 	}
 
@@ -12825,11 +18325,11 @@ void ExchangeProfileRequest::FromJson(const utility::string_t& Val)
 
 		if (DeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeviceIdValue, m_DeviceId);
+			JsonValueToType(DeviceIdValue, m_DeviceId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member deviceId is null!");
 		}
 	}
 }
@@ -12915,7 +18415,7 @@ utility::string_t ExchangeTenancyRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ExchangeTenancyRequest::FromJson(const utility::string_t& Val)
+void ExchangeTenancyRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -12924,7 +18424,7 @@ void ExchangeTenancyRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ExchangeTenancyRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ExchangeTenancyRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -12937,11 +18437,11 @@ void ExchangeTenancyRequest::FromJson(const utility::string_t& Val)
 
 		if (RefreshTokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RefreshTokenValue, m_RefreshToken);
+			JsonValueToType(RefreshTokenValue, m_RefreshToken, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member refreshToken is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member refreshToken is null!");
 		}
 	}
 
@@ -12951,11 +18451,11 @@ void ExchangeTenancyRequest::FromJson(const utility::string_t& Val)
 
 		if (TargetTenantNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TargetTenantNameValue, m_TargetTenantName);
+			JsonValueToType(TargetTenantNameValue, m_TargetTenantName, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member targetTenantName is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member targetTenantName is null!");
 		}
 	}
 
@@ -12965,11 +18465,11 @@ void ExchangeTenancyRequest::FromJson(const utility::string_t& Val)
 
 		if (DeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeviceIdValue, m_DeviceId);
+			JsonValueToType(DeviceIdValue, m_DeviceId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member deviceId is null!");
 		}
 	}
 
@@ -12979,7 +18479,7 @@ void ExchangeTenancyRequest::FromJson(const utility::string_t& Val)
 
 		if (TargetEmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TargetEmailValue, m_TargetEmail);
+			JsonValueToType(TargetEmailValue, m_TargetEmail, LogSystem);
 		}
 	}
 }
@@ -13038,6 +18538,99 @@ void ExchangeTenancyRequest::SetTargetEmail(const utility::string_t& Value)
 	m_TargetEmail = Value;
 }
 
+ExtendMachineLeaseRequest::ExtendMachineLeaseRequest()
+{
+}
+ExtendMachineLeaseRequest::~ExtendMachineLeaseRequest()
+{
+}
+
+utility::string_t ExtendMachineLeaseRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_LeaseHours.has_value())
+	{
+		rapidjson::Value LeaseHoursValue(TypeToJsonValue(m_LeaseHours, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("leaseHours", LeaseHoursValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Reason.has_value())
+	{
+		rapidjson::Value ReasonValue(TypeToJsonValue(m_Reason, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("reason", ReasonValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void ExtendMachineLeaseRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ExtendMachineLeaseRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("leaseHours"))
+	{
+		const rapidjson::Value& LeaseHoursValue = JsonDoc["leaseHours"];
+
+		if (LeaseHoursValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LeaseHoursValue, m_LeaseHours, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("reason"))
+	{
+		const rapidjson::Value& ReasonValue = JsonDoc["reason"];
+
+		if (ReasonValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ReasonValue, m_Reason, LogSystem);
+		}
+	}
+}
+
+
+int32_t ExtendMachineLeaseRequest::GetLeaseHours() const
+{
+	return m_LeaseHours.value();
+}
+
+bool ExtendMachineLeaseRequest::HasLeaseHours() const
+{
+	return m_LeaseHours.has_value();
+}
+void ExtendMachineLeaseRequest::SetLeaseHours(int32_t Value)
+{
+	m_LeaseHours = Value;
+}
+utility::string_t ExtendMachineLeaseRequest::GetReason() const
+{
+	return m_Reason.value();
+}
+
+bool ExtendMachineLeaseRequest::HasReason() const
+{
+	return m_Reason.has_value();
+}
+void ExtendMachineLeaseRequest::SetReason(const utility::string_t& Value)
+{
+	m_Reason = Value;
+}
+
 ForgotPasswordRequest::ForgotPasswordRequest()
 {
 }
@@ -13066,7 +18659,7 @@ utility::string_t ForgotPasswordRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ForgotPasswordRequest::FromJson(const utility::string_t& Val)
+void ForgotPasswordRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -13075,7 +18668,7 @@ void ForgotPasswordRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ForgotPasswordRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ForgotPasswordRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -13088,7 +18681,7 @@ void ForgotPasswordRequest::FromJson(const utility::string_t& Val)
 
 		if (TenantValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantValue, m_Tenant);
+			JsonValueToType(TenantValue, m_Tenant, LogSystem);
 		}
 	}
 
@@ -13098,11 +18691,11 @@ void ForgotPasswordRequest::FromJson(const utility::string_t& Val)
 
 		if (EmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailValue, m_Email);
+			JsonValueToType(EmailValue, m_Email, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member email is null!");
 		}
 	}
 }
@@ -13169,7 +18762,7 @@ utility::string_t GacValidationConfigDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void GacValidationConfigDto::FromJson(const utility::string_t& Val)
+void GacValidationConfigDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -13178,7 +18771,7 @@ void GacValidationConfigDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GacValidationConfigDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GacValidationConfigDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -13191,11 +18784,11 @@ void GacValidationConfigDto::FromJson(const utility::string_t& Val)
 
 		if (CheckVertexAiValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CheckVertexAiValue, m_CheckVertexAi);
+			JsonValueToType(CheckVertexAiValue, m_CheckVertexAi, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member checkVertexAi is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member checkVertexAi is null!");
 		}
 	}
 
@@ -13205,7 +18798,7 @@ void GacValidationConfigDto::FromJson(const utility::string_t& Val)
 
 		if (RequiredBucketsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RequiredBucketsValue, m_RequiredBuckets);
+			JsonValueToType(RequiredBucketsValue, m_RequiredBuckets, LogSystem);
 		}
 	}
 
@@ -13215,7 +18808,7 @@ void GacValidationConfigDto::FromJson(const utility::string_t& Val)
 
 		if (RequiredProjectPermissionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RequiredProjectPermissionsValue, m_RequiredProjectPermissions);
+			JsonValueToType(RequiredProjectPermissionsValue, m_RequiredProjectPermissions, LogSystem);
 		}
 	}
 }
@@ -13446,7 +19039,7 @@ utility::string_t GroupDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void GroupDto::FromJson(const utility::string_t& Val)
+void GroupDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -13455,7 +19048,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -13468,7 +19061,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -13478,7 +19071,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedByValue, m_CreatedBy);
+			JsonValueToType(CreatedByValue, m_CreatedBy, LogSystem);
 		}
 	}
 
@@ -13488,11 +19081,11 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -13502,11 +19095,11 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (GroupOwnerIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GroupOwnerIdValue, m_GroupOwnerId);
+			JsonValueToType(GroupOwnerIdValue, m_GroupOwnerId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member groupOwnerId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member groupOwnerId is null!");
 		}
 	}
 
@@ -13516,7 +19109,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (GroupCodeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GroupCodeValue, m_GroupCode);
+			JsonValueToType(GroupCodeValue, m_GroupCode, LogSystem);
 		}
 	}
 
@@ -13526,7 +19119,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (GroupTypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GroupTypeValue, m_GroupType);
+			JsonValueToType(GroupTypeValue, m_GroupType, LogSystem);
 		}
 	}
 
@@ -13536,11 +19129,11 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member name is null!");
 		}
 	}
 
@@ -13550,7 +19143,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -13560,7 +19153,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (UsersValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UsersValue, m_Users);
+			JsonValueToType(UsersValue, m_Users, LogSystem);
 		}
 	}
 
@@ -13570,7 +19163,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (BannedUsersValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(BannedUsersValue, m_BannedUsers);
+			JsonValueToType(BannedUsersValue, m_BannedUsers, LogSystem);
 		}
 	}
 
@@ -13580,7 +19173,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (ModeratorsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ModeratorsValue, m_Moderators);
+			JsonValueToType(ModeratorsValue, m_Moderators, LogSystem);
 		}
 	}
 
@@ -13590,11 +19183,11 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (DiscoverableValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DiscoverableValue, m_Discoverable);
+			JsonValueToType(DiscoverableValue, m_Discoverable, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member discoverable is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member discoverable is null!");
 		}
 	}
 
@@ -13604,7 +19197,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (AutoModeratorValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AutoModeratorValue, m_AutoModerator);
+			JsonValueToType(AutoModeratorValue, m_AutoModerator, LogSystem);
 		}
 	}
 
@@ -13614,11 +19207,11 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (RequiresInviteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RequiresInviteValue, m_RequiresInvite);
+			JsonValueToType(RequiresInviteValue, m_RequiresInvite, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member requiresInvite is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member requiresInvite is null!");
 		}
 	}
 
@@ -13628,7 +19221,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (ArchivedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ArchivedValue, m_Archived);
+			JsonValueToType(ArchivedValue, m_Archived, LogSystem);
 		}
 	}
 
@@ -13638,7 +19231,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (TagsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TagsValue, m_Tags);
+			JsonValueToType(TagsValue, m_Tags, LogSystem);
 		}
 	}
 
@@ -13648,7 +19241,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (IsCurrentUserOwnerValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsCurrentUserOwnerValue, m_IsCurrentUserOwner);
+			JsonValueToType(IsCurrentUserOwnerValue, m_IsCurrentUserOwner, LogSystem);
 		}
 	}
 
@@ -13658,7 +19251,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (IsCurrentUserMemberValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsCurrentUserMemberValue, m_IsCurrentUserMember);
+			JsonValueToType(IsCurrentUserMemberValue, m_IsCurrentUserMember, LogSystem);
 		}
 	}
 
@@ -13668,7 +19261,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (IsCurrentUserModeratorValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsCurrentUserModeratorValue, m_IsCurrentUserModerator);
+			JsonValueToType(IsCurrentUserModeratorValue, m_IsCurrentUserModerator, LogSystem);
 		}
 	}
 
@@ -13678,7 +19271,7 @@ void GroupDto::FromJson(const utility::string_t& Val)
 
 		if (IsCurrentUserBannedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsCurrentUserBannedValue, m_IsCurrentUserBanned);
+			JsonValueToType(IsCurrentUserBannedValue, m_IsCurrentUserBanned, LogSystem);
 		}
 	}
 }
@@ -14019,7 +19612,7 @@ utility::string_t GroupFilters::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void GroupFilters::FromJson(const utility::string_t& Val)
+void GroupFilters::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -14028,7 +19621,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupFilters::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupFilters::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -14041,7 +19634,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (IdsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdsValue, m_Ids);
+			JsonValueToType(IdsValue, m_Ids, LogSystem);
 		}
 	}
 
@@ -14051,7 +19644,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (GroupTypesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GroupTypesValue, m_GroupTypes);
+			JsonValueToType(GroupTypesValue, m_GroupTypes, LogSystem);
 		}
 	}
 
@@ -14061,7 +19654,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (NamesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NamesValue, m_Names);
+			JsonValueToType(NamesValue, m_Names, LogSystem);
 		}
 	}
 
@@ -14071,7 +19664,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (PartialNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PartialNameValue, m_PartialName);
+			JsonValueToType(PartialNameValue, m_PartialName, LogSystem);
 		}
 	}
 
@@ -14081,7 +19674,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (GroupOwnerIdsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GroupOwnerIdsValue, m_GroupOwnerIds);
+			JsonValueToType(GroupOwnerIdsValue, m_GroupOwnerIds, LogSystem);
 		}
 	}
 
@@ -14091,7 +19684,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (ExcludeGroupOwnerIdsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ExcludeGroupOwnerIdsValue, m_ExcludeGroupOwnerIds);
+			JsonValueToType(ExcludeGroupOwnerIdsValue, m_ExcludeGroupOwnerIds, LogSystem);
 		}
 	}
 
@@ -14101,7 +19694,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (ExcludeIdsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ExcludeIdsValue, m_ExcludeIds);
+			JsonValueToType(ExcludeIdsValue, m_ExcludeIds, LogSystem);
 		}
 	}
 
@@ -14111,7 +19704,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (UsersValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UsersValue, m_Users);
+			JsonValueToType(UsersValue, m_Users, LogSystem);
 		}
 	}
 
@@ -14121,7 +19714,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (DiscoverableValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DiscoverableValue, m_Discoverable);
+			JsonValueToType(DiscoverableValue, m_Discoverable, LogSystem);
 		}
 	}
 
@@ -14131,7 +19724,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (AutoModeratorValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AutoModeratorValue, m_AutoModerator);
+			JsonValueToType(AutoModeratorValue, m_AutoModerator, LogSystem);
 		}
 	}
 
@@ -14141,7 +19734,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (RequiresInviteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RequiresInviteValue, m_RequiresInvite);
+			JsonValueToType(RequiresInviteValue, m_RequiresInvite, LogSystem);
 		}
 	}
 
@@ -14151,7 +19744,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (ArchivedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ArchivedValue, m_Archived);
+			JsonValueToType(ArchivedValue, m_Archived, LogSystem);
 		}
 	}
 
@@ -14161,7 +19754,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (TagsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TagsValue, m_Tags);
+			JsonValueToType(TagsValue, m_Tags, LogSystem);
 		}
 	}
 
@@ -14171,7 +19764,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (ExcludedTagsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ExcludedTagsValue, m_ExcludedTags);
+			JsonValueToType(ExcludedTagsValue, m_ExcludedTags, LogSystem);
 		}
 	}
 
@@ -14181,7 +19774,7 @@ void GroupFilters::FromJson(const utility::string_t& Val)
 
 		if (TagsAllValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TagsAllValue, m_TagsAll);
+			JsonValueToType(TagsAllValue, m_TagsAll, LogSystem);
 		}
 	}
 }
@@ -14471,7 +20064,7 @@ utility::string_t GroupInviteDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void GroupInviteDto::FromJson(const utility::string_t& Val)
+void GroupInviteDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -14480,7 +20073,7 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupInviteDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupInviteDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -14493,7 +20086,7 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -14503,7 +20096,7 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 	}
 
@@ -14513,7 +20106,7 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedByValue, m_CreatedBy);
+			JsonValueToType(CreatedByValue, m_CreatedBy, LogSystem);
 		}
 	}
 
@@ -14523,11 +20116,11 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 
 		if (EmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailValue, m_Email);
+			JsonValueToType(EmailValue, m_Email, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member email is null!");
 		}
 	}
 
@@ -14537,7 +20130,7 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 
 		if (GroupIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GroupIdValue, m_GroupId);
+			JsonValueToType(GroupIdValue, m_GroupId, LogSystem);
 		}
 	}
 
@@ -14547,7 +20140,7 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -14557,11 +20150,11 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 
 		if (AsModeratorValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AsModeratorValue, m_AsModerator);
+			JsonValueToType(AsModeratorValue, m_AsModerator, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member asModerator is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member asModerator is null!");
 		}
 	}
 
@@ -14571,7 +20164,7 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 
 		if (ExpiresAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ExpiresAtValue, m_ExpiresAt);
+			JsonValueToType(ExpiresAtValue, m_ExpiresAt, LogSystem);
 		}
 	}
 
@@ -14581,11 +20174,11 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -14595,7 +20188,7 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedByValue, m_UpdatedBy);
+			JsonValueToType(UpdatedByValue, m_UpdatedBy, LogSystem);
 		}
 	}
 
@@ -14605,7 +20198,7 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
 		}
 	}
 
@@ -14615,11 +20208,11 @@ void GroupInviteDto::FromJson(const utility::string_t& Val)
 
 		if (SendSpaceLinkValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SendSpaceLinkValue, m_SendSpaceLink);
+			JsonValueToType(SendSpaceLinkValue, m_SendSpaceLink, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sendSpaceLink is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sendSpaceLink is null!");
 		}
 	}
 }
@@ -14852,7 +20445,7 @@ utility::string_t GroupLiteDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void GroupLiteDto::FromJson(const utility::string_t& Val)
+void GroupLiteDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -14861,7 +20454,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupLiteDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupLiteDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -14874,7 +20467,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -14884,7 +20477,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -14894,7 +20487,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -14904,7 +20497,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (GroupTypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GroupTypeValue, m_GroupType);
+			JsonValueToType(GroupTypeValue, m_GroupType, LogSystem);
 		}
 	}
 
@@ -14914,7 +20507,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (GroupOwnerIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GroupOwnerIdValue, m_GroupOwnerId);
+			JsonValueToType(GroupOwnerIdValue, m_GroupOwnerId, LogSystem);
 		}
 	}
 
@@ -14924,11 +20517,11 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -14938,11 +20531,11 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (DiscoverableValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DiscoverableValue, m_Discoverable);
+			JsonValueToType(DiscoverableValue, m_Discoverable, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member discoverable is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member discoverable is null!");
 		}
 	}
 
@@ -14952,11 +20545,11 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (AutoModeratorValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AutoModeratorValue, m_AutoModerator);
+			JsonValueToType(AutoModeratorValue, m_AutoModerator, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member autoModerator is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member autoModerator is null!");
 		}
 	}
 
@@ -14966,11 +20559,11 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (RequiresInviteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RequiresInviteValue, m_RequiresInvite);
+			JsonValueToType(RequiresInviteValue, m_RequiresInvite, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member requiresInvite is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member requiresInvite is null!");
 		}
 	}
 
@@ -14980,7 +20573,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (ArchivedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ArchivedValue, m_Archived);
+			JsonValueToType(ArchivedValue, m_Archived, LogSystem);
 		}
 	}
 
@@ -14990,7 +20583,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (TagsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TagsValue, m_Tags);
+			JsonValueToType(TagsValue, m_Tags, LogSystem);
 		}
 	}
 
@@ -15000,7 +20593,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (IsCurrentUserOwnerValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsCurrentUserOwnerValue, m_IsCurrentUserOwner);
+			JsonValueToType(IsCurrentUserOwnerValue, m_IsCurrentUserOwner, LogSystem);
 		}
 	}
 
@@ -15010,7 +20603,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (IsCurrentUserMemberValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsCurrentUserMemberValue, m_IsCurrentUserMember);
+			JsonValueToType(IsCurrentUserMemberValue, m_IsCurrentUserMember, LogSystem);
 		}
 	}
 
@@ -15020,7 +20613,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (IsCurrentUserModeratorValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsCurrentUserModeratorValue, m_IsCurrentUserModerator);
+			JsonValueToType(IsCurrentUserModeratorValue, m_IsCurrentUserModerator, LogSystem);
 		}
 	}
 
@@ -15030,7 +20623,7 @@ void GroupLiteDto::FromJson(const utility::string_t& Val)
 
 		if (IsCurrentUserBannedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsCurrentUserBannedValue, m_IsCurrentUserBanned);
+			JsonValueToType(IsCurrentUserBannedValue, m_IsCurrentUserBanned, LogSystem);
 		}
 	}
 }
@@ -15246,7 +20839,7 @@ utility::string_t GroupLiteDtoDataPage::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void GroupLiteDtoDataPage::FromJson(const utility::string_t& Val)
+void GroupLiteDtoDataPage::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -15255,7 +20848,7 @@ void GroupLiteDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupLiteDtoDataPage::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupLiteDtoDataPage::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -15268,7 +20861,7 @@ void GroupLiteDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 	}
 
@@ -15278,11 +20871,11 @@ void GroupLiteDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (SkipValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SkipValue, m_Skip);
+			JsonValueToType(SkipValue, m_Skip, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skip is null!");
 		}
 	}
 
@@ -15292,7 +20885,7 @@ void GroupLiteDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (LimitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LimitValue, m_Limit);
+			JsonValueToType(LimitValue, m_Limit, LogSystem);
 		}
 	}
 
@@ -15302,11 +20895,11 @@ void GroupLiteDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemCountValue, m_ItemCount);
+			JsonValueToType(ItemCountValue, m_ItemCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemCount is null!");
 		}
 	}
 
@@ -15316,11 +20909,11 @@ void GroupLiteDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemTotalCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemTotalCount is null!");
 		}
 	}
 }
@@ -15426,7 +21019,7 @@ utility::string_t GroupSummaryDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void GroupSummaryDto::FromJson(const utility::string_t& Val)
+void GroupSummaryDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -15435,7 +21028,7 @@ void GroupSummaryDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupSummaryDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "GroupSummaryDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -15448,7 +21041,7 @@ void GroupSummaryDto::FromJson(const utility::string_t& Val)
 
 		if (GroupIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GroupIdValue, m_GroupId);
+			JsonValueToType(GroupIdValue, m_GroupId, LogSystem);
 		}
 	}
 
@@ -15458,7 +21051,7 @@ void GroupSummaryDto::FromJson(const utility::string_t& Val)
 
 		if (GroupCodeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GroupCodeValue, m_GroupCode);
+			JsonValueToType(GroupCodeValue, m_GroupCode, LogSystem);
 		}
 	}
 
@@ -15468,7 +21061,7 @@ void GroupSummaryDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 }
@@ -15572,7 +21165,7 @@ utility::string_t HostnameDeprovisionResponse::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void HostnameDeprovisionResponse::FromJson(const utility::string_t& Val)
+void HostnameDeprovisionResponse::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -15581,7 +21174,7 @@ void HostnameDeprovisionResponse::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "HostnameDeprovisionResponse::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "HostnameDeprovisionResponse::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -15594,7 +21187,7 @@ void HostnameDeprovisionResponse::FromJson(const utility::string_t& Val)
 
 		if (HostnameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HostnameValue, m_Hostname);
+			JsonValueToType(HostnameValue, m_Hostname, LogSystem);
 		}
 	}
 
@@ -15604,7 +21197,7 @@ void HostnameDeprovisionResponse::FromJson(const utility::string_t& Val)
 
 		if (TypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TypeValue, m_Type);
+			JsonValueToType(TypeValue, m_Type, LogSystem);
 		}
 	}
 
@@ -15614,11 +21207,11 @@ void HostnameDeprovisionResponse::FromJson(const utility::string_t& Val)
 
 		if (FoundValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FoundValue, m_Found);
+			JsonValueToType(FoundValue, m_Found, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member found is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member found is null!");
 		}
 	}
 
@@ -15628,11 +21221,11 @@ void HostnameDeprovisionResponse::FromJson(const utility::string_t& Val)
 
 		if (RemovedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RemovedValue, m_Removed);
+			JsonValueToType(RemovedValue, m_Removed, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member removed is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member removed is null!");
 		}
 	}
 
@@ -15642,11 +21235,11 @@ void HostnameDeprovisionResponse::FromJson(const utility::string_t& Val)
 
 		if (PendingValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PendingValue, m_Pending);
+			JsonValueToType(PendingValue, m_Pending, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member pending is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member pending is null!");
 		}
 	}
 
@@ -15656,7 +21249,7 @@ void HostnameDeprovisionResponse::FromJson(const utility::string_t& Val)
 
 		if (WarningsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(WarningsValue, m_Warnings);
+			JsonValueToType(WarningsValue, m_Warnings, LogSystem);
 		}
 	}
 
@@ -15666,7 +21259,7 @@ void HostnameDeprovisionResponse::FromJson(const utility::string_t& Val)
 
 		if (ReleasedResourcesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReleasedResourcesValue, m_ReleasedResources);
+			JsonValueToType(ReleasedResourcesValue, m_ReleasedResources, LogSystem);
 		}
 	}
 }
@@ -15792,7 +21385,7 @@ utility::string_t HostnameSsoDiffDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void HostnameSsoDiffDto::FromJson(const utility::string_t& Val)
+void HostnameSsoDiffDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -15801,7 +21394,7 @@ void HostnameSsoDiffDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "HostnameSsoDiffDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "HostnameSsoDiffDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -15814,7 +21407,7 @@ void HostnameSsoDiffDto::FromJson(const utility::string_t& Val)
 
 		if (MissingHostnamesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MissingHostnamesValue, m_MissingHostnames);
+			JsonValueToType(MissingHostnamesValue, m_MissingHostnames, LogSystem);
 		}
 	}
 
@@ -15824,7 +21417,7 @@ void HostnameSsoDiffDto::FromJson(const utility::string_t& Val)
 
 		if (OrphanRedirectUrisValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OrphanRedirectUrisValue, m_OrphanRedirectUris);
+			JsonValueToType(OrphanRedirectUrisValue, m_OrphanRedirectUris, LogSystem);
 		}
 	}
 }
@@ -15885,7 +21478,7 @@ utility::string_t HostnameSsoSyncResultDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void HostnameSsoSyncResultDto::FromJson(const utility::string_t& Val)
+void HostnameSsoSyncResultDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -15894,7 +21487,7 @@ void HostnameSsoSyncResultDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "HostnameSsoSyncResultDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "HostnameSsoSyncResultDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -15907,7 +21500,7 @@ void HostnameSsoSyncResultDto::FromJson(const utility::string_t& Val)
 
 		if (AddedRedirectUrisValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AddedRedirectUrisValue, m_AddedRedirectUris);
+			JsonValueToType(AddedRedirectUrisValue, m_AddedRedirectUris, LogSystem);
 		}
 	}
 
@@ -15917,7 +21510,7 @@ void HostnameSsoSyncResultDto::FromJson(const utility::string_t& Val)
 
 		if (OrphanRedirectUrisValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OrphanRedirectUrisValue, m_OrphanRedirectUris);
+			JsonValueToType(OrphanRedirectUrisValue, m_OrphanRedirectUris, LogSystem);
 		}
 	}
 }
@@ -15978,7 +21571,7 @@ utility::string_t ImportTokenMatrixEntriesRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ImportTokenMatrixEntriesRequest::FromJson(const utility::string_t& Val)
+void ImportTokenMatrixEntriesRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -15987,7 +21580,7 @@ void ImportTokenMatrixEntriesRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ImportTokenMatrixEntriesRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ImportTokenMatrixEntriesRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -16000,11 +21593,11 @@ void ImportTokenMatrixEntriesRequest::FromJson(const utility::string_t& Val)
 
 		if (EntriesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EntriesValue, m_Entries);
+			JsonValueToType(EntriesValue, m_Entries, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member entries is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member entries is null!");
 		}
 	}
 
@@ -16014,7 +21607,7 @@ void ImportTokenMatrixEntriesRequest::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -16081,7 +21674,7 @@ utility::string_t InitialSettingsDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void InitialSettingsDto::FromJson(const utility::string_t& Val)
+void InitialSettingsDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -16090,7 +21683,7 @@ void InitialSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "InitialSettingsDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "InitialSettingsDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -16103,11 +21696,11 @@ void InitialSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (ContextValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ContextValue, m_Context);
+			JsonValueToType(ContextValue, m_Context, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member context is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member context is null!");
 		}
 	}
 
@@ -16117,7 +21710,7 @@ void InitialSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 	}
 
@@ -16127,11 +21720,11 @@ void InitialSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (SettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SettingsValue, m_Settings);
+			JsonValueToType(SettingsValue, m_Settings, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member settings is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member settings is null!");
 		}
 	}
 }
@@ -16273,7 +21866,7 @@ utility::string_t InventoryItemDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void InventoryItemDto::FromJson(const utility::string_t& Val)
+void InventoryItemDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -16282,7 +21875,7 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "InventoryItemDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "InventoryItemDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -16295,7 +21888,7 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -16305,11 +21898,11 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (PrototypeIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PrototypeIdValue, m_PrototypeId);
+			JsonValueToType(PrototypeIdValue, m_PrototypeId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member prototypeId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member prototypeId is null!");
 		}
 	}
 
@@ -16319,7 +21912,7 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 	}
 
@@ -16329,11 +21922,11 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (ExchangeableValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ExchangeableValue, m_Exchangeable);
+			JsonValueToType(ExchangeableValue, m_Exchangeable, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member exchangeable is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member exchangeable is null!");
 		}
 	}
 
@@ -16343,11 +21936,11 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (IsGiftValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsGiftValue, m_IsGift);
+			JsonValueToType(IsGiftValue, m_IsGift, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isGift is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isGift is null!");
 		}
 	}
 
@@ -16357,7 +21950,7 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (TagsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TagsValue, m_Tags);
+			JsonValueToType(TagsValue, m_Tags, LogSystem);
 		}
 	}
 
@@ -16367,7 +21960,7 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (StateValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StateValue, m_State);
+			JsonValueToType(StateValue, m_State, LogSystem);
 		}
 	}
 
@@ -16377,7 +21970,7 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (EquippableValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EquippableValue, m_Equippable);
+			JsonValueToType(EquippableValue, m_Equippable, LogSystem);
 		}
 	}
 
@@ -16387,7 +21980,7 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (EquippedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EquippedValue, m_Equipped);
+			JsonValueToType(EquippedValue, m_Equipped, LogSystem);
 		}
 	}
 
@@ -16397,7 +21990,7 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (ItemTypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemTypeValue, m_ItemType);
+			JsonValueToType(ItemTypeValue, m_ItemType, LogSystem);
 		}
 	}
 
@@ -16407,11 +22000,11 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -16421,7 +22014,7 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedByValue, m_CreatedBy);
+			JsonValueToType(CreatedByValue, m_CreatedBy, LogSystem);
 		}
 	}
 
@@ -16431,7 +22024,7 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedByValue, m_UpdatedBy);
+			JsonValueToType(UpdatedByValue, m_UpdatedBy, LogSystem);
 		}
 	}
 
@@ -16441,7 +22034,7 @@ void InventoryItemDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
 		}
 	}
 }
@@ -16652,7 +22245,7 @@ utility::string_t InventoryItemDtoDataPage::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void InventoryItemDtoDataPage::FromJson(const utility::string_t& Val)
+void InventoryItemDtoDataPage::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -16661,7 +22254,7 @@ void InventoryItemDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "InventoryItemDtoDataPage::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "InventoryItemDtoDataPage::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -16674,7 +22267,7 @@ void InventoryItemDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 	}
 
@@ -16684,11 +22277,11 @@ void InventoryItemDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (SkipValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SkipValue, m_Skip);
+			JsonValueToType(SkipValue, m_Skip, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skip is null!");
 		}
 	}
 
@@ -16698,7 +22291,7 @@ void InventoryItemDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (LimitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LimitValue, m_Limit);
+			JsonValueToType(LimitValue, m_Limit, LogSystem);
 		}
 	}
 
@@ -16708,11 +22301,11 @@ void InventoryItemDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemCountValue, m_ItemCount);
+			JsonValueToType(ItemCountValue, m_ItemCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemCount is null!");
 		}
 	}
 
@@ -16722,11 +22315,11 @@ void InventoryItemDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemTotalCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemTotalCount is null!");
 		}
 	}
 }
@@ -16838,7 +22431,7 @@ utility::string_t JiraCreateMetaDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraCreateMetaDto::FromJson(const utility::string_t& Val)
+void JiraCreateMetaDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -16847,7 +22440,7 @@ void JiraCreateMetaDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraCreateMetaDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraCreateMetaDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -16860,7 +22453,7 @@ void JiraCreateMetaDto::FromJson(const utility::string_t& Val)
 
 		if (FamilyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FamilyValue, m_Family);
+			JsonValueToType(FamilyValue, m_Family, LogSystem);
 		}
 	}
 
@@ -16870,7 +22463,7 @@ void JiraCreateMetaDto::FromJson(const utility::string_t& Val)
 
 		if (ProjectValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectValue, m_Project);
+			JsonValueToType(ProjectValue, m_Project, LogSystem);
 		}
 	}
 
@@ -16880,7 +22473,7 @@ void JiraCreateMetaDto::FromJson(const utility::string_t& Val)
 
 		if (IssueTypesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IssueTypesValue, m_IssueTypes);
+			JsonValueToType(IssueTypesValue, m_IssueTypes, LogSystem);
 		}
 	}
 
@@ -16890,11 +22483,11 @@ void JiraCreateMetaDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member updatedAt is null!");
 		}
 	}
 }
@@ -17035,7 +22628,7 @@ utility::string_t JiraCreateMetaField::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraCreateMetaField::FromJson(const utility::string_t& Val)
+void JiraCreateMetaField::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -17044,7 +22637,7 @@ void JiraCreateMetaField::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraCreateMetaField::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraCreateMetaField::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -17057,7 +22650,7 @@ void JiraCreateMetaField::FromJson(const utility::string_t& Val)
 
 		if (FieldIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FieldIdValue, m_FieldId);
+			JsonValueToType(FieldIdValue, m_FieldId, LogSystem);
 		}
 	}
 
@@ -17067,7 +22660,7 @@ void JiraCreateMetaField::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -17077,11 +22670,11 @@ void JiraCreateMetaField::FromJson(const utility::string_t& Val)
 
 		if (RequiredValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RequiredValue, m_Required);
+			JsonValueToType(RequiredValue, m_Required, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member required is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member required is null!");
 		}
 	}
 
@@ -17091,7 +22684,7 @@ void JiraCreateMetaField::FromJson(const utility::string_t& Val)
 
 		if (TypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TypeValue, m_Type);
+			JsonValueToType(TypeValue, m_Type, LogSystem);
 		}
 	}
 
@@ -17101,7 +22694,7 @@ void JiraCreateMetaField::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 	}
 
@@ -17111,7 +22704,7 @@ void JiraCreateMetaField::FromJson(const utility::string_t& Val)
 
 		if (CustomValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CustomValue, m_Custom);
+			JsonValueToType(CustomValue, m_Custom, LogSystem);
 		}
 	}
 
@@ -17121,7 +22714,7 @@ void JiraCreateMetaField::FromJson(const utility::string_t& Val)
 
 		if (SystemValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SystemValue, m_System);
+			JsonValueToType(SystemValue, m_System, LogSystem);
 		}
 	}
 
@@ -17131,11 +22724,11 @@ void JiraCreateMetaField::FromJson(const utility::string_t& Val)
 
 		if (AutoCompleteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AutoCompleteValue, m_AutoComplete);
+			JsonValueToType(AutoCompleteValue, m_AutoComplete, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member autoComplete is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member autoComplete is null!");
 		}
 	}
 
@@ -17145,11 +22738,11 @@ void JiraCreateMetaField::FromJson(const utility::string_t& Val)
 
 		if (HasDefaultValueValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HasDefaultValueValue, m_HasDefaultValue);
+			JsonValueToType(HasDefaultValueValue, m_HasDefaultValue, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member hasDefaultValue is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member hasDefaultValue is null!");
 		}
 	}
 
@@ -17159,7 +22752,7 @@ void JiraCreateMetaField::FromJson(const utility::string_t& Val)
 
 		if (RefValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RefValue, m_Ref);
+			JsonValueToType(RefValue, m_Ref, LogSystem);
 		}
 	}
 
@@ -17169,7 +22762,7 @@ void JiraCreateMetaField::FromJson(const utility::string_t& Val)
 
 		if (AllowedValuesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedValuesValue, m_AllowedValues);
+			JsonValueToType(AllowedValuesValue, m_AllowedValues, LogSystem);
 		}
 	}
 }
@@ -17353,7 +22946,7 @@ utility::string_t JiraCreateMetaIssueType::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraCreateMetaIssueType::FromJson(const utility::string_t& Val)
+void JiraCreateMetaIssueType::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -17362,7 +22955,7 @@ void JiraCreateMetaIssueType::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraCreateMetaIssueType::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraCreateMetaIssueType::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -17375,7 +22968,7 @@ void JiraCreateMetaIssueType::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -17385,7 +22978,7 @@ void JiraCreateMetaIssueType::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -17395,7 +22988,7 @@ void JiraCreateMetaIssueType::FromJson(const utility::string_t& Val)
 
 		if (FieldsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FieldsValue, m_Fields);
+			JsonValueToType(FieldsValue, m_Fields, LogSystem);
 		}
 	}
 }
@@ -17475,7 +23068,7 @@ utility::string_t JiraCreateMetaUpsertRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraCreateMetaUpsertRequest::FromJson(const utility::string_t& Val)
+void JiraCreateMetaUpsertRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -17484,7 +23077,7 @@ void JiraCreateMetaUpsertRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraCreateMetaUpsertRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraCreateMetaUpsertRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -17497,7 +23090,7 @@ void JiraCreateMetaUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (FamilyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FamilyValue, m_Family);
+			JsonValueToType(FamilyValue, m_Family, LogSystem);
 		}
 	}
 
@@ -17507,11 +23100,11 @@ void JiraCreateMetaUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (ProjectValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectValue, m_Project);
+			JsonValueToType(ProjectValue, m_Project, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member project is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member project is null!");
 		}
 	}
 
@@ -17521,11 +23114,11 @@ void JiraCreateMetaUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (IssueTypesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IssueTypesValue, m_IssueTypes);
+			JsonValueToType(IssueTypesValue, m_IssueTypes, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member issueTypes is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member issueTypes is null!");
 		}
 	}
 }
@@ -17599,7 +23192,7 @@ utility::string_t JiraFieldOption::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraFieldOption::FromJson(const utility::string_t& Val)
+void JiraFieldOption::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -17608,7 +23201,7 @@ void JiraFieldOption::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraFieldOption::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraFieldOption::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -17621,7 +23214,7 @@ void JiraFieldOption::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -17631,7 +23224,7 @@ void JiraFieldOption::FromJson(const utility::string_t& Val)
 
 		if (LabelValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LabelValue, m_Label);
+			JsonValueToType(LabelValue, m_Label, LogSystem);
 		}
 	}
 }
@@ -17698,7 +23291,7 @@ utility::string_t JiraLink::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraLink::FromJson(const utility::string_t& Val)
+void JiraLink::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -17707,7 +23300,7 @@ void JiraLink::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraLink::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraLink::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -17720,7 +23313,7 @@ void JiraLink::FromJson(const utility::string_t& Val)
 
 		if (TypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TypeValue, m_Type);
+			JsonValueToType(TypeValue, m_Type, LogSystem);
 		}
 	}
 
@@ -17730,7 +23323,7 @@ void JiraLink::FromJson(const utility::string_t& Val)
 
 		if (FromValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FromValue, m_From);
+			JsonValueToType(FromValue, m_From, LogSystem);
 		}
 	}
 
@@ -17740,7 +23333,7 @@ void JiraLink::FromJson(const utility::string_t& Val)
 
 		if (ToValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ToValue, m_To);
+			JsonValueToType(ToValue, m_To, LogSystem);
 		}
 	}
 }
@@ -17832,7 +23425,7 @@ utility::string_t JiraReferenceListDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraReferenceListDto::FromJson(const utility::string_t& Val)
+void JiraReferenceListDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -17841,7 +23434,7 @@ void JiraReferenceListDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraReferenceListDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraReferenceListDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -17854,7 +23447,7 @@ void JiraReferenceListDto::FromJson(const utility::string_t& Val)
 
 		if (FamilyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FamilyValue, m_Family);
+			JsonValueToType(FamilyValue, m_Family, LogSystem);
 		}
 	}
 
@@ -17864,7 +23457,7 @@ void JiraReferenceListDto::FromJson(const utility::string_t& Val)
 
 		if (ProjectValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectValue, m_Project);
+			JsonValueToType(ProjectValue, m_Project, LogSystem);
 		}
 	}
 
@@ -17874,7 +23467,7 @@ void JiraReferenceListDto::FromJson(const utility::string_t& Val)
 
 		if (KindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KindValue, m_Kind);
+			JsonValueToType(KindValue, m_Kind, LogSystem);
 		}
 	}
 
@@ -17884,7 +23477,7 @@ void JiraReferenceListDto::FromJson(const utility::string_t& Val)
 
 		if (OptionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OptionsValue, m_Options);
+			JsonValueToType(OptionsValue, m_Options, LogSystem);
 		}
 	}
 
@@ -17894,11 +23487,11 @@ void JiraReferenceListDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member updatedAt is null!");
 		}
 	}
 }
@@ -18028,7 +23621,7 @@ utility::string_t JiraReferenceOption::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraReferenceOption::FromJson(const utility::string_t& Val)
+void JiraReferenceOption::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -18037,7 +23630,7 @@ void JiraReferenceOption::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraReferenceOption::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraReferenceOption::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -18050,7 +23643,7 @@ void JiraReferenceOption::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -18060,7 +23653,7 @@ void JiraReferenceOption::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -18070,7 +23663,7 @@ void JiraReferenceOption::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -18080,7 +23673,7 @@ void JiraReferenceOption::FromJson(const utility::string_t& Val)
 
 		if (StateValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StateValue, m_State);
+			JsonValueToType(StateValue, m_State, LogSystem);
 		}
 	}
 
@@ -18090,7 +23683,7 @@ void JiraReferenceOption::FromJson(const utility::string_t& Val)
 
 		if (ReleasedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReleasedValue, m_Released);
+			JsonValueToType(ReleasedValue, m_Released, LogSystem);
 		}
 	}
 
@@ -18100,7 +23693,7 @@ void JiraReferenceOption::FromJson(const utility::string_t& Val)
 
 		if (ArchivedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ArchivedValue, m_Archived);
+			JsonValueToType(ArchivedValue, m_Archived, LogSystem);
 		}
 	}
 
@@ -18110,7 +23703,7 @@ void JiraReferenceOption::FromJson(const utility::string_t& Val)
 
 		if (ReleaseDateValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReleaseDateValue, m_ReleaseDate);
+			JsonValueToType(ReleaseDateValue, m_ReleaseDate, LogSystem);
 		}
 	}
 }
@@ -18248,7 +23841,7 @@ utility::string_t JiraReferenceUpsertRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraReferenceUpsertRequest::FromJson(const utility::string_t& Val)
+void JiraReferenceUpsertRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -18257,7 +23850,7 @@ void JiraReferenceUpsertRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraReferenceUpsertRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraReferenceUpsertRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -18270,7 +23863,7 @@ void JiraReferenceUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (FamilyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FamilyValue, m_Family);
+			JsonValueToType(FamilyValue, m_Family, LogSystem);
 		}
 	}
 
@@ -18280,11 +23873,11 @@ void JiraReferenceUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (ProjectValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectValue, m_Project);
+			JsonValueToType(ProjectValue, m_Project, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member project is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member project is null!");
 		}
 	}
 
@@ -18294,11 +23887,11 @@ void JiraReferenceUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (KindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KindValue, m_Kind);
+			JsonValueToType(KindValue, m_Kind, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member kind is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member kind is null!");
 		}
 	}
 
@@ -18308,11 +23901,11 @@ void JiraReferenceUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (OptionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OptionsValue, m_Options);
+			JsonValueToType(OptionsValue, m_Options, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member options is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member options is null!");
 		}
 	}
 }
@@ -18399,7 +23992,7 @@ utility::string_t JiraResourceBulkGetRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraResourceBulkGetRequest::FromJson(const utility::string_t& Val)
+void JiraResourceBulkGetRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -18408,7 +24001,7 @@ void JiraResourceBulkGetRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceBulkGetRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceBulkGetRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -18421,7 +24014,7 @@ void JiraResourceBulkGetRequest::FromJson(const utility::string_t& Val)
 
 		if (FamilyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FamilyValue, m_Family);
+			JsonValueToType(FamilyValue, m_Family, LogSystem);
 		}
 	}
 
@@ -18431,11 +24024,11 @@ void JiraResourceBulkGetRequest::FromJson(const utility::string_t& Val)
 
 		if (KeysValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KeysValue, m_Keys);
+			JsonValueToType(KeysValue, m_Keys, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member keys is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member keys is null!");
 		}
 	}
 }
@@ -18580,7 +24173,7 @@ utility::string_t JiraResourceDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraResourceDto::FromJson(const utility::string_t& Val)
+void JiraResourceDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -18589,7 +24182,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -18602,7 +24195,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (FamilyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FamilyValue, m_Family);
+			JsonValueToType(FamilyValue, m_Family, LogSystem);
 		}
 	}
 
@@ -18612,7 +24205,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (KeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KeyValue, m_Key);
+			JsonValueToType(KeyValue, m_Key, LogSystem);
 		}
 	}
 
@@ -18622,7 +24215,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (SummaryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SummaryValue, m_Summary);
+			JsonValueToType(SummaryValue, m_Summary, LogSystem);
 		}
 	}
 
@@ -18632,7 +24225,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (StatusValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusValue, m_Status);
+			JsonValueToType(StatusValue, m_Status, LogSystem);
 		}
 	}
 
@@ -18642,7 +24235,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (StatusCategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusCategoryValue, m_StatusCategory);
+			JsonValueToType(StatusCategoryValue, m_StatusCategory, LogSystem);
 		}
 	}
 
@@ -18652,7 +24245,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (AssigneeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AssigneeValue, m_Assignee);
+			JsonValueToType(AssigneeValue, m_Assignee, LogSystem);
 		}
 	}
 
@@ -18662,7 +24255,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (AssigneeAccountIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AssigneeAccountIdValue, m_AssigneeAccountId);
+			JsonValueToType(AssigneeAccountIdValue, m_AssigneeAccountId, LogSystem);
 		}
 	}
 
@@ -18672,7 +24265,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (ResolutionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ResolutionValue, m_Resolution);
+			JsonValueToType(ResolutionValue, m_Resolution, LogSystem);
 		}
 	}
 
@@ -18682,7 +24275,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (IssueTypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IssueTypeValue, m_IssueType);
+			JsonValueToType(IssueTypeValue, m_IssueType, LogSystem);
 		}
 	}
 
@@ -18692,7 +24285,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (ProjectValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectValue, m_Project);
+			JsonValueToType(ProjectValue, m_Project, LogSystem);
 		}
 	}
 
@@ -18702,7 +24295,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (EpicValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EpicValue, m_Epic);
+			JsonValueToType(EpicValue, m_Epic, LogSystem);
 		}
 	}
 
@@ -18712,7 +24305,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (LinksValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LinksValue, m_Links);
+			JsonValueToType(LinksValue, m_Links, LogSystem);
 		}
 	}
 
@@ -18722,7 +24315,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (TagsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TagsValue, m_Tags);
+			JsonValueToType(TagsValue, m_Tags, LogSystem);
 		}
 	}
 
@@ -18732,7 +24325,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (SourceUpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SourceUpdatedAtValue, m_SourceUpdatedAt);
+			JsonValueToType(SourceUpdatedAtValue, m_SourceUpdatedAt, LogSystem);
 		}
 	}
 
@@ -18742,7 +24335,7 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (SourceCreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SourceCreatedAtValue, m_SourceCreatedAt);
+			JsonValueToType(SourceCreatedAtValue, m_SourceCreatedAt, LogSystem);
 		}
 	}
 
@@ -18752,11 +24345,11 @@ void JiraResourceDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member updatedAt is null!");
 		}
 	}
 }
@@ -19005,7 +24598,7 @@ utility::string_t JiraResourceSearchRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraResourceSearchRequest::FromJson(const utility::string_t& Val)
+void JiraResourceSearchRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -19014,7 +24607,7 @@ void JiraResourceSearchRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceSearchRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceSearchRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -19027,11 +24620,11 @@ void JiraResourceSearchRequest::FromJson(const utility::string_t& Val)
 
 		if (TagsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TagsValue, m_Tags);
+			JsonValueToType(TagsValue, m_Tags, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member tags is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member tags is null!");
 		}
 	}
 
@@ -19041,7 +24634,7 @@ void JiraResourceSearchRequest::FromJson(const utility::string_t& Val)
 
 		if (FamilyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FamilyValue, m_Family);
+			JsonValueToType(FamilyValue, m_Family, LogSystem);
 		}
 	}
 
@@ -19051,7 +24644,7 @@ void JiraResourceSearchRequest::FromJson(const utility::string_t& Val)
 
 		if (SinceValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SinceValue, m_Since);
+			JsonValueToType(SinceValue, m_Since, LogSystem);
 		}
 	}
 }
@@ -19125,7 +24718,7 @@ utility::string_t JiraResourceSearchResponse::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraResourceSearchResponse::FromJson(const utility::string_t& Val)
+void JiraResourceSearchResponse::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -19134,7 +24727,7 @@ void JiraResourceSearchResponse::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceSearchResponse::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceSearchResponse::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -19147,7 +24740,7 @@ void JiraResourceSearchResponse::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 	}
 
@@ -19157,11 +24750,11 @@ void JiraResourceSearchResponse::FromJson(const utility::string_t& Val)
 
 		if (SinceValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SinceValue, m_Since);
+			JsonValueToType(SinceValue, m_Since, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member since is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member since is null!");
 		}
 	}
 }
@@ -19300,7 +24893,7 @@ utility::string_t JiraResourceUpsertItem::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
+void JiraResourceUpsertItem::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -19309,7 +24902,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceUpsertItem::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceUpsertItem::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -19322,11 +24915,11 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (KeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KeyValue, m_Key);
+			JsonValueToType(KeyValue, m_Key, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member key is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member key is null!");
 		}
 	}
 
@@ -19336,7 +24929,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (FamilyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FamilyValue, m_Family);
+			JsonValueToType(FamilyValue, m_Family, LogSystem);
 		}
 	}
 
@@ -19346,7 +24939,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (TagsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TagsValue, m_Tags);
+			JsonValueToType(TagsValue, m_Tags, LogSystem);
 		}
 	}
 
@@ -19356,7 +24949,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (SummaryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SummaryValue, m_Summary);
+			JsonValueToType(SummaryValue, m_Summary, LogSystem);
 		}
 	}
 
@@ -19366,7 +24959,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (StatusValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusValue, m_Status);
+			JsonValueToType(StatusValue, m_Status, LogSystem);
 		}
 	}
 
@@ -19376,7 +24969,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (StatusCategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusCategoryValue, m_StatusCategory);
+			JsonValueToType(StatusCategoryValue, m_StatusCategory, LogSystem);
 		}
 	}
 
@@ -19386,7 +24979,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (AssigneeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AssigneeValue, m_Assignee);
+			JsonValueToType(AssigneeValue, m_Assignee, LogSystem);
 		}
 	}
 
@@ -19396,7 +24989,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (AssigneeAccountIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AssigneeAccountIdValue, m_AssigneeAccountId);
+			JsonValueToType(AssigneeAccountIdValue, m_AssigneeAccountId, LogSystem);
 		}
 	}
 
@@ -19406,7 +24999,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (ResolutionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ResolutionValue, m_Resolution);
+			JsonValueToType(ResolutionValue, m_Resolution, LogSystem);
 		}
 	}
 
@@ -19416,7 +25009,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (IssueTypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IssueTypeValue, m_IssueType);
+			JsonValueToType(IssueTypeValue, m_IssueType, LogSystem);
 		}
 	}
 
@@ -19426,7 +25019,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (ProjectValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectValue, m_Project);
+			JsonValueToType(ProjectValue, m_Project, LogSystem);
 		}
 	}
 
@@ -19436,7 +25029,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (EpicValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EpicValue, m_Epic);
+			JsonValueToType(EpicValue, m_Epic, LogSystem);
 		}
 	}
 
@@ -19446,7 +25039,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (LinksValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LinksValue, m_Links);
+			JsonValueToType(LinksValue, m_Links, LogSystem);
 		}
 	}
 
@@ -19456,7 +25049,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (SourceUpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SourceUpdatedAtValue, m_SourceUpdatedAt);
+			JsonValueToType(SourceUpdatedAtValue, m_SourceUpdatedAt, LogSystem);
 		}
 	}
 
@@ -19466,7 +25059,7 @@ void JiraResourceUpsertItem::FromJson(const utility::string_t& Val)
 
 		if (SourceCreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SourceCreatedAtValue, m_SourceCreatedAt);
+			JsonValueToType(SourceCreatedAtValue, m_SourceCreatedAt, LogSystem);
 		}
 	}
 }
@@ -19690,7 +25283,7 @@ utility::string_t JiraResourceUpsertRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraResourceUpsertRequest::FromJson(const utility::string_t& Val)
+void JiraResourceUpsertRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -19699,7 +25292,7 @@ void JiraResourceUpsertRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceUpsertRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceUpsertRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -19712,11 +25305,11 @@ void JiraResourceUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member items is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member items is null!");
 		}
 	}
 }
@@ -19770,7 +25363,7 @@ utility::string_t JiraResourceUpsertResult::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraResourceUpsertResult::FromJson(const utility::string_t& Val)
+void JiraResourceUpsertResult::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -19779,7 +25372,7 @@ void JiraResourceUpsertResult::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceUpsertResult::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraResourceUpsertResult::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -19792,11 +25385,11 @@ void JiraResourceUpsertResult::FromJson(const utility::string_t& Val)
 
 		if (CreatedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedValue, m_Created);
+			JsonValueToType(CreatedValue, m_Created, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member created is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member created is null!");
 		}
 	}
 
@@ -19806,11 +25399,11 @@ void JiraResourceUpsertResult::FromJson(const utility::string_t& Val)
 
 		if (UpdatedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedValue, m_Updated);
+			JsonValueToType(UpdatedValue, m_Updated, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member updated is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member updated is null!");
 		}
 	}
 
@@ -19820,11 +25413,11 @@ void JiraResourceUpsertResult::FromJson(const utility::string_t& Val)
 
 		if (SkippedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SkippedValue, m_Skipped);
+			JsonValueToType(SkippedValue, m_Skipped, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member skipped is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skipped is null!");
 		}
 	}
 }
@@ -19910,7 +25503,7 @@ utility::string_t JiraSchemaUpsertResult::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JiraSchemaUpsertResult::FromJson(const utility::string_t& Val)
+void JiraSchemaUpsertResult::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -19919,7 +25512,7 @@ void JiraSchemaUpsertResult::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraSchemaUpsertResult::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JiraSchemaUpsertResult::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -19932,7 +25525,7 @@ void JiraSchemaUpsertResult::FromJson(const utility::string_t& Val)
 
 		if (ProjectValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectValue, m_Project);
+			JsonValueToType(ProjectValue, m_Project, LogSystem);
 		}
 	}
 
@@ -19942,7 +25535,7 @@ void JiraSchemaUpsertResult::FromJson(const utility::string_t& Val)
 
 		if (KindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KindValue, m_Kind);
+			JsonValueToType(KindValue, m_Kind, LogSystem);
 		}
 	}
 
@@ -19952,11 +25545,11 @@ void JiraSchemaUpsertResult::FromJson(const utility::string_t& Val)
 
 		if (CreatedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedValue, m_Created);
+			JsonValueToType(CreatedValue, m_Created, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member created is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member created is null!");
 		}
 	}
 
@@ -19966,11 +25559,11 @@ void JiraSchemaUpsertResult::FromJson(const utility::string_t& Val)
 
 		if (CountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CountValue, m_Count);
+			JsonValueToType(CountValue, m_Count, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member count is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member count is null!");
 		}
 	}
 }
@@ -20051,7 +25644,7 @@ utility::string_t JoinQueueRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void JoinQueueRequest::FromJson(const utility::string_t& Val)
+void JoinQueueRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -20060,7 +25653,7 @@ void JoinQueueRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JoinQueueRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "JoinQueueRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -20073,7 +25666,7 @@ void JoinQueueRequest::FromJson(const utility::string_t& Val)
 
 		if (NoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NoteValue, m_Note);
+			JsonValueToType(NoteValue, m_Note, LogSystem);
 		}
 	}
 }
@@ -20133,7 +25726,7 @@ utility::string_t LegacyObjectDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void LegacyObjectDto::FromJson(const utility::string_t& Val)
+void LegacyObjectDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -20142,7 +25735,7 @@ void LegacyObjectDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LegacyObjectDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LegacyObjectDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -20155,7 +25748,7 @@ void LegacyObjectDto::FromJson(const utility::string_t& Val)
 
 		if (KeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KeyValue, m_Key);
+			JsonValueToType(KeyValue, m_Key, LogSystem);
 		}
 	}
 
@@ -20165,7 +25758,7 @@ void LegacyObjectDto::FromJson(const utility::string_t& Val)
 
 		if (SizeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SizeValue, m_Size);
+			JsonValueToType(SizeValue, m_Size, LogSystem);
 		}
 	}
 
@@ -20175,7 +25768,7 @@ void LegacyObjectDto::FromJson(const utility::string_t& Val)
 
 		if (ContentTypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ContentTypeValue, m_ContentType);
+			JsonValueToType(ContentTypeValue, m_ContentType, LogSystem);
 		}
 	}
 
@@ -20185,7 +25778,7 @@ void LegacyObjectDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
 		}
 	}
 }
@@ -20284,7 +25877,7 @@ utility::string_t LegacyObjectPageDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void LegacyObjectPageDto::FromJson(const utility::string_t& Val)
+void LegacyObjectPageDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -20293,7 +25886,7 @@ void LegacyObjectPageDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LegacyObjectPageDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LegacyObjectPageDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -20306,7 +25899,7 @@ void LegacyObjectPageDto::FromJson(const utility::string_t& Val)
 
 		if (BucketValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(BucketValue, m_Bucket);
+			JsonValueToType(BucketValue, m_Bucket, LogSystem);
 		}
 	}
 
@@ -20316,11 +25909,11 @@ void LegacyObjectPageDto::FromJson(const utility::string_t& Val)
 
 		if (TenantOverrideValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantOverrideValue, m_TenantOverride);
+			JsonValueToType(TenantOverrideValue, m_TenantOverride, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member tenantOverride is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member tenantOverride is null!");
 		}
 	}
 
@@ -20330,7 +25923,7 @@ void LegacyObjectPageDto::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 	}
 
@@ -20340,7 +25933,7 @@ void LegacyObjectPageDto::FromJson(const utility::string_t& Val)
 
 		if (NextPageTokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NextPageTokenValue, m_NextPageToken);
+			JsonValueToType(NextPageTokenValue, m_NextPageToken, LogSystem);
 		}
 	}
 }
@@ -20469,7 +26062,7 @@ utility::string_t LlmGenerateRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void LlmGenerateRequest::FromJson(const utility::string_t& Val)
+void LlmGenerateRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -20478,7 +26071,7 @@ void LlmGenerateRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LlmGenerateRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LlmGenerateRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -20491,7 +26084,7 @@ void LlmGenerateRequest::FromJson(const utility::string_t& Val)
 
 		if (ProviderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderValue, m_Provider);
+			JsonValueToType(ProviderValue, m_Provider, LogSystem);
 		}
 	}
 
@@ -20501,7 +26094,7 @@ void LlmGenerateRequest::FromJson(const utility::string_t& Val)
 
 		if (ModelValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ModelValue, m_Model);
+			JsonValueToType(ModelValue, m_Model, LogSystem);
 		}
 	}
 
@@ -20511,7 +26104,7 @@ void LlmGenerateRequest::FromJson(const utility::string_t& Val)
 
 		if (SystemInstructionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SystemInstructionValue, m_SystemInstruction);
+			JsonValueToType(SystemInstructionValue, m_SystemInstruction, LogSystem);
 		}
 	}
 
@@ -20521,7 +26114,7 @@ void LlmGenerateRequest::FromJson(const utility::string_t& Val)
 
 		if (MessagesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MessagesValue, m_Messages);
+			JsonValueToType(MessagesValue, m_Messages, LogSystem);
 		}
 	}
 
@@ -20531,7 +26124,7 @@ void LlmGenerateRequest::FromJson(const utility::string_t& Val)
 
 		if (TemperatureValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TemperatureValue, m_Temperature);
+			JsonValueToType(TemperatureValue, m_Temperature, LogSystem);
 		}
 	}
 
@@ -20541,7 +26134,7 @@ void LlmGenerateRequest::FromJson(const utility::string_t& Val)
 
 		if (MaxOutputTokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MaxOutputTokensValue, m_MaxOutputTokens);
+			JsonValueToType(MaxOutputTokensValue, m_MaxOutputTokens, LogSystem);
 		}
 	}
 
@@ -20551,11 +26144,11 @@ void LlmGenerateRequest::FromJson(const utility::string_t& Val)
 
 		if (JsonResponseValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(JsonResponseValue, m_JsonResponse);
+			JsonValueToType(JsonResponseValue, m_JsonResponse, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member jsonResponse is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member jsonResponse is null!");
 		}
 	}
 
@@ -20565,7 +26158,7 @@ void LlmGenerateRequest::FromJson(const utility::string_t& Val)
 
 		if (AgentIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AgentIdValue, m_AgentId);
+			JsonValueToType(AgentIdValue, m_AgentId, LogSystem);
 		}
 	}
 
@@ -20575,7 +26168,7 @@ void LlmGenerateRequest::FromJson(const utility::string_t& Val)
 
 		if (EncodingValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EncodingValue, m_Encoding);
+			JsonValueToType(EncodingValue, m_Encoding, LogSystem);
 		}
 	}
 }
@@ -20757,7 +26350,7 @@ utility::string_t LlmGenerateResponse::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void LlmGenerateResponse::FromJson(const utility::string_t& Val)
+void LlmGenerateResponse::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -20766,7 +26359,7 @@ void LlmGenerateResponse::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LlmGenerateResponse::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LlmGenerateResponse::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -20779,7 +26372,7 @@ void LlmGenerateResponse::FromJson(const utility::string_t& Val)
 
 		if (TextValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TextValue, m_Text);
+			JsonValueToType(TextValue, m_Text, LogSystem);
 		}
 	}
 
@@ -20789,7 +26382,7 @@ void LlmGenerateResponse::FromJson(const utility::string_t& Val)
 
 		if (ModelValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ModelValue, m_Model);
+			JsonValueToType(ModelValue, m_Model, LogSystem);
 		}
 	}
 
@@ -20799,7 +26392,7 @@ void LlmGenerateResponse::FromJson(const utility::string_t& Val)
 
 		if (ProviderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderValue, m_Provider);
+			JsonValueToType(ProviderValue, m_Provider, LogSystem);
 		}
 	}
 
@@ -20809,7 +26402,7 @@ void LlmGenerateResponse::FromJson(const utility::string_t& Val)
 
 		if (InputTokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(InputTokensValue, m_InputTokens);
+			JsonValueToType(InputTokensValue, m_InputTokens, LogSystem);
 		}
 	}
 
@@ -20819,7 +26412,7 @@ void LlmGenerateResponse::FromJson(const utility::string_t& Val)
 
 		if (OutputTokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OutputTokensValue, m_OutputTokens);
+			JsonValueToType(OutputTokensValue, m_OutputTokens, LogSystem);
 		}
 	}
 
@@ -20829,7 +26422,7 @@ void LlmGenerateResponse::FromJson(const utility::string_t& Val)
 
 		if (FinishReasonValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FinishReasonValue, m_FinishReason);
+			JsonValueToType(FinishReasonValue, m_FinishReason, LogSystem);
 		}
 	}
 
@@ -20839,7 +26432,7 @@ void LlmGenerateResponse::FromJson(const utility::string_t& Val)
 
 		if (EncodingValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EncodingValue, m_Encoding);
+			JsonValueToType(EncodingValue, m_Encoding, LogSystem);
 		}
 	}
 }
@@ -20965,7 +26558,7 @@ utility::string_t LlmMessage::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void LlmMessage::FromJson(const utility::string_t& Val)
+void LlmMessage::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -20974,7 +26567,7 @@ void LlmMessage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LlmMessage::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LlmMessage::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -20987,7 +26580,7 @@ void LlmMessage::FromJson(const utility::string_t& Val)
 
 		if (RoleValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RoleValue, m_Role);
+			JsonValueToType(RoleValue, m_Role, LogSystem);
 		}
 	}
 
@@ -20997,7 +26590,7 @@ void LlmMessage::FromJson(const utility::string_t& Val)
 
 		if (TextValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TextValue, m_Text);
+			JsonValueToType(TextValue, m_Text, LogSystem);
 		}
 	}
 }
@@ -21070,7 +26663,7 @@ utility::string_t LlmProviderDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void LlmProviderDto::FromJson(const utility::string_t& Val)
+void LlmProviderDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -21079,7 +26672,7 @@ void LlmProviderDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LlmProviderDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LlmProviderDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -21092,7 +26685,7 @@ void LlmProviderDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -21102,7 +26695,7 @@ void LlmProviderDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -21112,11 +26705,11 @@ void LlmProviderDto::FromJson(const utility::string_t& Val)
 
 		if (ConfiguredValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ConfiguredValue, m_Configured);
+			JsonValueToType(ConfiguredValue, m_Configured, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member configured is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member configured is null!");
 		}
 	}
 
@@ -21126,7 +26719,7 @@ void LlmProviderDto::FromJson(const utility::string_t& Val)
 
 		if (ModelsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ModelsValue, m_Models);
+			JsonValueToType(ModelsValue, m_Models, LogSystem);
 		}
 	}
 }
@@ -21225,7 +26818,7 @@ utility::string_t LoginGuestRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void LoginGuestRequest::FromJson(const utility::string_t& Val)
+void LoginGuestRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -21234,7 +26827,7 @@ void LoginGuestRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LoginGuestRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LoginGuestRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -21247,11 +26840,11 @@ void LoginGuestRequest::FromJson(const utility::string_t& Val)
 
 		if (TenantValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantValue, m_Tenant);
+			JsonValueToType(TenantValue, m_Tenant, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member tenant is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member tenant is null!");
 		}
 	}
 
@@ -21261,11 +26854,11 @@ void LoginGuestRequest::FromJson(const utility::string_t& Val)
 
 		if (DeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeviceIdValue, m_DeviceId);
+			JsonValueToType(DeviceIdValue, m_DeviceId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member deviceId is null!");
 		}
 	}
 
@@ -21275,7 +26868,7 @@ void LoginGuestRequest::FromJson(const utility::string_t& Val)
 
 		if (VerifiedAgeEighteenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen);
+			JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen, LogSystem);
 		}
 	}
 
@@ -21285,11 +26878,11 @@ void LoginGuestRequest::FromJson(const utility::string_t& Val)
 
 		if (TokenOptionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokenOptionsValue, m_TokenOptions);
+			JsonValueToType(TokenOptionsValue, m_TokenOptions, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member tokenOptions is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member tokenOptions is null!");
 		}
 	}
 }
@@ -21412,7 +27005,7 @@ utility::string_t LoginRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void LoginRequest::FromJson(const utility::string_t& Val)
+void LoginRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -21421,7 +27014,7 @@ void LoginRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LoginRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LoginRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -21434,7 +27027,7 @@ void LoginRequest::FromJson(const utility::string_t& Val)
 
 		if (TenantValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantValue, m_Tenant);
+			JsonValueToType(TenantValue, m_Tenant, LogSystem);
 		}
 	}
 
@@ -21444,7 +27037,7 @@ void LoginRequest::FromJson(const utility::string_t& Val)
 
 		if (EmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailValue, m_Email);
+			JsonValueToType(EmailValue, m_Email, LogSystem);
 		}
 	}
 
@@ -21454,7 +27047,7 @@ void LoginRequest::FromJson(const utility::string_t& Val)
 
 		if (UserNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserNameValue, m_UserName);
+			JsonValueToType(UserNameValue, m_UserName, LogSystem);
 		}
 	}
 
@@ -21464,7 +27057,7 @@ void LoginRequest::FromJson(const utility::string_t& Val)
 
 		if (PasswordValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PasswordValue, m_Password);
+			JsonValueToType(PasswordValue, m_Password, LogSystem);
 		}
 	}
 
@@ -21474,11 +27067,11 @@ void LoginRequest::FromJson(const utility::string_t& Val)
 
 		if (DeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeviceIdValue, m_DeviceId);
+			JsonValueToType(DeviceIdValue, m_DeviceId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member deviceId is null!");
 		}
 	}
 
@@ -21488,7 +27081,7 @@ void LoginRequest::FromJson(const utility::string_t& Val)
 
 		if (VerifiedAgeEighteenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen);
+			JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen, LogSystem);
 		}
 	}
 
@@ -21498,11 +27091,11 @@ void LoginRequest::FromJson(const utility::string_t& Val)
 
 		if (TokenOptionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokenOptionsValue, m_TokenOptions);
+			JsonValueToType(TokenOptionsValue, m_TokenOptions, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member tokenOptions is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member tokenOptions is null!");
 		}
 	}
 
@@ -21512,7 +27105,7 @@ void LoginRequest::FromJson(const utility::string_t& Val)
 
 		if (RedirectUriValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RedirectUriValue, m_RedirectUri);
+			JsonValueToType(RedirectUriValue, m_RedirectUri, LogSystem);
 		}
 	}
 }
@@ -21699,7 +27292,7 @@ utility::string_t LoginSocialRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void LoginSocialRequest::FromJson(const utility::string_t& Val)
+void LoginSocialRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -21708,7 +27301,7 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LoginSocialRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LoginSocialRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -21721,7 +27314,7 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (TenantValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantValue, m_Tenant);
+			JsonValueToType(TenantValue, m_Tenant, LogSystem);
 		}
 	}
 
@@ -21731,11 +27324,11 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (ProviderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderValue, m_Provider);
+			JsonValueToType(ProviderValue, m_Provider, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member provider is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member provider is null!");
 		}
 	}
 
@@ -21745,7 +27338,7 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (ClientValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ClientValue, m_Client);
+			JsonValueToType(ClientValue, m_Client, LogSystem);
 		}
 	}
 
@@ -21755,11 +27348,11 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (TokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokenValue, m_Token);
+			JsonValueToType(TokenValue, m_Token, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member token is null!");
 		}
 	}
 
@@ -21769,11 +27362,11 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (DeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeviceIdValue, m_DeviceId);
+			JsonValueToType(DeviceIdValue, m_DeviceId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member deviceId is null!");
 		}
 	}
 
@@ -21783,7 +27376,7 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (OAuthRedirectUriValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OAuthRedirectUriValue, m_OAuthRedirectUri);
+			JsonValueToType(OAuthRedirectUriValue, m_OAuthRedirectUri, LogSystem);
 		}
 	}
 
@@ -21793,7 +27386,7 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (VerifiedAgeEighteenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen);
+			JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen, LogSystem);
 		}
 	}
 
@@ -21803,7 +27396,7 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (OptionalProviderUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId);
+			JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId, LogSystem);
 		}
 	}
 
@@ -21813,11 +27406,11 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (TokenOptionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokenOptionsValue, m_TokenOptions);
+			JsonValueToType(TokenOptionsValue, m_TokenOptions, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member tokenOptions is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member tokenOptions is null!");
 		}
 	}
 
@@ -21827,7 +27420,7 @@ void LoginSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (RedirectUriValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RedirectUriValue, m_RedirectUri);
+			JsonValueToType(RedirectUriValue, m_RedirectUri, LogSystem);
 		}
 	}
 }
@@ -21992,7 +27585,7 @@ utility::string_t LogoutRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void LogoutRequest::FromJson(const utility::string_t& Val)
+void LogoutRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -22001,7 +27594,7 @@ void LogoutRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LogoutRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "LogoutRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -22014,11 +27607,11 @@ void LogoutRequest::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member userId is null!");
 		}
 	}
 
@@ -22028,7 +27621,7 @@ void LogoutRequest::FromJson(const utility::string_t& Val)
 
 		if (DeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeviceIdValue, m_DeviceId);
+			JsonValueToType(DeviceIdValue, m_DeviceId, LogSystem);
 		}
 	}
 }
@@ -22107,7 +27700,7 @@ utility::string_t MarketplaceHostnameResponse::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void MarketplaceHostnameResponse::FromJson(const utility::string_t& Val)
+void MarketplaceHostnameResponse::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -22116,7 +27709,7 @@ void MarketplaceHostnameResponse::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MarketplaceHostnameResponse::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MarketplaceHostnameResponse::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -22129,7 +27722,7 @@ void MarketplaceHostnameResponse::FromJson(const utility::string_t& Val)
 
 		if (HostnameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HostnameValue, m_Hostname);
+			JsonValueToType(HostnameValue, m_Hostname, LogSystem);
 		}
 	}
 
@@ -22139,7 +27732,7 @@ void MarketplaceHostnameResponse::FromJson(const utility::string_t& Val)
 
 		if (TypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TypeValue, m_Type);
+			JsonValueToType(TypeValue, m_Type, LogSystem);
 		}
 	}
 
@@ -22149,7 +27742,7 @@ void MarketplaceHostnameResponse::FromJson(const utility::string_t& Val)
 
 		if (DnsStatusValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DnsStatusValue, m_DnsStatus);
+			JsonValueToType(DnsStatusValue, m_DnsStatus, LogSystem);
 		}
 	}
 
@@ -22159,7 +27752,7 @@ void MarketplaceHostnameResponse::FromJson(const utility::string_t& Val)
 
 		if (FailureReasonValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FailureReasonValue, m_FailureReason);
+			JsonValueToType(FailureReasonValue, m_FailureReason, LogSystem);
 		}
 	}
 
@@ -22169,7 +27762,7 @@ void MarketplaceHostnameResponse::FromJson(const utility::string_t& Val)
 
 		if (FailureKindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FailureKindValue, m_FailureKind);
+			JsonValueToType(FailureKindValue, m_FailureKind, LogSystem);
 		}
 	}
 }
@@ -22293,7 +27886,7 @@ utility::string_t MarketplaceTenantProvisionRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void MarketplaceTenantProvisionRequest::FromJson(const utility::string_t& Val)
+void MarketplaceTenantProvisionRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -22302,7 +27895,7 @@ void MarketplaceTenantProvisionRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MarketplaceTenantProvisionRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MarketplaceTenantProvisionRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -22315,11 +27908,11 @@ void MarketplaceTenantProvisionRequest::FromJson(const utility::string_t& Val)
 
 		if (CompanyUrlFragmentValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CompanyUrlFragmentValue, m_CompanyUrlFragment);
+			JsonValueToType(CompanyUrlFragmentValue, m_CompanyUrlFragment, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member companyUrlFragment is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member companyUrlFragment is null!");
 		}
 	}
 
@@ -22329,11 +27922,11 @@ void MarketplaceTenantProvisionRequest::FromJson(const utility::string_t& Val)
 
 		if (ProjectUrlFragmentValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectUrlFragmentValue, m_ProjectUrlFragment);
+			JsonValueToType(ProjectUrlFragmentValue, m_ProjectUrlFragment, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member projectUrlFragment is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member projectUrlFragment is null!");
 		}
 	}
 
@@ -22343,11 +27936,11 @@ void MarketplaceTenantProvisionRequest::FromJson(const utility::string_t& Val)
 
 		if (AdminEmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AdminEmailValue, m_AdminEmail);
+			JsonValueToType(AdminEmailValue, m_AdminEmail, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member adminEmail is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member adminEmail is null!");
 		}
 	}
 
@@ -22357,7 +27950,7 @@ void MarketplaceTenantProvisionRequest::FromJson(const utility::string_t& Val)
 
 		if (CompanyNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CompanyNameValue, m_CompanyName);
+			JsonValueToType(CompanyNameValue, m_CompanyName, LogSystem);
 		}
 	}
 
@@ -22367,7 +27960,7 @@ void MarketplaceTenantProvisionRequest::FromJson(const utility::string_t& Val)
 
 		if (DeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeviceIdValue, m_DeviceId);
+			JsonValueToType(DeviceIdValue, m_DeviceId, LogSystem);
 		}
 	}
 
@@ -22377,7 +27970,7 @@ void MarketplaceTenantProvisionRequest::FromJson(const utility::string_t& Val)
 
 		if (InitialTierNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(InitialTierNameValue, m_InitialTierName);
+			JsonValueToType(InitialTierNameValue, m_InitialTierName, LogSystem);
 		}
 	}
 }
@@ -22502,7 +28095,7 @@ utility::string_t MarketplaceTenantProvisionResponse::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void MarketplaceTenantProvisionResponse::FromJson(const utility::string_t& Val)
+void MarketplaceTenantProvisionResponse::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -22511,7 +28104,7 @@ void MarketplaceTenantProvisionResponse::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MarketplaceTenantProvisionResponse::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MarketplaceTenantProvisionResponse::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -22524,7 +28117,7 @@ void MarketplaceTenantProvisionResponse::FromJson(const utility::string_t& Val)
 
 		if (TenantIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantIdValue, m_TenantId);
+			JsonValueToType(TenantIdValue, m_TenantId, LogSystem);
 		}
 	}
 
@@ -22534,7 +28127,7 @@ void MarketplaceTenantProvisionResponse::FromJson(const utility::string_t& Val)
 
 		if (TenantNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantNameValue, m_TenantName);
+			JsonValueToType(TenantNameValue, m_TenantName, LogSystem);
 		}
 	}
 
@@ -22544,7 +28137,7 @@ void MarketplaceTenantProvisionResponse::FromJson(const utility::string_t& Val)
 
 		if (AdminUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AdminUserIdValue, m_AdminUserId);
+			JsonValueToType(AdminUserIdValue, m_AdminUserId, LogSystem);
 		}
 	}
 
@@ -22554,11 +28147,11 @@ void MarketplaceTenantProvisionResponse::FromJson(const utility::string_t& Val)
 
 		if (AuthValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AuthValue, m_Auth);
+			JsonValueToType(AuthValue, m_Auth, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member auth is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member auth is null!");
 		}
 	}
 }
@@ -22700,7 +28293,7 @@ utility::string_t MatrixImportFailureDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void MatrixImportFailureDto::FromJson(const utility::string_t& Val)
+void MatrixImportFailureDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -22709,7 +28302,7 @@ void MatrixImportFailureDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MatrixImportFailureDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MatrixImportFailureDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -22722,11 +28315,11 @@ void MatrixImportFailureDto::FromJson(const utility::string_t& Val)
 
 		if (IndexValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IndexValue, m_Index);
+			JsonValueToType(IndexValue, m_Index, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member index is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member index is null!");
 		}
 	}
 
@@ -22736,7 +28329,7 @@ void MatrixImportFailureDto::FromJson(const utility::string_t& Val)
 
 		if (NodeKeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NodeKeyValue, m_NodeKey);
+			JsonValueToType(NodeKeyValue, m_NodeKey, LogSystem);
 		}
 	}
 
@@ -22746,7 +28339,7 @@ void MatrixImportFailureDto::FromJson(const utility::string_t& Val)
 
 		if (DimensionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DimensionsValue, m_Dimensions);
+			JsonValueToType(DimensionsValue, m_Dimensions, LogSystem);
 		}
 	}
 
@@ -22756,7 +28349,7 @@ void MatrixImportFailureDto::FromJson(const utility::string_t& Val)
 
 		if (ReasonValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReasonValue, m_Reason);
+			JsonValueToType(ReasonValue, m_Reason, LogSystem);
 		}
 	}
 }
@@ -22861,7 +28454,7 @@ utility::string_t MatrixImportResultDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void MatrixImportResultDto::FromJson(const utility::string_t& Val)
+void MatrixImportResultDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -22870,7 +28463,7 @@ void MatrixImportResultDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MatrixImportResultDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MatrixImportResultDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -22883,11 +28476,11 @@ void MatrixImportResultDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedValue, m_Created);
+			JsonValueToType(CreatedValue, m_Created, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member created is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member created is null!");
 		}
 	}
 
@@ -22897,11 +28490,11 @@ void MatrixImportResultDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedValue, m_Updated);
+			JsonValueToType(UpdatedValue, m_Updated, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member updated is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member updated is null!");
 		}
 	}
 
@@ -22911,11 +28504,11 @@ void MatrixImportResultDto::FromJson(const utility::string_t& Val)
 
 		if (SkippedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SkippedValue, m_Skipped);
+			JsonValueToType(SkippedValue, m_Skipped, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member skipped is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skipped is null!");
 		}
 	}
 
@@ -22925,7 +28518,7 @@ void MatrixImportResultDto::FromJson(const utility::string_t& Val)
 
 		if (FailedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FailedValue, m_Failed);
+			JsonValueToType(FailedValue, m_Failed, LogSystem);
 		}
 	}
 
@@ -22935,11 +28528,11 @@ void MatrixImportResultDto::FromJson(const utility::string_t& Val)
 
 		if (EpochValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EpochValue, m_Epoch);
+			JsonValueToType(EpochValue, m_Epoch, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member epoch is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member epoch is null!");
 		}
 	}
 }
@@ -23075,7 +28668,7 @@ utility::string_t MatrixTierPriceOverrideDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void MatrixTierPriceOverrideDto::FromJson(const utility::string_t& Val)
+void MatrixTierPriceOverrideDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -23084,7 +28677,7 @@ void MatrixTierPriceOverrideDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MatrixTierPriceOverrideDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MatrixTierPriceOverrideDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -23097,7 +28690,7 @@ void MatrixTierPriceOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -23107,7 +28700,7 @@ void MatrixTierPriceOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (MatrixEntryIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MatrixEntryIdValue, m_MatrixEntryId);
+			JsonValueToType(MatrixEntryIdValue, m_MatrixEntryId, LogSystem);
 		}
 	}
 
@@ -23117,7 +28710,7 @@ void MatrixTierPriceOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (TierIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TierIdValue, m_TierId);
+			JsonValueToType(TierIdValue, m_TierId, LogSystem);
 		}
 	}
 
@@ -23127,7 +28720,7 @@ void MatrixTierPriceOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (TokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokensValue, m_Tokens);
+			JsonValueToType(TokensValue, m_Tokens, LogSystem);
 		}
 	}
 
@@ -23137,7 +28730,7 @@ void MatrixTierPriceOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (RatePerUnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RatePerUnitValue, m_RatePerUnit);
+			JsonValueToType(RatePerUnitValue, m_RatePerUnit, LogSystem);
 		}
 	}
 
@@ -23147,11 +28740,11 @@ void MatrixTierPriceOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -23161,11 +28754,11 @@ void MatrixTierPriceOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (VersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionValue, m_Version);
+			JsonValueToType(VersionValue, m_Version, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member version is null!");
 		}
 	}
 
@@ -23175,7 +28768,7 @@ void MatrixTierPriceOverrideDto::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -23368,7 +28961,7 @@ utility::string_t MatrixTierPriceOverrideHistoryDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val)
+void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -23377,7 +28970,7 @@ void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MatrixTierPriceOverrideHistoryDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MatrixTierPriceOverrideHistoryDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -23390,7 +28983,7 @@ void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (OverrideIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OverrideIdValue, m_OverrideId);
+			JsonValueToType(OverrideIdValue, m_OverrideId, LogSystem);
 		}
 	}
 
@@ -23400,11 +28993,11 @@ void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (VersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionValue, m_Version);
+			JsonValueToType(VersionValue, m_Version, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member version is null!");
 		}
 	}
 
@@ -23414,11 +29007,11 @@ void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ParentVersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ParentVersionValue, m_ParentVersion);
+			JsonValueToType(ParentVersionValue, m_ParentVersion, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member parentVersion is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member parentVersion is null!");
 		}
 	}
 
@@ -23428,7 +29021,7 @@ void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (MatrixEntryIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MatrixEntryIdValue, m_MatrixEntryId);
+			JsonValueToType(MatrixEntryIdValue, m_MatrixEntryId, LogSystem);
 		}
 	}
 
@@ -23438,7 +29031,7 @@ void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (TierIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TierIdValue, m_TierId);
+			JsonValueToType(TierIdValue, m_TierId, LogSystem);
 		}
 	}
 
@@ -23448,7 +29041,7 @@ void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (TokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokensValue, m_Tokens);
+			JsonValueToType(TokensValue, m_Tokens, LogSystem);
 		}
 	}
 
@@ -23458,7 +29051,7 @@ void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (RatePerUnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RatePerUnitValue, m_RatePerUnit);
+			JsonValueToType(RatePerUnitValue, m_RatePerUnit, LogSystem);
 		}
 	}
 
@@ -23468,11 +29061,11 @@ void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -23482,7 +29075,7 @@ void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 
@@ -23492,11 +29085,11 @@ void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -23506,7 +29099,7 @@ void MatrixTierPriceOverrideHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedByValue, m_CreatedBy);
+			JsonValueToType(CreatedByValue, m_CreatedBy, LogSystem);
 		}
 	}
 }
@@ -23690,7 +29283,7 @@ utility::string_t MetagameProgressDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void MetagameProgressDto::FromJson(const utility::string_t& Val)
+void MetagameProgressDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -23699,7 +29292,7 @@ void MetagameProgressDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MetagameProgressDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MetagameProgressDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -23712,11 +29305,11 @@ void MetagameProgressDto::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member userId is null!");
 		}
 	}
 
@@ -23726,7 +29319,7 @@ void MetagameProgressDto::FromJson(const utility::string_t& Val)
 
 		if (PercentTowardsNextSeedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PercentTowardsNextSeedValue, m_PercentTowardsNextSeed);
+			JsonValueToType(PercentTowardsNextSeedValue, m_PercentTowardsNextSeed, LogSystem);
 		}
 	}
 
@@ -23736,7 +29329,7 @@ void MetagameProgressDto::FromJson(const utility::string_t& Val)
 
 		if (MetagameLevelValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MetagameLevelValue, m_MetagameLevel);
+			JsonValueToType(MetagameLevelValue, m_MetagameLevel, LogSystem);
 		}
 	}
 }
@@ -23810,7 +29403,7 @@ utility::string_t MetagameUpdate::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void MetagameUpdate::FromJson(const utility::string_t& Val)
+void MetagameUpdate::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -23819,7 +29412,7 @@ void MetagameUpdate::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MetagameUpdate::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MetagameUpdate::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -23832,11 +29425,11 @@ void MetagameUpdate::FromJson(const utility::string_t& Val)
 
 		if (PercentDeltaAsTotalValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PercentDeltaAsTotalValue, m_PercentDeltaAsTotal);
+			JsonValueToType(PercentDeltaAsTotalValue, m_PercentDeltaAsTotal, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member percentDeltaAsTotal is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member percentDeltaAsTotal is null!");
 		}
 	}
 
@@ -23846,11 +29439,11 @@ void MetagameUpdate::FromJson(const utility::string_t& Val)
 
 		if (PercentDeltaValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PercentDeltaValue, m_PercentDelta);
+			JsonValueToType(PercentDeltaValue, m_PercentDelta, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member percentDelta is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member percentDelta is null!");
 		}
 	}
 }
@@ -23965,7 +29558,7 @@ utility::string_t MiningSessionDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void MiningSessionDto::FromJson(const utility::string_t& Val)
+void MiningSessionDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -23974,7 +29567,7 @@ void MiningSessionDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MiningSessionDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MiningSessionDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -23987,7 +29580,7 @@ void MiningSessionDto::FromJson(const utility::string_t& Val)
 
 		if (PayloadValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PayloadValue, m_Payload);
+			JsonValueToType(PayloadValue, m_Payload, LogSystem);
 		}
 	}
 
@@ -23997,7 +29590,7 @@ void MiningSessionDto::FromJson(const utility::string_t& Val)
 
 		if (EncodingValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EncodingValue, m_Encoding);
+			JsonValueToType(EncodingValue, m_Encoding, LogSystem);
 		}
 	}
 
@@ -24007,7 +29600,7 @@ void MiningSessionDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -24017,7 +29610,7 @@ void MiningSessionDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -24027,7 +29620,7 @@ void MiningSessionDto::FromJson(const utility::string_t& Val)
 
 		if (MinedTenantNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MinedTenantNameValue, m_MinedTenantName);
+			JsonValueToType(MinedTenantNameValue, m_MinedTenantName, LogSystem);
 		}
 	}
 
@@ -24037,7 +29630,7 @@ void MiningSessionDto::FromJson(const utility::string_t& Val)
 
 		if (FilePromptValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FilePromptValue, m_FilePrompt);
+			JsonValueToType(FilePromptValue, m_FilePrompt, LogSystem);
 		}
 	}
 
@@ -24047,7 +29640,7 @@ void MiningSessionDto::FromJson(const utility::string_t& Val)
 
 		if (MiningPromptValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MiningPromptValue, m_MiningPrompt);
+			JsonValueToType(MiningPromptValue, m_MiningPrompt, LogSystem);
 		}
 	}
 
@@ -24057,7 +29650,7 @@ void MiningSessionDto::FromJson(const utility::string_t& Val)
 
 		if (StatusValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusValue, m_Status);
+			JsonValueToType(StatusValue, m_Status, LogSystem);
 		}
 	}
 
@@ -24067,11 +29660,11 @@ void MiningSessionDto::FromJson(const utility::string_t& Val)
 
 		if (PayloadLengthValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PayloadLengthValue, m_PayloadLength);
+			JsonValueToType(PayloadLengthValue, m_PayloadLength, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member payloadLength is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member payloadLength is null!");
 		}
 	}
 
@@ -24081,11 +29674,11 @@ void MiningSessionDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -24095,11 +29688,11 @@ void MiningSessionDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member updatedAt is null!");
 		}
 	}
 }
@@ -24307,7 +29900,7 @@ utility::string_t MiningSessionSaveRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void MiningSessionSaveRequest::FromJson(const utility::string_t& Val)
+void MiningSessionSaveRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -24316,7 +29909,7 @@ void MiningSessionSaveRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MiningSessionSaveRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MiningSessionSaveRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -24329,7 +29922,7 @@ void MiningSessionSaveRequest::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -24339,7 +29932,7 @@ void MiningSessionSaveRequest::FromJson(const utility::string_t& Val)
 
 		if (MinedTenantNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MinedTenantNameValue, m_MinedTenantName);
+			JsonValueToType(MinedTenantNameValue, m_MinedTenantName, LogSystem);
 		}
 	}
 
@@ -24349,7 +29942,7 @@ void MiningSessionSaveRequest::FromJson(const utility::string_t& Val)
 
 		if (FilePromptValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FilePromptValue, m_FilePrompt);
+			JsonValueToType(FilePromptValue, m_FilePrompt, LogSystem);
 		}
 	}
 
@@ -24359,7 +29952,7 @@ void MiningSessionSaveRequest::FromJson(const utility::string_t& Val)
 
 		if (MiningPromptValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MiningPromptValue, m_MiningPrompt);
+			JsonValueToType(MiningPromptValue, m_MiningPrompt, LogSystem);
 		}
 	}
 
@@ -24369,7 +29962,7 @@ void MiningSessionSaveRequest::FromJson(const utility::string_t& Val)
 
 		if (StatusValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusValue, m_Status);
+			JsonValueToType(StatusValue, m_Status, LogSystem);
 		}
 	}
 
@@ -24379,7 +29972,7 @@ void MiningSessionSaveRequest::FromJson(const utility::string_t& Val)
 
 		if (PayloadValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PayloadValue, m_Payload);
+			JsonValueToType(PayloadValue, m_Payload, LogSystem);
 		}
 	}
 
@@ -24389,7 +29982,7 @@ void MiningSessionSaveRequest::FromJson(const utility::string_t& Val)
 
 		if (EncodingValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EncodingValue, m_Encoding);
+			JsonValueToType(EncodingValue, m_Encoding, LogSystem);
 		}
 	}
 }
@@ -24557,7 +30150,7 @@ utility::string_t MiningSessionSummaryDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void MiningSessionSummaryDto::FromJson(const utility::string_t& Val)
+void MiningSessionSummaryDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -24566,7 +30159,7 @@ void MiningSessionSummaryDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MiningSessionSummaryDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MiningSessionSummaryDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -24579,7 +30172,7 @@ void MiningSessionSummaryDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -24589,7 +30182,7 @@ void MiningSessionSummaryDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -24599,7 +30192,7 @@ void MiningSessionSummaryDto::FromJson(const utility::string_t& Val)
 
 		if (MinedTenantNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MinedTenantNameValue, m_MinedTenantName);
+			JsonValueToType(MinedTenantNameValue, m_MinedTenantName, LogSystem);
 		}
 	}
 
@@ -24609,7 +30202,7 @@ void MiningSessionSummaryDto::FromJson(const utility::string_t& Val)
 
 		if (FilePromptValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FilePromptValue, m_FilePrompt);
+			JsonValueToType(FilePromptValue, m_FilePrompt, LogSystem);
 		}
 	}
 
@@ -24619,7 +30212,7 @@ void MiningSessionSummaryDto::FromJson(const utility::string_t& Val)
 
 		if (MiningPromptValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MiningPromptValue, m_MiningPrompt);
+			JsonValueToType(MiningPromptValue, m_MiningPrompt, LogSystem);
 		}
 	}
 
@@ -24629,7 +30222,7 @@ void MiningSessionSummaryDto::FromJson(const utility::string_t& Val)
 
 		if (StatusValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusValue, m_Status);
+			JsonValueToType(StatusValue, m_Status, LogSystem);
 		}
 	}
 
@@ -24639,11 +30232,11 @@ void MiningSessionSummaryDto::FromJson(const utility::string_t& Val)
 
 		if (PayloadLengthValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PayloadLengthValue, m_PayloadLength);
+			JsonValueToType(PayloadLengthValue, m_PayloadLength, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member payloadLength is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member payloadLength is null!");
 		}
 	}
 
@@ -24653,11 +30246,11 @@ void MiningSessionSummaryDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -24667,11 +30260,11 @@ void MiningSessionSummaryDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member updatedAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member updatedAt is null!");
 		}
 	}
 }
@@ -24841,7 +30434,7 @@ utility::string_t MiningSessionSummaryDtoDataPage::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void MiningSessionSummaryDtoDataPage::FromJson(const utility::string_t& Val)
+void MiningSessionSummaryDtoDataPage::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -24850,7 +30443,7 @@ void MiningSessionSummaryDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MiningSessionSummaryDtoDataPage::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "MiningSessionSummaryDtoDataPage::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -24863,7 +30456,7 @@ void MiningSessionSummaryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 	}
 
@@ -24873,11 +30466,11 @@ void MiningSessionSummaryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (SkipValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SkipValue, m_Skip);
+			JsonValueToType(SkipValue, m_Skip, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skip is null!");
 		}
 	}
 
@@ -24887,7 +30480,7 @@ void MiningSessionSummaryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (LimitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LimitValue, m_Limit);
+			JsonValueToType(LimitValue, m_Limit, LogSystem);
 		}
 	}
 
@@ -24897,11 +30490,11 @@ void MiningSessionSummaryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemCountValue, m_ItemCount);
+			JsonValueToType(ItemCountValue, m_ItemCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemCount is null!");
 		}
 	}
 
@@ -24911,11 +30504,11 @@ void MiningSessionSummaryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemTotalCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemTotalCount is null!");
 		}
 	}
 }
@@ -25021,7 +30614,7 @@ utility::string_t NamedFunction::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void NamedFunction::FromJson(const utility::string_t& Val)
+void NamedFunction::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -25030,7 +30623,7 @@ void NamedFunction::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "NamedFunction::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "NamedFunction::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -25043,7 +30636,7 @@ void NamedFunction::FromJson(const utility::string_t& Val)
 
 		if (FunctionNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FunctionNameValue, m_FunctionName);
+			JsonValueToType(FunctionNameValue, m_FunctionName, LogSystem);
 		}
 	}
 
@@ -25053,7 +30646,7 @@ void NamedFunction::FromJson(const utility::string_t& Val)
 
 		if (DeprecationDatetimeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeprecationDatetimeValue, m_DeprecationDatetime);
+			JsonValueToType(DeprecationDatetimeValue, m_DeprecationDatetime, LogSystem);
 		}
 	}
 
@@ -25063,7 +30656,7 @@ void NamedFunction::FromJson(const utility::string_t& Val)
 
 		if (EndOfLifeDatetimeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EndOfLifeDatetimeValue, m_EndOfLifeDatetime);
+			JsonValueToType(EndOfLifeDatetimeValue, m_EndOfLifeDatetime, LogSystem);
 		}
 	}
 }
@@ -25109,6 +30702,1738 @@ void NamedFunction::SetEndOfLifeDatetime(const utility::string_t& Value)
 	m_EndOfLifeDatetime = Value;
 }
 
+OneTimeKeyDto::OneTimeKeyDto()
+{
+}
+OneTimeKeyDto::~OneTimeKeyDto()
+{
+}
+
+utility::string_t OneTimeKeyDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_OneTimeKey.has_value())
+	{
+		rapidjson::Value OneTimeKeyValue(TypeToJsonValue(m_OneTimeKey, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("oneTimeKey", OneTimeKeyValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ExpiresAt.has_value())
+	{
+		rapidjson::Value ExpiresAtValue(TypeToJsonValue(m_ExpiresAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("expiresAt", ExpiresAtValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void OneTimeKeyDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OneTimeKeyDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("oneTimeKey"))
+	{
+		const rapidjson::Value& OneTimeKeyValue = JsonDoc["oneTimeKey"];
+
+		if (OneTimeKeyValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OneTimeKeyValue, m_OneTimeKey, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("expiresAt"))
+	{
+		const rapidjson::Value& ExpiresAtValue = JsonDoc["expiresAt"];
+
+		if (ExpiresAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExpiresAtValue, m_ExpiresAt, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t OneTimeKeyDto::GetOneTimeKey() const
+{
+	return m_OneTimeKey.value();
+}
+
+bool OneTimeKeyDto::HasOneTimeKey() const
+{
+	return m_OneTimeKey.has_value();
+}
+void OneTimeKeyDto::SetOneTimeKey(const utility::string_t& Value)
+{
+	m_OneTimeKey = Value;
+}
+utility::string_t OneTimeKeyDto::GetExpiresAt() const
+{
+	return m_ExpiresAt.value();
+}
+
+bool OneTimeKeyDto::HasExpiresAt() const
+{
+	return m_ExpiresAt.has_value();
+}
+void OneTimeKeyDto::SetExpiresAt(const utility::string_t& Value)
+{
+	m_ExpiresAt = Value;
+}
+
+OneTimeKeyRequest::OneTimeKeyRequest()
+{
+}
+OneTimeKeyRequest::~OneTimeKeyRequest()
+{
+}
+
+utility::string_t OneTimeKeyRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_UserId.has_value())
+	{
+		rapidjson::Value UserIdValue(TypeToJsonValue(m_UserId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("userId", UserIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DeviceId.has_value())
+	{
+		rapidjson::Value DeviceIdValue(TypeToJsonValue(m_DeviceId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("deviceId", DeviceIdValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void OneTimeKeyRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OneTimeKeyRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("userId"))
+	{
+		const rapidjson::Value& UserIdValue = JsonDoc["userId"];
+
+		if (UserIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member userId is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("deviceId"))
+	{
+		const rapidjson::Value& DeviceIdValue = JsonDoc["deviceId"];
+
+		if (DeviceIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DeviceIdValue, m_DeviceId, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member deviceId is null!");
+		}
+	}
+}
+
+
+utility::string_t OneTimeKeyRequest::GetUserId() const
+{
+	return m_UserId.value();
+}
+
+bool OneTimeKeyRequest::HasUserId() const
+{
+	return m_UserId.has_value();
+}
+void OneTimeKeyRequest::SetUserId(const utility::string_t& Value)
+{
+	m_UserId = Value;
+}
+utility::string_t OneTimeKeyRequest::GetDeviceId() const
+{
+	return m_DeviceId.value();
+}
+
+bool OneTimeKeyRequest::HasDeviceId() const
+{
+	return m_DeviceId.has_value();
+}
+void OneTimeKeyRequest::SetDeviceId(const utility::string_t& Value)
+{
+	m_DeviceId = Value;
+}
+
+OrganizationDto::OrganizationDto()
+{
+}
+OrganizationDto::~OrganizationDto()
+{
+}
+
+utility::string_t OrganizationDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Id.has_value())
+	{
+		rapidjson::Value IdValue(TypeToJsonValue(m_Id, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("id", IdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Name.has_value())
+	{
+		rapidjson::Value NameValue(TypeToJsonValue(m_Name, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("name", NameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AdministrativeTenantId.has_value())
+	{
+		rapidjson::Value AdministrativeTenantIdValue(TypeToJsonValue(m_AdministrativeTenantId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("administrativeTenantId", AdministrativeTenantIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AdministrativeTenantName.has_value())
+	{
+		rapidjson::Value AdministrativeTenantNameValue(TypeToJsonValue(m_AdministrativeTenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("administrativeTenantName", AdministrativeTenantNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CompanyUrlFragment.has_value())
+	{
+		rapidjson::Value CompanyUrlFragmentValue(TypeToJsonValue(m_CompanyUrlFragment, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("companyUrlFragment", CompanyUrlFragmentValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_OwnerUserId.has_value())
+	{
+		rapidjson::Value OwnerUserIdValue(TypeToJsonValue(m_OwnerUserId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("ownerUserId", OwnerUserIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ExternalRefs.has_value())
+	{
+		rapidjson::Value ExternalRefsValue(TypeToJsonValue(m_ExternalRefs, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("externalRefs", ExternalRefsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TenantCount.has_value())
+	{
+		rapidjson::Value TenantCountValue(TypeToJsonValue(m_TenantCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantCount", TenantCountValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Tenants.has_value())
+	{
+		rapidjson::Value TenantsValue(TypeToJsonValue(m_Tenants, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenants", TenantsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_CreatedAt.has_value())
+	{
+		rapidjson::Value CreatedAtValue(TypeToJsonValue(m_CreatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("createdAt", CreatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_UpdatedAt.has_value())
+	{
+		rapidjson::Value UpdatedAtValue(TypeToJsonValue(m_UpdatedAt, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("updatedAt", UpdatedAtValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TierName.has_value())
+	{
+		rapidjson::Value TierNameValue(TypeToJsonValue(m_TierName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tierName", TierNameValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void OrganizationDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("id"))
+	{
+		const rapidjson::Value& IdValue = JsonDoc["id"];
+
+		if (IdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IdValue, m_Id, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("name"))
+	{
+		const rapidjson::Value& NameValue = JsonDoc["name"];
+
+		if (NameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NameValue, m_Name, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("administrativeTenantId"))
+	{
+		const rapidjson::Value& AdministrativeTenantIdValue = JsonDoc["administrativeTenantId"];
+
+		if (AdministrativeTenantIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AdministrativeTenantIdValue, m_AdministrativeTenantId, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("administrativeTenantName"))
+	{
+		const rapidjson::Value& AdministrativeTenantNameValue = JsonDoc["administrativeTenantName"];
+
+		if (AdministrativeTenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AdministrativeTenantNameValue, m_AdministrativeTenantName, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("companyUrlFragment"))
+	{
+		const rapidjson::Value& CompanyUrlFragmentValue = JsonDoc["companyUrlFragment"];
+
+		if (CompanyUrlFragmentValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CompanyUrlFragmentValue, m_CompanyUrlFragment, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("ownerUserId"))
+	{
+		const rapidjson::Value& OwnerUserIdValue = JsonDoc["ownerUserId"];
+
+		if (OwnerUserIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OwnerUserIdValue, m_OwnerUserId, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("externalRefs"))
+	{
+		const rapidjson::Value& ExternalRefsValue = JsonDoc["externalRefs"];
+
+		if (ExternalRefsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExternalRefsValue, m_ExternalRefs, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("tenantCount"))
+	{
+		const rapidjson::Value& TenantCountValue = JsonDoc["tenantCount"];
+
+		if (TenantCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantCountValue, m_TenantCount, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("tenants"))
+	{
+		const rapidjson::Value& TenantsValue = JsonDoc["tenants"];
+
+		if (TenantsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantsValue, m_Tenants, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("createdAt"))
+	{
+		const rapidjson::Value& CreatedAtValue = JsonDoc["createdAt"];
+
+		if (CreatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("updatedAt"))
+	{
+		const rapidjson::Value& UpdatedAtValue = JsonDoc["updatedAt"];
+
+		if (UpdatedAtValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member updatedAt is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("tierName"))
+	{
+		const rapidjson::Value& TierNameValue = JsonDoc["tierName"];
+
+		if (TierNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TierNameValue, m_TierName, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t OrganizationDto::GetId() const
+{
+	return m_Id.value();
+}
+
+bool OrganizationDto::HasId() const
+{
+	return m_Id.has_value();
+}
+void OrganizationDto::SetId(const utility::string_t& Value)
+{
+	m_Id = Value;
+}
+utility::string_t OrganizationDto::GetName() const
+{
+	return m_Name.value();
+}
+
+bool OrganizationDto::HasName() const
+{
+	return m_Name.has_value();
+}
+void OrganizationDto::SetName(const utility::string_t& Value)
+{
+	m_Name = Value;
+}
+utility::string_t OrganizationDto::GetAdministrativeTenantId() const
+{
+	return m_AdministrativeTenantId.value();
+}
+
+bool OrganizationDto::HasAdministrativeTenantId() const
+{
+	return m_AdministrativeTenantId.has_value();
+}
+void OrganizationDto::SetAdministrativeTenantId(const utility::string_t& Value)
+{
+	m_AdministrativeTenantId = Value;
+}
+utility::string_t OrganizationDto::GetAdministrativeTenantName() const
+{
+	return m_AdministrativeTenantName.value();
+}
+
+bool OrganizationDto::HasAdministrativeTenantName() const
+{
+	return m_AdministrativeTenantName.has_value();
+}
+void OrganizationDto::SetAdministrativeTenantName(const utility::string_t& Value)
+{
+	m_AdministrativeTenantName = Value;
+}
+utility::string_t OrganizationDto::GetCompanyUrlFragment() const
+{
+	return m_CompanyUrlFragment.value();
+}
+
+bool OrganizationDto::HasCompanyUrlFragment() const
+{
+	return m_CompanyUrlFragment.has_value();
+}
+void OrganizationDto::SetCompanyUrlFragment(const utility::string_t& Value)
+{
+	m_CompanyUrlFragment = Value;
+}
+utility::string_t OrganizationDto::GetOwnerUserId() const
+{
+	return m_OwnerUserId.value();
+}
+
+bool OrganizationDto::HasOwnerUserId() const
+{
+	return m_OwnerUserId.has_value();
+}
+void OrganizationDto::SetOwnerUserId(const utility::string_t& Value)
+{
+	m_OwnerUserId = Value;
+}
+const std::vector<std::shared_ptr<OrganizationExternalRefDto>>& OrganizationDto::GetExternalRefs() const
+{
+	return m_ExternalRefs.value();
+}
+
+bool OrganizationDto::HasExternalRefs() const
+{
+	return m_ExternalRefs.has_value();
+}
+void OrganizationDto::SetExternalRefs(const std::vector<std::shared_ptr<OrganizationExternalRefDto>>& Value)
+{
+	m_ExternalRefs = Value;
+}
+int32_t OrganizationDto::GetTenantCount() const
+{
+	return m_TenantCount.value();
+}
+
+bool OrganizationDto::HasTenantCount() const
+{
+	return m_TenantCount.has_value();
+}
+void OrganizationDto::SetTenantCount(int32_t Value)
+{
+	m_TenantCount = Value;
+}
+const std::vector<std::shared_ptr<OrganizationTenantDto>>& OrganizationDto::GetTenants() const
+{
+	return m_Tenants.value();
+}
+
+bool OrganizationDto::HasTenants() const
+{
+	return m_Tenants.has_value();
+}
+void OrganizationDto::SetTenants(const std::vector<std::shared_ptr<OrganizationTenantDto>>& Value)
+{
+	m_Tenants = Value;
+}
+utility::string_t OrganizationDto::GetCreatedAt() const
+{
+	return m_CreatedAt.value();
+}
+
+bool OrganizationDto::HasCreatedAt() const
+{
+	return m_CreatedAt.has_value();
+}
+void OrganizationDto::SetCreatedAt(const utility::string_t& Value)
+{
+	m_CreatedAt = Value;
+}
+utility::string_t OrganizationDto::GetUpdatedAt() const
+{
+	return m_UpdatedAt.value();
+}
+
+bool OrganizationDto::HasUpdatedAt() const
+{
+	return m_UpdatedAt.has_value();
+}
+void OrganizationDto::SetUpdatedAt(const utility::string_t& Value)
+{
+	m_UpdatedAt = Value;
+}
+utility::string_t OrganizationDto::GetTierName() const
+{
+	return m_TierName.value();
+}
+
+bool OrganizationDto::HasTierName() const
+{
+	return m_TierName.has_value();
+}
+void OrganizationDto::SetTierName(const utility::string_t& Value)
+{
+	m_TierName = Value;
+}
+
+OrganizationDtoDataPage::OrganizationDtoDataPage()
+{
+}
+OrganizationDtoDataPage::~OrganizationDtoDataPage()
+{
+}
+
+utility::string_t OrganizationDtoDataPage::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Items.has_value())
+	{
+		rapidjson::Value ItemsValue(TypeToJsonValue(m_Items, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("items", ItemsValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Skip.has_value())
+	{
+		rapidjson::Value SkipValue(TypeToJsonValue(m_Skip, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("skip", SkipValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Limit.has_value())
+	{
+		rapidjson::Value LimitValue(TypeToJsonValue(m_Limit, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("limit", LimitValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemCount.has_value())
+	{
+		rapidjson::Value ItemCountValue(TypeToJsonValue(m_ItemCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemCount", ItemCountValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ItemTotalCount.has_value())
+	{
+		rapidjson::Value ItemTotalCountValue(TypeToJsonValue(m_ItemTotalCount, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("itemTotalCount", ItemTotalCountValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void OrganizationDtoDataPage::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationDtoDataPage::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("items"))
+	{
+		const rapidjson::Value& ItemsValue = JsonDoc["items"];
+
+		if (ItemsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("skip"))
+	{
+		const rapidjson::Value& SkipValue = JsonDoc["skip"];
+
+		if (SkipValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SkipValue, m_Skip, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skip is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("limit"))
+	{
+		const rapidjson::Value& LimitValue = JsonDoc["limit"];
+
+		if (LimitValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LimitValue, m_Limit, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("itemCount"))
+	{
+		const rapidjson::Value& ItemCountValue = JsonDoc["itemCount"];
+
+		if (ItemCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemCountValue, m_ItemCount, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemCount is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("itemTotalCount"))
+	{
+		const rapidjson::Value& ItemTotalCountValue = JsonDoc["itemTotalCount"];
+
+		if (ItemTotalCountValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemTotalCount is null!");
+		}
+	}
+}
+
+
+const std::vector<std::shared_ptr<OrganizationDto>>& OrganizationDtoDataPage::GetItems() const
+{
+	return m_Items.value();
+}
+
+bool OrganizationDtoDataPage::HasItems() const
+{
+	return m_Items.has_value();
+}
+void OrganizationDtoDataPage::SetItems(const std::vector<std::shared_ptr<OrganizationDto>>& Value)
+{
+	m_Items = Value;
+}
+int32_t OrganizationDtoDataPage::GetSkip() const
+{
+	return m_Skip.value();
+}
+
+bool OrganizationDtoDataPage::HasSkip() const
+{
+	return m_Skip.has_value();
+}
+void OrganizationDtoDataPage::SetSkip(int32_t Value)
+{
+	m_Skip = Value;
+}
+int32_t OrganizationDtoDataPage::GetLimit() const
+{
+	return m_Limit.value();
+}
+
+bool OrganizationDtoDataPage::HasLimit() const
+{
+	return m_Limit.has_value();
+}
+void OrganizationDtoDataPage::SetLimit(int32_t Value)
+{
+	m_Limit = Value;
+}
+int32_t OrganizationDtoDataPage::GetItemCount() const
+{
+	return m_ItemCount.value();
+}
+
+bool OrganizationDtoDataPage::HasItemCount() const
+{
+	return m_ItemCount.has_value();
+}
+void OrganizationDtoDataPage::SetItemCount(int32_t Value)
+{
+	m_ItemCount = Value;
+}
+int64_t OrganizationDtoDataPage::GetItemTotalCount() const
+{
+	return m_ItemTotalCount.value();
+}
+
+bool OrganizationDtoDataPage::HasItemTotalCount() const
+{
+	return m_ItemTotalCount.has_value();
+}
+void OrganizationDtoDataPage::SetItemTotalCount(int64_t Value)
+{
+	m_ItemTotalCount = Value;
+}
+
+OrganizationExternalRefDto::OrganizationExternalRefDto()
+{
+}
+OrganizationExternalRefDto::~OrganizationExternalRefDto()
+{
+}
+
+utility::string_t OrganizationExternalRefDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Source.has_value())
+	{
+		rapidjson::Value SourceValue(TypeToJsonValue(m_Source, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("source", SourceValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_ExternalId.has_value())
+	{
+		rapidjson::Value ExternalIdValue(TypeToJsonValue(m_ExternalId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("externalId", ExternalIdValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void OrganizationExternalRefDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationExternalRefDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("source"))
+	{
+		const rapidjson::Value& SourceValue = JsonDoc["source"];
+
+		if (SourceValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SourceValue, m_Source, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("externalId"))
+	{
+		const rapidjson::Value& ExternalIdValue = JsonDoc["externalId"];
+
+		if (ExternalIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ExternalIdValue, m_ExternalId, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t OrganizationExternalRefDto::GetSource() const
+{
+	return m_Source.value();
+}
+
+bool OrganizationExternalRefDto::HasSource() const
+{
+	return m_Source.has_value();
+}
+void OrganizationExternalRefDto::SetSource(const utility::string_t& Value)
+{
+	m_Source = Value;
+}
+utility::string_t OrganizationExternalRefDto::GetExternalId() const
+{
+	return m_ExternalId.value();
+}
+
+bool OrganizationExternalRefDto::HasExternalId() const
+{
+	return m_ExternalId.has_value();
+}
+void OrganizationExternalRefDto::SetExternalId(const utility::string_t& Value)
+{
+	m_ExternalId = Value;
+}
+
+OrganizationGroupCreateRequest::OrganizationGroupCreateRequest()
+{
+}
+OrganizationGroupCreateRequest::~OrganizationGroupCreateRequest()
+{
+}
+
+utility::string_t OrganizationGroupCreateRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Name.has_value())
+	{
+		rapidjson::Value NameValue(TypeToJsonValue(m_Name, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("name", NameValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void OrganizationGroupCreateRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationGroupCreateRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("name"))
+	{
+		const rapidjson::Value& NameValue = JsonDoc["name"];
+
+		if (NameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NameValue, m_Name, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t OrganizationGroupCreateRequest::GetName() const
+{
+	return m_Name.value();
+}
+
+bool OrganizationGroupCreateRequest::HasName() const
+{
+	return m_Name.has_value();
+}
+void OrganizationGroupCreateRequest::SetName(const utility::string_t& Value)
+{
+	m_Name = Value;
+}
+
+OrganizationGroupDto::OrganizationGroupDto()
+{
+}
+OrganizationGroupDto::~OrganizationGroupDto()
+{
+}
+
+utility::string_t OrganizationGroupDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Id.has_value())
+	{
+		rapidjson::Value IdValue(TypeToJsonValue(m_Id, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("id", IdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Name.has_value())
+	{
+		rapidjson::Value NameValue(TypeToJsonValue(m_Name, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("name", NameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_GroupOwnerId.has_value())
+	{
+		rapidjson::Value GroupOwnerIdValue(TypeToJsonValue(m_GroupOwnerId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("groupOwnerId", GroupOwnerIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Users.has_value())
+	{
+		rapidjson::Value UsersValue(TypeToJsonValue(m_Users, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("users", UsersValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Members.has_value())
+	{
+		rapidjson::Value MembersValue(TypeToJsonValue(m_Members, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("members", MembersValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void OrganizationGroupDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationGroupDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("id"))
+	{
+		const rapidjson::Value& IdValue = JsonDoc["id"];
+
+		if (IdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IdValue, m_Id, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("name"))
+	{
+		const rapidjson::Value& NameValue = JsonDoc["name"];
+
+		if (NameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NameValue, m_Name, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("groupOwnerId"))
+	{
+		const rapidjson::Value& GroupOwnerIdValue = JsonDoc["groupOwnerId"];
+
+		if (GroupOwnerIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GroupOwnerIdValue, m_GroupOwnerId, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("users"))
+	{
+		const rapidjson::Value& UsersValue = JsonDoc["users"];
+
+		if (UsersValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(UsersValue, m_Users, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("members"))
+	{
+		const rapidjson::Value& MembersValue = JsonDoc["members"];
+
+		if (MembersValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(MembersValue, m_Members, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t OrganizationGroupDto::GetId() const
+{
+	return m_Id.value();
+}
+
+bool OrganizationGroupDto::HasId() const
+{
+	return m_Id.has_value();
+}
+void OrganizationGroupDto::SetId(const utility::string_t& Value)
+{
+	m_Id = Value;
+}
+utility::string_t OrganizationGroupDto::GetName() const
+{
+	return m_Name.value();
+}
+
+bool OrganizationGroupDto::HasName() const
+{
+	return m_Name.has_value();
+}
+void OrganizationGroupDto::SetName(const utility::string_t& Value)
+{
+	m_Name = Value;
+}
+utility::string_t OrganizationGroupDto::GetGroupOwnerId() const
+{
+	return m_GroupOwnerId.value();
+}
+
+bool OrganizationGroupDto::HasGroupOwnerId() const
+{
+	return m_GroupOwnerId.has_value();
+}
+void OrganizationGroupDto::SetGroupOwnerId(const utility::string_t& Value)
+{
+	m_GroupOwnerId = Value;
+}
+const std::vector<utility::string_t>& OrganizationGroupDto::GetUsers() const
+{
+	return m_Users.value();
+}
+
+bool OrganizationGroupDto::HasUsers() const
+{
+	return m_Users.has_value();
+}
+void OrganizationGroupDto::SetUsers(const std::vector<utility::string_t>& Value)
+{
+	m_Users = Value;
+}
+const std::vector<std::shared_ptr<OrganizationGroupMemberDto>>& OrganizationGroupDto::GetMembers() const
+{
+	return m_Members.value();
+}
+
+bool OrganizationGroupDto::HasMembers() const
+{
+	return m_Members.has_value();
+}
+void OrganizationGroupDto::SetMembers(const std::vector<std::shared_ptr<OrganizationGroupMemberDto>>& Value)
+{
+	m_Members = Value;
+}
+
+OrganizationGroupMemberDto::OrganizationGroupMemberDto()
+{
+}
+OrganizationGroupMemberDto::~OrganizationGroupMemberDto()
+{
+}
+
+utility::string_t OrganizationGroupMemberDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Id.has_value())
+	{
+		rapidjson::Value IdValue(TypeToJsonValue(m_Id, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("id", IdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DisplayName.has_value())
+	{
+		rapidjson::Value DisplayNameValue(TypeToJsonValue(m_DisplayName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("displayName", DisplayNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Email.has_value())
+	{
+		rapidjson::Value EmailValue(TypeToJsonValue(m_Email, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("email", EmailValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void OrganizationGroupMemberDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationGroupMemberDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("id"))
+	{
+		const rapidjson::Value& IdValue = JsonDoc["id"];
+
+		if (IdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IdValue, m_Id, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("displayName"))
+	{
+		const rapidjson::Value& DisplayNameValue = JsonDoc["displayName"];
+
+		if (DisplayNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("email"))
+	{
+		const rapidjson::Value& EmailValue = JsonDoc["email"];
+
+		if (EmailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EmailValue, m_Email, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t OrganizationGroupMemberDto::GetId() const
+{
+	return m_Id.value();
+}
+
+bool OrganizationGroupMemberDto::HasId() const
+{
+	return m_Id.has_value();
+}
+void OrganizationGroupMemberDto::SetId(const utility::string_t& Value)
+{
+	m_Id = Value;
+}
+utility::string_t OrganizationGroupMemberDto::GetDisplayName() const
+{
+	return m_DisplayName.value();
+}
+
+bool OrganizationGroupMemberDto::HasDisplayName() const
+{
+	return m_DisplayName.has_value();
+}
+void OrganizationGroupMemberDto::SetDisplayName(const utility::string_t& Value)
+{
+	m_DisplayName = Value;
+}
+utility::string_t OrganizationGroupMemberDto::GetEmail() const
+{
+	return m_Email.value();
+}
+
+bool OrganizationGroupMemberDto::HasEmail() const
+{
+	return m_Email.has_value();
+}
+void OrganizationGroupMemberDto::SetEmail(const utility::string_t& Value)
+{
+	m_Email = Value;
+}
+
+OrganizationMemberFailure::OrganizationMemberFailure()
+{
+}
+OrganizationMemberFailure::~OrganizationMemberFailure()
+{
+}
+
+utility::string_t OrganizationMemberFailure::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Email.has_value())
+	{
+		rapidjson::Value EmailValue(TypeToJsonValue(m_Email, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("email", EmailValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Reason.has_value())
+	{
+		rapidjson::Value ReasonValue(TypeToJsonValue(m_Reason, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("reason", ReasonValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void OrganizationMemberFailure::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationMemberFailure::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("email"))
+	{
+		const rapidjson::Value& EmailValue = JsonDoc["email"];
+
+		if (EmailValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(EmailValue, m_Email, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("reason"))
+	{
+		const rapidjson::Value& ReasonValue = JsonDoc["reason"];
+
+		if (ReasonValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(ReasonValue, m_Reason, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t OrganizationMemberFailure::GetEmail() const
+{
+	return m_Email.value();
+}
+
+bool OrganizationMemberFailure::HasEmail() const
+{
+	return m_Email.has_value();
+}
+void OrganizationMemberFailure::SetEmail(const utility::string_t& Value)
+{
+	m_Email = Value;
+}
+utility::string_t OrganizationMemberFailure::GetReason() const
+{
+	return m_Reason.value();
+}
+
+bool OrganizationMemberFailure::HasReason() const
+{
+	return m_Reason.has_value();
+}
+void OrganizationMemberFailure::SetReason(const utility::string_t& Value)
+{
+	m_Reason = Value;
+}
+
+OrganizationMembersAddRequest::OrganizationMembersAddRequest()
+{
+}
+OrganizationMembersAddRequest::~OrganizationMembersAddRequest()
+{
+}
+
+utility::string_t OrganizationMembersAddRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_GroupIds.has_value())
+	{
+		rapidjson::Value GroupIdsValue(TypeToJsonValue(m_GroupIds, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("groupIds", GroupIdsValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void OrganizationMembersAddRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationMembersAddRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("groupIds"))
+	{
+		const rapidjson::Value& GroupIdsValue = JsonDoc["groupIds"];
+
+		if (GroupIdsValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GroupIdsValue, m_GroupIds, LogSystem);
+		}
+	}
+}
+
+
+const std::vector<utility::string_t>& OrganizationMembersAddRequest::GetGroupIds() const
+{
+	return m_GroupIds.value();
+}
+
+bool OrganizationMembersAddRequest::HasGroupIds() const
+{
+	return m_GroupIds.has_value();
+}
+void OrganizationMembersAddRequest::SetGroupIds(const std::vector<utility::string_t>& Value)
+{
+	m_GroupIds = Value;
+}
+
+OrganizationMembersAddResponse::OrganizationMembersAddResponse()
+{
+}
+OrganizationMembersAddResponse::~OrganizationMembersAddResponse()
+{
+}
+
+utility::string_t OrganizationMembersAddResponse::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Added.has_value())
+	{
+		rapidjson::Value AddedValue(TypeToJsonValue(m_Added, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("added", AddedValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_AlreadyMembers.has_value())
+	{
+		rapidjson::Value AlreadyMembersValue(TypeToJsonValue(m_AlreadyMembers, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("alreadyMembers", AlreadyMembersValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Failed.has_value())
+	{
+		rapidjson::Value FailedValue(TypeToJsonValue(m_Failed, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("failed", FailedValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void OrganizationMembersAddResponse::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationMembersAddResponse::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("added"))
+	{
+		const rapidjson::Value& AddedValue = JsonDoc["added"];
+
+		if (AddedValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AddedValue, m_Added, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("alreadyMembers"))
+	{
+		const rapidjson::Value& AlreadyMembersValue = JsonDoc["alreadyMembers"];
+
+		if (AlreadyMembersValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AlreadyMembersValue, m_AlreadyMembers, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("failed"))
+	{
+		const rapidjson::Value& FailedValue = JsonDoc["failed"];
+
+		if (FailedValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(FailedValue, m_Failed, LogSystem);
+		}
+	}
+}
+
+
+const std::vector<utility::string_t>& OrganizationMembersAddResponse::GetAdded() const
+{
+	return m_Added.value();
+}
+
+bool OrganizationMembersAddResponse::HasAdded() const
+{
+	return m_Added.has_value();
+}
+void OrganizationMembersAddResponse::SetAdded(const std::vector<utility::string_t>& Value)
+{
+	m_Added = Value;
+}
+const std::vector<utility::string_t>& OrganizationMembersAddResponse::GetAlreadyMembers() const
+{
+	return m_AlreadyMembers.value();
+}
+
+bool OrganizationMembersAddResponse::HasAlreadyMembers() const
+{
+	return m_AlreadyMembers.has_value();
+}
+void OrganizationMembersAddResponse::SetAlreadyMembers(const std::vector<utility::string_t>& Value)
+{
+	m_AlreadyMembers = Value;
+}
+const std::vector<std::shared_ptr<OrganizationMemberFailure>>& OrganizationMembersAddResponse::GetFailed() const
+{
+	return m_Failed.value();
+}
+
+bool OrganizationMembersAddResponse::HasFailed() const
+{
+	return m_Failed.has_value();
+}
+void OrganizationMembersAddResponse::SetFailed(const std::vector<std::shared_ptr<OrganizationMemberFailure>>& Value)
+{
+	m_Failed = Value;
+}
+
+OrganizationTenantDto::OrganizationTenantDto()
+{
+}
+OrganizationTenantDto::~OrganizationTenantDto()
+{
+}
+
+utility::string_t OrganizationTenantDto::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Id.has_value())
+	{
+		rapidjson::Value IdValue(TypeToJsonValue(m_Id, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("id", IdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Name.has_value())
+	{
+		rapidjson::Value NameValue(TypeToJsonValue(m_Name, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("name", NameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_DisplayName.has_value())
+	{
+		rapidjson::Value DisplayNameValue(TypeToJsonValue(m_DisplayName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("displayName", DisplayNameValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_Locked.has_value())
+	{
+		rapidjson::Value LockedValue(TypeToJsonValue(m_Locked, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("locked", LockedValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_IsAdministrativeTenant.has_value())
+	{
+		rapidjson::Value IsAdministrativeTenantValue(TypeToJsonValue(m_IsAdministrativeTenant, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("isAdministrativeTenant", IsAdministrativeTenantValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_SpinUpState.has_value())
+	{
+		rapidjson::Value SpinUpStateValue(TypeToJsonValue(m_SpinUpState, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("spinUpState", SpinUpStateValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void OrganizationTenantDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationTenantDto::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("id"))
+	{
+		const rapidjson::Value& IdValue = JsonDoc["id"];
+
+		if (IdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IdValue, m_Id, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("name"))
+	{
+		const rapidjson::Value& NameValue = JsonDoc["name"];
+
+		if (NameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NameValue, m_Name, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("displayName"))
+	{
+		const rapidjson::Value& DisplayNameValue = JsonDoc["displayName"];
+
+		if (DisplayNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("locked"))
+	{
+		const rapidjson::Value& LockedValue = JsonDoc["locked"];
+
+		if (LockedValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(LockedValue, m_Locked, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member locked is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("isAdministrativeTenant"))
+	{
+		const rapidjson::Value& IsAdministrativeTenantValue = JsonDoc["isAdministrativeTenant"];
+
+		if (IsAdministrativeTenantValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(IsAdministrativeTenantValue, m_IsAdministrativeTenant, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isAdministrativeTenant is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("spinUpState"))
+	{
+		const rapidjson::Value& SpinUpStateValue = JsonDoc["spinUpState"];
+
+		if (SpinUpStateValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(SpinUpStateValue, m_SpinUpState, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t OrganizationTenantDto::GetId() const
+{
+	return m_Id.value();
+}
+
+bool OrganizationTenantDto::HasId() const
+{
+	return m_Id.has_value();
+}
+void OrganizationTenantDto::SetId(const utility::string_t& Value)
+{
+	m_Id = Value;
+}
+utility::string_t OrganizationTenantDto::GetName() const
+{
+	return m_Name.value();
+}
+
+bool OrganizationTenantDto::HasName() const
+{
+	return m_Name.has_value();
+}
+void OrganizationTenantDto::SetName(const utility::string_t& Value)
+{
+	m_Name = Value;
+}
+utility::string_t OrganizationTenantDto::GetDisplayName() const
+{
+	return m_DisplayName.value();
+}
+
+bool OrganizationTenantDto::HasDisplayName() const
+{
+	return m_DisplayName.has_value();
+}
+void OrganizationTenantDto::SetDisplayName(const utility::string_t& Value)
+{
+	m_DisplayName = Value;
+}
+bool OrganizationTenantDto::GetLocked() const
+{
+	return m_Locked.value();
+}
+
+bool OrganizationTenantDto::HasLocked() const
+{
+	return m_Locked.has_value();
+}
+void OrganizationTenantDto::SetLocked(const bool& Value)
+{
+	m_Locked = Value;
+}
+bool OrganizationTenantDto::GetIsAdministrativeTenant() const
+{
+	return m_IsAdministrativeTenant.value();
+}
+
+bool OrganizationTenantDto::HasIsAdministrativeTenant() const
+{
+	return m_IsAdministrativeTenant.has_value();
+}
+void OrganizationTenantDto::SetIsAdministrativeTenant(const bool& Value)
+{
+	m_IsAdministrativeTenant = Value;
+}
+utility::string_t OrganizationTenantDto::GetSpinUpState() const
+{
+	return m_SpinUpState.value();
+}
+
+bool OrganizationTenantDto::HasSpinUpState() const
+{
+	return m_SpinUpState.has_value();
+}
+void OrganizationTenantDto::SetSpinUpState(const utility::string_t& Value)
+{
+	m_SpinUpState = Value;
+}
+
 OrganizationTenantProvisionRequest::OrganizationTenantProvisionRequest()
 {
 }
@@ -25139,17 +32464,29 @@ utility::string_t OrganizationTenantProvisionRequest::ToJson() const
 		JsonDoc.AddMember("adminEmail", AdminEmailValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_AdministrativeTenantName.has_value())
+	{
+		rapidjson::Value AdministrativeTenantNameValue(TypeToJsonValue(m_AdministrativeTenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("administrativeTenantName", AdministrativeTenantNameValue, JsonDoc.GetAllocator());
+	}
+
 	if (m_CompanyName.has_value())
 	{
 		rapidjson::Value CompanyNameValue(TypeToJsonValue(m_CompanyName, JsonDoc.GetAllocator()));
 		JsonDoc.AddMember("companyName", CompanyNameValue, JsonDoc.GetAllocator());
 	}
 
+	if (m_DisplayName.has_value())
+	{
+		rapidjson::Value DisplayNameValue(TypeToJsonValue(m_DisplayName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("displayName", DisplayNameValue, JsonDoc.GetAllocator());
+	}
+
 
 	return JsonDocToString(JsonDoc);
 }
 
-void OrganizationTenantProvisionRequest::FromJson(const utility::string_t& Val)
+void OrganizationTenantProvisionRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -25158,7 +32495,7 @@ void OrganizationTenantProvisionRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationTenantProvisionRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationTenantProvisionRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -25171,11 +32508,11 @@ void OrganizationTenantProvisionRequest::FromJson(const utility::string_t& Val)
 
 		if (CompanyUrlFragmentValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CompanyUrlFragmentValue, m_CompanyUrlFragment);
+			JsonValueToType(CompanyUrlFragmentValue, m_CompanyUrlFragment, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member companyUrlFragment is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member companyUrlFragment is null!");
 		}
 	}
 
@@ -25185,11 +32522,11 @@ void OrganizationTenantProvisionRequest::FromJson(const utility::string_t& Val)
 
 		if (ProjectUrlFragmentValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectUrlFragmentValue, m_ProjectUrlFragment);
+			JsonValueToType(ProjectUrlFragmentValue, m_ProjectUrlFragment, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member projectUrlFragment is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member projectUrlFragment is null!");
 		}
 	}
 
@@ -25199,11 +32536,25 @@ void OrganizationTenantProvisionRequest::FromJson(const utility::string_t& Val)
 
 		if (AdminEmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AdminEmailValue, m_AdminEmail);
+			JsonValueToType(AdminEmailValue, m_AdminEmail, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member adminEmail is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member adminEmail is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("administrativeTenantName"))
+	{
+		const rapidjson::Value& AdministrativeTenantNameValue = JsonDoc["administrativeTenantName"];
+
+		if (AdministrativeTenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(AdministrativeTenantNameValue, m_AdministrativeTenantName, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member administrativeTenantName is null!");
 		}
 	}
 
@@ -25213,7 +32564,17 @@ void OrganizationTenantProvisionRequest::FromJson(const utility::string_t& Val)
 
 		if (CompanyNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CompanyNameValue, m_CompanyName);
+			JsonValueToType(CompanyNameValue, m_CompanyName, LogSystem);
+		}
+	}
+
+	if (JsonDoc.HasMember("displayName"))
+	{
+		const rapidjson::Value& DisplayNameValue = JsonDoc["displayName"];
+
+		if (DisplayNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 }
@@ -25258,6 +32619,19 @@ void OrganizationTenantProvisionRequest::SetAdminEmail(const utility::string_t& 
 {
 	m_AdminEmail = Value;
 }
+utility::string_t OrganizationTenantProvisionRequest::GetAdministrativeTenantName() const
+{
+	return m_AdministrativeTenantName.value();
+}
+
+bool OrganizationTenantProvisionRequest::HasAdministrativeTenantName() const
+{
+	return m_AdministrativeTenantName.has_value();
+}
+void OrganizationTenantProvisionRequest::SetAdministrativeTenantName(const utility::string_t& Value)
+{
+	m_AdministrativeTenantName = Value;
+}
 utility::string_t OrganizationTenantProvisionRequest::GetCompanyName() const
 {
 	return m_CompanyName.value();
@@ -25270,6 +32644,19 @@ bool OrganizationTenantProvisionRequest::HasCompanyName() const
 void OrganizationTenantProvisionRequest::SetCompanyName(const utility::string_t& Value)
 {
 	m_CompanyName = Value;
+}
+utility::string_t OrganizationTenantProvisionRequest::GetDisplayName() const
+{
+	return m_DisplayName.value();
+}
+
+bool OrganizationTenantProvisionRequest::HasDisplayName() const
+{
+	return m_DisplayName.has_value();
+}
+void OrganizationTenantProvisionRequest::SetDisplayName(const utility::string_t& Value)
+{
+	m_DisplayName = Value;
 }
 
 OrganizationTenantProvisionResponse::OrganizationTenantProvisionResponse()
@@ -25306,7 +32693,7 @@ utility::string_t OrganizationTenantProvisionResponse::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void OrganizationTenantProvisionResponse::FromJson(const utility::string_t& Val)
+void OrganizationTenantProvisionResponse::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -25315,7 +32702,7 @@ void OrganizationTenantProvisionResponse::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationTenantProvisionResponse::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationTenantProvisionResponse::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -25328,7 +32715,7 @@ void OrganizationTenantProvisionResponse::FromJson(const utility::string_t& Val)
 
 		if (TenantIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantIdValue, m_TenantId);
+			JsonValueToType(TenantIdValue, m_TenantId, LogSystem);
 		}
 	}
 
@@ -25338,7 +32725,7 @@ void OrganizationTenantProvisionResponse::FromJson(const utility::string_t& Val)
 
 		if (TenantNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantNameValue, m_TenantName);
+			JsonValueToType(TenantNameValue, m_TenantName, LogSystem);
 		}
 	}
 
@@ -25348,7 +32735,7 @@ void OrganizationTenantProvisionResponse::FromJson(const utility::string_t& Val)
 
 		if (AdminUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AdminUserIdValue, m_AdminUserId);
+			JsonValueToType(AdminUserIdValue, m_AdminUserId, LogSystem);
 		}
 	}
 }
@@ -25392,6 +32779,70 @@ bool OrganizationTenantProvisionResponse::HasAdminUserId() const
 void OrganizationTenantProvisionResponse::SetAdminUserId(const utility::string_t& Value)
 {
 	m_AdminUserId = Value;
+}
+
+OrganizationTenantRequest::OrganizationTenantRequest()
+{
+}
+OrganizationTenantRequest::~OrganizationTenantRequest()
+{
+}
+
+utility::string_t OrganizationTenantRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_TenantName.has_value())
+	{
+		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void OrganizationTenantRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "OrganizationTenantRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("tenantName"))
+	{
+		const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+
+		if (TenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantNameValue, m_TenantName, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t OrganizationTenantRequest::GetTenantName() const
+{
+	return m_TenantName.value();
+}
+
+bool OrganizationTenantRequest::HasTenantName() const
+{
+	return m_TenantName.has_value();
+}
+void OrganizationTenantRequest::SetTenantName(const utility::string_t& Value)
+{
+	m_TenantName = Value;
 }
 
 PersonDto::PersonDto()
@@ -25452,7 +32903,7 @@ utility::string_t PersonDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void PersonDto::FromJson(const utility::string_t& Val)
+void PersonDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -25461,7 +32912,7 @@ void PersonDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PersonDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PersonDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -25474,7 +32925,7 @@ void PersonDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -25484,7 +32935,7 @@ void PersonDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -25494,7 +32945,7 @@ void PersonDto::FromJson(const utility::string_t& Val)
 
 		if (DepartmentIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DepartmentIdValue, m_DepartmentId);
+			JsonValueToType(DepartmentIdValue, m_DepartmentId, LogSystem);
 		}
 	}
 
@@ -25504,7 +32955,7 @@ void PersonDto::FromJson(const utility::string_t& Val)
 
 		if (TitleValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TitleValue, m_Title);
+			JsonValueToType(TitleValue, m_Title, LogSystem);
 		}
 	}
 
@@ -25514,11 +32965,11 @@ void PersonDto::FromJson(const utility::string_t& Val)
 
 		if (WeeklyCapacityHoursValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(WeeklyCapacityHoursValue, m_WeeklyCapacityHours);
+			JsonValueToType(WeeklyCapacityHoursValue, m_WeeklyCapacityHours, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member weeklyCapacityHours is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member weeklyCapacityHours is null!");
 		}
 	}
 
@@ -25528,11 +32979,11 @@ void PersonDto::FromJson(const utility::string_t& Val)
 
 		if (IsActiveValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsActiveValue, m_IsActive);
+			JsonValueToType(IsActiveValue, m_IsActive, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isActive is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isActive is null!");
 		}
 	}
 
@@ -25542,7 +32993,7 @@ void PersonDto::FromJson(const utility::string_t& Val)
 
 		if (LocationValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LocationValue, m_Location);
+			JsonValueToType(LocationValue, m_Location, LogSystem);
 		}
 	}
 }
@@ -25692,7 +33143,7 @@ utility::string_t PersonUpsertRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void PersonUpsertRequest::FromJson(const utility::string_t& Val)
+void PersonUpsertRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -25701,7 +33152,7 @@ void PersonUpsertRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PersonUpsertRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PersonUpsertRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -25714,11 +33165,11 @@ void PersonUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member name is null!");
 		}
 	}
 
@@ -25728,11 +33179,11 @@ void PersonUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (DepartmentIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DepartmentIdValue, m_DepartmentId);
+			JsonValueToType(DepartmentIdValue, m_DepartmentId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member departmentId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member departmentId is null!");
 		}
 	}
 
@@ -25742,7 +33193,7 @@ void PersonUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (TitleValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TitleValue, m_Title);
+			JsonValueToType(TitleValue, m_Title, LogSystem);
 		}
 	}
 
@@ -25752,11 +33203,11 @@ void PersonUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (WeeklyCapacityHoursValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(WeeklyCapacityHoursValue, m_WeeklyCapacityHours);
+			JsonValueToType(WeeklyCapacityHoursValue, m_WeeklyCapacityHours, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member weeklyCapacityHours is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member weeklyCapacityHours is null!");
 		}
 	}
 
@@ -25766,11 +33217,11 @@ void PersonUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (IsActiveValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsActiveValue, m_IsActive);
+			JsonValueToType(IsActiveValue, m_IsActive, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isActive is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isActive is null!");
 		}
 	}
 
@@ -25780,7 +33231,7 @@ void PersonUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (LocationValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LocationValue, m_Location);
+			JsonValueToType(LocationValue, m_Location, LogSystem);
 		}
 	}
 }
@@ -25887,7 +33338,7 @@ utility::string_t PlusAddressIdentitiesBatchRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void PlusAddressIdentitiesBatchRequest::FromJson(const utility::string_t& Val)
+void PlusAddressIdentitiesBatchRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -25896,7 +33347,7 @@ void PlusAddressIdentitiesBatchRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PlusAddressIdentitiesBatchRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PlusAddressIdentitiesBatchRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -25909,11 +33360,11 @@ void PlusAddressIdentitiesBatchRequest::FromJson(const utility::string_t& Val)
 
 		if (TenantNamesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantNamesValue, m_TenantNames);
+			JsonValueToType(TenantNamesValue, m_TenantNames, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member tenantNames is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member tenantNames is null!");
 		}
 	}
 }
@@ -25955,7 +33406,7 @@ utility::string_t PlusAddressIdentitiesBatchResponse::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void PlusAddressIdentitiesBatchResponse::FromJson(const utility::string_t& Val)
+void PlusAddressIdentitiesBatchResponse::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -25964,7 +33415,7 @@ void PlusAddressIdentitiesBatchResponse::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PlusAddressIdentitiesBatchResponse::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PlusAddressIdentitiesBatchResponse::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -25977,7 +33428,7 @@ void PlusAddressIdentitiesBatchResponse::FromJson(const utility::string_t& Val)
 
 		if (IdentitiesByTenantValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdentitiesByTenantValue, m_IdentitiesByTenant);
+			JsonValueToType(IdentitiesByTenantValue, m_IdentitiesByTenant, LogSystem);
 		}
 	}
 }
@@ -26039,7 +33490,7 @@ utility::string_t PlusAddressIdentityDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void PlusAddressIdentityDto::FromJson(const utility::string_t& Val)
+void PlusAddressIdentityDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -26048,7 +33499,7 @@ void PlusAddressIdentityDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PlusAddressIdentityDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PlusAddressIdentityDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -26061,7 +33512,7 @@ void PlusAddressIdentityDto::FromJson(const utility::string_t& Val)
 
 		if (EmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailValue, m_Email);
+			JsonValueToType(EmailValue, m_Email, LogSystem);
 		}
 	}
 
@@ -26071,7 +33522,7 @@ void PlusAddressIdentityDto::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -26081,7 +33532,7 @@ void PlusAddressIdentityDto::FromJson(const utility::string_t& Val)
 
 		if (SuffixValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SuffixValue, m_Suffix);
+			JsonValueToType(SuffixValue, m_Suffix, LogSystem);
 		}
 	}
 
@@ -26091,7 +33542,7 @@ void PlusAddressIdentityDto::FromJson(const utility::string_t& Val)
 
 		if (RolesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RolesValue, m_Roles);
+			JsonValueToType(RolesValue, m_Roles, LogSystem);
 		}
 	}
 }
@@ -26178,7 +33629,7 @@ utility::string_t PlusAddressingDomainEntry::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void PlusAddressingDomainEntry::FromJson(const utility::string_t& Val)
+void PlusAddressingDomainEntry::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -26187,7 +33638,7 @@ void PlusAddressingDomainEntry::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PlusAddressingDomainEntry::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PlusAddressingDomainEntry::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -26200,11 +33651,11 @@ void PlusAddressingDomainEntry::FromJson(const utility::string_t& Val)
 
 		if (DomainValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DomainValue, m_Domain);
+			JsonValueToType(DomainValue, m_Domain, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member domain is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member domain is null!");
 		}
 	}
 
@@ -26214,11 +33665,11 @@ void PlusAddressingDomainEntry::FromJson(const utility::string_t& Val)
 
 		if (ProviderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderValue, m_Provider);
+			JsonValueToType(ProviderValue, m_Provider, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member provider is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member provider is null!");
 		}
 	}
 }
@@ -26309,7 +33760,7 @@ utility::string_t PricingSheetDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void PricingSheetDto::FromJson(const utility::string_t& Val)
+void PricingSheetDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -26318,7 +33769,7 @@ void PricingSheetDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PricingSheetDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PricingSheetDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -26331,7 +33782,7 @@ void PricingSheetDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -26341,7 +33792,7 @@ void PricingSheetDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -26351,11 +33802,11 @@ void PricingSheetDto::FromJson(const utility::string_t& Val)
 
 		if (MultiplierValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MultiplierValue, m_Multiplier);
+			JsonValueToType(MultiplierValue, m_Multiplier, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member multiplier is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member multiplier is null!");
 		}
 	}
 
@@ -26365,7 +33816,7 @@ void PricingSheetDto::FromJson(const utility::string_t& Val)
 
 		if (StatusValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusValue, m_Status);
+			JsonValueToType(StatusValue, m_Status, LogSystem);
 		}
 	}
 
@@ -26375,11 +33826,11 @@ void PricingSheetDto::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -26389,11 +33840,11 @@ void PricingSheetDto::FromJson(const utility::string_t& Val)
 
 		if (VersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionValue, m_Version);
+			JsonValueToType(VersionValue, m_Version, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member version is null!");
 		}
 	}
 
@@ -26403,7 +33854,7 @@ void PricingSheetDto::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -26565,7 +34016,7 @@ utility::string_t PricingSheetExceptionDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void PricingSheetExceptionDto::FromJson(const utility::string_t& Val)
+void PricingSheetExceptionDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -26574,7 +34025,7 @@ void PricingSheetExceptionDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PricingSheetExceptionDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PricingSheetExceptionDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -26587,7 +34038,7 @@ void PricingSheetExceptionDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -26597,7 +34048,7 @@ void PricingSheetExceptionDto::FromJson(const utility::string_t& Val)
 
 		if (PricingSheetIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PricingSheetIdValue, m_PricingSheetId);
+			JsonValueToType(PricingSheetIdValue, m_PricingSheetId, LogSystem);
 		}
 	}
 
@@ -26607,7 +34058,7 @@ void PricingSheetExceptionDto::FromJson(const utility::string_t& Val)
 
 		if (MatrixEntryIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MatrixEntryIdValue, m_MatrixEntryId);
+			JsonValueToType(MatrixEntryIdValue, m_MatrixEntryId, LogSystem);
 		}
 	}
 
@@ -26617,7 +34068,7 @@ void PricingSheetExceptionDto::FromJson(const utility::string_t& Val)
 
 		if (TokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokensValue, m_Tokens);
+			JsonValueToType(TokensValue, m_Tokens, LogSystem);
 		}
 	}
 
@@ -26627,7 +34078,7 @@ void PricingSheetExceptionDto::FromJson(const utility::string_t& Val)
 
 		if (RatePerUnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RatePerUnitValue, m_RatePerUnit);
+			JsonValueToType(RatePerUnitValue, m_RatePerUnit, LogSystem);
 		}
 	}
 
@@ -26637,11 +34088,11 @@ void PricingSheetExceptionDto::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -26651,11 +34102,11 @@ void PricingSheetExceptionDto::FromJson(const utility::string_t& Val)
 
 		if (VersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionValue, m_Version);
+			JsonValueToType(VersionValue, m_Version, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member version is null!");
 		}
 	}
 
@@ -26665,7 +34116,7 @@ void PricingSheetExceptionDto::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -26858,7 +34309,7 @@ utility::string_t PricingSheetExceptionHistoryDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val)
+void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -26867,7 +34318,7 @@ void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PricingSheetExceptionHistoryDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PricingSheetExceptionHistoryDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -26880,7 +34331,7 @@ void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ExceptionIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ExceptionIdValue, m_ExceptionId);
+			JsonValueToType(ExceptionIdValue, m_ExceptionId, LogSystem);
 		}
 	}
 
@@ -26890,11 +34341,11 @@ void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (VersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionValue, m_Version);
+			JsonValueToType(VersionValue, m_Version, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member version is null!");
 		}
 	}
 
@@ -26904,11 +34355,11 @@ void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ParentVersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ParentVersionValue, m_ParentVersion);
+			JsonValueToType(ParentVersionValue, m_ParentVersion, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member parentVersion is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member parentVersion is null!");
 		}
 	}
 
@@ -26918,7 +34369,7 @@ void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (PricingSheetIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PricingSheetIdValue, m_PricingSheetId);
+			JsonValueToType(PricingSheetIdValue, m_PricingSheetId, LogSystem);
 		}
 	}
 
@@ -26928,7 +34379,7 @@ void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (MatrixEntryIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MatrixEntryIdValue, m_MatrixEntryId);
+			JsonValueToType(MatrixEntryIdValue, m_MatrixEntryId, LogSystem);
 		}
 	}
 
@@ -26938,7 +34389,7 @@ void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (TokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokensValue, m_Tokens);
+			JsonValueToType(TokensValue, m_Tokens, LogSystem);
 		}
 	}
 
@@ -26948,7 +34399,7 @@ void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (RatePerUnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RatePerUnitValue, m_RatePerUnit);
+			JsonValueToType(RatePerUnitValue, m_RatePerUnit, LogSystem);
 		}
 	}
 
@@ -26958,11 +34409,11 @@ void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -26972,7 +34423,7 @@ void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 
@@ -26982,11 +34433,11 @@ void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -26996,7 +34447,7 @@ void PricingSheetExceptionHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedByValue, m_CreatedBy);
+			JsonValueToType(CreatedByValue, m_CreatedBy, LogSystem);
 		}
 	}
 }
@@ -27222,7 +34673,7 @@ utility::string_t PricingSheetHistoryDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void PricingSheetHistoryDto::FromJson(const utility::string_t& Val)
+void PricingSheetHistoryDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -27231,7 +34682,7 @@ void PricingSheetHistoryDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PricingSheetHistoryDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "PricingSheetHistoryDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -27244,7 +34695,7 @@ void PricingSheetHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (PricingSheetIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PricingSheetIdValue, m_PricingSheetId);
+			JsonValueToType(PricingSheetIdValue, m_PricingSheetId, LogSystem);
 		}
 	}
 
@@ -27254,11 +34705,11 @@ void PricingSheetHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (VersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionValue, m_Version);
+			JsonValueToType(VersionValue, m_Version, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member version is null!");
 		}
 	}
 
@@ -27268,11 +34719,11 @@ void PricingSheetHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ParentVersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ParentVersionValue, m_ParentVersion);
+			JsonValueToType(ParentVersionValue, m_ParentVersion, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member parentVersion is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member parentVersion is null!");
 		}
 	}
 
@@ -27282,7 +34733,7 @@ void PricingSheetHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -27292,11 +34743,11 @@ void PricingSheetHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (MultiplierValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MultiplierValue, m_Multiplier);
+			JsonValueToType(MultiplierValue, m_Multiplier, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member multiplier is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member multiplier is null!");
 		}
 	}
 
@@ -27306,7 +34757,7 @@ void PricingSheetHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (StatusValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusValue, m_Status);
+			JsonValueToType(StatusValue, m_Status, LogSystem);
 		}
 	}
 
@@ -27316,11 +34767,11 @@ void PricingSheetHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -27330,7 +34781,7 @@ void PricingSheetHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 
@@ -27340,11 +34791,11 @@ void PricingSheetHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -27354,7 +34805,7 @@ void PricingSheetHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedByValue, m_CreatedBy);
+			JsonValueToType(CreatedByValue, m_CreatedBy, LogSystem);
 		}
 	}
 }
@@ -27543,7 +34994,7 @@ utility::string_t ProblemDetails::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ProblemDetails::FromJson(const utility::string_t& Val)
+void ProblemDetails::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -27552,7 +35003,7 @@ void ProblemDetails::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProblemDetails::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProblemDetails::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -27565,7 +35016,7 @@ void ProblemDetails::FromJson(const utility::string_t& Val)
 
 		if (TypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TypeValue, m_Type);
+			JsonValueToType(TypeValue, m_Type, LogSystem);
 		}
 	}
 
@@ -27575,7 +35026,7 @@ void ProblemDetails::FromJson(const utility::string_t& Val)
 
 		if (TitleValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TitleValue, m_Title);
+			JsonValueToType(TitleValue, m_Title, LogSystem);
 		}
 	}
 
@@ -27585,7 +35036,7 @@ void ProblemDetails::FromJson(const utility::string_t& Val)
 
 		if (StatusValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StatusValue, m_Status);
+			JsonValueToType(StatusValue, m_Status, LogSystem);
 		}
 	}
 
@@ -27595,7 +35046,7 @@ void ProblemDetails::FromJson(const utility::string_t& Val)
 
 		if (DetailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DetailValue, m_Detail);
+			JsonValueToType(DetailValue, m_Detail, LogSystem);
 		}
 	}
 
@@ -27605,7 +35056,7 @@ void ProblemDetails::FromJson(const utility::string_t& Val)
 
 		if (InstanceValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(InstanceValue, m_Instance);
+			JsonValueToType(InstanceValue, m_Instance, LogSystem);
 		}
 	}
 
@@ -27615,7 +35066,7 @@ void ProblemDetails::FromJson(const utility::string_t& Val)
 
 		if (ExtensionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ExtensionsValue, m_Extensions);
+			JsonValueToType(ExtensionsValue, m_Extensions, LogSystem);
 		}
 	}
 }
@@ -27758,7 +35209,7 @@ utility::string_t ProfileAdminLiteDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ProfileAdminLiteDto::FromJson(const utility::string_t& Val)
+void ProfileAdminLiteDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -27767,7 +35218,7 @@ void ProfileAdminLiteDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProfileAdminLiteDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProfileAdminLiteDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -27780,7 +35231,7 @@ void ProfileAdminLiteDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -27790,7 +35241,7 @@ void ProfileAdminLiteDto::FromJson(const utility::string_t& Val)
 
 		if (EmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailValue, m_Email);
+			JsonValueToType(EmailValue, m_Email, LogSystem);
 		}
 	}
 
@@ -27800,7 +35251,7 @@ void ProfileAdminLiteDto::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -27810,7 +35261,7 @@ void ProfileAdminLiteDto::FromJson(const utility::string_t& Val)
 
 		if (RolesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RolesValue, m_Roles);
+			JsonValueToType(RolesValue, m_Roles, LogSystem);
 		}
 	}
 
@@ -27820,7 +35271,7 @@ void ProfileAdminLiteDto::FromJson(const utility::string_t& Val)
 
 		if (TenantNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantNameValue, m_TenantName);
+			JsonValueToType(TenantNameValue, m_TenantName, LogSystem);
 		}
 	}
 
@@ -27830,11 +35281,11 @@ void ProfileAdminLiteDto::FromJson(const utility::string_t& Val)
 
 		if (IsEmailConfirmedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsEmailConfirmedValue, m_IsEmailConfirmed);
+			JsonValueToType(IsEmailConfirmedValue, m_IsEmailConfirmed, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isEmailConfirmed is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isEmailConfirmed is null!");
 		}
 	}
 
@@ -27844,11 +35295,11 @@ void ProfileAdminLiteDto::FromJson(const utility::string_t& Val)
 
 		if (LockedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LockedValue, m_Locked);
+			JsonValueToType(LockedValue, m_Locked, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member locked is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member locked is null!");
 		}
 	}
 }
@@ -28060,7 +35511,7 @@ utility::string_t ProfileDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ProfileDto::FromJson(const utility::string_t& Val)
+void ProfileDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -28069,7 +35520,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProfileDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProfileDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -28082,7 +35533,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -28092,7 +35543,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (EmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailValue, m_Email);
+			JsonValueToType(EmailValue, m_Email, LogSystem);
 		}
 	}
 
@@ -28102,7 +35553,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (GuestDeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GuestDeviceIdValue, m_GuestDeviceId);
+			JsonValueToType(GuestDeviceIdValue, m_GuestDeviceId, LogSystem);
 		}
 	}
 
@@ -28112,7 +35563,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (GuestFirstLoginIdentifiedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GuestFirstLoginIdentifiedValue, m_GuestFirstLoginIdentified);
+			JsonValueToType(GuestFirstLoginIdentifiedValue, m_GuestFirstLoginIdentified, LogSystem);
 		}
 	}
 
@@ -28122,7 +35573,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (LastLoginAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LastLoginAtValue, m_LastLoginAt);
+			JsonValueToType(LastLoginAtValue, m_LastLoginAt, LogSystem);
 		}
 	}
 
@@ -28132,7 +35583,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (LastLoginNonceValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LastLoginNonceValue, m_LastLoginNonce);
+			JsonValueToType(LastLoginNonceValue, m_LastLoginNonce, LogSystem);
 		}
 	}
 
@@ -28142,7 +35593,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (LastDeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LastDeviceIdValue, m_LastDeviceId);
+			JsonValueToType(LastDeviceIdValue, m_LastDeviceId, LogSystem);
 		}
 	}
 
@@ -28152,7 +35603,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (LastPlatformValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LastPlatformValue, m_LastPlatform);
+			JsonValueToType(LastPlatformValue, m_LastPlatform, LogSystem);
 		}
 	}
 
@@ -28162,7 +35613,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (AvatarIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AvatarIdValue, m_AvatarId);
+			JsonValueToType(AvatarIdValue, m_AvatarId, LogSystem);
 		}
 	}
 
@@ -28172,7 +35623,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (UserNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserNameValue, m_UserName);
+			JsonValueToType(UserNameValue, m_UserName, LogSystem);
 		}
 	}
 
@@ -28182,7 +35633,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (FirstNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FirstNameValue, m_FirstName);
+			JsonValueToType(FirstNameValue, m_FirstName, LogSystem);
 		}
 	}
 
@@ -28192,7 +35643,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -28202,11 +35653,11 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (IsEmailConfirmedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsEmailConfirmedValue, m_IsEmailConfirmed);
+			JsonValueToType(IsEmailConfirmedValue, m_IsEmailConfirmed, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isEmailConfirmed is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isEmailConfirmed is null!");
 		}
 	}
 
@@ -28216,7 +35667,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (RolesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RolesValue, m_Roles);
+			JsonValueToType(RolesValue, m_Roles, LogSystem);
 		}
 	}
 
@@ -28226,7 +35677,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (VerifiedAgeEighteenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen);
+			JsonValueToType(VerifiedAgeEighteenValue, m_VerifiedAgeEighteen, LogSystem);
 		}
 	}
 
@@ -28236,7 +35687,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedByValue, m_CreatedBy);
+			JsonValueToType(CreatedByValue, m_CreatedBy, LogSystem);
 		}
 	}
 
@@ -28246,7 +35697,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 	}
 
@@ -28256,7 +35707,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedByValue, m_UpdatedBy);
+			JsonValueToType(UpdatedByValue, m_UpdatedBy, LogSystem);
 		}
 	}
 
@@ -28266,7 +35717,7 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (UpdatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UpdatedAtValue, m_UpdatedAt);
+			JsonValueToType(UpdatedAtValue, m_UpdatedAt, LogSystem);
 		}
 	}
 
@@ -28276,11 +35727,11 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (LockedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LockedValue, m_Locked);
+			JsonValueToType(LockedValue, m_Locked, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member locked is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member locked is null!");
 		}
 	}
 
@@ -28290,11 +35741,11 @@ void ProfileDto::FromJson(const utility::string_t& Val)
 
 		if (PasswordLoginDisabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PasswordLoginDisabledValue, m_PasswordLoginDisabled);
+			JsonValueToType(PasswordLoginDisabledValue, m_PasswordLoginDisabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member passwordLoginDisabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member passwordLoginDisabled is null!");
 		}
 	}
 }
@@ -28544,7 +35995,7 @@ utility::string_t ProfileDtoDataPage::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ProfileDtoDataPage::FromJson(const utility::string_t& Val)
+void ProfileDtoDataPage::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -28553,7 +36004,7 @@ void ProfileDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProfileDtoDataPage::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProfileDtoDataPage::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -28566,7 +36017,7 @@ void ProfileDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 	}
 
@@ -28576,11 +36027,11 @@ void ProfileDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (SkipValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SkipValue, m_Skip);
+			JsonValueToType(SkipValue, m_Skip, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skip is null!");
 		}
 	}
 
@@ -28590,7 +36041,7 @@ void ProfileDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (LimitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LimitValue, m_Limit);
+			JsonValueToType(LimitValue, m_Limit, LogSystem);
 		}
 	}
 
@@ -28600,11 +36051,11 @@ void ProfileDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemCountValue, m_ItemCount);
+			JsonValueToType(ItemCountValue, m_ItemCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemCount is null!");
 		}
 	}
 
@@ -28614,11 +36065,11 @@ void ProfileDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemTotalCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemTotalCount is null!");
 		}
 	}
 }
@@ -28736,7 +36187,7 @@ utility::string_t ProfileLiteDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ProfileLiteDto::FromJson(const utility::string_t& Val)
+void ProfileLiteDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -28745,7 +36196,7 @@ void ProfileLiteDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProfileLiteDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProfileLiteDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -28758,7 +36209,7 @@ void ProfileLiteDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -28768,7 +36219,7 @@ void ProfileLiteDto::FromJson(const utility::string_t& Val)
 
 		if (AvatarIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AvatarIdValue, m_AvatarId);
+			JsonValueToType(AvatarIdValue, m_AvatarId, LogSystem);
 		}
 	}
 
@@ -28778,7 +36229,7 @@ void ProfileLiteDto::FromJson(const utility::string_t& Val)
 
 		if (UserNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserNameValue, m_UserName);
+			JsonValueToType(UserNameValue, m_UserName, LogSystem);
 		}
 	}
 
@@ -28788,7 +36239,7 @@ void ProfileLiteDto::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -28798,7 +36249,7 @@ void ProfileLiteDto::FromJson(const utility::string_t& Val)
 
 		if (PlatformValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PlatformValue, m_Platform);
+			JsonValueToType(PlatformValue, m_Platform, LogSystem);
 		}
 	}
 }
@@ -28890,7 +36341,7 @@ utility::string_t ProjectDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ProjectDto::FromJson(const utility::string_t& Val)
+void ProjectDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -28899,7 +36350,7 @@ void ProjectDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProjectDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProjectDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -28912,7 +36363,7 @@ void ProjectDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -28922,7 +36373,7 @@ void ProjectDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -28932,7 +36383,7 @@ void ProjectDto::FromJson(const utility::string_t& Val)
 
 		if (ColourValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ColourValue, m_Colour);
+			JsonValueToType(ColourValue, m_Colour, LogSystem);
 		}
 	}
 
@@ -28942,11 +36393,11 @@ void ProjectDto::FromJson(const utility::string_t& Val)
 
 		if (IsActiveValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsActiveValue, m_IsActive);
+			JsonValueToType(IsActiveValue, m_IsActive, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isActive is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isActive is null!");
 		}
 	}
 }
@@ -29039,7 +36490,7 @@ utility::string_t ProjectUpsertRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ProjectUpsertRequest::FromJson(const utility::string_t& Val)
+void ProjectUpsertRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -29048,7 +36499,7 @@ void ProjectUpsertRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProjectUpsertRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ProjectUpsertRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -29061,11 +36512,11 @@ void ProjectUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member name is null!");
 		}
 	}
 
@@ -29075,7 +36526,7 @@ void ProjectUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (ColourValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ColourValue, m_Colour);
+			JsonValueToType(ColourValue, m_Colour, LogSystem);
 		}
 	}
 
@@ -29085,11 +36536,11 @@ void ProjectUpsertRequest::FromJson(const utility::string_t& Val)
 
 		if (IsActiveValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsActiveValue, m_IsActive);
+			JsonValueToType(IsActiveValue, m_IsActive, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isActive is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isActive is null!");
 		}
 	}
 }
@@ -29193,7 +36644,7 @@ utility::string_t QueueEntryDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void QueueEntryDto::FromJson(const utility::string_t& Val)
+void QueueEntryDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -29202,7 +36653,7 @@ void QueueEntryDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "QueueEntryDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "QueueEntryDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -29215,7 +36666,7 @@ void QueueEntryDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -29225,7 +36676,7 @@ void QueueEntryDto::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 	}
 
@@ -29235,7 +36686,7 @@ void QueueEntryDto::FromJson(const utility::string_t& Val)
 
 		if (UserNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserNameValue, m_UserName);
+			JsonValueToType(UserNameValue, m_UserName, LogSystem);
 		}
 	}
 
@@ -29245,11 +36696,11 @@ void QueueEntryDto::FromJson(const utility::string_t& Val)
 
 		if (EnqueuedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnqueuedAtValue, m_EnqueuedAt);
+			JsonValueToType(EnqueuedAtValue, m_EnqueuedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enqueuedAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enqueuedAt is null!");
 		}
 	}
 
@@ -29259,7 +36710,7 @@ void QueueEntryDto::FromJson(const utility::string_t& Val)
 
 		if (NoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NoteValue, m_Note);
+			JsonValueToType(NoteValue, m_Note, LogSystem);
 		}
 	}
 
@@ -29269,11 +36720,11 @@ void QueueEntryDto::FromJson(const utility::string_t& Val)
 
 		if (PositionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PositionValue, m_Position);
+			JsonValueToType(PositionValue, m_Position, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member position is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member position is null!");
 		}
 	}
 
@@ -29283,11 +36734,11 @@ void QueueEntryDto::FromJson(const utility::string_t& Val)
 
 		if (IsReservedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsReservedValue, m_IsReserved);
+			JsonValueToType(IsReservedValue, m_IsReserved, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isReserved is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isReserved is null!");
 		}
 	}
 }
@@ -29431,7 +36882,7 @@ utility::string_t QueueOutcomeDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void QueueOutcomeDto::FromJson(const utility::string_t& Val)
+void QueueOutcomeDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -29440,7 +36891,7 @@ void QueueOutcomeDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "QueueOutcomeDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "QueueOutcomeDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -29453,7 +36904,7 @@ void QueueOutcomeDto::FromJson(const utility::string_t& Val)
 
 		if (OutcomeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OutcomeValue, m_Outcome);
+			JsonValueToType(OutcomeValue, m_Outcome, LogSystem);
 		}
 	}
 
@@ -29463,11 +36914,11 @@ void QueueOutcomeDto::FromJson(const utility::string_t& Val)
 
 		if (SystemValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SystemValue, m_System);
+			JsonValueToType(SystemValue, m_System, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member system is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member system is null!");
 		}
 	}
 
@@ -29477,7 +36928,7 @@ void QueueOutcomeDto::FromJson(const utility::string_t& Val)
 
 		if (PositionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PositionValue, m_Position);
+			JsonValueToType(PositionValue, m_Position, LogSystem);
 		}
 	}
 
@@ -29487,11 +36938,11 @@ void QueueOutcomeDto::FromJson(const utility::string_t& Val)
 
 		if (QueueDepthValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(QueueDepthValue, m_QueueDepth);
+			JsonValueToType(QueueDepthValue, m_QueueDepth, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member queueDepth is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member queueDepth is null!");
 		}
 	}
 
@@ -29501,7 +36952,7 @@ void QueueOutcomeDto::FromJson(const utility::string_t& Val)
 
 		if (MessageValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MessageValue, m_Message);
+			JsonValueToType(MessageValue, m_Message, LogSystem);
 		}
 	}
 }
@@ -29631,7 +37082,7 @@ utility::string_t QuotaFeatureTierConfigItem::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void QuotaFeatureTierConfigItem::FromJson(const utility::string_t& Val)
+void QuotaFeatureTierConfigItem::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -29640,7 +37091,7 @@ void QuotaFeatureTierConfigItem::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "QuotaFeatureTierConfigItem::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "QuotaFeatureTierConfigItem::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -29653,11 +37104,11 @@ void QuotaFeatureTierConfigItem::FromJson(const utility::string_t& Val)
 
 		if (TierNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TierNameValue, m_TierName);
+			JsonValueToType(TierNameValue, m_TierName, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member tierName is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member tierName is null!");
 		}
 	}
 
@@ -29667,7 +37118,7 @@ void QuotaFeatureTierConfigItem::FromJson(const utility::string_t& Val)
 
 		if (LimitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LimitValue, m_Limit);
+			JsonValueToType(LimitValue, m_Limit, LogSystem);
 		}
 	}
 
@@ -29677,11 +37128,11 @@ void QuotaFeatureTierConfigItem::FromJson(const utility::string_t& Val)
 
 		if (PeriodValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PeriodValue, m_Period);
+			JsonValueToType(PeriodValue, m_Period, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member period is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member period is null!");
 		}
 	}
 
@@ -29691,11 +37142,11 @@ void QuotaFeatureTierConfigItem::FromJson(const utility::string_t& Val)
 
 		if (AllowReductionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowReductionsValue, m_AllowReductions);
+			JsonValueToType(AllowReductionsValue, m_AllowReductions, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowReductions is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member allowReductions is null!");
 		}
 	}
 
@@ -29705,11 +37156,11 @@ void QuotaFeatureTierConfigItem::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -29719,11 +37170,11 @@ void QuotaFeatureTierConfigItem::FromJson(const utility::string_t& Val)
 
 		if (LimitsEnforcedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LimitsEnforcedValue, m_LimitsEnforced);
+			JsonValueToType(LimitsEnforcedValue, m_LimitsEnforced, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member limitsEnforced is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member limitsEnforced is null!");
 		}
 	}
 
@@ -29733,7 +37184,7 @@ void QuotaFeatureTierConfigItem::FromJson(const utility::string_t& Val)
 
 		if (CategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CategoryValue, m_Category);
+			JsonValueToType(CategoryValue, m_Category, LogSystem);
 		}
 	}
 }
@@ -29871,7 +37322,7 @@ utility::string_t RefreshRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void RefreshRequest::FromJson(const utility::string_t& Val)
+void RefreshRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -29880,7 +37331,7 @@ void RefreshRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RefreshRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RefreshRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -29893,11 +37344,11 @@ void RefreshRequest::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member userId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member userId is null!");
 		}
 	}
 
@@ -29907,11 +37358,11 @@ void RefreshRequest::FromJson(const utility::string_t& Val)
 
 		if (RefreshTokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RefreshTokenValue, m_RefreshToken);
+			JsonValueToType(RefreshTokenValue, m_RefreshToken, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member refreshToken is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member refreshToken is null!");
 		}
 	}
 
@@ -29921,11 +37372,11 @@ void RefreshRequest::FromJson(const utility::string_t& Val)
 
 		if (DeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeviceIdValue, m_DeviceId);
+			JsonValueToType(DeviceIdValue, m_DeviceId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member deviceId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member deviceId is null!");
 		}
 	}
 
@@ -29935,11 +37386,11 @@ void RefreshRequest::FromJson(const utility::string_t& Val)
 
 		if (TokenOptionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokenOptionsValue, m_TokenOptions);
+			JsonValueToType(TokenOptionsValue, m_TokenOptions, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member tokenOptions is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member tokenOptions is null!");
 		}
 	}
 }
@@ -30032,7 +37483,7 @@ utility::string_t RegisterExternalHostnameRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void RegisterExternalHostnameRequest::FromJson(const utility::string_t& Val)
+void RegisterExternalHostnameRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -30041,7 +37492,7 @@ void RegisterExternalHostnameRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RegisterExternalHostnameRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RegisterExternalHostnameRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -30054,11 +37505,11 @@ void RegisterExternalHostnameRequest::FromJson(const utility::string_t& Val)
 
 		if (HostnameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HostnameValue, m_Hostname);
+			JsonValueToType(HostnameValue, m_Hostname, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member hostname is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member hostname is null!");
 		}
 	}
 
@@ -30068,11 +37519,11 @@ void RegisterExternalHostnameRequest::FromJson(const utility::string_t& Val)
 
 		if (TypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TypeValue, m_Type);
+			JsonValueToType(TypeValue, m_Type, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member type is null!");
 		}
 	}
 
@@ -30082,11 +37533,11 @@ void RegisterExternalHostnameRequest::FromJson(const utility::string_t& Val)
 
 		if (DnsStatusValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DnsStatusValue, m_DnsStatus);
+			JsonValueToType(DnsStatusValue, m_DnsStatus, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member dnsStatus is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member dnsStatus is null!");
 		}
 	}
 }
@@ -30132,6 +37583,239 @@ void RegisterExternalHostnameRequest::SetDnsStatus(const utility::string_t& Valu
 	m_DnsStatus = Value;
 }
 
+RegisterOwnProjectRequest::RegisterOwnProjectRequest()
+{
+}
+RegisterOwnProjectRequest::~RegisterOwnProjectRequest()
+{
+}
+
+utility::string_t RegisterOwnProjectRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_GcpProjectId.has_value())
+	{
+		rapidjson::Value GcpProjectIdValue(TypeToJsonValue(m_GcpProjectId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("gcpProjectId", GcpProjectIdValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void RegisterOwnProjectRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RegisterOwnProjectRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("gcpProjectId"))
+	{
+		const rapidjson::Value& GcpProjectIdValue = JsonDoc["gcpProjectId"];
+
+		if (GcpProjectIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GcpProjectIdValue, m_GcpProjectId, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member gcpProjectId is null!");
+		}
+	}
+}
+
+
+utility::string_t RegisterOwnProjectRequest::GetGcpProjectId() const
+{
+	return m_GcpProjectId.value();
+}
+
+bool RegisterOwnProjectRequest::HasGcpProjectId() const
+{
+	return m_GcpProjectId.has_value();
+}
+void RegisterOwnProjectRequest::SetGcpProjectId(const utility::string_t& Value)
+{
+	m_GcpProjectId = Value;
+}
+
+RegisterProjectRequest::RegisterProjectRequest()
+{
+}
+RegisterProjectRequest::~RegisterProjectRequest()
+{
+}
+
+utility::string_t RegisterProjectRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_GcpProjectId.has_value())
+	{
+		rapidjson::Value GcpProjectIdValue(TypeToJsonValue(m_GcpProjectId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("gcpProjectId", GcpProjectIdValue, JsonDoc.GetAllocator());
+	}
+
+	if (m_TenantName.has_value())
+	{
+		rapidjson::Value TenantNameValue(TypeToJsonValue(m_TenantName, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("tenantName", TenantNameValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void RegisterProjectRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RegisterProjectRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("gcpProjectId"))
+	{
+		const rapidjson::Value& GcpProjectIdValue = JsonDoc["gcpProjectId"];
+
+		if (GcpProjectIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(GcpProjectIdValue, m_GcpProjectId, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member gcpProjectId is null!");
+		}
+	}
+
+	if (JsonDoc.HasMember("tenantName"))
+	{
+		const rapidjson::Value& TenantNameValue = JsonDoc["tenantName"];
+
+		if (TenantNameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(TenantNameValue, m_TenantName, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member tenantName is null!");
+		}
+	}
+}
+
+
+utility::string_t RegisterProjectRequest::GetGcpProjectId() const
+{
+	return m_GcpProjectId.value();
+}
+
+bool RegisterProjectRequest::HasGcpProjectId() const
+{
+	return m_GcpProjectId.has_value();
+}
+void RegisterProjectRequest::SetGcpProjectId(const utility::string_t& Value)
+{
+	m_GcpProjectId = Value;
+}
+utility::string_t RegisterProjectRequest::GetTenantName() const
+{
+	return m_TenantName.value();
+}
+
+bool RegisterProjectRequest::HasTenantName() const
+{
+	return m_TenantName.has_value();
+}
+void RegisterProjectRequest::SetTenantName(const utility::string_t& Value)
+{
+	m_TenantName = Value;
+}
+
+RenameOrganizationRequest::RenameOrganizationRequest()
+{
+}
+RenameOrganizationRequest::~RenameOrganizationRequest()
+{
+}
+
+utility::string_t RenameOrganizationRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Name.has_value())
+	{
+		rapidjson::Value NameValue(TypeToJsonValue(m_Name, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("name", NameValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void RenameOrganizationRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RenameOrganizationRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("name"))
+	{
+		const rapidjson::Value& NameValue = JsonDoc["name"];
+
+		if (NameValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(NameValue, m_Name, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t RenameOrganizationRequest::GetName() const
+{
+	return m_Name.value();
+}
+
+bool RenameOrganizationRequest::HasName() const
+{
+	return m_Name.has_value();
+}
+void RenameOrganizationRequest::SetName(const utility::string_t& Value)
+{
+	m_Name = Value;
+}
+
 RevokedJtiSetDto::RevokedJtiSetDto()
 {
 }
@@ -30160,7 +37844,7 @@ utility::string_t RevokedJtiSetDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void RevokedJtiSetDto::FromJson(const utility::string_t& Val)
+void RevokedJtiSetDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -30169,7 +37853,7 @@ void RevokedJtiSetDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RevokedJtiSetDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RevokedJtiSetDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -30182,7 +37866,7 @@ void RevokedJtiSetDto::FromJson(const utility::string_t& Val)
 
 		if (JtisValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(JtisValue, m_Jtis);
+			JsonValueToType(JtisValue, m_Jtis, LogSystem);
 		}
 	}
 
@@ -30192,11 +37876,11 @@ void RevokedJtiSetDto::FromJson(const utility::string_t& Val)
 
 		if (GeneratedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GeneratedAtValue, m_GeneratedAt);
+			JsonValueToType(GeneratedAtValue, m_GeneratedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member generatedAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member generatedAt is null!");
 		}
 	}
 }
@@ -30267,7 +37951,7 @@ utility::string_t RosterConfigDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void RosterConfigDto::FromJson(const utility::string_t& Val)
+void RosterConfigDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -30276,7 +37960,7 @@ void RosterConfigDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RosterConfigDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RosterConfigDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -30289,7 +37973,7 @@ void RosterConfigDto::FromJson(const utility::string_t& Val)
 
 		if (WeekStartDayValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(WeekStartDayValue, m_WeekStartDay);
+			JsonValueToType(WeekStartDayValue, m_WeekStartDay, LogSystem);
 		}
 	}
 
@@ -30299,11 +37983,11 @@ void RosterConfigDto::FromJson(const utility::string_t& Val)
 
 		if (UnderUtilizedBelowPercentValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UnderUtilizedBelowPercentValue, m_UnderUtilizedBelowPercent);
+			JsonValueToType(UnderUtilizedBelowPercentValue, m_UnderUtilizedBelowPercent, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member underUtilizedBelowPercent is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member underUtilizedBelowPercent is null!");
 		}
 	}
 
@@ -30313,11 +37997,11 @@ void RosterConfigDto::FromJson(const utility::string_t& Val)
 
 		if (OverBookedAbovePercentValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OverBookedAbovePercentValue, m_OverBookedAbovePercent);
+			JsonValueToType(OverBookedAbovePercentValue, m_OverBookedAbovePercent, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member overBookedAbovePercent is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member overBookedAbovePercent is null!");
 		}
 	}
 
@@ -30327,7 +38011,7 @@ void RosterConfigDto::FromJson(const utility::string_t& Val)
 
 		if (LocationsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LocationsValue, m_Locations);
+			JsonValueToType(LocationsValue, m_Locations, LogSystem);
 		}
 	}
 
@@ -30337,7 +38021,7 @@ void RosterConfigDto::FromJson(const utility::string_t& Val)
 
 		if (GroupIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GroupIdValue, m_GroupId);
+			JsonValueToType(GroupIdValue, m_GroupId, LogSystem);
 		}
 	}
 }
@@ -30455,7 +38139,7 @@ utility::string_t RosterSnapshotDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void RosterSnapshotDto::FromJson(const utility::string_t& Val)
+void RosterSnapshotDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -30464,7 +38148,7 @@ void RosterSnapshotDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RosterSnapshotDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "RosterSnapshotDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -30477,11 +38161,11 @@ void RosterSnapshotDto::FromJson(const utility::string_t& Val)
 
 		if (ConfigValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ConfigValue, m_Config);
+			JsonValueToType(ConfigValue, m_Config, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member config is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member config is null!");
 		}
 	}
 
@@ -30491,7 +38175,7 @@ void RosterSnapshotDto::FromJson(const utility::string_t& Val)
 
 		if (DepartmentsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DepartmentsValue, m_Departments);
+			JsonValueToType(DepartmentsValue, m_Departments, LogSystem);
 		}
 	}
 
@@ -30501,7 +38185,7 @@ void RosterSnapshotDto::FromJson(const utility::string_t& Val)
 
 		if (PeopleValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PeopleValue, m_People);
+			JsonValueToType(PeopleValue, m_People, LogSystem);
 		}
 	}
 
@@ -30511,7 +38195,7 @@ void RosterSnapshotDto::FromJson(const utility::string_t& Val)
 
 		if (ProjectsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectsValue, m_Projects);
+			JsonValueToType(ProjectsValue, m_Projects, LogSystem);
 		}
 	}
 
@@ -30521,7 +38205,7 @@ void RosterSnapshotDto::FromJson(const utility::string_t& Val)
 
 		if (AssignmentsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AssignmentsValue, m_Assignments);
+			JsonValueToType(AssignmentsValue, m_Assignments, LogSystem);
 		}
 	}
 }
@@ -30639,7 +38323,7 @@ utility::string_t ServiceVersionInfo::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void ServiceVersionInfo::FromJson(const utility::string_t& Val)
+void ServiceVersionInfo::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -30648,7 +38332,7 @@ void ServiceVersionInfo::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ServiceVersionInfo::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "ServiceVersionInfo::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -30661,7 +38345,7 @@ void ServiceVersionInfo::FromJson(const utility::string_t& Val)
 
 		if (ContainerVersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ContainerVersionValue, m_ContainerVersion);
+			JsonValueToType(ContainerVersionValue, m_ContainerVersion, LogSystem);
 		}
 	}
 
@@ -30671,7 +38355,7 @@ void ServiceVersionInfo::FromJson(const utility::string_t& Val)
 
 		if (ServiceNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ServiceNameValue, m_ServiceName);
+			JsonValueToType(ServiceNameValue, m_ServiceName, LogSystem);
 		}
 	}
 
@@ -30681,7 +38365,7 @@ void ServiceVersionInfo::FromJson(const utility::string_t& Val)
 
 		if (ReverseProxyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReverseProxyValue, m_ReverseProxy);
+			JsonValueToType(ReverseProxyValue, m_ReverseProxy, LogSystem);
 		}
 	}
 
@@ -30691,7 +38375,7 @@ void ServiceVersionInfo::FromJson(const utility::string_t& Val)
 
 		if (VersionedServicesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionedServicesValue, m_VersionedServices);
+			JsonValueToType(VersionedServicesValue, m_VersionedServices, LogSystem);
 		}
 	}
 
@@ -30701,7 +38385,7 @@ void ServiceVersionInfo::FromJson(const utility::string_t& Val)
 
 		if (VersionedFunctionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionedFunctionsValue, m_VersionedFunctions);
+			JsonValueToType(VersionedFunctionsValue, m_VersionedFunctions, LogSystem);
 		}
 	}
 }
@@ -30795,7 +38479,7 @@ utility::string_t SetEncryptedValueRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void SetEncryptedValueRequest::FromJson(const utility::string_t& Val)
+void SetEncryptedValueRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -30804,7 +38488,7 @@ void SetEncryptedValueRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SetEncryptedValueRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SetEncryptedValueRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -30817,11 +38501,11 @@ void SetEncryptedValueRequest::FromJson(const utility::string_t& Val)
 
 		if (ValueValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ValueValue, m_Value);
+			JsonValueToType(ValueValue, m_Value, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member value is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member value is null!");
 		}
 	}
 }
@@ -30869,7 +38553,7 @@ utility::string_t SetMagnopusOwnedBatchRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void SetMagnopusOwnedBatchRequest::FromJson(const utility::string_t& Val)
+void SetMagnopusOwnedBatchRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -30878,7 +38562,7 @@ void SetMagnopusOwnedBatchRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SetMagnopusOwnedBatchRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SetMagnopusOwnedBatchRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -30891,11 +38575,11 @@ void SetMagnopusOwnedBatchRequest::FromJson(const utility::string_t& Val)
 
 		if (KeyNamesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KeyNamesValue, m_KeyNames);
+			JsonValueToType(KeyNamesValue, m_KeyNames, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member keyNames is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member keyNames is null!");
 		}
 	}
 
@@ -30905,11 +38589,11 @@ void SetMagnopusOwnedBatchRequest::FromJson(const utility::string_t& Val)
 
 		if (IsMagnopusOwnedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsMagnopusOwnedValue, m_IsMagnopusOwned);
+			JsonValueToType(IsMagnopusOwnedValue, m_IsMagnopusOwned, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isMagnopusOwned is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isMagnopusOwned is null!");
 		}
 	}
 }
@@ -30964,7 +38648,7 @@ utility::string_t SetMagnopusOwnedRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void SetMagnopusOwnedRequest::FromJson(const utility::string_t& Val)
+void SetMagnopusOwnedRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -30973,7 +38657,7 @@ void SetMagnopusOwnedRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SetMagnopusOwnedRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SetMagnopusOwnedRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -30986,11 +38670,11 @@ void SetMagnopusOwnedRequest::FromJson(const utility::string_t& Val)
 
 		if (IsMagnopusOwnedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsMagnopusOwnedValue, m_IsMagnopusOwned);
+			JsonValueToType(IsMagnopusOwnedValue, m_IsMagnopusOwned, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isMagnopusOwned is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isMagnopusOwned is null!");
 		}
 	}
 }
@@ -31008,6 +38692,70 @@ bool SetMagnopusOwnedRequest::HasIsMagnopusOwned() const
 void SetMagnopusOwnedRequest::SetIsMagnopusOwned(const bool& Value)
 {
 	m_IsMagnopusOwned = Value;
+}
+
+SetOrganizationOwnerRequest::SetOrganizationOwnerRequest()
+{
+}
+SetOrganizationOwnerRequest::~SetOrganizationOwnerRequest()
+{
+}
+
+utility::string_t SetOrganizationOwnerRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_OwnerUserId.has_value())
+	{
+		rapidjson::Value OwnerUserIdValue(TypeToJsonValue(m_OwnerUserId, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("ownerUserId", OwnerUserIdValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void SetOrganizationOwnerRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SetOrganizationOwnerRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("ownerUserId"))
+	{
+		const rapidjson::Value& OwnerUserIdValue = JsonDoc["ownerUserId"];
+
+		if (OwnerUserIdValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OwnerUserIdValue, m_OwnerUserId, LogSystem);
+		}
+	}
+}
+
+
+utility::string_t SetOrganizationOwnerRequest::GetOwnerUserId() const
+{
+	return m_OwnerUserId.value();
+}
+
+bool SetOrganizationOwnerRequest::HasOwnerUserId() const
+{
+	return m_OwnerUserId.has_value();
+}
+void SetOrganizationOwnerRequest::SetOwnerUserId(const utility::string_t& Value)
+{
+	m_OwnerUserId = Value;
 }
 
 SettingsDto::SettingsDto()
@@ -31044,7 +38792,7 @@ utility::string_t SettingsDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void SettingsDto::FromJson(const utility::string_t& Val)
+void SettingsDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -31053,7 +38801,7 @@ void SettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SettingsDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SettingsDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -31066,7 +38814,7 @@ void SettingsDto::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 	}
 
@@ -31076,7 +38824,7 @@ void SettingsDto::FromJson(const utility::string_t& Val)
 
 		if (ContextValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ContextValue, m_Context);
+			JsonValueToType(ContextValue, m_Context, LogSystem);
 		}
 	}
 
@@ -31086,11 +38834,11 @@ void SettingsDto::FromJson(const utility::string_t& Val)
 
 		if (SettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SettingsValue, m_Settings);
+			JsonValueToType(SettingsValue, m_Settings, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member settings is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member settings is null!");
 		}
 	}
 }
@@ -31174,7 +38922,7 @@ utility::string_t SocialIdentityCaptureRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void SocialIdentityCaptureRequest::FromJson(const utility::string_t& Val)
+void SocialIdentityCaptureRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -31183,7 +38931,7 @@ void SocialIdentityCaptureRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SocialIdentityCaptureRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SocialIdentityCaptureRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -31196,11 +38944,11 @@ void SocialIdentityCaptureRequest::FromJson(const utility::string_t& Val)
 
 		if (ProviderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderValue, m_Provider);
+			JsonValueToType(ProviderValue, m_Provider, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member provider is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member provider is null!");
 		}
 	}
 
@@ -31210,7 +38958,7 @@ void SocialIdentityCaptureRequest::FromJson(const utility::string_t& Val)
 
 		if (ClientValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ClientValue, m_Client);
+			JsonValueToType(ClientValue, m_Client, LogSystem);
 		}
 	}
 
@@ -31220,11 +38968,11 @@ void SocialIdentityCaptureRequest::FromJson(const utility::string_t& Val)
 
 		if (TokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokenValue, m_Token);
+			JsonValueToType(TokenValue, m_Token, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member token is null!");
 		}
 	}
 
@@ -31234,7 +38982,7 @@ void SocialIdentityCaptureRequest::FromJson(const utility::string_t& Val)
 
 		if (OAuthRedirectUriValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OAuthRedirectUriValue, m_OAuthRedirectUri);
+			JsonValueToType(OAuthRedirectUriValue, m_OAuthRedirectUri, LogSystem);
 		}
 	}
 
@@ -31244,7 +38992,7 @@ void SocialIdentityCaptureRequest::FromJson(const utility::string_t& Val)
 
 		if (OptionalProviderUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId);
+			JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId, LogSystem);
 		}
 	}
 }
@@ -31344,7 +39092,7 @@ utility::string_t SocialIdentityDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void SocialIdentityDto::FromJson(const utility::string_t& Val)
+void SocialIdentityDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -31353,7 +39101,7 @@ void SocialIdentityDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SocialIdentityDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SocialIdentityDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -31366,7 +39114,7 @@ void SocialIdentityDto::FromJson(const utility::string_t& Val)
 
 		if (EmailAddressValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailAddressValue, m_EmailAddress);
+			JsonValueToType(EmailAddressValue, m_EmailAddress, LogSystem);
 		}
 	}
 
@@ -31376,7 +39124,7 @@ void SocialIdentityDto::FromJson(const utility::string_t& Val)
 
 		if (ProviderUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderUserIdValue, m_ProviderUserId);
+			JsonValueToType(ProviderUserIdValue, m_ProviderUserId, LogSystem);
 		}
 	}
 }
@@ -31437,7 +39185,7 @@ utility::string_t SocialProviderIdDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void SocialProviderIdDto::FromJson(const utility::string_t& Val)
+void SocialProviderIdDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -31446,7 +39194,7 @@ void SocialProviderIdDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SocialProviderIdDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SocialProviderIdDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -31459,7 +39207,7 @@ void SocialProviderIdDto::FromJson(const utility::string_t& Val)
 
 		if (ProviderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderValue, m_Provider);
+			JsonValueToType(ProviderValue, m_Provider, LogSystem);
 		}
 	}
 
@@ -31469,7 +39217,7 @@ void SocialProviderIdDto::FromJson(const utility::string_t& Val)
 
 		if (ProviderUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderUserIdValue, m_ProviderUserId);
+			JsonValueToType(ProviderUserIdValue, m_ProviderUserId, LogSystem);
 		}
 	}
 }
@@ -31554,7 +39302,7 @@ utility::string_t SocialProviderInfo::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void SocialProviderInfo::FromJson(const utility::string_t& Val)
+void SocialProviderInfo::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -31563,7 +39311,7 @@ void SocialProviderInfo::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SocialProviderInfo::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SocialProviderInfo::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -31576,7 +39324,7 @@ void SocialProviderInfo::FromJson(const utility::string_t& Val)
 
 		if (ProviderNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderNameValue, m_ProviderName);
+			JsonValueToType(ProviderNameValue, m_ProviderName, LogSystem);
 		}
 	}
 
@@ -31586,7 +39334,7 @@ void SocialProviderInfo::FromJson(const utility::string_t& Val)
 
 		if (ClientIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ClientIdValue, m_ClientId);
+			JsonValueToType(ClientIdValue, m_ClientId, LogSystem);
 		}
 	}
 
@@ -31596,7 +39344,7 @@ void SocialProviderInfo::FromJson(const utility::string_t& Val)
 
 		if (ScopesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ScopesValue, m_Scopes);
+			JsonValueToType(ScopesValue, m_Scopes, LogSystem);
 		}
 	}
 
@@ -31606,7 +39354,7 @@ void SocialProviderInfo::FromJson(const utility::string_t& Val)
 
 		if (AuthorizeEndpointValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AuthorizeEndpointValue, m_AuthorizeEndpoint);
+			JsonValueToType(AuthorizeEndpointValue, m_AuthorizeEndpoint, LogSystem);
 		}
 	}
 
@@ -31616,7 +39364,7 @@ void SocialProviderInfo::FromJson(const utility::string_t& Val)
 
 		if (ThirdPartyAuthStateIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ThirdPartyAuthStateIdValue, m_ThirdPartyAuthStateId);
+			JsonValueToType(ThirdPartyAuthStateIdValue, m_ThirdPartyAuthStateId, LogSystem);
 		}
 	}
 
@@ -31626,7 +39374,7 @@ void SocialProviderInfo::FromJson(const utility::string_t& Val)
 
 		if (RedirectUriValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RedirectUriValue, m_RedirectUri);
+			JsonValueToType(RedirectUriValue, m_RedirectUri, LogSystem);
 		}
 	}
 }
@@ -31800,7 +39548,7 @@ utility::string_t StringDataPage::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void StringDataPage::FromJson(const utility::string_t& Val)
+void StringDataPage::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -31809,7 +39557,7 @@ void StringDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StringDataPage::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StringDataPage::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -31822,7 +39570,7 @@ void StringDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 	}
 
@@ -31832,11 +39580,11 @@ void StringDataPage::FromJson(const utility::string_t& Val)
 
 		if (SkipValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SkipValue, m_Skip);
+			JsonValueToType(SkipValue, m_Skip, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skip is null!");
 		}
 	}
 
@@ -31846,7 +39594,7 @@ void StringDataPage::FromJson(const utility::string_t& Val)
 
 		if (LimitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LimitValue, m_Limit);
+			JsonValueToType(LimitValue, m_Limit, LogSystem);
 		}
 	}
 
@@ -31856,11 +39604,11 @@ void StringDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemCountValue, m_ItemCount);
+			JsonValueToType(ItemCountValue, m_ItemCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemCount is null!");
 		}
 	}
 
@@ -31870,11 +39618,11 @@ void StringDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemTotalCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemTotalCount is null!");
 		}
 	}
 }
@@ -31968,7 +39716,7 @@ utility::string_t StripeCheckoutRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void StripeCheckoutRequest::FromJson(const utility::string_t& Val)
+void StripeCheckoutRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -31977,7 +39725,7 @@ void StripeCheckoutRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StripeCheckoutRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StripeCheckoutRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -31990,11 +39738,11 @@ void StripeCheckoutRequest::FromJson(const utility::string_t& Val)
 
 		if (LookupKeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LookupKeyValue, m_LookupKey);
+			JsonValueToType(LookupKeyValue, m_LookupKey, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member lookupKey is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member lookupKey is null!");
 		}
 	}
 }
@@ -32036,7 +39784,7 @@ utility::string_t StripeCheckoutSessionDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void StripeCheckoutSessionDto::FromJson(const utility::string_t& Val)
+void StripeCheckoutSessionDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -32045,7 +39793,7 @@ void StripeCheckoutSessionDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StripeCheckoutSessionDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StripeCheckoutSessionDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -32058,7 +39806,7 @@ void StripeCheckoutSessionDto::FromJson(const utility::string_t& Val)
 
 		if (CheckoutUrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CheckoutUrlValue, m_CheckoutUrl);
+			JsonValueToType(CheckoutUrlValue, m_CheckoutUrl, LogSystem);
 		}
 	}
 }
@@ -32108,7 +39856,7 @@ utility::string_t StripeCustomerDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void StripeCustomerDto::FromJson(const utility::string_t& Val)
+void StripeCustomerDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -32117,7 +39865,7 @@ void StripeCustomerDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StripeCustomerDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StripeCustomerDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -32130,7 +39878,7 @@ void StripeCustomerDto::FromJson(const utility::string_t& Val)
 
 		if (StripeCustomerIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(StripeCustomerIdValue, m_StripeCustomerId);
+			JsonValueToType(StripeCustomerIdValue, m_StripeCustomerId, LogSystem);
 		}
 	}
 
@@ -32140,7 +39888,7 @@ void StripeCustomerDto::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 	}
 
@@ -32150,7 +39898,7 @@ void StripeCustomerDto::FromJson(const utility::string_t& Val)
 
 		if (CustomerNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CustomerNameValue, m_CustomerName);
+			JsonValueToType(CustomerNameValue, m_CustomerName, LogSystem);
 		}
 	}
 }
@@ -32206,7 +39954,7 @@ utility::string_t StripeCustomerPortalDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void StripeCustomerPortalDto::FromJson(const utility::string_t& Val)
+void StripeCustomerPortalDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -32215,7 +39963,7 @@ void StripeCustomerPortalDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StripeCustomerPortalDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "StripeCustomerPortalDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -32228,7 +39976,7 @@ void StripeCustomerPortalDto::FromJson(const utility::string_t& Val)
 
 		if (CustomerPortalUrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CustomerPortalUrlValue, m_CustomerPortalUrl);
+			JsonValueToType(CustomerPortalUrlValue, m_CustomerPortalUrl, LogSystem);
 		}
 	}
 }
@@ -32242,6 +39990,74 @@ utility::string_t StripeCustomerPortalDto::GetCustomerPortalUrl() const
 bool StripeCustomerPortalDto::HasCustomerPortalUrl() const
 {
 	return m_CustomerPortalUrl.has_value();
+}
+
+SubmitTerraformOutputRequest::SubmitTerraformOutputRequest()
+{
+}
+SubmitTerraformOutputRequest::~SubmitTerraformOutputRequest()
+{
+}
+
+utility::string_t SubmitTerraformOutputRequest::ToJson() const
+{
+	rapidjson::Document JsonDoc(rapidjson::kObjectType);
+
+
+	if (m_Output.has_value())
+	{
+		rapidjson::Value OutputValue(TypeToJsonValue(m_Output, JsonDoc.GetAllocator()));
+		JsonDoc.AddMember("output", OutputValue, JsonDoc.GetAllocator());
+	}
+
+
+	return JsonDocToString(JsonDoc);
+}
+
+void SubmitTerraformOutputRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
+{
+	rapidjson::Document JsonDoc;
+
+	if (Val.c_str() == nullptr)
+	{
+		return;
+	}
+
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SubmitTerraformOutputRequest::FromJson", LogSystem);
+	if (!ok)
+	{
+		return;
+	}
+
+
+	if (JsonDoc.HasMember("output"))
+	{
+		const rapidjson::Value& OutputValue = JsonDoc["output"];
+
+		if (OutputValue != rapidjson::Type::kNullType)
+		{
+			JsonValueToType(OutputValue, m_Output, LogSystem);
+		}
+		else
+		{
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member output is null!");
+		}
+	}
+}
+
+
+utility::string_t SubmitTerraformOutputRequest::GetOutput() const
+{
+	return m_Output.value();
+}
+
+bool SubmitTerraformOutputRequest::HasOutput() const
+{
+	return m_Output.has_value();
+}
+void SubmitTerraformOutputRequest::SetOutput(const utility::string_t& Value)
+{
+	m_Output = Value;
 }
 
 SystemCreateRequest::SystemCreateRequest()
@@ -32290,7 +40106,7 @@ utility::string_t SystemCreateRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void SystemCreateRequest::FromJson(const utility::string_t& Val)
+void SystemCreateRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -32299,7 +40115,7 @@ void SystemCreateRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SystemCreateRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SystemCreateRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -32312,11 +40128,11 @@ void SystemCreateRequest::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member name is null!");
 		}
 	}
 
@@ -32326,7 +40142,7 @@ void SystemCreateRequest::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -32336,7 +40152,7 @@ void SystemCreateRequest::FromJson(const utility::string_t& Val)
 
 		if (UrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UrlValue, m_Url);
+			JsonValueToType(UrlValue, m_Url, LogSystem);
 		}
 	}
 
@@ -32346,7 +40162,7 @@ void SystemCreateRequest::FromJson(const utility::string_t& Val)
 
 		if (GracePeriodMinutesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GracePeriodMinutesValue, m_GracePeriodMinutes);
+			JsonValueToType(GracePeriodMinutesValue, m_GracePeriodMinutes, LogSystem);
 		}
 	}
 
@@ -32356,7 +40172,7 @@ void SystemCreateRequest::FromJson(const utility::string_t& Val)
 
 		if (ChannelIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChannelIdValue, m_ChannelId);
+			JsonValueToType(ChannelIdValue, m_ChannelId, LogSystem);
 		}
 	}
 }
@@ -32564,7 +40380,7 @@ utility::string_t SystemDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void SystemDto::FromJson(const utility::string_t& Val)
+void SystemDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -32573,7 +40389,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SystemDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SystemDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -32586,7 +40402,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -32596,7 +40412,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -32606,7 +40422,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -32616,7 +40432,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (UrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UrlValue, m_Url);
+			JsonValueToType(UrlValue, m_Url, LogSystem);
 		}
 	}
 
@@ -32626,7 +40442,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (ThumbnailPrototypeIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ThumbnailPrototypeIdValue, m_ThumbnailPrototypeId);
+			JsonValueToType(ThumbnailPrototypeIdValue, m_ThumbnailPrototypeId, LogSystem);
 		}
 	}
 
@@ -32636,7 +40452,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (ChannelIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChannelIdValue, m_ChannelId);
+			JsonValueToType(ChannelIdValue, m_ChannelId, LogSystem);
 		}
 	}
 
@@ -32646,11 +40462,11 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (IsArchivedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsArchivedValue, m_IsArchived);
+			JsonValueToType(IsArchivedValue, m_IsArchived, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isArchived is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isArchived is null!");
 		}
 	}
 
@@ -32660,7 +40476,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (CurrentHolderIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CurrentHolderIdValue, m_CurrentHolderId);
+			JsonValueToType(CurrentHolderIdValue, m_CurrentHolderId, LogSystem);
 		}
 	}
 
@@ -32670,7 +40486,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (CurrentHolderNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CurrentHolderNameValue, m_CurrentHolderName);
+			JsonValueToType(CurrentHolderNameValue, m_CurrentHolderName, LogSystem);
 		}
 	}
 
@@ -32680,7 +40496,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (CurrentNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CurrentNoteValue, m_CurrentNote);
+			JsonValueToType(CurrentNoteValue, m_CurrentNote, LogSystem);
 		}
 	}
 
@@ -32690,7 +40506,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (HeldSinceValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HeldSinceValue, m_HeldSince);
+			JsonValueToType(HeldSinceValue, m_HeldSince, LogSystem);
 		}
 	}
 
@@ -32700,7 +40516,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (LastReleasedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LastReleasedAtValue, m_LastReleasedAt);
+			JsonValueToType(LastReleasedAtValue, m_LastReleasedAt, LogSystem);
 		}
 	}
 
@@ -32710,7 +40526,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (ReservedForUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReservedForUserIdValue, m_ReservedForUserId);
+			JsonValueToType(ReservedForUserIdValue, m_ReservedForUserId, LogSystem);
 		}
 	}
 
@@ -32720,7 +40536,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (ReservedUntilValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReservedUntilValue, m_ReservedUntil);
+			JsonValueToType(ReservedUntilValue, m_ReservedUntil, LogSystem);
 		}
 	}
 
@@ -32730,7 +40546,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (ReservedForNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ReservedForNameValue, m_ReservedForName);
+			JsonValueToType(ReservedForNameValue, m_ReservedForName, LogSystem);
 		}
 	}
 
@@ -32740,11 +40556,11 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (GracePeriodMinutesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GracePeriodMinutesValue, m_GracePeriodMinutes);
+			JsonValueToType(GracePeriodMinutesValue, m_GracePeriodMinutes, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member gracePeriodMinutes is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member gracePeriodMinutes is null!");
 		}
 	}
 
@@ -32754,11 +40570,11 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (QueueDepthValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(QueueDepthValue, m_QueueDepth);
+			JsonValueToType(QueueDepthValue, m_QueueDepth, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member queueDepth is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member queueDepth is null!");
 		}
 	}
 
@@ -32768,7 +40584,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (QueueHeadNamesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(QueueHeadNamesValue, m_QueueHeadNames);
+			JsonValueToType(QueueHeadNamesValue, m_QueueHeadNames, LogSystem);
 		}
 	}
 
@@ -32778,7 +40594,7 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (QueueHeadUserIdsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(QueueHeadUserIdsValue, m_QueueHeadUserIds);
+			JsonValueToType(QueueHeadUserIdsValue, m_QueueHeadUserIds, LogSystem);
 		}
 	}
 
@@ -32788,11 +40604,11 @@ void SystemDto::FromJson(const utility::string_t& Val)
 
 		if (ViewerQueuedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ViewerQueuedValue, m_ViewerQueued);
+			JsonValueToType(ViewerQueuedValue, m_ViewerQueued, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member viewerQueued is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member viewerQueued is null!");
 		}
 	}
 }
@@ -33105,7 +40921,7 @@ utility::string_t SystemDtoDataPage::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void SystemDtoDataPage::FromJson(const utility::string_t& Val)
+void SystemDtoDataPage::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -33114,7 +40930,7 @@ void SystemDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SystemDtoDataPage::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SystemDtoDataPage::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -33127,7 +40943,7 @@ void SystemDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 	}
 
@@ -33137,11 +40953,11 @@ void SystemDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (SkipValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SkipValue, m_Skip);
+			JsonValueToType(SkipValue, m_Skip, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skip is null!");
 		}
 	}
 
@@ -33151,7 +40967,7 @@ void SystemDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (LimitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LimitValue, m_Limit);
+			JsonValueToType(LimitValue, m_Limit, LogSystem);
 		}
 	}
 
@@ -33161,11 +40977,11 @@ void SystemDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemCountValue, m_ItemCount);
+			JsonValueToType(ItemCountValue, m_ItemCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemCount is null!");
 		}
 	}
 
@@ -33175,11 +40991,11 @@ void SystemDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemTotalCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemTotalCount is null!");
 		}
 	}
 }
@@ -33273,7 +41089,7 @@ utility::string_t SystemThumbnailRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void SystemThumbnailRequest::FromJson(const utility::string_t& Val)
+void SystemThumbnailRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -33282,7 +41098,7 @@ void SystemThumbnailRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SystemThumbnailRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SystemThumbnailRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -33295,11 +41111,11 @@ void SystemThumbnailRequest::FromJson(const utility::string_t& Val)
 
 		if (ThumbnailPrototypeIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ThumbnailPrototypeIdValue, m_ThumbnailPrototypeId);
+			JsonValueToType(ThumbnailPrototypeIdValue, m_ThumbnailPrototypeId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member thumbnailPrototypeId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member thumbnailPrototypeId is null!");
 		}
 	}
 }
@@ -33365,7 +41181,7 @@ utility::string_t SystemUpdateRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void SystemUpdateRequest::FromJson(const utility::string_t& Val)
+void SystemUpdateRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -33374,7 +41190,7 @@ void SystemUpdateRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SystemUpdateRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "SystemUpdateRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -33387,11 +41203,11 @@ void SystemUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member name is null!");
 		}
 	}
 
@@ -33401,7 +41217,7 @@ void SystemUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -33411,7 +41227,7 @@ void SystemUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (UrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UrlValue, m_Url);
+			JsonValueToType(UrlValue, m_Url, LogSystem);
 		}
 	}
 
@@ -33421,7 +41237,7 @@ void SystemUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (GracePeriodMinutesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GracePeriodMinutesValue, m_GracePeriodMinutes);
+			JsonValueToType(GracePeriodMinutesValue, m_GracePeriodMinutes, LogSystem);
 		}
 	}
 
@@ -33431,7 +41247,7 @@ void SystemUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (ChannelIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChannelIdValue, m_ChannelId);
+			JsonValueToType(ChannelIdValue, m_ChannelId, LogSystem);
 		}
 	}
 }
@@ -33525,7 +41341,7 @@ utility::string_t TakeBatonRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TakeBatonRequest::FromJson(const utility::string_t& Val)
+void TakeBatonRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -33534,7 +41350,7 @@ void TakeBatonRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TakeBatonRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TakeBatonRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -33547,7 +41363,7 @@ void TakeBatonRequest::FromJson(const utility::string_t& Val)
 
 		if (NoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NoteValue, m_Note);
+			JsonValueToType(NoteValue, m_Note, LogSystem);
 		}
 	}
 }
@@ -33607,7 +41423,7 @@ utility::string_t TenancyLiteDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TenancyLiteDto::FromJson(const utility::string_t& Val)
+void TenancyLiteDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -33616,7 +41432,7 @@ void TenancyLiteDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenancyLiteDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenancyLiteDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -33629,7 +41445,7 @@ void TenancyLiteDto::FromJson(const utility::string_t& Val)
 
 		if (TenantNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantNameValue, m_TenantName);
+			JsonValueToType(TenantNameValue, m_TenantName, LogSystem);
 		}
 	}
 
@@ -33639,7 +41455,7 @@ void TenancyLiteDto::FromJson(const utility::string_t& Val)
 
 		if (TenantDisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TenantDisplayNameValue, m_TenantDisplayName);
+			JsonValueToType(TenantDisplayNameValue, m_TenantDisplayName, LogSystem);
 		}
 	}
 
@@ -33649,7 +41465,7 @@ void TenancyLiteDto::FromJson(const utility::string_t& Val)
 
 		if (UserDisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserDisplayNameValue, m_UserDisplayName);
+			JsonValueToType(UserDisplayNameValue, m_UserDisplayName, LogSystem);
 		}
 	}
 
@@ -33659,11 +41475,11 @@ void TenancyLiteDto::FromJson(const utility::string_t& Val)
 
 		if (IsEmailConfirmedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsEmailConfirmedValue, m_IsEmailConfirmed);
+			JsonValueToType(IsEmailConfirmedValue, m_IsEmailConfirmed, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isEmailConfirmed is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isEmailConfirmed is null!");
 		}
 	}
 }
@@ -33756,7 +41572,7 @@ utility::string_t TenantAdminAccount::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TenantAdminAccount::FromJson(const utility::string_t& Val)
+void TenantAdminAccount::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -33765,7 +41581,7 @@ void TenantAdminAccount::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantAdminAccount::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantAdminAccount::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -33778,11 +41594,11 @@ void TenantAdminAccount::FromJson(const utility::string_t& Val)
 
 		if (EmailAddressValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailAddressValue, m_EmailAddress);
+			JsonValueToType(EmailAddressValue, m_EmailAddress, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member emailAddress is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member emailAddress is null!");
 		}
 	}
 
@@ -33792,7 +41608,7 @@ void TenantAdminAccount::FromJson(const utility::string_t& Val)
 
 		if (PasswordValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PasswordValue, m_Password);
+			JsonValueToType(PasswordValue, m_Password, LogSystem);
 		}
 	}
 
@@ -33802,11 +41618,11 @@ void TenantAdminAccount::FromJson(const utility::string_t& Val)
 
 		if (RolesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RolesValue, m_Roles);
+			JsonValueToType(RolesValue, m_Roles, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member roles is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member roles is null!");
 		}
 	}
 }
@@ -33906,7 +41722,7 @@ utility::string_t TenantCleanupFilters::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TenantCleanupFilters::FromJson(const utility::string_t& Val)
+void TenantCleanupFilters::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -33915,7 +41731,7 @@ void TenantCleanupFilters::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantCleanupFilters::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantCleanupFilters::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -33928,7 +41744,7 @@ void TenantCleanupFilters::FromJson(const utility::string_t& Val)
 
 		if (DeleteTenantValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeleteTenantValue, m_DeleteTenant);
+			JsonValueToType(DeleteTenantValue, m_DeleteTenant, LogSystem);
 		}
 	}
 
@@ -33938,7 +41754,7 @@ void TenantCleanupFilters::FromJson(const utility::string_t& Val)
 
 		if (DeleteAllSpacesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeleteAllSpacesValue, m_DeleteAllSpaces);
+			JsonValueToType(DeleteAllSpacesValue, m_DeleteAllSpaces, LogSystem);
 		}
 	}
 
@@ -33948,7 +41764,7 @@ void TenantCleanupFilters::FromJson(const utility::string_t& Val)
 
 		if (DeleteAllUsersValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeleteAllUsersValue, m_DeleteAllUsers);
+			JsonValueToType(DeleteAllUsersValue, m_DeleteAllUsers, LogSystem);
 		}
 	}
 
@@ -33958,7 +41774,7 @@ void TenantCleanupFilters::FromJson(const utility::string_t& Val)
 
 		if (DeleteAllPoisValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeleteAllPoisValue, m_DeleteAllPois);
+			JsonValueToType(DeleteAllPoisValue, m_DeleteAllPois, LogSystem);
 		}
 	}
 
@@ -33968,7 +41784,7 @@ void TenantCleanupFilters::FromJson(const utility::string_t& Val)
 
 		if (DeleteAllSequencesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeleteAllSequencesValue, m_DeleteAllSequences);
+			JsonValueToType(DeleteAllSequencesValue, m_DeleteAllSequences, LogSystem);
 		}
 	}
 
@@ -33978,7 +41794,7 @@ void TenantCleanupFilters::FromJson(const utility::string_t& Val)
 
 		if (DeleteAllEncryptedDocumentsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeleteAllEncryptedDocumentsValue, m_DeleteAllEncryptedDocuments);
+			JsonValueToType(DeleteAllEncryptedDocumentsValue, m_DeleteAllEncryptedDocuments, LogSystem);
 		}
 	}
 
@@ -33988,7 +41804,7 @@ void TenantCleanupFilters::FromJson(const utility::string_t& Val)
 
 		if (DeleteAllPrototypesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeleteAllPrototypesValue, m_DeleteAllPrototypes);
+			JsonValueToType(DeleteAllPrototypesValue, m_DeleteAllPrototypes, LogSystem);
 		}
 	}
 }
@@ -34114,7 +41930,7 @@ utility::string_t TenantClientSettingsDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TenantClientSettingsDto::FromJson(const utility::string_t& Val)
+void TenantClientSettingsDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -34123,7 +41939,7 @@ void TenantClientSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantClientSettingsDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantClientSettingsDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -34136,11 +41952,11 @@ void TenantClientSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (RequireShotContextValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RequireShotContextValue, m_RequireShotContext);
+			JsonValueToType(RequireShotContextValue, m_RequireShotContext, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member requireShotContext is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member requireShotContext is null!");
 		}
 	}
 
@@ -34150,7 +41966,7 @@ void TenantClientSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (ShotContextSourcesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ShotContextSourcesValue, m_ShotContextSources);
+			JsonValueToType(ShotContextSourcesValue, m_ShotContextSources, LogSystem);
 		}
 	}
 }
@@ -34385,7 +42201,7 @@ utility::string_t TenantDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TenantDto::FromJson(const utility::string_t& Val)
+void TenantDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -34394,7 +42210,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -34407,7 +42223,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -34417,7 +42233,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (CompanyNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CompanyNameValue, m_CompanyName);
+			JsonValueToType(CompanyNameValue, m_CompanyName, LogSystem);
 		}
 	}
 
@@ -34427,7 +42243,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (AdminFullNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AdminFullNameValue, m_AdminFullName);
+			JsonValueToType(AdminFullNameValue, m_AdminFullName, LogSystem);
 		}
 	}
 
@@ -34437,7 +42253,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (CompanyWebUrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CompanyWebUrlValue, m_CompanyWebUrl);
+			JsonValueToType(CompanyWebUrlValue, m_CompanyWebUrl, LogSystem);
 		}
 	}
 
@@ -34447,11 +42263,11 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (PendingAdminValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PendingAdminValue, m_PendingAdmin);
+			JsonValueToType(PendingAdminValue, m_PendingAdmin, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member pendingAdmin is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member pendingAdmin is null!");
 		}
 	}
 
@@ -34461,11 +42277,11 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (LockedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LockedValue, m_Locked);
+			JsonValueToType(LockedValue, m_Locked, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member locked is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member locked is null!");
 		}
 	}
 
@@ -34475,11 +42291,11 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (EmailSettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailSettingsValue, m_EmailSettings);
+			JsonValueToType(EmailSettingsValue, m_EmailSettings, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member emailSettings is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member emailSettings is null!");
 		}
 	}
 
@@ -34489,7 +42305,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (EmailTemplateSettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailTemplateSettingsValue, m_EmailTemplateSettings);
+			JsonValueToType(EmailTemplateSettingsValue, m_EmailTemplateSettings, LogSystem);
 		}
 	}
 
@@ -34499,7 +42315,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (EmailRedirectUrlAllowListValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailRedirectUrlAllowListValue, m_EmailRedirectUrlAllowList);
+			JsonValueToType(EmailRedirectUrlAllowListValue, m_EmailRedirectUrlAllowList, LogSystem);
 		}
 	}
 
@@ -34509,7 +42325,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (CorsAllowedOriginsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CorsAllowedOriginsValue, m_CorsAllowedOrigins);
+			JsonValueToType(CorsAllowedOriginsValue, m_CorsAllowedOrigins, LogSystem);
 		}
 	}
 
@@ -34519,7 +42335,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (AdminUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AdminUserIdValue, m_AdminUserId);
+			JsonValueToType(AdminUserIdValue, m_AdminUserId, LogSystem);
 		}
 	}
 
@@ -34529,11 +42345,11 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (EnableMusubiValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnableMusubiValue, m_EnableMusubi);
+			JsonValueToType(EnableMusubiValue, m_EnableMusubi, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enableMusubi is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enableMusubi is null!");
 		}
 	}
 
@@ -34543,11 +42359,11 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (AdminCredentialsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AdminCredentialsValue, m_AdminCredentials);
+			JsonValueToType(AdminCredentialsValue, m_AdminCredentials, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member adminCredentials is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member adminCredentials is null!");
 		}
 	}
 
@@ -34557,11 +42373,11 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (DefaultSessionSettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DefaultSessionSettingsValue, m_DefaultSessionSettings);
+			JsonValueToType(DefaultSessionSettingsValue, m_DefaultSessionSettings, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member defaultSessionSettings is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member defaultSessionSettings is null!");
 		}
 	}
 
@@ -34571,7 +42387,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (MappedHostnamesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MappedHostnamesValue, m_MappedHostnames);
+			JsonValueToType(MappedHostnamesValue, m_MappedHostnames, LogSystem);
 		}
 	}
 
@@ -34581,7 +42397,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -34591,7 +42407,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (TypedHostnamesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TypedHostnamesValue, m_TypedHostnames);
+			JsonValueToType(TypedHostnamesValue, m_TypedHostnames, LogSystem);
 		}
 	}
 
@@ -34601,7 +42417,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (AllowedSsoRedirectUrisValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedSsoRedirectUrisValue, m_AllowedSsoRedirectUris);
+			JsonValueToType(AllowedSsoRedirectUrisValue, m_AllowedSsoRedirectUris, LogSystem);
 		}
 	}
 
@@ -34611,7 +42427,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (LoginRedirectHostAllowListValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LoginRedirectHostAllowListValue, m_LoginRedirectHostAllowList);
+			JsonValueToType(LoginRedirectHostAllowListValue, m_LoginRedirectHostAllowList, LogSystem);
 		}
 	}
 
@@ -34621,11 +42437,11 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (AllowGuestLoginValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowGuestLoginValue, m_AllowGuestLogin);
+			JsonValueToType(AllowGuestLoginValue, m_AllowGuestLogin, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowGuestLogin is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member allowGuestLogin is null!");
 		}
 	}
 
@@ -34635,11 +42451,11 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (EnforceSecretValidationValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnforceSecretValidationValue, m_EnforceSecretValidation);
+			JsonValueToType(EnforceSecretValidationValue, m_EnforceSecretValidation, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enforceSecretValidation is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enforceSecretValidation is null!");
 		}
 	}
 
@@ -34649,7 +42465,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (RequireShotContextValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RequireShotContextValue, m_RequireShotContext);
+			JsonValueToType(RequireShotContextValue, m_RequireShotContext, LogSystem);
 		}
 	}
 
@@ -34659,7 +42475,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (ShotContextSourcesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ShotContextSourcesValue, m_ShotContextSources);
+			JsonValueToType(ShotContextSourcesValue, m_ShotContextSources, LogSystem);
 		}
 	}
 
@@ -34669,11 +42485,11 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (IdentityProvidersValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdentityProvidersValue, m_IdentityProviders);
+			JsonValueToType(IdentityProvidersValue, m_IdentityProviders, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member identityProviders is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member identityProviders is null!");
 		}
 	}
 
@@ -34683,7 +42499,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (PlusAddressingDomainsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PlusAddressingDomainsValue, m_PlusAddressingDomains);
+			JsonValueToType(PlusAddressingDomainsValue, m_PlusAddressingDomains, LogSystem);
 		}
 	}
 
@@ -34693,7 +42509,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 	}
 
@@ -34703,7 +42519,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (BypassAgeVerificationValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(BypassAgeVerificationValue, m_BypassAgeVerification);
+			JsonValueToType(BypassAgeVerificationValue, m_BypassAgeVerification, LogSystem);
 		}
 	}
 
@@ -34713,7 +42529,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (OmitTenantNameInPathValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OmitTenantNameInPathValue, m_OmitTenantNameInPath);
+			JsonValueToType(OmitTenantNameInPathValue, m_OmitTenantNameInPath, LogSystem);
 		}
 	}
 
@@ -34723,7 +42539,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (PreventOpenSignupValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PreventOpenSignupValue, m_PreventOpenSignup);
+			JsonValueToType(PreventOpenSignupValue, m_PreventOpenSignup, LogSystem);
 		}
 	}
 
@@ -34733,7 +42549,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (CompanyUrlFragmentValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CompanyUrlFragmentValue, m_CompanyUrlFragment);
+			JsonValueToType(CompanyUrlFragmentValue, m_CompanyUrlFragment, LogSystem);
 		}
 	}
 
@@ -34743,7 +42559,7 @@ void TenantDto::FromJson(const utility::string_t& Val)
 
 		if (ProjectUrlFragmentValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProjectUrlFragmentValue, m_ProjectUrlFragment);
+			JsonValueToType(ProjectUrlFragmentValue, m_ProjectUrlFragment, LogSystem);
 		}
 	}
 }
@@ -35171,7 +42987,7 @@ utility::string_t TenantDtoDataPage::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TenantDtoDataPage::FromJson(const utility::string_t& Val)
+void TenantDtoDataPage::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -35180,7 +42996,7 @@ void TenantDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantDtoDataPage::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantDtoDataPage::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -35193,7 +43009,7 @@ void TenantDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 	}
 
@@ -35203,11 +43019,11 @@ void TenantDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (SkipValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SkipValue, m_Skip);
+			JsonValueToType(SkipValue, m_Skip, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skip is null!");
 		}
 	}
 
@@ -35217,7 +43033,7 @@ void TenantDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (LimitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LimitValue, m_Limit);
+			JsonValueToType(LimitValue, m_Limit, LogSystem);
 		}
 	}
 
@@ -35227,11 +43043,11 @@ void TenantDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemCountValue, m_ItemCount);
+			JsonValueToType(ItemCountValue, m_ItemCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemCount is null!");
 		}
 	}
 
@@ -35241,11 +43057,11 @@ void TenantDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemTotalCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemTotalCount is null!");
 		}
 	}
 }
@@ -35369,7 +43185,7 @@ utility::string_t TenantEmailSettingsDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TenantEmailSettingsDto::FromJson(const utility::string_t& Val)
+void TenantEmailSettingsDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -35378,7 +43194,7 @@ void TenantEmailSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantEmailSettingsDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantEmailSettingsDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -35391,7 +43207,7 @@ void TenantEmailSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (AllowedEmailDomainsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedEmailDomainsValue, m_AllowedEmailDomains);
+			JsonValueToType(AllowedEmailDomainsValue, m_AllowedEmailDomains, LogSystem);
 		}
 	}
 
@@ -35401,7 +43217,7 @@ void TenantEmailSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (AllowedEmailUserNameSuffixesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedEmailUserNameSuffixesValue, m_AllowedEmailUserNameSuffixes);
+			JsonValueToType(AllowedEmailUserNameSuffixesValue, m_AllowedEmailUserNameSuffixes, LogSystem);
 		}
 	}
 
@@ -35411,11 +43227,11 @@ void TenantEmailSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (DisableEmailSenderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisableEmailSenderValue, m_DisableEmailSender);
+			JsonValueToType(DisableEmailSenderValue, m_DisableEmailSender, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member disableEmailSender is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member disableEmailSender is null!");
 		}
 	}
 
@@ -35425,11 +43241,11 @@ void TenantEmailSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (EnableEmailAutoConfirmValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnableEmailAutoConfirmValue, m_EnableEmailAutoConfirm);
+			JsonValueToType(EnableEmailAutoConfirmValue, m_EnableEmailAutoConfirm, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enableEmailAutoConfirm is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enableEmailAutoConfirm is null!");
 		}
 	}
 
@@ -35439,7 +43255,7 @@ void TenantEmailSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (AllowedEmailAddressesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedEmailAddressesValue, m_AllowedEmailAddresses);
+			JsonValueToType(AllowedEmailAddressesValue, m_AllowedEmailAddresses, LogSystem);
 		}
 	}
 
@@ -35449,11 +43265,11 @@ void TenantEmailSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (AddAllowedEmailOnCreateValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AddAllowedEmailOnCreateValue, m_AddAllowedEmailOnCreate);
+			JsonValueToType(AddAllowedEmailOnCreateValue, m_AddAllowedEmailOnCreate, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member addAllowedEmailOnCreate is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member addAllowedEmailOnCreate is null!");
 		}
 	}
 }
@@ -35608,7 +43424,7 @@ utility::string_t TenantEmailTemplateSettingsDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val)
+void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -35617,7 +43433,7 @@ void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantEmailTemplateSettingsDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantEmailTemplateSettingsDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -35630,11 +43446,11 @@ void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (TypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TypeValue, m_Type);
+			JsonValueToType(TypeValue, m_Type, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member type is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member type is null!");
 		}
 	}
 
@@ -35644,11 +43460,11 @@ void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (TemplateNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TemplateNameValue, m_TemplateName);
+			JsonValueToType(TemplateNameValue, m_TemplateName, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member templateName is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member templateName is null!");
 		}
 	}
 
@@ -35658,7 +43474,7 @@ void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (SpaceLinkTemplateNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SpaceLinkTemplateNameValue, m_SpaceLinkTemplateName);
+			JsonValueToType(SpaceLinkTemplateNameValue, m_SpaceLinkTemplateName, LogSystem);
 		}
 	}
 
@@ -35668,7 +43484,7 @@ void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (EnvironmentUrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnvironmentUrlValue, m_EnvironmentUrl);
+			JsonValueToType(EnvironmentUrlValue, m_EnvironmentUrl, LogSystem);
 		}
 	}
 
@@ -35678,7 +43494,7 @@ void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (EnvironmentUrlTemplateValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnvironmentUrlTemplateValue, m_EnvironmentUrlTemplate);
+			JsonValueToType(EnvironmentUrlTemplateValue, m_EnvironmentUrlTemplate, LogSystem);
 		}
 	}
 
@@ -35688,7 +43504,7 @@ void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (SpaceLinkUrlTemplateValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SpaceLinkUrlTemplateValue, m_SpaceLinkUrlTemplate);
+			JsonValueToType(SpaceLinkUrlTemplateValue, m_SpaceLinkUrlTemplate, LogSystem);
 		}
 	}
 
@@ -35698,7 +43514,7 @@ void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (TokenEnvironmentUrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokenEnvironmentUrlValue, m_TokenEnvironmentUrl);
+			JsonValueToType(TokenEnvironmentUrlValue, m_TokenEnvironmentUrl, LogSystem);
 		}
 	}
 
@@ -35708,11 +43524,11 @@ void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (SenderEmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SenderEmailValue, m_SenderEmail);
+			JsonValueToType(SenderEmailValue, m_SenderEmail, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member senderEmail is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member senderEmail is null!");
 		}
 	}
 
@@ -35722,7 +43538,7 @@ void TenantEmailTemplateSettingsDto::FromJson(const utility::string_t& Val)
 
 		if (RecipientEmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RecipientEmailValue, m_RecipientEmail);
+			JsonValueToType(RecipientEmailValue, m_RecipientEmail, LogSystem);
 		}
 	}
 }
@@ -35874,7 +43690,7 @@ utility::string_t TenantSecretKeyInfoDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TenantSecretKeyInfoDto::FromJson(const utility::string_t& Val)
+void TenantSecretKeyInfoDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -35883,7 +43699,7 @@ void TenantSecretKeyInfoDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantSecretKeyInfoDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantSecretKeyInfoDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -35896,11 +43712,11 @@ void TenantSecretKeyInfoDto::FromJson(const utility::string_t& Val)
 
 		if (KeyNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(KeyNameValue, m_KeyName);
+			JsonValueToType(KeyNameValue, m_KeyName, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member keyName is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member keyName is null!");
 		}
 	}
 
@@ -35910,11 +43726,11 @@ void TenantSecretKeyInfoDto::FromJson(const utility::string_t& Val)
 
 		if (IsMagnopusOwnedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IsMagnopusOwnedValue, m_IsMagnopusOwned);
+			JsonValueToType(IsMagnopusOwnedValue, m_IsMagnopusOwned, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member isMagnopusOwned is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member isMagnopusOwned is null!");
 		}
 	}
 }
@@ -36005,7 +43821,7 @@ utility::string_t TenantSelfDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TenantSelfDto::FromJson(const utility::string_t& Val)
+void TenantSelfDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -36014,7 +43830,7 @@ void TenantSelfDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantSelfDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantSelfDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -36027,7 +43843,7 @@ void TenantSelfDto::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 	}
 
@@ -36037,7 +43853,7 @@ void TenantSelfDto::FromJson(const utility::string_t& Val)
 
 		if (CompanyNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CompanyNameValue, m_CompanyName);
+			JsonValueToType(CompanyNameValue, m_CompanyName, LogSystem);
 		}
 	}
 
@@ -36047,7 +43863,7 @@ void TenantSelfDto::FromJson(const utility::string_t& Val)
 
 		if (AdminUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AdminUserIdValue, m_AdminUserId);
+			JsonValueToType(AdminUserIdValue, m_AdminUserId, LogSystem);
 		}
 	}
 
@@ -36057,7 +43873,7 @@ void TenantSelfDto::FromJson(const utility::string_t& Val)
 
 		if (AllowedEmailAddressesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedEmailAddressesValue, m_AllowedEmailAddresses);
+			JsonValueToType(AllowedEmailAddressesValue, m_AllowedEmailAddresses, LogSystem);
 		}
 	}
 
@@ -36067,7 +43883,7 @@ void TenantSelfDto::FromJson(const utility::string_t& Val)
 
 		if (AllowedEmailDomainsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedEmailDomainsValue, m_AllowedEmailDomains);
+			JsonValueToType(AllowedEmailDomainsValue, m_AllowedEmailDomains, LogSystem);
 		}
 	}
 
@@ -36077,7 +43893,7 @@ void TenantSelfDto::FromJson(const utility::string_t& Val)
 
 		if (MappedHostnamesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MappedHostnamesValue, m_MappedHostnames);
+			JsonValueToType(MappedHostnamesValue, m_MappedHostnames, LogSystem);
 		}
 	}
 
@@ -36087,7 +43903,7 @@ void TenantSelfDto::FromJson(const utility::string_t& Val)
 
 		if (BypassAgeVerificationValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(BypassAgeVerificationValue, m_BypassAgeVerification);
+			JsonValueToType(BypassAgeVerificationValue, m_BypassAgeVerification, LogSystem);
 		}
 	}
 }
@@ -36329,7 +44145,7 @@ utility::string_t TenantUpdateRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TenantUpdateRequest::FromJson(const utility::string_t& Val)
+void TenantUpdateRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -36338,7 +44154,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantUpdateRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TenantUpdateRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -36351,7 +44167,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (CompanyNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CompanyNameValue, m_CompanyName);
+			JsonValueToType(CompanyNameValue, m_CompanyName, LogSystem);
 		}
 	}
 
@@ -36361,7 +44177,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -36371,7 +44187,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (AdminFullNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AdminFullNameValue, m_AdminFullName);
+			JsonValueToType(AdminFullNameValue, m_AdminFullName, LogSystem);
 		}
 	}
 
@@ -36381,7 +44197,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (CompanyWebUrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CompanyWebUrlValue, m_CompanyWebUrl);
+			JsonValueToType(CompanyWebUrlValue, m_CompanyWebUrl, LogSystem);
 		}
 	}
 
@@ -36391,7 +44207,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (AdminUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AdminUserIdValue, m_AdminUserId);
+			JsonValueToType(AdminUserIdValue, m_AdminUserId, LogSystem);
 		}
 	}
 
@@ -36401,7 +44217,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (LockedValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LockedValue, m_Locked);
+			JsonValueToType(LockedValue, m_Locked, LogSystem);
 		}
 	}
 
@@ -36411,7 +44227,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (PendingAdminValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PendingAdminValue, m_PendingAdmin);
+			JsonValueToType(PendingAdminValue, m_PendingAdmin, LogSystem);
 		}
 	}
 
@@ -36421,7 +44237,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (EnableMusubiValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnableMusubiValue, m_EnableMusubi);
+			JsonValueToType(EnableMusubiValue, m_EnableMusubi, LogSystem);
 		}
 	}
 
@@ -36431,7 +44247,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (AllowGuestLoginValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowGuestLoginValue, m_AllowGuestLogin);
+			JsonValueToType(AllowGuestLoginValue, m_AllowGuestLogin, LogSystem);
 		}
 	}
 
@@ -36441,7 +44257,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (EnforceSecretValidationValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnforceSecretValidationValue, m_EnforceSecretValidation);
+			JsonValueToType(EnforceSecretValidationValue, m_EnforceSecretValidation, LogSystem);
 		}
 	}
 
@@ -36451,7 +44267,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (RequireShotContextValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RequireShotContextValue, m_RequireShotContext);
+			JsonValueToType(RequireShotContextValue, m_RequireShotContext, LogSystem);
 		}
 	}
 
@@ -36461,7 +44277,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (BypassAgeVerificationValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(BypassAgeVerificationValue, m_BypassAgeVerification);
+			JsonValueToType(BypassAgeVerificationValue, m_BypassAgeVerification, LogSystem);
 		}
 	}
 
@@ -36471,7 +44287,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (OmitTenantNameInPathValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OmitTenantNameInPathValue, m_OmitTenantNameInPath);
+			JsonValueToType(OmitTenantNameInPathValue, m_OmitTenantNameInPath, LogSystem);
 		}
 	}
 
@@ -36481,7 +44297,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (PreventOpenSignupValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PreventOpenSignupValue, m_PreventOpenSignup);
+			JsonValueToType(PreventOpenSignupValue, m_PreventOpenSignup, LogSystem);
 		}
 	}
 
@@ -36491,7 +44307,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (ShotContextSourcesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ShotContextSourcesValue, m_ShotContextSources);
+			JsonValueToType(ShotContextSourcesValue, m_ShotContextSources, LogSystem);
 		}
 	}
 
@@ -36501,7 +44317,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (IdentityProvidersValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdentityProvidersValue, m_IdentityProviders);
+			JsonValueToType(IdentityProvidersValue, m_IdentityProviders, LogSystem);
 		}
 	}
 
@@ -36511,7 +44327,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (AllowedSsoRedirectUrisValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedSsoRedirectUrisValue, m_AllowedSsoRedirectUris);
+			JsonValueToType(AllowedSsoRedirectUrisValue, m_AllowedSsoRedirectUris, LogSystem);
 		}
 	}
 
@@ -36521,7 +44337,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (LoginRedirectHostAllowListValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LoginRedirectHostAllowListValue, m_LoginRedirectHostAllowList);
+			JsonValueToType(LoginRedirectHostAllowListValue, m_LoginRedirectHostAllowList, LogSystem);
 		}
 	}
 
@@ -36531,7 +44347,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (CorsAllowedOriginsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CorsAllowedOriginsValue, m_CorsAllowedOrigins);
+			JsonValueToType(CorsAllowedOriginsValue, m_CorsAllowedOrigins, LogSystem);
 		}
 	}
 
@@ -36541,7 +44357,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (EmailRedirectUrlAllowListValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailRedirectUrlAllowListValue, m_EmailRedirectUrlAllowList);
+			JsonValueToType(EmailRedirectUrlAllowListValue, m_EmailRedirectUrlAllowList, LogSystem);
 		}
 	}
 
@@ -36551,11 +44367,11 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (EmailSettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailSettingsValue, m_EmailSettings);
+			JsonValueToType(EmailSettingsValue, m_EmailSettings, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member emailSettings is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member emailSettings is null!");
 		}
 	}
 
@@ -36565,7 +44381,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (EmailTemplateSettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailTemplateSettingsValue, m_EmailTemplateSettings);
+			JsonValueToType(EmailTemplateSettingsValue, m_EmailTemplateSettings, LogSystem);
 		}
 	}
 
@@ -36575,11 +44391,11 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (DefaultSessionSettingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DefaultSessionSettingsValue, m_DefaultSessionSettings);
+			JsonValueToType(DefaultSessionSettingsValue, m_DefaultSessionSettings, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member defaultSessionSettings is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member defaultSessionSettings is null!");
 		}
 	}
 
@@ -36589,7 +44405,7 @@ void TenantUpdateRequest::FromJson(const utility::string_t& Val)
 
 		if (PlusAddressingDomainsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PlusAddressingDomainsValue, m_PlusAddressingDomains);
+			JsonValueToType(PlusAddressingDomainsValue, m_PlusAddressingDomains, LogSystem);
 		}
 	}
 }
@@ -37014,7 +44830,7 @@ utility::string_t TokenMatrixEntryDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
+void TokenMatrixEntryDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -37023,7 +44839,7 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TokenMatrixEntryDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TokenMatrixEntryDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -37036,7 +44852,7 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (IdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(IdValue, m_Id);
+			JsonValueToType(IdValue, m_Id, LogSystem);
 		}
 	}
 
@@ -37046,7 +44862,7 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (NodeKeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NodeKeyValue, m_NodeKey);
+			JsonValueToType(NodeKeyValue, m_NodeKey, LogSystem);
 		}
 	}
 
@@ -37056,7 +44872,7 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (DimensionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DimensionsValue, m_Dimensions);
+			JsonValueToType(DimensionsValue, m_Dimensions, LogSystem);
 		}
 	}
 
@@ -37066,11 +44882,11 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (CostKindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CostKindValue, m_CostKind);
+			JsonValueToType(CostKindValue, m_CostKind, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member costKind is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member costKind is null!");
 		}
 	}
 
@@ -37080,7 +44896,7 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (TokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokensValue, m_Tokens);
+			JsonValueToType(TokensValue, m_Tokens, LogSystem);
 		}
 	}
 
@@ -37090,7 +44906,7 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (RatePerUnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RatePerUnitValue, m_RatePerUnit);
+			JsonValueToType(RatePerUnitValue, m_RatePerUnit, LogSystem);
 		}
 	}
 
@@ -37100,7 +44916,7 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (UnitDimensionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UnitDimensionValue, m_UnitDimension);
+			JsonValueToType(UnitDimensionValue, m_UnitDimension, LogSystem);
 		}
 	}
 
@@ -37110,7 +44926,7 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (TargetMetricValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TargetMetricValue, m_TargetMetric);
+			JsonValueToType(TargetMetricValue, m_TargetMetric, LogSystem);
 		}
 	}
 
@@ -37120,7 +44936,7 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (CategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CategoryValue, m_Category);
+			JsonValueToType(CategoryValue, m_Category, LogSystem);
 		}
 	}
 
@@ -37130,11 +44946,11 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (SortOrderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortOrderValue, m_SortOrder);
+			JsonValueToType(SortOrderValue, m_SortOrder, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sortOrder is null!");
 		}
 	}
 
@@ -37144,7 +44960,7 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -37154,7 +44970,7 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -37164,11 +44980,11 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -37178,11 +44994,11 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (VersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionValue, m_Version);
+			JsonValueToType(VersionValue, m_Version, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member version is null!");
 		}
 	}
 
@@ -37192,7 +45008,7 @@ void TokenMatrixEntryDto::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -37440,7 +45256,7 @@ utility::string_t TokenMatrixEntryDtoDataPage::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TokenMatrixEntryDtoDataPage::FromJson(const utility::string_t& Val)
+void TokenMatrixEntryDtoDataPage::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -37449,7 +45265,7 @@ void TokenMatrixEntryDtoDataPage::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TokenMatrixEntryDtoDataPage::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TokenMatrixEntryDtoDataPage::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -37462,7 +45278,7 @@ void TokenMatrixEntryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemsValue, m_Items);
+			JsonValueToType(ItemsValue, m_Items, LogSystem);
 		}
 	}
 
@@ -37472,11 +45288,11 @@ void TokenMatrixEntryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (SkipValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SkipValue, m_Skip);
+			JsonValueToType(SkipValue, m_Skip, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member skip is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member skip is null!");
 		}
 	}
 
@@ -37486,7 +45302,7 @@ void TokenMatrixEntryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (LimitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LimitValue, m_Limit);
+			JsonValueToType(LimitValue, m_Limit, LogSystem);
 		}
 	}
 
@@ -37496,11 +45312,11 @@ void TokenMatrixEntryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemCountValue, m_ItemCount);
+			JsonValueToType(ItemCountValue, m_ItemCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemCount is null!");
 		}
 	}
 
@@ -37510,11 +45326,11 @@ void TokenMatrixEntryDtoDataPage::FromJson(const utility::string_t& Val)
 
 		if (ItemTotalCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount);
+			JsonValueToType(ItemTotalCountValue, m_ItemTotalCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member itemTotalCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member itemTotalCount is null!");
 		}
 	}
 }
@@ -37710,7 +45526,7 @@ utility::string_t TokenMatrixEntryHistoryDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
+void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -37719,7 +45535,7 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TokenMatrixEntryHistoryDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TokenMatrixEntryHistoryDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -37732,7 +45548,7 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (EntryIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EntryIdValue, m_EntryId);
+			JsonValueToType(EntryIdValue, m_EntryId, LogSystem);
 		}
 	}
 
@@ -37742,11 +45558,11 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (VersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(VersionValue, m_Version);
+			JsonValueToType(VersionValue, m_Version, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member version is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member version is null!");
 		}
 	}
 
@@ -37756,11 +45572,11 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ParentVersionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ParentVersionValue, m_ParentVersion);
+			JsonValueToType(ParentVersionValue, m_ParentVersion, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member parentVersion is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member parentVersion is null!");
 		}
 	}
 
@@ -37770,7 +45586,7 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (NodeKeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NodeKeyValue, m_NodeKey);
+			JsonValueToType(NodeKeyValue, m_NodeKey, LogSystem);
 		}
 	}
 
@@ -37780,7 +45596,7 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (DimensionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DimensionsValue, m_Dimensions);
+			JsonValueToType(DimensionsValue, m_Dimensions, LogSystem);
 		}
 	}
 
@@ -37790,11 +45606,11 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CostKindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CostKindValue, m_CostKind);
+			JsonValueToType(CostKindValue, m_CostKind, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member costKind is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member costKind is null!");
 		}
 	}
 
@@ -37804,7 +45620,7 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (TokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokensValue, m_Tokens);
+			JsonValueToType(TokensValue, m_Tokens, LogSystem);
 		}
 	}
 
@@ -37814,7 +45630,7 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (RatePerUnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RatePerUnitValue, m_RatePerUnit);
+			JsonValueToType(RatePerUnitValue, m_RatePerUnit, LogSystem);
 		}
 	}
 
@@ -37824,7 +45640,7 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (UnitDimensionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UnitDimensionValue, m_UnitDimension);
+			JsonValueToType(UnitDimensionValue, m_UnitDimension, LogSystem);
 		}
 	}
 
@@ -37834,7 +45650,7 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (TargetMetricValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TargetMetricValue, m_TargetMetric);
+			JsonValueToType(TargetMetricValue, m_TargetMetric, LogSystem);
 		}
 	}
 
@@ -37844,7 +45660,7 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CategoryValue, m_Category);
+			JsonValueToType(CategoryValue, m_Category, LogSystem);
 		}
 	}
 
@@ -37854,11 +45670,11 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (SortOrderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortOrderValue, m_SortOrder);
+			JsonValueToType(SortOrderValue, m_SortOrder, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sortOrder is null!");
 		}
 	}
 
@@ -37868,7 +45684,7 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -37878,7 +45694,7 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -37888,11 +45704,11 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -37902,7 +45718,7 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 
@@ -37912,11 +45728,11 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member createdAt is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member createdAt is null!");
 		}
 	}
 
@@ -37926,7 +45742,7 @@ void TokenMatrixEntryHistoryDto::FromJson(const utility::string_t& Val)
 
 		if (CreatedByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedByValue, m_CreatedBy);
+			JsonValueToType(CreatedByValue, m_CreatedBy, LogSystem);
 		}
 	}
 }
@@ -38195,7 +46011,7 @@ utility::string_t TokenOptions::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TokenOptions::FromJson(const utility::string_t& Val)
+void TokenOptions::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -38204,7 +46020,7 @@ void TokenOptions::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TokenOptions::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TokenOptions::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -38217,7 +46033,7 @@ void TokenOptions::FromJson(const utility::string_t& Val)
 
 		if (ExpiryLengthValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ExpiryLengthValue, m_ExpiryLength);
+			JsonValueToType(ExpiryLengthValue, m_ExpiryLength, LogSystem);
 		}
 	}
 
@@ -38227,7 +46043,7 @@ void TokenOptions::FromJson(const utility::string_t& Val)
 
 		if (RefreshTokenExpiryLengthValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RefreshTokenExpiryLengthValue, m_RefreshTokenExpiryLength);
+			JsonValueToType(RefreshTokenExpiryLengthValue, m_RefreshTokenExpiryLength, LogSystem);
 		}
 	}
 }
@@ -38288,7 +46104,7 @@ utility::string_t TokenResetPasswordRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TokenResetPasswordRequest::FromJson(const utility::string_t& Val)
+void TokenResetPasswordRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -38297,7 +46113,7 @@ void TokenResetPasswordRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TokenResetPasswordRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TokenResetPasswordRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -38310,11 +46126,11 @@ void TokenResetPasswordRequest::FromJson(const utility::string_t& Val)
 
 		if (TokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokenValue, m_Token);
+			JsonValueToType(TokenValue, m_Token, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member token is null!");
 		}
 	}
 
@@ -38324,11 +46140,11 @@ void TokenResetPasswordRequest::FromJson(const utility::string_t& Val)
 
 		if (NewPasswordValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NewPasswordValue, m_NewPassword);
+			JsonValueToType(NewPasswordValue, m_NewPassword, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member newPassword is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member newPassword is null!");
 		}
 	}
 }
@@ -38449,7 +46265,7 @@ utility::string_t TypedHostname::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void TypedHostname::FromJson(const utility::string_t& Val)
+void TypedHostname::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -38458,7 +46274,7 @@ void TypedHostname::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TypedHostname::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "TypedHostname::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -38471,7 +46287,7 @@ void TypedHostname::FromJson(const utility::string_t& Val)
 
 		if (HostnameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(HostnameValue, m_Hostname);
+			JsonValueToType(HostnameValue, m_Hostname, LogSystem);
 		}
 	}
 
@@ -38481,7 +46297,7 @@ void TypedHostname::FromJson(const utility::string_t& Val)
 
 		if (TypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TypeValue, m_Type);
+			JsonValueToType(TypeValue, m_Type, LogSystem);
 		}
 	}
 
@@ -38491,7 +46307,7 @@ void TypedHostname::FromJson(const utility::string_t& Val)
 
 		if (Route53ChangeIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(Route53ChangeIdValue, m_Route53ChangeId);
+			JsonValueToType(Route53ChangeIdValue, m_Route53ChangeId, LogSystem);
 		}
 	}
 
@@ -38501,7 +46317,7 @@ void TypedHostname::FromJson(const utility::string_t& Val)
 
 		if (DnsStatusValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DnsStatusValue, m_DnsStatus);
+			JsonValueToType(DnsStatusValue, m_DnsStatus, LogSystem);
 		}
 	}
 
@@ -38511,7 +46327,7 @@ void TypedHostname::FromJson(const utility::string_t& Val)
 
 		if (CreatedAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CreatedAtValue, m_CreatedAt);
+			JsonValueToType(CreatedAtValue, m_CreatedAt, LogSystem);
 		}
 	}
 
@@ -38521,7 +46337,7 @@ void TypedHostname::FromJson(const utility::string_t& Val)
 
 		if (AcmCertificateArnValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AcmCertificateArnValue, m_AcmCertificateArn);
+			JsonValueToType(AcmCertificateArnValue, m_AcmCertificateArn, LogSystem);
 		}
 	}
 
@@ -38531,7 +46347,7 @@ void TypedHostname::FromJson(const utility::string_t& Val)
 
 		if (DeprovisioningCertificateArnValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DeprovisioningCertificateArnValue, m_DeprovisioningCertificateArn);
+			JsonValueToType(DeprovisioningCertificateArnValue, m_DeprovisioningCertificateArn, LogSystem);
 		}
 	}
 
@@ -38541,7 +46357,7 @@ void TypedHostname::FromJson(const utility::string_t& Val)
 
 		if (FailureReasonValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FailureReasonValue, m_FailureReason);
+			JsonValueToType(FailureReasonValue, m_FailureReason, LogSystem);
 		}
 	}
 
@@ -38551,7 +46367,7 @@ void TypedHostname::FromJson(const utility::string_t& Val)
 
 		if (FailureKindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FailureKindValue, m_FailureKind);
+			JsonValueToType(FailureKindValue, m_FailureKind, LogSystem);
 		}
 	}
 
@@ -38561,11 +46377,11 @@ void TypedHostname::FromJson(const utility::string_t& Val)
 
 		if (FailureCountValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(FailureCountValue, m_FailureCount);
+			JsonValueToType(FailureCountValue, m_FailureCount, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member failureCount is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member failureCount is null!");
 		}
 	}
 
@@ -38575,7 +46391,7 @@ void TypedHostname::FromJson(const utility::string_t& Val)
 
 		if (LeaseOwnerValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LeaseOwnerValue, m_LeaseOwner);
+			JsonValueToType(LeaseOwnerValue, m_LeaseOwner, LogSystem);
 		}
 	}
 
@@ -38585,7 +46401,7 @@ void TypedHostname::FromJson(const utility::string_t& Val)
 
 		if (LeaseExpiresAtValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LeaseExpiresAtValue, m_LeaseExpiresAt);
+			JsonValueToType(LeaseExpiresAtValue, m_LeaseExpiresAt, LogSystem);
 		}
 	}
 }
@@ -38830,7 +46646,7 @@ utility::string_t UpdateApplicationSecretRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
+void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -38839,7 +46655,7 @@ void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateApplicationSecretRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateApplicationSecretRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -38852,11 +46668,11 @@ void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member displayName is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member displayName is null!");
 		}
 	}
 
@@ -38866,7 +46682,7 @@ void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -38876,7 +46692,7 @@ void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (CategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CategoryValue, m_Category);
+			JsonValueToType(CategoryValue, m_Category, LogSystem);
 		}
 	}
 
@@ -38886,11 +46702,11 @@ void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (SortOrderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortOrderValue, m_SortOrder);
+			JsonValueToType(SortOrderValue, m_SortOrder, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sortOrder is null!");
 		}
 	}
 
@@ -38900,7 +46716,7 @@ void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (SecretTypeValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SecretTypeValue, m_SecretType);
+			JsonValueToType(SecretTypeValue, m_SecretType, LogSystem);
 		}
 	}
 
@@ -38910,11 +46726,11 @@ void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (ValidationConfigValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ValidationConfigValue, m_ValidationConfig);
+			JsonValueToType(ValidationConfigValue, m_ValidationConfig, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member validationConfig is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member validationConfig is null!");
 		}
 	}
 
@@ -38924,7 +46740,7 @@ void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (QuotaFeatureNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(QuotaFeatureNameValue, m_QuotaFeatureName);
+			JsonValueToType(QuotaFeatureNameValue, m_QuotaFeatureName, LogSystem);
 		}
 	}
 
@@ -38934,7 +46750,7 @@ void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (AllowedTenantsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedTenantsValue, m_AllowedTenants);
+			JsonValueToType(AllowedTenantsValue, m_AllowedTenants, LogSystem);
 		}
 	}
 
@@ -38944,11 +46760,11 @@ void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (ChargeCorkageValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChargeCorkageValue, m_ChargeCorkage);
+			JsonValueToType(ChargeCorkageValue, m_ChargeCorkage, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member chargeCorkage is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member chargeCorkage is null!");
 		}
 	}
 
@@ -38958,7 +46774,7 @@ void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (CorkageFeeUnitsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CorkageFeeUnitsValue, m_CorkageFeeUnits);
+			JsonValueToType(CorkageFeeUnitsValue, m_CorkageFeeUnits, LogSystem);
 		}
 	}
 
@@ -38968,7 +46784,7 @@ void UpdateApplicationSecretRequest::FromJson(const utility::string_t& Val)
 
 		if (TierConfigsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TierConfigsValue, m_TierConfigs);
+			JsonValueToType(TierConfigsValue, m_TierConfigs, LogSystem);
 		}
 	}
 }
@@ -39182,7 +46998,7 @@ utility::string_t UpdateBillingMetricRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UpdateBillingMetricRequest::FromJson(const utility::string_t& Val)
+void UpdateBillingMetricRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -39191,7 +47007,7 @@ void UpdateBillingMetricRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateBillingMetricRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateBillingMetricRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -39204,7 +47020,7 @@ void UpdateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -39214,7 +47030,7 @@ void UpdateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -39224,7 +47040,7 @@ void UpdateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (GoogleMetricIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GoogleMetricIdValue, m_GoogleMetricId);
+			JsonValueToType(GoogleMetricIdValue, m_GoogleMetricId, LogSystem);
 		}
 	}
 
@@ -39234,7 +47050,7 @@ void UpdateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (UnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UnitValue, m_Unit);
+			JsonValueToType(UnitValue, m_Unit, LogSystem);
 		}
 	}
 
@@ -39244,7 +47060,7 @@ void UpdateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (CategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CategoryValue, m_Category);
+			JsonValueToType(CategoryValue, m_Category, LogSystem);
 		}
 	}
 
@@ -39254,11 +47070,11 @@ void UpdateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (SortOrderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortOrderValue, m_SortOrder);
+			JsonValueToType(SortOrderValue, m_SortOrder, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sortOrder is null!");
 		}
 	}
 
@@ -39268,11 +47084,11 @@ void UpdateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -39282,7 +47098,7 @@ void UpdateBillingMetricRequest::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -39421,7 +47237,7 @@ utility::string_t UpdateEmailSettingsRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UpdateEmailSettingsRequest::FromJson(const utility::string_t& Val)
+void UpdateEmailSettingsRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -39430,7 +47246,7 @@ void UpdateEmailSettingsRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateEmailSettingsRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateEmailSettingsRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -39443,11 +47259,11 @@ void UpdateEmailSettingsRequest::FromJson(const utility::string_t& Val)
 
 		if (AllowedEmailAddressesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedEmailAddressesValue, m_AllowedEmailAddresses);
+			JsonValueToType(AllowedEmailAddressesValue, m_AllowedEmailAddresses, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowedEmailAddresses is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member allowedEmailAddresses is null!");
 		}
 	}
 
@@ -39457,11 +47273,11 @@ void UpdateEmailSettingsRequest::FromJson(const utility::string_t& Val)
 
 		if (AllowedEmailDomainsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedEmailDomainsValue, m_AllowedEmailDomains);
+			JsonValueToType(AllowedEmailDomainsValue, m_AllowedEmailDomains, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowedEmailDomains is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member allowedEmailDomains is null!");
 		}
 	}
 }
@@ -39534,7 +47350,7 @@ utility::string_t UpdateMatrixTierPriceOverrideRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UpdateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val)
+void UpdateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -39543,7 +47359,7 @@ void UpdateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateMatrixTierPriceOverrideRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateMatrixTierPriceOverrideRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -39556,7 +47372,7 @@ void UpdateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val
 
 		if (TokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokensValue, m_Tokens);
+			JsonValueToType(TokensValue, m_Tokens, LogSystem);
 		}
 	}
 
@@ -39566,7 +47382,7 @@ void UpdateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val
 
 		if (RatePerUnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RatePerUnitValue, m_RatePerUnit);
+			JsonValueToType(RatePerUnitValue, m_RatePerUnit, LogSystem);
 		}
 	}
 
@@ -39576,11 +47392,11 @@ void UpdateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -39590,7 +47406,7 @@ void UpdateMatrixTierPriceOverrideRequest::FromJson(const utility::string_t& Val
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -39689,7 +47505,7 @@ utility::string_t UpdatePricingSheetExceptionRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UpdatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
+void UpdatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -39698,7 +47514,7 @@ void UpdatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdatePricingSheetExceptionRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdatePricingSheetExceptionRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -39711,7 +47527,7 @@ void UpdatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
 
 		if (TokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokensValue, m_Tokens);
+			JsonValueToType(TokensValue, m_Tokens, LogSystem);
 		}
 	}
 
@@ -39721,7 +47537,7 @@ void UpdatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
 
 		if (RatePerUnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RatePerUnitValue, m_RatePerUnit);
+			JsonValueToType(RatePerUnitValue, m_RatePerUnit, LogSystem);
 		}
 	}
 
@@ -39731,11 +47547,11 @@ void UpdatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -39745,7 +47561,7 @@ void UpdatePricingSheetExceptionRequest::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -39844,7 +47660,7 @@ utility::string_t UpdatePricingSheetRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UpdatePricingSheetRequest::FromJson(const utility::string_t& Val)
+void UpdatePricingSheetRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -39853,7 +47669,7 @@ void UpdatePricingSheetRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdatePricingSheetRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdatePricingSheetRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -39866,11 +47682,11 @@ void UpdatePricingSheetRequest::FromJson(const utility::string_t& Val)
 
 		if (NameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NameValue, m_Name);
+			JsonValueToType(NameValue, m_Name, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member name is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member name is null!");
 		}
 	}
 
@@ -39880,11 +47696,11 @@ void UpdatePricingSheetRequest::FromJson(const utility::string_t& Val)
 
 		if (MultiplierValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(MultiplierValue, m_Multiplier);
+			JsonValueToType(MultiplierValue, m_Multiplier, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member multiplier is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member multiplier is null!");
 		}
 	}
 
@@ -39894,11 +47710,11 @@ void UpdatePricingSheetRequest::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -39908,7 +47724,7 @@ void UpdatePricingSheetRequest::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -39989,7 +47805,7 @@ utility::string_t UpdateRolesRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UpdateRolesRequest::FromJson(const utility::string_t& Val)
+void UpdateRolesRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -39998,7 +47814,7 @@ void UpdateRolesRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateRolesRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateRolesRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -40011,11 +47827,11 @@ void UpdateRolesRequest::FromJson(const utility::string_t& Val)
 
 		if (RolesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RolesValue, m_Roles);
+			JsonValueToType(RolesValue, m_Roles, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member roles is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member roles is null!");
 		}
 	}
 }
@@ -40075,7 +47891,7 @@ utility::string_t UpdateTenantLiteRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UpdateTenantLiteRequest::FromJson(const utility::string_t& Val)
+void UpdateTenantLiteRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -40084,7 +47900,7 @@ void UpdateTenantLiteRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateTenantLiteRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateTenantLiteRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -40097,11 +47913,11 @@ void UpdateTenantLiteRequest::FromJson(const utility::string_t& Val)
 
 		if (AllowedEmailAddressesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedEmailAddressesValue, m_AllowedEmailAddresses);
+			JsonValueToType(AllowedEmailAddressesValue, m_AllowedEmailAddresses, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowedEmailAddresses is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member allowedEmailAddresses is null!");
 		}
 	}
 
@@ -40111,11 +47927,11 @@ void UpdateTenantLiteRequest::FromJson(const utility::string_t& Val)
 
 		if (AllowedEmailDomainsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AllowedEmailDomainsValue, m_AllowedEmailDomains);
+			JsonValueToType(AllowedEmailDomainsValue, m_AllowedEmailDomains, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member allowedEmailDomains is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member allowedEmailDomains is null!");
 		}
 	}
 
@@ -40125,7 +47941,7 @@ void UpdateTenantLiteRequest::FromJson(const utility::string_t& Val)
 
 		if (CompanyNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CompanyNameValue, m_CompanyName);
+			JsonValueToType(CompanyNameValue, m_CompanyName, LogSystem);
 		}
 	}
 
@@ -40135,7 +47951,7 @@ void UpdateTenantLiteRequest::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 }
@@ -40288,7 +48104,7 @@ utility::string_t UpdateTokenMatrixEntryRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
+void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -40297,7 +48113,7 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateTokenMatrixEntryRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpdateTokenMatrixEntryRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -40310,7 +48126,7 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (NodeKeyValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(NodeKeyValue, m_NodeKey);
+			JsonValueToType(NodeKeyValue, m_NodeKey, LogSystem);
 		}
 	}
 
@@ -40320,7 +48136,7 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (DimensionsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DimensionsValue, m_Dimensions);
+			JsonValueToType(DimensionsValue, m_Dimensions, LogSystem);
 		}
 	}
 
@@ -40330,11 +48146,11 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (CostKindValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CostKindValue, m_CostKind);
+			JsonValueToType(CostKindValue, m_CostKind, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member costKind is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member costKind is null!");
 		}
 	}
 
@@ -40344,7 +48160,7 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (TokensValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokensValue, m_Tokens);
+			JsonValueToType(TokensValue, m_Tokens, LogSystem);
 		}
 	}
 
@@ -40354,7 +48170,7 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (RatePerUnitValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RatePerUnitValue, m_RatePerUnit);
+			JsonValueToType(RatePerUnitValue, m_RatePerUnit, LogSystem);
 		}
 	}
 
@@ -40364,7 +48180,7 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (UnitDimensionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UnitDimensionValue, m_UnitDimension);
+			JsonValueToType(UnitDimensionValue, m_UnitDimension, LogSystem);
 		}
 	}
 
@@ -40374,11 +48190,11 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (TargetMetricValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TargetMetricValue, m_TargetMetric);
+			JsonValueToType(TargetMetricValue, m_TargetMetric, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member targetMetric is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member targetMetric is null!");
 		}
 	}
 
@@ -40388,7 +48204,7 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (CategoryValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(CategoryValue, m_Category);
+			JsonValueToType(CategoryValue, m_Category, LogSystem);
 		}
 	}
 
@@ -40398,11 +48214,11 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (SortOrderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortOrderValue, m_SortOrder);
+			JsonValueToType(SortOrderValue, m_SortOrder, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member sortOrder is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member sortOrder is null!");
 		}
 	}
 
@@ -40412,7 +48228,7 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -40422,7 +48238,7 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (DescriptionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DescriptionValue, m_Description);
+			JsonValueToType(DescriptionValue, m_Description, LogSystem);
 		}
 	}
 
@@ -40432,11 +48248,11 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -40446,7 +48262,7 @@ void UpdateTokenMatrixEntryRequest::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -40692,7 +48508,7 @@ utility::string_t UpgradeGuestRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
+void UpgradeGuestRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -40701,7 +48517,7 @@ void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpgradeGuestRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpgradeGuestRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -40714,11 +48530,11 @@ void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
 
 		if (EmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailValue, m_Email);
+			JsonValueToType(EmailValue, m_Email, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member email is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member email is null!");
 		}
 	}
 
@@ -40728,7 +48544,7 @@ void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
 
 		if (UserNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserNameValue, m_UserName);
+			JsonValueToType(UserNameValue, m_UserName, LogSystem);
 		}
 	}
 
@@ -40738,7 +48554,7 @@ void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -40748,11 +48564,11 @@ void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
 
 		if (PasswordValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PasswordValue, m_Password);
+			JsonValueToType(PasswordValue, m_Password, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member password is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member password is null!");
 		}
 	}
 
@@ -40762,11 +48578,11 @@ void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
 
 		if (GuestDeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GuestDeviceIdValue, m_GuestDeviceId);
+			JsonValueToType(GuestDeviceIdValue, m_GuestDeviceId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member guestDeviceId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member guestDeviceId is null!");
 		}
 	}
 
@@ -40776,7 +48592,7 @@ void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
 
 		if (SuppressConfirmationEmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SuppressConfirmationEmailValue, m_SuppressConfirmationEmail);
+			JsonValueToType(SuppressConfirmationEmailValue, m_SuppressConfirmationEmail, LogSystem);
 		}
 	}
 
@@ -40786,7 +48602,7 @@ void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
 
 		if (AutoConfirmValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(AutoConfirmValue, m_AutoConfirm);
+			JsonValueToType(AutoConfirmValue, m_AutoConfirm, LogSystem);
 		}
 	}
 
@@ -40796,7 +48612,7 @@ void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
 
 		if (InviteTokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(InviteTokenValue, m_InviteToken);
+			JsonValueToType(InviteTokenValue, m_InviteToken, LogSystem);
 		}
 	}
 
@@ -40806,7 +48622,7 @@ void UpgradeGuestRequest::FromJson(const utility::string_t& Val)
 
 		if (RedirectUrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RedirectUrlValue, m_RedirectUrl);
+			JsonValueToType(RedirectUrlValue, m_RedirectUrl, LogSystem);
 		}
 	}
 }
@@ -41000,7 +48816,7 @@ utility::string_t UpgradeGuestSocialRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
+void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -41009,7 +48825,7 @@ void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpgradeGuestSocialRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpgradeGuestSocialRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -41022,11 +48838,11 @@ void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (ProviderValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderValue, m_Provider);
+			JsonValueToType(ProviderValue, m_Provider, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member provider is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member provider is null!");
 		}
 	}
 
@@ -41036,11 +48852,11 @@ void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (TokenValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TokenValue, m_Token);
+			JsonValueToType(TokenValue, m_Token, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member token is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member token is null!");
 		}
 	}
 
@@ -41050,7 +48866,7 @@ void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (UserNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserNameValue, m_UserName);
+			JsonValueToType(UserNameValue, m_UserName, LogSystem);
 		}
 	}
 
@@ -41060,7 +48876,7 @@ void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (DisplayNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(DisplayNameValue, m_DisplayName);
+			JsonValueToType(DisplayNameValue, m_DisplayName, LogSystem);
 		}
 	}
 
@@ -41070,7 +48886,7 @@ void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (PasswordValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PasswordValue, m_Password);
+			JsonValueToType(PasswordValue, m_Password, LogSystem);
 		}
 	}
 
@@ -41080,11 +48896,11 @@ void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (GuestDeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GuestDeviceIdValue, m_GuestDeviceId);
+			JsonValueToType(GuestDeviceIdValue, m_GuestDeviceId, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member guestDeviceId is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member guestDeviceId is null!");
 		}
 	}
 
@@ -41094,7 +48910,7 @@ void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (RedirectUrlValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RedirectUrlValue, m_RedirectUrl);
+			JsonValueToType(RedirectUrlValue, m_RedirectUrl, LogSystem);
 		}
 	}
 
@@ -41104,7 +48920,7 @@ void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (OAuthRedirectUriValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OAuthRedirectUriValue, m_OAuthRedirectUri);
+			JsonValueToType(OAuthRedirectUriValue, m_OAuthRedirectUri, LogSystem);
 		}
 	}
 
@@ -41114,7 +48930,7 @@ void UpgradeGuestSocialRequest::FromJson(const utility::string_t& Val)
 
 		if (OptionalProviderUserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId);
+			JsonValueToType(OptionalProviderUserIdValue, m_OptionalProviderUserId, LogSystem);
 		}
 	}
 }
@@ -41272,7 +49088,7 @@ utility::string_t UpsertBillingSettingsRequest::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UpsertBillingSettingsRequest::FromJson(const utility::string_t& Val)
+void UpsertBillingSettingsRequest::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -41281,7 +49097,7 @@ void UpsertBillingSettingsRequest::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpsertBillingSettingsRequest::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UpsertBillingSettingsRequest::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -41294,7 +49110,7 @@ void UpsertBillingSettingsRequest::FromJson(const utility::string_t& Val)
 
 		if (ValuesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ValuesValue, m_Values);
+			JsonValueToType(ValuesValue, m_Values, LogSystem);
 		}
 	}
 
@@ -41304,11 +49120,11 @@ void UpsertBillingSettingsRequest::FromJson(const utility::string_t& Val)
 
 		if (EnabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EnabledValue, m_Enabled);
+			JsonValueToType(EnabledValue, m_Enabled, LogSystem);
 		}
 		else
 		{
-			CSP_LOG_ERROR_MSG("Error: Non-nullable member enabled is null!");
+			LogSystem.LogMsg(csp::common::LogLevel::Error, "Error: Non-nullable member enabled is null!");
 		}
 	}
 
@@ -41318,7 +49134,7 @@ void UpsertBillingSettingsRequest::FromJson(const utility::string_t& Val)
 
 		if (ChangeNoteValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ChangeNoteValue, m_ChangeNote);
+			JsonValueToType(ChangeNoteValue, m_ChangeNote, LogSystem);
 		}
 	}
 }
@@ -41476,7 +49292,7 @@ utility::string_t UserQuery::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UserQuery::FromJson(const utility::string_t& Val)
+void UserQuery::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -41485,7 +49301,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UserQuery::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UserQuery::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -41498,7 +49314,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (GuestDeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GuestDeviceIdValue, m_GuestDeviceId);
+			JsonValueToType(GuestDeviceIdValue, m_GuestDeviceId, LogSystem);
 		}
 	}
 
@@ -41508,7 +49324,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (PartialGuestDeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PartialGuestDeviceIdValue, m_PartialGuestDeviceId);
+			JsonValueToType(PartialGuestDeviceIdValue, m_PartialGuestDeviceId, LogSystem);
 		}
 	}
 
@@ -41518,7 +49334,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (EmailValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailValue, m_Email);
+			JsonValueToType(EmailValue, m_Email, LogSystem);
 		}
 	}
 
@@ -41528,7 +49344,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (UserNameValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserNameValue, m_UserName);
+			JsonValueToType(UserNameValue, m_UserName, LogSystem);
 		}
 	}
 
@@ -41538,7 +49354,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (LastDeviceIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LastDeviceIdValue, m_LastDeviceId);
+			JsonValueToType(LastDeviceIdValue, m_LastDeviceId, LogSystem);
 		}
 	}
 
@@ -41548,7 +49364,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (SearchPartialEmailsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SearchPartialEmailsValue, m_SearchPartialEmails);
+			JsonValueToType(SearchPartialEmailsValue, m_SearchPartialEmails, LogSystem);
 		}
 	}
 
@@ -41558,7 +49374,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (GuestDeviceIdsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(GuestDeviceIdsValue, m_GuestDeviceIds);
+			JsonValueToType(GuestDeviceIdsValue, m_GuestDeviceIds, LogSystem);
 		}
 	}
 
@@ -41568,7 +49384,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (EmailAddressesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailAddressesValue, m_EmailAddresses);
+			JsonValueToType(EmailAddressesValue, m_EmailAddresses, LogSystem);
 		}
 	}
 
@@ -41578,7 +49394,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (UserNamesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserNamesValue, m_UserNames);
+			JsonValueToType(UserNamesValue, m_UserNames, LogSystem);
 		}
 	}
 
@@ -41588,7 +49404,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (LastDeviceIdsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(LastDeviceIdsValue, m_LastDeviceIds);
+			JsonValueToType(LastDeviceIdsValue, m_LastDeviceIds, LogSystem);
 		}
 	}
 
@@ -41598,7 +49414,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (ProviderUserIdsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(ProviderUserIdsValue, m_ProviderUserIds);
+			JsonValueToType(ProviderUserIdsValue, m_ProviderUserIds, LogSystem);
 		}
 	}
 
@@ -41608,7 +49424,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (EmailOrDisplayNameFragmentValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailOrDisplayNameFragmentValue, m_EmailOrDisplayNameFragment);
+			JsonValueToType(EmailOrDisplayNameFragmentValue, m_EmailOrDisplayNameFragment, LogSystem);
 		}
 	}
 
@@ -41618,7 +49434,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (SortByValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortByValue, m_SortBy);
+			JsonValueToType(SortByValue, m_SortBy, LogSystem);
 		}
 	}
 
@@ -41628,7 +49444,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (SortDirectionValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(SortDirectionValue, m_SortDirection);
+			JsonValueToType(SortDirectionValue, m_SortDirection, LogSystem);
 		}
 	}
 
@@ -41638,7 +49454,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (PasswordLoginDisabledValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(PasswordLoginDisabledValue, m_PasswordLoginDisabled);
+			JsonValueToType(PasswordLoginDisabledValue, m_PasswordLoginDisabled, LogSystem);
 		}
 	}
 
@@ -41648,7 +49464,7 @@ void UserQuery::FromJson(const utility::string_t& Val)
 
 		if (EmailDisplayNameUserIdCombinedTermValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(EmailDisplayNameUserIdCombinedTermValue, m_EmailDisplayNameUserIdCombinedTerm);
+			JsonValueToType(EmailDisplayNameUserIdCombinedTermValue, m_EmailDisplayNameUserIdCombinedTerm, LogSystem);
 		}
 	}
 }
@@ -41891,7 +49707,7 @@ utility::string_t UserRolesDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void UserRolesDto::FromJson(const utility::string_t& Val)
+void UserRolesDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -41900,7 +49716,7 @@ void UserRolesDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UserRolesDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "UserRolesDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -41913,7 +49729,7 @@ void UserRolesDto::FromJson(const utility::string_t& Val)
 
 		if (UserIdValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(UserIdValue, m_UserId);
+			JsonValueToType(UserIdValue, m_UserId, LogSystem);
 		}
 	}
 
@@ -41923,7 +49739,7 @@ void UserRolesDto::FromJson(const utility::string_t& Val)
 
 		if (RolesValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(RolesValue, m_Roles);
+			JsonValueToType(RolesValue, m_Roles, LogSystem);
 		}
 	}
 }
@@ -41974,7 +49790,7 @@ utility::string_t WazzupCapabilitiesDto::ToJson() const
 	return JsonDocToString(JsonDoc);
 }
 
-void WazzupCapabilitiesDto::FromJson(const utility::string_t& Val)
+void WazzupCapabilitiesDto::FromJson(const utility::string_t& Val, csp::common::LogSystem& LogSystem)
 {
 	rapidjson::Document JsonDoc;
 
@@ -41983,7 +49799,7 @@ void WazzupCapabilitiesDto::FromJson(const utility::string_t& Val)
 		return;
 	}
 
-	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "WazzupCapabilitiesDto::FromJson");
+	rapidjson::ParseResult ok = csp::json::ParseWithErrorLogging(JsonDoc, Val, "WazzupCapabilitiesDto::FromJson", LogSystem);
 	if (!ok)
 	{
 		return;
@@ -41996,7 +49812,7 @@ void WazzupCapabilitiesDto::FromJson(const utility::string_t& Val)
 
 		if (TransitEncodingsValue != rapidjson::Type::kNullType)
 		{
-			JsonValueToType(TransitEncodingsValue, m_TransitEncodings);
+			JsonValueToType(TransitEncodingsValue, m_TransitEncodings, LogSystem);
 		}
 	}
 }
